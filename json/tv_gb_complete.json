@@ -1,8 +1,12 @@
 {
   "metadata": {
-    "last_updated": "2025-08-28T06:12:23+08:00",
+    "last_updated": "2025-08-28T20:31:01+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-08-28T20:31:01+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 0 个链接，失败 0 个链接。正常完成。"
+      },
       {
         "time": "2025-08-28T12:05:31+08:00",
         "summary": "批量删除所有季的 'douban_search_link' 和 'douban_search_link2' 字段。删除了 3369/2634 个季的链接字段。"
@@ -38,10 +42,6 @@
       {
         "time": "2025-08-24T01:13:34+08:00",
         "summary": "执行豆瓣链接验证脚本。本次验证成功 3 个链接，失败 3 个链接。"
-      },
-      {
-        "time": "2025-08-24T01:06:56+08:00",
-        "summary": "执行从Google获取豆瓣信息更新脚本。本次更新 5 季。"
       }
     ],
     "last_refreshed": "2025-08-28T06:12:23+08:00",
@@ -49,9 +49,9 @@
     "total_seasons": 2634,
     "earliest_show_date": "2000-01-09",
     "latest_show_date": "2025-08-25",
-    "total_douban_links": 2549,
-    "verified_douban_links": 1718,
-    "verified_no_rating_links": 548,
+    "total_douban_links": 1772,
+    "verified_douban_links": 1771,
+    "verified_no_rating_links": 591,
     "last_fetched": "2025-08-26T06:13:21+08:00"
   },
   "shows": [
@@ -5536,7 +5536,8 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37195065",
           "overview": "",
           "douban_link_last_checked": "2025-08-24T21:55:29+08:00",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-08-28T20:30:55+08:00"
         }
       ]
     },
