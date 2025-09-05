@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-09-05T10:29:42+08:00",
+    "last_updated": "2025-09-05T13:30:56+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-09-05T13:30:56+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 6 个链接，失败 0 个链接。正常完成。"
+      },
+      {
+        "time": "2025-09-05T13:13:35+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新6条，本次任务正常结束。"
+      },
       {
         "time": "2025-09-05T10:29:42+08:00",
         "summary": "执行豆瓣链接验证和评分更新。本次验证成功 0 个链接，失败 0 个链接。正常完成。"
@@ -34,14 +42,6 @@
       {
         "time": "2025-08-31T09:51:21+08:00",
         "summary": "执行豆瓣链接验证和评分更新。本次验证成功 15 个链接，失败 150 个链接。正常完成。"
-      },
-      {
-        "time": "2025-08-31T09:25:27+08:00",
-        "summary": "执行从Google获取豆瓣信息。本次更新 1 季。正常完成。"
-      },
-      {
-        "time": "2025-08-31T06:11:58+08:00",
-        "summary": "数据更新完成：更新了 568 部正在制作中的剧集信息"
       }
     ],
     "last_refreshed": "2025-09-05T06:13:06+08:00",
@@ -50,9 +50,9 @@
     "total_seasons": 8780,
     "earliest_show_date": "2000-01-01",
     "latest_show_date": "2025-09-03",
-    "total_douban_links": 8107,
-    "verified_douban_links": 7001,
-    "verified_no_rating_links": 2364
+    "total_douban_links": 8111,
+    "verified_douban_links": 7007,
+    "verified_no_rating_links": 2369
   },
   "shows": [
     {
@@ -6563,7 +6563,7 @@
       ]
     },
     {
-      "name": "青春逃跑计画",
+      "name": "青春逃跑计划",
       "original_name": "The Runarounds",
       "id": 248833,
       "imdb_id": "tt30274061",
@@ -6608,7 +6608,11 @@
           "overview": "",
           "poster_path": "/653V492dSynzQcSDPubzZLJAjkf.jpg",
           "season_number": 1,
-          "vote_average": 10.0
+          "vote_average": 10.0,
+          "douban_search_count": 1,
+          "douban_link_google": "https://movie.douban.com/subject/36752072/",
+          "douban_link_verified": true,
+          "douban_rating": null
         }
       ]
     },
@@ -6803,16 +6807,17 @@
           "name": "第 1 季",
           "overview": "在《终极名单》故事发生之前，海豹突击队员本·爱德华兹踏入了中情局的黑暗战线。当他一步步走入灰色地带，就越发难以抵挡内心日益觉醒的黑暗冲动。每个人体内都住着两头狼——一光一暗，相互争斗。最终胜出的会是哪一头？",
           "poster_path": "/5Ip5Ad6o5v1KROJOP0WgXuNdmrq.jpg",
-          "douban_rating": null,
-          "douban_link_google": null,
+          "douban_rating": "8.3",
+          "douban_link_google": "https://movie.douban.com/subject/36235916/",
           "season_number": 1,
           "vote_average": 8.1,
           "googlesearch_count": 1,
           "douban_link_last_checked": "2025-08-30T20:27:36+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34963448/"
-          ]
+          ],
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -8715,7 +8720,11 @@
           "overview": "",
           "poster_path": null,
           "season_number": 4,
-          "vote_average": 0.0
+          "vote_average": 0.0,
+          "douban_search_count": 1,
+          "douban_link_google": "https://movie.douban.com/subject/36854102/",
+          "douban_link_verified": true,
+          "douban_rating": null
         }
       ]
     },
@@ -9184,15 +9193,16 @@
           "overview": "",
           "poster_path": null,
           "douban_rating": null,
-          "douban_link_google": null,
+          "douban_link_google": "https://movie.douban.com/subject/37491949/",
           "season_number": 2,
           "vote_average": 0.0,
           "googlesearch_count": 1,
           "douban_link_last_checked": "2025-08-30T20:28:07+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34820937/"
-          ]
+          ],
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -242100,7 +242110,8 @@
           "douban_rating": "",
           "douban_link_google": "https://m.douban.com/movie/subject/4219189/",
           "overview": "",
-          "douban_link_verified": false
+          "douban_link_verified": false,
+          "douban_search_count": 1
         }
       ]
     },
@@ -242176,7 +242187,7 @@
       ]
     },
     {
-      "name": "长大后的小小兵",
+      "name": "长大后的小兵兵",
       "original_name": "All Grown Up!",
       "id": 130,
       "imdb_id": "tt0387714",
@@ -242234,10 +242245,11 @@
           "episode_count": 12,
           "vote_average": 7.0,
           "poster_path": "/eM71VnfQpHcN35HqhbJzA6GqnZs.jpg",
-          "douban_rating": "",
-          "douban_link_google": "https://m.douban.com/movie/subject/26646543/",
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/3734433/",
           "overview": "",
-          "douban_link_verified": false
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 2 季",
@@ -250865,7 +250877,8 @@
           "douban_link_google": null,
           "douban_rating": "",
           "douban_link_last_checked": "2025-08-02T21:19:32+08:00",
-          "douban_link_verified": false
+          "douban_link_verified": false,
+          "douban_search_count": 1
         },
         {
           "name": "第 4 季",
@@ -258089,7 +258102,8 @@
           "douban_link_google": null,
           "douban_rating": "",
           "douban_link_last_checked": "2025-08-02T23:54:43+08:00",
-          "douban_link_verified": false
+          "douban_link_verified": false,
+          "douban_search_count": 1
         },
         {
           "name": "第 5 季",
@@ -265894,7 +265908,8 @@
           "douban_link_google": null,
           "douban_rating": "",
           "douban_link_last_checked": "2025-08-02T22:26:23+08:00",
-          "douban_link_verified": false
+          "douban_link_verified": false,
+          "douban_search_count": 1
         }
       ]
     },
@@ -274512,10 +274527,11 @@
           "episode_count": 13,
           "vote_average": 6.5,
           "poster_path": "/zg20QHvuTUHJtE0v7o55bYSJ28L.jpg",
-          "douban_rating": "",
-          "douban_link_google": "https://m.douban.com/movie/subject/36237131/",
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/4915109/",
           "overview": "",
-          "douban_link_verified": false
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },

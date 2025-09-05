@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-09-05T06:12:24+08:00",
+    "last_updated": "2025-09-05T13:35:15+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-09-05T13:35:15+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 18 个链接，失败 5 个链接。正常完成。"
+      },
+      {
+        "time": "2025-09-05T13:29:54+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新23条，本次任务正常结束。"
+      },
       {
         "time": "2025-09-05T06:12:24+08:00",
         "summary": "数据更新完成：更新了 228 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-09-01T21:14:31+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新250条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-09-01T06:12:03+08:00",
-        "summary": "数据更新完成：更新了 228 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-08-31T09:25:48+08:00",
-        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 1 个链接，失败 1 个链接。正常完成。"
       }
     ],
     "last_refreshed": "2025-09-05T06:12:24+08:00",
@@ -49,9 +49,9 @@
     "total_seasons": 2635,
     "earliest_show_date": "2000-01-09",
     "latest_show_date": "2025-08-31",
-    "total_douban_links": 2001,
-    "verified_douban_links": 2001,
-    "verified_no_rating_links": 771,
+    "total_douban_links": 2019,
+    "verified_douban_links": 2019,
+    "verified_no_rating_links": 786,
     "last_fetched": "2025-08-30T23:50:06+08:00"
   },
   "shows": [
@@ -4954,15 +4954,16 @@
           "episode_count": 20,
           "vote_average": 0.0,
           "poster_path": "/dTJjTBTX8QyUK4kBoabJ2LcmvRg.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/37369258/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36910632/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 7 季",
@@ -6154,7 +6155,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/26816177/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 2 季",
@@ -7098,7 +7100,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34908008/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 6 季",
@@ -7116,7 +7119,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34908008/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 7 季",
@@ -7218,7 +7222,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34908008/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 13 季",
@@ -11690,7 +11695,8 @@
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_rating": "",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 8 季",
@@ -11776,15 +11782,17 @@
           "episode_count": 24,
           "vote_average": 0.0,
           "poster_path": null,
-          "douban_rating": "",
+          "douban_rating": null,
           "douban_link_google": null,
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
-            "https://m.douban.com/movie/subject/30311944/"
+            "https://m.douban.com/movie/subject/30311944/",
+            "https://movie.douban.com/subject/1301411/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": false
         }
       ]
     },
@@ -14980,7 +14988,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34981285/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 5 季",
@@ -18312,7 +18321,7 @@
       ]
     },
     {
-      "name": "Three Little Birds",
+      "name": "三只小鸟",
       "original_name": "Three Little Birds",
       "id": 237311,
       "imdb_id": "tt13678006",
@@ -18358,15 +18367,16 @@
           "episode_count": 6,
           "vote_average": 0.0,
           "poster_path": "/siNdo1wCZg1iSyP9XZYgk2CZ90P.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/36161969/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/5156173/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -19239,7 +19249,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/35642145/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 7 季",
@@ -20383,7 +20394,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36065641/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -20816,7 +20828,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36105107/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -21948,15 +21961,16 @@
           "episode_count": 137,
           "vote_average": 0.0,
           "poster_path": null,
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/36914560/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/27097784/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 6 季",
@@ -21966,15 +21980,16 @@
           "episode_count": 183,
           "vote_average": 0.0,
           "poster_path": null,
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/30379925/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/35840681/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 7 季",
@@ -23954,15 +23969,17 @@
           "episode_count": 5,
           "vote_average": 8.4,
           "poster_path": "/1EhZnGm63NjjPys82hYw8SIZiWw.jpg",
-          "douban_rating": "",
+          "douban_rating": null,
           "douban_link_google": null,
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
-            "https://m.douban.com/movie/subject/30192037/"
+            "https://m.douban.com/movie/subject/30192037/",
+            "https://movie.douban.com/subject/30192037/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": false
         },
         {
           "name": "扯淡地球史",
@@ -27844,15 +27861,16 @@
           "episode_count": 3,
           "vote_average": 0.0,
           "poster_path": "/6HVSHYpgytJuxaPzNOtbhEdllEF.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/37268064/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36778163/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 2 季",
@@ -31869,7 +31887,8 @@
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 3 季",
@@ -36728,7 +36747,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/30241030/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -36868,7 +36888,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/6952149/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -38933,7 +38954,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/5135368/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 6 季",
@@ -38951,7 +38973,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/5135368/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 7 季",
@@ -39968,15 +39991,16 @@
           "episode_count": 38,
           "vote_average": 0.0,
           "poster_path": "/hMiJwYzm5R6fHVVdnAfiu83l5ng.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/34983358/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/2039361/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -40099,7 +40123,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/30265994/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 5 季",
@@ -44388,7 +44413,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/26980373/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 4 季",
@@ -45026,15 +45052,16 @@
           "episode_count": 24,
           "vote_average": 4.0,
           "poster_path": "/ppAdlYExVpILjyuyqs1splAXYqN.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": "5.4",
+          "douban_link_google": "https://movie.douban.com/subject/26163059/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/22507437/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 2 季",
@@ -45052,7 +45079,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36956871/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -46808,7 +46836,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/26632582/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -46974,7 +47003,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/23581129/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -50192,7 +50222,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/37090040/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -50340,7 +50371,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36127872/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 2 季",
@@ -50358,7 +50390,8 @@
           "failed_douban_links": [
             "https://movie.douban.com/subject/26988092/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 3 季",
@@ -55336,15 +55369,16 @@
           "episode_count": 6,
           "vote_average": 2.0,
           "poster_path": "/h0vXCTql6jIAdS76SoNoEpaHAgh.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/25955365/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36571048/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -56758,7 +56792,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/11599016/?from_id="
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -58266,7 +58301,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/5332690/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 3 季",
@@ -58367,7 +58403,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36956871/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "骑士迈克 第三季",
@@ -59038,15 +59075,16 @@
           "episode_count": 6,
           "vote_average": 7.0,
           "poster_path": null,
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/10531197/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36111166/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 2 季",
@@ -59697,7 +59735,7 @@
       ]
     },
     {
-      "name": "Way to Go",
+      "name": "去死吧",
       "original_name": "Way to Go",
       "id": 46444,
       "imdb_id": "tt2407838",
@@ -59747,15 +59785,16 @@
           "episode_count": 6,
           "vote_average": 0.0,
           "poster_path": null,
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": "7.6",
+          "douban_link_google": "https://movie.douban.com/subject/20645040/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/5360584/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -60694,15 +60733,16 @@
           "episode_count": 6,
           "vote_average": 7.5,
           "poster_path": null,
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/35309746/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/26134542/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -60824,7 +60864,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36520146/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 2 季",
@@ -60877,7 +60918,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36533816/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -61989,7 +62031,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36085524/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -62892,15 +62935,17 @@
           "episode_count": 52,
           "vote_average": 0.0,
           "poster_path": "/tfWnlte2fQFEG4XcDwikMS24bxc.jpg",
-          "douban_rating": "",
+          "douban_rating": null,
           "douban_link_google": null,
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
-            "https://m.douban.com/movie/subject/2263253/"
+            "https://m.douban.com/movie/subject/2263253/",
+            "https://movie.douban.com/subject/10560672/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": false
         }
       ]
     },
@@ -63327,7 +63372,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/35699688/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -63463,15 +63509,16 @@
           "episode_count": 6,
           "vote_average": 6.8,
           "poster_path": "/k8Chb9nxhsSqH475jC8hmlsaVku.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/10787458/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36750358/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -66143,7 +66190,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/30241030/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 4 季",
@@ -66310,7 +66358,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/35840681/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 7 季",
@@ -66716,7 +66765,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/6828917"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -70362,7 +70412,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/2343190/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 3 季",
@@ -70868,7 +70919,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/10744725/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 5 季",
@@ -71296,15 +71348,17 @@
           "episode_count": 6,
           "vote_average": 0.0,
           "poster_path": "/mqVS2jhgdqVJhcn3IZwzVB4IvhZ.jpg",
-          "douban_rating": "",
+          "douban_rating": null,
           "douban_link_google": null,
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
-            "https://m.douban.com/movie/subject/26947951/"
+            "https://m.douban.com/movie/subject/26947951/",
+            "https://movie.douban.com/subject/1929436/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": false
         },
         {
           "name": "第 2 季",
@@ -72404,7 +72458,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -72592,7 +72647,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -75158,7 +75214,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -75675,7 +75732,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 3 季",
@@ -75694,7 +75752,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 4 季",
@@ -75842,15 +75901,16 @@
           "episode_count": 100,
           "vote_average": 0.0,
           "poster_path": "/8QBBywMELXjDhUgfr7ZtK1GMDMe.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": "8.4",
+          "douban_link_google": "https://movie.douban.com/subject/3780631/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34815753/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 2 季",
@@ -76541,15 +76601,16 @@
           "episode_count": 6,
           "vote_average": 0.0,
           "poster_path": "/5rMUpi2KrzGXA10JMl99U2fU8mD.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/26384274/",
           "overview": "",
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/2143882/"
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 6 季",
@@ -76652,16 +76713,17 @@
           "episode_count": 7,
           "vote_average": 0.0,
           "poster_path": "/ob68T5Jl5zkGWMKqFdcWeYue6oi.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/35740143/",
           "overview": "",
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36097825/",
             "https://m.douban.com/movie/subject/3184050/"
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 3 季",
@@ -79575,7 +79637,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 6 季",
@@ -79730,7 +79793,8 @@
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_rating": "",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 5 季",
@@ -81187,7 +81251,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -81289,7 +81354,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 4 季",
@@ -81579,7 +81645,7 @@
       ]
     },
     {
-      "name": "Father of the Pride",
+      "name": "狮王的荣耀",
       "original_name": "Father of the Pride",
       "id": 441,
       "imdb_id": "tt0361179",
@@ -81630,16 +81696,17 @@
           "episode_count": 13,
           "vote_average": 0.0,
           "poster_path": "/fmhMY7NjCBnfdOE2eQdvWTYl881.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/3181790/",
           "overview": "",
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36237131/",
             "https://m.douban.com/movie/subject/25742294/"
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
@@ -83005,7 +83072,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 4 季",
@@ -83076,16 +83144,17 @@
           "episode_count": 6,
           "vote_average": 0.0,
           "poster_path": "/wUFEyxepHbKM9LTA5fnyXdMX3iI.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/2973283/",
           "overview": "",
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/30415053/",
             "https://m.douban.com/movie/subject/26801052/"
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 2 季",
@@ -83205,7 +83274,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -83426,7 +83496,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 2 季",
@@ -83445,7 +83516,8 @@
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
           "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         }
       ]
     },
@@ -83920,16 +83992,18 @@
           "episode_count": 2,
           "vote_average": 0.0,
           "poster_path": null,
-          "douban_rating": "",
+          "douban_rating": null,
           "douban_link_google": null,
           "overview": "",
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/26853673/",
-            "https://m.douban.com/movie/subject/35460437/"
+            "https://m.douban.com/movie/subject/35460437/",
+            "https://movie.douban.com/subject/5122446/"
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": false
         },
         {
           "name": "第 2 季",
@@ -85884,15 +85958,16 @@
           "episode_count": 6,
           "vote_average": 0.0,
           "poster_path": null,
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/5147256/",
           "overview": "",
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/26591472/"
           ],
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
