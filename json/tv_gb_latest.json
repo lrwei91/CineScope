@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-09-05T06:12:24+08:00",
+    "last_updated": "2025-09-05T13:35:15+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-09-05T13:35:15+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 18 个链接，失败 5 个链接。正常完成。"
+      },
+      {
+        "time": "2025-09-05T13:29:54+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新23条，本次任务正常结束。"
+      },
       {
         "time": "2025-09-05T06:12:24+08:00",
         "summary": "数据更新完成：更新了 228 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-09-01T21:14:31+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新250条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-09-01T06:12:03+08:00",
-        "summary": "数据更新完成：更新了 228 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-08-31T09:25:48+08:00",
-        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 1 个链接，失败 1 个链接。正常完成。"
       }
     ],
     "last_refreshed": "2025-09-05T06:12:24+08:00",
@@ -49,9 +49,9 @@
     "total_seasons": 2635,
     "earliest_show_date": "2000-01-09",
     "latest_show_date": "2025-08-31",
-    "total_douban_links": 2001,
-    "verified_douban_links": 2001,
-    "verified_no_rating_links": 771,
+    "total_douban_links": 2019,
+    "verified_douban_links": 2019,
+    "verified_no_rating_links": 786,
     "last_fetched": "2025-08-30T23:50:06+08:00"
   },
   "shows": [
@@ -4954,15 +4954,16 @@
           "episode_count": 20,
           "vote_average": 0.0,
           "poster_path": "/dTJjTBTX8QyUK4kBoabJ2LcmvRg.jpg",
-          "douban_rating": "",
-          "douban_link_google": null,
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/37369258/",
           "overview": "",
           "douban_link_last_checked": "2025-08-25T01:53:05+08:00",
-          "douban_link_verified": false,
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/36910632/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1,
+          "douban_link_verified": true
         },
         {
           "name": "第 7 季",
@@ -6154,7 +6155,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/26816177/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 2 季",
@@ -7098,7 +7100,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34908008/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 6 季",
@@ -7116,7 +7119,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34908008/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 7 季",
@@ -7218,7 +7222,8 @@
           "failed_douban_links": [
             "https://m.douban.com/movie/subject/34908008/"
           ],
-          "googlesearch_count": 1
+          "googlesearch_count": 1,
+          "douban_search_count": 1
         },
         {
           "name": "第 13 季",
