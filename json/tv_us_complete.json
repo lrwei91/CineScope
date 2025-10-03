@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-10-03T06:13:03+08:00",
+    "last_updated": "2025-10-04T01:01:26+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-10-04T01:01:26+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 0 个链接，失败 1 个链接。正常完成。"
+      },
+      {
+        "time": "2025-10-04T01:01:03+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
+      },
       {
         "time": "2025-10-03T06:13:03+08:00",
         "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
@@ -33,14 +41,6 @@
       },
       {
         "time": "2025-09-30T01:00:38+08:00",
-        "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-09-29T06:12:10+08:00",
-        "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-09-29T01:00:44+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
       }
     ],
@@ -11647,7 +11647,14 @@
           "overview": "",
           "poster_path": null,
           "season_number": 4,
-          "vote_average": 0.0
+          "vote_average": 0.0,
+          "douban_search_count": 1,
+          "douban_link_google": null,
+          "douban_link_verified": false,
+          "douban_rating": null,
+          "failed_douban_links": [
+            "https://movie.douban.com/subject/37172876/"
+          ]
         }
       ]
     },
