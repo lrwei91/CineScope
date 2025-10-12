@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-10-12T06:11:58+08:00",
+    "last_updated": "2025-10-13T01:02:55+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-10-13T01:02:55+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 1 个链接，失败 0 个链接。正常完成。"
+      },
+      {
+        "time": "2025-10-13T01:01:23+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
+      },
       {
         "time": "2025-10-12T06:11:58+08:00",
         "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-10-09T01:00:08+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-10-08T06:13:21+08:00",
-        "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-10-08T01:00:07+08:00",
-        "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
       }
     ],
     "last_refreshed": "2025-10-12T06:11:58+08:00",
@@ -50,9 +50,9 @@
     "total_seasons": 9343,
     "earliest_show_date": "2000-01-01",
     "latest_show_date": "2025-10-10",
-    "total_douban_links": 8557,
-    "verified_douban_links": 7452,
-    "verified_no_rating_links": 2459
+    "total_douban_links": 8558,
+    "verified_douban_links": 7453,
+    "verified_no_rating_links": 2460
   },
   "shows": [
     {
@@ -3486,7 +3486,8 @@
           "douban_rating": null,
           "douban_link_google": "https://movie.douban.com/subject/37292285/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-13T01:01:30+08:00"
         }
       ]
     },
@@ -3613,7 +3614,8 @@
           "douban_rating": null,
           "douban_link_google": "https://m.douban.com/movie/subject/36979500/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-13T01:01:44+08:00"
         }
       ]
     },
@@ -3758,7 +3760,8 @@
           "douban_rating": null,
           "douban_link_google": "https://m.douban.com/movie/subject/37269149/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-13T01:01:59+08:00"
         }
       ]
     },
@@ -3912,7 +3915,8 @@
           "douban_rating": null,
           "douban_link_google": "https://m.douban.com/movie/subject/37424618/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-13T01:02:13+08:00"
         }
       ]
     },
@@ -5431,7 +5435,7 @@
           "douban_link_google": "https://movie.douban.com/subject/37304376/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-10-06T01:00:14+08:00"
+          "last_douban_rating_fetch": "2025-10-13T01:02:22+08:00"
         }
       ]
     },
@@ -5522,7 +5526,7 @@
           "googlesearch_count": 1,
           "douban_link_last_checked": "2025-08-30T20:26:15+08:00",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-10-06T01:00:23+08:00"
+          "last_douban_rating_fetch": "2025-10-13T01:02:37+08:00"
         }
       ]
     },
@@ -84038,7 +84042,11 @@
           "overview": "",
           "poster_path": null,
           "season_number": 3,
-          "vote_average": 0.0
+          "vote_average": 0.0,
+          "douban_search_count": 1,
+          "douban_link_google": "https://movie.douban.com/subject/36467414/",
+          "douban_link_verified": true,
+          "douban_rating": null
         }
       ]
     },
