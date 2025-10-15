@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-10-15T06:13:40+08:00",
+    "last_updated": "2025-10-16T01:03:00+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-10-16T01:03:00+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 1 个链接，失败 0 个链接。正常完成。"
+      },
+      {
+        "time": "2025-10-16T01:00:51+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
+      },
       {
         "time": "2025-10-15T06:13:40+08:00",
         "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-10-12T01:00:55+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-10-11T06:12:47+08:00",
-        "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-10-11T01:00:37+08:00",
-        "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
       }
     ],
     "last_refreshed": "2025-10-15T06:13:40+08:00",
@@ -50,9 +50,9 @@
     "total_seasons": 9344,
     "earliest_show_date": "2000-01-01",
     "latest_show_date": "2025-10-13",
-    "total_douban_links": 8558,
-    "verified_douban_links": 7453,
-    "verified_no_rating_links": 2460
+    "total_douban_links": 8559,
+    "verified_douban_links": 7454,
+    "verified_no_rating_links": 2461
   },
   "shows": [
     {
@@ -2126,7 +2126,8 @@
           "douban_rating": null,
           "douban_link_google": "https://m.douban.com/movie/subject/37245790/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-16T01:01:01+08:00"
         }
       ]
     },
@@ -2232,7 +2233,8 @@
           "douban_rating": "",
           "douban_link_google": "https://movie.douban.com/subject/37245785/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-16T01:01:11+08:00"
         }
       ]
     },
@@ -2404,7 +2406,8 @@
           "douban_rating": null,
           "douban_link_google": "https://m.douban.com/movie/subject/37305699/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-16T01:01:24+08:00"
         }
       ]
     },
@@ -2731,7 +2734,8 @@
           "douban_rating": null,
           "douban_link_google": "https://m.douban.com/movie/subject/37304237/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-16T01:01:43+08:00"
         }
       ]
     },
@@ -2814,7 +2818,8 @@
           "douban_rating": null,
           "douban_link_google": "https://m.douban.com/movie/subject/37006365/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-16T01:01:55+08:00"
         }
       ]
     },
@@ -2907,7 +2912,11 @@
           "overview": "",
           "poster_path": null,
           "season_number": 4,
-          "vote_average": 0.0
+          "vote_average": 0.0,
+          "douban_search_count": 1,
+          "douban_link_google": "https://movie.douban.com/subject/36989776/",
+          "douban_link_verified": true,
+          "douban_rating": null
         }
       ]
     },
@@ -4439,7 +4448,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37305709/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-10-09T01:00:22+08:00"
+          "last_douban_rating_fetch": "2025-10-16T01:02:06+08:00"
         }
       ]
     },
@@ -4546,7 +4555,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37212378/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-10-09T01:00:35+08:00"
+          "last_douban_rating_fetch": "2025-10-16T01:02:17+08:00"
         }
       ]
     },
@@ -4735,7 +4744,7 @@
           "googlesearch_count": 1,
           "douban_link_last_checked": "2025-08-30T20:25:58+08:00",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-10-09T01:00:45+08:00"
+          "last_douban_rating_fetch": "2025-10-16T01:02:26+08:00"
         }
       ]
     },
@@ -4952,7 +4961,7 @@
           "googlesearch_count": 1,
           "douban_link_last_checked": "2025-08-30T20:26:05+08:00",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-10-09T01:00:58+08:00"
+          "last_douban_rating_fetch": "2025-10-16T01:02:36+08:00"
         }
       ]
     },
@@ -5178,7 +5187,7 @@
           "douban_search_count": 1,
           "douban_link_google": "https://movie.douban.com/subject/37339942/",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-10-09T01:01:07+08:00"
+          "last_douban_rating_fetch": "2025-10-16T01:02:44+08:00"
         }
       ]
     },
