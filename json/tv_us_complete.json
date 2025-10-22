@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-10-22T06:13:14+08:00",
+    "last_updated": "2025-10-23T01:01:27+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-10-23T01:01:27+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 1 个链接，失败 0 个链接。正常完成。"
+      },
+      {
+        "time": "2025-10-23T01:00:34+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
+      },
       {
         "time": "2025-10-22T06:13:14+08:00",
         "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-10-19T01:00:34+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-10-18T06:12:44+08:00",
-        "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-10-18T01:01:05+08:00",
-        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
       }
     ],
     "last_refreshed": "2025-10-22T06:13:14+08:00",
@@ -50,9 +50,9 @@
     "total_seasons": 9349,
     "earliest_show_date": "2000-01-01",
     "latest_show_date": "2025-10-20",
-    "total_douban_links": 8561,
-    "verified_douban_links": 7456,
-    "verified_no_rating_links": 2459
+    "total_douban_links": 8562,
+    "verified_douban_links": 7457,
+    "verified_no_rating_links": 2460
   },
   "shows": [
     {
@@ -1875,7 +1875,8 @@
           "poster_path": "/pzJv3dXvfQga5zIQQ88dxy4AwY2.jpg",
           "douban_link_google": "https://m.douban.com/movie/subject/37069797/",
           "overview": "",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-10-23T01:00:51+08:00"
         }
       ]
     },
@@ -56242,7 +56243,11 @@
           "overview": "",
           "poster_path": "/rNkEP52zZkHJLgXIJEQVqb3Zwds.jpg",
           "season_number": 2,
-          "vote_average": 0.0
+          "vote_average": 0.0,
+          "douban_search_count": 1,
+          "douban_link_google": "https://movie.douban.com/subject/36678041/",
+          "douban_link_verified": true,
+          "douban_rating": null
         }
       ]
     },
