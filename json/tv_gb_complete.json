@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-11-08T06:12:44+08:00",
+    "last_updated": "2025-11-09T01:19:07+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-11-09T01:19:07+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 0 个链接，失败 0 个链接。正常完成。"
+      },
+      {
+        "time": "2025-11-09T01:01:01+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
+      },
       {
         "time": "2025-11-08T06:12:44+08:00",
         "summary": "数据更新完成：更新了 238 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-11-05T01:01:20+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-11-04T06:13:41+08:00",
-        "summary": "数据更新完成：更新了 238 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-11-04T01:00:34+08:00",
-        "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
       }
     ],
     "last_refreshed": "2025-11-08T06:12:44+08:00",
@@ -231,7 +231,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36931742/",
           "overview": "平民少年长大成人，得知自己是一个古老狼人家族的末裔，也是王位的继承者。",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-01T01:00:42+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:01:13+08:00"
         },
         {
           "air_date": "2025-09-11",
@@ -252,7 +252,7 @@
           "googlesearch_count": 2,
           "douban_search_count": 1,
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-01T01:00:49+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:01:23+08:00"
         }
       ]
     },
@@ -383,7 +383,7 @@
           ],
           "douban_search_count": 1,
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-01T01:01:00+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:01:33+08:00"
         }
       ]
     },
@@ -490,7 +490,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36791566/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-01T01:01:12+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:01:49+08:00"
         }
       ]
     },
@@ -712,7 +712,7 @@
           "vote_average": 0.0,
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:01:12+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:02:03+08:00"
         }
       ]
     },
@@ -1152,7 +1152,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/35797539/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:01:27+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:02:19+08:00"
         }
       ]
     },
@@ -1298,7 +1298,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36285439/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:01:40+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:02:34+08:00"
         }
       ]
     },
@@ -1353,7 +1353,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36686616/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:01:59+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:02:46+08:00"
         },
         {
           "name": "第 2 季",
@@ -1367,7 +1367,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37200048/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:02:13+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:02:57+08:00"
         }
       ]
     },
@@ -1448,7 +1448,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36420910/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:02:29+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:03:11+08:00"
         },
         {
           "name": "第 4 季",
@@ -1462,7 +1462,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37226868/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:02:42+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:03:31+08:00"
         }
       ]
     },
@@ -1667,7 +1667,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37262406/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:03:00+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:04:24+08:00"
         }
       ]
     },
@@ -2135,7 +2135,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36058652/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:03:17+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:04:39+08:00"
         },
         {
           "name": "第 9 季",
@@ -2149,7 +2149,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36477988/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:03:32+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:04:52+08:00"
         },
         {
           "name": "第 10 季",
@@ -2163,7 +2163,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36900954/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:03:48+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:05:06+08:00"
         }
       ]
     },
@@ -2412,7 +2412,7 @@
           "overview": "",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:04:04+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:05:22+08:00"
         }
       ]
     },
@@ -2527,7 +2527,7 @@
           "googlesearch_count": 1,
           "douban_search_count": 1,
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:04:17+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:05:33+08:00"
         },
         {
           "name": "第 5 季",
@@ -2547,7 +2547,7 @@
           "googlesearch_count": 1,
           "douban_search_count": 1,
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:04:26+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:05:44+08:00"
         }
       ]
     },
@@ -2765,7 +2765,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36666674/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:04:39+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:05:56+08:00"
         }
       ]
     },
@@ -2827,7 +2827,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36451730/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:04:49+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:06:06+08:00"
         }
       ]
     },
@@ -2895,7 +2895,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37364782",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:05:05+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:06:18+08:00"
         }
       ]
     },
@@ -3499,7 +3499,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36504086/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:05:18+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:06:27+08:00"
         }
       ]
     },
@@ -3559,7 +3559,7 @@
           "douban_link_google": "https://movie.douban.com/subject/37242403/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:05:27+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:06:37+08:00"
         }
       ]
     },
@@ -3627,7 +3627,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37316398/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:05:40+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:06:50+08:00"
         }
       ]
     },
@@ -3738,7 +3738,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36767219/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:05:55+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:07:04+08:00"
         }
       ]
     },
@@ -3876,7 +3876,7 @@
           "overview": "",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:06:09+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:07:17+08:00"
         }
       ]
     },
@@ -3931,7 +3931,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36453709/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:06:19+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:07:28+08:00"
         }
       ]
     },
@@ -4198,7 +4198,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36964161/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:06:31+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:07:40+08:00"
         }
       ]
     },
@@ -4455,7 +4455,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36666603/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:06:47+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:07:55+08:00"
         }
       ]
     },
@@ -4592,7 +4592,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36352381/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:07:01+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:08:11+08:00"
         },
         {
           "name": "第 3 季",
@@ -4606,7 +4606,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36877113/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:07:16+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:08:25+08:00"
         }
       ]
     },
@@ -4678,7 +4678,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36943573/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:07:30+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:08:36+08:00"
         }
       ]
     },
@@ -4737,7 +4737,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36779033/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:07:46+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:08:51+08:00"
         }
       ]
     },
@@ -5030,7 +5030,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36764977/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:08:00+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:09:06+08:00"
         }
       ]
     },
@@ -5223,7 +5223,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36857846/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:08:10+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:09:16+08:00"
         }
       ]
     },
@@ -5334,7 +5334,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36954954/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:08:25+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:09:30+08:00"
         }
       ]
     },
@@ -5458,7 +5458,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36552976/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:08:38+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:09:43+08:00"
         }
       ]
     },
@@ -5776,7 +5776,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36321843/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:08:52+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:09:59+08:00"
         }
       ]
     },
@@ -5830,7 +5830,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36290659/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:09:07+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:10:12+08:00"
         },
         {
           "air_date": "2026-01-09",
@@ -6093,7 +6093,7 @@
           "overview": "",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:09:21+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:10:25+08:00"
         },
         {
           "name": "第 14 季",
@@ -6107,7 +6107,7 @@
           "overview": "",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:09:34+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:10:36+08:00"
         },
         {
           "name": "第 15 季",
@@ -6121,7 +6121,7 @@
           "overview": "",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:09:44+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:10:47+08:00"
         },
         {
           "name": "第 16 季",
@@ -6135,7 +6135,7 @@
           "overview": "",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:09:58+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:11:01+08:00"
         }
       ]
     },
@@ -6198,7 +6198,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36533708/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:10:12+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:11:16+08:00"
         }
       ]
     },
@@ -6665,7 +6665,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36783946/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:10:27+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:11:29+08:00"
         },
         {
           "name": "第 2 季",
@@ -6680,7 +6680,7 @@
           "overview": "",
           "douban_link_last_checked": "2025-08-24T21:55:29+08:00",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:10:40+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:11:42+08:00"
         }
       ]
     },
@@ -6735,7 +6735,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36897836/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:10:52+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:11:55+08:00"
         }
       ]
     },
@@ -6865,7 +6865,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36342906/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:11:07+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:12:09+08:00"
         },
         {
           "name": "第 2 季",
@@ -6879,7 +6879,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37193740/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:11:20+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:12:22+08:00"
         }
       ]
     },
@@ -7410,7 +7410,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/35762368/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:11:36+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:12:36+08:00"
         }
       ]
     },
@@ -7674,7 +7674,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37088343/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:11:50+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:12:50+08:00"
         }
       ]
     },
@@ -7964,7 +7964,7 @@
           "overview": "",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:12:00+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:13:02+08:00"
         }
       ]
     },
@@ -8040,7 +8040,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37183699/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:12:12+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:13:17+08:00"
         }
       ]
     },
@@ -8706,7 +8706,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/35682118/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:12:26+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:13:29+08:00"
         },
         {
           "name": "第 14 季",
@@ -8720,7 +8720,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36246268/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:12:41+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:13:43+08:00"
         }
       ]
     },
@@ -9344,7 +9344,7 @@
           "googlesearch_count": 1,
           "douban_search_count": 1,
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:12:52+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:13:52+08:00"
         }
       ]
     },
@@ -9404,7 +9404,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36656636/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:13:02+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:14:02+08:00"
         }
       ]
     },
@@ -9498,7 +9498,7 @@
           "douban_link_google": "https://movie.douban.com/subject/37276177/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:13:13+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:14:10+08:00"
         }
       ]
     },
@@ -9574,7 +9574,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37200052/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:13:25+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:14:23+08:00"
         }
       ]
     },
@@ -9659,7 +9659,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36913491/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:13:41+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:14:34+08:00"
         }
       ]
     },
@@ -9996,7 +9996,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36666503/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:13:52+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:14:44+08:00"
         }
       ]
     },
@@ -10068,7 +10068,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36850598/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:14:04+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:14:57+08:00"
         }
       ]
     },
@@ -10124,7 +10124,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36781753/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:14:15+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:15:06+08:00"
         }
       ]
     },
@@ -10644,7 +10644,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36768531/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:14:28+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:15:18+08:00"
         }
       ]
     },
@@ -10791,7 +10791,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36976472/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:14:42+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:15:30+08:00"
         }
       ]
     },
@@ -10942,7 +10942,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36301657/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:14:54+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:15:43+08:00"
         }
       ]
     },
@@ -11401,7 +11401,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36619703/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:15:05+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:15:56+08:00"
         }
       ]
     },
@@ -11457,7 +11457,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36433411/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:15:14+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:16:06+08:00"
         }
       ]
     },
@@ -11520,7 +11520,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36614675/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:16:00+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:16:21+08:00"
         }
       ]
     },
@@ -11720,7 +11720,7 @@
           "googlesearch_count": 1,
           "douban_search_count": 1,
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:16:12+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:16:30+08:00"
         }
       ]
     },
@@ -11842,7 +11842,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/35969689/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:16:25+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:16:43+08:00"
         }
       ]
     },
@@ -11910,7 +11910,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36560613/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:16:42+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:16:57+08:00"
         }
       ]
     },
@@ -11992,7 +11992,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36728551/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:16:55+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:17:09+08:00"
         }
       ]
     },
@@ -12264,7 +12264,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36557304/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:17:08+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:17:21+08:00"
         },
         {
           "air_date": "2025-09-25",
@@ -12278,7 +12278,7 @@
           "vote_average": 0.0,
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:17:21+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:17:34+08:00"
         }
       ]
     },
@@ -12604,7 +12604,7 @@
           "googlesearch_count": 1,
           "douban_search_count": 1,
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:17:31+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:17:44+08:00"
         }
       ]
     },
@@ -12928,7 +12928,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36449119/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:17:46+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:17:58+08:00"
         },
         {
           "air_date": null,
@@ -13075,7 +13075,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/37184290/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:18:00+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:18:11+08:00"
         }
       ]
     },
@@ -13233,7 +13233,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36514389/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:18:14+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:18:25+08:00"
         }
       ]
     },
@@ -13296,7 +13296,7 @@
           "douban_link_google": "https://movie.douban.com/subject/36743754/",
           "douban_link_verified": true,
           "douban_rating": null,
-          "last_douban_rating_fetch": "2025-11-02T01:18:25+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:18:37+08:00"
         }
       ]
     },
@@ -13483,7 +13483,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36453725/",
           "overview": "",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:18:40+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:18:50+08:00"
         }
       ]
     },
@@ -13596,7 +13596,7 @@
           "douban_link_google": "https://m.douban.com/movie/subject/36623680/",
           "overview": "一部关于两个既有趣又严重有缺陷的角色的经典怪异家庭喜剧，过程中会有恋爱灾难和失败的浪漫关系，有毒的友谊和混乱的家庭动态，还有一位危险的反社会倾向的产前教师。",
           "douban_link_verified": true,
-          "last_douban_rating_fetch": "2025-11-02T01:18:55+08:00"
+          "last_douban_rating_fetch": "2025-11-09T01:19:01+08:00"
         }
       ]
     },
