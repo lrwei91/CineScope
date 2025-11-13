@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-11-13T06:14:20+08:00",
+    "last_updated": "2025-11-14T01:02:08+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-11-14T01:02:08+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 1 个链接，失败 0 个链接。正常完成。"
+      },
+      {
+        "time": "2025-11-14T01:01:00+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
+      },
       {
         "time": "2025-11-13T06:14:20+08:00",
         "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-11-10T01:01:15+08:00",
         "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-11-09T06:11:53+08:00",
-        "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-11-09T01:01:02+08:00",
-        "summary": "从豆瓣搜索入口更新链接，本次更新0条，本次任务正常结束。"
       }
     ],
     "last_refreshed": "2025-11-13T06:14:20+08:00",
@@ -50,9 +50,9 @@
     "total_seasons": 9363,
     "earliest_show_date": "2000-01-01",
     "latest_show_date": "2025-11-11",
-    "total_douban_links": 8565,
-    "verified_douban_links": 7460,
-    "verified_no_rating_links": 2448
+    "total_douban_links": 8566,
+    "verified_douban_links": 7461,
+    "verified_no_rating_links": 2449
   },
   "shows": [
     {
@@ -29460,7 +29460,11 @@
           "overview": "",
           "poster_path": null,
           "season_number": 2,
-          "vote_average": 0.0
+          "vote_average": 0.0,
+          "douban_search_count": 1,
+          "douban_link_google": "https://movie.douban.com/subject/37125096/",
+          "douban_link_verified": true,
+          "douban_rating": null
         }
       ]
     },
@@ -29534,7 +29538,8 @@
           "season_number": 2,
           "vote_average": 0.0,
           "douban_link_verified": true,
-          "douban_rating": null
+          "douban_rating": null,
+          "last_douban_rating_fetch": "2025-11-14T01:01:21+08:00"
         }
       ]
     },
