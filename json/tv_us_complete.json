@@ -1,8 +1,16 @@
 {
   "metadata": {
-    "last_updated": "2025-11-18T06:03:43+08:00",
+    "last_updated": "2025-11-19T01:02:08+08:00",
     "version": "1.0.0",
     "update_log": [
+      {
+        "time": "2025-11-19T01:02:08+08:00",
+        "summary": "执行豆瓣链接验证和评分更新。本次验证成功 1 个链接，失败 0 个链接。正常完成。"
+      },
+      {
+        "time": "2025-11-19T01:01:04+08:00",
+        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
+      },
       {
         "time": "2025-11-18T06:03:43+08:00",
         "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
@@ -34,14 +42,6 @@
       {
         "time": "2025-11-14T06:03:48+08:00",
         "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
-      },
-      {
-        "time": "2025-11-14T01:01:00+08:00",
-        "summary": "从豆瓣搜索入口更新链接，本次更新1条，本次任务正常结束。"
-      },
-      {
-        "time": "2025-11-13T06:14:20+08:00",
-        "summary": "数据更新完成：更新了 592 部正在制作中的剧集信息"
       }
     ],
     "last_refreshed": "2025-11-18T06:03:43+08:00",
@@ -50,9 +50,9 @@
     "total_seasons": 9366,
     "earliest_show_date": "2000-01-01",
     "latest_show_date": "2025-11-16",
-    "total_douban_links": 8566,
-    "verified_douban_links": 7461,
-    "verified_no_rating_links": 2448
+    "total_douban_links": 8567,
+    "verified_douban_links": 7462,
+    "verified_no_rating_links": 2449
   },
   "shows": [
     {
@@ -972,7 +972,8 @@
           "vote_average": 0.0,
           "googlesearch_count": 1,
           "douban_link_last_checked": "2025-08-30T20:25:24+08:00",
-          "douban_link_verified": true
+          "douban_link_verified": true,
+          "last_douban_rating_fetch": "2025-11-19T01:01:29+08:00"
         }
       ]
     },
@@ -1178,7 +1179,7 @@
           "vote_average": 0.0,
           "poster_path": null,
           "douban_rating": null,
-          "douban_link_google": null,
+          "douban_link_google": "https://movie.douban.com/subject/37456690/",
           "overview": "",
           "googlesearch_count": 2,
           "douban_link_last_checked": "2025-09-10T01:00:15+08:00",
@@ -1186,7 +1187,8 @@
             "https://m.douban.com/movie/subject/35558468/",
             "https://m.douban.com/movie/subject/35223808/"
           ],
-          "douban_link_verified": false
+          "douban_search_count": 1,
+          "douban_link_verified": true
         }
       ]
     },
