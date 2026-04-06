@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300';
-    const DEFAULT_TITLE = '最新影视内容实时更新';
+    const DEFAULT_TITLE = '全球剧集与院线新片追踪';
     const DEFAULT_CATEGORY_ID = 'tv_cn';
     const ITEMS_PER_PAGE = 18;
     const FUTURE_TAG = '即将上映';
@@ -28,6 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
             kind: 'tv',
             latestUrl: 'json/tv_cn_latest.json',
             completeUrl: 'json/tv_cn_complete.json',
+            showNetworkFilter: true
+        },
+        tv_kr: {
+            id: 'tv_kr',
+            label: '韩剧',
+            kind: 'tv',
+            latestUrl: 'json/tv_kr_latest.json',
+            completeUrl: 'json/tv_kr_complete.json',
+            showNetworkFilter: true
+        },
+        tv_jp: {
+            id: 'tv_jp',
+            label: '日剧',
+            kind: 'tv',
+            latestUrl: 'json/tv_jp_latest.json',
+            completeUrl: 'json/tv_jp_complete.json',
             showNetworkFilter: true
         },
         movie_cn: {
@@ -64,9 +80,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 { label: '> 6分', value: 6 }
             ],
             special: {
-                label: '近5年高分',
+                label: '近2年高分',
                 value: 'recent_high_score',
-                years: 5,
+                years: 2,
+                minRating: 7
+            }
+        },
+        tv_kr: {
+            thresholds: [
+                { label: '全部', value: 0 },
+                { label: '> 8分', value: 8 },
+                { label: '> 7分', value: 7 },
+                { label: '> 6分', value: 6 }
+            ],
+            special: {
+                label: '近2年高分',
+                value: 'recent_high_score',
+                years: 2,
+                minRating: 7
+            }
+        },
+        tv_jp: {
+            thresholds: [
+                { label: '全部', value: 0 },
+                { label: '> 8分', value: 8 },
+                { label: '> 7分', value: 7 },
+                { label: '> 6分', value: 6 }
+            ],
+            special: {
+                label: '近2年高分',
+                value: 'recent_high_score',
+                years: 2,
                 minRating: 7
             }
         }
@@ -171,6 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ])
     );
+
+    function buildTmdbSearchUrl(title, date) {
+        const year = date ? String(date).slice(0, 4) : '';
+        const query = encodeURIComponent(`${title} ${year}`.trim());
+        return `https://www.themoviedb.org/search?query=${query}`;
+    }
 
     let allItems = [];
     let filteredPastAndPresentItems = [];
@@ -391,14 +441,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!Array.isArray(data.shows)) {
                 throw new Error('TV payload must contain a "shows" array.');
             }
-            return normalizeTvItems(data.shows);
+            return dedupeCatalogItems('tv', normalizeTvItems(data.shows));
         }
 
         if (!Array.isArray(data.movies)) {
             throw new Error('Movie payload must contain a "movies" array.');
         }
 
-        return normalizeMovieItems(data.movies);
+        return dedupeCatalogItems('movie', normalizeMovieItems(data.movies));
     }
 
     function normalizeTvItems(shows) {
@@ -409,6 +459,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = buildLocalizedTitle(show.name, show.original_name);
             const genres = normalizeNameList(show.genres);
             const networks = normalizeNameList(show.networks);
+            // tmdb_id 字段存在且为数字时表示数据来自 TMDB
+            const tmdbId = typeof show.tmdb_id === 'number' ? show.tmdb_id : null;
 
             seasons.forEach((season) => {
                 if (!season.air_date) {
@@ -427,7 +479,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     doubanRating: season.douban_rating || null,
                     doubanLink: season.douban_link_google || null,
                     doubanVerified: Boolean(season.douban_link_verified),
-                    tmdbUrl: show.id ? `https://www.themoviedb.org/tv/${show.id}/season/${season.season_number}` : null,
+                    tmdbUrl: tmdbId ? `https://www.themoviedb.org/tv/${tmdbId}` : null,
+                    tmdbSearchUrl: buildTmdbSearchUrl(title, season.air_date),
                     imdbUrl: show.imdb_id ? `https://www.imdb.com/title/${show.imdb_id}/` : null
                 });
             });
@@ -450,6 +503,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 movie.original_name ||
                 '未命名';
             const originalTitle = movie.original_title || movie.original_name || primaryTitle;
+            // tmdb_id 字段存在且为数字时表示数据来自 TMDB
+            const tmdbId = typeof movie.tmdb_id === 'number' ? movie.tmdb_id : null;
 
             normalizedItems.push({
                 kind: 'movie',
@@ -463,12 +518,92 @@ document.addEventListener('DOMContentLoaded', () => {
                 doubanRating: movie.douban_rating || null,
                 doubanLink: movie.douban_link_google || null,
                 doubanVerified: Boolean(movie.douban_link_verified),
-                tmdbUrl: movie.id ? `https://www.themoviedb.org/movie/${movie.id}` : null,
+                tmdbUrl: tmdbId ? `https://www.themoviedb.org/movie/${tmdbId}` : null,
+                tmdbSearchUrl: buildTmdbSearchUrl(primaryTitle, releaseDate),
                 imdbUrl: movie.imdb_id ? `https://www.imdb.com/title/${movie.imdb_id}/` : null
             });
 
             return normalizedItems;
         }, []);
+    }
+
+    function dedupeCatalogItems(kind, items) {
+        const dedupedItems = [];
+        const itemIndexByKey = new Map();
+
+        items.forEach((item) => {
+            const dedupeKey = createCatalogDedupeKey(kind, item);
+            const existingIndex = itemIndexByKey.get(dedupeKey);
+
+            if (existingIndex === undefined) {
+                itemIndexByKey.set(dedupeKey, dedupedItems.length);
+                dedupedItems.push(item);
+                return;
+            }
+
+            dedupedItems[existingIndex] = mergeCatalogItems(dedupedItems[existingIndex], item);
+        });
+
+        return dedupedItems;
+    }
+
+    function createCatalogDedupeKey(kind, item) {
+        const normalizedTitle = normalizeCatalogText(item.title || item.name || '');
+        const normalizedSubtitle = normalizeCatalogText(item.subtitle || '');
+        const date = item.date || '';
+
+        if (kind === 'movie') {
+            return `movie::${normalizedTitle}::${date.slice(0, 7)}`;
+        }
+
+        return `tv::${normalizedTitle}::${normalizedSubtitle}::${date}`;
+    }
+
+    function normalizeCatalogText(value) {
+        return String(value || '')
+            .toLowerCase()
+            .replace(/[\s:：·•'".,，、!！?？\-—_()（）\[\]【】]/g, '')
+            .trim();
+    }
+
+    function mergeCatalogItems(leftItem, rightItem) {
+        const preferredItem = scoreCatalogItem(rightItem) > scoreCatalogItem(leftItem) ? rightItem : leftItem;
+        const secondaryItem = preferredItem === rightItem ? leftItem : rightItem;
+
+        return {
+            ...secondaryItem,
+            ...preferredItem,
+            title: preferredItem.title || secondaryItem.title,
+            subtitle: preferredItem.subtitle || secondaryItem.subtitle,
+            posterPath: preferredItem.posterPath || secondaryItem.posterPath,
+            doubanRating: preferredItem.doubanRating || secondaryItem.doubanRating,
+            doubanLink: preferredItem.doubanLink || secondaryItem.doubanLink,
+            doubanVerified: preferredItem.doubanVerified || secondaryItem.doubanVerified,
+            tmdbUrl: preferredItem.tmdbUrl || secondaryItem.tmdbUrl,
+            imdbUrl: preferredItem.imdbUrl || secondaryItem.imdbUrl,
+            genres: mergeUniqueStrings(preferredItem.genres, secondaryItem.genres),
+            networks: mergeUniqueStrings(preferredItem.networks, secondaryItem.networks)
+        };
+    }
+
+    function scoreCatalogItem(item) {
+        let score = 0;
+
+        if (item.doubanVerified) score += 4;
+        if (item.doubanRating) score += 3;
+        if (item.doubanLink) score += 2;
+        if (item.tmdbUrl) score += 1;
+        if (item.imdbUrl) score += 1;
+        if (item.posterPath) score += 1;
+        if (item.subtitle) score += 1;
+        score += (item.genres || []).length * 0.1;
+        score += (item.networks || []).length * 0.1;
+
+        return score;
+    }
+
+    function mergeUniqueStrings(primaryList = [], secondaryList = []) {
+        return [...new Set([...(primaryList || []), ...(secondaryList || [])].filter(Boolean))];
     }
 
     function normalizeNameList(list) {
@@ -1082,6 +1217,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (item.tmdbUrl) {
             links.push(`<a href="${item.tmdbUrl}" class="card-link" target="_blank" rel="noopener noreferrer">TMDb</a>`);
+        } else if (item.tmdbSearchUrl) {
+            links.push(`<a href="${item.tmdbSearchUrl}" class="card-link" target="_blank" rel="noopener noreferrer">TMDb 搜索</a>`);
         }
         if (item.imdbUrl) {
             links.push(`<a href="${item.imdbUrl}" class="card-link" target="_blank" rel="noopener noreferrer">IMDb</a>`);

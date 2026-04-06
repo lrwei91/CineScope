@@ -47,6 +47,54 @@ const CATEGORY_SPECS = [
         }
     },
     {
+        id: 'tv_kr',
+        kind: 'tv',
+        latestCount: 18,
+        minDate: '2025-01-01',
+        latestPath: 'json/tv_kr_latest.json',
+        completePath: 'json/tv_kr_complete.json',
+        doubanSources: [
+            { slug: 'tv_korean', includeItem: isKoreanEntry }
+        ],
+        tmdb: {
+            discoverPath: '/discover/tv',
+            detailPath: '/tv',
+            params: {
+                language: 'zh-CN',
+                sort_by: 'first_air_date.desc',
+                'first_air_date.gte': '2025-01-01',
+                'first_air_date.lte': END_OF_CURRENT_YEAR,
+                with_origin_country: 'KR',
+                include_null_first_air_dates: 'false',
+                'vote_count.gte': '5'
+            }
+        }
+    },
+    {
+        id: 'tv_jp',
+        kind: 'tv',
+        latestCount: 18,
+        minDate: '2025-01-01',
+        latestPath: 'json/tv_jp_latest.json',
+        completePath: 'json/tv_jp_complete.json',
+        doubanSources: [
+            { slug: 'tv_japanese', includeItem: isJapaneseEntry }
+        ],
+        tmdb: {
+            discoverPath: '/discover/tv',
+            detailPath: '/tv',
+            params: {
+                language: 'zh-CN',
+                sort_by: 'first_air_date.desc',
+                'first_air_date.gte': '2025-01-01',
+                'first_air_date.lte': END_OF_CURRENT_YEAR,
+                with_origin_country: 'JP',
+                include_null_first_air_dates: 'false',
+                'vote_count.gte': '5'
+            }
+        }
+    },
+    {
         id: 'movie_cn',
         kind: 'movie',
         latestCount: 24,
@@ -419,6 +467,7 @@ function normalizeTmdbTvEntry(detail, doubanMatch) {
 
     return {
         id: detail.id,
+        tmdb_id: detail.id,
         name: detail.name,
         original_name: detail.original_name || detail.name,
         imdb_id: detail.external_ids?.imdb_id || null,
@@ -469,6 +518,7 @@ function normalizeTmdbMovieEntry(detail, doubanMatch) {
 
     return {
         id: detail.id,
+        tmdb_id: detail.id,
         title: detail.title,
         original_title: detail.original_title || detail.title,
         release_date: detail.release_date,
@@ -491,6 +541,15 @@ function createPayload(spec, items, sourceResults, level) {
         count: sourceResult.items.length
     }));
 
+    const categoryNames = {
+        tv_cn: '国产剧',
+        tv_kr: '韩剧',
+        tv_jp: '日剧',
+        movie_cn: '院线电影'
+    };
+
+    const categoryName = categoryNames[spec.id] || spec.id;
+
     const metadata = {
         last_updated: timestamp,
         version: '2.0.0',
@@ -499,8 +558,8 @@ function createPayload(spec, items, sourceResults, level) {
                 time: timestamp,
                 summary:
                     spec.kind === 'tv'
-                        ? `已同步国产剧数据（${level}）：${items.length} 条`
-                        : `已同步院线电影数据（${level}）：${items.length} 条`
+                        ? `已同步${categoryName}数据（${level}）：${items.length} 条`
+                        : `已同步${categoryName}数据（${level}）：${items.length} 条`
             }
         ],
         source: TMDB_API_KEY ? 'tmdb+douban' : 'douban',
@@ -698,12 +757,27 @@ function createItemSignature(kind, item) {
     const title = kind === 'tv' ? item.name : item.title;
     const originalTitle = kind === 'tv' ? item.original_name : item.original_title;
     const date = getItemDate(kind, item);
+
+    if (kind === 'movie') {
+        return `${normalizeLookupText(title || originalTitle)}::${String(date).slice(0, 7)}`;
+    }
+
     return `${normalizeLookupText(title || originalTitle)}::${date}`;
 }
 
 function isMainlandChinaEntry(item) {
     const subtitle = item?.card_subtitle || item?.info || '';
     return subtitle.includes('中国大陆');
+}
+
+function isKoreanEntry(item) {
+    const subtitle = item?.card_subtitle || item?.info || '';
+    return subtitle.includes('韩国');
+}
+
+function isJapaneseEntry(item) {
+    const subtitle = item?.card_subtitle || item?.info || '';
+    return subtitle.includes('日本');
 }
 
 async function mapWithConcurrency(items, concurrency, mapper) {
