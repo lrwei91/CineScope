@@ -3,82 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>最新英美剧集实时更新</title>
+    <title>最新影视内容实时更新</title>
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="page-shell">
         <!-- 交互式年份时间线 -->
         <div id="interactive-timeline" class="interactive-timeline">
             <ul id="year-list"></ul>
         </div>
 
-        <!-- **修改**: 主标题现在包含一个用于日期的 small 标签 -->
-        <h1>
-            最新英美剧集实时更新
-            <small class="update-date skeleton"></small>
-        </h1>
+        <div class="container">
+            <header class="hero-header">
+                <div class="hero-copy">
+                    <p class="hero-eyebrow">Streaming Radar</p>
+                    <h1>
+                        <span id="page-title-text">最新影视内容实时更新</span>
+                        <small class="update-date skeleton"></small>
+                    </h1>
+                    <p class="hero-description">用更轻的浏览路径查看近期剧集、院线电影和即将上映内容，支持分类、评分、类型与平台联动筛选。</p>
+                </div>
+            </header>
 
-        <nav class="filters-navigation">
-            <!-- Region Filter -->
-            <div id="region-filter-container" class="network-filter-container">
-                <div class="genre-tag active" data-region="us">美剧</div>
-                <div class="genre-tag" data-region="gb">英剧</div>
+            <nav class="filters-navigation" aria-label="影视筛选">
+                <div class="filter-row filter-row-primary">
+                    <section class="filter-block">
+                        <p class="filter-label">分类</p>
+                        <div id="category-filter-container" class="network-filter-container filter-pill-row">
+                            <div class="genre-tag active" data-category="tv_cn">国产剧</div>
+                            <div class="genre-tag" data-category="movie_cn">院线电影</div>
+                            <div class="genre-tag" data-category="tv_us">美剧</div>
+                            <div class="genre-tag" data-category="tv_gb">英剧</div>
+                        </div>
+                    </section>
+
+                    <section class="filter-block">
+                        <p class="filter-label">评分</p>
+                        <div id="rating-filter-container" class="network-filter-container filter-pill-row">
+                            <div class="genre-tag skeleton">全部</div>
+                            <div class="genre-tag skeleton">&gt; 9分</div>
+                            <div class="genre-tag skeleton">&gt; 8分</div>
+                            <div class="genre-tag skeleton">&gt; 7分</div>
+                            <div class="genre-tag skeleton">近2年高分</div>
+                        </div>
+                    </section>
+                </div>
+
+            </nav>
+
+            <header class="sticky-header">
+                <div class="filter-label-row">
+                    <p class="filter-label">类型</p>
+                    <button id="genre-filter-toggle" class="filter-toggle" type="button" hidden>展开</button>
+                </div>
+                <div id="genre-filter-container" class="genre-filter-container filter-pill-row">
+                    <div class="genre-tag skeleton">全部</div>
+                    <div class="genre-tag skeleton">剧情</div>
+                    <div class="genre-tag skeleton">喜剧</div>
+                    <div class="genre-tag skeleton">悬疑</div>
+                    <div class="genre-tag skeleton">犯罪</div>
+                    <div class="genre-tag skeleton">科幻</div>
+                </div>
+            </header>
+
+            <div class="file-loader">
+                <p id="status-message">正在尝试加载默认数据文件...</p>
+                <input type="file" id="file-input" accept=".json">
+                <label for="file-input" class="file-label">或手动选择一个JSON文件</label>
             </div>
 
-            <!-- **新增**：豆瓣评分筛选器 -->
-            <div id="rating-filter-container" class="network-filter-container">
-                <div class="genre-tag skeleton">全部</div>
-                <div class="genre-tag skeleton">&gt; 9分</div>
-                <div class="genre-tag skeleton">&gt; 8分</div>
-                <div class="genre-tag skeleton">&gt; 7分</div>
-                <div class="genre-tag skeleton">近2年高分</div>
-            </div>
-
-            <!-- 将 network-filter-container 移到粘性头部之外，使其不再固定 -->
-            <div id="network-filter-container" class="network-filter-container">
-                <div class="genre-tag skeleton">全部</div>
-                <div class="genre-tag skeleton">Netflix</div>
-                <div class="genre-tag skeleton">Apple TV</div>
-                <div class="genre-tag skeleton">Hulu</div>
-                <div class="genre-tag skeleton">Prime Video</div>
-                <div class="genre-tag skeleton">Disney</div>
-                <div class="genre-tag skeleton">Paramount</div>
-                <div class="genre-tag skeleton">HBO</div>
-                <div class="genre-tag skeleton">ABC</div>
-                <div class="genre-tag skeleton">FOX</div>
-                <div class="genre-tag skeleton">CBS</div>
-                <div class="genre-tag skeleton">NBC</div>
-            </div>
-        </nav>
-
-        <!-- **修改**：粘性头部容器现在只包裹 genres 筛选栏 -->
-        <header class="sticky-header">
-            <div id="genre-filter-container" class="genre-filter-container">
-                <div class="genre-tag skeleton">全部</div>
-                <div class="genre-tag skeleton">剧情</div>
-                <div class="genre-tag skeleton">喜剧</div>
-                <div class="genre-tag skeleton">悬疑</div>
-                <div class="genre-tag skeleton">犯罪</div>
-                <div class="genre-tag skeleton">科幻</div>
-            </div>
-        </header>
-
-        <!-- 这个部分保持隐藏 -->
-        <div class="file-loader">
-            <p id="status-message">正在尝试加载默认文件 `data.json`...</p>
-            <input type="file" id="file-input" accept=".json">
-            <label for="file-input" class="file-label">或手动选择一个JSON文件</label>
-        </div>
-        
-        <main id="main-content">
-            <section id="coming-soon-section" class="content-section">
-                <div id="coming-soon-container">
-                    <h2 class="month-group-header skeleton">即将上映</h2>
-                    <div class="scroller-wrapper">
-                        <div class="scroller-container">
-                            <div class="horizontal-scroller">
+            <main id="main-content">
+                <section id="coming-soon-section" class="content-section">
+                    <div id="coming-soon-container">
+                        <h2 class="month-group-header skeleton">即将上映</h2>
+                        <div class="scroller-wrapper">
+                            <div class="scroller-container">
+                                <div class="horizontal-scroller">
+                                    <div class="show-card skeleton"></div>
+                                    <div class="show-card skeleton"></div>
+                                    <div class="show-card skeleton"></div>
+                                    <div class="show-card skeleton"></div>
+                                    <div class="show-card skeleton"></div>
+                                    <div class="show-card skeleton"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="results-section" class="content-section">
+                    <div id="results-container">
+                        <!-- Skeleton Loader -->
+                        <div id="skeleton-container">
+                            <h2 class="month-group-header skeleton">&nbsp;</h2>
+                            <div class="month-grid">
+                                <div class="show-card skeleton"></div>
+                                <div class="show-card skeleton"></div>
+                                <div class="show-card skeleton"></div>
+                                <div class="show-card skeleton"></div>
+                                <div class="show-card skeleton"></div>
+                                <div class="show-card skeleton"></div>
+                            </div>
+                            <h2 class="month-group-header skeleton">&nbsp;</h2>
+                            <div class="month-grid">
                                 <div class="show-card skeleton"></div>
                                 <div class="show-card skeleton"></div>
                                 <div class="show-card skeleton"></div>
@@ -88,36 +118,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section id="results-section" class="content-section">
-                <div id="results-container">
-                    <!-- Skeleton Loader -->
-                    <div id="skeleton-container">
-                        <h2 class="month-group-header skeleton">&nbsp;</h2>
-                        <div class="month-grid">
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                        </div>
-                        <h2 class="month-group-header skeleton">&nbsp;</h2>
-                        <div class="month-grid">
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                            <div class="show-card skeleton"></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="no-results" style="display: none;">没有找到符合条件的剧集。</div>
-                <div id="loader" class="loader" style="display: none;"></div>
-            </section>
-        </main>
+                    <div id="no-results" style="display: none;">没有找到符合条件的内容。</div>
+                    <div id="loader" class="loader" style="display: none;"></div>
+                </section>
+            </main>
+        </div>
     </div>
 
     <div id="loading-overlay" class="loading-overlay">
