@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300';
-    const DEFAULT_TITLE = '全球剧集与院线新片追踪';
+    const DEFAULT_TITLE = '🐟鲤鱼·环球片单';
     const DEFAULT_CATEGORY_ID = 'tv_cn';
     const ITEMS_PER_PAGE = 18;
     const FUTURE_TAG = '即将上映';
