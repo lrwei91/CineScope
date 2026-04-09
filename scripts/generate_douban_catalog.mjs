@@ -132,11 +132,13 @@ async function main() {
         console.log(
             `[${spec.id}] latest=${result.latestCount} complete=${result.completeCount} -> ${spec.latestPath}, ${spec.completePath}`
         );
+        logFallbackSummary(spec.id, result.fallbackSummary);
     }
 }
 
 async function buildCategoryData(spec) {
-    const doubanSourceResults = await buildDoubanSourceResults(spec);
+    const fallbackCollector = createFallbackCollector();
+    const doubanSourceResults = await buildDoubanSourceResults(spec, fallbackCollector);
     const doubanItems = dedupeBySignature(
         spec.kind,
         sortByDateDesc(doubanSourceResults.flatMap((sourceResult) => sourceResult.items)).filter((item) =>
@@ -172,11 +174,12 @@ async function buildCategoryData(spec) {
         latestPayload,
         completePayload,
         latestCount: spec.kind === 'tv' ? latestPayload.shows.length : latestPayload.movies.length,
-        completeCount: spec.kind === 'tv' ? completePayload.shows.length : completePayload.movies.length
+        completeCount: spec.kind === 'tv' ? completePayload.shows.length : completePayload.movies.length,
+        fallbackSummary: fallbackCollector.summary()
     };
 }
 
-async function buildDoubanSourceResults(spec) {
+async function buildDoubanSourceResults(spec, fallbackCollector) {
     const sourceResults = [];
 
     for (const source of spec.doubanSources || []) {
@@ -186,7 +189,7 @@ async function buildDoubanSourceResults(spec) {
 
         const normalizedItems = await mapWithConcurrency(collectionItems, 6, async (item) => {
             const detail = await fetchDoubanSubjectDetail(spec.kind, item.id).catch((error) => {
-                console.warn(`Fallback to collection item ${item.id}: ${error.message}`);
+                fallbackCollector.record(item.id, error);
                 return null;
             });
 
@@ -215,6 +218,50 @@ async function buildDoubanSourceResults(spec) {
     }
 
     return sourceResults;
+}
+
+function createFallbackCollector() {
+    const stats = {
+        total: 0,
+        byStatus: new Map(),
+        sampleIds: []
+    };
+
+    return {
+        record(itemId, error) {
+            const message = error instanceof Error ? error.message : String(error);
+            const statusMatch = message.match(/Request failed \((\d+)\)/);
+            const status = statusMatch ? statusMatch[1] : 'unknown';
+
+            stats.total += 1;
+            stats.byStatus.set(status, (stats.byStatus.get(status) || 0) + 1);
+
+            if (stats.sampleIds.length < 10) {
+                stats.sampleIds.push(String(itemId));
+            }
+
+            if (status !== '400') {
+                console.warn(`Fallback to collection item ${itemId}: ${message}`);
+            }
+        },
+        summary() {
+            return {
+                total: stats.total,
+                byStatus: [...stats.byStatus.entries()].sort(([left], [right]) => left.localeCompare(right)),
+                sampleIds: [...stats.sampleIds]
+            };
+        }
+    };
+}
+
+function logFallbackSummary(categoryId, summary) {
+    if (!summary || summary.total === 0) {
+        return;
+    }
+
+    const statusText = summary.byStatus.map(([status, count]) => `${status}=${count}`).join(', ');
+    const sampleText = summary.sampleIds.length > 0 ? ` sample=${summary.sampleIds.join(',')}` : '';
+    console.warn(`[${categoryId}] douban detail fallback total=${summary.total} ${statusText}${sampleText}`);
 }
 
 async function buildTmdbItems(spec, doubanLookup) {
