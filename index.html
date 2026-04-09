@@ -8,7 +8,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <script>
+        (function loadVersionedAssets() {
+            const assetVersion = Date.now().toString();
+
+            const stylesheet = document.createElement('link');
+            stylesheet.rel = 'stylesheet';
+            stylesheet.href = `style.css?v=${assetVersion}`;
+            document.head.appendChild(stylesheet);
+
+            const script = document.createElement('script');
+            script.src = `script.js?v=${assetVersion}`;
+            script.defer = true;
+            document.head.appendChild(script);
+        })();
+    </script>
 </head>
 <body>
     <div class="page-shell">
@@ -133,7 +147,5 @@
     
     <!-- Toast Notification -->
     <div id="toast-notification" class="toast-notification"></div>
-
-    <script src="script.js" defer></script>
 </body>
 </html>

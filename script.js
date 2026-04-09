@@ -216,6 +216,32 @@ document.addEventListener('DOMContentLoaded', () => {
         ])
     );
 
+    function buildFreshUrl(url) {
+        const separator = url.includes('?') ? '&' : '?';
+        return `${url}${separator}t=${Date.now()}`;
+    }
+
+    function formatUpdateTimestamp(value) {
+        if (!value) {
+            return '';
+        }
+
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) {
+            return String(value);
+        }
+
+        return new Intl.DateTimeFormat('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        }).format(date);
+    }
+
     function buildTmdbSearchUrl(title, date) {
         const year = date ? String(date).slice(0, 4) : '';
         const query = encodeURIComponent(`${title} ${year}`.trim());
@@ -239,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isScrollingProgrammatically = false;
     let genreFiltersExpanded = false;
     let networkFiltersExpanded = false;
+    let lastAutoRefreshAt = 0;
 
     const pageTitleText = document.getElementById('page-title-text');
     const mainTitle = document.querySelector('h1');
@@ -290,6 +317,13 @@ document.addEventListener('DOMContentLoaded', () => {
             comingSoonContainer.style.display = 'none';
         }
     }
+
+    window.addEventListener('focus', scheduleCurrentCategoryRefresh);
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            scheduleCurrentCategoryRefresh();
+        }
+    });
 
     function resetFilterState() {
         specialFilterMode = null;
@@ -360,14 +394,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loadCategoryData(categoryId, 'complete');
     }
 
-    async function loadCategoryData(categoryId, level) {
+    async function loadCategoryData(categoryId, level, options = {}) {
         const config = CATEGORY_CONFIG[categoryId];
         const state = categoryState[categoryId];
         const promiseKey = level === 'latest' ? 'latestPromise' : 'completePromise';
         const loadedKey = level === 'latest' ? 'latestLoaded' : 'completeLoaded';
         const url = level === 'latest' ? config.latestUrl : config.completeUrl;
+        const { forceRefresh = false, silent = false } = options;
 
-        if (state[loadedKey]) {
+        if (state[loadedKey] && !forceRefresh) {
             return true;
         }
 
@@ -377,7 +412,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         state[promiseKey] = (async () => {
             try {
-                const response = await fetch(url);
+                const response = await fetch(buildFreshUrl(url), {
+                    cache: 'no-store'
+                });
                 if (!response.ok) {
                     if (level === 'latest') {
                         console.warn(`Could not load ${url}, will fall back to complete data.`);
@@ -389,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 ingestCategoryData(categoryId, data, level);
 
-                if (level === 'complete' && categoryId === currentCategoryId) {
+                if (!silent && level === 'complete' && categoryId === currentCategoryId) {
                     showToast('已加载全部内容');
                 }
 
@@ -649,6 +686,32 @@ document.addEventListener('DOMContentLoaded', () => {
         filterAndRenderItems();
     }
 
+    async function refreshCurrentCategoryData() {
+        const state = getCurrentCategoryState();
+        const refreshLevel = state.completeLoaded ? 'complete' : 'latest';
+
+        if (!state.latestLoaded && !state.completeLoaded) {
+            return;
+        }
+
+        await loadCategoryData(currentCategoryId, refreshLevel, {
+            forceRefresh: true,
+            silent: true
+        });
+    }
+
+    function scheduleCurrentCategoryRefresh() {
+        const now = Date.now();
+        if (now - lastAutoRefreshAt < 5 * 60 * 1000) {
+            return;
+        }
+
+        lastAutoRefreshAt = now;
+        refreshCurrentCategoryData().catch((error) => {
+            console.error('Failed to refresh current category data:', error);
+        });
+    }
+
     function updateSubtitleText() {
         const updateDateElement = mainTitle.querySelector('.update-date');
         if (!updateDateElement) {
@@ -657,7 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const updateDate = getCurrentCategoryState().updateDate;
         if (updateDate) {
-            updateDateElement.textContent = `数据更新于：${updateDate.substring(0, 10)}`;
+            updateDateElement.textContent = `数据更新于：${formatUpdateTimestamp(updateDate)}`;
             updateDateElement.classList.remove('skeleton');
         } else {
             updateDateElement.textContent = '';
