@@ -2,7 +2,7 @@
 
 一个静态聚合展示页，聚焦近期影视内容的浏览和筛选。当前前端支持四个分类：美剧、英剧、国产剧、院线电影。页面会优先加载默认分类的最新数据，再按分类懒加载完整数据，兼顾首屏速度和后续浏览体验。
 
-在线体验：[https://stevenspage.github.io/latest_tv](https://stevenspage.github.io/latest_tv)
+在线体验：[https://lrwei91.github.io/latest_tv/](https://lrwei91.github.io/latest_tv/)
 
 ## 预览
 
