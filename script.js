@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function bootstrapApp() {
     const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300';
     const DEFAULT_TITLE = '🐟鲤鱼·环球片单';
     const DEFAULT_CATEGORY_ID = 'tv_cn';
@@ -1589,4 +1589,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollFade(ratingFilterContainer);
     setupScrollFade(genreFilterContainer);
     setupScrollFade(networkFilterContainer);
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrapApp, { once: true });
+} else {
+    bootstrapApp();
+}
