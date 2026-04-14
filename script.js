@@ -46,6 +46,15 @@ function bootstrapApp() {
             completeUrl: 'json/tv_jp_complete.json',
             showNetworkFilter: true
         },
+        tv_jp_anime: {
+            id: 'tv_jp_anime',
+            label: '日漫',
+            kind: 'tv',
+            latestUrl: 'json/tv_jp_latest.json',
+            completeUrl: 'json/tv_jp_complete.json',
+            showNetworkFilter: true,
+            itemFilter: isAnimationItem
+        },
         movie_cn: {
             id: 'movie_cn',
             label: '院线电影',
@@ -101,6 +110,20 @@ function bootstrapApp() {
             }
         },
         tv_jp: {
+            thresholds: [
+                { label: '全部', value: 0 },
+                { label: '> 8分', value: 8 },
+                { label: '> 7分', value: 7 },
+                { label: '> 6分', value: 6 }
+            ],
+            special: {
+                label: '近2年高分',
+                value: 'recent_high_score',
+                years: 2,
+                minRating: 7
+            }
+        },
+        tv_jp_anime: {
             thresholds: [
                 { label: '全部', value: 0 },
                 { label: '> 8分', value: 8 },
@@ -478,14 +501,16 @@ function bootstrapApp() {
             if (!Array.isArray(data.shows)) {
                 throw new Error('TV payload must contain a "shows" array.');
             }
-            return dedupeCatalogItems('tv', normalizeTvItems(data.shows));
+            const normalizedItems = dedupeCatalogItems('tv', normalizeTvItems(data.shows));
+            return typeof config.itemFilter === 'function' ? normalizedItems.filter(config.itemFilter) : normalizedItems;
         }
 
         if (!Array.isArray(data.movies)) {
             throw new Error('Movie payload must contain a "movies" array.');
         }
 
-        return dedupeCatalogItems('movie', normalizeMovieItems(data.movies));
+        const normalizedItems = dedupeCatalogItems('movie', normalizeMovieItems(data.movies));
+        return typeof config.itemFilter === 'function' ? normalizedItems.filter(config.itemFilter) : normalizedItems;
     }
 
     function normalizeTvItems(shows) {
@@ -944,6 +969,14 @@ function bootstrapApp() {
         return GENRE_DISPLAY_MAP[genreName] || genreName;
     }
 
+    function itemHasGenre(item, genreName) {
+        return (item.genres || []).some((genre) => getGenreDisplayName(genre) === genreName || genre === genreName);
+    }
+
+    function isAnimationItem(item) {
+        return itemHasGenre(item, '动画');
+    }
+
     function applyFilters() {
         let sourceItems = [...allItems];
 
@@ -979,7 +1012,7 @@ function bootstrapApp() {
                   );
 
         const filteredNoRatingAnime = genreFiltered.filter((item) => {
-            const isAnimation = item.genres.includes('动画');
+            const isAnimation = isAnimationItem(item);
             const hasRating = item.doubanRating && Number(item.doubanRating) > 0;
             return !(isAnimation && !hasRating);
         });

@@ -11,6 +11,9 @@ on:
     types:
       - completed
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 permissions:
   contents: read
   pages: write
@@ -30,7 +33,7 @@ jobs:
 
     steps:
       - name: 检出仓库
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
 
@@ -38,7 +41,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: 上传静态站点产物
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: .
 
