@@ -4,6 +4,12 @@ function bootstrapApp() {
     const DEFAULT_CATEGORY_ID = 'tv_cn';
     const ITEMS_PER_PAGE = 18;
     const FUTURE_TAG = '即将上映';
+    const DOUBAN_STATUS_URL = 'json/douban_statuses.json';
+    const DOUBAN_STATUS_LABELS = {
+        watching: '在看',
+        watched: '看过',
+        wishlist: '想看'
+    };
 
     const CATEGORY_CONFIG = {
         tv_us: {
@@ -289,9 +295,12 @@ function bootstrapApp() {
     let genreFiltersExpanded = false;
     let networkFiltersExpanded = false;
     let lastAutoRefreshAt = 0;
+    let doubanStatuses = {};
+    let isDoubanSyncing = false;
 
     const pageTitleText = document.getElementById('page-title-text');
     const mainTitle = document.querySelector('h1');
+    const doubanAuthStatus = document.getElementById('douban-auth-status');
     const categoryFilterContainer = document.getElementById('category-filter-container');
     const ratingFilterContainer = document.getElementById('rating-filter-container');
     const genreFilterContainer = document.getElementById('genre-filter-container');
@@ -324,11 +333,13 @@ function bootstrapApp() {
     }
 
     async function initialize() {
+        updateDoubanAuthUI();
         populateRatingFilters();
         populateGenreFilters([]);
         showSkeletonLoader();
 
         try {
+            await hydrateDoubanStatuses();
             await ensureCategoryLoaded(DEFAULT_CATEGORY_ID);
         } catch (error) {
             statusMessage.textContent = '加载数据失败或文件格式无效。';
@@ -540,6 +551,8 @@ function bootstrapApp() {
                     networks,
                     doubanRating: season.douban_rating || null,
                     doubanLink: season.douban_link_google || null,
+                    doubanSubjectId: extractDoubanSubjectId(season.douban_link_google || null),
+                    doubanCollectionStatus: null,
                     doubanVerified: Boolean(season.douban_link_verified),
                     tmdbUrl: tmdbId ? `https://www.themoviedb.org/tv/${tmdbId}` : null,
                     tmdbSearchUrl: buildTmdbSearchUrl(title, season.air_date),
@@ -579,6 +592,8 @@ function bootstrapApp() {
                 networks: [],
                 doubanRating: movie.douban_rating || null,
                 doubanLink: movie.douban_link_google || null,
+                doubanSubjectId: extractDoubanSubjectId(movie.douban_link_google || null),
+                doubanCollectionStatus: null,
                 doubanVerified: Boolean(movie.douban_link_verified),
                 tmdbUrl: tmdbId ? `https://www.themoviedb.org/movie/${tmdbId}` : null,
                 tmdbSearchUrl: buildTmdbSearchUrl(primaryTitle, releaseDate),
@@ -702,9 +717,29 @@ function bootstrapApp() {
         return `${name} (${originalName})`;
     }
 
+    function extractDoubanSubjectId(link) {
+        const match = String(link || '').match(/subject\/(\d+)/);
+        return match ? match[1] : null;
+    }
+
+    function getCollectionStatusForItem(item) {
+        if (!item?.doubanSubjectId) {
+            return null;
+        }
+
+        return doubanStatuses[item.doubanSubjectId]?.status || null;
+    }
+
+    function attachDoubanStatus(item) {
+        return {
+            ...item,
+            doubanCollectionStatus: getCollectionStatusForItem(item)
+        };
+    }
+
     function syncCurrentCategoryData() {
         const state = getCurrentCategoryState();
-        allItems = [...state.items];
+        allItems = state.items.map(attachDoubanStatus);
 
         updateSubtitleText();
         populateGenreFilters(allItems);
@@ -1276,7 +1311,10 @@ function bootstrapApp() {
         const chips = [];
 
         if (item.genres && item.genres.length > 0) {
-            chips.push(getGenreDisplayName(item.genres[0]));
+            chips.push({
+                label: getGenreDisplayName(item.genres[0]),
+                variant: 'genre'
+            });
         }
 
         return chips.slice(0, 2);
@@ -1290,7 +1328,7 @@ function bootstrapApp() {
             : '';
         const chipLabels = getCardChipLabels(item);
         const chipHtml = chipLabels.length > 0
-            ? `<div class="card-chip-row">${chipLabels.map((label) => `<span class="card-chip">${label}</span>`).join('')}</div>`
+            ? `<div class="card-chip-row">${chipLabels.map((chip) => `<span class="card-chip ${chip.variant || ''}">${chip.label}</span>`).join('')}</div>`
             : '';
 
         let ratingElementHTML = '';
@@ -1305,9 +1343,13 @@ function bootstrapApp() {
         const posterContainerClass = item.doubanVerified && item.doubanLink
             ? 'card-poster-container clickable'
             : 'card-poster-container';
+        const statusBadgeHtml =
+            item.doubanCollectionStatus && DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]
+                ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]}</span>`
+                : '';
         const posterHTML = item.doubanVerified && item.doubanLink
-            ? `<a href="${item.doubanLink}" target="_blank" rel="noopener noreferrer" class="poster-link">${imageHTML}</a>`
-            : imageHTML;
+            ? `<a href="${item.doubanLink}" target="_blank" rel="noopener noreferrer" class="poster-link">${statusBadgeHtml}${imageHTML}</a>`
+            : `${statusBadgeHtml}${imageHTML}`;
 
         const links = [];
         if (item.doubanVerified && item.doubanLink) {
@@ -1325,6 +1367,7 @@ function bootstrapApp() {
         const card = document.createElement('div');
         card.className = 'show-card';
         card.innerHTML = `<div class="${posterContainerClass}">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${subtitleHtml}${airDateInfo}${chipHtml}${links.length ? `<div class="card-links">${links.join('')}</div>` : ''}</div>`;
+
         return card;
     }
 
@@ -1338,6 +1381,34 @@ function bootstrapApp() {
         }
 
         return posterPath.startsWith('/') ? `${TMDB_IMAGE_BASE_URL}${posterPath}` : posterPath;
+    }
+
+    function updateDoubanAuthUI() {
+        if (!doubanAuthStatus) {
+            return;
+        }
+
+        doubanAuthStatus.textContent = isDoubanSyncing
+            ? '正在加载 lrwei91 的豆瓣状态…'
+            : '默认展示豆瓣用户 lrwei91 的想看、在看、看过状态。';
+    }
+
+    async function hydrateDoubanStatuses() {
+        try {
+            const response = await fetch(buildFreshUrl(DOUBAN_STATUS_URL), {
+                cache: 'no-store'
+            });
+            if (!response.ok) {
+                throw new Error(`Could not load ${DOUBAN_STATUS_URL}`);
+            }
+            const payload = await response.json();
+            doubanStatuses = payload.statuses || {};
+        } catch (error) {
+            console.error('Failed to hydrate Douban statuses:', error);
+            doubanStatuses = {};
+        } finally {
+            updateDoubanAuthUI();
+        }
     }
 
     function updateGenreFilterCollapse() {

@@ -17,6 +17,7 @@
 - 时间线导航：按年份和月份浏览历史条目，并保留即将上映区域
 - 分页加载：滚动时渐进追加卡片，降低一次性渲染压力
 - 日漫分页：使用独立 `tv_jp_anime` 数据源，和日剧分开抓取、分开缓存、分开展示
+- 豆瓣状态：默认展示豆瓣用户 `lrwei91` 的想看、在看、看过状态，并在卡片上显示状态标签
 
 ## 加载策略
 
@@ -26,6 +27,7 @@
 - 其他分类在首次切换时，先请求各自 `latest`，随后异步请求各自 `complete`
 - `tv_jp_anime` 使用独立的 `json/tv_jp_anime_latest.json` / `json/tv_jp_anime_complete.json`
 - 已加载过的分类会直接命中前端缓存，不重复请求
+- 豆瓣状态由仓库内脚本抓取并缓存为静态 JSON，前端不会在页面加载时直接抓取豆瓣站点
 
 这样做的目的，是避免在进入页面时同时预取多份完整 JSON，导致静态站点的后台流量和解析成本明显上升。
 
@@ -55,6 +57,7 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 - `json/tv_jp_complete.json`
 - `json/tv_jp_anime_latest.json`
 - `json/tv_jp_anime_complete.json`
+- `json/douban_statuses.json`
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
 - `posters/douban/tv_cn/*`
@@ -169,3 +172,10 @@ TV 分类继续沿用现有结构：
 ## 说明
 
 这个仓库当前不包含原有美剧、英剧的抓取 pipeline；但已经包含国产剧、韩剧、日剧、日漫和院线电影的数据生成脚本，用于直接更新前端消费的 JSON 文件。
+
+## 豆瓣状态同步
+
+- 页面默认展示豆瓣用户 `lrwei91` 的 `想看 / 在看 / 看过`
+- 抓取脚本会同步 `https://movie.douban.com/people/lrwei91/` 下的公开电影列表页
+- 抓取结果会写入 `json/douban_statuses.json`
+- 列表卡片通过现有 `douban_link_google` 提取 subject id，与抓取到的状态做匹配

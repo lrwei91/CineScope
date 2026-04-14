@@ -11,6 +11,7 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
 const TMDB_API_BASE = 'https://api.themoviedb.org/3';
 const CURRENT_YEAR = new Date().getFullYear();
 const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
+const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
 
 const REQUEST_HEADERS = {
     Referer: 'https://m.douban.com/',
@@ -160,6 +161,12 @@ async function main() {
         );
         logFallbackSummary(spec.id, result.fallbackSummary);
     }
+
+    const doubanStatusesPayload = await buildDoubanStatusesPayload(DOUBAN_DEFAULT_USER_ID);
+    await writeJson('json/douban_statuses.json', doubanStatusesPayload);
+    console.log(
+        `[douban_statuses] user=${DOUBAN_DEFAULT_USER_ID} total=${doubanStatusesPayload.metadata.total_items} -> json/douban_statuses.json`
+    );
 }
 
 async function buildCategoryData(spec) {
@@ -379,6 +386,22 @@ async function fetchBinary(url) {
     return Buffer.from(arrayBuffer);
 }
 
+async function fetchHtml(url) {
+    const response = await fetch(url, {
+        headers: {
+            Referer: 'https://movie.douban.com/',
+            'User-Agent': REQUEST_HEADERS['User-Agent'],
+            Accept: 'text/html,application/xhtml+xml'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`Request failed (${response.status}): ${url}`);
+    }
+
+    return response.text();
+}
+
 async function materializePoster(categoryId, subjectId, remoteUrl) {
     if (!remoteUrl || !/^https?:\/\//i.test(remoteUrl)) {
         return remoteUrl;
@@ -413,6 +436,89 @@ async function fetchTmdbDiscoverItems(discoverPath, extraParams) {
     }
 
     return items;
+}
+
+async function buildDoubanStatusesPayload(userId) {
+    const timestamp = new Date().toISOString();
+    const statuses = await fetchDoubanUserStatuses(userId);
+    return {
+        metadata: {
+            last_updated: timestamp,
+            source: 'douban-public-page',
+            user_id: userId,
+            total_items: Object.keys(statuses).length
+        },
+        statuses
+    };
+}
+
+async function fetchDoubanUserStatuses(userId) {
+    const statusMap = {
+        wish: 'wishlist',
+        do: 'watching',
+        collect: 'watched'
+    };
+    const statuses = {};
+
+    for (const [slug, normalizedStatus] of Object.entries(statusMap)) {
+        let start = 0;
+
+        while (true) {
+            const html = await fetchHtml(buildDoubanPeopleUrl(userId, slug, start));
+            const page = parseDoubanPeoplePage(html, normalizedStatus);
+            page.items.forEach((item) => {
+                statuses[item.subjectId] = {
+                    status: item.status,
+                    updatedAt: item.updatedAt
+                };
+            });
+
+            if (!page.hasNextPage || page.items.length === 0) {
+                break;
+            }
+
+            start += page.items.length;
+        }
+    }
+
+    return statuses;
+}
+
+function buildDoubanPeopleUrl(userId, slug, start) {
+    const url = new URL(`https://movie.douban.com/people/${encodeURIComponent(userId)}/${slug}`);
+    url.searchParams.set('start', String(start));
+    url.searchParams.set('sort', 'time');
+    url.searchParams.set('rating', 'all');
+    url.searchParams.set('filter', 'all');
+    url.searchParams.set('mode', 'grid');
+    return url.toString();
+}
+
+function parseDoubanPeoplePage(html, normalizedStatus) {
+    const itemPattern = /<div class="item comment-item"[\s\S]*?<\/div>\s*<\/div>/g;
+    const hrefPattern = /href="https?:\/\/movie\.douban\.com\/subject\/(\d+)\/"/;
+    const datePattern = /<span class="date">([^<]+)<\/span>/;
+    const items = [];
+
+    const matches = html.match(itemPattern) || [];
+    matches.forEach((block) => {
+        const hrefMatch = block.match(hrefPattern);
+        if (!hrefMatch) {
+            return;
+        }
+
+        const dateMatch = block.match(datePattern);
+        items.push({
+            subjectId: hrefMatch[1],
+            status: normalizedStatus,
+            updatedAt: dateMatch ? dateMatch[1].trim() : new Date().toISOString()
+        });
+    });
+
+    return {
+        items,
+        hasNextPage: /<span class="next">[\s\S]*?<a href=/.test(html) || /<a[^>]+>后页/.test(html)
+    };
 }
 
 async function fetchTmdbDetail(detailPath, itemId) {
