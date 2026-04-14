@@ -831,12 +831,25 @@ function createItemSignature(kind, item) {
     const title = kind === 'tv' ? item.name : item.title;
     const originalTitle = kind === 'tv' ? item.original_name : item.original_title;
     const date = getItemDate(kind, item);
+    const doubanLink =
+        kind === 'tv'
+            ? item.seasons?.[0]?.douban_link_google || item.douban_link_google || ''
+            : item.douban_link_google || '';
+    const imdbId = item.imdb_id || '';
 
-    if (kind === 'movie') {
-        return `${normalizeLookupText(title || originalTitle)}::${String(date).slice(0, 7)}`;
+    if (doubanLink) {
+        return `douban::${normalizeLookupText(doubanLink)}::${String(date).slice(0, 10)}`;
     }
 
-    return `${normalizeLookupText(title || originalTitle)}::${date}`;
+    if (imdbId) {
+        return `imdb::${normalizeLookupText(imdbId)}::${String(date).slice(0, 10)}`;
+    }
+
+    if (kind === 'movie') {
+        return `${normalizeLookupText(originalTitle || title)}::${String(date).slice(0, 7)}`;
+    }
+
+    return `${normalizeLookupText(originalTitle || title)}::${date}`;
 }
 
 function isMainlandChinaEntry(item) {
