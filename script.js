@@ -50,10 +50,10 @@ function bootstrapApp() {
             id: 'tv_jp_anime',
             label: '日漫',
             kind: 'tv',
-            latestUrl: 'json/tv_jp_latest.json',
-            completeUrl: 'json/tv_jp_complete.json',
+            latestUrl: 'json/tv_jp_anime_latest.json',
+            completeUrl: 'json/tv_jp_anime_complete.json',
             showNetworkFilter: true,
-            itemFilter: isAnimationItem
+            allowUnratedAnimation: true
         },
         movie_cn: {
             id: 'movie_cn',
@@ -1011,11 +1011,13 @@ function bootstrapApp() {
                       item.genres.some((genre) => selectedGenres.includes(genre))
                   );
 
-        const filteredNoRatingAnime = genreFiltered.filter((item) => {
-            const isAnimation = isAnimationItem(item);
-            const hasRating = item.doubanRating && Number(item.doubanRating) > 0;
-            return !(isAnimation && !hasRating);
-        });
+        const filteredNoRatingAnime = getCurrentCategoryConfig().allowUnratedAnimation
+            ? genreFiltered
+            : genreFiltered.filter((item) => {
+                  const isAnimation = isAnimationItem(item);
+                  const hasRating = item.doubanRating && Number(item.doubanRating) > 0;
+                  return !(isAnimation && !hasRating);
+              });
 
         const networkFiltered =
             selectedNetworks.length === 0

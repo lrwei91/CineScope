@@ -40,10 +40,22 @@ jobs:
       - name: 配置 Pages
         uses: actions/configure-pages@v5
 
+      - name: 打包静态站点产物
+        run: |
+          tar \
+            --dereference \
+            --hard-dereference \
+            --directory . \
+            -cvf "$RUNNER_TEMP/github-pages.tar" \
+            .
+          gzip -f "$RUNNER_TEMP/github-pages.tar"
+
       - name: 上传静态站点产物
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
-          path: .
+          name: github-pages
+          path: ${{ runner.temp }}/github-pages.tar.gz
+          retention-days: 1
 
       - name: 部署到 GitHub Pages
         id: deployment

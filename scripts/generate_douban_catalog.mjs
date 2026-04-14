@@ -95,6 +95,32 @@ const CATEGORY_SPECS = [
         }
     },
     {
+        id: 'tv_jp_anime',
+        kind: 'tv',
+        latestCount: 18,
+        minDate: '2025-01-01',
+        latestPath: 'json/tv_jp_anime_latest.json',
+        completePath: 'json/tv_jp_anime_complete.json',
+        doubanSources: [
+            { slug: 'tv_animation', includeItem: isJapaneseAnimationEntry }
+        ],
+        tmdb: {
+            discoverPath: '/discover/tv',
+            detailPath: '/tv',
+            params: {
+                language: 'zh-CN',
+                sort_by: 'first_air_date.desc',
+                'first_air_date.gte': '2025-01-01',
+                'first_air_date.lte': END_OF_CURRENT_YEAR,
+                with_origin_country: 'JP',
+                with_original_language: 'ja',
+                with_genres: '16',
+                include_null_first_air_dates: 'false',
+                'vote_count.gte': '5'
+            }
+        }
+    },
+    {
         id: 'movie_cn',
         kind: 'movie',
         latestCount: 24,
@@ -592,6 +618,7 @@ function createPayload(spec, items, sourceResults, level) {
         tv_cn: '国产剧',
         tv_kr: '韩剧',
         tv_jp: '日剧',
+        tv_jp_anime: '日漫',
         movie_cn: '院线电影'
     };
 
@@ -825,6 +852,15 @@ function isKoreanEntry(item) {
 function isJapaneseEntry(item) {
     const subtitle = item?.card_subtitle || item?.info || '';
     return subtitle.includes('日本');
+}
+
+function isAnimationEntry(item) {
+    const subtitle = item?.card_subtitle || item?.info || '';
+    return subtitle.includes('动画');
+}
+
+function isJapaneseAnimationEntry(item) {
+    return isJapaneseEntry(item) && isAnimationEntry(item);
 }
 
 async function mapWithConcurrency(items, concurrency, mapper) {
