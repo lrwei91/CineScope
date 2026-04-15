@@ -296,6 +296,7 @@ function bootstrapApp() {
     let networkFiltersExpanded = false;
     let lastAutoRefreshAt = 0;
     let doubanStatuses = {};
+    let doubanStatusesMetadata = null;
     let isDoubanSyncing = false;
 
     const pageTitleText = document.getElementById('page-title-text');
@@ -1388,12 +1389,24 @@ function bootstrapApp() {
             return;
         }
 
-        doubanAuthStatus.textContent = isDoubanSyncing
-            ? '正在加载 lrwei91 的豆瓣状态…'
-            : '默认展示豆瓣用户 lrwei91 的想看、在看、看过状态。';
+        // 显示豆瓣同步状态时间（从 douban_statuses.json metadata 中获取）
+        if (isDoubanSyncing) {
+            doubanAuthStatus.textContent = '同步中...';
+        } else {
+            // 尝试从已加载的数据中获取同步时间
+            const lastUpdated = doubanStatusesMetadata?.last_updated;
+            if (lastUpdated) {
+                doubanAuthStatus.textContent = `已同步 ${formatUpdateTimestamp(lastUpdated)}`;
+            } else {
+                doubanAuthStatus.textContent = '已同步';
+            }
+        }
     }
 
     async function hydrateDoubanStatuses() {
+        isDoubanSyncing = true;
+        updateDoubanAuthUI();
+        
         try {
             const response = await fetch(buildFreshUrl(DOUBAN_STATUS_URL), {
                 cache: 'no-store'
@@ -1403,10 +1416,13 @@ function bootstrapApp() {
             }
             const payload = await response.json();
             doubanStatuses = payload.statuses || {};
+            doubanStatusesMetadata = payload.metadata || null;
         } catch (error) {
             console.error('Failed to hydrate Douban statuses:', error);
             doubanStatuses = {};
+            doubanStatusesMetadata = null;
         } finally {
+            isDoubanSyncing = false;
             updateDoubanAuthUI();
         }
     }

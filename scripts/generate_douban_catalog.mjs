@@ -943,7 +943,14 @@ function createItemSignature(kind, item) {
             : item.douban_link_google || '';
     const imdbId = item.imdb_id || '';
 
+    // 对于豆瓣链接，提取 subject_id 作为签名（不带日期）
+    // 同一豆瓣条目在不同数据源可能有不同的日期，应视为同一部作品
     if (doubanLink) {
+        const subjectId = extractDoubanSubjectId(doubanLink);
+        if (subjectId) {
+            return `douban::${subjectId}`;
+        }
+        // 如果无法提取 subject_id，回退到原逻辑
         return `douban::${normalizeLookupText(doubanLink)}::${String(date).slice(0, 10)}`;
     }
 
@@ -956,6 +963,16 @@ function createItemSignature(kind, item) {
     }
 
     return `${normalizeLookupText(originalTitle || title)}::${date}`;
+}
+
+/**
+ * 从豆瓣链接中提取 subject_id
+ * 支持格式: https://movie.douban.com/subject/123456/ 或 movie.douban.com/subject/123456
+ */
+function extractDoubanSubjectId(link) {
+    if (!link) return null;
+    const match = link.match(/subject\/(\d+)/);
+    return match ? match[1] : null;
 }
 
 function isMainlandChinaEntry(item) {
