@@ -1646,6 +1646,8 @@ function bootstrapApp() {
         });
 
         let scrollTimeout;
+        const backToTopBtn = document.getElementById('back-to-top');
+
         window.addEventListener('scroll', () => {
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
@@ -1653,7 +1655,25 @@ function bootstrapApp() {
                 if (!isLoading && window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
                     loadMoreItems();
                 }
+                // 控制返回顶部按钮显示
+                if (backToTopBtn) {
+                    if (window.scrollY > 600) {
+                        backToTopBtn.classList.add('visible');
+                        backToTopBtn.hidden = false;
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                        backToTopBtn.hidden = true;
+                    }
+                }
             }, 50);
+        });
+
+        // 返回顶部按钮点击事件
+        backToTopBtn?.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
 
         genreFilterToggle?.addEventListener('click', () => {

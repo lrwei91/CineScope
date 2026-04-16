@@ -730,6 +730,50 @@ h1 .update-date {
     transition: transform 0.35s ease, opacity 0.35s ease, visibility 0s;
 }
 
+.back-to-top-btn {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(34, 34, 34, 0.1);
+    border-radius: 50%;
+    background: var(--palette-bg-surface);
+    color: var(--palette-text-primary);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: opacity 0.25s ease, visibility 0s 0.25s, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.back-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.back-to-top-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(255, 56, 92, 0.35);
+    color: var(--palette-bg-primary-pressed);
+}
+
+.back-to-top-btn svg {
+    transition: transform 0.2s ease;
+}
+
+.back-to-top-btn:hover svg {
+    transform: translateY(-2px);
+}
+
 .interactive-timeline {
     position: fixed;
     left: 24px;
@@ -948,6 +992,13 @@ h1 .update-date {
 
     .filter-toggle {
         display: none;
+    }
+
+    .back-to-top-btn {
+        right: 16px;
+        bottom: 16px;
+        width: 44px;
+        height: 44px;
     }
 
     .genre-tag {
