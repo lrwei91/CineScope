@@ -225,6 +225,7 @@ h1 .update-date {
     justify-content: space-between;
     gap: 12px;
     margin-bottom: 12px;
+    line-height: 1;
 }
 
 .filter-label {
@@ -955,8 +956,12 @@ h1 .update-date {
 
     .filters-navigation,
     .sticky-header {
-        padding: 18px 16px;
+        padding: 20px 16px 16px;
         border-radius: 24px;
+    }
+
+    .filter-label-row {
+        margin-bottom: 10px;
     }
 
     .filter-row-primary {
