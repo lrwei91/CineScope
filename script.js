@@ -1202,7 +1202,7 @@ function bootstrapApp() {
             return;
         }
 
-        const cardsHTML = futureItems.map((item) => createCatalogCard(item).outerHTML).join('');
+        const cardsHTML = futureItems.map((item, index) => createCatalogCard(item, index).outerHTML).join('');
 
         comingSoonContainer.innerHTML = `<h2 class="month-group-header">即将上映</h2><div class="scroller-wrapper"><button class="scroller-arrow left" aria-label="Scroll left">‹</button><div class="scroller-container"><div class="horizontal-scroller">${cardsHTML}</div></div><button class="scroller-arrow right" aria-label="Scroll right">›</button></div>`;
         comingSoonContainer.style.display = 'block';
@@ -1322,7 +1322,7 @@ function bootstrapApp() {
             currentGrid = resultsContainer.querySelector('.month-grid:last-of-type');
         }
 
-        itemsToRender.forEach((item) => {
+        itemsToRender.forEach((item, index) => {
             if (specialFilterMode !== 'recent_high_score') {
                 const monthKey = item.date.substring(0, 7);
 
@@ -1341,7 +1341,7 @@ function bootstrapApp() {
                 }
             }
 
-            const card = createCatalogCard(item);
+            const card = createCatalogCard(item, index);
             if (!currentGrid) {
                 currentGrid = document.createElement('div');
                 currentGrid.className = 'month-grid';
@@ -1364,7 +1364,7 @@ function bootstrapApp() {
         return chips.slice(0, 2);
     }
 
-    function createCatalogCard(item) {
+    function createCatalogCard(item, animationDelayIdx = 0) {
         const posterUrl = resolvePosterUrl(item.posterPath);
         const titleText = item.title || '未命名';
         const subtitleHtml = item.subtitle
@@ -1409,7 +1409,8 @@ function bootstrapApp() {
         }
 
         const card = document.createElement('div');
-        card.className = 'show-card';
+        card.className = 'show-card matrix-enter';
+        card.style.animationDelay = `${animationDelayIdx * 40}ms`;
         card.innerHTML = `<div class="${posterContainerClass}">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${subtitleHtml}${airDateInfo}${chipHtml}${links.length ? `<div class="card-links">${links.join('')}</div>` : ''}</div>`;
 
         card.addEventListener('mousemove', (e) => {
@@ -1791,6 +1792,44 @@ function bootstrapApp() {
     setupScrollFade(ratingFilterContainer);
     setupScrollFade(genreFilterContainer);
     setupScrollFade(networkFilterContainer);
+
+    // Setup Custom Tactical Cursor Engine
+    const cursorCore = document.getElementById('custom-cursor-core');
+    const cursorRing = document.getElementById('custom-cursor-ring');
+    
+    if (cursorCore && cursorRing) {
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }, { passive: true });
+
+        const updateCursor = () => {
+            cursorCore.style.left = mouseX + 'px';
+            cursorCore.style.top = mouseY + 'px';
+            cursorRing.style.left = mouseX + 'px';
+            cursorRing.style.top = mouseY + 'px';
+            requestAnimationFrame(updateCursor);
+        };
+        requestAnimationFrame(updateCursor);
+
+        const setHoverState = () => document.body.classList.add('cursor-hover');
+        const removeHoverState = () => document.body.classList.remove('cursor-hover');
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, input, .clickable, .genre-tag, .scroller-arrow, .poster-link, .interactive-timeline li, .year-item, .card-poster-container, .card-title')) {
+                setHoverState();
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, input, .clickable, .genre-tag, .scroller-arrow, .poster-link, .interactive-timeline li, .year-item, .card-poster-container, .card-title')) {
+                removeHoverState();
+            }
+        });
+    }
 }
 
 if (document.readyState === 'loading') {
