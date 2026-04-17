@@ -1363,7 +1363,7 @@ h1 .update-date {
     left: 50%;
     transform: translateX(-50%);
     z-index: 500;
-    display: none;
+    display: flex;
     align-items: center;
     gap: 8px;
     padding: 14px 28px;
@@ -1442,7 +1442,7 @@ h1 .update-date {
     overflow-y: auto;
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
