@@ -1384,34 +1384,22 @@ function bootstrapApp() {
 
         const airDateInfo = item.date ? `<p class="card-meta-info">上映日期：${item.date}</p>` : '';
         const imageHTML = `<img src="${posterUrl}" alt="${titleText}" class="poster" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750.png?text=No+Image';">`;
-        const posterContainerClass = item.doubanVerified && item.doubanLink
-            ? 'card-poster-container clickable'
-            : 'card-poster-container';
+        
         const statusBadgeHtml =
             item.doubanCollectionStatus && DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]
                 ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]}</span>`
                 : '';
-        const posterHTML = item.doubanVerified && item.doubanLink
-            ? `<a href="${item.doubanLink}" target="_blank" rel="noopener noreferrer" class="poster-link">${statusBadgeHtml}${imageHTML}</a>`
-            : `${statusBadgeHtml}${imageHTML}`;
-
-        const links = [];
-        if (item.doubanVerified && item.doubanLink) {
-            links.push(`<a href="${item.doubanLink}" class="card-link" target="_blank" rel="noopener noreferrer">豆瓣</a>`);
-        }
-        if (item.tmdbUrl) {
-            links.push(`<a href="${item.tmdbUrl}" class="card-link" target="_blank" rel="noopener noreferrer">TMDb</a>`);
-        } else if (item.tmdbSearchUrl) {
-            links.push(`<a href="${item.tmdbSearchUrl}" class="card-link" target="_blank" rel="noopener noreferrer">TMDb 搜索</a>`);
-        }
-        if (item.imdbUrl) {
-            links.push(`<a href="${item.imdbUrl}" class="card-link" target="_blank" rel="noopener noreferrer">IMDb</a>`);
-        }
+                
+        const posterHTML = `${statusBadgeHtml}${imageHTML}`;
 
         const card = document.createElement('div');
-        card.className = 'show-card matrix-enter';
+        card.className = 'show-card matrix-enter clickable';
         card.style.animationDelay = `${animationDelayIdx * 40}ms`;
-        card.innerHTML = `<div class="${posterContainerClass}">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${subtitleHtml}${airDateInfo}${chipHtml}${links.length ? `<div class="card-links">${links.join('')}</div>` : ''}</div>`;
+        card.innerHTML = `<div class="card-poster-container">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${subtitleHtml}${airDateInfo}${chipHtml}</div>`;
+
+        card.addEventListener('click', () => {
+            openIntelDossier(item);
+        });
 
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -1765,6 +1753,119 @@ function bootstrapApp() {
             toast.classList.remove('show');
         }, 3000);
     }
+
+    // --- Intel Dossier Slide-out Modal Logic ---
+    const dossierOverlay = document.getElementById('intel-dossier-overlay');
+    const dossierDrawer = document.getElementById('intel-dossier');
+    const closeDossierBtn = document.getElementById('close-dossier-btn');
+    
+    function generateIdFromTitle(title) {
+        let hash = 0;
+        for (let i = 0; i < title.length; i++) {
+            hash = title.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+    }
+
+    window.openIntelDossier = function(item) {
+        if (!dossierOverlay || !dossierDrawer) return;
+
+        // Populate Data
+        document.getElementById('dossier-poster').src = resolvePosterUrl(item.posterPath);
+        
+        const statusBadgeHtml = item.doubanCollectionStatus && DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]
+            ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]}</span>`
+            : '';
+        document.getElementById('dossier-status-badge').innerHTML = statusBadgeHtml;
+
+        const reportIdSpan = document.getElementById('dossier-id');
+        typeWriterEffect(reportIdSpan, generateIdFromTitle(item.title || 'UNKNOWN'), 10);
+
+        const titleSpan = document.getElementById('dossier-title');
+        typeWriterEffect(titleSpan, item.title || '未命名', 20);
+
+        const subtitleSpan = document.getElementById('dossier-subtitle');
+        if (item.subtitle) {
+            typeWriterEffect(subtitleSpan, item.subtitle, 20);
+        } else {
+            subtitleSpan.textContent = '';
+        }
+        
+        const ratingSpan = document.getElementById('dossier-rating');
+        if (item.doubanVerified && item.doubanRating) {
+            typeWriterEffect(ratingSpan, item.doubanRating.toString(), 30);
+        } else {
+            ratingSpan.textContent = 'N/A';
+        }
+        
+        document.getElementById('dossier-date').textContent = item.date || 'UNKNOWN';
+
+        const tagsContainer = document.getElementById('dossier-tags');
+        tagsContainer.innerHTML = '';
+        if (item.genres && item.genres.length > 0) {
+            item.genres.forEach(g => {
+                const tag = document.createElement('span');
+                tag.className = 'dossier-tag-item';
+                tag.textContent = getGenreDisplayName(g);
+                tagsContainer.appendChild(tag);
+            });
+        } else {
+            tagsContainer.innerHTML = '<span class="dossier-tag-item">NO_DATA</span>';
+        }
+
+        const networksContainer = document.getElementById('dossier-networks');
+        networksContainer.innerHTML = '';
+        if (item.networks && item.networks.length > 0) {
+            item.networks.forEach(n => {
+                const tag = document.createElement('span');
+                tag.className = 'dossier-tag-item';
+                tag.textContent = n;
+                networksContainer.appendChild(tag);
+            });
+        } else {
+            networksContainer.innerHTML = '<span class="dossier-tag-item">NO_DATA</span>';
+        }
+
+        const linksContainer = document.getElementById('dossier-links-container');
+        linksContainer.innerHTML = '';
+        const links = [];
+        if (item.doubanVerified && item.doubanLink) {
+            links.push(`<a href="${item.doubanLink}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: DOUBAN_DATABASE</a>`);
+        }
+        if (item.tmdbUrl) {
+            links.push(`<a href="${item.tmdbUrl}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: TMDB_DATABASE</a>`);
+        } else if (item.tmdbSearchUrl) {
+            links.push(`<a href="${item.tmdbSearchUrl}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: TMDB_SEARCH</a>`);
+        }
+        if (item.imdbUrl) {
+            links.push(`<a href="${item.imdbUrl}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: IMDB_DATABASE</a>`);
+        }
+        if (links.length > 0) {
+            linksContainer.innerHTML = links.join('');
+        } else {
+            linksContainer.innerHTML = '<span class="dossier-subtext">NO EXTERNAL UPLINKS FOUND</span>';
+        }
+
+        // Open animation
+        dossierOverlay.classList.add('active');
+        dossierDrawer.classList.add('active');
+        document.body.classList.add('modal-open');
+    };
+
+    function closeIntelDossier() {
+        if (!dossierOverlay || !dossierDrawer) return;
+        dossierOverlay.classList.remove('active');
+        dossierDrawer.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+
+    if (closeDossierBtn) closeDossierBtn.addEventListener('click', closeIntelDossier);
+    if (dossierOverlay) dossierOverlay.addEventListener('click', closeIntelDossier);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dossierDrawer && dossierDrawer.classList.contains('active')) {
+            closeIntelDossier();
+        }
+    });
 
     function setupScrollFade(container) {
         if (!container) {

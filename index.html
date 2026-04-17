@@ -169,5 +169,52 @@
     <!-- Custom Tactical Cursor -->
     <div id="custom-cursor-core" class="custom-cursor"></div>
     <div id="custom-cursor-ring" class="custom-cursor"></div>
+
+    <!-- Intel Dossier Slide-out Modal -->
+    <div id="intel-dossier-overlay" class="dossier-overlay"></div>
+    <aside id="intel-dossier" class="dossier-drawer">
+        <button id="close-dossier-btn" class="close-btn" aria-label="关闭面板">╳</button>
+        <div class="dossier-content">
+            <div class="dossier-visual">
+                <div class="dossier-poster-container">
+                    <img id="dossier-poster" src="" alt="Dossier Image">
+                    <div id="dossier-status-badge" class="poster-status-badge"></div>
+                </div>
+            </div>
+            <div class="dossier-data">
+                <p class="dossier-subtext">REPORT ID // <span id="dossier-id"></span></p>
+                <h2 id="dossier-title"></h2>
+                <h3 id="dossier-subtitle"></h3>
+                
+                <div class="dossier-metrics">
+                    <div class="metric-box">
+                        <span class="metric-label">SYS.RATING</span>
+                        <span id="dossier-rating" class="metric-value"></span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">AIR.DATE</span>
+                        <span id="dossier-date" class="metric-value"></span>
+                    </div>
+                </div>
+
+                <div class="dossier-tags-section">
+                    <p class="dossier-section-title">> CLASSIFICATION_TAGS</p>
+                    <div id="dossier-tags" class="dossier-tag-row"></div>
+                </div>
+
+                <div class="dossier-tags-section">
+                    <p class="dossier-section-title">> NETWORK_AFFILIATION</p>
+                    <div id="dossier-networks" class="dossier-tag-row"></div>
+                </div>
+
+                <div class="dossier-actions">
+                    <p class="dossier-section-title">> EXECUTE_EXTERNAL_UPLINK</p>
+                    <div id="dossier-links-container" class="dossier-links-row">
+                        <!-- Action links will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
 </body>
 </html>
