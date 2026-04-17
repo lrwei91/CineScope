@@ -1622,20 +1622,9 @@ body.cursor-hover #custom-cursor-ring {
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Global CRT Overlay */
+/* Global CRT Overlay - disabled */
 #crt-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 99998;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    background-size: 100% 4px, 12px 100%;
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.85);
-    opacity: 0.75;
-    animation: crtFlicker 0.15s infinite;
+    display: none;
 }
 
 @keyframes crtFlicker {
