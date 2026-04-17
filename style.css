@@ -1,3 +1,6 @@
+/* Lift FOUC guard set in inline <style> */
+body { visibility: visible; }
+
 :root {
     --palette-bg-page: #050505;
     --palette-bg-surface: #0c0c10;
@@ -1040,7 +1043,7 @@ h1 .update-date {
 
 @media (max-width: 900px) {
     .container {
-        padding: 0 0 80px; /* bottom padding for FAB */
+        padding: 0 12px 100px; /* add horizontal padding + extra bottom for FAB */
     }
 
     .hero-header {
@@ -1056,6 +1059,14 @@ h1 .update-date {
     }
 
     .mobile-nav-bar {
+        display: flex;
+    }
+
+    .mobile-filter-fab {
+        display: flex;
+    }
+
+    .mobile-filter-sheet {
         display: flex;
     }
 
@@ -1189,6 +1200,19 @@ h1 .update-date {
     }
 }
 
+/* =====================================================
+   MOBILE ACTION SHEET SYSTEM - Global hide (desktop default)
+   All shown via @media max-width:900px below
+   ===================================================== */
+.mobile-nav-bar,
+.mobile-category-sheet,
+.mobile-category-overlay,
+.mobile-filter-fab,
+.mobile-filter-sheet,
+.mobile-sheet-overlay {
+    display: none;
+}
+
 @media (max-width: 640px) {
     .month-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1201,18 +1225,8 @@ h1 .update-date {
 }
 
 /* =====================================================
-   MOBILE ACTION SHEET SYSTEM (900px and below only)
+   MOBILE ACTION SHEET SYSTEM - Component Styles
    ===================================================== */
-
-/* Hide mobile-only elements on desktop */
-.mobile-nav-bar,
-.mobile-category-sheet,
-.mobile-category-overlay,
-.mobile-filter-fab,
-.mobile-filter-sheet,
-.mobile-sheet-overlay {
-    display: none;
-}
 
 /* Mobile Nav Bar */
 .mobile-nav-bar {
@@ -1541,14 +1555,7 @@ h1 .update-date {
     text-shadow: 0 0 4px rgba(0, 240, 255, 0.3);
 }
 
-@media (max-width: 900px) {
-    .mobile-filter-fab {
-        display: flex;
-    }
-    .mobile-filter-sheet {
-        display: flex;
-    }
-}
+
 
 /* Custom Tactical Cursor Global */
 @media (pointer: fine) {
