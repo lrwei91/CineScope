@@ -250,6 +250,27 @@ function bootstrapApp() {
         return `${url}${separator}t=${Date.now()}`;
     }
 
+    function typeWriterEffect(element, text, speed = 30) {
+        if (!element) return;
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#%&*+<>-=';
+        let iterations = 0;
+        clearInterval(element.dataset.typingInterval);
+        
+        element.dataset.typingInterval = setInterval(() => {
+            element.textContent = text.split('').map((letter, index) => {
+                if(index < iterations) {
+                    return text[index];
+                }
+                return chars[Math.floor(Math.random() * chars.length)];
+            }).join('');
+            
+            if(iterations >= text.length) {
+                clearInterval(element.dataset.typingInterval);
+            }
+            iterations += 1 / 2; 
+        }, speed);
+    }
+
     function formatUpdateTimestamp(value) {
         if (!value) {
             return '';
@@ -284,6 +305,7 @@ function bootstrapApp() {
     let selectedGenres = [];
     let selectedNetworks = [];
     let selectedRating = '全部';
+    let searchQuery = '';
 
     let currentPage = 1;
     let isLoading = false;
@@ -318,10 +340,19 @@ function bootstrapApp() {
     const noResultsMessage = document.getElementById('no-results');
     const loader = document.getElementById('loader');
     const skeletonContainer = document.getElementById('skeleton-container');
+    const radarSearchInput = document.getElementById('radar-search');
+
+    if (radarSearchInput) {
+        radarSearchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            filterAndRenderItems();
+        });
+    }
 
     document.title = DEFAULT_TITLE;
+    document.title = DEFAULT_TITLE;
     if (pageTitleText) {
-        pageTitleText.textContent = DEFAULT_TITLE;
+        typeWriterEffect(pageTitleText, DEFAULT_TITLE);
     }
     setCurrentCategory(DEFAULT_CATEGORY_ID);
 
@@ -365,6 +396,10 @@ function bootstrapApp() {
         selectedRating = '全部';
         selectedGenres = [];
         selectedNetworks = [];
+        searchQuery = '';
+        if (radarSearchInput) {
+            radarSearchInput.value = '';
+        }
         genreFiltersExpanded = false;
         networkFiltersExpanded = false;
     }
@@ -1016,6 +1051,14 @@ function bootstrapApp() {
     function applyFilters() {
         let sourceItems = [...allItems];
 
+        if (searchQuery) {
+            const query = searchQuery.toLowerCase();
+            sourceItems = sourceItems.filter(item => 
+                (item.title && item.title.toLowerCase().includes(query)) ||
+                (item.subtitle && item.subtitle.toLowerCase().includes(query))
+            );
+        }
+
         if (specialFilterMode === 'recent_high_score') {
             const specialConfig = getCurrentRatingConfig().special;
             const sinceDate = new Date();
@@ -1369,6 +1412,25 @@ function bootstrapApp() {
         card.className = 'show-card';
         card.innerHTML = `<div class="${posterContainerClass}">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${subtitleHtml}${airDateInfo}${chipHtml}${links.length ? `<div class="card-links">${links.join('')}</div>` : ''}</div>`;
 
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transition = 'transform 0.1s ease-out';
+            card.style.zIndex = '10';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'all 0.3s ease';
+            card.style.zIndex = '';
+        });
+
         return card;
     }
 
@@ -1389,16 +1451,14 @@ function bootstrapApp() {
             return;
         }
 
-        // 显示豆瓣同步状态时间（从 douban_statuses.json metadata 中获取）
         if (isDoubanSyncing) {
-            doubanAuthStatus.textContent = '同步中...';
+            typeWriterEffect(doubanAuthStatus, '> SYNCING_DATA...');
         } else {
-            // 尝试从已加载的数据中获取同步时间
             const lastUpdated = doubanStatusesMetadata?.last_updated;
             if (lastUpdated) {
-                doubanAuthStatus.textContent = `已同步 ${formatUpdateTimestamp(lastUpdated)}`;
+                typeWriterEffect(doubanAuthStatus, `> [OK] ${formatUpdateTimestamp(lastUpdated)}`);
             } else {
-                doubanAuthStatus.textContent = '已同步';
+                typeWriterEffect(doubanAuthStatus, '> [OK] SYNC_COMPLETE');
             }
         }
     }
@@ -1487,7 +1547,7 @@ function bootstrapApp() {
                 item.classList.add('active');
             }
             item.dataset.year = year;
-            item.innerHTML = `<span class="dot"></span><span class="year-text">${year}</span>`;
+            item.innerHTML = `<span class="dot"></span><span class="year-text">LOCK_ON: ${year}</span>`;
             item.addEventListener('click', (event) => {
                 event.stopPropagation();
                 const isLastItem = index === yearsToShow.length - 1;

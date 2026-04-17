@@ -213,6 +213,48 @@ h1 .update-date {
     border-left: 2px solid var(--palette-warning);
 }
 
+.search-container {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#radar-search {
+    width: 100%;
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid var(--palette-border);
+    border-radius: 4px;
+    padding: 12px 14px 12px 40px;
+    color: var(--palette-bg-primary-core);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.05) inset;
+}
+
+#radar-search::placeholder {
+    color: var(--palette-text-tertiary);
+    font-weight: 600;
+}
+
+#radar-search:focus {
+    border-color: var(--palette-bg-primary-core);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2), 0 0 5px rgba(0, 240, 255, 0.3) inset;
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--palette-text-primary);
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 16px;
+    pointer-events: none;
+    filter: sepia(1) hue-rotate(150deg) saturate(3) brightness(1.2); /* make default emoji cyan-ish */
+}
+
 .filter-row {
     display: grid;
     gap: 18px;
