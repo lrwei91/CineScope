@@ -1064,15 +1064,21 @@ function createItemSignature(kind, item) {
         return `douban::${normalizeLookupText(doubanLink)}::${String(date).slice(0, 10)}`;
     }
 
-    if (imdbId) {
-        return `imdb::${normalizeLookupText(imdbId)}::${String(date).slice(0, 10)}`;
+    // TMDB 数据优先使用 tmdb_id 作为签名
+    if (item.tmdb_id) {
+        return `tmdb::${item.tmdb_id}`;
     }
 
+    if (imdbId) {
+        return `imdb::${imdbId}`;
+    }
+
+    // 没有唯一 ID 时，才使用标题 + 日期作为签名
     if (kind === 'movie') {
         return `${normalizeLookupText(originalTitle || title)}::${String(date).slice(0, 7)}`;
     }
 
-    return `${normalizeLookupText(originalTitle || title)}::${date}`;
+    return `${normalizeLookupText(originalTitle || title)}`;
 }
 
 /**

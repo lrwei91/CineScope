@@ -590,6 +590,8 @@ function bootstrapApp() {
                     doubanSubjectId: extractDoubanSubjectId(season.douban_link_google || null),
                     doubanCollectionStatus: null,
                     doubanVerified: Boolean(season.douban_link_verified),
+                    tmdbId,
+                    imdbId: show.imdb_id || null,
                     tmdbUrl: tmdbId ? `https://www.themoviedb.org/tv/${tmdbId}` : null,
                     tmdbSearchUrl: buildTmdbSearchUrl(title, season.air_date),
                     imdbUrl: show.imdb_id ? `https://www.imdb.com/title/${show.imdb_id}/` : null,
@@ -641,6 +643,8 @@ function bootstrapApp() {
                 doubanSubjectId: extractDoubanSubjectId(movie.douban_link_google || null),
                 doubanCollectionStatus: null,
                 doubanVerified: Boolean(movie.douban_link_verified),
+                tmdbId,
+                imdbId: movie.imdb_id || null,
                 tmdbUrl: tmdbId ? `https://www.themoviedb.org/movie/${tmdbId}` : null,
                 tmdbSearchUrl: buildTmdbSearchUrl(primaryTitle, releaseDate),
                 imdbUrl: movie.imdb_id ? `https://www.imdb.com/title/${movie.imdb_id}/` : null,
@@ -682,6 +686,23 @@ function bootstrapApp() {
 
     function createCatalogDedupeKey(kind, item) {
         const normalizedTitle = normalizeCatalogText(item.title || item.name || '');
+
+        // 豆瓣数据优先使用 doubanSubjectId 作为唯一 key
+        if (item.doubanSubjectId) {
+            return `${kind}::douban::${item.doubanSubjectId}`;
+        }
+
+        // TMDB 数据使用 tmdb_id 作为唯一 key
+        if (item.tmdbId) {
+            return `${kind}::tmdb::${item.tmdbId}`;
+        }
+
+        // IMDB 数据使用 imdbId 作为唯一 key
+        if (item.imdbId) {
+            return `${kind}::imdb::${item.imdbId}`;
+        }
+
+        // 没有唯一 ID 时，使用标题 + 日期作为签名
         const normalizedSubtitle = normalizeCatalogText(item.subtitle || '');
         const date = item.date || '';
 
