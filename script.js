@@ -1826,7 +1826,11 @@ function bootstrapApp() {
         const statusBadgeHtml = item.doubanCollectionStatus && DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]
             ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]}</span>`
             : '';
-        document.getElementById('dossier-status-badge').innerHTML = statusBadgeHtml;
+        const dossierStatusBadge = document.getElementById('dossier-status-badge');
+        if (dossierStatusBadge) {
+            dossierStatusBadge.innerHTML = statusBadgeHtml;
+            dossierStatusBadge.hidden = !statusBadgeHtml;
+        }
 
         const reportIdSpan = document.getElementById('dossier-id');
         typeWriterEffect(reportIdSpan, generateIdFromTitle(item.title || 'UNKNOWN'), 10);
@@ -1852,8 +1856,6 @@ function bootstrapApp() {
 
         setDossierField('dossier-directors-row', 'dossier-directors', item.directors);
         setDossierField('dossier-actors-row', 'dossier-actors', (item.actors || []).slice(0, 5));
-        setDossierField('dossier-countries-row', 'dossier-countries', item.countries);
-        setDossierField('dossier-languages-row', 'dossier-languages', item.languages);
 
         const overviewSection = document.getElementById('dossier-overview-section');
         const overviewElement = document.getElementById('dossier-overview');
@@ -2019,6 +2021,176 @@ function bootstrapApp() {
             }
         });
     }
+
+    // =====================================================
+    // MOBILE ACTION SHEET SYSTEM
+    // =====================================================
+    const isMobile = () => window.innerWidth <= 900;
+
+    const mobileFilterFab = document.getElementById('mobile-filter-fab');
+    const mobileSheetOverlay = document.getElementById('mobile-sheet-overlay');
+    const mobileFilterSheet = document.getElementById('mobile-filter-sheet');
+    const closeFilterSheetBtn = document.getElementById('close-filter-sheet');
+    const mobileCategoryTrigger = document.getElementById('mobile-category-trigger');
+    const mobileCategorySheet = document.getElementById('mobile-category-sheet');
+    const mobileCategoryOverlay = document.getElementById('mobile-category-overlay');
+    const closeCategorySheetBtn = document.getElementById('close-category-sheet');
+    const mobileCategoryLabel = document.getElementById('mobile-category-label');
+    const mobileCategoryPills = document.getElementById('mobile-category-pills');
+    const mobileSheetSearch = document.getElementById('mobile-sheet-search');
+    const mobileRatingMirror = document.getElementById('mobile-rating-mirror');
+    const mobileGenreMirror = document.getElementById('mobile-genre-mirror');
+    const mobileDoubanStatus = document.getElementById('mobile-douban-status');
+    const fabActiveBadge = document.getElementById('fab-active-badge');
+
+    // -- Filter Sheet open/close --
+    function openMobileFilterSheet() {
+        if (!mobileFilterSheet || !mobileSheetOverlay) return;
+        syncMobileSheetFilters();
+        mobileSheetOverlay.classList.add('active');
+        mobileFilterSheet.classList.add('active');
+        document.body.classList.add('modal-open');
+    }
+
+    function closeMobileFilterSheet() {
+        if (!mobileFilterSheet || !mobileSheetOverlay) return;
+        mobileSheetOverlay.classList.remove('active');
+        mobileFilterSheet.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+
+    if (mobileFilterFab) mobileFilterFab.addEventListener('click', openMobileFilterSheet);
+    if (closeFilterSheetBtn) closeFilterSheetBtn.addEventListener('click', closeMobileFilterSheet);
+    if (mobileSheetOverlay) mobileSheetOverlay.addEventListener('click', closeMobileFilterSheet);
+
+    // -- Category Sheet open/close --
+    function openMobileCategorySheet() {
+        if (!mobileCategorySheet) return;
+        buildMobileCategoryPills();
+        mobileCategorySheet.classList.add('active');
+        mobileCategoryOverlay.classList.add('active');
+        mobileCategoryTrigger.classList.add('open');
+    }
+
+    function closeMobileCategorySheet() {
+        if (!mobileCategorySheet) return;
+        mobileCategorySheet.classList.remove('active');
+        mobileCategoryOverlay.classList.remove('active');
+        mobileCategoryTrigger.classList.remove('open');
+    }
+
+    if (mobileCategoryTrigger) mobileCategoryTrigger.addEventListener('click', openMobileCategorySheet);
+    if (closeCategorySheetBtn) closeCategorySheetBtn.addEventListener('click', closeMobileCategorySheet);
+    if (mobileCategoryOverlay) mobileCategoryOverlay.addEventListener('click', closeMobileCategorySheet);
+
+    // -- Build category pills in mobile sheet --
+    function buildMobileCategoryPills() {
+        if (!mobileCategoryPills) return;
+        mobileCategoryPills.innerHTML = '';
+        const categories = document.querySelectorAll('#category-filter-container .genre-tag');
+        categories.forEach(tag => {
+            const pill = document.createElement('div');
+            pill.className = 'mobile-category-pill-item' + (tag.classList.contains('active') ? ' active' : '');
+            pill.textContent = tag.textContent.trim();
+            pill.dataset.category = tag.dataset.category;
+            pill.addEventListener('click', () => {
+                tag.click(); // delegate to original
+                // Update mobile label
+                if (mobileCategoryLabel) mobileCategoryLabel.textContent = tag.textContent.trim();
+                closeMobileCategorySheet();
+            });
+            mobileCategoryPills.appendChild(pill);
+        });
+    }
+
+    // Sync active category label to mobile nav
+    function syncMobileCategoryLabel() {
+        if (!mobileCategoryLabel) return;
+        const active = document.querySelector('#category-filter-container .genre-tag.active');
+        if (active) mobileCategoryLabel.textContent = active.textContent.trim();
+    }
+
+    // -- Mirror rating/genre filters into Action Sheet --
+    function syncMobileSheetFilters() {
+        if (!mobileRatingMirror || !mobileGenreMirror) return;
+
+        // Mirror rating
+        mobileRatingMirror.innerHTML = '';
+        document.querySelectorAll('#rating-filter-container .genre-tag').forEach(tag => {
+            const clone = tag.cloneNode(true);
+            clone.addEventListener('click', () => {
+                tag.click();
+                setTimeout(() => syncMobileSheetFilters(), 50);
+                updateFabState();
+            });
+            mobileRatingMirror.appendChild(clone);
+        });
+
+        // Mirror genre
+        mobileGenreMirror.innerHTML = '';
+        document.querySelectorAll('#genre-filter-container .genre-tag').forEach(tag => {
+            const clone = tag.cloneNode(true);
+            clone.addEventListener('click', () => {
+                tag.click();
+                setTimeout(() => syncMobileSheetFilters(), 50);
+                updateFabState();
+            });
+            mobileGenreMirror.appendChild(clone);
+        });
+
+        // Douban status
+        const doubanEl = document.getElementById('douban-auth-status');
+        if (mobileDoubanStatus && doubanEl) {
+            mobileDoubanStatus.textContent = doubanEl.textContent;
+        }
+    }
+
+    // -- Mobile sheet search mirrors main search --
+    if (mobileSheetSearch) {
+        mobileSheetSearch.addEventListener('input', (e) => {
+            const mainSearch = document.getElementById('radar-search');
+            if (mainSearch) {
+                mainSearch.value = e.target.value;
+                mainSearch.dispatchEvent(new Event('input'));
+            }
+        });
+    }
+
+    // -- Update FAB active state badge --
+    function updateFabState() {
+        if (!mobileFilterFab || !fabActiveBadge) return;
+        const hasRating = selectedRating !== '全部' || specialFilterMode;
+        const hasGenre = selectedGenres.length > 0;
+        const hasSearch = searchQuery.length > 0;
+        const totalActive = (hasRating ? 1 : 0) + (hasGenre ? selectedGenres.length : 0) + (hasSearch ? 1 : 0);
+        if (totalActive > 0) {
+            mobileFilterFab.classList.add('has-active');
+            fabActiveBadge.textContent = totalActive;
+            fabActiveBadge.hidden = false;
+        } else {
+            mobileFilterFab.classList.remove('has-active');
+            fabActiveBadge.hidden = true;
+        }
+    }
+
+    // Hook into filterAndRenderItems to keep FAB badge and category label in sync
+    const _origFilterAndRender = filterAndRenderItems;
+    filterAndRenderItems = function() {
+        _origFilterAndRender();
+        updateFabState();
+        syncMobileCategoryLabel();
+    };
+
+    // ESC closes both sheets on mobile
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMobileFilterSheet();
+            closeMobileCategorySheet();
+        }
+    });
+
+    // Initial sync
+    syncMobileCategoryLabel();
 }
 
 if (document.readyState === 'loading') {

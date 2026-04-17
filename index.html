@@ -32,6 +32,27 @@
         </div>
 
         <div class="container">
+            <!-- Mobile-only: Mini Navigation Bar -->
+            <div class="mobile-nav-bar" id="mobile-nav-bar">
+                <span class="mobile-brand">STREAMING RADAR</span>
+                <button class="mobile-category-trigger" id="mobile-category-trigger">
+                    <span id="mobile-category-label">分类</span>
+                    <span class="mobile-category-chevron">▼</span>
+                </button>
+            </div>
+
+            <!-- Mobile-only: Category Sheet -->
+            <div class="mobile-category-overlay" id="mobile-category-overlay"></div>
+            <div class="mobile-category-sheet" id="mobile-category-sheet">
+                <div class="sheet-header">
+                    <span class="sheet-title">SELECT_CATEGORY</span>
+                    <button class="sheet-close-btn" id="close-category-sheet">╳</button>
+                </div>
+                <div id="mobile-category-pills" class="mobile-category-pills">
+                    <!-- Mirrors category pills -->
+                </div>
+            </div>
+
             <header class="hero-header">
                 <div class="hero-copy">
                     <p class="hero-eyebrow">Streaming Radar</p>
@@ -165,22 +186,62 @@
     
     <!-- CRT Overlay -->
     <div id="crt-overlay"></div>
-    
+
     <!-- Custom Tactical Cursor -->
     <div id="custom-cursor-core" class="custom-cursor"></div>
     <div id="custom-cursor-ring" class="custom-cursor"></div>
+
+    <!-- Mobile Bottom Filter FAB -->
+    <button id="mobile-filter-fab" class="mobile-filter-fab" aria-label="打开筛选">
+        <span class="fab-icon">≣</span>
+        <span class="fab-text">雷达筛选</span>
+        <span id="fab-active-badge" class="fab-badge" hidden></span>
+    </button>
+
+    <!-- Mobile Filter Action Sheet Overlay -->
+    <div class="mobile-sheet-overlay" id="mobile-sheet-overlay"></div>
+
+    <!-- Mobile Filter Action Sheet -->
+    <div class="mobile-filter-sheet" id="mobile-filter-sheet">
+        <div class="sheet-drag-handle"></div>
+        <div class="sheet-header">
+            <span class="sheet-title">RADAR_FILTER_SYSTEM</span>
+            <button class="sheet-close-btn" id="close-filter-sheet">╳</button>
+        </div>
+        <div class="sheet-content">
+            <!-- Search -->
+            <div class="sheet-search-container">
+                <input type="text" id="mobile-sheet-search" placeholder="搜索影视名称..." autocomplete="off">
+            </div>
+            <!-- Rating -->
+            <div class="sheet-section">
+                <p class="sheet-section-label">&gt; SYS.RATING_FILTER</p>
+                <div id="mobile-rating-mirror" class="sheet-pills-row"></div>
+            </div>
+            <!-- Genre -->
+            <div class="sheet-section">
+                <p class="sheet-section-label">&gt; GENRE_CLASSIFICATION</p>
+                <div id="mobile-genre-mirror" class="sheet-pills-row"></div>
+            </div>
+        </div>
+        <!-- Douban sync status footer -->
+        <div class="sheet-footer">
+            <span class="sheet-footer-label">豆瓣数据链路</span>
+            <span id="mobile-douban-status" class="sheet-footer-status">加载中...</span>
+        </div>
+    </div>
 
     <!-- Intel Dossier Slide-out Modal -->
     <div id="intel-dossier-overlay" class="dossier-overlay"></div>
     <aside id="intel-dossier" class="dossier-drawer">
         <button id="close-dossier-btn" class="close-btn" aria-label="关闭面板">╳</button>
         <div class="dossier-content">
-            <div class="dossier-visual">
-                <div class="dossier-poster-container">
-                    <img id="dossier-poster" src="" alt="Dossier Image">
-                    <div id="dossier-status-badge" class="poster-status-badge"></div>
+                <div class="dossier-visual">
+                    <div class="dossier-poster-container">
+                        <img id="dossier-poster" src="" alt="Dossier Image">
+                        <div id="dossier-status-badge" class="poster-status-badge" hidden></div>
+                    </div>
                 </div>
-            </div>
             <div class="dossier-data">
                 <p class="dossier-subtext">REPORT ID // <span id="dossier-id"></span></p>
                 <h2 id="dossier-title"></h2>
@@ -207,14 +268,6 @@
                         <div id="dossier-actors-row" class="dossier-fact-row" hidden>
                             <span class="dossier-fact-label">主演</span>
                             <span id="dossier-actors" class="dossier-fact-value"></span>
-                        </div>
-                        <div id="dossier-countries-row" class="dossier-fact-row" hidden>
-                            <span class="dossier-fact-label">国家/地区</span>
-                            <span id="dossier-countries" class="dossier-fact-value"></span>
-                        </div>
-                        <div id="dossier-languages-row" class="dossier-fact-row" hidden>
-                            <span class="dossier-fact-label">语言</span>
-                            <span id="dossier-languages" class="dossier-fact-value"></span>
                         </div>
                     </div>
                 </div>
