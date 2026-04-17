@@ -496,7 +496,7 @@ function bootstrapApp() {
                 const data = await response.json();
                 ingestCategoryData(categoryId, data, level);
 
-                if (!silent && level === 'complete' && categoryId === currentCategoryId) {
+                if (!silent && level === 'complete' && categoryId === currentCategoryId && window.innerWidth > 900) {
                     showToast('已加载全部内容');
                 }
 

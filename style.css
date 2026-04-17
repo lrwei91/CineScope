@@ -1201,16 +1201,18 @@ h1 .update-date {
 }
 
 /* =====================================================
-   MOBILE ACTION SHEET SYSTEM - Global hide (desktop default)
-   All shown via @media max-width:900px below
+   MOBILE ACTION SHEET SYSTEM - Desktop hide
+   These elements only show on mobile (<=900px)
    ===================================================== */
-.mobile-nav-bar,
-.mobile-category-sheet,
-.mobile-category-overlay,
-.mobile-filter-fab,
-.mobile-filter-sheet,
-.mobile-sheet-overlay {
-    display: none;
+@media (min-width: 901px) {
+    .mobile-nav-bar,
+    .mobile-category-sheet,
+    .mobile-category-overlay,
+    .mobile-filter-fab,
+    .mobile-filter-sheet,
+    .mobile-sheet-overlay {
+        display: none !important;
+    }
 }
 
 @media (max-width: 640px) {
