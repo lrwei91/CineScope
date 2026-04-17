@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-04-17T16:53:01.590Z",
+    "last_updated": "2026-04-17T16:35:51.465Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-04-17T16:53:01.590Z",
+        "time": "2026-04-17T16:35:51.465Z",
         "summary": "已同步日漫数据（latest）：18 条"
       }
     ],
@@ -14,6 +14,11 @@
         "slug": "tv_animation",
         "source": "douban",
         "count": 47
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 209
       }
     ],
     "total_items": 18
@@ -845,17 +850,174 @@
       ]
     },
     {
-      "id": 37657554,
-      "name": "没有辣妹会对阿宅温柔!?",
+      "id": 309163,
+      "tmdb_id": 309163,
+      "name": "哪里有温柔对待阿宅的辣妹！？",
       "original_name": "オタクに優しいギャルはいない!?",
-      "imdb_id": null,
+      "imdb_id": "tt39443176",
       "genres": [
         {
-          "id": 1,
+          "id": 16,
           "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
         }
       ],
-      "networks": [],
+      "type": "Scripted",
+      "vote_average": 7.9,
+      "vote_count": 5,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 12,
+          "logo_path": "/eJSYeF1YIyQbZdTRNxuvVKaZOIK.png",
+          "name": "HTB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 103,
+          "logo_path": "/j3xAzk1SYQQwrQOD7acdSz675Wa.png",
+          "name": "tv asahi",
+          "origin_country": "JP"
+        },
+        {
+          "id": 576,
+          "logo_path": "/kW9bMQqnMFtPHvdoyCDpRqh7Gxt.png",
+          "name": "Nagoya TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1278,
+          "logo_path": "/49D825cN3Zb4slobKyGqIaI3Fx9.png",
+          "name": "KBC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1410,
+          "logo_path": "/ca3Qw7exc3RPSd0CQFOZuSNbGjF.png",
+          "name": "ABC TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 3756,
+          "logo_path": "/3lh8IYJbV6eHOaF0UFCvmmSJNvf.png",
+          "name": "NCC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4794,
+          "logo_path": "/vYcEzZlLmrxV9xKZx9jIUcHF1RC.png",
+          "name": "OAB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4798,
+          "logo_path": "/tiUMGPJVHYc5h1ZOt2jK80oNPz9.png",
+          "name": "ABA",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6270,
+          "logo_path": "/xnHINTAs2GnfXJ3lalaQ0se8aup.png",
+          "name": "Niigata Television Network 21",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6284,
+          "logo_path": "/8QybJL7YGkOr3ECilGaGTqeId7A.png",
+          "name": "khb",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6285,
+          "logo_path": "/cFOQIanQr8wKvJKgIgaKiM3xnMU.png",
+          "name": "KFB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6288,
+          "logo_path": "/gm3ksoi7zQMWpHsJJDzotTwF2GM.png",
+          "name": "HOME",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6289,
+          "logo_path": "/sSE8F5yoFoVzClCkzLBksTDK7iI.png",
+          "name": "KSB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6290,
+          "logo_path": "/kgfTkjNRsR0f2QEiaXf2fymKB6V.png",
+          "name": "Kagoshima Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6365,
+          "logo_path": "/c1pvlKoEVLjejgQUCBFq5Q9n8gL.png",
+          "name": "Iwate Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6366,
+          "logo_path": "/dmSnk8fI8hpQOyCIrUDhj3TxTT8.png",
+          "name": "Akita Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6367,
+          "logo_path": "/jJWtS13oV0os1M5djVT6zjvnyq3.png",
+          "name": "Yamagata Television System",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6368,
+          "logo_path": "/34nBfbkqxcjrbpVraEfI6MkCvgY.png",
+          "name": "Shizuoka Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6369,
+          "logo_path": "/ztA2E1CY6L3aF2roadAOHtLiDCP.png",
+          "name": "Asahi Broadcasting Nagano",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6370,
+          "logo_path": "/onsaMWqPfrINyAfgi2FnP8conv1.png",
+          "name": "Hokuriku Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6372,
+          "logo_path": "/1UunNUsoq9k1nMNppuY5qhgdWT3.png",
+          "name": "Ehime Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6373,
+          "logo_path": "/6iuVpZdxAE8lgPENUBuwzCspYF7.png",
+          "name": "Yamaguchi Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6374,
+          "logo_path": "/qBX8z5bj0EISsASQo5IE76BYpu5.png",
+          "name": "Kumamoto Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6375,
+          "logo_path": "/7hIrDssIDTG2sGLdq1IfYddv9tz.png",
+          "name": "Ryu-Q Asahi Broadcasting",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -903,33 +1065,33 @@
         "Gals Can't Be Kind to Otaku!?",
         "Otaku ni Yasashii Gal wa Inai!?"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://otagal.jp/",
+      "popularity": 14.5591,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 3,
       "first_air_date": "2026-04-08",
-      "last_air_date": "2026-04-08",
-      "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "last_air_date": "2026-04-15",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
-      "poster_path": "posters/douban/tv_jp_anime/37657554.jpg",
-      "backdrop_path": null,
-      "overview": "濑尾卓也是个不起眼的平凡高一生，但他有个不可告人的小秘密：他是一部适合小女孩观赏的动画「闪亮萌宠」的狂热粉丝。有一天他带着参加抽奖幸运抽中的闪萌橡皮擦到学校，坐在他前面的辣妹．伊地知琴子突然说要借橡皮擦，便顺手抽走他手中的闪萌橡皮擦。想不到另一个走酷帅路线的辣妹．天音庆居然一眼就看出那是闪萌周边，令濑尾忍不住大吃一惊……",
+      "poster_path": "/wQFbXbQ33b2CWx6n1eR4xEJx3Wu.jpg",
+      "backdrop_path": "/99lQDI1BvQSuCsZnBs319aF5vy8.jpg",
+      "overview": "　　濑尾卓也是名喜欢没法大声说出自己喜欢的“女童向动画”的御宅族。一天，班上的辣妹天音同学和伊地知同学突然缠了过来，总感觉天音同学也有着阿宅的气息……？阿宅遇上辣妹的“喜欢”相交织的校园种姓恋爱喜剧！！",
       "rating_count": null,
       "rating_star_count": null,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 37657554,
+          "id": 309163,
           "air_date": "2026-04-08",
-          "episode_count": null,
-          "vote_average": 0,
-          "poster_path": "posters/douban/tv_jp_anime/37657554.jpg",
+          "episode_count": 3,
+          "vote_average": 7.9,
+          "poster_path": "/wQFbXbQ33b2CWx6n1eR4xEJx3Wu.jpg",
           "douban_rating": null,
           "douban_link_google": "https://movie.douban.com/subject/37657554/",
-          "overview": "濑尾卓也是个不起眼的平凡高一生，但他有个不可告人的小秘密：他是一部适合小女孩观赏的动画「闪亮萌宠」的狂热粉丝。有一天他带着参加抽奖幸运抽中的闪萌橡皮擦到学校，坐在他前面的辣妹．伊地知琴子突然说要借橡皮擦，便顺手抽走他手中的闪萌橡皮擦。想不到另一个走酷帅路线的辣妹．天音庆居然一眼就看出那是闪萌周边，令濑尾忍不住大吃一惊……",
+          "overview": "　　濑尾卓也是名喜欢没法大声说出自己喜欢的“女童向动画”的御宅族。一天，班上的辣妹天音同学和伊地知同学突然缠了过来，总感觉天音同学也有着阿宅的气息……？阿宅遇上辣妹的“喜欢”相交织的校园种姓恋爱喜剧！！",
           "douban_link_verified": true
         }
       ]
@@ -1406,7 +1568,19 @@
           "name": "动画"
         }
       ],
-      "networks": [],
+      "type": "Scripted",
+      "vote_average": 8.533,
+      "vote_count": 15,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 1,
+          "name": "渡边步"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1461,19 +1635,19 @@
         "魔法帽的工房",
         "Witch Hat Atelier"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://tongari-anime.com",
+      "popularity": 27.4099,
       "number_of_seasons": 1,
       "number_of_episodes": null,
       "first_air_date": "2026-04-06",
-      "last_air_date": "2026-04-06",
-      "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "last_air_date": "2026-04-13",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
-      "poster_path": "posters/douban/tv_jp_anime/35633676.jpg",
-      "backdrop_path": null,
-      "overview": "由白滨鸥创作的漫画《#尖帽子的魔法工坊#(#魔法帽的工房#)》宣布动画化~\n【故事简介】\n生活在一个偏远村庄的少女可可一直渴望成为一名魔法师，但是这个世界只有出生就是魔法师的人才能成为魔法师。在一次偶然事故中，可可不小心看到了魔法师奇弗利施展魔法的过程，发现了魔法的真相。于是可可便临摹起了自己还是孩童时一位自称魔法师的神秘男子卖给她的一本绘本，不料却用出了强大而危险的禁忌魔法，将自己的母亲与房子都变成了石头。发现了自己不小心将魔法真相泄露而返回寻找可可的奇弗利看到禁忌魔法所造成的惨状，决心将她收为自己的徒弟，解开「绘本」之谜，帮助她将自己的母亲恢复原状。",
+      "poster_path": "/1qGSBnrANHLX8C7KqGuPDCylns2.jpg",
+      "backdrop_path": "/7zSko8MBo8UxJi2fPwglXFz7gV.jpg",
+      "overview": "　　生活在一个偏远村庄的少女可可一直渴望成为一名魔法师，但是这个世界只有出生就是魔法师的人才能成为魔法师。在一次偶然事故中，可可不小心看到了魔法师奇夫利施展魔法的过程，发现了魔法的真相。于是可可便临摹起了自己还是孩童时一位自称魔法师的神秘男子卖给她的一本绘本，不料却用出了强大而危险的禁忌魔法，将自己的母亲与房子都变成了石头。发现了自己不小心将魔法真相泄露而返回寻找可可的奇夫利看到禁忌魔法所造成的惨状，决心将她收为自己的徒弟，解开「绘本」之谜，帮助她将自己的母亲恢复原状。",
       "rating_count": 589,
       "rating_star_count": 4,
       "seasons": [
@@ -1482,9 +1656,9 @@
           "season_number": 1,
           "id": 35633676,
           "air_date": "2026-04-06",
-          "episode_count": null,
-          "vote_average": 8.1,
-          "poster_path": "posters/douban/tv_jp_anime/35633676.jpg",
+          "episode_count": 13,
+          "vote_average": 8.533,
+          "poster_path": "/1qGSBnrANHLX8C7KqGuPDCylns2.jpg",
           "douban_rating": "8.1",
           "douban_link_google": "https://movie.douban.com/subject/35633676/",
           "overview": "由白滨鸥创作的漫画《#尖帽子的魔法工坊#(#魔法帽的工房#)》宣布动画化~\n【故事简介】\n生活在一个偏远村庄的少女可可一直渴望成为一名魔法师，但是这个世界只有出生就是魔法师的人才能成为魔法师。在一次偶然事故中，可可不小心看到了魔法师奇弗利施展魔法的过程，发现了魔法的真相。于是可可便临摹起了自己还是孩童时一位自称魔法师的神秘男子卖给她的一本绘本，不料却用出了强大而危险的禁忌魔法，将自己的母亲与房子都变成了石头。发现了自己不小心将魔法真相泄露而返回寻找可可的奇弗利看到禁忌魔法所造成的惨状，决心将她收为自己的徒弟，解开「绘本」之谜，帮助她将自己的母亲恢复原状。",
