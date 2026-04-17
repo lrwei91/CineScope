@@ -592,7 +592,17 @@ function bootstrapApp() {
                     doubanVerified: Boolean(season.douban_link_verified),
                     tmdbUrl: tmdbId ? `https://www.themoviedb.org/tv/${tmdbId}` : null,
                     tmdbSearchUrl: buildTmdbSearchUrl(title, season.air_date),
-                    imdbUrl: show.imdb_id ? `https://www.imdb.com/title/${show.imdb_id}/` : null
+                    imdbUrl: show.imdb_id ? `https://www.imdb.com/title/${show.imdb_id}/` : null,
+                    directors: normalizeNameList(show.directors),
+                    actors: normalizeNameList(show.actors),
+                    countries: normalizeStringList(show.countries),
+                    languages: normalizeStringList(show.languages),
+                    aka: normalizeStringList(show.aka),
+                    overview: show.overview || season.overview || '',
+                    detailStatus: show.episodes_info || show.status || '',
+                    detailRuntime: show.number_of_episodes ? `${show.number_of_episodes} 集` : '',
+                    ratingCount: normalizeCount(show.rating_count),
+                    ratingStarCount: normalizeCount(show.rating_star_count)
                 });
             });
         });
@@ -633,7 +643,17 @@ function bootstrapApp() {
                 doubanVerified: Boolean(movie.douban_link_verified),
                 tmdbUrl: tmdbId ? `https://www.themoviedb.org/movie/${tmdbId}` : null,
                 tmdbSearchUrl: buildTmdbSearchUrl(primaryTitle, releaseDate),
-                imdbUrl: movie.imdb_id ? `https://www.imdb.com/title/${movie.imdb_id}/` : null
+                imdbUrl: movie.imdb_id ? `https://www.imdb.com/title/${movie.imdb_id}/` : null,
+                directors: normalizeNameList(movie.directors),
+                actors: normalizeNameList(movie.actors),
+                countries: normalizeStringList(movie.countries),
+                languages: normalizeStringList(movie.languages),
+                aka: normalizeStringList(movie.aka),
+                overview: movie.overview || '',
+                detailStatus: '',
+                detailRuntime: buildMovieRuntime(movie.durations),
+                ratingCount: normalizeCount(movie.rating_count),
+                ratingStarCount: normalizeCount(movie.rating_star_count)
             });
 
             return normalizedItems;
@@ -695,7 +715,17 @@ function bootstrapApp() {
             tmdbUrl: preferredItem.tmdbUrl || secondaryItem.tmdbUrl,
             imdbUrl: preferredItem.imdbUrl || secondaryItem.imdbUrl,
             genres: mergeUniqueStrings(preferredItem.genres, secondaryItem.genres),
-            networks: mergeUniqueStrings(preferredItem.networks, secondaryItem.networks)
+            networks: mergeUniqueStrings(preferredItem.networks, secondaryItem.networks),
+            directors: mergeUniqueStrings(preferredItem.directors, secondaryItem.directors),
+            actors: mergeUniqueStrings(preferredItem.actors, secondaryItem.actors),
+            countries: mergeUniqueStrings(preferredItem.countries, secondaryItem.countries),
+            languages: mergeUniqueStrings(preferredItem.languages, secondaryItem.languages),
+            aka: mergeUniqueStrings(preferredItem.aka, secondaryItem.aka),
+            overview: preferredItem.overview || secondaryItem.overview || '',
+            detailStatus: preferredItem.detailStatus || secondaryItem.detailStatus || '',
+            detailRuntime: preferredItem.detailRuntime || secondaryItem.detailRuntime || '',
+            ratingCount: preferredItem.ratingCount || secondaryItem.ratingCount || null,
+            ratingStarCount: preferredItem.ratingStarCount || secondaryItem.ratingStarCount || null
         };
     }
 
@@ -735,6 +765,26 @@ function bootstrapApp() {
                 return '';
             })
             .filter(Boolean);
+    }
+
+    function normalizeStringList(list) {
+        if (!Array.isArray(list)) {
+            return [];
+        }
+
+        return list
+            .map((item) => String(item || '').trim())
+            .filter(Boolean);
+    }
+
+    function normalizeCount(value) {
+        const numericValue = Number(value);
+        return Number.isFinite(numericValue) && numericValue > 0 ? numericValue : null;
+    }
+
+    function buildMovieRuntime(durations) {
+        const values = normalizeStringList(durations);
+        return values[0] || '';
     }
 
     function buildLocalizedTitle(name, originalName) {
@@ -1797,8 +1847,25 @@ function bootstrapApp() {
         } else {
             ratingSpan.textContent = 'N/A';
         }
-        
+
         document.getElementById('dossier-date').textContent = item.date || 'UNKNOWN';
+
+        setDossierField('dossier-directors-row', 'dossier-directors', item.directors);
+        setDossierField('dossier-actors-row', 'dossier-actors', (item.actors || []).slice(0, 5));
+        setDossierField('dossier-countries-row', 'dossier-countries', item.countries);
+        setDossierField('dossier-languages-row', 'dossier-languages', item.languages);
+
+        const overviewSection = document.getElementById('dossier-overview-section');
+        const overviewElement = document.getElementById('dossier-overview');
+        if (overviewSection && overviewElement) {
+            if (item.overview) {
+                overviewElement.textContent = item.overview;
+                overviewSection.hidden = false;
+            } else {
+                overviewElement.textContent = '';
+                overviewSection.hidden = true;
+            }
+        }
 
         const tagsContainer = document.getElementById('dossier-tags');
         tagsContainer.innerHTML = '';
@@ -1851,6 +1918,27 @@ function bootstrapApp() {
         dossierDrawer.classList.add('active');
         document.body.classList.add('modal-open');
     };
+
+    function setDossierField(rowId, valueId, values) {
+        const row = document.getElementById(rowId);
+        const valueNode = document.getElementById(valueId);
+        if (!row || !valueNode) {
+            return;
+        }
+
+        const normalizedValues = Array.isArray(values)
+            ? values.map((value) => String(value || '').trim()).filter(Boolean)
+            : [String(values || '').trim()].filter(Boolean);
+
+        if (normalizedValues.length === 0) {
+            row.hidden = true;
+            valueNode.textContent = '';
+            return;
+        }
+
+        valueNode.textContent = normalizedValues.join(' / ');
+        row.hidden = false;
+    }
 
     function closeIntelDossier() {
         if (!dossierOverlay || !dossierDrawer) return;

@@ -84,8 +84,17 @@ TV 分类继续沿用现有结构：
       "original_name": "Original Title",
       "genres": [{ "name": "剧情" }],
       "networks": [{ "name": "Netflix" }],
+      "directors": [{ "name": "导演甲" }],
+      "actors": [{ "name": "演员甲" }, { "name": "演员乙" }],
+      "countries": ["中国大陆"],
+      "languages": ["汉语普通话"],
+      "aka": ["别名 A"],
       "imdb_id": "tt1234567",
       "poster_path": "/poster.jpg",
+      "overview": "剧情简介",
+      "rating_count": 12345,
+      "rating_star_count": 4,
+      "episodes_info": "更新至12集",
       "seasons": [
         {
           "id": 456,
@@ -119,11 +128,20 @@ TV 分类继续沿用现有结构：
       "original_title": "Original Title",
       "release_date": "2026-04-01",
       "genres": [{ "name": "剧情" }],
+      "directors": [{ "name": "导演甲" }],
+      "actors": [{ "name": "演员甲" }, { "name": "演员乙" }],
+      "countries": ["中国大陆"],
+      "languages": ["汉语普通话"],
+      "aka": ["别名 A"],
       "imdb_id": "tt1234567",
       "poster_path": "/poster.jpg",
       "douban_rating": "8.2",
       "douban_link_google": "https://movie.douban.com/subject/...",
-      "douban_link_verified": true
+      "douban_link_verified": true,
+      "overview": "剧情简介",
+      "durations": ["118分钟"],
+      "rating_count": 12345,
+      "rating_star_count": 4
     }
   ]
 }
@@ -144,6 +162,11 @@ TV 分类继续沿用现有结构：
 - `doubanVerified`
 - `tmdbUrl`
 - `imdbUrl`
+- `directors`
+- `actors`
+- `countries`
+- `languages`
+- `overview`
 
 ## 当前 JSON 文件
 

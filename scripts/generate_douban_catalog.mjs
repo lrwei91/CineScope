@@ -564,6 +564,12 @@ function normalizeDoubanTvEntry(item, detail) {
 
     const posterUrl = detail?.pic?.large || item?.pic?.large || item?.pic?.normal || null;
     const ratingValue = getRatingValue(detail?.rating?.value ?? item?.rating?.value);
+    const directors = extractPersonObjects(detail?.directors);
+    const actors = extractPersonObjects(detail?.actors);
+    const countries = extractStringList(detail?.countries);
+    const languages = extractStringList(detail?.languages);
+    const aka = extractStringList(detail?.aka);
+    const episodesInfo = detail?.episodes_info || item?.episodes_info || '';
     const vendorList = Array.isArray(detail?.vendors)
         ? detail.vendors
               .filter((vendor) => vendor && vendor.title)
@@ -581,25 +587,33 @@ function normalizeDoubanTvEntry(item, detail) {
         imdb_id: null,
         genres: extractGenreObjects(detail?.card_subtitle || item.card_subtitle),
         networks: vendorList,
+        directors,
+        actors,
+        countries,
+        languages,
+        aka,
         homepage: null,
         popularity: null,
         number_of_seasons: 1,
-        number_of_episodes: extractEpisodeCount(detail?.episodes_info || item.episodes_info),
+        number_of_episodes: extractEpisodeCount(episodesInfo),
         first_air_date: airDate,
         last_air_date: airDate,
-        in_production: Boolean(detail?.episodes_info && /更新/.test(detail.episodes_info)),
-        status: detail?.episodes_info || '',
+        in_production: Boolean(episodesInfo && /更新/.test(episodesInfo)),
+        status: episodesInfo,
+        episodes_info: episodesInfo || null,
         adult: false,
         poster_path: posterUrl,
         backdrop_path: null,
         overview: detail?.intro || item.comment || '',
+        rating_count: getRatingCount(detail?.rating?.count ?? item?.rating?.count),
+        rating_star_count: getRatingCount(detail?.rating?.star_count ?? item?.rating?.star_count),
         seasons: [
             {
                 name: '',
                 season_number: 1,
                 id: normalizeNumericId(item.id),
                 air_date: airDate,
-                episode_count: extractEpisodeCount(detail?.episodes_info || item.episodes_info),
+                episode_count: extractEpisodeCount(episodesInfo),
                 vote_average: ratingValue ? Number(ratingValue) : 0,
                 poster_path: posterUrl,
                 douban_rating: ratingValue,
@@ -626,12 +640,20 @@ function normalizeDoubanMovieEntry(item, detail) {
         original_title: detail?.original_title || detail?.title || item.title,
         release_date: releaseDate,
         genres: extractGenreObjects(detail?.card_subtitle || item.card_subtitle || item.info),
+        directors: extractPersonObjects(detail?.directors),
+        actors: extractPersonObjects(detail?.actors),
+        countries: extractStringList(detail?.countries),
+        languages: extractStringList(detail?.languages),
+        aka: extractStringList(detail?.aka),
         imdb_id: null,
         poster_path: posterUrl,
         douban_rating: ratingValue,
         douban_link_google: buildDoubanSubjectUrl(item.id),
         douban_link_verified: true,
         overview: detail?.intro || item.description || '',
+        durations: extractStringList(detail?.durations),
+        rating_count: getRatingCount(detail?.rating?.count ?? item?.rating?.count),
+        rating_star_count: getRatingCount(detail?.rating?.star_count ?? item?.rating?.star_count),
         type: 'movie'
     };
 }
@@ -657,6 +679,11 @@ function normalizeTmdbTvEntry(detail, doubanMatch) {
         origin_country: detail.origin_country || [],
         original_language: detail.original_language || '',
         networks: Array.isArray(detail.networks) ? detail.networks : [],
+        directors: getDoubanField(doubanMatch, 'directors') || [],
+        actors: getDoubanField(doubanMatch, 'actors') || [],
+        countries: getDoubanField(doubanMatch, 'countries') || [],
+        languages: getDoubanField(doubanMatch, 'languages') || [],
+        aka: getDoubanField(doubanMatch, 'aka') || [],
         homepage: detail.homepage || null,
         popularity: detail.popularity || null,
         number_of_seasons: detail.number_of_seasons || 1,
@@ -665,10 +692,13 @@ function normalizeTmdbTvEntry(detail, doubanMatch) {
         last_air_date: detail.last_air_date || detail.first_air_date,
         in_production: Boolean(detail.in_production),
         status: detail.status || '',
+        episodes_info: getDoubanField(doubanMatch, 'episodes_info') || detail.status || null,
         adult: Boolean(detail.adult),
         poster_path: detail.poster_path || getDoubanField(doubanMatch, 'poster') || null,
         backdrop_path: detail.backdrop_path || null,
         overview: detail.overview || getDoubanField(doubanMatch, 'overview') || '',
+        rating_count: getDoubanField(doubanMatch, 'rating_count'),
+        rating_star_count: getDoubanField(doubanMatch, 'rating_star_count'),
         seasons: [
             {
                 name: '',
@@ -702,12 +732,20 @@ function normalizeTmdbMovieEntry(detail, doubanMatch) {
         original_title: detail.original_title || detail.title,
         release_date: detail.release_date,
         genres: Array.isArray(detail.genres) ? detail.genres : [],
+        directors: getDoubanField(doubanMatch, 'directors') || [],
+        actors: getDoubanField(doubanMatch, 'actors') || [],
+        countries: getDoubanField(doubanMatch, 'countries') || [],
+        languages: getDoubanField(doubanMatch, 'languages') || [],
+        aka: getDoubanField(doubanMatch, 'aka') || [],
         imdb_id: detail.external_ids?.imdb_id || null,
         poster_path: detail.poster_path || getDoubanField(doubanMatch, 'poster') || null,
         douban_rating: doubanRating,
         douban_link_google: doubanLink,
         douban_link_verified: Boolean(doubanLink),
         overview: detail.overview || getDoubanField(doubanMatch, 'overview') || '',
+        durations: getDoubanField(doubanMatch, 'durations') || [],
+        rating_count: getDoubanField(doubanMatch, 'rating_count'),
+        rating_star_count: getDoubanField(doubanMatch, 'rating_star_count'),
         type: 'movie'
     };
 }
@@ -839,8 +877,75 @@ function getDoubanField(match, field) {
     if (field === 'overview') {
         return match.seasons?.[0]?.overview || match.overview || '';
     }
+    if (field === 'directors') {
+        return match.directors || [];
+    }
+    if (field === 'actors') {
+        return match.actors || [];
+    }
+    if (field === 'countries') {
+        return match.countries || [];
+    }
+    if (field === 'languages') {
+        return match.languages || [];
+    }
+    if (field === 'aka') {
+        return match.aka || [];
+    }
+    if (field === 'durations') {
+        return match.durations || [];
+    }
+    if (field === 'episodes_info') {
+        return match.episodes_info || match.status || null;
+    }
+    if (field === 'rating_count') {
+        return getRatingCount(match.rating_count);
+    }
+    if (field === 'rating_star_count') {
+        return getRatingCount(match.rating_star_count);
+    }
 
     return null;
+}
+
+function extractPersonObjects(list) {
+    if (!Array.isArray(list)) {
+        return [];
+    }
+
+    return list
+        .map((item) => {
+            if (typeof item === 'string') {
+                return item.trim();
+            }
+            if (item && typeof item.name === 'string') {
+                return item.name.trim();
+            }
+            return '';
+        })
+        .filter(Boolean)
+        .map((name, index) => ({
+            id: index + 1,
+            name
+        }));
+}
+
+function extractStringList(list) {
+    if (!Array.isArray(list)) {
+        return [];
+    }
+
+    return list
+        .map((item) => {
+            if (typeof item === 'string') {
+                return item.trim();
+            }
+            if (item && typeof item.name === 'string') {
+                return item.name.trim();
+            }
+            return '';
+        })
+        .filter(Boolean);
 }
 
 function extractGenreObjects(subtitle) {
@@ -897,6 +1002,11 @@ function getRatingValue(value) {
     }
 
     return numericValue.toFixed(1).replace(/\.0$/, '.0');
+}
+
+function getRatingCount(value) {
+    const numericValue = Number(value);
+    return Number.isFinite(numericValue) && numericValue > 0 ? numericValue : null;
 }
 
 function normalizeNumericId(value) {
