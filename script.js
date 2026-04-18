@@ -1205,19 +1205,13 @@ function bootstrapApp() {
                 return right.date.localeCompare(left.date);
             }
 
-            const leftMonth = left.date.substring(0, 7);
-            const rightMonth = right.date.substring(0, 7);
-            if (leftMonth !== rightMonth) {
-                return rightMonth.localeCompare(leftMonth);
+            if (left.date !== right.date) {
+                return right.date.localeCompare(left.date);
             }
 
             const leftRating = parseFloat(left.doubanRating) || 0;
             const rightRating = parseFloat(right.doubanRating) || 0;
-            if (leftRating !== rightRating) {
-                return rightRating - leftRating;
-            }
-
-            return right.date.localeCompare(left.date);
+            return rightRating - leftRating;
         });
 
         return {
@@ -2197,18 +2191,13 @@ function bootstrapApp() {
     // -- Update FAB active state badge --
     function updateFabState() {
         if (!mobileFilterFab || !fabActiveBadge) return;
-        const hasRating = selectedRating !== '全部' || specialFilterMode;
+        const hasRating = true;
         const hasGenre = selectedGenres.length > 0;
         const hasSearch = searchQuery.length > 0;
         const totalActive = (hasRating ? 1 : 0) + (hasGenre ? selectedGenres.length : 0) + (hasSearch ? 1 : 0);
-        if (totalActive > 0) {
-            mobileFilterFab.classList.add('has-active');
-            fabActiveBadge.textContent = totalActive;
-            fabActiveBadge.hidden = false;
-        } else {
-            mobileFilterFab.classList.remove('has-active');
-            fabActiveBadge.hidden = true;
-        }
+        mobileFilterFab.classList.add('has-active');
+        fabActiveBadge.textContent = totalActive;
+        fabActiveBadge.hidden = false;
     }
 
     // Hook into filterAndRenderItems to keep FAB badge and category label in sync
@@ -2229,6 +2218,7 @@ function bootstrapApp() {
 
     // Initial sync
     syncMobileCategoryLabel();
+    updateFabState();
 }
 
 if (document.readyState === 'loading') {
