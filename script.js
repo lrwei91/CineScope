@@ -175,6 +175,8 @@ function bootstrapApp() {
         Western: '西部'
     };
 
+    const HIDDEN_GENRES = new Set(['剧情', '动画']);
+
     const GENRE_PRIORITY = [
         '剧情',
         '喜剧',
@@ -1066,7 +1068,11 @@ function bootstrapApp() {
     }
 
     function getSortedGenres(items) {
-        const uniqueGenres = [...new Set(items.flatMap((item) => item.genres))];
+        const hiddenGenres = new Set(['剧情', '动画']);
+        const uniqueGenres = [...new Set(items.flatMap((item) => item.genres))].filter((genreName) => {
+            const displayName = getGenreDisplayName(genreName);
+            return !hiddenGenres.has(displayName) && !hiddenGenres.has(genreName);
+        });
 
         return uniqueGenres.sort((left, right) => {
             const leftPriority = GENRE_PRIORITY.indexOf(getGenreDisplayName(left));
@@ -1435,10 +1441,14 @@ function bootstrapApp() {
 
     function getCardChipLabels(item) {
         const chips = [];
+        const visibleGenres = (item.genres || []).filter((genreName) => {
+            const displayName = getGenreDisplayName(genreName);
+            return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
+        });
 
-        if (item.genres && item.genres.length > 0) {
+        if (visibleGenres.length > 0) {
             chips.push({
-                label: getGenreDisplayName(item.genres[0]),
+                label: getGenreDisplayName(visibleGenres[0]),
                 variant: 'genre'
             });
         }
@@ -1852,6 +1862,10 @@ function bootstrapApp() {
     window.openIntelDossier = function(item) {
         if (!dossierOverlay || !dossierDrawer) return;
 
+        dossierDrawer.scrollTop = 0;
+        dossierDrawer.classList.remove('swiping-close');
+        dossierDrawer.style.removeProperty('--swipe-close-translate');
+
         // Populate Data
         document.getElementById('dossier-poster').src = resolvePosterUrl(item.posterPath);
         
@@ -1903,8 +1917,12 @@ function bootstrapApp() {
 
         const tagsContainer = document.getElementById('dossier-tags');
         tagsContainer.innerHTML = '';
-        if (item.genres && item.genres.length > 0) {
-            item.genres.forEach(g => {
+        const visibleGenres = (item.genres || []).filter((genreName) => {
+            const displayName = getGenreDisplayName(genreName);
+            return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
+        });
+        if (visibleGenres.length > 0) {
+            visibleGenres.forEach(g => {
                 const tag = document.createElement('span');
                 tag.className = 'dossier-tag-item';
                 tag.textContent = getGenreDisplayName(g);
