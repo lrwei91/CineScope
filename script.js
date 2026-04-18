@@ -1273,9 +1273,26 @@ function bootstrapApp() {
             return;
         }
 
-        const cardsHTML = futureItems.map((item, index) => createCatalogCard(item, index).outerHTML).join('');
+        comingSoonContainer.innerHTML = `
+            <h2 class="month-group-header">即将上映</h2>
+            <div class="scroller-wrapper">
+                <button class="scroller-arrow left" aria-label="Scroll left">‹</button>
+                <div class="scroller-container">
+                    <div class="horizontal-scroller"></div>
+                </div>
+                <button class="scroller-arrow right" aria-label="Scroll right">›</button>
+            </div>
+        `;
 
-        comingSoonContainer.innerHTML = `<h2 class="month-group-header">即将上映</h2><div class="scroller-wrapper"><button class="scroller-arrow left" aria-label="Scroll left">‹</button><div class="scroller-container"><div class="horizontal-scroller">${cardsHTML}</div></div><button class="scroller-arrow right" aria-label="Scroll right">›</button></div>`;
+        const horizontalScroller = comingSoonContainer.querySelector('.horizontal-scroller');
+        if (horizontalScroller) {
+            const fragment = document.createDocumentFragment();
+            futureItems.forEach((item, index) => {
+                fragment.appendChild(createCatalogCard(item, index));
+            });
+            horizontalScroller.appendChild(fragment);
+        }
+
         comingSoonContainer.style.display = 'block';
         setupHorizontalScroller(comingSoonContainer);
     }
