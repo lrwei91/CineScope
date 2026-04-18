@@ -1879,6 +1879,12 @@ body.cursor-hover #custom-cursor-ring {
     margin-top: 10px;
 }
 
+.dossier-share-row {
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+.dossier-share-btn,
 .dossier-external-btn {
     display: block;
     width: 100%;
@@ -1895,6 +1901,11 @@ body.cursor-hover #custom-cursor-ring {
     overflow: hidden;
 }
 
+.dossier-share-btn {
+    cursor: pointer;
+}
+
+.dossier-share-btn::before,
 .dossier-external-btn::before {
     content: '';
     position: absolute;
@@ -1907,6 +1918,7 @@ body.cursor-hover #custom-cursor-ring {
     transition: opacity 0.2s;
 }
 
+.dossier-share-btn:hover,
 .dossier-external-btn:hover {
     background: rgba(0, 240, 255, 0.05);
     border-color: rgba(0, 240, 255, 0.4);
@@ -1914,6 +1926,7 @@ body.cursor-hover #custom-cursor-ring {
     text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
+.dossier-share-btn:hover::before,
 .dossier-external-btn:hover::before {
     opacity: 1;
 }

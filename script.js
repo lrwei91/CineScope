@@ -308,6 +308,7 @@ function bootstrapApp() {
     let selectedNetworks = [];
     let selectedRating = '全部';
     let searchQuery = '';
+    let currentDossierItem = null;
 
     let currentPage = 1;
     let isLoading = false;
@@ -1849,6 +1850,7 @@ function bootstrapApp() {
     // --- Intel Dossier Slide-out Modal Logic ---
     const dossierOverlay = document.getElementById('intel-dossier-overlay');
     const dossierDrawer = document.getElementById('intel-dossier');
+    const shareDossierBtn = document.getElementById('share-dossier-btn');
     const closeDossierBtn = document.getElementById('close-dossier-btn');
     
     function generateIdFromTitle(title) {
@@ -1865,6 +1867,7 @@ function bootstrapApp() {
         dossierDrawer.scrollTop = 0;
         dossierDrawer.classList.remove('swiping-close');
         dossierDrawer.style.removeProperty('--swipe-close-translate');
+        currentDossierItem = item;
 
         // Populate Data
         document.getElementById('dossier-poster').src = resolvePosterUrl(item.posterPath);
@@ -1971,6 +1974,287 @@ function bootstrapApp() {
         document.body.classList.add('modal-open');
     };
 
+    async function loadImageForShare(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    }
+
+    function wrapShareText(ctx, text, x, y, maxWidth, lineHeight, maxLines = Infinity) {
+        const paragraphs = String(text || '').split(/\n+/);
+        const lines = [];
+
+        for (const paragraph of paragraphs) {
+            const words = paragraph.split(/\s+/).filter(Boolean);
+            if (words.length === 0) {
+                lines.push('');
+                continue;
+            }
+
+            let currentLine = '';
+            for (const word of words) {
+                const testLine = currentLine ? `${currentLine} ${word}` : word;
+                if (ctx.measureText(testLine).width <= maxWidth || !currentLine) {
+                    currentLine = testLine;
+                } else {
+                    lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+            if (currentLine) lines.push(currentLine);
+        }
+
+        const output = lines.slice(0, maxLines);
+        output.forEach((line, index) => ctx.fillText(line, x, y + index * lineHeight));
+        return output.length;
+    }
+
+    function clampText(text, maxLength) {
+        const value = String(text || '').trim();
+        if (value.length <= maxLength) return value;
+        return `${value.slice(0, maxLength - 1)}…`;
+    }
+
+    function getVisibleGenresForShare(item) {
+        return (item.genres || []).filter((genreName) => {
+            const displayName = getGenreDisplayName(genreName);
+            return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
+        });
+    }
+
+    function buildShareText(item) {
+        const visibleGenres = getVisibleGenresForShare(item).map((genre) => getGenreDisplayName(genre));
+        const lines = [
+            item.title || '未命名',
+            item.subtitle ? item.subtitle : '',
+            item.doubanVerified && item.doubanRating ? `评分：${item.doubanRating}` : '评分：暂无',
+            item.date ? `上映：${item.date}` : '上映：UNKNOWN',
+            visibleGenres.length > 0 ? `类型：${visibleGenres.join(' / ')}` : ''
+        ].filter(Boolean);
+
+        if (item.overview) {
+            lines.push(`简介：${clampText(item.overview, 120)}`);
+        }
+
+        lines.push(window.location.href);
+        return lines.join('\n');
+    }
+
+    async function createShareImageFile(item) {
+        const width = 1080;
+        const height = 1350;
+        let includePoster = Boolean(item.posterPath);
+
+        for (let attempt = 0; attempt < 2; attempt += 1) {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                throw new Error('无法创建分享画布');
+            }
+
+            const bgGradient = ctx.createLinearGradient(0, 0, width, height);
+            bgGradient.addColorStop(0, '#05070d');
+            bgGradient.addColorStop(0.45, '#0a1020');
+            bgGradient.addColorStop(1, '#09050b');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.08)';
+            ctx.fillRect(0, 0, width, 10);
+            ctx.fillRect(0, height - 10, width, 10);
+
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(24, 24, width - 48, height - 48);
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+            ctx.fillRect(54, 54, width - 108, height - 108);
+
+            ctx.fillStyle = '#00f0ff';
+            ctx.font = '700 28px "Fira Code", monospace';
+            ctx.fillText('LATEST_TV // SHARE CARD', 70, 96);
+
+            ctx.fillStyle = '#9fb6c8';
+            ctx.font = '500 22px "Nunito Sans", sans-serif';
+            ctx.fillText('Streaming Radar', 70, 132);
+
+            const posterX = 70;
+            const posterY = 180;
+            const posterW = 360;
+            const posterH = 540;
+            const contentX = includePoster ? 470 : 70;
+            const contentWidth = includePoster ? 540 : 940;
+
+            let posterImage = null;
+            if (includePoster && item.posterPath) {
+                try {
+                    posterImage = await loadImageForShare(resolvePosterUrl(item.posterPath));
+                } catch (error) {
+                    posterImage = null;
+                    includePoster = false;
+                }
+            }
+
+            if (posterImage) {
+                const ratio = Math.max(posterW / posterImage.width, posterH / posterImage.height);
+                const drawW = posterImage.width * ratio;
+                const drawH = posterImage.height * ratio;
+                const drawX = posterX - (drawW - posterW) / 2;
+                const drawY = posterY - (drawH - posterH) / 2;
+                ctx.save();
+                ctx.beginPath();
+                ctx.roundRect(posterX, posterY, posterW, posterH, 24);
+                ctx.clip();
+                ctx.drawImage(posterImage, drawX, drawY, drawW, drawH);
+                ctx.restore();
+
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.38)';
+                ctx.fillRect(posterX, posterY + posterH - 110, posterW, 110);
+            } else {
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.06)';
+                ctx.beginPath();
+                ctx.roundRect(posterX, posterY, posterW, posterH, 24);
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(0, 240, 255, 0.25)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.fillStyle = '#00f0ff';
+                ctx.font = '700 28px "Fira Code", monospace';
+                ctx.fillText('NO POSTER', posterX + 40, posterY + 60);
+            }
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '800 58px "Nunito Sans", sans-serif';
+            ctx.textBaseline = 'alphabetic';
+            const titleLines = wrapShareText(ctx, item.title || '未命名', contentX, 255, contentWidth, 64, 2);
+
+            let cursorY = 255 + Math.max(titleLines, 1) * 64 + 24;
+            ctx.fillStyle = '#9fb6c8';
+            ctx.font = '500 24px "Nunito Sans", sans-serif';
+            if (item.subtitle) {
+                const subLines = wrapShareText(ctx, item.subtitle, contentX, cursorY, contentWidth, 34, 2);
+                cursorY += Math.max(subLines, 1) * 34 + 18;
+            }
+
+            const infoBlocks = [];
+            infoBlocks.push(item.doubanVerified && item.doubanRating ? `评分 ${item.doubanRating}` : '评分 暂无');
+            infoBlocks.push(item.date ? `上映 ${item.date}` : '上映 UNKNOWN');
+            const visibleGenres = getVisibleGenresForShare(item).map((genre) => getGenreDisplayName(genre));
+            if (visibleGenres.length > 0) {
+                infoBlocks.push(visibleGenres.slice(0, 4).join(' · '));
+            }
+
+            ctx.font = '600 22px "Fira Code", monospace';
+            infoBlocks.forEach((block) => {
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.95)';
+                ctx.fillText(block, contentX, cursorY);
+                cursorY += 34;
+            });
+
+            cursorY += 10;
+            ctx.fillStyle = '#d7e0ea';
+            ctx.font = '500 26px "Nunito Sans", sans-serif';
+            ctx.textBaseline = 'alphabetic';
+            const maxOverviewLines = includePoster ? 10 : 14;
+            if (item.overview) {
+                const overviewText = `简介：${item.overview}`;
+                const linesUsed = wrapShareText(ctx, overviewText, contentX, cursorY, contentWidth, 38, maxOverviewLines);
+                cursorY += Math.max(linesUsed, 1) * 38 + 18;
+            } else {
+                ctx.fillStyle = '#9fb6c8';
+                ctx.fillText('简介：暂无', contentX, cursorY);
+                cursorY += 42;
+            }
+
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.18)';
+            ctx.fillRect(contentX, height - 230, contentWidth, 2);
+
+            ctx.fillStyle = '#9fb6c8';
+            ctx.font = '600 20px "Fira Code", monospace';
+            ctx.fillText('source // latest_tv', contentX, height - 178);
+            ctx.fillText(new URL(window.location.href).origin + new URL(window.location.href).pathname, contentX, height - 142);
+
+            const blob = await new Promise((resolve, reject) => {
+                canvas.toBlob((result) => {
+                    if (!result) {
+                        reject(new Error('生成分享图片失败'));
+                        return;
+                    }
+                    resolve(result);
+                }, 'image/png');
+            }).catch((error) => {
+                if (includePoster && attempt === 0) {
+                    includePoster = false;
+                    return null;
+                }
+                throw error;
+            });
+
+            if (!blob) {
+                continue;
+            }
+
+            return new File([blob], `${sanitizeFileName(item.title || 'latest_tv')}.png`, { type: 'image/png' });
+        }
+
+        throw new Error('无法生成分享图片');
+    }
+
+    function sanitizeFileName(name) {
+        return String(name || 'latest_tv')
+            .replace(/[\\/:*?"<>|]+/g, '_')
+            .replace(/\s+/g, '_')
+            .slice(0, 80);
+    }
+
+    async function shareDossierAsImage() {
+        if (!currentDossierItem) {
+            showToast('当前没有可分享内容');
+            return;
+        }
+
+        const button = shareDossierBtn;
+        if (button) button.disabled = true;
+
+        try {
+            const file = await createShareImageFile(currentDossierItem);
+            const shareText = buildShareText(currentDossierItem);
+            const shareData = {
+                title: currentDossierItem.title || 'latest_tv',
+                text: shareText,
+                files: [file]
+            };
+
+            const canShareFiles = typeof navigator.canShare === 'function' ? navigator.canShare({ files: [file] }) : true;
+            if (navigator.share && canShareFiles) {
+                await navigator.share(shareData);
+                showToast('已打开系统分享');
+                return;
+            }
+
+            const url = URL.createObjectURL(file);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = file.name;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 3000);
+            showToast('当前设备不支持系统分享，已转为下载');
+        } catch (error) {
+            console.error('分享失败:', error);
+            showToast('分享失败，已取消');
+        } finally {
+            if (button) button.disabled = false;
+        }
+    }
+
     function setDossierField(rowId, valueId, values) {
         const row = document.getElementById(rowId);
         const valueNode = document.getElementById(valueId);
@@ -1999,8 +2283,8 @@ function bootstrapApp() {
         dossierDrawer.classList.remove('swiping-close');
         dossierDrawer.style.removeProperty('--swipe-close-translate');
         document.body.classList.remove('modal-open');
+        currentDossierItem = null;
     }
-
     function setupDossierSwipeClose() {
         if (!dossierDrawer) return;
 
@@ -2065,6 +2349,7 @@ function bootstrapApp() {
     }
 
     if (closeDossierBtn) closeDossierBtn.addEventListener('click', closeIntelDossier);
+    if (shareDossierBtn) shareDossierBtn.addEventListener('click', shareDossierAsImage);
     if (dossierOverlay) dossierOverlay.addEventListener('click', closeIntelDossier);
     setupDossierSwipeClose();
     document.addEventListener('keydown', (e) => {
