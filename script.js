@@ -2005,9 +2005,6 @@ function bootstrapApp() {
             const touch = event.touches?.[0];
             if (!touch) return;
 
-            const rect = dossierDrawer.getBoundingClientRect();
-            if (touch.clientX - rect.left > 40) return;
-
             startX = touch.clientX;
             startY = touch.clientY;
             currentX = startX;
