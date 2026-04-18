@@ -1978,11 +1978,80 @@ function bootstrapApp() {
         if (!dossierOverlay || !dossierDrawer) return;
         dossierOverlay.classList.remove('active');
         dossierDrawer.classList.remove('active');
+        dossierDrawer.classList.remove('swiping-close');
+        dossierDrawer.style.removeProperty('--swipe-close-translate');
         document.body.classList.remove('modal-open');
+    }
+
+    function setupDossierSwipeClose() {
+        if (!dossierDrawer) return;
+
+        let startX = 0;
+        let startY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let isTracking = false;
+        let isSwiping = false;
+
+        const resetSwipeState = () => {
+            isTracking = false;
+            isSwiping = false;
+            dossierDrawer.classList.remove('swiping-close');
+            dossierDrawer.style.removeProperty('--swipe-close-translate');
+        };
+
+        dossierDrawer.addEventListener('touchstart', (event) => {
+            if (!isMobile() || !dossierDrawer.classList.contains('active')) return;
+            const touch = event.touches?.[0];
+            if (!touch) return;
+
+            const rect = dossierDrawer.getBoundingClientRect();
+            if (touch.clientX - rect.left > 40) return;
+
+            startX = touch.clientX;
+            startY = touch.clientY;
+            currentX = startX;
+            currentY = startY;
+            isTracking = true;
+            isSwiping = false;
+        }, { passive: true });
+
+        dossierDrawer.addEventListener('touchmove', (event) => {
+            if (!isTracking) return;
+            const touch = event.touches?.[0];
+            if (!touch) return;
+
+            currentX = touch.clientX;
+            currentY = touch.clientY;
+            const deltaX = currentX - startX;
+            const deltaY = currentY - startY;
+
+            if (deltaX > 12 && Math.abs(deltaY) < Math.abs(deltaX) * 0.8) {
+                isSwiping = true;
+                dossierDrawer.classList.add('swiping-close');
+                dossierDrawer.style.setProperty('--swipe-close-translate', `${Math.max(0, deltaX)}px`);
+            }
+
+            if (isSwiping) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        dossierDrawer.addEventListener('touchend', () => {
+            if (!isTracking) return;
+            const deltaX = currentX - startX;
+            const deltaY = Math.abs(currentY - startY);
+            const shouldClose = isSwiping && deltaX > 80 && deltaX > deltaY * 1.25;
+            resetSwipeState();
+            if (shouldClose) closeIntelDossier();
+        }, { passive: true });
+
+        dossierDrawer.addEventListener('touchcancel', resetSwipeState, { passive: true });
     }
 
     if (closeDossierBtn) closeDossierBtn.addEventListener('click', closeIntelDossier);
     if (dossierOverlay) dossierOverlay.addEventListener('click', closeIntelDossier);
+    setupDossierSwipeClose();
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && dossierDrawer && dossierDrawer.classList.contains('active')) {
             closeIntelDossier();

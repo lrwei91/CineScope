@@ -1683,10 +1683,18 @@ body.cursor-hover #custom-cursor-ring {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    will-change: transform;
 }
 
 .dossier-drawer.active {
     transform: translateX(0);
+}
+
+.dossier-drawer.active.swiping-close {
+    transform: translateX(var(--swipe-close-translate, 0));
+    transition: none;
 }
 
 .close-btn {
