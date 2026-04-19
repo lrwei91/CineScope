@@ -1882,21 +1882,21 @@ function bootstrapApp() {
         }
 
         const reportIdSpan = document.getElementById('dossier-id');
-        typeWriterEffect(reportIdSpan, generateIdFromTitle(item.title || 'UNKNOWN'), 10);
+        reportIdSpan.textContent = generateIdFromTitle(item.title || 'UNKNOWN');
 
         const titleSpan = document.getElementById('dossier-title');
-        typeWriterEffect(titleSpan, item.title || '未命名', 20);
+        titleSpan.textContent = item.title || '未命名';
 
         const subtitleSpan = document.getElementById('dossier-subtitle');
         if (item.subtitle) {
-            typeWriterEffect(subtitleSpan, item.subtitle, 20);
+            subtitleSpan.textContent = item.subtitle;
         } else {
             subtitleSpan.textContent = '';
         }
         
         const ratingSpan = document.getElementById('dossier-rating');
         if (item.doubanVerified && item.doubanRating) {
-            typeWriterEffect(ratingSpan, item.doubanRating.toString(), 30);
+            ratingSpan.textContent = item.doubanRating.toString();
         } else {
             ratingSpan.textContent = 'N/A';
         }
@@ -2072,52 +2072,25 @@ function bootstrapApp() {
             const ctx = canvas.getContext('2d');
             if (!ctx) throw new Error('无法创建分享画布');
 
-            // Set main background
-            ctx.fillStyle = '#05070d';
+            // 1. Dark outer background
+            ctx.fillStyle = '#05080f';
             ctx.fillRect(0, 0, width, height);
 
-            // Draw Ticket Shape
+            // 2. Light Cream Ticket Background
             const ticketMargin = 40;
             const ticketW = width - ticketMargin * 2;
             const ticketH = height - ticketMargin * 2;
             const ticketX = ticketMargin;
             const ticketY = ticketMargin;
-            
-            // Ticket neon shadow
-            ctx.shadowColor = 'rgba(0, 240, 255, 0.4)';
-            ctx.shadowBlur = 30;
-            ctx.fillStyle = '#0a1020';
+            const punchY = 720;
+            const creamColor = '#f1f0ea';
+
+            ctx.fillStyle = creamColor;
             ctx.beginPath();
             ctx.roundRect(ticketX, ticketY, ticketW, ticketH, 20);
             ctx.fill();
-            ctx.shadowBlur = 0; // reset
 
-            // Ticket punched holes
-            const holeRadius = 24;
-            const punchY = 520;
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(ticketX, punchY, holeRadius, 0, Math.PI * 2);
-            ctx.arc(ticketX + ticketW, punchY, holeRadius, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.globalCompositeOperation = 'source-over';
-            
-            // Ticket Outline
-            ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.roundRect(ticketX, ticketY, ticketW, ticketH, 20);
-            ctx.stroke();
-
-            // Dashed line across ticket
-            ctx.beginPath();
-            ctx.setLineDash([12, 12]);
-            ctx.moveTo(ticketX + holeRadius + 10, punchY);
-            ctx.lineTo(ticketX + ticketW - holeRadius - 10, punchY);
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            // Draw Poster Top Half
+            // 3. Draw Large Poster overlapping top portion
             let posterImage = null;
             if (includePoster && item.posterPath) {
                 try {
@@ -2127,127 +2100,180 @@ function bootstrapApp() {
                 }
             }
 
-            const posterW = 260;
-            const posterH = 390;
-            const posterX = width / 2 - posterW / 2;
-            const posterY = ticketY + 60;
-
             if (posterImage) {
                 ctx.save();
                 ctx.beginPath();
-                ctx.roundRect(posterX, posterY, posterW, posterH, 12);
+                ctx.roundRect(ticketX, ticketY, ticketW, punchY - ticketY, [20, 20, 0, 0]);
                 ctx.clip();
-                const ratio = Math.max(posterW / posterImage.width, posterH / posterImage.height);
+                
+                const ratio = Math.max(ticketW / posterImage.width, (punchY - ticketY) / posterImage.height);
                 const drawW = posterImage.width * ratio;
                 const drawH = posterImage.height * ratio;
-                ctx.drawImage(posterImage, posterX - (drawW - posterW) / 2, posterY - (drawH - posterH) / 2, drawW, drawH);
+                ctx.drawImage(posterImage, ticketX - (drawW - ticketW) / 2, ticketY - (drawH - (punchY - ticketY)) / 2, drawW, drawH);
+                
+                // Gradient mask to blend poster into the cream background
+                const gradient = ctx.createLinearGradient(0, punchY - 240, 0, punchY + 2);
+                gradient.addColorStop(0, 'rgba(241, 240, 234, 0)');
+                gradient.addColorStop(0.8, 'rgba(241, 240, 234, 0.9)');
+                gradient.addColorStop(1, creamColor);
+                ctx.fillStyle = gradient;
+                ctx.fillRect(ticketX, punchY - 240, ticketW, 242);
                 ctx.restore();
-            } else {
-                ctx.fillStyle = 'rgba(0, 240, 255, 0.05)';
-                ctx.beginPath();
-                ctx.roundRect(posterX, posterY, posterW, posterH, 12);
-                ctx.fill();
-                ctx.stroke();
             }
 
-            // Ticket Top Headers & Marks
-            ctx.fillStyle = '#00f0ff';
-            ctx.font = '700 20px "Fira Code", monospace';
+            // 4. Ticket Top Headers (STREAMING RADAR // DOSSIER SYS)
+            ctx.fillStyle = '#515560';
+            ctx.font = '600 18px "Fira Code", monospace';
             ctx.textAlign = 'left';
             ctx.fillText('STREAMING RADAR', ticketX + 30, ticketY + 40);
             ctx.textAlign = 'right';
             ctx.fillText('// DOSSIER SYS', ticketX + ticketW - 30, ticketY + 40);
 
-            // Bottom Section 
+            // 5. Punched holes & Dashed dividing line
+            const holeRadius = 24;
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(ticketX, punchY, holeRadius, 0, Math.PI * 2);
+            ctx.arc(ticketX + ticketW, punchY, holeRadius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalCompositeOperation = 'source-over';
+            
+            ctx.beginPath();
+            ctx.setLineDash([8, 12]);
+            ctx.strokeStyle = '#c4c3bd';
+            ctx.lineWidth = 2;
+            ctx.moveTo(ticketX + holeRadius + 10, punchY);
+            ctx.lineTo(ticketX + ticketW - holeRadius - 10, punchY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // 6. Text Elements
+            const metaX = ticketX + 40;
             let cursorY = punchY + 60;
 
             // Title
-            ctx.textAlign = 'center';
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '800 48px "Nunito Sans", sans-serif';
-            const titleLines = wrapShareText(ctx, item.title || '未命名', width / 2, cursorY, ticketW - 80, 56, 2);
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#111318';
+            ctx.font = '800 46px "Nunito Sans", sans-serif';
+            const titleLines = wrapShareText(ctx, item.title || '未命名', metaX, cursorY, ticketW - 80, 56, 2);
             cursorY += titleLines * 56 + 10;
 
             // Subtitle
             if (item.subtitle) {
-                ctx.fillStyle = '#9fb6c8';
-                ctx.font = '500 24px "Nunito Sans", sans-serif';
-                const subLines = wrapShareText(ctx, item.subtitle, width / 2, cursorY, ticketW - 80, 34, 1);
+                ctx.fillStyle = '#555964';
+                ctx.font = '600 24px "Nunito Sans", sans-serif';
+                const subLines = wrapShareText(ctx, item.subtitle, metaX, cursorY, ticketW - 80, 34, 1);
                 cursorY += subLines * 34 + 10;
             }
 
-            // Meta Information
-            ctx.textAlign = 'left';
-            const metaX = ticketX + 40;
-            cursorY += 20;
-            
-            ctx.fillStyle = '#00f0ff';
+            cursorY += 10;
+
+            // Ratings, Date & Type
+            ctx.fillStyle = '#333742';
             ctx.font = '600 20px "Fira Code", monospace';
-            const typeStr = getVisibleGenresForShare(item).map((genre) => getGenreDisplayName(genre)).slice(0, 4).join(' · ');
             const ratingStr = item.doubanVerified && item.doubanRating ? `SYS.RATING: ${item.doubanRating}` : 'SYS.RATING: N/A';
             const dateStr = item.date ? `AIR.DATE: ${item.date}` : 'AIR.DATE: UNKNOWN';
             
+            ctx.textAlign = 'left';
             ctx.fillText(ratingStr, metaX, cursorY);
-            ctx.fillText(dateStr, width / 2, cursorY);
+            ctx.textAlign = 'right';
+            ctx.fillText(dateStr, ticketX + ticketW - 40, cursorY);
+            
             cursorY += 34;
+            const typeStr = getVisibleGenresForShare(item).map((genre) => getGenreDisplayName(genre)).slice(0, 4).join(' · ');
             if (typeStr) {
+                ctx.textAlign = 'left';
                 ctx.fillText(`TYPE: ${typeStr}`, metaX, cursorY);
             }
-            cursorY += 46;
 
-            // Cast & Crew
-            ctx.fillStyle = '#9fb6c8';
+            // Cast & Crew & Big Date
+            cursorY += 60;
+            
+            // Extract big date pieces (04.05 FRI)
+            let bigDate = '';
+            let dayOfWeek = '';
+            if (item.date) {
+                const parts = item.date.split('-');
+                if (parts.length >= 3) {
+                    bigDate = `${parts[1]}.${parts[2]}`;
+                    const d = new Date(item.date);
+                    if (!isNaN(d.getTime())) {
+                        const daysArr = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+                        dayOfWeek = daysArr[d.getDay()];
+                    }
+                } else {
+                    bigDate = item.date;
+                }
+            }
+
+            if (bigDate) {
+                ctx.textAlign = 'right';
+                ctx.fillStyle = '#111318';
+                ctx.font = '800 56px "Nunito Sans", sans-serif';
+                ctx.fillText(bigDate, ticketX + ticketW - 90, cursorY);
+                if (dayOfWeek) {
+                    ctx.fillStyle = '#c6211a';
+                    ctx.font = '800 24px "Nunito Sans", sans-serif';
+                    ctx.fillText(dayOfWeek, ticketX + ticketW - 40, cursorY);
+                }
+            }
+
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#333742';
             ctx.font = '500 22px "Nunito Sans", sans-serif';
             if (item.directors && item.directors.length > 0) {
                 const dirStr = `导演: ${item.directors.slice(0, 3).join(' / ')}`;
-                wrapShareText(ctx, dirStr, metaX, cursorY, ticketW - 80, 30, 1);
-                cursorY += 34;
+                wrapShareText(ctx, dirStr, metaX, cursorY - 30, ticketW - 280, 30, 1);
             }
             if (item.actors && item.actors.length > 0) {
                 const actorStr = `主演: ${item.actors.slice(0, 5).join(' / ')}`;
-                wrapShareText(ctx, actorStr, metaX, cursorY, ticketW - 80, 30, 1);
-                cursorY += 34;
+                wrapShareText(ctx, actorStr, metaX, cursorY + 4, ticketW - 280, 30, 1);
             }
-            cursorY += 20;
+
+            cursorY += 40;
 
             // Overview Text
-            ctx.fillStyle = '#d7e0ea';
-            ctx.font = '400 24px "Nunito Sans", sans-serif';
+            ctx.fillStyle = '#555964';
+            ctx.font = '400 22px "Nunito Sans", sans-serif';
             if (item.overview) {
-                wrapShareText(ctx, item.overview, metaX, cursorY, ticketW - 80, 40, 5); // STRICT 5 LINES MAX
+                wrapShareText(ctx, item.overview, metaX, cursorY + 20, ticketW - 80, 42, 4); // max 4 lines
             }
 
-            // Footer / Barcode part
-            cursorY = height - ticketMargin - 120;
-            ctx.fillStyle = 'rgba(0, 240, 255, 0.5)';
-            ctx.fillRect(metaX, cursorY, ticketW - 80, 2);
-
-            cursorY += 30;
-            // Barcode graphic
-            ctx.fillStyle = '#cad9e3';
-            let barcodeX = metaX;
-            while(barcodeX < metaX + 240) {
-                const w = Math.random() * 6 + 2;
-                ctx.fillRect(barcodeX, cursorY, w, 40);
-                barcodeX += w + Math.random() * 6 + 2;
+            // 7. Footer / Barcode part
+            const bottomY = height - ticketMargin - 50;
+            
+            ctx.fillStyle = '#111318';
+            let bcX = metaX;
+            // Generate random-looking barcode lines
+            for (let i = 0; i < 26; i++) {
+                const rand = Math.sin(item.id * (i+1)); // pseudo-random deterministic
+                const barW = rand > 0.5 ? 4 : (rand > 0 ? 8 : 2);
+                ctx.fillRect(bcX, bottomY - 36, barW, 40);
+                bcX += barW + 4;
             }
+            
+            ctx.font = '500 14px "Fira Code", monospace';
+            ctx.fillStyle = '#888d96';
+            const idStr = `LRWEI91-${(item.date || '').replace(/-/g, '')}-0001`;
+            ctx.fillText(idStr, metaX, bottomY + 26);
 
-            // Footer Texts
             ctx.textAlign = 'right';
-            ctx.font = '700 22px "Fira Code", monospace';
-            ctx.fillStyle = '#cad9e3';
-            ctx.fillText('ADMIT_ONE', ticketX + ticketW - 40, cursorY + 16);
-            ctx.font = '500 16px "Fira Code", monospace';
-            ctx.fillStyle = '#9fb6c8';
-            ctx.fillText(new URL(window.location.href).origin + new URL(window.location.href).pathname, ticketX + ticketW - 40, cursorY + 40);
+            ctx.fillStyle = '#c6211a'; 
+            ctx.font = '800 24px "Fira Code", monospace';
+            ctx.fillText('ADMIT_ONE', ticketX + ticketW - 40, bottomY - 14);
 
-            const blob = await new Promise((resolve, reject) => {
-                canvas.toBlob((result) => {
-                    if (!result) return reject(new Error('生成图片失败'));
-                    resolve(result);
-                }, 'image/png');
-            }).catch((error) => {
-                if (includePoster && attempt === 0) {
+            ctx.fillStyle = '#888d96';
+            ctx.font = '400 16px "Fira Code", monospace';
+            ctx.fillText('https://lrwei91.github.io/latest_tv/', ticketX + ticketW - 40, bottomY + 24);
+
+            try {
+                const blob = await new Promise((resolve, reject) => {
+                    canvas.toBlob((result) => {
+                        if (!result) return reject(new Error('生成图片失败'));
+                        resolve(result);
+                    }, 'image/png');
+                }).catch((error) => {
+                    if (includePoster && attempt === 0) {
                     includePoster = false; // retry without poster
                     return null;
                 }
