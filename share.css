@@ -1,0 +1,44 @@
+.dossier-header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 4px;
+}
+
+.dossier-header-main h2 {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.dossier-inline-share-btn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: var(--radius-sm);
+    color: var(--palette-accent-primary);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 4px;
+    padding: 0;
+}
+
+.dossier-inline-share-btn svg {
+    display: block;
+}
+
+.dossier-inline-share-btn:hover {
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--palette-accent-primary);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.dossier-inline-share-btn:active {
+    transform: scale(0.95);
+}

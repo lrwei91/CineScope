@@ -14,12 +14,18 @@
         body { visibility: hidden; }
     </style>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="share.css">
     <script>
         (function injectScript() {
             const script = document.createElement('script');
             script.src = `script.js?v=${Date.now()}`;
             script.defer = true;
             document.head.appendChild(script);
+
+            const shareScript = document.createElement('script');
+            shareScript.src = `share.js?v=${Date.now()}`;
+            shareScript.defer = true;
+            document.head.appendChild(shareScript);
         })();
     </script>
 </head>
