@@ -205,8 +205,10 @@ async function buildCategoryData(spec) {
 
     // [新增] 二次去重兜底：针对那些没能通过 ID 匹配的同名同年作品进行合并
     const finallyDedupedItems = dedupeByNameAndYear(spec.kind, mergedItems);
+    const tmdbEnrichedItems =
+        TMDB_API_KEY && spec.tmdb ? await enrichItemsWithTmdbFallback(spec, finallyDedupedItems) : finallyDedupedItems;
 
-    const latestItems = finallyDedupedItems.slice(0, spec.latestCount);
+    const latestItems = tmdbEnrichedItems.slice(0, spec.latestCount);
     const sourceResults = [
         ...doubanSourceResults.map((sourceResult) => ({
             slug: sourceResult.slug,
@@ -219,8 +221,8 @@ async function buildCategoryData(spec) {
     ];
 
     const latestPayload = createPayload(spec, latestItems, sourceResults, 'latest');
-    const completePayload = createPayload(spec, finallyDedupedItems, sourceResults, 'complete');
-    const finalCompleteCount = spec.kind === 'tv' ? finallyDedupedItems.length : finallyDedupedItems.length;
+    const completePayload = createPayload(spec, tmdbEnrichedItems, sourceResults, 'complete');
+    const finalCompleteCount = tmdbEnrichedItems.length;
 
     return {
         latestPayload,
@@ -356,6 +358,160 @@ async function buildTmdbItems(spec, doubanLookup) {
     });
 
     return normalizedItems.filter(Boolean);
+}
+
+async function enrichItemsWithTmdbFallback(spec, items) {
+    if (!TMDB_API_KEY || !spec.tmdb) {
+        return items;
+    }
+
+    const searchPath = spec.kind === 'tv' ? '/search/tv' : '/search/movie';
+
+    return mapWithConcurrency(items, 4, async (item) => {
+        const needsTmdbLink = !item.tmdb_id;
+        const needsOverview = !String(item.overview || '').trim();
+
+        if (!needsTmdbLink && !needsOverview) {
+            return item;
+        }
+
+        const detail = await searchTmdbDetail(searchPath, {
+            title: item.title || item.name || item.original_title || item.original_name || '',
+            originalTitle: item.subtitle || '',
+            date: getItemDate(spec.kind, item)
+        });
+
+        if (!detail) {
+            return item;
+        }
+
+        return mergeTmdbFallbackIntoItem(spec.kind, item, detail);
+    });
+}
+
+async function searchTmdbDetail(searchPath, { title, originalTitle, date }) {
+    const searchQueries = [...new Set([title, originalTitle].map((value) => String(value || '').trim()).filter(Boolean))];
+    const year = String(date || '').slice(0, 4);
+
+    for (const query of searchQueries) {
+        const params = {
+            language: 'zh-CN',
+            query,
+            include_adult: 'false',
+            page: 1
+        };
+
+        if (year) {
+            if (searchPath === '/search/movie') {
+                params.primary_release_year = year;
+            } else {
+                params.first_air_date_year = year;
+            }
+        }
+
+        const searchResult = await fetchTmdbJson(searchPath, params).catch((error) => {
+            console.warn(`TMDB search failed for ${query}: ${error.message}`);
+            return null;
+        });
+
+        const results = Array.isArray(searchResult?.results) ? searchResult.results : [];
+        if (results.length === 0) {
+            continue;
+        }
+
+        const bestMatch = pickBestTmdbSearchResult(results, title, originalTitle, year);
+        if (!bestMatch?.id) {
+            continue;
+        }
+
+        const detailPath = searchPath === '/search/tv' ? '/tv' : '/movie';
+        const detail = await fetchTmdbDetail(detailPath, bestMatch.id).catch((error) => {
+            console.warn(`Skip TMDB fallback detail ${bestMatch.id}: ${error.message}`);
+            return null;
+        });
+
+        if (detail) {
+            return detail;
+        }
+    }
+
+    return null;
+}
+
+function pickBestTmdbSearchResult(results, title, originalTitle, year) {
+    const titleKey = normalizeLookupText(title);
+    const originalTitleKey = normalizeLookupText(originalTitle);
+
+    return [...results]
+        .map((result) => ({
+            result,
+            score: scoreTmdbSearchResult(result, titleKey, originalTitleKey, year)
+        }))
+        .sort((left, right) => right.score - left.score)[0]?.result || null;
+}
+
+function scoreTmdbSearchResult(result, titleKey, originalTitleKey, year) {
+    const candidateTitle = normalizeLookupText(result.title || result.name || '');
+    const candidateOriginalTitle = normalizeLookupText(result.original_title || result.original_name || '');
+    const candidateYear = String(result.release_date || result.first_air_date || '').slice(0, 4);
+
+    let score = 0;
+
+    if (candidateTitle && candidateTitle === titleKey) {
+        score += 8;
+    }
+    if (candidateOriginalTitle && candidateOriginalTitle === titleKey) {
+        score += 7;
+    }
+    if (candidateTitle && candidateTitle === originalTitleKey) {
+        score += 6;
+    }
+    if (candidateOriginalTitle && candidateOriginalTitle === originalTitleKey) {
+        score += 6;
+    }
+    if (year && candidateYear === year) {
+        score += 4;
+    }
+    if (Number.isFinite(Number(result.popularity))) {
+        score += Math.min(Number(result.popularity) / 100, 2);
+    }
+
+    return score;
+}
+
+function mergeTmdbFallbackIntoItem(kind, item, detail) {
+    const tmdbId = detail.id || item.tmdb_id || null;
+    const tmdbUrl = tmdbId ? `https://www.themoviedb.org/${kind === 'tv' ? 'tv' : 'movie'}/${tmdbId}` : item.tmdbUrl || null;
+    const overview = item.overview || detail.overview || '';
+    const posterPath = item.poster_path || detail.poster_path || null;
+    const imdbId = item.imdb_id || detail.external_ids?.imdb_id || null;
+
+    if (kind === 'tv') {
+        return {
+            ...item,
+            tmdb_id: tmdbId,
+            tmdbUrl,
+            overview,
+            poster_path: posterPath,
+            imdb_id: imdbId,
+            countries: item.countries?.length ? item.countries : extractStringList(detail.origin_country),
+            languages: item.languages?.length ? item.languages : [detail.original_language].filter(Boolean),
+            episodes_info: item.episodes_info || detail.status || null,
+            status: item.status || detail.status || ''
+        };
+    }
+
+    return {
+        ...item,
+        tmdb_id: tmdbId,
+        tmdbUrl,
+        overview,
+        poster_path: posterPath,
+        imdb_id: imdbId,
+        countries: item.countries?.length ? item.countries : extractStringList(detail.production_countries),
+        languages: item.languages?.length ? item.languages : [detail.original_language].filter(Boolean),
+        durations: item.durations?.length ? item.durations : detail.runtime ? [`${detail.runtime}分钟`] : []
+    };
 }
 
 async function fetchAllCollectionItems(slug, totalLimit = null) {

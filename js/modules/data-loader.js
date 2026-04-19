@@ -17,8 +17,7 @@ export function buildFreshUrl(url) {
  * 构建 TMDB 搜索 URL
  */
 export function buildTmdbSearchUrl(title, date) {
-    const year = date ? String(date).slice(0, 4) : '';
-    const query = encodeURIComponent(`${title} ${year}`.trim());
+    const query = encodeURIComponent(String(title || '').trim());
     return `https://www.themoviedb.org/search?query=${query}`;
 }
 
