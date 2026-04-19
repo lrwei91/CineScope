@@ -8,6 +8,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
+const CATEGORY_IDS = String(process.env.CATEGORY_IDS || '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
 const TMDB_API_BASE = 'https://api.themoviedb.org/3';
 const CURRENT_YEAR = new Date().getFullYear();
 const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
@@ -152,7 +156,16 @@ const CATEGORY_SPECS = [
 ];
 
 async function main() {
-    for (const spec of CATEGORY_SPECS) {
+    const activeCategorySpecs =
+        CATEGORY_IDS.length > 0
+            ? CATEGORY_SPECS.filter((spec) => CATEGORY_IDS.includes(spec.id))
+            : CATEGORY_SPECS;
+
+    if (CATEGORY_IDS.length > 0 && activeCategorySpecs.length === 0) {
+        throw new Error(`No category spec matched CATEGORY_IDS=${CATEGORY_IDS.join(',')}`);
+    }
+
+    for (const spec of activeCategorySpecs) {
         const result = await buildCategoryData(spec);
         await writeJson(spec.latestPath, result.latestPayload);
         await writeJson(spec.completePath, result.completePayload);
@@ -162,11 +175,13 @@ async function main() {
         logFallbackSummary(spec.id, result.fallbackSummary);
     }
 
-    const doubanStatusesPayload = await buildDoubanStatusesPayload(DOUBAN_DEFAULT_USER_ID);
-    await writeJson('json/douban_statuses.json', doubanStatusesPayload);
-    console.log(
-        `[douban_statuses] user=${DOUBAN_DEFAULT_USER_ID} total=${doubanStatusesPayload.metadata.total_items} -> json/douban_statuses.json`
-    );
+    if (CATEGORY_IDS.length === 0) {
+        const doubanStatusesPayload = await buildDoubanStatusesPayload(DOUBAN_DEFAULT_USER_ID);
+        await writeJson('json/douban_statuses.json', doubanStatusesPayload);
+        console.log(
+            `[douban_statuses] user=${DOUBAN_DEFAULT_USER_ID} total=${doubanStatusesPayload.metadata.total_items} -> json/douban_statuses.json`
+        );
+    }
 }
 
 async function buildCategoryData(spec) {
@@ -677,6 +692,12 @@ function normalizeDoubanMovieEntry(item, detail) {
 
     const posterUrl = detail?.pic?.large || item?.cover?.url || null;
     const ratingValue = getRatingValue(detail?.rating?.value ?? item?.rating?.value);
+    const directors = extractPersonObjects(detail?.directors?.length ? detail.directors : item?.directors);
+    const actors = extractPersonObjects(detail?.actors?.length ? detail.actors : item?.actors);
+    const countries = extractStringList(detail?.countries);
+    const languages = extractStringList(detail?.languages);
+    const aka = extractStringList(detail?.aka);
+    const overview = detail?.intro || item?.description || '';
 
     return {
         id: normalizeNumericId(item.id),
@@ -684,17 +705,17 @@ function normalizeDoubanMovieEntry(item, detail) {
         original_title: detail?.original_title || detail?.title || item.title,
         release_date: releaseDate,
         genres: extractGenreObjects(detail?.card_subtitle || item.card_subtitle || item.info),
-        directors: extractPersonObjects(detail?.directors),
-        actors: extractPersonObjects(detail?.actors),
-        countries: extractStringList(detail?.countries),
-        languages: extractStringList(detail?.languages),
-        aka: extractStringList(detail?.aka),
+        directors,
+        actors,
+        countries,
+        languages,
+        aka,
         imdb_id: null,
         poster_path: posterUrl,
         douban_rating: ratingValue,
         douban_link_google: buildDoubanSubjectUrl(item.id),
         douban_link_verified: true,
-        overview: detail?.intro || item.description || '',
+        overview,
         durations: extractStringList(detail?.durations),
         rating_count: getRatingCount(detail?.rating?.count ?? item?.rating?.count),
         rating_star_count: getRatingCount(detail?.rating?.star_count ?? item?.rating?.star_count),
