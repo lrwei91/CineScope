@@ -239,18 +239,20 @@
                     <div class="dossier-poster-container">
                         <img id="dossier-poster" src="" alt="Dossier Image">
                         <div id="dossier-status-badge" class="poster-status-badge" hidden></div>
-                        <button id="share-dossier-btn" class="dossier-top-share-btn" type="button" aria-label="分享海报">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                                <polyline points="16 6 12 2 8 6"></polyline>
-                                <line x1="12" y1="2" x2="12" y2="15"></line>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             <div class="dossier-data">
                 <p class="dossier-subtext">REPORT ID // <span id="dossier-id"></span></p>
-                <h2 id="dossier-title"></h2>
+                <div class="dossier-header-main">
+                    <h2 id="dossier-title"></h2>
+                    <button id="share-dossier-btn" class="dossier-inline-share-btn" type="button" title="分享剧集档案">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                            <polyline points="16 6 12 2 8 6"></polyline>
+                            <line x1="12" y1="2" x2="12" y2="15"></line>
+                        </svg>
+                    </button>
+                </div>
                 <h3 id="dossier-subtitle"></h3>
                 
                 <div class="dossier-metrics">

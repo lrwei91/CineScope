@@ -1748,35 +1748,48 @@ body.cursor-hover #custom-cursor-ring {
     object-fit: cover;
 }
 
-.dossier-top-share-btn {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(12, 12, 16, 0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--palette-text-primary);
+.dossier-header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 4px;
+}
+
+.dossier-header-main h2 {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.dossier-inline-share-btn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: var(--radius-sm);
+    color: var(--palette-accent-primary);
     cursor: pointer;
-    transition: all 0.2s ease;
-    z-index: 10;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 4px;
     padding: 0;
 }
 
-.dossier-top-share-btn:hover {
-    background: rgba(0, 240, 255, 0.2);
-    border-color: rgba(0, 240, 255, 0.6);
-    color: #00f0ff;
-    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
-    transform: scale(1.05);
+.dossier-inline-share-btn svg {
+    display: block;
 }
 
-.dossier-top-share-btn:active {
+.dossier-inline-share-btn:hover {
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--palette-accent-primary);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.dossier-inline-share-btn:active {
     transform: scale(0.95);
 }
 

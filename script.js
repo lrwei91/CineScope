@@ -1985,35 +1985,48 @@ function bootstrapApp() {
     }
 
     function wrapShareText(ctx, text, x, y, maxWidth, lineHeight, maxLines = Infinity) {
-        const paragraphs = String(text || '').split(/\n+/);
+        const paragraphs = String(text || '').split(/\n/);
         const lines = [];
 
         for (const paragraph of paragraphs) {
-            const words = paragraph.split(/\s+/).filter(Boolean);
-            if (words.length === 0) {
-                lines.push('');
-                continue;
-            }
-
             let currentLine = '';
-            for (const word of words) {
-                const testLine = currentLine ? `${currentLine} ${word}` : word;
-                if (ctx.measureText(testLine).width <= maxWidth || !currentLine) {
-                    currentLine = testLine;
-                } else {
+            for (let i = 0; i < paragraph.length; i++) {
+                const char = paragraph[i];
+                const testLine = currentLine + char;
+                const metrics = ctx.measureText(testLine);
+                
+                if (metrics.width > maxWidth && currentLine.length > 0) {
                     lines.push(currentLine);
-                    currentLine = word;
+                    currentLine = char;
+                } else {
+                    currentLine = testLine;
                 }
             }
-            if (currentLine) lines.push(currentLine);
+            if (currentLine) {
+                lines.push(currentLine);
+            }
         }
 
-        const output = lines.slice(0, maxLines);
-        if (lines.length > maxLines && output.length > 0) {
-            output[output.length - 1] = output[output.length - 1].replace(/.{1,3}$/, '...');
+        const linesToRender = lines.slice(0, maxLines);
+        
+        // Handle ellipsis for last line if truncated
+        if (lines.length > maxLines) {
+            const lastIdx = linesToRender.length - 1;
+            let lastLine = linesToRender[lastIdx];
+            const ellipsis = '...';
+            
+            // Backtrack characters until ellipsis fits
+            while (lastLine.length > 0 && ctx.measureText(lastLine + ellipsis).width > maxWidth) {
+                lastLine = lastLine.slice(0, -1);
+            }
+            linesToRender[lastIdx] = lastLine + ellipsis;
         }
-        output.forEach((line, index) => ctx.fillText(line, x, y + index * lineHeight));
-        return output.length;
+
+        linesToRender.forEach((line, index) => {
+            ctx.fillText(line, x, y + index * lineHeight);
+        });
+
+        return linesToRender.length;
     }
 
     function clampText(text, maxLength) {
