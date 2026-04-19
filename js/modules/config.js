@@ -180,10 +180,9 @@ export const GENRE_DISPLAY_MAP = {
     Western: '西部'
 };
 
-export const HIDDEN_GENRES = new Set(['剧情', '动画']);
+export const HIDDEN_GENRES = new Set();
 
 export const GENRE_PRIORITY = [
-    '剧情',
     '喜剧',
     '悬疑',
     '犯罪',
@@ -191,7 +190,6 @@ export const GENRE_PRIORITY = [
     '动作',
     '科幻 | 奇幻',
     '科幻',
-    '动画',
     '家庭',
     '爱情',
     '历史',
@@ -207,7 +205,9 @@ export const GENRE_PRIORITY = [
     '西部',
     '脱口秀',
     '肥皂剧',
-    '电视电影'
+    '电视电影',
+    '剧情',
+    '动画'
 ];
 
 export const NETWORK_PRIORITY = [

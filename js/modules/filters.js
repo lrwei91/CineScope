@@ -31,10 +31,9 @@ export function getGenreDisplayName(genreName) {
  * 获取排序后的类型列表
  */
 export function getSortedGenres(items) {
-    const hiddenGenres = new Set(['剧情', '动画']);
     const uniqueGenres = [...new Set(items.flatMap((item) => item.genres))].filter((genreName) => {
         const displayName = getGenreDisplayName(genreName);
-        return !hiddenGenres.has(displayName) && !hiddenGenres.has(genreName);
+        return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
     });
 
     return uniqueGenres.sort((left, right) => {

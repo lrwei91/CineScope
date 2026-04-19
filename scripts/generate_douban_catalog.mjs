@@ -247,15 +247,6 @@ async function buildDoubanSourceResults(spec, fallbackCollector) {
                 return null;
             });
 
-            // [新增] 如果 API 详情抓取为空或关键字段（如简介）缺失，尝试从 HTML 页面补全
-            if (!detail || !detail.intro || (!detail.directors?.length && !detail.actors?.length)) {
-                console.log(`[${spec.id}] [${item.id}] [${item.title}] 关键数据缺失，尝试 HTML 退避抓取...`);
-                const htmlMetadata = await fetchMetadataByScraping(spec.kind, item.id).catch(() => null);
-                if (htmlMetadata) {
-                    detail = { ...(detail || {}), ...htmlMetadata };
-                }
-            }
-
             const normalizedItem =
                 spec.kind === 'tv' ? normalizeDoubanTvEntry(item, detail) : normalizeDoubanMovieEntry(item, detail);
 
@@ -543,37 +534,6 @@ async function fetchAllCollectionItems(slug, totalLimit = null) {
 async function fetchDoubanSubjectDetail(kind, subjectId) {
     const endpoint = kind === 'tv' ? 'tv' : 'movie';
     return fetchJson(`https://m.douban.com/rexxar/api/v2/${endpoint}/${subjectId}?for_mobile=1`);
-}
-
-/**
- * [新增] 当 API 失败或数据不全时，通过抓取 HTML 页面解析元数据
- */
-async function fetchMetadataByScraping(kind, subjectId) {
-    const url = `https://movie.douban.com/subject/${subjectId}/`;
-    try {
-        const html = await fetchHtml(url);
-        
-        // 解析简介
-        const introMatch = html.match(/<span property="v:summary"[^>]*>([\s\S]*?)<\/span>/);
-        const intro = introMatch ? introMatch[1].replace(/<[^>]+>/g, '').trim() : '';
-
-        // 解析导演 (支持多个)
-        const directorsMatch = html.match(/<a[^>]+rel="v:directedBy"[^>]*>([^<]+)<\/a>/g);
-        const directors = (directorsMatch || []).map(m => m.match(/>([^<]+)</)[1].trim());
-
-        // 解析主演
-        const actorsMatch = html.match(/<a[^>]+rel="v:starring"[^>]*>([^<]+)<\/a>/g);
-        const actors = (actorsMatch || []).map(m => m.match(/>([^<]+)</)[1].trim());
-
-        return {
-            intro,
-            directors: directors.map(name => ({ name })),
-            actors: actors.map(name => ({ name }))
-        };
-    } catch (error) {
-        console.warn(`HTML Scraping failed for ${subjectId}: ${error.message}`);
-        return null;
-    }
 }
 
 async function fetchJson(url) {
