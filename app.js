@@ -11,14 +11,14 @@ import {
     FUTURE_TAG,
     DOUBAN_STATUS_LABELS,
     createCategoryState
-} from './modules/config.js';
+} from './js/modules/config.js';
 
 import {
     loadCategoryData,
     ingestCategoryData,
     formatUpdateTimestamp,
     dedupeCatalogItems
-} from './modules/data-loader.js';
+} from './js/modules/data-loader.js';
 
 import {
     getCurrentRatingConfig,
@@ -29,7 +29,7 @@ import {
     createRatingTag,
     createGenreTag,
     createNetworkTag
-} from './modules/filters.js';
+} from './js/modules/filters.js';
 
 import {
     resolvePosterUrl,
@@ -37,14 +37,14 @@ import {
     renderComingSoon,
     renderTimeline,
     appendItemsToContainer
-} from './modules/renderer.js';
+} from './js/modules/renderer.js';
 
 import {
     hydrateDoubanStatuses,
     syncAllItems,
     attachDoubanStatus,
     updateUI as updateDoubanUI
-} from './modules/douban-sync.js';
+} from './js/modules/douban-sync.js';
 
 import {
     typeWriterEffect,
@@ -52,14 +52,14 @@ import {
     setupScrollFade,
     showToast,
     setupBackToTop
-} from './modules/ui-controls.js';
+} from './js/modules/ui-controls.js';
 
 import {
     openIntelDossier,
     closeIntelDossier,
     initDossierEvents,
     getCurrentDossierItem
-} from './modules/dossier.js';
+} from './js/modules/dossier.js';
 
 import {
     isMobile,
@@ -72,7 +72,7 @@ import {
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './modules/mobile-sheet.js';
+} from './js/modules/mobile-sheet.js';
 
 // =====================================================
 // 全局状态
@@ -472,7 +472,7 @@ function startRendering() {
 
     if (state.allAvailableYears.length > 0 || state.specialFilterMode === 'recent_high_score') {
         if (state.specialFilterMode !== 'recent_high_score') {
-            renderTimeline(state.allAvailableYears[0], state.currentActiveYear, handleYearClick);
+            renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
         }
         loadMoreItems();
     } else {
@@ -539,7 +539,7 @@ function handleYearClick(year, isLastItem) {
 
 async function scrollToYear(year) {
     state.isScrollingProgrammatically = true;
-    renderTimeline(state.allAvailableYears, year, handleYearClick);
+    renderTimeline(state.allAvailableYears, year, state.visibleYearCount, handleYearClick);
     state.currentActiveYear = year;
 
     const currentYearIndex = state.allAvailableYears.indexOf(year);
@@ -620,7 +620,7 @@ function updateActiveTimeline() {
         if (currentIndex >= state.visibleYearCount - 1 && state.visibleYearCount < state.allAvailableYears.length) {
             state.visibleYearCount = Math.min(state.allAvailableYears.length, currentIndex + 2);
         }
-        renderTimeline(state.allAvailableYears, state.currentActiveYear, handleYearClick);
+        renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
     }
 }
 
@@ -807,12 +807,15 @@ function setupCustomCursor() {
 // =====================================================
 
 function bootstrapApp() {
+    // 立即显示 body（防止 visibility:hidden 造成的移动端闪屏）
+    document.body.style.visibility = 'visible';
+
     cacheElements();
 
-    // 设置页面标题
+    // 设置页面标题（直接赋值，避免打字机乱码动画造成闪烁）
     document.title = DEFAULT_TITLE;
     if (elements.pageTitleText) {
-        typeWriterEffect(elements.pageTitleText, DEFAULT_TITLE);
+        elements.pageTitleText.textContent = DEFAULT_TITLE;
     }
 
     setCurrentCategory(DEFAULT_CATEGORY_ID);
