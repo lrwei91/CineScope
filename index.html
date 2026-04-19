@@ -15,19 +15,8 @@
     </style>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="share.css">
-    <script>
-        (function injectScript() {
-            const script = document.createElement('script');
-            script.src = `script.js?v=${Date.now()}`;
-            script.defer = true;
-            document.head.appendChild(script);
-
-            const shareScript = document.createElement('script');
-            shareScript.src = `share.js?v=${Date.now()}`;
-            shareScript.defer = true;
-            document.head.appendChild(shareScript);
-        })();
-    </script>
+    <script type="module" src="app.js"></script>
+    <script type="module" src="share.js"></script>
 </head>
 <body>
     <div class="page-shell">
