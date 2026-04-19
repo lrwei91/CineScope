@@ -1,0 +1,64 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="64" y1="56" x2="454" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101926"/>
+      <stop offset="1" stop-color="#04070C"/>
+    </linearGradient>
+    <linearGradient id="ringGradient" x1="114" y1="128" x2="399" y2="391" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7CF7FF"/>
+      <stop offset="1" stop-color="#00D7FF"/>
+    </linearGradient>
+    <linearGradient id="playGradient" x1="228" y1="192" x2="332" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FBFF"/>
+      <stop offset="1" stop-color="#98F4FF"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="301" y1="110" x2="407" y2="208" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF5BCB"/>
+      <stop offset="1" stop-color="#FF3366"/>
+    </linearGradient>
+    <radialGradient id="glowGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 256) rotate(90) scale(188)">
+      <stop stop-color="#00EEFF" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#00EEFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="cyanGlow" x="50" y="50" width="412" height="412" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="7" result="effect1_foregroundBlur"/>
+    </filter>
+    <filter id="pinkGlow" x="270" y="76" width="164" height="164" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="8" result="effect1_foregroundBlur"/>
+    </filter>
+  </defs>
+
+  <rect x="32" y="32" width="448" height="448" rx="116" fill="url(#bgGradient)"/>
+  <rect x="32" y="32" width="448" height="448" rx="116" stroke="#133042" stroke-width="4"/>
+  <path d="M88 88H424V424" stroke="#173347" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 16" opacity="0.9"/>
+  <circle cx="256" cy="256" r="188" fill="url(#glowGradient)"/>
+
+  <g filter="url(#cyanGlow)">
+    <circle cx="256" cy="256" r="150" stroke="url(#ringGradient)" stroke-width="16" opacity="0.9"/>
+    <circle cx="256" cy="256" r="108" stroke="#1E5268" stroke-width="2" opacity="0.9"/>
+    <circle cx="256" cy="256" r="70" stroke="#173D4D" stroke-width="2" opacity="0.95"/>
+    <path d="M256 104V160" stroke="#8BFAFF" stroke-width="10" stroke-linecap="round"/>
+    <path d="M256 352V408" stroke="#2C6073" stroke-width="6" stroke-linecap="round"/>
+    <path d="M104 256H160" stroke="#2C6073" stroke-width="6" stroke-linecap="round"/>
+    <path d="M352 256H408" stroke="#2C6073" stroke-width="6" stroke-linecap="round"/>
+    <path d="M256 256L352 160" stroke="#7CF7FF" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="352" cy="160" r="13" fill="#7CF7FF"/>
+  </g>
+
+  <path d="M256 256L333 82A186 186 0 0 1 429 176L256 256Z" fill="url(#accentGradient)" fill-opacity="0.9"/>
+  <path d="M256 256L328 97A172 172 0 0 1 413 170L256 256Z" fill="#FF4C9B" fill-opacity="0.2"/>
+
+  <path d="M225 172.5C225 166.586 231.511 163.02 236.482 166.177L344.816 234.991C349.407 237.906 349.407 244.594 344.816 247.509L236.482 316.323C231.511 319.48 225 315.914 225 310V172.5Z" fill="url(#playGradient)"/>
+  <path d="M225 172.5C225 166.586 231.511 163.02 236.482 166.177L344.816 234.991C349.407 237.906 349.407 244.594 344.816 247.509L236.482 316.323C231.511 319.48 225 315.914 225 310V172.5Z" stroke="#D8FCFF" stroke-width="3"/>
+
+  <path d="M144 388L216 316" stroke="#193A4A" stroke-width="8" stroke-linecap="round"/>
+  <path d="M127 405L162 370" stroke="#FF4F77" stroke-width="10" stroke-linecap="round"/>
+
+  <g filter="url(#pinkGlow)">
+    <circle cx="367" cy="145" r="18" fill="#FF4C9B"/>
+  </g>
+</svg>
