@@ -209,12 +209,12 @@ function setupHorizontalScroller(container) {
 /**
  * 渲染时间线
  */
-export function renderTimeline(years, activeYear, onYearClick) {
+export function renderTimeline(years, activeYear, visibleYearCount, onYearClick) {
     const yearList = document.getElementById('year-list');
     if (!yearList) return;
 
     yearList.innerHTML = '';
-    const yearsToShow = years.slice(0, Math.min(3, years.length));
+    const yearsToShow = years.slice(0, visibleYearCount);
 
     yearsToShow.forEach((year, index) => {
         const item = document.createElement('li');

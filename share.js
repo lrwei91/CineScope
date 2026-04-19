@@ -451,3 +451,6 @@ async function shareItem(currentDossierItem) {
 export const ShareModule = {
     shareItem
 };
+
+// 暴露到全局供 app.js 使用
+window.ShareModule = ShareModule;

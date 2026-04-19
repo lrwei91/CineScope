@@ -3,9 +3,9 @@
  * 负责滑动详情面板的展示和控制
  */
 
-import { DOUBAN_STATUS_LABELS } from './config.js';
+import { DOUBAN_STATUS_LABELS, HIDDEN_GENRES } from './config.js';
 import { resolvePosterUrl } from './renderer.js';
-import { getGenreDisplayName, HIDDEN_GENRES } from './filters.js';
+import { getGenreDisplayName } from './filters.js';
 
 let currentDossierItem = null;
 

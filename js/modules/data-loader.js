@@ -68,6 +68,7 @@ export async function loadCategoryData(categoryId, level, categoryState, options
             const data = await response.json();
             ingestCategoryData(categoryId, data, level, categoryState);
 
+            const currentCategoryId = window.__appState?.currentCategoryId;
             if (!silent && level === 'complete' && categoryId === currentCategoryId && window.innerWidth > 900) {
                 showToast('已加载全部内容');
             }
@@ -75,6 +76,7 @@ export async function loadCategoryData(categoryId, level, categoryState, options
             return true;
         } catch (error) {
             console.error(`Failed to load ${level} data for ${categoryId}:`, error);
+            const currentCategoryId = window.__appState?.currentCategoryId;
             if (level === 'complete' && categoryId === currentCategoryId && !state.latestLoaded) {
                 const statusMessage = document.getElementById('status-message');
                 if (statusMessage) {
