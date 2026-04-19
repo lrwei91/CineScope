@@ -1748,6 +1748,38 @@ body.cursor-hover #custom-cursor-ring {
     object-fit: cover;
 }
 
+.dossier-top-share-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(12, 12, 16, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--palette-text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    padding: 0;
+}
+
+.dossier-top-share-btn:hover {
+    background: rgba(0, 240, 255, 0.2);
+    border-color: rgba(0, 240, 255, 0.6);
+    color: #00f0ff;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.dossier-top-share-btn:active {
+    transform: scale(0.95);
+}
+
 .dossier-data {
     flex: 1;
     display: flex;

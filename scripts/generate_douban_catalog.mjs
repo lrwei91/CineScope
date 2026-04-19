@@ -188,7 +188,10 @@ async function buildCategoryData(spec) {
         )
     );
 
-    const latestItems = mergedItems.slice(0, spec.latestCount);
+    // [新增] 二次去重兜底：针对那些没能通过 ID 匹配的同名同年作品进行合并
+    const finallyDedupedItems = dedupeByNameAndYear(spec.kind, mergedItems);
+
+    const latestItems = finallyDedupedItems.slice(0, spec.latestCount);
     const sourceResults = [
         ...doubanSourceResults.map((sourceResult) => ({
             slug: sourceResult.slug,
@@ -201,13 +204,14 @@ async function buildCategoryData(spec) {
     ];
 
     const latestPayload = createPayload(spec, latestItems, sourceResults, 'latest');
-    const completePayload = createPayload(spec, mergedItems, sourceResults, 'complete');
+    const completePayload = createPayload(spec, finallyDedupedItems, sourceResults, 'complete');
+    const finalCompleteCount = spec.kind === 'tv' ? finallyDedupedItems.length : finallyDedupedItems.length;
 
     return {
         latestPayload,
         completePayload,
         latestCount: spec.kind === 'tv' ? latestPayload.shows.length : latestPayload.movies.length,
-        completeCount: spec.kind === 'tv' ? completePayload.shows.length : completePayload.movies.length,
+        completeCount: finalCompleteCount,
         fallbackSummary: fallbackCollector.summary()
     };
 }
@@ -221,10 +225,19 @@ async function buildDoubanSourceResults(spec, fallbackCollector) {
         );
 
         const normalizedItems = await mapWithConcurrency(collectionItems, 6, async (item) => {
-            const detail = await fetchDoubanSubjectDetail(spec.kind, item.id).catch((error) => {
+            let detail = await fetchDoubanSubjectDetail(spec.kind, item.id).catch((error) => {
                 fallbackCollector.record(item.id, error);
                 return null;
             });
+
+            // [新增] 如果 API 详情抓取为空或关键字段（如简介）缺失，尝试从 HTML 页面补全
+            if (!detail || !detail.intro || (!detail.directors?.length && !detail.actors?.length)) {
+                console.log(`[${spec.id}] [${item.id}] [${item.title}] 关键数据缺失，尝试 HTML 退避抓取...`);
+                const htmlMetadata = await fetchMetadataByScraping(spec.kind, item.id).catch(() => null);
+                if (htmlMetadata) {
+                    detail = { ...(detail || {}), ...htmlMetadata };
+                }
+            }
 
             const normalizedItem =
                 spec.kind === 'tv' ? normalizeDoubanTvEntry(item, detail) : normalizeDoubanMovieEntry(item, detail);
@@ -359,6 +372,37 @@ async function fetchAllCollectionItems(slug, totalLimit = null) {
 async function fetchDoubanSubjectDetail(kind, subjectId) {
     const endpoint = kind === 'tv' ? 'tv' : 'movie';
     return fetchJson(`https://m.douban.com/rexxar/api/v2/${endpoint}/${subjectId}?for_mobile=1`);
+}
+
+/**
+ * [新增] 当 API 失败或数据不全时，通过抓取 HTML 页面解析元数据
+ */
+async function fetchMetadataByScraping(kind, subjectId) {
+    const url = `https://movie.douban.com/subject/${subjectId}/`;
+    try {
+        const html = await fetchHtml(url);
+        
+        // 解析简介
+        const introMatch = html.match(/<span property="v:summary"[^>]*>([\s\S]*?)<\/span>/);
+        const intro = introMatch ? introMatch[1].replace(/<[^>]+>/g, '').trim() : '';
+
+        // 解析导演 (支持多个)
+        const directorsMatch = html.match(/<a[^>]+rel="v:directedBy"[^>]*>([^<]+)<\/a>/g);
+        const directors = (directorsMatch || []).map(m => m.match(/>([^<]+)</)[1].trim());
+
+        // 解析主演
+        const actorsMatch = html.match(/<a[^>]+rel="v:starring"[^>]*>([^<]+)<\/a>/g);
+        const actors = (actorsMatch || []).map(m => m.match(/>([^<]+)</)[1].trim());
+
+        return {
+            intro,
+            directors: directors.map(name => ({ name })),
+            actors: actors.map(name => ({ name }))
+        };
+    } catch (error) {
+        console.warn(`HTML Scraping failed for ${subjectId}: ${error.message}`);
+        return null;
+    }
 }
 
 async function fetchJson(url) {
@@ -856,6 +900,9 @@ function buildLookupKeys(...titles) {
 function normalizeLookupText(value) {
     return String(value || '')
         .toLowerCase()
+        // 移除所有不可见字符（如零宽空格 \u200b）及控制字符
+        .replace(/[\u0000-\u001f\u007f-\u009f\u200b\u200c\u200d\ufeff]/g, '')
+        // 移除标点符号和空格
         .replace(/[\s:：·•'".,，、!！?？\-—_()（）\[\]【】]/g, '')
         .trim();
 }
@@ -1113,6 +1160,32 @@ function isAnimationEntry(item) {
 
 function isJapaneseAnimationEntry(item) {
     return isJapaneseEntry(item) && isAnimationEntry(item);
+}
+
+/**
+ * [新增] 基于名称和年份的兜底去重逻辑
+ * 用于处理那些没有匹配上同一 ID（TMDB vs Douban）但实际是同一部作品的条目
+ */
+function dedupeByNameAndYear(kind, items) {
+    const seen = new Set();
+    return items.filter(item => {
+        const title = kind === 'tv' ? item.name : item.title;
+        const originalTitle = kind === 'tv' ? item.original_name : item.original_title;
+        const date = getItemDate(kind, item);
+        const year = String(date || '').slice(0, 4);
+        
+        // 尝试主标题和原名
+        const key1 = `${normalizeLookupText(title)}::${year}`;
+        const key2 = originalTitle ? `${normalizeLookupText(originalTitle)}::${year}` : key1;
+        
+        if (seen.has(key1) || seen.has(key2)) {
+            return false;
+        }
+        
+        seen.add(key1);
+        if (key2 !== key1) seen.add(key2);
+        return true;
+    });
 }
 
 async function mapWithConcurrency(items, concurrency, mapper) {
