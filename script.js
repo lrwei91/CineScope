@@ -2274,8 +2274,7 @@ function bootstrapApp() {
                     }, 'image/png', 0.95);
                 });
 
-                const file = new File([blob], `share_${item.id}.png`, { type: 'image/png' });
-                return { file, width, height };
+                return new File([blob], `share_${item.id}.png`, { type: 'image/png' });
             } catch (error) {
                 if (attempt === 0 && includePoster) {
                     console.warn('Canvas toBlob failed (likely CORS). Retrying without poster image.');
