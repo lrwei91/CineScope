@@ -1,7 +1,13 @@
-- `[x]` 移动分享按钮到标题右侧 (方案 B)
-  - `[x]` 修改 `index.html` 调整 DOM 结构
-  - `[x]` 修改 `style.css` 重新设计按钮样式
-- `[x]` 修复 Canvas 换行逻辑 (支持中文)
-  - `[x]` 重写 `wrapShareText` 算法（按字符遍历）
-  - `[x]` 优化省略号插入逻辑
-- `[x]` 验证生成效果及报告生成
+- `[x]` 样式表/布局拆分 (`share.css` / `index.html`)
+  - `[x]` 提取分享相关的 CSS。
+  - `[x]` 在 `index.html` 中引入 `share.css` 和 `share.js`。
+- `[x]` 分离分享逻辑至独立的 `share.js`，修改自适应与排版逻辑
+  - `[x]` 将有关分享的函数 (`shareDossierAsImage`, `createShareImageFile` 等) 从 `script.js` 抽离。
+  - `[x]` 在 `share.js` 实现预计算所有文本的高度。
+  - `[x]` 移除截断，保证 `overview`（剧情简介）根据行高推算长度。
+  - `[x]` 根据实际渲染长度计算 `canvas.height`，不再使用 `1380` 硬编码。
+  - `[x]` 实现海报全比例无剪裁居中。
+  - `[x]` 移除 `04.17 FRI` 设计元素。
+  - `[x]` 本地化元数据标识：`系统评分`、`上映时间`、`作品类型`。
+- `[x]` 确保无缝运行，验证无 undefined 函数报错。
+- `[x]` 准备最终的展示重构报告。
