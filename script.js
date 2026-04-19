@@ -2271,17 +2271,19 @@ function bootstrapApp() {
                     canvas.toBlob((result) => {
                         if (!result) return reject(new Error('生成图片失败'));
                         resolve(result);
-                    }, 'image/png');
-                }).catch((error) => {
-                    if (includePoster && attempt === 0) {
-                    includePoster = false; // retry without poster
-                    return null;
+                    }, 'image/png', 0.95);
+                });
+
+                const file = new File([blob], `share_${item.id}.png`, { type: 'image/png' });
+                return { file, width, height };
+            } catch (error) {
+                if (attempt === 0 && includePoster) {
+                    console.warn('Canvas toBlob failed (likely CORS). Retrying without poster image.');
+                    includePoster = false;
+                    continue;
                 }
                 throw error;
-            });
-
-            if (!blob) continue;
-            return new File([blob], `${sanitizeFileName(item.title || 'latest_tv')}.png`, { type: 'image/png' });
+            }
         }
         throw new Error('无法生成分享图片');
     }
