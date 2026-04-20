@@ -1,6 +1,3 @@
-/* Lift FOUC guard set in inline <style> */
-body { visibility: visible; }
-
 :root {
     --palette-bg-page: #050505;
     --palette-bg-surface: #0c0c10;
@@ -1739,7 +1736,6 @@ body.cursor-hover #custom-cursor-ring {
     border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
-    border: 1px solid var(--palette-border);
 }
 
 .dossier-poster-container img {

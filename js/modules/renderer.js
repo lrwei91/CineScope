@@ -3,7 +3,7 @@
  * 负责卡片、时间线、列表等 UI 渲染
  */
 
-import { TMDB_IMAGE_BASE_URL, HIDDEN_GENRES, FUTURE_TAG } from './config.js';
+import { TMDB_IMAGE_BASE_URL, HIDDEN_GENRES, FUTURE_TAG, DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { getGenreDisplayName } from './filters.js';
 
 /**
@@ -25,14 +25,48 @@ function getCardChipLabels(item) {
         return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
     });
 
-    if (visibleGenres.length > 0) {
+    // 按优先级排序：优先级高的在前，优先级低的（如剧情、动画）在后
+    const sortedGenres = sortGenresByPriority(visibleGenres);
+
+    if (sortedGenres.length > 0) {
         chips.push({
-            label: getGenreDisplayName(visibleGenres[0]),
+            label: getGenreDisplayName(sortedGenres[0]),
             variant: 'genre'
         });
     }
 
     return chips.slice(0, 2);
+}
+
+/**
+ * 按优先级排序类型标签
+ * 优先级规则：
+ * - 有 GENRE_PRIORITY 配置的按配置顺序（索引小的优先级高）
+ * - 未配置的排在最后
+ * - 剧情、动画等低优先级标签自动排在后面
+ */
+function sortGenresByPriority(genres) {
+    return genres.slice().sort((a, b) => {
+        const aDisplayName = getGenreDisplayName(a);
+        const bDisplayName = getGenreDisplayName(b);
+        const aIndex = GENRE_PRIORITY.indexOf(aDisplayName);
+        const bIndex = GENRE_PRIORITY.indexOf(bDisplayName);
+
+        // 都在优先级列表中，按索引排序
+        if (aIndex !== -1 && bIndex !== -1) {
+            return aIndex - bIndex;
+        }
+        // 只有 a 在列表中，a 优先
+        if (aIndex !== -1) {
+            return -1;
+        }
+        // 只有 b 在列表中，b 优先
+        if (bIndex !== -1) {
+            return 1;
+        }
+        // 都不在列表中，按字母顺序
+        return aDisplayName.localeCompare(bDisplayName, 'zh-CN');
+    });
 }
 
 /**
@@ -60,7 +94,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const imageHTML = `<img src="${posterUrl}" alt="${titleText}" class="poster" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750.png?text=No+Image';">`;
 
     const statusBadgeHtml = item.doubanCollectionStatus
-        ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${item.doubanCollectionStatus}</span>`
+        ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${DOUBAN_STATUS_LABELS[item.doubanCollectionStatus] || item.doubanCollectionStatus}</span>`
         : '';
 
     const posterHTML = `${statusBadgeHtml}${imageHTML}`;

@@ -446,6 +446,11 @@ function startRendering() {
     elements.resultsContainer.innerHTML = '';
     elements.noResultsMessage.style.display = 'none';
 
+    // 首次渲染内容时显示 body（如果还没显示）
+    if (document.body.style.visibility !== 'visible') {
+        document.body.style.visibility = 'visible';
+    }
+
     if (state.specialFilterMode === 'recent_high_score') {
         document.getElementById('interactive-timeline')?.classList.remove('visible');
         elements.comingSoonContainer.style.display = 'none';
@@ -632,7 +637,14 @@ async function initialize() {
     updateDoubanUI();
     populateRatingFilters();
     populateGenreFilters([]);
-    showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
+
+    const catState = state.categoryState[DEFAULT_CATEGORY_ID];
+    const hasCachedData = catState.completeLoaded || catState.latestLoaded;
+
+    // 只有在没有缓存数据时才显示骨架屏
+    if (!hasCachedData) {
+        showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
+    }
 
     try {
         await hydrateDoubanStatuses();
@@ -645,6 +657,8 @@ async function initialize() {
             elements.skeletonContainer.style.display = 'none';
         }
         elements.comingSoonContainer.style.display = 'none';
+        // 错误情况下也要显示 body
+        document.body.style.visibility = 'visible';
     }
 }
 
@@ -807,9 +821,6 @@ function setupCustomCursor() {
 // =====================================================
 
 function bootstrapApp() {
-    // 立即显示 body（防止 visibility:hidden 造成的移动端闪屏）
-    document.body.style.visibility = 'visible';
-
     cacheElements();
 
     // 设置页面标题（直接赋值，避免打字机乱码动画造成闪烁）
@@ -820,7 +831,7 @@ function bootstrapApp() {
 
     setCurrentCategory(DEFAULT_CATEGORY_ID);
 
-    // 初始化所有模块
+    // 设置事件监听器
     setupEventListeners();
     setupScrollFade(elements.ratingFilterContainer);
     setupScrollFade(elements.genreFilterContainer);

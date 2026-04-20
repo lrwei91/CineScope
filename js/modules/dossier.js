@@ -3,7 +3,7 @@
  * 负责滑动详情面板的展示和控制
  */
 
-import { DOUBAN_STATUS_LABELS, HIDDEN_GENRES } from './config.js';
+import { DOUBAN_STATUS_LABELS, HIDDEN_GENRES, GENRE_PRIORITY } from './config.js';
 import { resolvePosterUrl } from './renderer.js';
 import { getGenreDisplayName } from './filters.js';
 
@@ -18,6 +18,33 @@ function generateIdFromTitle(title) {
         hash = title.charCodeAt(i) + ((hash << 5) - hash);
     }
     return Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+}
+
+/**
+ * 按优先级排序类型标签
+ */
+function sortGenresByPriority(genres) {
+    return genres.slice().sort((a, b) => {
+        const aDisplayName = getGenreDisplayName(a);
+        const bDisplayName = getGenreDisplayName(b);
+        const aIndex = GENRE_PRIORITY.indexOf(aDisplayName);
+        const bIndex = GENRE_PRIORITY.indexOf(bDisplayName);
+
+        // 都在优先级列表中，按索引排序
+        if (aIndex !== -1 && bIndex !== -1) {
+            return aIndex - bIndex;
+        }
+        // 只有 a 在列表中，a 优先
+        if (aIndex !== -1) {
+            return -1;
+        }
+        // 只有 b 在列表中，b 优先
+        if (bIndex !== -1) {
+            return 1;
+        }
+        // 都不在列表中，按字母顺序
+        return aDisplayName.localeCompare(bDisplayName, 'zh-CN');
+    });
 }
 
 /**
@@ -116,8 +143,10 @@ export function openIntelDossier(item) {
             const displayName = getGenreDisplayName(genreName);
             return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
         });
-        if (visibleGenres.length > 0) {
-            visibleGenres.forEach((g) => {
+        // 按优先级排序
+        const sortedGenres = sortGenresByPriority(visibleGenres);
+        if (sortedGenres.length > 0) {
+            sortedGenres.forEach((g) => {
                 const tag = document.createElement('span');
                 tag.className = 'dossier-tag-item';
                 tag.textContent = getGenreDisplayName(g);
