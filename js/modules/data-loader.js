@@ -3,7 +3,7 @@
  * 负责数据获取、解析、标准化、去重和合并
  */
 
-import { CATEGORY_CONFIG, TMDB_IMAGE_BASE_URL } from './config.js';
+import { CATEGORY_CONFIG, TMDB_IMAGE_BASE_URL, VALID_GENRES } from './config.js';
 
 /**
  * 构建带时间戳的防缓存 URL
@@ -148,7 +148,7 @@ function normalizeTvItems(shows) {
     shows.forEach((show) => {
         const seasons = Array.isArray(show.seasons) ? show.seasons : [];
         const title = buildLocalizedTitle(show.name, show.original_name);
-        const genres = normalizeNameList(show.genres);
+        const genres = normalizeNameList(show.genres, { filterValid: true });
         const networks = normalizeNameList(show.networks);
         const tmdbId = typeof show.tmdb_id === 'number' ? show.tmdb_id : null;
 
@@ -209,7 +209,7 @@ function normalizeMovieItems(movies) {
             title: primaryTitle,
             subtitle: primaryTitle !== originalTitle ? originalTitle : '',
             posterPath: movie.poster_path || null,
-            genres: normalizeNameList(movie.genres),
+            genres: normalizeNameList(movie.genres, { filterValid: true }),
             networks: [],
             doubanRating: movie.douban_rating || null,
             doubanLink: movie.douban_link_google || null,
@@ -345,17 +345,25 @@ function mergeUniqueStrings(primaryList = [], secondaryList = []) {
 }
 
 /**
- * 标准化名称列表
+ * 标准化名称列表（用于类型、网络等）
  */
-export function normalizeNameList(list) {
+export function normalizeNameList(list, options = {}) {
+    const { filterValid = false } = options;
     if (!Array.isArray(list)) return [];
-    return list
+    const result = list
         .map((item) => {
             if (typeof item === 'string') return item.trim();
             if (item && typeof item.name === 'string') return item.name.trim();
             return '';
         })
         .filter(Boolean);
+
+    // 如果需要过滤有效类型，过滤掉不在白名单中的值
+    if (filterValid && VALID_GENRES.size > 0) {
+        return result.filter((name) => VALID_GENRES.has(name));
+    }
+
+    return result;
 }
 
 /**
