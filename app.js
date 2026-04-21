@@ -214,10 +214,14 @@ async function ensureCategoryLoaded(categoryId) {
 
 function syncCurrentCategoryData() {
     const catState = getCurrentCategoryState();
+    const previousItems = state.allItems;
     state.allItems = syncAllItems(catState.items);
     updateSubtitleText();
     populateGenreFilters(state.allItems);
-    filterAndRenderItems();
+    filterAndRenderItems({
+        preserveRenderedContent: true,
+        previousItems
+    });
 }
 
 async function refreshCurrentCategoryData() {
@@ -414,24 +418,123 @@ function updateNetworkFilterCollapse() {
 // 渲染逻辑
 // =====================================================
 
-function filterAndRenderItems() {
-    const { futureItems, filteredPastAndPresentItems } = applyFilters(
-        state.allItems,
-        {
-            searchQuery: state.searchQuery,
-            specialFilterMode: state.specialFilterMode,
-            selectedRating: state.selectedRating,
-            selectedGenres: state.selectedGenres,
-            selectedNetworks: state.selectedNetworks
-        },
-        state.currentCategoryId
+function getCurrentFilters() {
+    return {
+        searchQuery: state.searchQuery,
+        specialFilterMode: state.specialFilterMode,
+        selectedRating: state.selectedRating,
+        selectedGenres: state.selectedGenres,
+        selectedNetworks: state.selectedNetworks
+    };
+}
+
+function getFilteredResults(items) {
+    return applyFilters(items, getCurrentFilters(), state.currentCategoryId);
+}
+
+function buildRenderedItemKey(item) {
+    return [
+        item.id,
+        item.date,
+        item.title,
+        item.subtitle,
+        item.doubanRating,
+        item.doubanCollectionStatus,
+        item.posterPath
+    ].join('|');
+}
+
+function buildRenderedItemsSignature(items) {
+    return items.map(buildRenderedItemKey).join('||');
+}
+
+function canPreserveRenderedResults(previousResults, nextResults) {
+    if (!elements.resultsContainer?.children.length) return false;
+    if (elements.skeletonContainer?.style.display === 'block') return false;
+    if (state.specialFilterMode === 'recent_high_score') return false;
+
+    const renderedPastCount = Math.min(
+        previousResults.filteredPastAndPresentItems.length,
+        Math.max(0, (state.currentPage - 1) * ITEMS_PER_PAGE)
+    );
+    if (renderedPastCount === 0) return false;
+
+    if (
+        buildRenderedItemsSignature(previousResults.futureItems) !==
+        buildRenderedItemsSignature(nextResults.futureItems)
+    ) {
+        return false;
+    }
+
+    const previousVisiblePast = previousResults.filteredPastAndPresentItems.slice(0, renderedPastCount);
+    const nextVisiblePast = nextResults.filteredPastAndPresentItems.slice(0, renderedPastCount);
+
+    if (previousVisiblePast.length !== nextVisiblePast.length) return false;
+
+    return buildRenderedItemsSignature(previousVisiblePast) === buildRenderedItemsSignature(nextVisiblePast);
+}
+
+function refreshRenderMetadata() {
+    elements.noResultsMessage.style.display = 'none';
+
+    state.allAvailableYears = [
+        ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
+    ];
+    if (elements.comingSoonContainer.style.display === 'block') {
+        state.allAvailableYears.unshift(FUTURE_TAG);
+    }
+
+    state.visibleYearCount = Math.min(
+        Math.max(state.visibleYearCount, 3),
+        Math.max(state.allAvailableYears.length, 0)
     );
 
-    state.filteredPastAndPresentItems = filteredPastAndPresentItems;
+    if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
+        elements.noResultsMessage.style.display = 'block';
+        elements.yearList.innerHTML = '';
+        elements.loader.style.display = 'none';
+        document.getElementById('interactive-timeline')?.classList.remove('visible');
+        return;
+    }
 
-    elements.comingSoonContainer.style.display = 'none';
-    renderComingSoon(futureItems, openIntelDossier);
-    startRendering();
+    if (state.specialFilterMode === 'recent_high_score') {
+        document.getElementById('interactive-timeline')?.classList.remove('visible');
+        return;
+    }
+
+    document.getElementById('interactive-timeline')?.classList.add('visible');
+
+    const nextActiveYear = state.allAvailableYears.includes(state.currentActiveYear)
+        ? state.currentActiveYear
+        : null;
+    renderTimeline(state.allAvailableYears, nextActiveYear, state.visibleYearCount, handleYearClick);
+}
+
+function filterAndRenderItems(options = {}) {
+    const { preserveRenderedContent = false, previousItems = state.allItems } = options;
+    const nextResults = getFilteredResults(state.allItems);
+    const previousResults = preserveRenderedContent ? getFilteredResults(previousItems) : null;
+    const shouldPreserveContent =
+        preserveRenderedContent &&
+        previousItems !== state.allItems &&
+        previousResults &&
+        canPreserveRenderedResults(previousResults, nextResults);
+
+    state.filteredPastAndPresentItems = nextResults.filteredPastAndPresentItems;
+
+    if (shouldPreserveContent) {
+        if (elements.skeletonContainer) {
+            elements.skeletonContainer.style.display = 'none';
+        }
+        if (document.body.style.visibility !== 'visible') {
+            document.body.style.visibility = 'visible';
+        }
+        refreshRenderMetadata();
+    } else {
+        elements.comingSoonContainer.style.display = 'none';
+        renderComingSoon(nextResults.futureItems, openIntelDossier);
+        startRendering();
+    }
 
     // 更新移动端状态
     updateFabState();
