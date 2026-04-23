@@ -73,6 +73,14 @@ export const CATEGORY_CONFIG = {
         latestUrl: 'json/movie_cn_latest.json',
         completeUrl: 'json/movie_cn_complete.json',
         showNetworkFilter: false
+    },
+    tv_cn_variety: {
+        id: 'tv_cn_variety',
+        label: '综艺',
+        kind: 'tv',
+        latestUrl: 'json/tv_cn_variety_latest.json',
+        completeUrl: 'json/tv_cn_variety_complete.json',
+        showNetworkFilter: true
     }
 };
 

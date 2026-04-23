@@ -152,6 +152,32 @@ const CATEGORY_SPECS = [
                 'vote_count.gte': '5'
             }
         }
+    },
+    {
+        id: 'tv_cn_variety',
+        kind: 'tv',
+        latestCount: 18,
+        minDate: '2025-01-01',
+        latestPath: 'json/tv_cn_variety_latest.json',
+        completePath: 'json/tv_cn_variety_complete.json',
+        doubanSources: [
+            { slug: 'tv_variety_show', includeItem: isMainlandChinaEntry }
+        ],
+        tmdb: {
+            discoverPath: '/discover/tv',
+            detailPath: '/tv',
+            params: {
+                language: 'zh-CN',
+                sort_by: 'first_air_date.desc',
+                'first_air_date.gte': '2025-01-01',
+                'first_air_date.lte': END_OF_CURRENT_YEAR,
+                with_origin_country: 'CN',
+                with_original_language: 'zh',
+                with_genres: '10764|10767',
+                include_null_first_air_dates: 'false',
+                'vote_count.gte': '5'
+            }
+        }
     }
 ];
 
@@ -941,6 +967,7 @@ function createPayload(spec, items, sourceResults, level) {
 
     const categoryNames = {
         tv_cn: '国产剧',
+        tv_cn_variety: '综艺',
         tv_kr: '韩剧',
         tv_jp: '日剧',
         tv_jp_anime: '日漫',

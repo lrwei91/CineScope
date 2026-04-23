@@ -1,6 +1,6 @@
 # 最新影视内容实时更新
 
-一个静态聚合展示页，聚焦近期影视内容的浏览和筛选。当前前端支持七个分类：国产剧、院线电影、韩剧、日剧、日漫、美剧、英剧。页面会优先加载默认分类的最新数据，再按分类懒加载完整数据，兼顾首屏速度和后续浏览体验。
+一个静态聚合展示页，聚焦近期影视内容的浏览和筛选。当前前端支持八个分类：国产剧、院线电影、综艺、韩剧、日剧、日漫、美剧、英剧。页面会优先加载默认分类的最新数据，再按分类懒加载完整数据，兼顾首屏速度和后续浏览体验。
 
 在线体验：[https://lrwei91.github.io/latest_tv/](https://lrwei91.github.io/latest_tv/)
 
@@ -10,7 +10,7 @@
 
 ## 功能特性
 
-- 分类切换：支持 `tv_cn` 国产剧、`movie_cn` 院线电影、`tv_kr` 韩剧、`tv_jp` 日剧、`tv_jp_anime` 日漫、`tv_us` 美剧、`tv_gb` 英剧
+- 分类切换：支持 `tv_cn` 国产剧、`movie_cn` 院线电影、`tv_cn_variety` 综艺、`tv_kr` 韩剧、`tv_jp` 日剧、`tv_jp_anime` 日漫、`tv_us` 美剧、`tv_gb` 英剧
 - 评分筛选：支持全部、`> 9分`、`> 8分`、`> 7分`、近 2 年高分
 - 类型筛选：按当前分类数据动态生成，未预设的类型也会直接展示
 - 平台筛选：TV 分类按当前数据动态生成平台/电视网，院线电影默认隐藏该筛选
@@ -33,9 +33,10 @@
 
 ## 豆瓣数据生成
 
-国产剧、韩剧、日剧、日漫和院线电影目前由脚本统一生成：
+国产剧、韩剧、日剧、日漫、综艺和院线电影目前由脚本统一生成：
 
 - `tv_cn`：`subject_collection/tv_domestic` + `subject_collection/tv_hot`（筛中国大陆）
+- `tv_cn_variety`：`subject_collection/tv_variety_show`（筛中国大陆）
 - `tv_kr`：`subject_collection/tv_korean`（筛韩国）
 - `tv_jp`：`subject_collection/tv_japanese`（筛日本）
 - `tv_jp_anime`：`subject_collection/tv_animation`（筛日本动画）
@@ -51,6 +52,8 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 
 - `json/tv_cn_latest.json`
 - `json/tv_cn_complete.json`
+- `json/tv_cn_variety_latest.json`
+- `json/tv_cn_variety_complete.json`
 - `json/tv_kr_latest.json`
 - `json/tv_kr_complete.json`
 - `json/tv_jp_latest.json`
@@ -61,6 +64,7 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
 - `posters/douban/tv_cn/*`
+- `posters/douban/tv_cn_variety/*`
 - `posters/douban/tv_kr/*`
 - `posters/douban/tv_jp/*`
 - `posters/douban/tv_jp_anime/*`
@@ -176,6 +180,8 @@ TV 分类继续沿用现有结构：
 - `json/tv_gb_complete.json`
 - `json/tv_cn_latest.json`
 - `json/tv_cn_complete.json`
+- `json/tv_cn_variety_latest.json`
+- `json/tv_cn_variety_complete.json`
 - `json/tv_kr_latest.json`
 - `json/tv_kr_complete.json`
 - `json/tv_jp_latest.json`
@@ -185,7 +191,7 @@ TV 分类继续沿用现有结构：
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
 
-其中国产剧、韩剧、日剧、日漫和院线电影文件由本仓库内的生成脚本维护；提供 `TMDB_API_KEY` 时会使用 `tmdb+douban` 混合源补齐月份覆盖，不提供时退回纯豆瓣。英剧和美剧仍沿用原有 JSON 数据来源。
+其中国产剧、综艺、韩剧、日剧、日漫和院线电影文件由本仓库内的生成脚本维护；提供 `TMDB_API_KEY` 时会使用 `tmdb+douban` 混合源补齐月份覆盖，不提供时退回纯豆瓣。英剧和美剧仍沿用原有 JSON 数据来源。
 
 ## 数据来源
 
