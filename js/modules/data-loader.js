@@ -154,6 +154,13 @@ function normalizeTvItems(shows) {
 
         seasons.forEach((season) => {
             if (!season.air_date) return;
+            const dossierTitle = show.name || title;
+            const dossierSubtitle =
+                show.original_name && show.original_name !== show.name
+                    ? show.original_name
+                    : season.name || '';
+            const dossierOverview = show.overview || season.overview || '';
+            const dossierNetworks = normalizeNameList(show.networks);
 
             normalizedItems.push({
                 kind: 'tv',
@@ -180,6 +187,10 @@ function normalizeTvItems(shows) {
                 languages: normalizeStringList(show.languages),
                 aka: normalizeStringList(show.aka),
                 overview: show.overview || season.overview || '',
+                dossierTitle,
+                dossierSubtitle,
+                dossierOverview,
+                dossierNetworks,
                 detailStatus: show.episodes_info || show.status || '',
                 detailRuntime: show.number_of_episodes ? `${show.number_of_episodes} 集` : '',
                 ratingCount: normalizeCount(show.rating_count),
@@ -227,6 +238,10 @@ function normalizeMovieItems(movies) {
             languages: normalizeStringList(movie.languages),
             aka: normalizeStringList(movie.aka),
             overview: movie.overview || '',
+            dossierTitle: primaryTitle,
+            dossierSubtitle: primaryTitle !== originalTitle ? originalTitle : '',
+            dossierOverview: movie.overview || '',
+            dossierNetworks: [],
             detailStatus: '',
             detailRuntime: buildMovieRuntime(movie.durations),
             ratingCount: normalizeCount(movie.rating_count),
@@ -313,6 +328,10 @@ function mergeCatalogItems(leftItem, rightItem) {
         languages: mergeUniqueStrings(preferredItem.languages, secondaryItem.languages),
         aka: mergeUniqueStrings(preferredItem.aka, secondaryItem.aka),
         overview: preferredItem.overview || secondaryItem.overview || '',
+        dossierTitle: preferredItem.dossierTitle || secondaryItem.dossierTitle || preferredItem.title || secondaryItem.title,
+        dossierSubtitle: preferredItem.dossierSubtitle || secondaryItem.dossierSubtitle || preferredItem.subtitle || secondaryItem.subtitle,
+        dossierOverview: preferredItem.dossierOverview || secondaryItem.dossierOverview || preferredItem.overview || secondaryItem.overview || '',
+        dossierNetworks: mergeUniqueStrings(preferredItem.dossierNetworks, secondaryItem.dossierNetworks),
         detailStatus: preferredItem.detailStatus || secondaryItem.detailStatus || '',
         detailRuntime: preferredItem.detailRuntime || secondaryItem.detailRuntime || '',
         ratingCount: preferredItem.ratingCount || secondaryItem.ratingCount || null,

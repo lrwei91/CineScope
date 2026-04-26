@@ -25,6 +25,60 @@ const REQUEST_HEADERS = {
     Accept: 'application/json'
 };
 
+const DOUBAN_TV_JP_ANIME_OVERRIDE_ITEMS = [
+    {
+        id: 37295319,
+        name: 'Re：从零开始的异世界生活 第四季',
+        original_name: 'Re:ゼロから始める異世界生活 4th season',
+        imdb_id: null,
+        genres: [
+            { id: 1, name: '剧情' },
+            { id: 2, name: '动画' },
+            { id: 3, name: '奇幻' }
+        ],
+        networks: [],
+        directors: [],
+        actors: [],
+        countries: ['日本'],
+        languages: ['日语'],
+        aka: [
+            'Re:Zero kara Hajimeru Isekai Seikatsu 4th Season',
+            'Re:ZERO -Starting Life in Another World- Season 4',
+            'Re：从零开始的异世界生活 第四季'
+        ],
+        homepage: 'https://re-zero-anime.jp/tv/',
+        popularity: null,
+        number_of_seasons: 4,
+        number_of_episodes: null,
+        first_air_date: '2026-04-08',
+        last_air_date: '2026-04-08',
+        in_production: true,
+        status: '尚未播出',
+        episodes_info: null,
+        adult: false,
+        poster_path: null,
+        backdrop_path: null,
+        overview: '',
+        rating_count: null,
+        rating_star_count: null,
+        seasons: [
+            {
+                name: '第 4 季',
+                season_number: 4,
+                id: 37295319,
+                air_date: '2026-04-08',
+                episode_count: null,
+                vote_average: 0,
+                poster_path: null,
+                douban_rating: null,
+                douban_link_google: 'https://movie.douban.com/subject/37295319/',
+                overview: '',
+                douban_link_verified: true
+            }
+        ]
+    }
+];
+
 const CATEGORY_SPECS = [
     {
         id: 'tv_cn',
@@ -111,6 +165,7 @@ const CATEGORY_SPECS = [
         doubanSources: [
             { slug: 'tv_animation', includeItem: isJapaneseAnimationEntry }
         ],
+        doubanOverrideItems: DOUBAN_TV_JP_ANIME_OVERRIDE_ITEMS,
         anilist: {
             formats: ['TV', 'TV_SHORT', 'ONA'],
             countryOfOrigin: 'JP'
@@ -218,7 +273,10 @@ async function main() {
 
 async function buildCategoryData(spec) {
     const fallbackCollector = createFallbackCollector();
-    const doubanSourceResults = await buildDoubanSourceResults(spec, fallbackCollector);
+    const doubanSourceResults = [
+        ...(await buildDoubanSourceResults(spec, fallbackCollector)),
+        ...buildDoubanOverrideResults(spec)
+    ];
     const doubanItems = dedupeBySignature(
         spec.kind,
         sortByDateDesc(doubanSourceResults.flatMap((sourceResult) => sourceResult.items)).filter((item) =>
@@ -266,6 +324,19 @@ async function buildCategoryData(spec) {
         completeCount: finalCompleteCount,
         fallbackSummary: fallbackCollector.summary()
     };
+}
+
+function buildDoubanOverrideResults(spec) {
+    if (!Array.isArray(spec.doubanOverrideItems) || spec.doubanOverrideItems.length === 0) {
+        return [];
+    }
+
+    return [
+        {
+            slug: 'douban_override',
+            items: spec.doubanOverrideItems.map((item) => structuredClone(item))
+        }
+    ];
 }
 
 async function buildDoubanSourceResults(spec, fallbackCollector) {
@@ -370,6 +441,7 @@ async function buildTmdbItems(spec, doubanLookup) {
             title: detail.title || detail.name || item.title || item.name,
             originalTitle:
                 detail.original_title || detail.original_name || item.original_title || item.original_name || '',
+            aliases: Array.isArray(item.aka) ? item.aka : [],
             date:
                 detail.release_date ||
                 detail.first_air_date ||
@@ -409,6 +481,7 @@ async function buildAniListItems(spec, doubanLookup) {
         const doubanMatch = findDoubanMatch(spec.kind, doubanLookup, {
             title: item.title?.english || item.title?.romaji || item.title?.native || '',
             originalTitle: item.title?.native || item.title?.romaji || item.title?.english || '',
+            aliases: [item.title?.romaji, item.title?.english, item.title?.native, ...(item.synonyms || [])],
             date
         });
 
@@ -1109,10 +1182,11 @@ function normalizeAniListTvEntry(item, doubanMatch) {
         item.title?.romaji,
         ...(item.synonyms || [])
     );
-    const doubanTitle = doubanMatch?.name || '';
-    const originalName = item.title?.native || item.title?.romaji || item.title?.english || doubanTitle;
+    const doubanTitle = getDoubanField(doubanMatch, 'title') || '';
+    const doubanOriginalName = getDoubanField(doubanMatch, 'original_name') || '';
+    const originalName = doubanOriginalName || item.title?.native || item.title?.romaji || item.title?.english || doubanTitle;
     const displayName = doubanTitle || item.title?.english || originalName;
-    const overview = sanitizeText(item.description) || getDoubanField(doubanMatch, 'overview') || '';
+    const overview = getDoubanField(doubanMatch, 'overview') || sanitizeText(item.description) || '';
     const doubanRating = getDoubanField(doubanMatch, 'rating');
     const doubanLink = getDoubanField(doubanMatch, 'link');
     const score = Number.isFinite(Number(item.averageScore)) ? Number(item.averageScore) / 10 : 0;
@@ -1126,16 +1200,18 @@ function normalizeAniListTvEntry(item, doubanMatch) {
         original_name: originalName,
         subtitle: originalName,
         imdb_id: null,
-        genres: (item.genres || []).map((name, index) => ({
-            id: index + 1,
-            name
-        })),
+        genres:
+            getDoubanField(doubanMatch, 'genres') ||
+            (item.genres || []).map((name, index) => ({
+                id: index + 1,
+                name
+            })),
         type: 'Scripted',
         vote_average: score,
         vote_count: null,
         origin_country: [item.countryOfOrigin].filter(Boolean),
         original_language: 'ja',
-        networks: [],
+        networks: getDoubanField(doubanMatch, 'networks') || [],
         directors: extractAniListStaff(item.staff?.edges, ['Director', 'Series Director']),
         actors: [],
         countries: getDoubanField(doubanMatch, 'countries') || ['日本'],
@@ -1262,8 +1338,9 @@ function createDoubanLookup(kind, items) {
         const title = kind === 'tv' ? item.name : item.title;
         const originalTitle = kind === 'tv' ? item.original_name : item.original_title;
         const date = getItemDate(kind, item);
+        const aliases = Array.isArray(item.aka) ? item.aka : [];
 
-        buildLookupKeys(title, originalTitle).forEach((key) => {
+        buildLookupKeys(title, originalTitle, ...aliases).forEach((key) => {
             if (!lookup.has(key)) {
                 lookup.set(key, []);
             }
@@ -1274,11 +1351,11 @@ function createDoubanLookup(kind, items) {
     return lookup;
 }
 
-function findDoubanMatch(kind, lookup, { title, originalTitle, date }) {
+function findDoubanMatch(kind, lookup, { title, originalTitle, aliases = [], date }) {
     const year = String(date || '').slice(0, 4);
     const candidates = [];
 
-    buildLookupKeys(title, originalTitle).forEach((key) => {
+    buildLookupKeys(title, originalTitle, ...(Array.isArray(aliases) ? aliases : [])).forEach((key) => {
         (lookup.get(key) || []).forEach((entry) => {
             candidates.push(entry);
         });
@@ -1318,7 +1395,7 @@ function normalizeLookupText(value) {
         // 移除所有不可见字符（如零宽空格 \u200b）及控制字符
         .replace(/[\u0000-\u001f\u007f-\u009f\u200b\u200c\u200d\ufeff]/g, '')
         // 移除标点符号和空格
-        .replace(/[\s:：·•'".,，、!！?？\-—_()（）\[\]【】]/g, '')
+        .replace(/[\s:：·•'"’“”.,，、!！?？\-—–_()（）\[\]【】]/g, '')
         .trim();
 }
 
@@ -1338,6 +1415,18 @@ function getDoubanField(match, field) {
     }
     if (field === 'overview') {
         return match.seasons?.[0]?.overview || match.overview || '';
+    }
+    if (field === 'title') {
+        return match.name || match.title || null;
+    }
+    if (field === 'original_name') {
+        return match.original_name || match.original_title || match.name || match.title || null;
+    }
+    if (field === 'genres') {
+        return match.genres || [];
+    }
+    if (field === 'networks') {
+        return match.networks || [];
     }
     if (field === 'directors') {
         return match.directors || [];
@@ -1725,25 +1814,93 @@ function isJapaneseAnimationEntry(item) {
  * 用于处理那些没有匹配上同一 ID（TMDB vs Douban）但实际是同一部作品的条目
  */
 function dedupeByNameAndYear(kind, items) {
-    const seen = new Set();
-    return items.filter(item => {
-        const title = kind === 'tv' ? item.name : item.title;
-        const originalTitle = kind === 'tv' ? item.original_name : item.original_title;
-        const date = getItemDate(kind, item);
-        const year = String(date || '').slice(0, 4);
-        
-        // 尝试主标题和原名
-        const key1 = `${normalizeLookupText(title)}::${year}`;
-        const key2 = originalTitle ? `${normalizeLookupText(originalTitle)}::${year}` : key1;
-        
-        if (seen.has(key1) || seen.has(key2)) {
-            return false;
+    const survivors = [];
+
+    items.forEach((item) => {
+        const duplicateIndex = survivors.findIndex((existingItem) => isLikelySameEntry(kind, existingItem, item));
+        if (duplicateIndex === -1) {
+            survivors.push(item);
+            return;
         }
-        
-        seen.add(key1);
-        if (key2 !== key1) seen.add(key2);
-        return true;
+
+        if (shouldReplaceDuplicate(kind, survivors[duplicateIndex], item)) {
+            survivors[duplicateIndex] = item;
+        }
     });
+
+    return survivors;
+}
+
+function isLikelySameEntry(kind, leftItem, rightItem) {
+    const leftDate = getItemDate(kind, leftItem);
+    const rightDate = getItemDate(kind, rightItem);
+    if (!leftDate || !rightDate || leftDate !== rightDate) {
+        return false;
+    }
+
+    const leftKeys = buildComparableTitleKeys(kind, leftItem);
+    const rightKeys = buildComparableTitleKeys(kind, rightItem);
+    if (leftKeys.size === 0 || rightKeys.size === 0) {
+        return false;
+    }
+
+    for (const key of leftKeys) {
+        if (rightKeys.has(key)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function buildComparableTitleKeys(kind, item) {
+    const values = kind === 'tv'
+        ? [item.name, item.original_name, ...(Array.isArray(item.aka) ? item.aka : [])]
+        : [item.title, item.original_title, ...(Array.isArray(item.aka) ? item.aka : [])];
+
+    return new Set(
+        values
+            .map((value) => normalizeComparableTitle(value))
+            .filter(Boolean)
+    );
+}
+
+function normalizeComparableTitle(value) {
+    return normalizeLookupText(value)
+        .replace(/jojosbizarreadventure/g, 'jojo')
+        .replace(/jojo的奇妙冒险/g, 'jojo')
+        .replace(/ジョジョの奇妙な冒険/g, 'jojo')
+        .replace(/第[一二三四五六七八九十\d]+(?:季|期)/g, '')
+        .replace(/\d+(?:st|nd|rd|th)?season/g, '')
+        .replace(/season\d+/g, '')
+        .replace(/\d+(?:st|nd|rd|th)?stage/g, '')
+        .replace(/stage\d+/g, '')
+        .replace(/stage/g, '')
+        .replace(/part\d+/g, '')
+        .trim();
+}
+
+function shouldReplaceDuplicate(kind, currentItem, nextItem) {
+    return scoreDuplicateCandidate(kind, nextItem) > scoreDuplicateCandidate(kind, currentItem);
+}
+
+function scoreDuplicateCandidate(kind, item) {
+    const doubanLink =
+        kind === 'tv'
+            ? item.seasons?.[0]?.douban_link_google || item.douban_link_google || ''
+            : item.douban_link_google || '';
+    const hasPoster = Boolean(
+        kind === 'tv' ? item.seasons?.[0]?.poster_path || item.poster_path : item.poster_path
+    );
+    const hasOverview = Boolean(String(item.overview || item.seasons?.[0]?.overview || '').trim());
+    const aliasCount = Array.isArray(item.aka) ? item.aka.length : 0;
+
+    return (
+        (doubanLink ? 100 : 0) +
+        (hasPoster ? 20 : 0) +
+        (hasOverview ? 10 : 0) +
+        aliasCount
+    );
 }
 
 async function mapWithConcurrency(items, concurrency, mapper) {

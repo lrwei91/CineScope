@@ -102,11 +102,11 @@ export function openIntelDossier(item) {
 
     // 标题
     const titleSpan = document.getElementById('dossier-title');
-    if (titleSpan) titleSpan.textContent = item.title || '未命名';
+    if (titleSpan) titleSpan.textContent = item.dossierTitle || item.title || '未命名';
 
     // 副标题
     const subtitleSpan = document.getElementById('dossier-subtitle');
-    if (subtitleSpan) subtitleSpan.textContent = item.subtitle || '';
+    if (subtitleSpan) subtitleSpan.textContent = item.dossierSubtitle || item.subtitle || '';
 
     // 评分
     const ratingSpan = document.getElementById('dossier-rating');
@@ -126,8 +126,9 @@ export function openIntelDossier(item) {
     const overviewSection = document.getElementById('dossier-overview-section');
     const overviewElement = document.getElementById('dossier-overview');
     if (overviewSection && overviewElement) {
-        if (item.overview) {
-            overviewElement.textContent = item.overview;
+        const dossierOverview = item.dossierOverview || item.overview;
+        if (dossierOverview) {
+            overviewElement.textContent = dossierOverview;
             overviewSection.hidden = false;
         } else {
             overviewElement.textContent = '';
@@ -161,8 +162,9 @@ export function openIntelDossier(item) {
     const networksContainer = document.getElementById('dossier-networks');
     if (networksContainer) {
         networksContainer.innerHTML = '';
-        if (item.networks && item.networks.length > 0) {
-            item.networks.forEach((n) => {
+        const dossierNetworks = item.dossierNetworks || item.networks;
+        if (dossierNetworks && dossierNetworks.length > 0) {
+            dossierNetworks.forEach((n) => {
                 const tag = document.createElement('span');
                 tag.className = 'dossier-tag-item';
                 tag.textContent = n;
