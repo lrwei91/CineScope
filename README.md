@@ -39,7 +39,7 @@
 - `tv_cn_variety`：`subject_collection/tv_variety_show`（筛中国大陆）
 - `tv_kr`：`subject_collection/tv_korean`（筛韩国）
 - `tv_jp`：`subject_collection/tv_japanese`（筛日本）
-- `tv_jp_anime`：`subject_collection/tv_animation`（筛日本动画）
+- `tv_jp_anime`：AniList 季度动画发现源 + `subject_collection/tv_animation` 豆瓣补全（用于覆盖当季续作和不进入豆瓣动画集合的季度条目）
 - `movie_cn`：`subject_collection/movie_showing` + `subject_collection/movie_soon` + `subject_collection/movie_latest`
 
 刷新这些分类数据：
@@ -191,7 +191,7 @@ TV 分类继续沿用现有结构：
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
 
-其中国产剧、综艺、韩剧、日剧、日漫和院线电影文件由本仓库内的生成脚本维护；提供 `TMDB_API_KEY` 时会使用 `tmdb+douban` 混合源补齐月份覆盖，不提供时退回纯豆瓣。英剧和美剧仍沿用原有 JSON 数据来源。
+其中国产剧、综艺、韩剧、日剧和院线电影文件仍主要使用 `tmdb+douban` 混合源；`tv_jp_anime` 改为 AniList 季度发现 + 豆瓣匹配补全，并在提供 `TMDB_API_KEY` 时进一步回填中文标题、海报与简介。英剧和美剧仍沿用原有 JSON 数据来源。
 
 ## 数据来源
 

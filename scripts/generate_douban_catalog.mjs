@@ -13,6 +13,7 @@ const CATEGORY_IDS = String(process.env.CATEGORY_IDS || '')
     .map((value) => value.trim())
     .filter(Boolean);
 const TMDB_API_BASE = 'https://api.themoviedb.org/3';
+const ANILIST_API_BASE = 'https://graphql.anilist.co';
 const CURRENT_YEAR = new Date().getFullYear();
 const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
 const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
@@ -103,12 +104,17 @@ const CATEGORY_SPECS = [
         id: 'tv_jp_anime',
         kind: 'tv',
         latestCount: 18,
+        latestWindowDays: 60,
         minDate: '2025-01-01',
         latestPath: 'json/tv_jp_anime_latest.json',
         completePath: 'json/tv_jp_anime_complete.json',
         doubanSources: [
             { slug: 'tv_animation', includeItem: isJapaneseAnimationEntry }
         ],
+        anilist: {
+            formats: ['TV', 'TV_SHORT', 'ONA'],
+            countryOfOrigin: 'JP'
+        },
         tmdb: {
             discoverPath: '/discover/tv',
             detailPath: '/tv',
@@ -221,10 +227,12 @@ async function buildCategoryData(spec) {
     );
     const doubanLookup = createDoubanLookup(spec.kind, doubanItems);
 
-    const tmdbItems = TMDB_API_KEY && spec.tmdb ? await buildTmdbItems(spec, doubanLookup) : [];
+    const anilistItems = spec.anilist ? await buildAniListItems(spec, doubanLookup) : [];
+    const tmdbItems = !spec.anilist && TMDB_API_KEY && spec.tmdb ? await buildTmdbItems(spec, doubanLookup) : [];
+    const remoteItems = anilistItems.length > 0 ? anilistItems : tmdbItems;
     const mergedItems = dedupeBySignature(
         spec.kind,
-        sortByDateDesc([...tmdbItems, ...doubanItems]).filter((item) =>
+        sortByDateDesc([...remoteItems, ...doubanItems]).filter((item) =>
             spec.minDate ? getItemDate(spec.kind, item) >= spec.minDate : true
         )
     );
@@ -234,13 +242,14 @@ async function buildCategoryData(spec) {
     const tmdbEnrichedItems =
         TMDB_API_KEY && spec.tmdb ? await enrichItemsWithTmdbFallback(spec, finallyDedupedItems) : finallyDedupedItems;
 
-    const latestItems = tmdbEnrichedItems.slice(0, spec.latestCount);
+    const latestItems = selectLatestItems(spec, tmdbEnrichedItems);
     const sourceResults = [
         ...doubanSourceResults.map((sourceResult) => ({
             slug: sourceResult.slug,
             source: 'douban',
             items: sourceResult.items
         })),
+        ...(anilistItems.length > 0 ? [{ slug: 'anilist-seasonal', source: 'anilist', items: anilistItems }] : []),
         ...(tmdbItems.length > 0
             ? [{ slug: spec.tmdb.discoverPath.replace('/', ''), source: 'tmdb', items: tmdbItems }]
             : [])
@@ -377,6 +386,38 @@ async function buildTmdbItems(spec, doubanLookup) {
     return normalizedItems.filter(Boolean);
 }
 
+async function buildAniListItems(spec, doubanLookup) {
+    const seasonWindows = buildAniListSeasonWindows(spec.minDate || `${CURRENT_YEAR}-01-01`, END_OF_CURRENT_YEAR);
+    const mediaItems = [];
+
+    for (const seasonWindow of seasonWindows) {
+        const seasonMedia = await fetchAniListSeasonMedia(spec.anilist, seasonWindow);
+        mediaItems.push(...seasonMedia);
+    }
+
+    const seen = new Set();
+    const uniqueMediaItems = mediaItems.filter((item) => {
+        if (!item?.id || seen.has(item.id)) {
+            return false;
+        }
+        seen.add(item.id);
+        return true;
+    });
+
+    const normalizedItems = await mapWithConcurrency(uniqueMediaItems, 6, async (item) => {
+        const date = formatAniListDate(item.startDate, item.seasonYear, item.season);
+        const doubanMatch = findDoubanMatch(spec.kind, doubanLookup, {
+            title: item.title?.english || item.title?.romaji || item.title?.native || '',
+            originalTitle: item.title?.native || item.title?.romaji || item.title?.english || '',
+            date
+        });
+
+        return normalizeAniListTvEntry(item, doubanMatch);
+    });
+
+    return normalizedItems.filter(Boolean);
+}
+
 async function enrichItemsWithTmdbFallback(spec, items) {
     if (!TMDB_API_KEY || !spec.tmdb) {
         return items;
@@ -394,7 +435,7 @@ async function enrichItemsWithTmdbFallback(spec, items) {
 
         const detail = await searchTmdbDetail(searchPath, {
             title: item.title || item.name || item.original_title || item.original_name || '',
-            originalTitle: item.subtitle || '',
+            originalTitle: item.subtitle || item.original_title || item.original_name || '',
             date: getItemDate(spec.kind, item)
         });
 
@@ -506,15 +547,30 @@ function mergeTmdbFallbackIntoItem(kind, item, detail) {
     if (kind === 'tv') {
         return {
             ...item,
+            name: detail.name || item.name,
+            original_name: detail.original_name || item.original_name || detail.name || item.name,
             tmdb_id: tmdbId,
             tmdbUrl,
             overview,
             poster_path: posterPath,
+            backdrop_path: item.backdrop_path || detail.backdrop_path || null,
             imdb_id: imdbId,
+            genres: item.genres?.length ? item.genres : Array.isArray(detail.genres) ? detail.genres : [],
+            networks: item.networks?.length ? item.networks : Array.isArray(detail.networks) ? detail.networks : [],
+            vote_average: item.vote_average || detail.vote_average || 0,
+            vote_count: item.vote_count || detail.vote_count || 0,
             countries: item.countries?.length ? item.countries : extractStringList(detail.origin_country),
             languages: item.languages?.length ? item.languages : [detail.original_language].filter(Boolean),
+            number_of_episodes: item.number_of_episodes || detail.number_of_episodes || null,
             episodes_info: item.episodes_info || detail.status || null,
-            status: item.status || detail.status || ''
+            status: item.status || detail.status || '',
+            seasons: Array.isArray(item.seasons) && item.seasons.length > 0
+                ? item.seasons.map((season) => ({
+                      ...season,
+                      poster_path: season.poster_path || detail.poster_path || null,
+                      overview: season.overview || detail.overview || ''
+                  }))
+                : item.seasons
         };
     }
 
@@ -757,6 +813,123 @@ async function fetchTmdbJson(endpoint, params = {}) {
     return response.json();
 }
 
+async function fetchAniListSeasonMedia(config, { season, seasonYear }) {
+    const results = [];
+    let page = 1;
+    let hasNextPage = true;
+    const query = `
+        query ($page: Int, $perPage: Int, $season: MediaSeason, $seasonYear: Int, $formats: [MediaFormat], $countryOfOrigin: CountryCode) {
+            Page(page: $page, perPage: $perPage) {
+                pageInfo {
+                    currentPage
+                    hasNextPage
+                }
+                media(
+                    season: $season
+                    seasonYear: $seasonYear
+                    type: ANIME
+                    format_in: $formats
+                    countryOfOrigin: $countryOfOrigin
+                    sort: POPULARITY_DESC
+                ) {
+                    id
+                    title {
+                        romaji
+                        english
+                        native
+                    }
+                    synonyms
+                    season
+                    seasonYear
+                    status
+                    format
+                    episodes
+                    duration
+                    averageScore
+                    popularity
+                    siteUrl
+                    description(asHtml: false)
+                    startDate {
+                        year
+                        month
+                        day
+                    }
+                    endDate {
+                        year
+                        month
+                        day
+                    }
+                    studios(isMain: true) {
+                        nodes {
+                            id
+                            name
+                        }
+                    }
+                    coverImage {
+                        large
+                    }
+                    bannerImage
+                    genres
+                    staff(perPage: 12, sort: [RELEVANCE, ROLE, FAVOURITES_DESC]) {
+                        edges {
+                            role
+                            node {
+                                id
+                                name {
+                                    full
+                                    native
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `;
+
+    while (hasNextPage) {
+        const data = await fetchAniListJson(query, {
+            page,
+            perPage: 50,
+            season,
+            seasonYear,
+            formats: config.formats,
+            countryOfOrigin: config.countryOfOrigin
+        });
+
+        const pageData = data?.data?.Page;
+        const media = Array.isArray(pageData?.media) ? pageData.media : [];
+        results.push(...media);
+        hasNextPage = Boolean(pageData?.pageInfo?.hasNextPage);
+        page += 1;
+    }
+
+    return results;
+}
+
+async function fetchAniListJson(query, variables) {
+    const response = await fetch(ANILIST_API_BASE, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'User-Agent': REQUEST_HEADERS['User-Agent']
+        },
+        body: JSON.stringify({ query, variables })
+    });
+
+    if (!response.ok) {
+        throw new Error(`AniList request failed (${response.status})`);
+    }
+
+    const payload = await response.json();
+    if (Array.isArray(payload?.errors) && payload.errors.length > 0) {
+        throw new Error(`AniList query failed: ${payload.errors[0]?.message || 'unknown error'}`);
+    }
+
+    return payload;
+}
+
 function normalizeDoubanTvEntry(item, detail) {
     const airDate = extractSubjectDate(detail?.pubdate, item.year, null);
     if (!airDate) {
@@ -924,6 +1097,83 @@ function normalizeTmdbTvEntry(detail, doubanMatch) {
     };
 }
 
+function normalizeAniListTvEntry(item, doubanMatch) {
+    const firstAirDate = formatAniListDate(item.startDate, item.seasonYear, item.season);
+    if (!firstAirDate) {
+        return null;
+    }
+
+    const seasonNumber = extractSeasonNumber(
+        item.title?.native,
+        item.title?.english,
+        item.title?.romaji,
+        ...(item.synonyms || [])
+    );
+    const doubanTitle = doubanMatch?.name || '';
+    const originalName = item.title?.native || item.title?.romaji || item.title?.english || doubanTitle;
+    const displayName = doubanTitle || item.title?.english || originalName;
+    const overview = sanitizeText(item.description) || getDoubanField(doubanMatch, 'overview') || '';
+    const doubanRating = getDoubanField(doubanMatch, 'rating');
+    const doubanLink = getDoubanField(doubanMatch, 'link');
+    const score = Number.isFinite(Number(item.averageScore)) ? Number(item.averageScore) / 10 : 0;
+    const episodeCount = Number.isFinite(Number(item.episodes)) ? Number(item.episodes) : null;
+
+    return {
+        id: item.id,
+        anilist_id: item.id,
+        tmdb_id: null,
+        name: displayName,
+        original_name: originalName,
+        subtitle: originalName,
+        imdb_id: null,
+        genres: (item.genres || []).map((name, index) => ({
+            id: index + 1,
+            name
+        })),
+        type: 'Scripted',
+        vote_average: score,
+        vote_count: null,
+        origin_country: [item.countryOfOrigin].filter(Boolean),
+        original_language: 'ja',
+        networks: [],
+        directors: extractAniListStaff(item.staff?.edges, ['Director', 'Series Director']),
+        actors: [],
+        countries: getDoubanField(doubanMatch, 'countries') || ['日本'],
+        languages: getDoubanField(doubanMatch, 'languages') || ['日语'],
+        aka: buildAniListAka(item, displayName, originalName, doubanTitle),
+        homepage: item.siteUrl || null,
+        popularity: Number.isFinite(Number(item.popularity)) ? Number(item.popularity) : null,
+        number_of_seasons: seasonNumber,
+        number_of_episodes: episodeCount,
+        first_air_date: firstAirDate,
+        last_air_date: formatAniListDate(item.endDate, item.seasonYear, item.season) || firstAirDate,
+        in_production: item.status === 'RELEASING' || item.status === 'NOT_YET_RELEASED',
+        status: item.status || '',
+        episodes_info: getDoubanField(doubanMatch, 'episodes_info') || formatAniListEpisodeInfo(item.status, episodeCount),
+        adult: false,
+        poster_path: item.coverImage?.large || getDoubanField(doubanMatch, 'poster') || null,
+        backdrop_path: item.bannerImage || null,
+        overview,
+        rating_count: getDoubanField(doubanMatch, 'rating_count'),
+        rating_star_count: getDoubanField(doubanMatch, 'rating_star_count'),
+        seasons: [
+            {
+                name: seasonNumber > 1 ? `第 ${seasonNumber} 季` : '',
+                season_number: seasonNumber,
+                id: item.id,
+                air_date: firstAirDate,
+                episode_count: episodeCount,
+                vote_average: score,
+                poster_path: item.coverImage?.large || getDoubanField(doubanMatch, 'poster') || null,
+                douban_rating: doubanRating,
+                douban_link_google: doubanLink,
+                overview,
+                douban_link_verified: Boolean(doubanLink)
+            }
+        ]
+    };
+}
+
 function normalizeTmdbMovieEntry(detail, doubanMatch) {
     if (!detail.release_date) {
         return null;
@@ -964,6 +1214,7 @@ function createPayload(spec, items, sourceResults, level) {
         source: sourceResult.source,
         count: sourceResult.items.length
     }));
+    const sourceKinds = [...new Set(sourceSummary.map((sourceResult) => sourceResult.source))];
 
     const categoryNames = {
         tv_cn: '国产剧',
@@ -988,7 +1239,7 @@ function createPayload(spec, items, sourceResults, level) {
                         : `已同步${categoryName}数据（${level}）：${items.length} 条`
             }
         ],
-        source: TMDB_API_KEY ? 'tmdb+douban' : 'douban',
+        source: sourceKinds.join('+') || 'unknown',
         source_collections: sourceSummary,
         total_items: items.length
     };
@@ -1197,6 +1448,127 @@ function extractSubjectDate(pubdateList, year, fallbackMonthDay) {
     return null;
 }
 
+function buildAniListSeasonWindows(minDate, maxDate) {
+    const min = new Date(`${minDate}T00:00:00Z`);
+    const max = new Date(`${maxDate}T00:00:00Z`);
+    const windows = [];
+
+    for (let year = min.getUTCFullYear(); year <= max.getUTCFullYear(); year += 1) {
+        for (const season of ['WINTER', 'SPRING', 'SUMMER', 'FALL']) {
+            const { start, end } = getAniListSeasonBounds(year, season);
+            if (end < min || start > max) {
+                continue;
+            }
+            windows.push({ season, seasonYear: year });
+        }
+    }
+
+    return windows;
+}
+
+function getAniListSeasonBounds(year, season) {
+    const monthBySeason = {
+        WINTER: 0,
+        SPRING: 3,
+        SUMMER: 6,
+        FALL: 9
+    };
+    const startMonth = monthBySeason[season];
+    const start = new Date(Date.UTC(year, startMonth, 1));
+    const end = new Date(Date.UTC(year, startMonth + 3, 0));
+    return { start, end };
+}
+
+function formatAniListDate(dateParts, fallbackYear, season) {
+    const year = Number(dateParts?.year || fallbackYear);
+    if (!Number.isFinite(year) || year <= 0) {
+        return null;
+    }
+
+    const fallbackMonthBySeason = {
+        WINTER: 1,
+        SPRING: 4,
+        SUMMER: 7,
+        FALL: 10
+    };
+    const month = Number(dateParts?.month || fallbackMonthBySeason[season] || 1);
+    const day = Number(dateParts?.day || 1);
+    const normalizedMonth = String(Math.min(Math.max(month, 1), 12)).padStart(2, '0');
+    const normalizedDay = String(Math.min(Math.max(day, 1), 31)).padStart(2, '0');
+    return `${year}-${normalizedMonth}-${normalizedDay}`;
+}
+
+function extractAniListStaff(edges, roleKeywords) {
+    if (!Array.isArray(edges)) {
+        return [];
+    }
+
+    const normalizedKeywords = roleKeywords.map((keyword) => keyword.toLowerCase());
+    const people = [];
+    const seen = new Set();
+
+    edges.forEach((edge) => {
+        const role = String(edge?.role || '').toLowerCase();
+        if (!normalizedKeywords.some((keyword) => role.includes(keyword))) {
+            return;
+        }
+
+        const name = edge?.node?.name?.full || edge?.node?.name?.native || '';
+        if (!name || seen.has(name)) {
+            return;
+        }
+
+        seen.add(name);
+        people.push({
+            id: people.length + 1,
+            name
+        });
+    });
+
+    return people;
+}
+
+function buildAniListAka(item, displayName, originalName, doubanTitle) {
+    return [...new Set([item.title?.english, item.title?.romaji, ...extractStringList(item.synonyms), doubanTitle])]
+        .map((value) => String(value || '').trim())
+        .filter((value) => value && value !== displayName && value !== originalName);
+}
+
+function sanitizeText(value) {
+    return String(value || '')
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/\s+\n/g, '\n')
+        .replace(/\n\s+/g, '\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+}
+
+function extractSeasonNumber(...candidates) {
+    for (const candidate of candidates) {
+        const text = String(candidate || '');
+        const zhMatch = text.match(/第\s*(\d+)\s*[期季]/i);
+        if (zhMatch) {
+            return Number(zhMatch[1]);
+        }
+        const enMatch = text.match(/(?:season\s*|)(\d+)(?:st|nd|rd|th)?\s*season/i) || text.match(/season\s*(\d+)/i);
+        if (enMatch) {
+            return Number(enMatch[1]);
+        }
+    }
+
+    return 1;
+}
+
+function formatAniListEpisodeInfo(status, episodeCount) {
+    if (Number.isFinite(episodeCount) && episodeCount > 0) {
+        return `${episodeCount}集`;
+    }
+
+    return status || null;
+}
+
 function extractEpisodeCount(episodesInfo) {
     const match = String(episodesInfo || '').match(/(\d+)\s*集/);
     return match ? Number(match[1]) : null;
@@ -1235,6 +1607,28 @@ function sortByDateDesc(items) {
         const rightDate = getAnyDate(right);
         return rightDate.localeCompare(leftDate);
     });
+}
+
+function selectLatestItems(spec, items) {
+    if (!Number.isFinite(Number(spec.latestWindowDays)) || Number(spec.latestWindowDays) <= 0) {
+        return items.slice(0, spec.latestCount);
+    }
+
+    const maxDate = new Date();
+    maxDate.setUTCDate(maxDate.getUTCDate() + Number(spec.latestWindowDays));
+    const maxDateText = maxDate.toISOString().slice(0, 10);
+    const nearTermItems = items.filter((item) => {
+        const itemDate = getAnyDate(item);
+        return itemDate && itemDate <= maxDateText;
+    });
+
+    if (nearTermItems.length >= spec.latestCount) {
+        return nearTermItems.slice(0, spec.latestCount);
+    }
+
+    const seenIds = new Set(nearTermItems.map((item) => createItemSignature(spec.kind, item)));
+    const remainder = items.filter((item) => !seenIds.has(createItemSignature(spec.kind, item)));
+    return [...nearTermItems, ...remainder].slice(0, spec.latestCount);
 }
 
 function getAnyDate(item) {
