@@ -5,6 +5,7 @@
 
 import { TMDB_IMAGE_BASE_URL, HIDDEN_GENRES, FUTURE_TAG, DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { getGenreDisplayName } from './filters.js';
+import { parseDateStringAsLocalDate } from './date-utils.js';
 
 /**
  * 解析海报 URL
@@ -288,7 +289,7 @@ export function appendItemsToContainer(itemsToRender, container, specialFilterMo
                 const header = document.createElement('h2');
                 header.className = 'month-group-header';
                 header.id = `month-${monthKey}`;
-                const date = new Date(`${monthKey}-01`);
+                const date = parseDateStringAsLocalDate(`${monthKey}-01`);
                 header.textContent = `${date.getFullYear()}年 ${date.getMonth() + 1}月`;
                 container.appendChild(header);
 

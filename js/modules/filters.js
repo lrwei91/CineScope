@@ -12,6 +12,7 @@ import {
     HIDDEN_GENRES,
     CATEGORY_CONFIG
 } from './config.js';
+import { isDateAfterToday, parseDateStringAsLocalDate } from './date-utils.js';
 
 /**
  * 获取当前分类的评分配置
@@ -112,9 +113,10 @@ export function applyFilters(allItems, filters, categoryId) {
         const specialConfig = getCurrentRatingConfig(categoryId).special;
         const sinceDate = new Date();
         sinceDate.setFullYear(sinceDate.getFullYear() - specialConfig.years);
+        sinceDate.setHours(0, 0, 0, 0);
 
         sourceItems = sourceItems.filter((item) => {
-            const itemDate = new Date(item.date);
+            const itemDate = parseDateStringAsLocalDate(item.date);
             const rating = parseFloat(item.doubanRating) || 0;
             return itemDate >= sinceDate && rating >= specialConfig.minRating;
         });
@@ -163,20 +165,20 @@ export function applyFilters(allItems, filters, categoryId) {
               );
 
     // 分离即将上映和已上映
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-
     const futureItems =
         specialFilterMode === 'recent_high_score'
             ? []
             : networkFiltered
-                  .filter((item) => new Date(item.date) > now)
-                  .sort((left, right) => new Date(left.date) - new Date(right.date));
+                  .filter((item) => isDateAfterToday(item.date))
+                  .sort(
+                      (left, right) =>
+                          parseDateStringAsLocalDate(left.date) - parseDateStringAsLocalDate(right.date)
+                  );
 
     const pastAndPresentItems =
         specialFilterMode === 'recent_high_score'
             ? networkFiltered
-            : networkFiltered.filter((item) => new Date(item.date) <= now);
+            : networkFiltered.filter((item) => !isDateAfterToday(item.date));
 
     // 排序
     const sortedItems = pastAndPresentItems.sort((left, right) => {
