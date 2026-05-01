@@ -4,7 +4,7 @@
  */
 
 export const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300';
-export const DEFAULT_TITLE = 'Global Screen Radar';
+export const DEFAULT_TITLE = '🐟鲤鱼·环球片单';
 export const DEFAULT_CATEGORY_ID = 'tv_cn';
 export const ITEMS_PER_PAGE = 18;
 export const FUTURE_TAG = '即将上映';

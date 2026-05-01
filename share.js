@@ -4,7 +4,7 @@
  */
 
 function sanitizeFileName(name) {
-    return String(name || 'Global_Screen_Radar')
+    return String(name || 'latest_tv')
         .replace(/[\\/:*?"<>|]+/g, '_')
         .replace(/\s+/g, '_')
         .slice(0, 80);
