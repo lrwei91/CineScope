@@ -78,12 +78,22 @@ function sortGenresByPriority(genres) {
     });
 }
 
+function getCardTitleFontSize(titleText) {
+    const length = String(titleText || '').trim().length;
+
+    if (length >= 18) return 12;
+    if (length >= 14) return 13;
+    if (length >= 11) return 14;
+    return 16;
+}
+
 /**
  * 创建目录卡片
  */
 export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const posterUrl = resolvePosterUrl(item.posterPath);
     const titleText = item.title || '未命名';
+    const titleFontSize = getCardTitleFontSize(titleText);
     const chipLabels = getCardChipLabels(item);
     const chipHtml = chipLabels.length > 0
         ? `<div class="card-chip-row">${chipLabels.map((chip) => `<span class="card-chip ${chip.variant || ''}">${chip.label}</span>`).join('')}</div>`
@@ -108,7 +118,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const card = document.createElement('div');
     card.className = 'show-card matrix-enter clickable';
     card.style.animationDelay = `${animationDelayIdx * 40}ms`;
-    card.innerHTML = `<div class="card-poster-container">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${airDateInfo}${chipHtml}</div>`;
+    card.innerHTML = `<div class="card-poster-container">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}" style="font-size:${titleFontSize}px">${titleText}</h3>${airDateInfo}${chipHtml}</div>`;
 
     if (onCardClick) {
         card.addEventListener('click', () => onCardClick(item));
