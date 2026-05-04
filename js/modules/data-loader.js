@@ -69,6 +69,7 @@ export async function loadCategoryData(categoryId, level, categoryState, options
             const data = await response.json();
             ingestCategoryData(categoryId, data, level, categoryState);
             await applyBoxOfficeDataIfNeeded(categoryId, config, state);
+            await applyTvHeatDataIfNeeded(categoryId, config, state);
 
             const currentCategoryId = window.__appState?.currentCategoryId;
             if (!silent && level === 'complete' && categoryId === currentCategoryId && window.innerWidth > 900) {
@@ -113,6 +114,20 @@ async function applyBoxOfficeDataIfNeeded(categoryId, config, state) {
     }
 }
 
+async function applyTvHeatDataIfNeeded(categoryId, config, state) {
+    if (!config.tvHeatUrl || config.kind !== 'tv') return;
+
+    const payload = await loadBoxOfficePayload(config.tvHeatUrl);
+    const rows = Array.isArray(payload?.series) ? payload.series : [];
+    if (rows.length === 0) return;
+
+    state.items = mergeTvHeatIntoCatalogItems(state.items, rows);
+
+    if (categoryId === getCurrentCategoryId()) {
+        syncCurrentCategoryData(window.__appState?.categoryState || {});
+    }
+}
+
 async function loadBoxOfficePayload(url) {
     if (boxOfficePayloadCache.has(url)) {
         return boxOfficePayloadCache.get(url);
@@ -150,6 +165,41 @@ function mergeBoxOfficeIntoCatalogItems(items, rows) {
         const row = titleKeys.map((key) => rowByTitleKey.get(key)).find(Boolean);
         return row ? { ...item, boxOffice: normalizeBoxOffice(row) } : item;
     });
+}
+
+function mergeTvHeatIntoCatalogItems(items, rows) {
+    const rowByTitleKey = new Map();
+    rows.forEach((row) => {
+        const titleKey = normalizeCatalogText(row?.series_name);
+        if (titleKey && !rowByTitleKey.has(titleKey)) {
+            rowByTitleKey.set(titleKey, row);
+        }
+    });
+
+    return items.map((item) => {
+        const titleKeys = [item.title, item.subtitle, ...(Array.isArray(item.aka) ? item.aka : [])]
+            .map(normalizeCatalogText)
+            .filter(Boolean);
+        const row = titleKeys.map((key) => rowByTitleKey.get(key)).find(Boolean);
+        return row ? { ...item, tvHeat: normalizeTvHeat(row) } : item;
+    });
+}
+
+function normalizeTvHeat(value) {
+    if (!value || typeof value !== 'object') return null;
+
+    return {
+        source: String(value.source || 'maoyan'),
+        updatedAt: String(value.updated_at || ''),
+        rank: normalizeCount(value.rank),
+        maoyanSeriesId: normalizeCount(value.maoyan_series_id),
+        seriesName: String(value.series_name || '').trim(),
+        releaseInfo: String(value.release_info || '').trim(),
+        platformDesc: String(value.platform_desc || '').trim(),
+        currHeat: String(value.curr_heat || '').trim(),
+        currHeatDesc: String(value.curr_heat_desc || '').trim(),
+        barValue: typeof value.bar_value === 'number' ? value.bar_value : null
+    };
 }
 
 /**

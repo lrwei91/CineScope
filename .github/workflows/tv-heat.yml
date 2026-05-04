@@ -1,0 +1,50 @@
+name: 更新网播热度
+
+on:
+  schedule:
+    # 每小时更新一次猫眼网播热度快照
+    - cron: '18 * * * *'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+permissions:
+    contents: write
+
+jobs:
+  fetch-tv-heat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v5
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: 抓取猫眼网播热度
+        run: node scripts/generate_tv_heat.mjs
+
+      - name: 检查是否有变更
+        id: git-check
+        run: |
+          git add json/maoyan_tv_heat.json
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 提交并推送变更
+        if: steps.git-check.outputs.has_changes == 'true'
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git commit -m "chore: 更新网播热度 $(date '+%Y-%m-%d %H:%M:%S')"
+          git push
+
+      - name: 无变更通知
+        if: steps.git-check.outputs.has_changes == 'false'
+        run: echo "网播热度无变更，跳过提交"

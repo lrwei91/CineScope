@@ -39,6 +39,7 @@ export const CATEGORY_CONFIG = {
         kind: 'tv',
         latestUrl: 'json/tv_cn_latest.json',
         completeUrl: 'json/tv_cn_complete.json',
+        tvHeatUrl: 'json/maoyan_tv_heat.json',
         showNetworkFilter: true
     },
     tv_kr: {

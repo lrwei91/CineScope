@@ -5,7 +5,10 @@ import {
     createBoxOfficePayload,
     mergeBoxOfficeIntoMovies,
     normalizeBoxOfficeRows,
-    normalizeBoxOfficeTitle
+    normalizeBoxOfficeTitle,
+    createTvHeatPayload,
+    mergeTvHeatIntoCatalogItems,
+    normalizeTvHeatRows
 } from '../scripts/lib/box-office.mjs';
 
 test('normalizeBoxOfficeTitle removes punctuation used in Chinese movie titles', () => {
@@ -98,4 +101,78 @@ test('createBoxOfficePayload strips internal title keys from persisted rows', ()
     assert.equal(payload.metadata.total_items, 1);
     assert.equal(payload.movies[0].title_key, undefined);
     assert.equal(payload.movies[0].cumulative_box_office, '129.48亿');
+});
+
+test('normalizeTvHeatRows keeps Maoyan ranking and heat metrics', () => {
+    const rows = normalizeTvHeatRows(
+        [
+            {
+                series_id: 1386256,
+                series_name: '爱情没有神话',
+                release_info: '上线8天',
+                platform_desc: '多平台播放',
+                curr_heat: 1890.44,
+                curr_heat_desc: '1890.44',
+                bar_value: 1890.44
+            }
+        ],
+        '2026-05-05T00:00:00.000Z'
+    );
+
+    assert.deepEqual(rows[0], {
+        source: 'maoyan',
+        updated_at: '2026-05-05T00:00:00.000Z',
+        rank: 1,
+        maoyan_series_id: 1386256,
+        series_name: '爱情没有神话',
+        release_info: '上线8天',
+        platform_desc: '多平台播放',
+        curr_heat: '1890.44',
+        curr_heat_desc: '1890.44',
+        bar_value: 1890.44,
+        title_key: '爱情没有神话'
+    });
+});
+
+test('mergeTvHeatIntoCatalogItems matches by title and aliases', () => {
+    const items = [
+        {
+            id: 1,
+            title: '爱情没有神话',
+            original_title: 'Love Without Myth',
+            aka: ['爱情无神话']
+        }
+    ];
+    const heatRows = normalizeTvHeatRows([
+        {
+            rank: 1,
+            series_id: 1386256,
+            series_name: '爱情没有神话',
+            curr_heat: 1890.44,
+            platform_desc: '多平台播放'
+        }
+    ]);
+
+    const mergedItems = mergeTvHeatIntoCatalogItems(items, heatRows);
+
+    assert.equal(mergedItems[0].tv_heat.rank, 1);
+    assert.equal(mergedItems[0].tv_heat.curr_heat, '1890.44');
+    assert.equal(mergedItems[0].tv_heat.title_key, undefined);
+});
+
+test('createTvHeatPayload strips internal title keys from persisted rows', () => {
+    const payload = createTvHeatPayload(
+        [
+            {
+                series_id: 1386256,
+                series_name: '爱情没有神话',
+                curr_heat: 1890.44
+            }
+        ],
+        { updatedAt: '2026-05-05T00:00:00.000Z' }
+    );
+
+    assert.equal(payload.metadata.total_items, 1);
+    assert.equal(payload.series[0].title_key, undefined);
+    assert.equal(payload.series[0].curr_heat, '1890.44');
 });
