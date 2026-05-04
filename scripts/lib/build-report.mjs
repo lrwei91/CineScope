@@ -1,15 +1,25 @@
-export function createBuildReport({ activeCategorySpecs, isPartial, tmdbEnabled, doubanSubjectCacheTtlDays }) {
+export function createBuildReport({
+    activeCategorySpecs,
+    isPartial,
+    tmdbEnabled,
+    doubanSubjectCacheTtlDays,
+    doubanSearchCacheTtlDays,
+    doubanSearchQueryLimit
+}) {
     return {
         metadata: {
             started_at: new Date().toISOString(),
             mode: isPartial ? 'partial' : 'full',
             category_ids: activeCategorySpecs.map((spec) => spec.id),
             tmdb_enabled: tmdbEnabled,
-            douban_subject_cache_ttl_days: doubanSubjectCacheTtlDays
+            douban_subject_cache_ttl_days: doubanSubjectCacheTtlDays,
+            douban_search_cache_ttl_days: doubanSearchCacheTtlDays,
+            douban_search_query_limit: doubanSearchQueryLimit
         },
         categories: [],
         douban_statuses: null,
         douban_subject_cache: null,
+        douban_search_cache: null,
         completed_at: null
     };
 }

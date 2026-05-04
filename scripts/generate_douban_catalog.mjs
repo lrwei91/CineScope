@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCategoryReport, createBuildReport } from './lib/build-report.mjs';
 import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
+import { createDoubanSearchCache } from './lib/douban-search-cache.mjs';
 import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -22,9 +23,15 @@ const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
 const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
 const BUILD_REPORT_PATH = 'json/build_report.json';
 const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 7);
+const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 14);
+const DOUBAN_SEARCH_QUERY_LIMIT = getNumberEnv('DOUBAN_SEARCH_QUERY_LIMIT', 1);
 const doubanSubjectCache = createDoubanSubjectCache({
     rootDir: ROOT_DIR,
     ttlDays: DOUBAN_SUBJECT_CACHE_TTL_DAYS
+});
+const doubanSearchCache = createDoubanSearchCache({
+    rootDir: ROOT_DIR,
+    ttlDays: DOUBAN_SEARCH_CACHE_TTL_DAYS
 });
 
 const REQUEST_HEADERS = {
@@ -175,6 +182,7 @@ const CATEGORY_SPECS = [
             { slug: 'tv_animation', includeItem: isJapaneseAnimationEntry }
         ],
         doubanOverrideItems: DOUBAN_TV_JP_ANIME_OVERRIDE_ITEMS,
+        doubanSearchFallback: true,
         anilist: {
             formats: ['TV', 'TV_SHORT', 'ONA'],
             countryOfOrigin: 'JP'
@@ -265,7 +273,9 @@ async function main() {
         activeCategorySpecs,
         isPartial: CATEGORY_IDS.length > 0,
         tmdbEnabled: Boolean(TMDB_API_KEY),
-        doubanSubjectCacheTtlDays: doubanSubjectCache.ttlDays
+        doubanSubjectCacheTtlDays: doubanSubjectCache.ttlDays,
+        doubanSearchCacheTtlDays: doubanSearchCache.ttlDays,
+        doubanSearchQueryLimit: DOUBAN_SEARCH_QUERY_LIMIT
     });
 
     for (const spec of activeCategorySpecs) {
@@ -294,6 +304,7 @@ async function main() {
 
     buildReport.completed_at = new Date().toISOString();
     buildReport.douban_subject_cache = doubanSubjectCache.summarize();
+    buildReport.douban_search_cache = doubanSearchCache.summarize();
     await writeJson(BUILD_REPORT_PATH, buildReport);
     console.log(`[build_report] -> ${BUILD_REPORT_PATH}`);
 }
@@ -530,17 +541,122 @@ async function buildAniListItems(spec, doubanLookup) {
 
     const normalizedItems = await mapWithConcurrency(uniqueMediaItems, 6, async (item) => {
         const date = formatAniListDate(item.startDate, item.seasonYear, item.season);
-        const doubanMatch = findDoubanMatch(spec.kind, doubanLookup, {
+        let doubanMatch = findDoubanMatch(spec.kind, doubanLookup, {
             title: item.title?.english || item.title?.romaji || item.title?.native || '',
             originalTitle: item.title?.native || item.title?.romaji || item.title?.english || '',
             aliases: [item.title?.romaji, item.title?.english, item.title?.native, ...(item.synonyms || [])],
             date
         });
 
+        if (!doubanMatch && spec.doubanSearchFallback) {
+            doubanMatch = await findDoubanMatchBySearch(spec, item, date);
+        }
+
         return normalizeAniListTvEntry(item, doubanMatch);
     });
 
     return normalizedItems.filter(Boolean);
+}
+
+async function findDoubanMatchBySearch(spec, item, date) {
+    const queryCandidates = buildDoubanSearchQueries(item);
+
+    for (const query of queryCandidates) {
+        const searchItems = await doubanSearchCache.fetchSearch({ query, fetchHtml }).catch((error) => {
+            console.warn(`Douban search fallback failed for ${query}: ${error.message}`);
+            return [];
+        });
+        const candidate = pickBestDoubanSearchCandidate(searchItems, item, date);
+        if (!candidate) {
+            continue;
+        }
+
+        const detail = await fetchDoubanSubjectDetail(spec.kind, candidate.id).catch((error) => {
+            console.warn(`Douban search detail fallback failed for ${candidate.id}: ${error.message}`);
+            return null;
+        });
+        const normalized = normalizeDoubanTvEntry(toDoubanCollectionItem(candidate), detail);
+        if (normalized) {
+            return normalized;
+        }
+    }
+
+    return null;
+}
+
+function buildDoubanSearchQueries(item) {
+    return [
+        item.title?.native,
+        item.title?.romaji,
+        item.title?.english,
+        ...(Array.isArray(item.synonyms) ? item.synonyms : [])
+    ]
+        .map((value) => String(value || '').trim())
+        .filter((value) => value.length >= 2)
+        .filter((value, index, list) => list.indexOf(value) === index)
+        .slice(0, Math.max(1, DOUBAN_SEARCH_QUERY_LIMIT));
+}
+
+function pickBestDoubanSearchCandidate(searchItems, item, date) {
+    const targetYear = String(date || '').slice(0, 4);
+    const titleKeys = buildLookupKeys(
+        item.title?.native,
+        item.title?.romaji,
+        item.title?.english,
+        ...(Array.isArray(item.synonyms) ? item.synonyms : [])
+    );
+
+    return searchItems
+        .map((candidate) => ({
+            candidate,
+            score: scoreDoubanSearchCandidate(candidate, titleKeys, targetYear)
+        }))
+        .filter(({ score }) => score >= 10)
+        .sort((left, right) => right.score - left.score)[0]?.candidate || null;
+}
+
+function scoreDoubanSearchCandidate(candidate, titleKeys, targetYear) {
+    const candidateTitleKey = normalizeLookupText(candidate?.title || '');
+    if (!candidate?.id || !candidateTitleKey || titleKeys.length === 0) {
+        return 0;
+    }
+
+    let score = 0;
+    if (titleKeys.some((key) => candidateTitleKey.includes(key) || key.includes(candidateTitleKey))) {
+        score += 10;
+    }
+
+    const candidateYear = extractYear(candidate?.title) || extractYear(candidate?.abstract);
+    if (targetYear && candidateYear === targetYear) {
+        score += 4;
+    } else if (targetYear && candidateYear && Math.abs(Number(candidateYear) - Number(targetYear)) <= 1) {
+        score += 1;
+    }
+
+    const abstract = String(candidate?.abstract || '');
+    if (abstract.includes('日本')) {
+        score += 1;
+    }
+    if (abstract.includes('动画')) {
+        score += 1;
+    }
+
+    return score;
+}
+
+function toDoubanCollectionItem(candidate) {
+    const year = extractYear(candidate?.title) || '';
+    return {
+        id: candidate.id,
+        title: stripSearchTitleYear(candidate.title),
+        year,
+        card_subtitle: candidate.abstract || '',
+        pic: {
+            large: candidate.cover_url || null,
+            normal: candidate.cover_url || null
+        },
+        rating: candidate.rating || null
+    };
 }
 
 async function enrichItemsWithTmdbFallback(spec, items) {
@@ -1450,6 +1566,16 @@ function normalizeLookupText(value) {
         .replace(/[\u0000-\u001f\u007f-\u009f\u200b\u200c\u200d\ufeff]/g, '')
         // 移除标点符号和空格
         .replace(/[\s:：·•'"’“”.,，、!！?？\-—–_()（）\[\]【】]/g, '')
+        .trim();
+}
+
+function extractYear(value) {
+    return String(value || '').match(/\b(19|20)\d{2}\b/)?.[0] || '';
+}
+
+function stripSearchTitleYear(value) {
+    return String(value || '')
+        .replace(/\s*[‎\u200e]?\((19|20)\d{2}\)\s*$/, '')
         .trim();
 }
 

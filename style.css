@@ -637,9 +637,10 @@ h1 .update-date {
 }
 
 .card-content {
-    display: flex;
+    display: grid;
     flex: 1;
-    flex-direction: column;
+    grid-template-rows: auto minmax(41.6px, auto) 16.8px auto minmax(28px, auto);
+    align-content: start;
     gap: 10px;
     padding: 16px 16px 18px;
     background: var(--palette-bg-surface-soft);
@@ -698,6 +699,17 @@ h1 .update-date {
     font-family: var(--font-mono);
 }
 
+.card-subtitle {
+    min-height: 16.8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card-subtitle.is-empty {
+    visibility: hidden;
+}
+
 .card-meta-info {
     display: flex;
     align-items: center;
@@ -708,6 +720,7 @@ h1 .update-date {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    align-self: end;
     min-height: 28px;
 }
 

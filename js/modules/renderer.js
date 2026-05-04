@@ -84,9 +84,8 @@ function sortGenresByPriority(genres) {
 export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const posterUrl = resolvePosterUrl(item.posterPath);
     const titleText = item.title || '未命名';
-    const subtitleHtml = item.subtitle
-        ? `<p class="card-subtitle" title="${item.subtitle}">${item.subtitle}</p>`
-        : '';
+    const subtitleText = item.subtitle ? item.subtitle.trim() : '';
+    const subtitleHtml = `<p class="card-subtitle${subtitleText ? '' : ' is-empty'}" title="${subtitleText}">${subtitleText || '&nbsp;'}</p>`;
     const chipLabels = getCardChipLabels(item);
     const chipHtml = chipLabels.length > 0
         ? `<div class="card-chip-row">${chipLabels.map((chip) => `<span class="card-chip ${chip.variant || ''}">${chip.label}</span>`).join('')}</div>`
