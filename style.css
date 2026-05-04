@@ -639,7 +639,7 @@ h1 .update-date {
 .card-content {
     display: grid;
     flex: 1;
-    grid-template-rows: auto minmax(41.6px, auto) 16.8px auto minmax(28px, auto);
+    grid-template-rows: auto auto 16.8px minmax(28px, auto);
     align-content: start;
     gap: 10px;
     padding: 16px 16px 18px;
@@ -689,7 +689,6 @@ h1 .update-date {
     overflow: hidden;
 }
 
-.card-subtitle,
 .card-meta-info {
     margin: 0;
     font-size: 12px;
@@ -697,17 +696,6 @@ h1 .update-date {
     line-height: 1.4;
     color: var(--palette-text-secondary);
     font-family: var(--font-mono);
-}
-
-.card-subtitle {
-    min-height: 16.8px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.card-subtitle.is-empty {
-    visibility: hidden;
 }
 
 .card-meta-info {

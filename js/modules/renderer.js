@@ -84,8 +84,6 @@ function sortGenresByPriority(genres) {
 export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const posterUrl = resolvePosterUrl(item.posterPath);
     const titleText = item.title || '未命名';
-    const subtitleText = item.subtitle ? item.subtitle.trim() : '';
-    const subtitleHtml = `<p class="card-subtitle${subtitleText ? '' : ' is-empty'}" title="${subtitleText}">${subtitleText || '&nbsp;'}</p>`;
     const chipLabels = getCardChipLabels(item);
     const chipHtml = chipLabels.length > 0
         ? `<div class="card-chip-row">${chipLabels.map((chip) => `<span class="card-chip ${chip.variant || ''}">${chip.label}</span>`).join('')}</div>`
@@ -110,7 +108,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const card = document.createElement('div');
     card.className = 'show-card matrix-enter clickable';
     card.style.animationDelay = `${animationDelayIdx * 40}ms`;
-    card.innerHTML = `<div class="card-poster-container">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${subtitleHtml}${airDateInfo}${chipHtml}</div>`;
+    card.innerHTML = `<div class="card-poster-container">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}">${titleText}</h3>${airDateInfo}${chipHtml}</div>`;
 
     if (onCardClick) {
         card.addEventListener('click', () => onCardClick(item));
