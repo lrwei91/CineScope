@@ -3,11 +3,37 @@
  * 负责生成分享图片并处理系统分享
  */
 
+const QR_CODE_SIZE = 132;
+const QR_CODE_API_BASE_URL = 'https://api.qrserver.com/v1/create-qr-code/';
+
 function sanitizeFileName(name) {
     return String(name || 'latest_tv')
         .replace(/[\\/:*?"<>|]+/g, '_')
         .replace(/\s+/g, '_')
         .slice(0, 80);
+}
+
+export function getShareBaseUrl(locationLike = globalThis.location) {
+    if (!locationLike?.href) {
+        return '/';
+    }
+
+    try {
+        const currentUrl = new URL(locationLike.href);
+        currentUrl.search = '';
+        currentUrl.hash = '';
+        return currentUrl.toString();
+    } catch {
+        return '/';
+    }
+}
+
+export function getShareQrCodeUrl(locationLike = globalThis.location, size = QR_CODE_SIZE) {
+    const qrUrl = new URL(QR_CODE_API_BASE_URL);
+    qrUrl.searchParams.set('size', `${size}x${size}`);
+    qrUrl.searchParams.set('data', getShareBaseUrl(locationLike));
+    qrUrl.searchParams.set('margin', '0');
+    return qrUrl.toString();
 }
 
 async function loadImageForShare(src) {
@@ -109,7 +135,7 @@ function buildShareText(item) {
         lines.push(`简介：${clampText(item.overview, 300)}`);
     }
 
-    lines.push(window.location.href);
+    lines.push(getShareBaseUrl());
     return lines.join('\n');
 }
 
@@ -125,6 +151,14 @@ async function createShareImageFile(item) {
 
     const creamColor = '#f1f0ea';
     let posterImage = null;
+    let qrCodeImage = null;
+    const shareUrl = getShareBaseUrl();
+
+    try {
+        qrCodeImage = await loadImageForShare(getShareQrCodeUrl());
+    } catch (error) {
+        console.warn('QR code load failed. Rendering share image without QR code.', error);
+    }
 
     for (let attempt = 0; attempt < 2; attempt += 1) {
         if (includePoster && item.posterPath && !posterImage) {
@@ -293,19 +327,30 @@ async function createShareImageFile(item) {
 
         const bottomY = height - ticketMargin - 50;
 
-        ctx.fillStyle = '#111318';
-        let bcX = metaX;
-        for (let i = 0; i < 26; i++) {
-            const rand = Math.sin((item.id || 1) * (i + 1));
-            const barW = rand > 0.5 ? 4 : (rand > 0 ? 8 : 2);
-            ctx.fillRect(bcX, bottomY - 36, barW, 40);
-            bcX += barW + 4;
+        const qrX = metaX;
+        const qrY = bottomY - QR_CODE_SIZE + 4;
+        if (qrCodeImage) {
+            ctx.drawImage(qrCodeImage, qrX, qrY, QR_CODE_SIZE, QR_CODE_SIZE);
+            ctx.strokeStyle = '#d7d5cf';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(qrX - 1, qrY - 1, QR_CODE_SIZE + 2, QR_CODE_SIZE + 2);
+        } else {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(qrX, qrY, QR_CODE_SIZE, QR_CODE_SIZE);
+            ctx.strokeStyle = '#d7d5cf';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(qrX, qrY, QR_CODE_SIZE, QR_CODE_SIZE);
+            ctx.fillStyle = '#555964';
+            ctx.font = '600 15px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'center';
+            wrapShareText(ctx, 'SCAN TO OPEN', qrX + 14, qrY + 52, QR_CODE_SIZE - 28, 22, 2);
         }
 
         ctx.font = '500 14px "Fira Code", monospace';
         ctx.fillStyle = '#888d96';
         const idStr = `LRWEI91-${(item.date || '').replace(/-/g, '')}-0001`;
-        ctx.fillText(idStr, metaX, bottomY + 26);
+        ctx.textAlign = 'left';
+        ctx.fillText(idStr, metaX + QR_CODE_SIZE + 24, bottomY + 26);
 
         ctx.textAlign = 'right';
         ctx.fillStyle = '#c6211a';
@@ -314,7 +359,7 @@ async function createShareImageFile(item) {
 
         ctx.fillStyle = '#888d96';
         ctx.font = '400 16px "Fira Code", monospace';
-        ctx.fillText('https://lrwei91.github.io/latest_tv/', ticketX + ticketW - 40, bottomY + 24);
+        ctx.fillText(shareUrl, ticketX + ticketW - 40, bottomY + 24);
 
         try {
             const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
@@ -453,4 +498,6 @@ export const ShareModule = {
 };
 
 // 暴露到全局供 app.js 使用
-window.ShareModule = ShareModule;
+if (typeof window !== 'undefined') {
+    window.ShareModule = ShareModule;
+}
