@@ -5,6 +5,8 @@
 
 import { CATEGORY_CONFIG, TMDB_IMAGE_BASE_URL, VALID_GENRES } from './config.js';
 
+const boxOfficePayloadCache = new Map();
+
 /**
  * 构建带时间戳的防缓存 URL
  */
@@ -66,6 +68,7 @@ export async function loadCategoryData(categoryId, level, categoryState, options
 
             const data = await response.json();
             ingestCategoryData(categoryId, data, level, categoryState);
+            await applyBoxOfficeDataIfNeeded(categoryId, config, state);
 
             const currentCategoryId = window.__appState?.currentCategoryId;
             if (!silent && level === 'complete' && categoryId === currentCategoryId && window.innerWidth > 900) {
@@ -94,6 +97,59 @@ export async function loadCategoryData(categoryId, level, categoryState, options
     })();
 
     return state[promiseKey];
+}
+
+async function applyBoxOfficeDataIfNeeded(categoryId, config, state) {
+    if (!config.boxOfficeUrl || config.kind !== 'movie') return;
+
+    const payload = await loadBoxOfficePayload(config.boxOfficeUrl);
+    const rows = Array.isArray(payload?.movies) ? payload.movies : [];
+    if (rows.length === 0) return;
+
+    state.items = mergeBoxOfficeIntoCatalogItems(state.items, rows);
+
+    if (categoryId === getCurrentCategoryId()) {
+        syncCurrentCategoryData(window.__appState?.categoryState || {});
+    }
+}
+
+async function loadBoxOfficePayload(url) {
+    if (boxOfficePayloadCache.has(url)) {
+        return boxOfficePayloadCache.get(url);
+    }
+
+    const payloadPromise = fetch(buildFreshUrl(url), { cache: 'no-store' })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Could not load ${url}`);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.warn(`Box office data skipped: ${error.message}`);
+            return null;
+        });
+
+    boxOfficePayloadCache.set(url, payloadPromise);
+    return payloadPromise;
+}
+
+function mergeBoxOfficeIntoCatalogItems(items, rows) {
+    const rowByTitleKey = new Map();
+    rows.forEach((row) => {
+        const titleKey = normalizeCatalogText(row?.movie_name);
+        if (titleKey && !rowByTitleKey.has(titleKey)) {
+            rowByTitleKey.set(titleKey, row);
+        }
+    });
+
+    return items.map((item) => {
+        const titleKeys = [item.title, item.subtitle, ...(Array.isArray(item.aka) ? item.aka : [])]
+            .map(normalizeCatalogText)
+            .filter(Boolean);
+        const row = titleKeys.map((key) => rowByTitleKey.get(key)).find(Boolean);
+        return row ? { ...item, boxOffice: normalizeBoxOffice(row) } : item;
+    });
 }
 
 /**
@@ -222,6 +278,7 @@ function normalizeMovieItems(movies) {
             posterPath: movie.poster_path || null,
             genres: normalizeNameList(movie.genres, { filterValid: true }),
             releaseWindows: normalizeReleaseWindows(movie.release_windows),
+            boxOffice: normalizeBoxOffice(movie.box_office),
             networks: [],
             doubanRating: movie.douban_rating || null,
             doubanLink: movie.douban_link_google || null,
@@ -323,6 +380,7 @@ function mergeCatalogItems(leftItem, rightItem) {
         imdbUrl: preferredItem.imdbUrl || secondaryItem.imdbUrl,
         genres: mergeUniqueStrings(preferredItem.genres, secondaryItem.genres),
         releaseWindows: mergeReleaseWindows(preferredItem.releaseWindows, secondaryItem.releaseWindows),
+        boxOffice: preferredItem.boxOffice || secondaryItem.boxOffice || null,
         networks: mergeUniqueStrings(preferredItem.networks, secondaryItem.networks),
         directors: mergeUniqueStrings(preferredItem.directors, secondaryItem.directors),
         actors: mergeUniqueStrings(preferredItem.actors, secondaryItem.actors),
@@ -412,6 +470,28 @@ function normalizeReleaseWindows(list) {
             label: String(item?.label || '').trim()
         }))
         .filter((item) => item.id && item.label);
+}
+
+function normalizeBoxOffice(value) {
+    if (!value || typeof value !== 'object') return null;
+
+    return {
+        source: String(value.source || 'maoyan'),
+        updatedAt: String(value.updated_at || ''),
+        rank: normalizeCount(value.rank),
+        maoyanMovieId: normalizeCount(value.maoyan_movie_id),
+        movieName: String(value.movie_name || '').trim(),
+        releaseInfo: String(value.release_info || value.release_day || '').trim(),
+        realTimeBoxOffice: String(value.real_time_box_office || '').trim(),
+        cumulativeBoxOffice: String(value.cumulative_box_office || '').trim(),
+        splitCumulativeBoxOffice: String(value.split_cumulative_box_office || '').trim(),
+        boxOfficeRate: String(value.box_office_rate || '').trim(),
+        splitBoxOfficeRate: String(value.split_box_office_rate || '').trim(),
+        showCount: normalizeCount(value.show_count),
+        showCountRate: String(value.show_count_rate || '').trim(),
+        seatOccupancy: String(value.seat_occupancy || '').trim(),
+        avgShowView: String(value.avg_show_view || '').trim()
+    };
 }
 
 /**

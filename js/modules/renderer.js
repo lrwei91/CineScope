@@ -87,6 +87,25 @@ function getCardTitleFontSize(titleText) {
     return 16;
 }
 
+function createBoxOfficeHtml(item) {
+    const boxOffice = item.boxOffice;
+    if (!boxOffice || item.kind !== 'movie') {
+        return '';
+    }
+
+    const rankLabel = boxOffice.rank ? `#${boxOffice.rank}` : '实时';
+    const totalLabel = boxOffice.realTimeBoxOffice || boxOffice.cumulativeBoxOffice || '暂无';
+    const rateLabel = boxOffice.boxOfficeRate ? `<span>占比 ${boxOffice.boxOfficeRate}</span>` : '';
+    const showRateLabel = boxOffice.showCountRate ? `<span>排片 ${boxOffice.showCountRate}</span>` : '';
+
+    return `
+        <div class="card-box-office">
+            <div class="box-office-main"><span>票房 ${rankLabel}</span><strong>${totalLabel}</strong></div>
+            <div class="box-office-sub">${rateLabel}${showRateLabel}</div>
+        </div>
+    `;
+}
+
 /**
  * 创建目录卡片
  */
@@ -107,6 +126,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     }
 
     const airDateInfo = item.date ? `<p class="card-meta-info">上映日期：${item.date}</p>` : '';
+    const boxOfficeHtml = createBoxOfficeHtml(item);
     const imageHTML = `<img src="${posterUrl}" alt="${titleText}" class="poster" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750.png?text=No+Image';">`;
 
     const statusBadgeHtml = item.doubanCollectionStatus
@@ -118,7 +138,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const card = document.createElement('div');
     card.className = 'show-card matrix-enter clickable';
     card.style.animationDelay = `${animationDelayIdx * 40}ms`;
-    card.innerHTML = `<div class="card-poster-container">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}" style="font-size:${titleFontSize}px">${titleText}</h3>${airDateInfo}${chipHtml}</div>`;
+    card.innerHTML = `<div class="card-poster-container">${posterHTML}</div><div class="card-content">${ratingElementHTML}<h3 class="card-title" title="${titleText}" style="font-size:${titleFontSize}px">${titleText}</h3>${airDateInfo}${boxOfficeHtml}${chipHtml}</div>`;
 
     if (onCardClick) {
         card.addEventListener('click', () => onCardClick(item));

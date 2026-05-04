@@ -17,6 +17,7 @@
 - 时间线导航：按年份和月份浏览历史条目，并保留即将上映区域
 - 分页加载：滚动时渐进追加卡片，降低一次性渲染压力
 - 日漫分页：使用独立 `tv_jp_anime` 数据源，和日剧分开抓取、分开缓存、分开展示
+- 院线票房：`movie_cn` 会合并 60s API 的猫眼实时票房快照，卡片显示实时票房、排行、票房占比和排片占比
 - 豆瓣状态：默认展示豆瓣用户 `lrwei91` 的想看、在看、看过状态，并在卡片上显示状态标签
 
 ## 加载策略
@@ -48,6 +49,8 @@
 TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 ```
 
+院线电影票房默认从 60s API 的猫眼实时票房接口生成快照。也可以通过 `MAOYAN_BOX_OFFICE_API_URL` 覆盖默认接口地址，例如指向自己的 60s 私有部署。
+
 脚本会更新：
 
 - `json/tv_cn_latest.json`
@@ -61,6 +64,7 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 - `json/tv_jp_anime_latest.json`
 - `json/tv_jp_anime_complete.json`
 - `json/douban_statuses.json`
+- `json/maoyan_box_office.json`
 - `json/build_report.json`
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
@@ -148,6 +152,23 @@ TV 分类继续沿用现有结构：
       "overview": "剧情简介",
       "durations": ["118分钟"],
       "release_windows": [{ "id": "summer", "label": "暑期档" }],
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-05-05T00:00:00.000Z",
+        "rank": 1,
+        "maoyan_movie_id": 1294273,
+        "movie_name": "片名",
+        "release_info": "上映25天",
+        "real_time_box_office": "536.55万",
+        "cumulative_box_office": "129.48亿",
+        "split_cumulative_box_office": "116.92亿",
+        "box_office_rate": "90.2%",
+        "split_box_office_rate": "90.2%",
+        "show_count": 234524,
+        "show_count_rate": "57.1%",
+        "seat_occupancy": "15.5%",
+        "avg_show_view": "22.7"
+      },
       "rating_count": 12345,
       "rating_star_count": 4
     }
@@ -195,6 +216,7 @@ TV 分类继续沿用现有结构：
 - `json/tv_jp_anime_complete.json`
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
+- `json/maoyan_box_office.json`
 - `json/build_report.json`
 
 其中国产剧、综艺、韩剧、日剧和院线电影文件仍主要使用 `tmdb+douban` 混合源；`tv_jp_anime` 改为 AniList 季度发现 + 豆瓣匹配补全，并在提供 `TMDB_API_KEY` 时进一步回填中文标题、海报与简介。英剧和美剧仍沿用原有 JSON 数据来源。
@@ -203,6 +225,7 @@ TV 分类继续沿用现有结构：
 
 - 影视基础信息：The Movie Database (TMDB)
 - 评分信息：豆瓣
+- 院线实时票房：60s API 的猫眼实时票房接口，构建脚本按片名/别名匹配到 `movie_cn` 条目
 
 ## 说明
 

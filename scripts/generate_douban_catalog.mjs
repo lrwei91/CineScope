@@ -6,12 +6,15 @@ import { fileURLToPath } from 'node:url';
 import { createCategoryReport, createBuildReport } from './lib/build-report.mjs';
 import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
 import { createDoubanSearchCache } from './lib/douban-search-cache.mjs';
+import { fetchMaoyanBoxOfficePayload, mergeBoxOfficeIntoMovies } from './lib/box-office.mjs';
 import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
+const MAOYAN_BOX_OFFICE_API_URL =
+    process.env.MAOYAN_BOX_OFFICE_API_URL || 'https://60s.viki.moe/v2/maoyan/realtime/movie';
 const CATEGORY_IDS = String(process.env.CATEGORY_IDS || '')
     .split(',')
     .map((value) => value.trim())
@@ -22,6 +25,7 @@ const CURRENT_YEAR = new Date().getFullYear();
 const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
 const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
 const BUILD_REPORT_PATH = 'json/build_report.json';
+const BOX_OFFICE_PATH = 'json/maoyan_box_office.json';
 const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 7);
 const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 14);
 const DOUBAN_SEARCH_QUERY_LIMIT = getNumberEnv('DOUBAN_SEARCH_QUERY_LIMIT', 1);
@@ -278,8 +282,11 @@ async function main() {
         doubanSearchQueryLimit: DOUBAN_SEARCH_QUERY_LIMIT
     });
 
+    const shouldFetchBoxOffice = activeCategorySpecs.some((spec) => spec.id === 'movie_cn');
+    const boxOfficePayload = shouldFetchBoxOffice ? await buildBoxOfficePayload() : null;
+
     for (const spec of activeCategorySpecs) {
-        const result = await buildCategoryData(spec);
+        const result = await buildCategoryData(spec, boxOfficePayload);
         await writeJson(spec.latestPath, result.latestPayload);
         await writeJson(spec.completePath, result.completePayload);
         buildReport.categories.push(result.report);
@@ -287,6 +294,12 @@ async function main() {
             `[${spec.id}] latest=${result.latestCount} complete=${result.completeCount} -> ${spec.latestPath}, ${spec.completePath}`
         );
         logFallbackSummary(spec.id, result.fallbackSummary);
+    }
+
+    if (boxOfficePayload) {
+        await writeJson(BOX_OFFICE_PATH, boxOfficePayload);
+        buildReport.box_office = boxOfficePayload.metadata;
+        console.log(`[box_office] total=${boxOfficePayload.metadata.total_items} -> ${BOX_OFFICE_PATH}`);
     }
 
     if (CATEGORY_IDS.length === 0) {
@@ -309,7 +322,26 @@ async function main() {
     console.log(`[build_report] -> ${BUILD_REPORT_PATH}`);
 }
 
-async function buildCategoryData(spec) {
+async function buildBoxOfficePayload() {
+    return fetchMaoyanBoxOfficePayload({
+        apiUrl: MAOYAN_BOX_OFFICE_API_URL
+    }).catch((error) => {
+        console.warn(`Maoyan box office skipped: ${error.message}`);
+        return {
+            metadata: {
+                last_updated: new Date().toISOString(),
+                source: 'maoyan',
+                source_url: MAOYAN_BOX_OFFICE_API_URL,
+                status: 'failed',
+                message: error.message,
+                total_items: 0
+            },
+            movies: []
+        };
+    });
+}
+
+async function buildCategoryData(spec, boxOfficePayload = null) {
     const fallbackCollector = createFallbackCollector();
     const doubanSourceResults = [
         ...(await buildDoubanSourceResults(spec, fallbackCollector)),
@@ -339,8 +371,13 @@ async function buildCategoryData(spec) {
     const finallyDedupedItems = dedupeByNameAndYear(spec.kind, mergedItems);
     const tmdbEnrichedItems =
         TMDB_API_KEY && spec.tmdb ? await enrichItemsWithTmdbFallback(spec, finallyDedupedItems) : finallyDedupedItems;
+    const boxOfficeRows = boxOfficePayload?.metadata?.status === 'ok' ? boxOfficePayload.movies : [];
+    const finalItems =
+        spec.id === 'movie_cn' && boxOfficeRows.length > 0
+            ? mergeBoxOfficeIntoMovies(tmdbEnrichedItems, boxOfficeRows)
+            : tmdbEnrichedItems;
 
-    const latestItems = selectLatestItems(spec, tmdbEnrichedItems);
+    const latestItems = selectLatestItems(spec, finalItems);
     const sourceResults = [
         ...doubanSourceResults.map((sourceResult) => ({
             slug: sourceResult.slug,
@@ -350,12 +387,15 @@ async function buildCategoryData(spec) {
         ...(anilistItems.length > 0 ? [{ slug: 'anilist-seasonal', source: 'anilist', items: anilistItems }] : []),
         ...(tmdbItems.length > 0
             ? [{ slug: spec.tmdb.discoverPath.replace('/', ''), source: 'tmdb', items: tmdbItems }]
+            : []),
+        ...(spec.id === 'movie_cn' && boxOfficeRows.length > 0
+            ? [{ slug: 'maoyan_box_office', source: 'maoyan', items: boxOfficeRows }]
             : [])
     ];
 
     const latestPayload = createPayload(spec, latestItems, sourceResults, 'latest');
-    const completePayload = createPayload(spec, tmdbEnrichedItems, sourceResults, 'complete');
-    const finalCompleteCount = tmdbEnrichedItems.length;
+    const completePayload = createPayload(spec, finalItems, sourceResults, 'complete');
+    const finalCompleteCount = finalItems.length;
 
     return {
         latestPayload,
@@ -372,7 +412,7 @@ async function buildCategoryData(spec) {
             mergedCandidateItems,
             mergedItems,
             finallyDedupedItems,
-            tmdbEnrichedItems,
+            tmdbEnrichedItems: finalItems,
             latestItems,
             fallbackSummary: fallbackCollector.summary()
         })

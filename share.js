@@ -5,12 +5,11 @@
 
 const QR_CODE_SIZE = 132;
 const QR_CODE_API_BASE_URL = 'https://api.qrserver.com/v1/create-qr-code/';
-const QR_CAPTION_GAP = 18;
-const QR_CAPTION_LINE_HEIGHT = 20;
 const BOTTOM_SECTION_GAP = 56;
 const QR_CARD_PADDING = 16;
 const QR_CARD_HEADER_HEIGHT = 28;
 const QR_CONTENT_SHIFT_Y = 8;
+const QR_CARD_FOOTER_PADDING = 14;
 
 function sanitizeFileName(name) {
     return String(name || 'latest_tv')
@@ -164,7 +163,7 @@ async function createShareImageFile(item) {
     let shareQrCodeImage = null;
     let doubanQrCodeImage = null;
     const hasDoubanLink = Boolean(item.doubanLink);
-    const qrBlockHeight = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CAPTION_GAP + QR_CAPTION_LINE_HEIGHT + QR_CARD_PADDING;
+    const qrBlockHeight = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CONTENT_SHIFT_Y + QR_CARD_FOOTER_PADDING;
 
     try {
         shareQrCodeImage = await loadImageForShare(getShareQrCodeUrl());
@@ -356,9 +355,8 @@ async function createShareImageFile(item) {
         const qrY = bottomSectionTop;
         const qrInnerX = QR_CARD_PADDING;
         const qrInnerY = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CONTENT_SHIFT_Y;
-        const captionY = qrY + QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CAPTION_GAP + QR_CONTENT_SHIFT_Y;
 
-        const drawQrBlock = (image, x, headerLabel, captionLabel, fallbackText, accentColor) => {
+        const drawQrBlock = (image, x, headerLabel, fallbackText, accentColor) => {
             ctx.fillStyle = '#ece9df';
             ctx.beginPath();
             ctx.roundRect(x, qrY, qrCardWidth, qrBlockHeight, 14);
@@ -396,22 +394,17 @@ async function createShareImageFile(item) {
                 ctx.textAlign = 'center';
                 wrapShareText(ctx, fallbackText, imageX + 14, imageY + 50, QR_CODE_SIZE - 28, 20, 3);
             }
-
-            ctx.fillStyle = '#888d96';
-            ctx.font = '600 16px "Fira Code", "Microsoft YaHei", monospace';
-            ctx.textAlign = 'center';
-            ctx.fillText(captionLabel, x + (qrCardWidth / 2), captionY);
         };
 
-        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', '站点入口', 'SCAN TO OPEN', '#d9f7ff');
+        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', 'SCAN TO OPEN', '#d9f7ff');
         if (hasDoubanLink) {
-            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', '豆瓣链接', 'OPEN DOUBAN', '#f7f1d9');
+            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', 'OPEN DOUBAN', '#f7f1d9');
         }
 
         ctx.textAlign = 'right';
         ctx.fillStyle = '#c6211a';
         ctx.font = '800 24px "Fira Code", "Microsoft YaHei", monospace';
-        ctx.fillText('CONFIDENTIAL', ticketX + ticketW - 40, qrY + qrBlockHeight - 16);
+        ctx.fillText('CONFIDENTIAL', ticketX + ticketW - 40, qrY + qrBlockHeight);
 
         try {
             const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
