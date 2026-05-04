@@ -5,6 +5,11 @@
 
 const QR_CODE_SIZE = 132;
 const QR_CODE_API_BASE_URL = 'https://api.qrserver.com/v1/create-qr-code/';
+const QR_CAPTION_GAP = 18;
+const QR_CAPTION_LINE_HEIGHT = 20;
+const BOTTOM_SECTION_GAP = 56;
+const QR_CARD_PADDING = 16;
+const QR_CARD_HEADER_HEIGHT = 28;
 
 function sanitizeFileName(name) {
     return String(name || 'latest_tv')
@@ -28,12 +33,16 @@ export function getShareBaseUrl(locationLike = globalThis.location) {
     }
 }
 
-export function getShareQrCodeUrl(locationLike = globalThis.location, size = QR_CODE_SIZE) {
+export function getQrCodeUrl(text, size = QR_CODE_SIZE) {
     const qrUrl = new URL(QR_CODE_API_BASE_URL);
     qrUrl.searchParams.set('size', `${size}x${size}`);
-    qrUrl.searchParams.set('data', getShareBaseUrl(locationLike));
+    qrUrl.searchParams.set('data', text);
     qrUrl.searchParams.set('margin', '0');
     return qrUrl.toString();
+}
+
+export function getShareQrCodeUrl(locationLike = globalThis.location, size = QR_CODE_SIZE) {
+    return getQrCodeUrl(getShareBaseUrl(locationLike), size);
 }
 
 async function loadImageForShare(src) {
@@ -151,13 +160,23 @@ async function createShareImageFile(item) {
 
     const creamColor = '#f1f0ea';
     let posterImage = null;
-    let qrCodeImage = null;
-    const shareUrl = getShareBaseUrl();
+    let shareQrCodeImage = null;
+    let doubanQrCodeImage = null;
+    const hasDoubanLink = Boolean(item.doubanLink);
+    const qrBlockHeight = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CAPTION_GAP + QR_CAPTION_LINE_HEIGHT + QR_CARD_PADDING;
 
     try {
-        qrCodeImage = await loadImageForShare(getShareQrCodeUrl());
+        shareQrCodeImage = await loadImageForShare(getShareQrCodeUrl());
     } catch (error) {
-        console.warn('QR code load failed. Rendering share image without QR code.', error);
+        console.warn('Share QR code load failed. Rendering share image without share QR code.', error);
+    }
+
+    if (hasDoubanLink) {
+        try {
+            doubanQrCodeImage = await loadImageForShare(getQrCodeUrl(item.doubanLink));
+        } catch (error) {
+            console.warn('Douban QR code load failed. Rendering share image without Douban QR code.', error);
+        }
     }
 
     for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -216,7 +235,7 @@ async function createShareImageFile(item) {
             cursorY += wrapShareText(dctx, item.overview, 0, 0, metaW, 42, Infinity, true) * 42;
         }
 
-        cursorY += 120;
+        cursorY += BOTTOM_SECTION_GAP + qrBlockHeight;
         const height = Math.ceil(cursorY + ticketMargin);
         const ticketH = height - ticketMargin * 2;
 
@@ -322,38 +341,76 @@ async function createShareImageFile(item) {
         ctx.fillStyle = '#555964';
         ctx.font = '400 22px "Nunito Sans", "Microsoft YaHei", sans-serif';
         if (item.overview) {
-            wrapShareText(ctx, item.overview, metaX, cursorY + 20, metaW, 42, Infinity);
+            const overviewLineCount = wrapShareText(ctx, item.overview, metaX, cursorY + 20, metaW, 42, Infinity);
+            cursorY += overviewLineCount * 42;
         }
 
-        const bottomY = height - ticketMargin - 50;
+        cursorY += BOTTOM_SECTION_GAP;
+        const bottomSectionTop = cursorY;
+        const qrGap = hasDoubanLink ? 24 : 0;
+        const qrStartX = metaX;
+        const qrCardWidth = QR_CODE_SIZE + QR_CARD_PADDING * 2;
+        const primaryQrX = qrStartX;
+        const secondaryQrX = qrStartX + qrCardWidth + qrGap;
+        const qrY = bottomSectionTop;
+        const qrInnerX = QR_CARD_PADDING;
+        const qrInnerY = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING;
+        const captionY = qrY + QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CAPTION_GAP;
 
-        const qrX = metaX;
-        const qrY = bottomY - QR_CODE_SIZE + 4;
-        if (qrCodeImage) {
-            ctx.drawImage(qrCodeImage, qrX, qrY, QR_CODE_SIZE, QR_CODE_SIZE);
+        const drawQrBlock = (image, x, headerLabel, captionLabel, fallbackText, accentColor) => {
+            ctx.fillStyle = '#ece9df';
+            ctx.beginPath();
+            ctx.roundRect(x, qrY, qrCardWidth, qrBlockHeight, 14);
+            ctx.fill();
+
             ctx.strokeStyle = '#d7d5cf';
             ctx.lineWidth = 1;
-            ctx.strokeRect(qrX - 1, qrY - 1, QR_CODE_SIZE + 2, QR_CODE_SIZE + 2);
-        } else {
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(qrX, qrY, QR_CODE_SIZE, QR_CODE_SIZE);
-            ctx.strokeStyle = '#d7d5cf';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(qrX, qrY, QR_CODE_SIZE, QR_CODE_SIZE);
-            ctx.fillStyle = '#555964';
-            ctx.font = '600 15px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.stroke();
+
+            ctx.fillStyle = accentColor;
+            ctx.beginPath();
+            ctx.roundRect(x + 10, qrY + 10, qrCardWidth - 20, QR_CARD_HEADER_HEIGHT, 8);
+            ctx.fill();
+
+            ctx.fillStyle = '#111318';
+            ctx.font = '700 14px "Fira Code", "Microsoft YaHei", monospace';
             ctx.textAlign = 'center';
-            wrapShareText(ctx, 'SCAN TO OPEN', qrX + 14, qrY + 52, QR_CODE_SIZE - 28, 22, 2);
+            ctx.fillText(headerLabel, x + (qrCardWidth / 2), qrY + 29);
+
+            const imageX = x + qrInnerX;
+            const imageY = qrY + qrInnerY;
+            if (image) {
+                ctx.drawImage(image, imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
+                ctx.strokeStyle = '#d7d5cf';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(imageX - 1, imageY - 1, QR_CODE_SIZE + 2, QR_CODE_SIZE + 2);
+            } else {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
+                ctx.strokeStyle = '#d7d5cf';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
+                ctx.fillStyle = '#555964';
+                ctx.font = '600 14px "Nunito Sans", "Microsoft YaHei", sans-serif';
+                ctx.textAlign = 'center';
+                wrapShareText(ctx, fallbackText, imageX + 14, imageY + 50, QR_CODE_SIZE - 28, 20, 3);
+            }
+
+            ctx.fillStyle = '#888d96';
+            ctx.font = '600 16px "Fira Code", "Microsoft YaHei", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(captionLabel, x + (qrCardWidth / 2), captionY);
+        };
+
+        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', '站点入口', 'SCAN TO OPEN', '#d9f7ff');
+        if (hasDoubanLink) {
+            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', '豆瓣链接', 'OPEN DOUBAN', '#f7f1d9');
         }
 
         ctx.textAlign = 'right';
         ctx.fillStyle = '#c6211a';
         ctx.font = '800 24px "Fira Code", "Microsoft YaHei", monospace';
-        ctx.fillText('CONFIDENTIAL', ticketX + ticketW - 40, bottomY - 14);
-
-        ctx.fillStyle = '#888d96';
-        ctx.font = '400 16px "Fira Code", monospace';
-        ctx.fillText(shareUrl, ticketX + ticketW - 40, bottomY + 24);
+        ctx.fillText('CONFIDENTIAL', ticketX + ticketW - 40, bottomSectionTop + 34);
 
         try {
             const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
