@@ -27,6 +27,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: 恢复豆瓣详情缓存
+        uses: actions/cache@v4
+        with:
+          path: .cache/douban/subjects
+          key: douban-subjects-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            douban-subjects-${{ runner.os }}-
+
       - name: 抓取最新数据
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}

@@ -21,9 +21,17 @@ export function resolvePosterUrl(posterPath) {
  */
 function getCardChipLabels(item) {
     const chips = [];
+    const releaseWindows = Array.isArray(item.releaseWindows) ? item.releaseWindows : [];
     const visibleGenres = (item.genres || []).filter((genreName) => {
         const displayName = getGenreDisplayName(genreName);
         return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
+    });
+
+    releaseWindows.slice(0, 1).forEach((window) => {
+        chips.push({
+            label: window.label,
+            variant: 'release-window'
+        });
     });
 
     // 按优先级排序：优先级高的在前，优先级低的（如剧情、动画）在后

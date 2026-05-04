@@ -3,6 +3,9 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createCategoryReport, createBuildReport } from './lib/build-report.mjs';
+import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
+import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -17,6 +20,12 @@ const ANILIST_API_BASE = 'https://graphql.anilist.co';
 const CURRENT_YEAR = new Date().getFullYear();
 const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
 const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
+const BUILD_REPORT_PATH = 'json/build_report.json';
+const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 7);
+const doubanSubjectCache = createDoubanSubjectCache({
+    rootDir: ROOT_DIR,
+    ttlDays: DOUBAN_SUBJECT_CACHE_TTL_DAYS
+});
 
 const REQUEST_HEADERS = {
     Referer: 'https://m.douban.com/',
@@ -252,10 +261,18 @@ async function main() {
         throw new Error(`No category spec matched CATEGORY_IDS=${CATEGORY_IDS.join(',')}`);
     }
 
+    const buildReport = createBuildReport({
+        activeCategorySpecs,
+        isPartial: CATEGORY_IDS.length > 0,
+        tmdbEnabled: Boolean(TMDB_API_KEY),
+        doubanSubjectCacheTtlDays: doubanSubjectCache.ttlDays
+    });
+
     for (const spec of activeCategorySpecs) {
         const result = await buildCategoryData(spec);
         await writeJson(spec.latestPath, result.latestPayload);
         await writeJson(spec.completePath, result.completePayload);
+        buildReport.categories.push(result.report);
         console.log(
             `[${spec.id}] latest=${result.latestCount} complete=${result.completeCount} -> ${spec.latestPath}, ${spec.completePath}`
         );
@@ -265,10 +282,20 @@ async function main() {
     if (CATEGORY_IDS.length === 0) {
         const doubanStatusesPayload = await buildDoubanStatusesPayload(DOUBAN_DEFAULT_USER_ID);
         await writeJson('json/douban_statuses.json', doubanStatusesPayload);
+        buildReport.douban_statuses = {
+            user_id: DOUBAN_DEFAULT_USER_ID,
+            total_items: doubanStatusesPayload.metadata.total_items,
+            last_updated: doubanStatusesPayload.metadata.last_updated
+        };
         console.log(
             `[douban_statuses] user=${DOUBAN_DEFAULT_USER_ID} total=${doubanStatusesPayload.metadata.total_items} -> json/douban_statuses.json`
         );
     }
+
+    buildReport.completed_at = new Date().toISOString();
+    buildReport.douban_subject_cache = doubanSubjectCache.summarize();
+    await writeJson(BUILD_REPORT_PATH, buildReport);
+    console.log(`[build_report] -> ${BUILD_REPORT_PATH}`);
 }
 
 async function buildCategoryData(spec) {
@@ -277,22 +304,24 @@ async function buildCategoryData(spec) {
         ...(await buildDoubanSourceResults(spec, fallbackCollector)),
         ...buildDoubanOverrideResults(spec)
     ];
+    const doubanSourceItems = sortByDateDesc(doubanSourceResults.flatMap((sourceResult) => sourceResult.items)).filter((item) =>
+        spec.minDate ? getItemDate(spec.kind, item) >= spec.minDate : true
+    );
     const doubanItems = dedupeBySignature(
         spec.kind,
-        sortByDateDesc(doubanSourceResults.flatMap((sourceResult) => sourceResult.items)).filter((item) =>
-            spec.minDate ? getItemDate(spec.kind, item) >= spec.minDate : true
-        )
+        doubanSourceItems
     );
     const doubanLookup = createDoubanLookup(spec.kind, doubanItems);
 
     const anilistItems = spec.anilist ? await buildAniListItems(spec, doubanLookup) : [];
     const tmdbItems = !spec.anilist && TMDB_API_KEY && spec.tmdb ? await buildTmdbItems(spec, doubanLookup) : [];
     const remoteItems = anilistItems.length > 0 ? anilistItems : tmdbItems;
+    const mergedCandidateItems = sortByDateDesc([...remoteItems, ...doubanItems]).filter((item) =>
+        spec.minDate ? getItemDate(spec.kind, item) >= spec.minDate : true
+    );
     const mergedItems = dedupeBySignature(
         spec.kind,
-        sortByDateDesc([...remoteItems, ...doubanItems]).filter((item) =>
-            spec.minDate ? getItemDate(spec.kind, item) >= spec.minDate : true
-        )
+        mergedCandidateItems
     );
 
     // [新增] 二次去重兜底：针对那些没能通过 ID 匹配的同名同年作品进行合并
@@ -322,7 +351,20 @@ async function buildCategoryData(spec) {
         completePayload,
         latestCount: spec.kind === 'tv' ? latestPayload.shows.length : latestPayload.movies.length,
         completeCount: finalCompleteCount,
-        fallbackSummary: fallbackCollector.summary()
+        fallbackSummary: fallbackCollector.summary(),
+        report: createCategoryReport(spec, {
+            doubanSourceResults,
+            doubanSourceItems,
+            doubanItems,
+            anilistItems,
+            tmdbItems,
+            mergedCandidateItems,
+            mergedItems,
+            finallyDedupedItems,
+            tmdbEnrichedItems,
+            latestItems,
+            fallbackSummary: fallbackCollector.summary()
+        })
     };
 }
 
@@ -334,6 +376,8 @@ function buildDoubanOverrideResults(spec) {
     return [
         {
             slug: 'douban_override',
+            rawCount: spec.doubanOverrideItems.length,
+            includedCount: spec.doubanOverrideItems.length,
             items: spec.doubanOverrideItems.map((item) => structuredClone(item))
         }
     ];
@@ -343,7 +387,8 @@ async function buildDoubanSourceResults(spec, fallbackCollector) {
     const sourceResults = [];
 
     for (const source of spec.doubanSources || []) {
-        const collectionItems = (await fetchAllCollectionItems(source.slug, source.totalLimit)).filter((item) =>
+        const rawCollectionItems = await fetchAllCollectionItems(source.slug, source.totalLimit);
+        const collectionItems = rawCollectionItems.filter((item) =>
             source.includeItem ? source.includeItem(item) : true
         );
 
@@ -373,6 +418,8 @@ async function buildDoubanSourceResults(spec, fallbackCollector) {
 
         sourceResults.push({
             slug: source.slug,
+            rawCount: rawCollectionItems.length,
+            includedCount: collectionItems.length,
             items: normalizedItems.filter(Boolean)
         });
     }
@@ -422,6 +469,11 @@ function logFallbackSummary(categoryId, summary) {
     const statusText = summary.byStatus.map(([status, count]) => `${status}=${count}`).join(', ');
     const sampleText = summary.sampleIds.length > 0 ? ` sample=${summary.sampleIds.join(',')}` : '';
     console.warn(`[${categoryId}] douban detail fallback total=${summary.total} ${statusText}${sampleText}`);
+}
+
+function getNumberEnv(name, fallbackValue) {
+    const value = Number(process.env[name]);
+    return Number.isFinite(value) ? value : fallbackValue;
 }
 
 async function buildTmdbItems(spec, doubanLookup) {
@@ -688,7 +740,7 @@ async function fetchAllCollectionItems(slug, totalLimit = null) {
 
 async function fetchDoubanSubjectDetail(kind, subjectId) {
     const endpoint = kind === 'tv' ? 'tv' : 'movie';
-    return fetchJson(`https://m.douban.com/rexxar/api/v2/${endpoint}/${subjectId}?for_mobile=1`);
+    return doubanSubjectCache.fetchDetail({ kind, subjectId, endpoint, fetchJson });
 }
 
 async function fetchJson(url) {
@@ -1105,6 +1157,7 @@ function normalizeDoubanMovieEntry(item, detail) {
         douban_link_verified: true,
         overview,
         durations: extractStringList(detail?.durations),
+        release_windows: buildMovieReleaseWindows(releaseDate),
         rating_count: getRatingCount(detail?.rating?.count ?? item?.rating?.count),
         rating_star_count: getRatingCount(detail?.rating?.star_count ?? item?.rating?.star_count),
         type: 'movie'
@@ -1277,6 +1330,7 @@ function normalizeTmdbMovieEntry(detail, doubanMatch) {
         douban_link_verified: Boolean(doubanLink),
         overview: detail.overview || getDoubanField(doubanMatch, 'overview') || '',
         durations: getDoubanField(doubanMatch, 'durations') || [],
+        release_windows: buildMovieReleaseWindows(detail.release_date),
         rating_count: getDoubanField(doubanMatch, 'rating_count'),
         rating_star_count: getDoubanField(doubanMatch, 'rating_star_count'),
         type: 'movie'

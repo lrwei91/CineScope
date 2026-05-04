@@ -221,6 +221,7 @@ function normalizeMovieItems(movies) {
             subtitle: primaryTitle !== originalTitle ? originalTitle : '',
             posterPath: movie.poster_path || null,
             genres: normalizeNameList(movie.genres, { filterValid: true }),
+            releaseWindows: normalizeReleaseWindows(movie.release_windows),
             networks: [],
             doubanRating: movie.douban_rating || null,
             doubanLink: movie.douban_link_google || null,
@@ -321,6 +322,7 @@ function mergeCatalogItems(leftItem, rightItem) {
         tmdbUrl: preferredItem.tmdbUrl || secondaryItem.tmdbUrl,
         imdbUrl: preferredItem.imdbUrl || secondaryItem.imdbUrl,
         genres: mergeUniqueStrings(preferredItem.genres, secondaryItem.genres),
+        releaseWindows: mergeReleaseWindows(preferredItem.releaseWindows, secondaryItem.releaseWindows),
         networks: mergeUniqueStrings(preferredItem.networks, secondaryItem.networks),
         directors: mergeUniqueStrings(preferredItem.directors, secondaryItem.directors),
         actors: mergeUniqueStrings(preferredItem.actors, secondaryItem.actors),
@@ -363,6 +365,15 @@ function mergeUniqueStrings(primaryList = [], secondaryList = []) {
     return [...new Set([...(primaryList || []), ...(secondaryList || [])].filter(Boolean))];
 }
 
+function mergeReleaseWindows(primaryList = [], secondaryList = []) {
+    const seen = new Set();
+    return [...(primaryList || []), ...(secondaryList || [])].filter((window) => {
+        if (!window?.id || seen.has(window.id)) return false;
+        seen.add(window.id);
+        return true;
+    });
+}
+
 /**
  * 标准化名称列表（用于类型、网络等）
  */
@@ -391,6 +402,16 @@ export function normalizeNameList(list, options = {}) {
 function normalizeStringList(list) {
     if (!Array.isArray(list)) return [];
     return list.map((item) => String(item || '').trim()).filter(Boolean);
+}
+
+function normalizeReleaseWindows(list) {
+    if (!Array.isArray(list)) return [];
+    return list
+        .map((item) => ({
+            id: String(item?.id || '').trim(),
+            label: String(item?.label || '').trim()
+        }))
+        .filter((item) => item.id && item.label);
 }
 
 /**

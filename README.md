@@ -61,6 +61,7 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 - `json/tv_jp_anime_latest.json`
 - `json/tv_jp_anime_complete.json`
 - `json/douban_statuses.json`
+- `json/build_report.json`
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
 - `posters/douban/tv_cn/*`
@@ -69,6 +70,8 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 - `posters/douban/tv_jp/*`
 - `posters/douban/tv_jp_anime/*`
 - `posters/douban/movie_cn/*`
+
+脚本会把豆瓣 subject 详情缓存到 `.cache/douban/subjects/`，用于减少重复详情请求并在远端临时失败时回退到过期缓存。该目录不进入 Git；GitHub Actions 会单独恢复缓存。`json/build_report.json` 会记录本次生成的分类计数、数据缺字段情况、详情 fallback 和缓存命中情况。
 
 ## 数据契约
 
@@ -144,6 +147,7 @@ TV 分类继续沿用现有结构：
       "douban_link_verified": true,
       "overview": "剧情简介",
       "durations": ["118分钟"],
+      "release_windows": [{ "id": "summer", "label": "暑期档" }],
       "rating_count": 12345,
       "rating_star_count": 4
     }
@@ -160,6 +164,7 @@ TV 分类继续沿用现有结构：
 - `subtitle`
 - `posterPath`
 - `genres`
+- `releaseWindows`
 - `networks`
 - `doubanRating`
 - `doubanLink`
@@ -190,6 +195,7 @@ TV 分类继续沿用现有结构：
 - `json/tv_jp_anime_complete.json`
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
+- `json/build_report.json`
 
 其中国产剧、综艺、韩剧、日剧和院线电影文件仍主要使用 `tmdb+douban` 混合源；`tv_jp_anime` 改为 AniList 季度发现 + 豆瓣匹配补全，并在提供 `TMDB_API_KEY` 时进一步回填中文标题、海报与简介。英剧和美剧仍沿用原有 JSON 数据来源。
 

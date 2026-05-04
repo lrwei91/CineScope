@@ -346,12 +346,6 @@ async function createShareImageFile(item) {
             wrapShareText(ctx, 'SCAN TO OPEN', qrX + 14, qrY + 52, QR_CODE_SIZE - 28, 22, 2);
         }
 
-        ctx.font = '500 14px "Fira Code", monospace';
-        ctx.fillStyle = '#888d96';
-        const idStr = `LRWEI91-${(item.date || '').replace(/-/g, '')}-0001`;
-        ctx.textAlign = 'left';
-        ctx.fillText(idStr, metaX + QR_CODE_SIZE + 24, bottomY + 26);
-
         ctx.textAlign = 'right';
         ctx.fillStyle = '#c6211a';
         ctx.font = '800 24px "Fira Code", "Microsoft YaHei", monospace';

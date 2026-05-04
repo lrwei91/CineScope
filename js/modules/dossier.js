@@ -140,13 +140,20 @@ export function openIntelDossier(item) {
     const tagsContainer = document.getElementById('dossier-tags');
     if (tagsContainer) {
         tagsContainer.innerHTML = '';
+        const releaseWindows = Array.isArray(item.releaseWindows) ? item.releaseWindows : [];
         const visibleGenres = (item.genres || []).filter((genreName) => {
             const displayName = getGenreDisplayName(genreName);
             return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
         });
         // 按优先级排序
         const sortedGenres = sortGenresByPriority(visibleGenres);
-        if (sortedGenres.length > 0) {
+        if (releaseWindows.length > 0 || sortedGenres.length > 0) {
+            releaseWindows.forEach((window) => {
+                const tag = document.createElement('span');
+                tag.className = 'dossier-tag-item release-window';
+                tag.textContent = window.label;
+                tagsContainer.appendChild(tag);
+            });
             sortedGenres.forEach((g) => {
                 const tag = document.createElement('span');
                 tag.className = 'dossier-tag-item';
