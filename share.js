@@ -10,6 +10,7 @@ const QR_CAPTION_LINE_HEIGHT = 20;
 const BOTTOM_SECTION_GAP = 56;
 const QR_CARD_PADDING = 16;
 const QR_CARD_HEADER_HEIGHT = 28;
+const QR_CONTENT_SHIFT_Y = 8;
 
 function sanitizeFileName(name) {
     return String(name || 'latest_tv')
@@ -354,8 +355,8 @@ async function createShareImageFile(item) {
         const secondaryQrX = qrStartX + qrCardWidth + qrGap;
         const qrY = bottomSectionTop;
         const qrInnerX = QR_CARD_PADDING;
-        const qrInnerY = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING;
-        const captionY = qrY + QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CAPTION_GAP;
+        const qrInnerY = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CONTENT_SHIFT_Y;
+        const captionY = qrY + QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CAPTION_GAP + QR_CONTENT_SHIFT_Y;
 
         const drawQrBlock = (image, x, headerLabel, captionLabel, fallbackText, accentColor) => {
             ctx.fillStyle = '#ece9df';
@@ -410,7 +411,7 @@ async function createShareImageFile(item) {
         ctx.textAlign = 'right';
         ctx.fillStyle = '#c6211a';
         ctx.font = '800 24px "Fira Code", "Microsoft YaHei", monospace';
-        ctx.fillText('CONFIDENTIAL', ticketX + ticketW - 40, bottomSectionTop + 34);
+        ctx.fillText('CONFIDENTIAL', ticketX + ticketW - 40, qrY + qrBlockHeight - 16);
 
         try {
             const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
