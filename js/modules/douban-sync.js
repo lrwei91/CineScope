@@ -93,13 +93,13 @@ function updateDoubanAuthUI() {
 
     let statusText = '';
     if (isDoubanSyncing) {
-        statusText = '> SYNCING_DATA...';
+        statusText = '> 正在同步数据...';
     } else {
         const lastUpdated = doubanStatusesMetadata?.last_updated;
         if (lastUpdated) {
-            statusText = `> [OK] ${formatUpdateTimestamp(lastUpdated)}`;
+            statusText = `> 已同步 ${formatUpdateTimestamp(lastUpdated)}`;
         } else {
-            statusText = '> [OK] SYNC_COMPLETE';
+            statusText = '> 同步完成';
         }
     }
 

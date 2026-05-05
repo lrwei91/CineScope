@@ -69,6 +69,16 @@ function setDossierField(rowId, valueId, values) {
     row.hidden = false;
 }
 
+function createExternalLink({ href, label, title, iconUrl, fallback }) {
+    return `
+        <a href="${href}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer" aria-label="${title}" title="${title}" data-label="${label}">
+            <img class="dossier-external-icon" src="${iconUrl}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
+            <span class="dossier-external-fallback" hidden aria-hidden="true">${fallback}</span>
+            <span class="sr-only">${title}</span>
+        </a>
+    `;
+}
+
 /**
  * 打开详情面板
  */
@@ -98,7 +108,7 @@ export function openIntelDossier(item) {
 
     // 报告 ID
     const reportIdSpan = document.getElementById('dossier-id');
-    if (reportIdSpan) reportIdSpan.textContent = generateIdFromTitle(item.title || 'UNKNOWN');
+    if (reportIdSpan) reportIdSpan.textContent = generateIdFromTitle(item.title || '未命名');
 
     // 标题
     const titleSpan = document.getElementById('dossier-title');
@@ -111,12 +121,12 @@ export function openIntelDossier(item) {
     // 评分
     const ratingSpan = document.getElementById('dossier-rating');
     if (ratingSpan) {
-        ratingSpan.textContent = (item.doubanVerified && item.doubanRating) ? item.doubanRating.toString() : 'N/A';
+        ratingSpan.textContent = (item.doubanVerified && item.doubanRating) ? item.doubanRating.toString() : '暂无';
     }
 
     // 日期
     const dateSpan = document.getElementById('dossier-date');
-    if (dateSpan) dateSpan.textContent = item.date || 'UNKNOWN';
+    if (dateSpan) dateSpan.textContent = item.date || '未知';
 
     // 导演和主演
     setDossierField('dossier-directors-row', 'dossier-directors', item.directors);
@@ -161,7 +171,7 @@ export function openIntelDossier(item) {
                 tagsContainer.appendChild(tag);
             });
         } else {
-            tagsContainer.innerHTML = '<span class="dossier-tag-item">NO_DATA</span>';
+            tagsContainer.innerHTML = '<span class="dossier-tag-item">暂无数据</span>';
         }
     }
 
@@ -178,7 +188,7 @@ export function openIntelDossier(item) {
                 networksContainer.appendChild(tag);
             });
         } else {
-            networksContainer.innerHTML = '<span class="dossier-tag-item">NO_DATA</span>';
+            networksContainer.innerHTML = '<span class="dossier-tag-item">暂无数据</span>';
         }
     }
 
@@ -188,20 +198,44 @@ export function openIntelDossier(item) {
         linksContainer.innerHTML = '';
         const links = [];
         if (item.doubanVerified && item.doubanLink) {
-            links.push(`<a href="${item.doubanLink}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: DOUBAN_DATABASE</a>`);
+            links.push(createExternalLink({
+                href: item.doubanLink,
+                label: '豆瓣',
+                title: '打开豆瓣详情',
+                iconUrl: 'https://www.douban.com/favicon.ico',
+                fallback: '豆'
+            }));
         }
         if (item.tmdbUrl) {
-            links.push(`<a href="${item.tmdbUrl}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: TMDB_DATABASE</a>`);
+            links.push(createExternalLink({
+                href: item.tmdbUrl,
+                label: 'TMDB',
+                title: '打开 TMDB 详情',
+                iconUrl: 'https://www.themoviedb.org/favicon.ico',
+                fallback: 'T'
+            }));
         } else if (item.tmdbSearchUrl) {
-            links.push(`<a href="${item.tmdbSearchUrl}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: TMDB_SEARCH</a>`);
+            links.push(createExternalLink({
+                href: item.tmdbSearchUrl,
+                label: '搜索',
+                title: '在 TMDB 搜索',
+                iconUrl: 'https://www.themoviedb.org/favicon.ico',
+                fallback: 'T'
+            }));
         }
         if (item.imdbUrl) {
-            links.push(`<a href="${item.imdbUrl}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer">> EXEC_UPLINK: IMDB_DATABASE</a>`);
+            links.push(createExternalLink({
+                href: item.imdbUrl,
+                label: 'IMDb',
+                title: '打开 IMDb 详情',
+                iconUrl: 'https://m.media-amazon.com/images/G/01/imdb/images/favicon-2165806970._CB470041851_.ico',
+                fallback: 'I'
+            }));
         }
         if (links.length > 0) {
             linksContainer.innerHTML = links.join('');
         } else {
-            linksContainer.innerHTML = '<span class="dossier-subtext">NO EXTERNAL UPLINKS FOUND</span>';
+            linksContainer.innerHTML = '<span class="dossier-subtext">暂无外部链接</span>';
         }
     }
 
