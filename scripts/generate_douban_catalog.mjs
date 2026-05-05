@@ -994,7 +994,13 @@ async function fetchDoubanUserStatuses(userId) {
         let start = 0;
 
         while (true) {
-            const html = await fetchHtml(buildDoubanPeopleUrl(userId, slug, start));
+            let html;
+            try {
+                html = await fetchHtml(buildDoubanPeopleUrl(userId, slug, start));
+            } catch (error) {
+                console.warn(`[douban_user] Skipped ${slug} page (start=${start}): ${error.message}`);
+                break;
+            }
             const page = parseDoubanPeoplePage(html, normalizedStatus);
             page.items.forEach((item) => {
                 statuses[item.subjectId] = {

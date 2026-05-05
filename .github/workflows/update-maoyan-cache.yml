@@ -2,14 +2,8 @@ name: Update Maoyan cache
 
 on:
   schedule:
-    # Beijing time 06:00.
-    - cron: '0 22 * * *'
-    # Beijing time 12:00.
-    - cron: '0 4 * * *'
-    # Beijing time 18:00.
-    - cron: '0 10 * * *'
-    # Beijing time 00:00.
-    - cron: '0 16 * * *'
+    # 每个整点运行（GitHub cron 使用 UTC，对应北京时间每小时）
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -47,7 +41,7 @@ jobs:
           git commit \
             -m "刷新猫眼实时缓存" \
             -m "前端只读取仓库内提交的 JSON 缓存，避免页面运行时直连上游 60s 接口。" \
-            -m "Constraint: GitHub cron 使用 UTC，22/04/10/16 UTC 对应北京时间 06/12/18/00 点。" \
+            -m "Constraint: GitHub cron 使用 UTC，整点运行。" \
             -m "Confidence: high" \
             -m "Scope-risk: narrow" \
             -m "Directive: 页面运行时继续指向 json/maoyan_*.json；上游 60s 请求只放在定时缓存生成里。" \
