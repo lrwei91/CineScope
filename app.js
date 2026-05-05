@@ -39,6 +39,8 @@ import {
     appendItemsToContainer
 } from './js/modules/renderer.js';
 
+import { buildRenderedItemsSignature } from './js/modules/render-signature.js';
+
 import {
     hydrateDoubanStatuses,
     syncAllItems,
@@ -430,22 +432,6 @@ function getCurrentFilters() {
 
 function getFilteredResults(items) {
     return applyFilters(items, getCurrentFilters(), state.currentCategoryId);
-}
-
-function buildRenderedItemKey(item) {
-    return [
-        item.id,
-        item.date,
-        item.title,
-        item.subtitle,
-        item.doubanRating,
-        item.doubanCollectionStatus,
-        item.posterPath
-    ].join('|');
-}
-
-function buildRenderedItemsSignature(items) {
-    return items.map(buildRenderedItemKey).join('||');
 }
 
 function canPreserveRenderedResults(previousResults, nextResults) {

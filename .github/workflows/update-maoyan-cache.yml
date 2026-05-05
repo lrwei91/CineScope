@@ -1,0 +1,54 @@
+name: Update Maoyan cache
+
+on:
+  schedule:
+    # Beijing time 06:00.
+    - cron: '0 22 * * *'
+    # Beijing time 12:00.
+    - cron: '0 4 * * *'
+    # Beijing time 18:00.
+    - cron: '0 10 * * *'
+    # Beijing time 00:00.
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-maoyan-cache
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate cached Maoyan data
+        run: node scripts/generate_maoyan_cache.mjs
+
+      - name: Commit cache changes
+        run: |
+          if git diff --quiet -- json/maoyan_box_office.json json/maoyan_tv_heat.json; then
+            echo "No Maoyan cache changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add json/maoyan_box_office.json json/maoyan_tv_heat.json
+          git commit \
+            -m "刷新猫眼实时缓存" \
+            -m "前端只读取仓库内提交的 JSON 缓存，避免页面运行时直连上游 60s 接口。" \
+            -m "Constraint: GitHub cron 使用 UTC，22/04/10/16 UTC 对应北京时间 06/12/18/00 点。" \
+            -m "Confidence: high" \
+            -m "Scope-risk: narrow" \
+            -m "Directive: 页面运行时继续指向 json/maoyan_*.json；上游 60s 请求只放在定时缓存生成里。" \
+            -m "Tested: node scripts/generate_maoyan_cache.mjs"

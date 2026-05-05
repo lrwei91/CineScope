@@ -5,7 +5,28 @@
 
 import { CATEGORY_CONFIG, TMDB_IMAGE_BASE_URL, VALID_GENRES } from './config.js';
 
-const boxOfficePayloadCache = new Map();
+const realtimePayloadCache = new Map();
+
+const REALTIME_ENRICHMENTS = [
+    {
+        urlKey: 'boxOfficeUrl',
+        expectedKind: 'movie',
+        collectionKey: 'movies',
+        titleKey: 'movie_name',
+        targetKey: 'boxOffice',
+        normalize: normalizeBoxOffice,
+        label: 'box office'
+    },
+    {
+        urlKey: 'tvHeatUrl',
+        expectedKind: 'tv',
+        collectionKey: 'series',
+        titleKey: 'series_name',
+        targetKey: 'tvHeat',
+        normalize: normalizeTvHeat,
+        label: 'TV heat'
+    }
+];
 
 /**
  * 构建带时间戳的防缓存 URL
@@ -68,8 +89,7 @@ export async function loadCategoryData(categoryId, level, categoryState, options
 
             const data = await response.json();
             ingestCategoryData(categoryId, data, level, categoryState);
-            await applyBoxOfficeDataIfNeeded(categoryId, config, state);
-            await applyTvHeatDataIfNeeded(categoryId, config, state);
+            await applyRealtimeDataIfNeeded(categoryId, config, state);
 
             const currentCategoryId = window.__appState?.currentCategoryId;
             if (!silent && level === 'complete' && categoryId === currentCategoryId && window.innerWidth > 900) {
@@ -100,37 +120,28 @@ export async function loadCategoryData(categoryId, level, categoryState, options
     return state[promiseKey];
 }
 
-async function applyBoxOfficeDataIfNeeded(categoryId, config, state) {
-    if (!config.boxOfficeUrl || config.kind !== 'movie') return;
+async function applyRealtimeDataIfNeeded(categoryId, config, state) {
+    const enrichments = REALTIME_ENRICHMENTS.filter(
+        (enrichment) => config.kind === enrichment.expectedKind && config[enrichment.urlKey]
+    );
+    if (enrichments.length === 0) return;
 
-    const payload = await loadBoxOfficePayload(config.boxOfficeUrl);
-    const rows = Array.isArray(payload?.movies) ? payload.movies : [];
-    if (rows.length === 0) return;
+    for (const enrichment of enrichments) {
+        const payload = await loadRealtimePayload(config[enrichment.urlKey], enrichment.label);
+        const rows = Array.isArray(payload?.[enrichment.collectionKey]) ? payload[enrichment.collectionKey] : [];
+        if (rows.length === 0) continue;
 
-    state.items = mergeBoxOfficeIntoCatalogItems(state.items, rows);
+        state.items = mergeRealtimeRowsIntoCatalogItems(state.items, rows, enrichment);
+    }
 
     if (categoryId === getCurrentCategoryId()) {
         syncCurrentCategoryData(window.__appState?.categoryState || {});
     }
 }
 
-async function applyTvHeatDataIfNeeded(categoryId, config, state) {
-    if (!config.tvHeatUrl || config.kind !== 'tv') return;
-
-    const payload = await loadBoxOfficePayload(config.tvHeatUrl);
-    const rows = Array.isArray(payload?.series) ? payload.series : [];
-    if (rows.length === 0) return;
-
-    state.items = mergeTvHeatIntoCatalogItems(state.items, rows);
-
-    if (categoryId === getCurrentCategoryId()) {
-        syncCurrentCategoryData(window.__appState?.categoryState || {});
-    }
-}
-
-async function loadBoxOfficePayload(url) {
-    if (boxOfficePayloadCache.has(url)) {
-        return boxOfficePayloadCache.get(url);
+async function loadRealtimePayload(url, label) {
+    if (realtimePayloadCache.has(url)) {
+        return realtimePayloadCache.get(url);
     }
 
     const payloadPromise = fetch(buildFreshUrl(url), { cache: 'no-store' })
@@ -141,18 +152,18 @@ async function loadBoxOfficePayload(url) {
             return response.json();
         })
         .catch((error) => {
-            console.warn(`Box office data skipped: ${error.message}`);
+            console.warn(`${label} data skipped: ${error.message}`);
             return null;
         });
 
-    boxOfficePayloadCache.set(url, payloadPromise);
+    realtimePayloadCache.set(url, payloadPromise);
     return payloadPromise;
 }
 
-function mergeBoxOfficeIntoCatalogItems(items, rows) {
+function mergeRealtimeRowsIntoCatalogItems(items, rows, enrichment) {
     const rowByTitleKey = new Map();
     rows.forEach((row) => {
-        const titleKey = normalizeCatalogText(row?.movie_name);
+        const titleKey = normalizeCatalogText(row?.[enrichment.titleKey]);
         if (titleKey && !rowByTitleKey.has(titleKey)) {
             rowByTitleKey.set(titleKey, row);
         }
@@ -163,25 +174,7 @@ function mergeBoxOfficeIntoCatalogItems(items, rows) {
             .map(normalizeCatalogText)
             .filter(Boolean);
         const row = titleKeys.map((key) => rowByTitleKey.get(key)).find(Boolean);
-        return row ? { ...item, boxOffice: normalizeBoxOffice(row) } : item;
-    });
-}
-
-function mergeTvHeatIntoCatalogItems(items, rows) {
-    const rowByTitleKey = new Map();
-    rows.forEach((row) => {
-        const titleKey = normalizeCatalogText(row?.series_name);
-        if (titleKey && !rowByTitleKey.has(titleKey)) {
-            rowByTitleKey.set(titleKey, row);
-        }
-    });
-
-    return items.map((item) => {
-        const titleKeys = [item.title, item.subtitle, ...(Array.isArray(item.aka) ? item.aka : [])]
-            .map(normalizeCatalogText)
-            .filter(Boolean);
-        const row = titleKeys.map((key) => rowByTitleKey.get(key)).find(Boolean);
-        return row ? { ...item, tvHeat: normalizeTvHeat(row) } : item;
+        return row ? { ...item, [enrichment.targetKey]: enrichment.normalize(row) } : item;
     });
 }
 

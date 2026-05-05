@@ -1,20 +1,18 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCategoryReport, createBuildReport } from './lib/build-report.mjs';
 import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
 import { createDoubanSearchCache } from './lib/douban-search-cache.mjs';
-import { fetchMaoyanBoxOfficePayload, mergeBoxOfficeIntoMovies } from './lib/box-office.mjs';
+import { mergeBoxOfficeIntoMovies } from './lib/box-office.mjs';
 import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
-const MAOYAN_BOX_OFFICE_API_URL =
-    process.env.MAOYAN_BOX_OFFICE_API_URL || 'https://60s.viki.moe/v2/maoyan/realtime/movie';
 const CATEGORY_IDS = String(process.env.CATEGORY_IDS || '')
     .split(',')
     .map((value) => value.trim())
@@ -282,8 +280,8 @@ async function main() {
         doubanSearchQueryLimit: DOUBAN_SEARCH_QUERY_LIMIT
     });
 
-    const shouldFetchBoxOffice = activeCategorySpecs.some((spec) => spec.id === 'movie_cn');
-    const boxOfficePayload = shouldFetchBoxOffice ? await buildBoxOfficePayload() : null;
+    const shouldLoadBoxOffice = activeCategorySpecs.some((spec) => spec.id === 'movie_cn');
+    const boxOfficePayload = shouldLoadBoxOffice ? await loadBoxOfficePayloadFromCache() : null;
 
     for (const spec of activeCategorySpecs) {
         const result = await buildCategoryData(spec, boxOfficePayload);
@@ -297,9 +295,8 @@ async function main() {
     }
 
     if (boxOfficePayload) {
-        await writeJson(BOX_OFFICE_PATH, boxOfficePayload);
         buildReport.box_office = boxOfficePayload.metadata;
-        console.log(`[box_office] total=${boxOfficePayload.metadata.total_items} -> ${BOX_OFFICE_PATH}`);
+        console.log(`[box_office_cache] total=${boxOfficePayload.metadata.total_items} <- ${BOX_OFFICE_PATH}`);
     }
 
     if (CATEGORY_IDS.length === 0) {
@@ -322,23 +319,18 @@ async function main() {
     console.log(`[build_report] -> ${BUILD_REPORT_PATH}`);
 }
 
-async function buildBoxOfficePayload() {
-    return fetchMaoyanBoxOfficePayload({
-        apiUrl: MAOYAN_BOX_OFFICE_API_URL
-    }).catch((error) => {
-        console.warn(`Maoyan box office skipped: ${error.message}`);
-        return {
-            metadata: {
-                last_updated: new Date().toISOString(),
-                source: 'maoyan',
-                source_url: MAOYAN_BOX_OFFICE_API_URL,
-                status: 'failed',
-                message: error.message,
-                total_items: 0
-            },
-            movies: []
-        };
-    });
+async function loadBoxOfficePayloadFromCache() {
+    const targetPath = path.resolve(ROOT_DIR, BOX_OFFICE_PATH);
+    try {
+        const payload = JSON.parse(await readFile(targetPath, 'utf8'));
+        if (!payload || typeof payload !== 'object' || !Array.isArray(payload.movies)) {
+            throw new Error('cached payload is invalid');
+        }
+        return payload;
+    } catch (error) {
+        console.warn(`Maoyan box office cache skipped: ${error.message}`);
+        return null;
+    }
 }
 
 async function buildCategoryData(spec, boxOfficePayload = null) {

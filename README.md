@@ -17,7 +17,7 @@
 - 时间线导航：按年份和月份浏览历史条目，并保留即将上映区域
 - 分页加载：滚动时渐进追加卡片，降低一次性渲染压力
 - 日漫分页：使用独立 `tv_jp_anime` 数据源，和日剧分开抓取、分开缓存、分开展示
-- 院线票房：`movie_cn` 会合并 60s API 的猫眼实时票房快照，卡片显示实时票房、排行、票房占比和排片占比
+- 猫眼缓存：`movie_cn` 合并缓存的院线票房快照，`tv_cn` 合并缓存的剧集热度快照；页面只读取仓库内 JSON，不在页面运行时直连 60s API
 - 豆瓣状态：默认展示豆瓣用户 `lrwei91` 的想看、在看、看过状态，并在卡片上显示状态标签
 
 ## 加载策略
@@ -28,7 +28,7 @@
 - 其他分类在首次切换时，先请求各自 `latest`，随后异步请求各自 `complete`
 - `tv_jp_anime` 使用独立的 `json/tv_jp_anime_latest.json` / `json/tv_jp_anime_complete.json`
 - 已加载过的分类会直接命中前端缓存，不重复请求
-- 豆瓣状态由仓库内脚本抓取并缓存为静态 JSON，前端不会在页面加载时直接抓取豆瓣站点
+- 豆瓣状态和猫眼 60s 数据由仓库内脚本抓取并缓存为静态 JSON，前端不会在页面加载时直接抓取上游站点
 
 这样做的目的，是避免在进入页面时同时预取多份完整 JSON，导致静态站点的后台流量和解析成本明显上升。
 
@@ -49,9 +49,21 @@
 TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 ```
 
-院线电影票房默认从 60s API 的猫眼实时票房接口生成快照。也可以通过 `MAOYAN_BOX_OFFICE_API_URL` 覆盖默认接口地址，例如指向自己的 60s 私有部署。
+猫眼票房和国产剧热度默认从 60s API 生成缓存快照。页面只读取 `json/maoyan_box_office.json` 和 `json/maoyan_tv_heat.json`；上游 60s 请求只在脚本或定时任务中发生。也可以通过 `MAOYAN_BOX_OFFICE_API_URL` / `MAOYAN_TV_HEAT_API_URL` 覆盖默认接口地址，例如指向自己的 60s 私有部署。
 
-脚本会更新：
+单独刷新猫眼缓存：
+
+```bash
+node scripts/generate_maoyan_cache.mjs
+```
+
+GitHub Actions 会在北京时间每天 06:00、12:00、18:00、00:00 自动执行一次缓存刷新，并在数据变化时提交：
+
+- `.github/workflows/update-maoyan-cache.yml`
+- `json/maoyan_box_office.json`
+- `json/maoyan_tv_heat.json`
+
+影视分类脚本会更新：
 
 - `json/tv_cn_latest.json`
 - `json/tv_cn_complete.json`
@@ -64,7 +76,6 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 - `json/tv_jp_anime_latest.json`
 - `json/tv_jp_anime_complete.json`
 - `json/douban_statuses.json`
-- `json/maoyan_box_office.json`
 - `json/build_report.json`
 - `json/movie_cn_latest.json`
 - `json/movie_cn_complete.json`
@@ -75,7 +86,7 @@ TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
 - `posters/douban/tv_jp_anime/*`
 - `posters/douban/movie_cn/*`
 
-脚本会把豆瓣 subject 详情缓存到 `.cache/douban/subjects/`，用于减少重复详情请求并在远端临时失败时回退到过期缓存。该目录不进入 Git；GitHub Actions 会单独恢复缓存。`json/build_report.json` 会记录本次生成的分类计数、数据缺字段情况、详情 fallback 和缓存命中情况。
+脚本会把豆瓣 subject 详情缓存到 `.cache/douban/subjects/`，用于减少重复详情请求并在远端临时失败时回退到过期缓存。该目录不进入 Git；GitHub Actions 会单独恢复缓存。`json/build_report.json` 会记录本次生成的分类计数、数据缺字段情况、详情 fallback 和缓存命中情况。生成院线电影时只读取已有的 `json/maoyan_box_office.json` 缓存来合并票房，不会在全量片单生成时直连 60s。
 
 ## 数据契约
 
@@ -225,7 +236,8 @@ TV 分类继续沿用现有结构：
 
 - 影视基础信息：The Movie Database (TMDB)
 - 评分信息：豆瓣
-- 院线实时票房：60s API 的猫眼实时票房接口，构建脚本按片名/别名匹配到 `movie_cn` 条目
+- 院线实时票房：60s API 的猫眼实时票房接口，定时脚本缓存到 `json/maoyan_box_office.json` 后，前端按片名/别名匹配到 `movie_cn` 条目
+- 国产剧实时热度：60s API 的猫眼剧集热度接口，定时脚本缓存到 `json/maoyan_tv_heat.json` 后，前端按片名/别名匹配到 `tv_cn` 条目
 
 ## 说明
 
