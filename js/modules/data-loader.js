@@ -88,8 +88,11 @@ export async function loadCategoryData(categoryId, level, categoryState, options
             }
 
             const data = await response.json();
-            ingestCategoryData(categoryId, data, level, categoryState);
+            ingestCategoryData(categoryId, data, level, categoryState, { sync: false });
             await applyRealtimeDataIfNeeded(categoryId, config, state);
+            if (categoryId === getCurrentCategoryId()) {
+                syncCurrentCategoryData(categoryState);
+            }
 
             const currentCategoryId = window.__appState?.currentCategoryId;
             if (!silent && level === 'complete' && categoryId === currentCategoryId && window.innerWidth > 900) {
@@ -134,9 +137,6 @@ async function applyRealtimeDataIfNeeded(categoryId, config, state) {
         state.items = mergeRealtimeRowsIntoCatalogItems(state.items, rows, enrichment);
     }
 
-    if (categoryId === getCurrentCategoryId()) {
-        syncCurrentCategoryData(window.__appState?.categoryState || {});
-    }
 }
 
 async function loadRealtimePayload(url, label) {
@@ -198,9 +198,10 @@ function normalizeTvHeat(value) {
 /**
  * 解析并存储分类数据
  */
-export function ingestCategoryData(categoryId, data, level, categoryState) {
+export function ingestCategoryData(categoryId, data, level, categoryState, options = {}) {
     const config = CATEGORY_CONFIG[categoryId];
     const state = categoryState[categoryId];
+    const { sync = true } = options;
 
     if (level === 'latest' && state.completeLoaded) return;
 
@@ -210,7 +211,7 @@ export function ingestCategoryData(categoryId, data, level, categoryState) {
     state.latestLoaded = state.latestLoaded || level === 'latest';
     state.completeLoaded = state.completeLoaded || level === 'complete';
 
-    if (categoryId === getCurrentCategoryId()) {
+    if (sync && categoryId === getCurrentCategoryId()) {
         syncCurrentCategoryData(categoryState);
     }
 }

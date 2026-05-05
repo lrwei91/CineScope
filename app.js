@@ -445,13 +445,6 @@ function canPreserveRenderedResults(previousResults, nextResults) {
     );
     if (renderedPastCount === 0) return false;
 
-    if (
-        buildRenderedItemsSignature(previousResults.futureItems) !==
-        buildRenderedItemsSignature(nextResults.futureItems)
-    ) {
-        return false;
-    }
-
     const previousVisiblePast = previousResults.filteredPastAndPresentItems.slice(0, renderedPastCount);
     const nextVisiblePast = nextResults.filteredPastAndPresentItems.slice(0, renderedPastCount);
 
@@ -515,6 +508,7 @@ function filterAndRenderItems(options = {}) {
         if (document.body.style.visibility !== 'visible') {
             document.body.style.visibility = 'visible';
         }
+        renderComingSoon(nextResults.futureItems, openIntelDossier);
         refreshRenderMetadata();
     } else {
         elements.comingSoonContainer.style.display = 'none';
