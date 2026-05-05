@@ -10,6 +10,9 @@ const QR_CARD_PADDING = 16;
 const QR_CARD_HEADER_HEIGHT = 28;
 const QR_CONTENT_SHIFT_Y = 8;
 const QR_CARD_FOOTER_PADDING = 14;
+const HERO_MAX_HEIGHT = 560;
+const REALTIME_CARD_HEIGHT = 88;
+const REALTIME_CARD_GAP = 12;
 
 function sanitizeFileName(name) {
     return String(name || 'latest_tv')
@@ -129,15 +132,53 @@ function getVisibleGenresForShare(item) {
     });
 }
 
+function compactMetricValue(value) {
+    return String(value || '').trim() || '暂无';
+}
+
+export function getShareRealtimeMetrics(item) {
+    if (item?.kind === 'movie' && item.boxOffice) {
+        const boxOffice = item.boxOffice;
+        const rankLabel = boxOffice.rank ? `#${boxOffice.rank}` : '实时';
+        return [
+            {
+                label: `票房 ${rankLabel}`,
+                value: compactMetricValue(boxOffice.realTimeBoxOffice || boxOffice.cumulativeBoxOffice),
+                detail: [boxOffice.boxOfficeRate ? `占比 ${boxOffice.boxOfficeRate}` : '', boxOffice.showCountRate ? `排片 ${boxOffice.showCountRate}` : '']
+                    .filter(Boolean)
+                    .join(' · ')
+            }
+        ];
+    }
+
+    if (item?.kind === 'tv' && item.tvHeat) {
+        const tvHeat = item.tvHeat;
+        const rankLabel = tvHeat.rank ? `#${tvHeat.rank}` : '实时';
+        return [
+            {
+                label: `热度 ${rankLabel}`,
+                value: compactMetricValue(tvHeat.currHeatDesc || tvHeat.currHeat),
+                detail: [tvHeat.platformDesc, tvHeat.releaseInfo].filter(Boolean).join(' · ')
+            }
+        ];
+    }
+
+    return [];
+}
+
 function buildShareText(item) {
     const getGenreDisplayName = window.appContext ? window.appContext.getGenreDisplayName : (g => g);
     const visibleGenres = getVisibleGenresForShare(item).map((genre) => getGenreDisplayName(genre));
+    const realtimeMetrics = getShareRealtimeMetrics(item);
     const lines = [
         item.title || '未命名',
         item.subtitle ? item.subtitle : '',
         item.doubanVerified && item.doubanRating ? `评分：${item.doubanRating}` : '评分：暂无',
         item.date ? `上映：${item.date}` : '上映：UNKNOWN',
-        visibleGenres.length > 0 ? `类型：${visibleGenres.join(' / ')}` : ''
+        visibleGenres.length > 0 ? `类型：${visibleGenres.join(' / ')}` : '',
+        ...realtimeMetrics.map((metric) =>
+            `${metric.label}：${metric.value}${metric.detail ? `（${metric.detail}）` : ''}`
+        )
     ].filter(Boolean);
 
     if (item.overview) {
@@ -146,6 +187,39 @@ function buildShareText(item) {
 
     lines.push(getShareBaseUrl());
     return lines.join('\n');
+}
+
+function drawRealtimeMetrics(ctx, metrics, x, y, width) {
+    const cardCount = Math.max(1, metrics.length);
+    const cardWidth = (width - REALTIME_CARD_GAP * (cardCount - 1)) / cardCount;
+
+    metrics.forEach((metric, index) => {
+        const cardX = x + index * (cardWidth + REALTIME_CARD_GAP);
+        const accentGradient = ctx.createLinearGradient(cardX, y, cardX + cardWidth, y);
+        accentGradient.addColorStop(0, '#111318');
+        accentGradient.addColorStop(1, '#343844');
+
+        ctx.fillStyle = accentGradient;
+        ctx.beginPath();
+        ctx.roundRect(cardX, y, cardWidth, REALTIME_CARD_HEIGHT, 16);
+        ctx.fill();
+
+        ctx.fillStyle = '#d9f7ff';
+        ctx.font = '800 18px "Fira Code", "Microsoft YaHei", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(metric.label, cardX + 22, y + 31);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 30px "Nunito Sans", "Microsoft YaHei", sans-serif';
+        ctx.fillText(clampText(metric.value, 10), cardX + 22, y + 64);
+
+        if (metric.detail) {
+            ctx.fillStyle = '#b7bcc8';
+            ctx.font = '600 16px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'right';
+            ctx.fillText(clampText(metric.detail, 24), cardX + cardWidth - 22, y + 64);
+        }
+    });
 }
 
 async function createShareImageFile(item) {
@@ -189,9 +263,11 @@ async function createShareImageFile(item) {
             }
         }
 
+        let posterNaturalH = 0;
         let posterDrawH = 0;
         if (posterImage) {
-            posterDrawH = posterImage.height * (ticketW / posterImage.width);
+            posterNaturalH = posterImage.height * (ticketW / posterImage.width);
+            posterDrawH = Math.min(HERO_MAX_HEIGHT, posterNaturalH);
         }
 
         const punchY = Math.max(
@@ -216,7 +292,12 @@ async function createShareImageFile(item) {
         const typeStr = getVisibleGenresForShare(item).map(g => window.appContext && window.appContext.getGenreDisplayName ? window.appContext.getGenreDisplayName(g) : g).slice(0, 4).join(' · ');
         if (typeStr) cursorY += 34;
 
-        cursorY += 40;
+        const realtimeMetrics = getShareRealtimeMetrics(item);
+        if (realtimeMetrics.length > 0) {
+            cursorY += 24 + REALTIME_CARD_HEIGHT;
+        }
+
+        cursorY += 34;
 
         dctx.font = '500 22px "Nunito Sans", sans-serif';
         if (item.directors && item.directors.length > 0) {
@@ -228,11 +309,11 @@ async function createShareImageFile(item) {
             cursorY += wrapShareText(dctx, actorStr, 0, 0, metaW, 34, Infinity, true) * 34;
         }
 
-        cursorY += 40;
+        cursorY += 30;
 
         dctx.font = '400 22px "Nunito Sans", sans-serif';
         if (item.overview) {
-            cursorY += wrapShareText(dctx, item.overview, 0, 0, metaW, 42, Infinity, true) * 42;
+            cursorY += wrapShareText(dctx, item.overview, 0, 0, metaW, 42, 6, true) * 42;
         }
 
         cursorY += BOTTOM_SECTION_GAP + qrBlockHeight;
@@ -259,7 +340,13 @@ async function createShareImageFile(item) {
             ctx.roundRect(ticketX, ticketY, ticketW, punchY - ticketY, [20, 20, 0, 0]);
             ctx.clip();
 
-            ctx.drawImage(posterImage, ticketX, ticketY, ticketW, posterDrawH);
+            if (posterNaturalH > posterDrawH) {
+                const sourceH = posterImage.width * (posterDrawH / ticketW);
+                const sourceY = Math.max(0, (posterImage.height - sourceH) * 0.24);
+                ctx.drawImage(posterImage, 0, sourceY, posterImage.width, sourceH, ticketX, ticketY, ticketW, posterDrawH);
+            } else {
+                ctx.drawImage(posterImage, ticketX, ticketY, ticketW, posterDrawH);
+            }
 
             const gradient = ctx.createLinearGradient(0, punchY - 260, 0, punchY + 2);
             gradient.addColorStop(0, 'rgba(241, 240, 234, 0)');
@@ -320,7 +407,13 @@ async function createShareImageFile(item) {
             ctx.fillText(`作品分类：${typeStr}`, metaX, cursorY);
         }
 
-        cursorY += 60;
+        if (realtimeMetrics.length > 0) {
+            cursorY += 24;
+            drawRealtimeMetrics(ctx, realtimeMetrics, metaX, cursorY, metaW);
+            cursorY += REALTIME_CARD_HEIGHT + 34;
+        } else {
+            cursorY += 50;
+        }
 
         ctx.textAlign = 'left';
         ctx.fillStyle = '#333742';
@@ -336,12 +429,12 @@ async function createShareImageFile(item) {
             cursorY += count * 34 + 10;
         }
 
-        cursorY += 30;
+        cursorY += 24;
 
         ctx.fillStyle = '#555964';
         ctx.font = '400 22px "Nunito Sans", "Microsoft YaHei", sans-serif';
         if (item.overview) {
-            const overviewLineCount = wrapShareText(ctx, item.overview, metaX, cursorY + 20, metaW, 42, Infinity);
+            const overviewLineCount = wrapShareText(ctx, item.overview, metaX, cursorY + 20, metaW, 42, 6);
             cursorY += overviewLineCount * 42;
         }
 
