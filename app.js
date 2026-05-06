@@ -453,6 +453,20 @@ function canPreserveRenderedResults(previousResults, nextResults) {
     return buildRenderedItemsSignature(previousVisiblePast) === buildRenderedItemsSignature(nextVisiblePast);
 }
 
+function shouldRerenderComingSoon(previousResults, nextResults) {
+    if (!nextResults) {
+        return false;
+    }
+
+    if (!previousResults) {
+        return true;
+    }
+
+    const previousFutureSignature = buildRenderedItemsSignature(previousResults.futureItems || []);
+    const nextFutureSignature = buildRenderedItemsSignature(nextResults.futureItems || []);
+    return previousFutureSignature !== nextFutureSignature;
+}
+
 function refreshRenderMetadata() {
     elements.noResultsMessage.style.display = 'none';
 
@@ -498,6 +512,8 @@ function filterAndRenderItems(options = {}) {
         previousItems !== state.allItems &&
         previousResults &&
         canPreserveRenderedResults(previousResults, nextResults);
+    const shouldUpdateComingSoon =
+        !preserveRenderedContent || shouldRerenderComingSoon(previousResults, nextResults);
 
     state.filteredPastAndPresentItems = nextResults.filteredPastAndPresentItems;
 
@@ -508,10 +524,14 @@ function filterAndRenderItems(options = {}) {
         if (document.body.style.visibility !== 'visible') {
             document.body.style.visibility = 'visible';
         }
-        renderComingSoon(nextResults.futureItems, openIntelDossier);
+        if (shouldUpdateComingSoon) {
+            renderComingSoon(nextResults.futureItems, openIntelDossier);
+        }
         refreshRenderMetadata();
     } else {
-        renderComingSoon(nextResults.futureItems, openIntelDossier);
+        if (shouldUpdateComingSoon) {
+            renderComingSoon(nextResults.futureItems, openIntelDossier);
+        }
         startRendering();
     }
 
