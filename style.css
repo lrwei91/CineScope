@@ -431,6 +431,7 @@ h1 .update-date {
 
 .scroller-wrapper {
     position: relative;
+    isolation: isolate;
 }
 
 .scroller-container {
@@ -475,7 +476,7 @@ h1 .update-date {
 .scroller-arrow {
     position: absolute;
     top: 34%;
-    z-index: 3;
+    z-index: 30;
     width: 42px;
     height: 42px;
     border: 1px solid var(--palette-bg-primary-core);
@@ -525,6 +526,7 @@ h1 .update-date {
     box-shadow: var(--shadow-card);
     transition: all 0.3s ease;
     position: relative;
+    z-index: 1;
 }
 
 .show-card::before {
@@ -544,6 +546,7 @@ h1 .update-date {
 
 .show-card:hover {
     transform: translateY(-6px);
+    z-index: 2;
     box-shadow: var(--shadow-hover);
     border-color: var(--palette-bg-primary-core);
 }
