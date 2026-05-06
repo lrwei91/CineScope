@@ -285,11 +285,24 @@ async function main() {
 
     for (const spec of activeCategorySpecs) {
         const result = await buildCategoryData(spec, boxOfficePayload);
-        await writeJson(spec.latestPath, result.latestPayload);
-        await writeJson(spec.completePath, result.completePayload);
+        const latestPayloadToWrite = await preferExistingNonEmptyPayload(
+            spec,
+            result.latestPayload,
+            spec.latestPath,
+            'latest'
+        );
+        const completePayloadToWrite = await preferExistingNonEmptyPayload(
+            spec,
+            result.completePayload,
+            spec.completePath,
+            'complete'
+        );
+
+        await writeJson(spec.latestPath, latestPayloadToWrite);
+        await writeJson(spec.completePath, completePayloadToWrite);
         buildReport.categories.push(result.report);
         console.log(
-            `[${spec.id}] latest=${result.latestCount} complete=${result.completeCount} -> ${spec.latestPath}, ${spec.completePath}`
+            `[${spec.id}] latest=${getPayloadItemCount(spec.kind, latestPayloadToWrite)} complete=${getPayloadItemCount(spec.kind, completePayloadToWrite)} -> ${spec.latestPath}, ${spec.completePath}`
         );
         logFallbackSummary(spec.id, result.fallbackSummary);
     }
@@ -331,6 +344,43 @@ async function loadBoxOfficePayloadFromCache() {
         console.warn(`Maoyan box office cache skipped: ${error.message}`);
         return null;
     }
+}
+
+async function preferExistingNonEmptyPayload(spec, nextPayload, relativePath, level) {
+    if (getPayloadItemCount(spec.kind, nextPayload) > 0) {
+        return nextPayload;
+    }
+
+    const existingPayload = await readExistingPayload(relativePath);
+    if (!existingPayload || getPayloadItemCount(spec.kind, existingPayload) === 0) {
+        return nextPayload;
+    }
+
+    console.warn(
+        `[${spec.id}] ${level} payload resolved to 0 items; preserving existing ${getPayloadItemCount(spec.kind, existingPayload)}-item file at ${relativePath}`
+    );
+    return existingPayload;
+}
+
+async function readExistingPayload(relativePath) {
+    const targetPath = path.resolve(ROOT_DIR, relativePath);
+    try {
+        return JSON.parse(await readFile(targetPath, 'utf8'));
+    } catch {
+        return null;
+    }
+}
+
+function getPayloadItemCount(kind, payload) {
+    if (!payload || typeof payload !== 'object') {
+        return 0;
+    }
+
+    if (kind === 'tv') {
+        return Array.isArray(payload.shows) ? payload.shows.length : 0;
+    }
+
+    return Array.isArray(payload.movies) ? payload.movies.length : 0;
 }
 
 async function buildCategoryData(spec, boxOfficePayload = null) {

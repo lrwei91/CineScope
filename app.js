@@ -511,7 +511,6 @@ function filterAndRenderItems(options = {}) {
         renderComingSoon(nextResults.futureItems, openIntelDossier);
         refreshRenderMetadata();
     } else {
-        elements.comingSoonContainer.style.display = 'none';
         renderComingSoon(nextResults.futureItems, openIntelDossier);
         startRendering();
     }
