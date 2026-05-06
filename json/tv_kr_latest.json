@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-05-05T05:13:15.146Z",
+    "last_updated": "2026-05-06T16:33:51.093Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-05-05T05:13:15.146Z",
+        "time": "2026-05-06T16:33:51.093Z",
         "summary": "已同步韩剧数据（latest）：18 条"
       }
     ],
@@ -13,12 +13,14 @@
       {
         "slug": "tv_korean",
         "source": "douban",
-        "count": 28
+        "count": 28,
+        "fetch_error": null
       },
       {
         "slug": "discover/tv",
         "source": "tmdb",
-        "count": 152
+        "count": 152,
+        "fetch_error": null
       }
     ],
     "total_items": 18
@@ -240,8 +242,8 @@
         }
       ],
       "type": "Miniseries",
-      "vote_average": 8.017,
-      "vote_count": 59,
+      "vote_average": 7.951,
+      "vote_count": 61,
       "origin_country": [
         "KR"
       ],
@@ -303,7 +305,7 @@
         "Girigo"
       ],
       "homepage": "https://www.netflix.com/title/81975196",
-      "popularity": 77.7868,
+      "popularity": 72.3942,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-04-24",
@@ -324,7 +326,7 @@
           "id": 285838,
           "air_date": "2026-04-24",
           "episode_count": 8,
-          "vote_average": 8.017,
+          "vote_average": 7.951,
           "poster_path": "/zMuisSjF08Fuk5ywZH9k1ab2SiW.jpg",
           "douban_rating": "7.8",
           "douban_link_google": "https://movie.douban.com/subject/37125831/",
@@ -400,7 +402,7 @@
         "오늘도 매진"
       ],
       "homepage": "https://programs.sbs.co.kr/drama/soldouttoday/main",
-      "popularity": 16.7291,
+      "popularity": 16.9186,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-04-22",
@@ -541,6 +543,12 @@
         }
       ],
       "networks": [
+        {
+          "id": 3266,
+          "logo_path": "/jjBOc1pIUvupNUDYCd9ApDOGyE.png",
+          "name": "GagaOOLala",
+          "origin_country": ""
+        },
         {
           "id": 3357,
           "logo_path": "/13a2E9fbpRtQrQgfb9UCNWZcM2O.png",
@@ -723,7 +731,7 @@
         "We Are All Trying Here"
       ],
       "homepage": "https://tv.jtbc.co.kr/wearealltryinghere",
-      "popularity": 33.6033,
+      "popularity": 31.2979,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-04-18",
@@ -732,7 +740,7 @@
       "status": "Returning Series",
       "episodes_info": "Returning Series",
       "adult": false,
-      "poster_path": "/ovNzwYGIXVeb7hdcDzlDqC0FVRa.jpg",
+      "poster_path": "/nUUqgOoVJSpc9QYzRDK0kZ5g8eG.jpg",
       "backdrop_path": "/4ZXZi107TbfBJFGT4cnqbavQIoc.jpg",
       "overview": "一名怀抱梦想的导演，为了出道努力了20年，意气消磨殆尽，直到遇见一位疲于奔命的制作人，帮他重新找回自我价值。",
       "rating_count": 4470,
@@ -745,7 +753,7 @@
           "air_date": "2026-04-18",
           "episode_count": 12,
           "vote_average": 9.2,
-          "poster_path": "/ovNzwYGIXVeb7hdcDzlDqC0FVRa.jpg",
+          "poster_path": "/nUUqgOoVJSpc9QYzRDK0kZ5g8eG.jpg",
           "douban_rating": "8.5",
           "douban_link_google": "https://movie.douban.com/subject/37335468/",
           "overview": "一名怀抱梦想的导演，为了出道努力了20年，意气消磨殆尽，直到遇见一位疲于奔命的制作人，帮他重新找回自我价值。",
@@ -826,7 +834,7 @@
         "Absolute Value of Romance"
       ],
       "homepage": "https://www.coupangplay.com/content/ba31709a-556c-4130-bb40-e7308dc24c17",
-      "popularity": 20.1406,
+      "popularity": 20.8971,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2026-04-17",
@@ -1136,8 +1144,8 @@
         }
       ],
       "type": "Scripted",
-      "vote_average": 8.2,
-      "vote_count": 19,
+      "vote_average": 8.238,
+      "vote_count": 21,
       "origin_country": [
         "KR"
       ],
@@ -1209,7 +1217,7 @@
         "The 21st Century Grand Prince's Wife"
       ],
       "homepage": "https://program.imbc.com/perfectcrown",
-      "popularity": 121.2897,
+      "popularity": 116.29,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-04-10",
@@ -1230,7 +1238,7 @@
           "id": 278573,
           "air_date": "2026-04-10",
           "episode_count": 12,
-          "vote_average": 8.2,
+          "vote_average": 8.238,
           "poster_path": "/etY1kHe8NTFFNHdL6FmJcNuvCLW.jpg",
           "douban_rating": "8.0",
           "douban_link_google": "https://movie.douban.com/subject/37147970/",
@@ -1337,11 +1345,10 @@
         }
       ],
       "type": "Miniseries",
-      "vote_average": 7.6,
-      "vote_count": 5,
+      "vote_average": 7.4,
+      "vote_count": 7,
       "origin_country": [
-        "KR",
-        "TH"
+        "KR"
       ],
       "original_language": "ko",
       "networks": [
@@ -1381,7 +1388,7 @@
         "别忘了你的仇人"
       ],
       "homepage": "https://wetv.vip/ko/album/z8grnsk4uhwvfb0",
-      "popularity": 7.9005,
+      "popularity": 7.2132,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-03-17",
@@ -1402,7 +1409,7 @@
           "id": 314073,
           "air_date": "2026-03-17",
           "episode_count": 8,
-          "vote_average": 7.6,
+          "vote_average": 7.4,
           "poster_path": "/l5GU6mhmJFE399TrPdl0PcH5miP.jpg",
           "douban_rating": "5.8",
           "douban_link_google": "https://movie.douban.com/subject/37823222/",
@@ -1428,8 +1435,8 @@
         }
       ],
       "type": "Scripted",
-      "vote_average": 6.8,
-      "vote_count": 10,
+      "vote_average": 6.682,
+      "vote_count": 11,
       "origin_country": [
         "KR"
       ],
@@ -1480,7 +1487,7 @@
         "Climax"
       ],
       "homepage": "https://ktena.co.kr/bbs/board.php?bo_table=drama&wr_id=46",
-      "popularity": 7.3688,
+      "popularity": 6.7204,
       "number_of_seasons": 1,
       "number_of_episodes": 10,
       "first_air_date": "2026-03-16",
@@ -1501,7 +1508,7 @@
           "id": 241860,
           "air_date": "2026-03-16",
           "episode_count": 10,
-          "vote_average": 6.8,
+          "vote_average": 6.682,
           "poster_path": "/ruld5xeOsfDrqRD5aP8iWeuxRKw.jpg",
           "douban_rating": "7.4",
           "douban_link_google": "https://movie.douban.com/subject/36691850/",
@@ -1646,8 +1653,8 @@
         }
       ],
       "type": "Scripted",
-      "vote_average": 7.538,
-      "vote_count": 13,
+      "vote_average": 7.6,
+      "vote_count": 14,
       "origin_country": [
         "KR"
       ],
@@ -1702,7 +1709,7 @@
         "Phantom Lawyer"
       ],
       "homepage": "https://programs.sbs.co.kr/drama/withgod",
-      "popularity": 33.234,
+      "popularity": 32.0165,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2026-03-13",
@@ -1723,7 +1730,7 @@
           "id": 281010,
           "air_date": "2026-03-13",
           "episode_count": 16,
-          "vote_average": 7.538,
+          "vote_average": 7.6,
           "poster_path": "/cimJCBYxJCoYMtWWEn5lZHfkydk.jpg",
           "douban_rating": "7.4",
           "douban_link_google": "https://movie.douban.com/subject/37060881/",
@@ -1753,8 +1760,8 @@
         }
       ],
       "type": "Miniseries",
-      "vote_average": 8.209,
-      "vote_count": 98,
+      "vote_average": 8.197,
+      "vote_count": 99,
       "origin_country": [
         "KR"
       ],
@@ -1841,7 +1848,7 @@
         "Monthly Boyfriend"
       ],
       "homepage": "https://www.netflix.com/title/82007623",
-      "popularity": 13.5996,
+      "popularity": 15.3576,
       "number_of_seasons": 1,
       "number_of_episodes": 10,
       "first_air_date": "2026-03-06",
@@ -1862,7 +1869,7 @@
           "id": 281016,
           "air_date": "2026-03-06",
           "episode_count": 10,
-          "vote_average": 8.209,
+          "vote_average": 8.197,
           "poster_path": "/eKXpgaizikUIRuHs84THxoLvpCK.jpg",
           "douban_rating": "7.3",
           "douban_link_google": "https://movie.douban.com/subject/37030864/",
