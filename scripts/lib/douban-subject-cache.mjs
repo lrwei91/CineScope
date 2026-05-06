@@ -1,6 +1,8 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
+const CACHE_SCHEMA_VERSION = 2;
+
 export function createDoubanSubjectCache({ rootDir, ttlDays = 7 }) {
     const cacheDir = path.resolve(rootDir, '.cache/douban/subjects');
     const ttlMs = Math.max(0, ttlDays) * 24 * 60 * 60 * 1000;
@@ -19,7 +21,7 @@ export function createDoubanSubjectCache({ rootDir, ttlDays = 7 }) {
 
         if (cached.state === 'fresh') {
             stats.hits += 1;
-            return cached.payload;
+            return cached.blocked ? null : cached.payload;
         }
 
         if (cached.state === 'stale') {
@@ -32,11 +34,20 @@ export function createDoubanSubjectCache({ rootDir, ttlDays = 7 }) {
 
         try {
             const payload = await fetchJson(`https://m.douban.com/rexxar/api/v2/${endpoint}/${subjectId}?for_mobile=1`);
-            await writeCache(kind, subjectId, payload);
+            await writeCache(kind, subjectId, payload, null);
             stats.writes += 1;
             return payload;
         } catch (error) {
             stats.errors += 1;
+            const statusMatch = String(error?.message || '').match(/Request failed \((\d+)\)/);
+            const statusCode = statusMatch ? Number(statusMatch[1]) : null;
+
+            if (statusCode === 403) {
+                await writeCache(kind, subjectId, null, 403);
+                stats.writes += 1;
+                return null;
+            }
+
             if (cached.payload) {
                 stats.staleFallbacks += 1;
                 console.warn(`Use stale Douban subject cache ${kind}/${subjectId}: ${error.message}`);
@@ -53,15 +64,23 @@ export function createDoubanSubjectCache({ rootDir, ttlDays = 7 }) {
             const rawText = await readFile(cachePath, 'utf8');
             const cacheEntry = JSON.parse(rawText);
             const fetchedAt = Date.parse(cacheEntry.fetched_at);
+            const schemaVersion = cacheEntry.schema_version || 1;
             const payload = cacheEntry.payload;
+            const blockedStatus = Number(cacheEntry.blocked_status) || null;
+            const isBlockedEntry = schemaVersion >= 2 && blockedStatus === 403;
 
-            if (!payload || !Number.isFinite(fetchedAt)) {
+            if (!Number.isFinite(fetchedAt)) {
+                return { state: 'invalid', payload: null };
+            }
+
+            if (!payload && !isBlockedEntry) {
                 return { state: 'invalid', payload: null };
             }
 
             return {
                 state: Date.now() - fetchedAt <= ttlMs ? 'fresh' : 'stale',
-                payload
+                payload,
+                blocked: isBlockedEntry
             };
         } catch (error) {
             if (error?.code === 'ENOENT') {
@@ -71,17 +90,19 @@ export function createDoubanSubjectCache({ rootDir, ttlDays = 7 }) {
         }
     }
 
-    async function writeCache(kind, subjectId, payload) {
+    async function writeCache(kind, subjectId, payload, blockedStatus = null) {
         const cachePath = getCachePath(kind, subjectId);
         await mkdir(path.dirname(cachePath), { recursive: true });
         await writeFile(
             cachePath,
             `${JSON.stringify(
                 {
+                    schema_version: CACHE_SCHEMA_VERSION,
                     fetched_at: new Date().toISOString(),
                     kind,
                     subject_id: String(subjectId),
-                    payload
+                    payload,
+                    blocked_status: blockedStatus
                 },
                 null,
                 2

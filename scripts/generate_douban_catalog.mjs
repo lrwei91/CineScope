@@ -500,7 +500,7 @@ function createFallbackCollector() {
                 stats.sampleIds.push(String(itemId));
             }
 
-            if (status !== '400') {
+            if (status !== '400' && status !== '403') {
                 console.warn(`Fallback to collection item ${itemId}: ${message}`);
             }
         },
