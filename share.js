@@ -13,6 +13,7 @@ const QR_CARD_FOOTER_PADDING = 14;
 const HERO_MAX_HEIGHT = 560;
 const REALTIME_CARD_HEIGHT = 88;
 const REALTIME_CARD_GAP = 12;
+const HERO_MIN_HEIGHT = 320;
 
 function sanitizeFileName(name) {
     return String(name || 'latest_tv')
@@ -121,6 +122,23 @@ function clampText(text, maxLength) {
     const value = String(text || '').trim();
     if (value.length <= maxLength) return value;
     return `${value.slice(0, maxLength - 1)}…`;
+}
+
+function getContainImageLayout(imageWidth, imageHeight, maxWidth, maxHeight) {
+    if (!imageWidth || !imageHeight || !maxWidth || !maxHeight) {
+        return null;
+    }
+
+    const scale = Math.min(maxWidth / imageWidth, maxHeight / imageHeight);
+    const drawWidth = imageWidth * scale;
+    const drawHeight = imageHeight * scale;
+
+    return {
+        drawWidth,
+        drawHeight,
+        offsetX: (maxWidth - drawWidth) / 2,
+        offsetY: (maxHeight - drawHeight) / 2
+    };
 }
 
 function getVisibleGenresForShare(item) {
@@ -263,16 +281,25 @@ async function createShareImageFile(item) {
             }
         }
 
-        let posterNaturalH = 0;
-        let posterDrawH = 0;
+        let posterAreaH = 0;
+        let posterLayout = null;
         if (posterImage) {
-            posterNaturalH = posterImage.height * (ticketW / posterImage.width);
-            posterDrawH = Math.min(HERO_MAX_HEIGHT, posterNaturalH);
+            const posterAspectRatio = posterImage.height / posterImage.width;
+            posterAreaH = Math.min(
+                HERO_MAX_HEIGHT,
+                Math.max(HERO_MIN_HEIGHT, Math.round(ticketW * posterAspectRatio))
+            );
+            posterLayout = getContainImageLayout(
+                posterImage.width,
+                posterImage.height,
+                ticketW,
+                posterAreaH
+            );
         }
 
         const punchY = Math.max(
             ticketY + 200,
-            posterDrawH > 0 ? ticketY + posterDrawH - 120 : ticketY + 200
+            posterAreaH > 0 ? ticketY + posterAreaH - 120 : ticketY + 200
         );
 
         let cursorY = punchY + 60;
@@ -340,12 +367,20 @@ async function createShareImageFile(item) {
             ctx.roundRect(ticketX, ticketY, ticketW, punchY - ticketY, [20, 20, 0, 0]);
             ctx.clip();
 
-            if (posterNaturalH > posterDrawH) {
-                const sourceH = posterImage.width * (posterDrawH / ticketW);
-                const sourceY = Math.max(0, (posterImage.height - sourceH) * 0.24);
-                ctx.drawImage(posterImage, 0, sourceY, posterImage.width, sourceH, ticketX, ticketY, ticketW, posterDrawH);
-            } else {
-                ctx.drawImage(posterImage, ticketX, ticketY, ticketW, posterDrawH);
+            const heroGradient = ctx.createLinearGradient(ticketX, ticketY, ticketX, ticketY + posterAreaH);
+            heroGradient.addColorStop(0, '#1a1d25');
+            heroGradient.addColorStop(1, '#10131a');
+            ctx.fillStyle = heroGradient;
+            ctx.fillRect(ticketX, ticketY, ticketW, posterAreaH);
+
+            if (posterLayout) {
+                ctx.drawImage(
+                    posterImage,
+                    ticketX + posterLayout.offsetX,
+                    ticketY + posterLayout.offsetY,
+                    posterLayout.drawWidth,
+                    posterLayout.drawHeight
+                );
             }
 
             const gradient = ctx.createLinearGradient(0, punchY - 260, 0, punchY + 2);

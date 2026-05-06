@@ -430,7 +430,15 @@ async function buildDoubanSourceResults(spec, fallbackCollector) {
     const sourceResults = [];
 
     for (const source of spec.doubanSources || []) {
-        const rawCollectionItems = await fetchAllCollectionItems(source.slug, source.totalLimit);
+        let rawCollectionItems = [];
+        let fetchError = null;
+        try {
+            rawCollectionItems = await fetchAllCollectionItems(source.slug, source.totalLimit);
+        } catch (error) {
+            fetchError = error;
+            console.warn(`Douban collection fallback for ${spec.id}/${source.slug}: ${error.message}`);
+        }
+
         const collectionItems = rawCollectionItems.filter((item) =>
             source.includeItem ? source.includeItem(item) : true
         );
@@ -461,8 +469,10 @@ async function buildDoubanSourceResults(spec, fallbackCollector) {
 
         sourceResults.push({
             slug: source.slug,
+            source: 'douban',
             rawCount: rawCollectionItems.length,
             includedCount: collectionItems.length,
+            fetchError: fetchError ? fetchError.message : null,
             items: normalizedItems.filter(Boolean)
         });
     }
@@ -1496,7 +1506,8 @@ function createPayload(spec, items, sourceResults, level) {
     const sourceSummary = sourceResults.map((sourceResult) => ({
         slug: sourceResult.slug,
         source: sourceResult.source,
-        count: sourceResult.items.length
+        count: sourceResult.items.length,
+        fetch_error: sourceResult.fetchError || null
     }));
     const sourceKinds = [...new Set(sourceSummary.map((sourceResult) => sourceResult.source))];
 
