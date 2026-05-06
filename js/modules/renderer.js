@@ -196,22 +196,8 @@ export function showSkeletonLoader(container, skeletonContainer) {
 
     const comingSoonContainer = document.getElementById('coming-soon-container');
     if (comingSoonContainer) {
-        comingSoonContainer.innerHTML = `
-            <h2 class="month-group-header skeleton">即将上映</h2>
-            <div class="scroller-wrapper">
-                <div class="scroller-container">
-                    <div class="horizontal-scroller">
-                        <div class="show-card skeleton"></div>
-                        <div class="show-card skeleton"></div>
-                        <div class="show-card skeleton"></div>
-                        <div class="show-card skeleton"></div>
-                        <div class="show-card skeleton"></div>
-                        <div class="show-card skeleton"></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        comingSoonContainer.style.display = 'block';
+        comingSoonContainer.innerHTML = '';
+        comingSoonContainer.style.display = 'none';
     }
 
     if (skeletonContainer) {
