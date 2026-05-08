@@ -74,6 +74,9 @@ export async function loadCategoryData(categoryId, level, categoryState, options
     const url = level === 'latest' ? config.latestUrl : config.completeUrl;
     const { forceRefresh = false, silent = false } = options;
 
+    // 没有对应 URL 的级别直接跳过（如 douban_top250 没有 latestUrl）
+    if (!url) return false;
+
     if (state[loadedKey] && !forceRefresh) return true;
     if (state[promiseKey]) return state[promiseKey];
 

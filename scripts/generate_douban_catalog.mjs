@@ -102,6 +102,7 @@ const CATEGORY_SPECS = [
         id: 'tv_cn',
         kind: 'tv',
         latestCount: 18,
+        latestSelectionMode: 'current_quarter_all',
         minDate: '2025-01-01',
         latestPath: 'json/tv_cn_latest.json',
         completePath: 'json/tv_cn_complete.json',
@@ -128,6 +129,7 @@ const CATEGORY_SPECS = [
         id: 'tv_kr',
         kind: 'tv',
         latestCount: 18,
+        latestSelectionMode: 'current_quarter_all',
         minDate: '2025-01-01',
         latestPath: 'json/tv_kr_latest.json',
         completePath: 'json/tv_kr_complete.json',
@@ -152,6 +154,7 @@ const CATEGORY_SPECS = [
         id: 'tv_jp',
         kind: 'tv',
         latestCount: 18,
+        latestSelectionMode: 'current_quarter_all',
         minDate: '2025-01-01',
         latestPath: 'json/tv_jp_latest.json',
         completePath: 'json/tv_jp_complete.json',
@@ -237,6 +240,7 @@ const CATEGORY_SPECS = [
         id: 'tv_cn_variety',
         kind: 'tv',
         latestCount: 18,
+        latestSelectionMode: 'current_quarter_all',
         minDate: '2025-01-01',
         latestPath: 'json/tv_cn_variety_latest.json',
         completePath: 'json/tv_cn_variety_complete.json',
@@ -1977,12 +1981,23 @@ function sortByDateDesc(items) {
     });
 }
 
-function selectLatestItems(spec, items) {
+export function selectLatestItems(spec, items, referenceDate = new Date()) {
+    if (spec.latestSelectionMode === 'current_quarter_all') {
+        const quarterItems = selectCurrentQuarterItems(items, referenceDate);
+        if (quarterItems.length > 0) {
+            return quarterItems;
+        }
+    }
+
+    return selectLatestItemsByCountOrWindow(spec, items, referenceDate);
+}
+
+function selectLatestItemsByCountOrWindow(spec, items, referenceDate = new Date()) {
     if (!Number.isFinite(Number(spec.latestWindowDays)) || Number(spec.latestWindowDays) <= 0) {
         return items.slice(0, spec.latestCount);
     }
 
-    const maxDate = new Date();
+    const maxDate = new Date(referenceDate.getTime());
     maxDate.setUTCDate(maxDate.getUTCDate() + Number(spec.latestWindowDays));
     const maxDateText = maxDate.toISOString().slice(0, 10);
     const nearTermItems = items.filter((item) => {
@@ -1997,6 +2012,34 @@ function selectLatestItems(spec, items) {
     const seenIds = new Set(nearTermItems.map((item) => createItemSignature(spec.kind, item)));
     const remainder = items.filter((item) => !seenIds.has(createItemSignature(spec.kind, item)));
     return [...nearTermItems, ...remainder].slice(0, spec.latestCount);
+}
+
+function selectCurrentQuarterItems(items, referenceDate = new Date()) {
+    const { quarterStartText, quarterEndText } = getCurrentQuarterDateRange(referenceDate);
+    return items.filter((item) => {
+        const itemDate = getAnyDate(item);
+        return itemDate && itemDate >= quarterStartText && itemDate <= quarterEndText;
+    });
+}
+
+function getCurrentQuarterDateRange(referenceDate = new Date()) {
+    const currentYear = referenceDate.getFullYear();
+    const currentMonth = referenceDate.getMonth();
+    const quarterStartMonth = Math.floor(currentMonth / 3) * 3;
+    const quarterStart = new Date(currentYear, quarterStartMonth, 1);
+    const quarterEnd = new Date(currentYear, quarterStartMonth + 3, 0);
+
+    return {
+        quarterStartText: formatDateAsLocalIso(quarterStart),
+        quarterEndText: formatDateAsLocalIso(quarterEnd)
+    };
+}
+
+function formatDateAsLocalIso(value) {
+    const year = value.getFullYear();
+    const month = String(value.getMonth() + 1).padStart(2, '0');
+    const day = String(value.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 function getAnyDate(item) {
@@ -2211,7 +2254,9 @@ async function writeJson(relativePath, payload) {
     await writeFile(targetPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
 }
 
-main().catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+    main().catch((error) => {
+        console.error(error);
+        process.exitCode = 1;
+    });
+}

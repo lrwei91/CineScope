@@ -32,7 +32,7 @@ test('isDateAfterToday treats the current day as already released', () => {
     assert.equal(isDateAfterToday('2026-05-02', today), true);
 });
 
-test('applyFilters moves same-day releases out of coming soon', () => {
+test('applyFilters moves same-day TV releases out of coming soon', () => {
     const items = [
         createMovie('2026-05-02', '明天上映'),
         createMovie('2026-05-01', '今天上映'),
@@ -66,7 +66,7 @@ test('applyFilters moves same-day releases out of coming soon', () => {
                 selectedGenres: [],
                 selectedNetworks: []
             },
-            'movie_cn'
+            'tv_cn'
         );
 
         assert.deepEqual(

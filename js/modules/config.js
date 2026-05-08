@@ -25,13 +25,12 @@ export const CATEGORY_CONFIG = {
         completeUrl: 'json/tv_us_complete.json',
         showNetworkFilter: true
     },
-    tv_gb: {
-        id: 'tv_gb',
-        label: '英剧',
-        kind: 'tv',
-        latestUrl: 'json/tv_gb_latest.json',
-        completeUrl: 'json/tv_gb_complete.json',
-        showNetworkFilter: true
+    douban_top250: {
+        id: 'douban_top250',
+        label: '豆瓣Top250',
+        kind: 'movie',
+        completeUrl: 'json/douban_top250.json',
+        showNetworkFilter: false
     },
     tv_cn: {
         id: 'tv_cn',
@@ -156,6 +155,20 @@ export const CATEGORY_RATING_CONFIG = {
             value: 'recent_high_score',
             years: 2,
             minRating: 7
+        }
+    },
+    douban_top250: {
+        thresholds: [
+            { label: '全部', value: 0 },
+            { label: '> 9 分', value: 9 },
+            { label: '> 8.5 分', value: 8.5 },
+            { label: '> 8 分', value: 8 }
+        ],
+        special: {
+            label: '9 分以上经典',
+            value: 'recent_high_score',
+            years: 100,
+            minRating: 9
         }
     }
 };

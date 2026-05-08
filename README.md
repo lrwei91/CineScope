@@ -1,6 +1,6 @@
 # 最新影视内容实时更新
 
-一个静态聚合展示页，聚焦近期影视内容的浏览和筛选。当前前端支持八个分类：国产剧、院线电影、综艺、韩剧、日剧、日漫、美剧、英剧。页面会优先加载默认分类的最新数据，再按分类懒加载完整数据，兼顾首屏速度和后续浏览体验。
+一个静态聚合展示页，聚焦近期影视内容的浏览和筛选。当前前端支持八个分类：国产剧、院线电影、综艺、韩剧、日剧、日漫、美剧、豆瓣Top250。页面会优先加载默认分类的最新数据，再按分类懒加载完整数据，兼顾首屏速度和后续浏览体验。
 
 在线体验：[https://lrwei91.github.io/latest_tv/](https://lrwei91.github.io/latest_tv/)
 
@@ -10,7 +10,7 @@
 
 ## 功能特性
 
-- 分类切换：支持 `tv_cn` 国产剧、`movie_cn` 院线电影、`tv_cn_variety` 综艺、`tv_kr` 韩剧、`tv_jp` 日剧、`tv_jp_anime` 日漫、`tv_us` 美剧、`tv_gb` 英剧
+- 分类切换：支持 `tv_cn` 国产剧、`movie_cn` 院线电影、`tv_cn_variety` 综艺、`tv_kr` 韩剧、`tv_jp` 日剧、`tv_jp_anime` 日漫、`tv_us` 美剧、`douban_top250` 豆瓣Top250
 - 评分筛选：支持全部、`> 9分`、`> 8分`、`> 7分`、近 2 年高分
 - 类型筛选：按当前分类数据动态生成，未预设的类型也会直接展示
 - 平台筛选：TV 分类按当前数据动态生成平台/电视网，院线电影默认隐藏该筛选
@@ -213,8 +213,7 @@ TV 分类继续沿用现有结构：
 
 - `json/tv_us_latest.json`
 - `json/tv_us_complete.json`
-- `json/tv_gb_latest.json`
-- `json/tv_gb_complete.json`
+- `json/douban_top250.json`
 - `json/tv_cn_latest.json`
 - `json/tv_cn_complete.json`
 - `json/tv_cn_variety_latest.json`
@@ -230,7 +229,7 @@ TV 分类继续沿用现有结构：
 - `json/maoyan_box_office.json`
 - `json/build_report.json`
 
-其中国产剧、综艺、韩剧、日剧和院线电影文件仍主要使用 `tmdb+douban` 混合源；`tv_jp_anime` 改为 AniList 季度发现 + 豆瓣匹配补全，并在提供 `TMDB_API_KEY` 时进一步回填中文标题、海报与简介。英剧和美剧仍沿用原有 JSON 数据来源。
+其中国产剧、综艺、韩剧、日剧和院线电影文件仍主要使用 `tmdb+douban` 混合源；`tv_jp_anime` 改为 AniList 季度发现 + 豆瓣匹配补全，并在提供 `TMDB_API_KEY` 时进一步回填中文标题、海报与简介。美剧仍沿用原有 JSON 数据来源。`douban_top250` 通过爬取豆瓣 Top 250 页面生成。
 
 ## 数据来源
 
@@ -241,7 +240,7 @@ TV 分类继续沿用现有结构：
 
 ## 说明
 
-这个仓库当前不包含原有美剧、英剧的抓取 pipeline；但已经包含国产剧、韩剧、日剧、日漫和院线电影的数据生成脚本，用于直接更新前端消费的 JSON 文件。
+这个仓库当前不包含原有美剧的抓取 pipeline；但已经包含国产剧、韩剧、日剧、日漫、院线电影和豆瓣Top250的数据生成脚本，用于直接更新前端消费的 JSON 文件。
 
 ## 豆瓣状态同步
 
