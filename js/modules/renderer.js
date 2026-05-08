@@ -149,8 +149,11 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const statusBadgeHtml = item.doubanCollectionStatus
         ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${DOUBAN_STATUS_LABELS[item.doubanCollectionStatus] || item.doubanCollectionStatus}</span>`
         : '';
+    const posterRibbonHtml = item.categoryId === 'tv_cn' && item.posterStatusLabel
+        ? `<span class="poster-airing-ribbon">${item.posterStatusLabel}</span>`
+        : '';
 
-    const posterHTML = `${statusBadgeHtml}${imageHTML}`;
+    const posterHTML = `${posterRibbonHtml}${statusBadgeHtml}${imageHTML}`;
 
     const card = document.createElement('div');
     card.className = 'show-card matrix-enter clickable';

@@ -4,6 +4,7 @@
  */
 
 import { CATEGORY_CONFIG, TMDB_IMAGE_BASE_URL, VALID_GENRES } from './config.js';
+import { parseDateStringAsLocalDate } from './date-utils.js';
 
 const realtimePayloadCache = new Map();
 
@@ -228,7 +229,7 @@ function normalizePayload(data, config) {
         if (!Array.isArray(data.shows)) {
             throw new Error('TV payload must contain a "shows" array.');
         }
-        const normalizedItems = dedupeCatalogItems('tv', normalizeTvItems(data.shows));
+        const normalizedItems = dedupeCatalogItems('tv', normalizeTvItems(data.shows, config));
         return typeof config.itemFilter === 'function' ? normalizedItems.filter(config.itemFilter) : normalizedItems;
     }
 
@@ -243,7 +244,7 @@ function normalizePayload(data, config) {
 /**
  * 标准化 TV 项目
  */
-function normalizeTvItems(shows) {
+function normalizeTvItems(shows, config = {}) {
     const normalizedItems = [];
     shows.forEach((show) => {
         const seasons = Array.isArray(show.seasons) ? show.seasons : [];
@@ -264,6 +265,7 @@ function normalizeTvItems(shows) {
 
             normalizedItems.push({
                 kind: 'tv',
+                categoryId: config.id || '',
                 id: season.id || `${show.id}-${season.season_number}-${season.air_date}`,
                 date: season.air_date,
                 title,
@@ -291,6 +293,7 @@ function normalizeTvItems(shows) {
                 dossierSubtitle,
                 dossierOverview,
                 dossierNetworks,
+                posterStatusLabel: config.id === 'tv_cn' ? resolveTvPosterStatusLabel(show) : null,
                 detailStatus: show.episodes_info || show.status || '',
                 detailRuntime: show.number_of_episodes ? `${show.number_of_episodes} 集` : '',
                 ratingCount: normalizeCount(show.rating_count),
@@ -299,6 +302,66 @@ function normalizeTvItems(shows) {
         });
     });
     return normalizedItems;
+}
+
+export function resolveTvPosterStatusLabel(show, referenceDate = new Date()) {
+    if (!show || typeof show !== 'object') return null;
+
+    const statusValue = String(show.status || '').trim();
+    const episodesInfoValue = String(show.episodes_info || '').trim();
+    const statusText = statusValue || episodesInfoValue;
+    const normalizedStatusValue = statusValue.toLowerCase();
+    const totalEpisodeCount = normalizeCount(show.number_of_episodes);
+    const updatedEpisodeMatch = (episodesInfoValue || statusText).match(/更新至\s*(\d+)\s*集/);
+    const updatedEpisodeCount = updatedEpisodeMatch ? Number(updatedEpisodeMatch[1]) : null;
+    const lastAirDate = parseDateStringAsLocalDate(show.last_air_date || '');
+    const hasValidReferenceDate = referenceDate instanceof Date && !Number.isNaN(referenceDate.getTime());
+    const daysSinceLastAir = lastAirDate && hasValidReferenceDate
+        ? getDayDifference(lastAirDate, referenceDate)
+        : null;
+    const explicitEndedStatus = ['ended', 'canceled', 'cancelled'].includes(normalizedStatusValue);
+    const explicitReturningStatus = normalizedStatusValue.includes('returning series');
+    const endedByEpisodeText = /\d+\s*集全/.test(statusText);
+    const endedByStaleUpdate = Boolean(
+        updatedEpisodeCount &&
+        totalEpisodeCount &&
+        updatedEpisodeCount >= totalEpisodeCount &&
+        daysSinceLastAir !== null &&
+        daysSinceLastAir > 14
+    );
+    const endedByStaleReturningSeason = Boolean(
+        daysSinceLastAir !== null &&
+        daysSinceLastAir > 14 &&
+        (
+            explicitReturningStatus ||
+            show.in_production === true
+        )
+    );
+
+    if (explicitEndedStatus || endedByEpisodeText || endedByStaleUpdate || endedByStaleReturningSeason) {
+        return null;
+    }
+
+    if (
+        statusText.includes('更新至') ||
+        statusText.includes('连载中') ||
+        statusText.includes('连載中') ||
+        explicitReturningStatus ||
+        normalizedStatusValue.includes('in production')
+    ) {
+        return '连载中';
+    }
+
+    if (show.in_production === true) {
+        return '连载中';
+    }
+
+    return null;
+}
+
+function getDayDifference(fromDate, toDate) {
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return Math.floor((toDate.getTime() - fromDate.getTime()) / millisecondsPerDay);
 }
 
 /**
@@ -315,6 +378,7 @@ function normalizeMovieItems(movies) {
 
         normalizedItems.push({
             kind: 'movie',
+            categoryId: '',
             id: movie.id || `${primaryTitle}-${releaseDate}`,
             date: releaseDate,
             title: primaryTitle,
@@ -414,6 +478,7 @@ function mergeCatalogItems(leftItem, rightItem) {
     return {
         ...secondaryItem,
         ...preferredItem,
+        categoryId: preferredItem.categoryId || secondaryItem.categoryId || '',
         title: preferredItem.title || secondaryItem.title,
         subtitle: preferredItem.subtitle || secondaryItem.subtitle,
         posterPath: preferredItem.posterPath || secondaryItem.posterPath,
@@ -436,6 +501,7 @@ function mergeCatalogItems(leftItem, rightItem) {
         dossierSubtitle: preferredItem.dossierSubtitle || secondaryItem.dossierSubtitle || preferredItem.subtitle || secondaryItem.subtitle,
         dossierOverview: preferredItem.dossierOverview || secondaryItem.dossierOverview || preferredItem.overview || secondaryItem.overview || '',
         dossierNetworks: mergeUniqueStrings(preferredItem.dossierNetworks, secondaryItem.dossierNetworks),
+        posterStatusLabel: preferredItem.posterStatusLabel || secondaryItem.posterStatusLabel || null,
         detailStatus: preferredItem.detailStatus || secondaryItem.detailStatus || '',
         detailRuntime: preferredItem.detailRuntime || secondaryItem.detailRuntime || '',
         ratingCount: preferredItem.ratingCount || secondaryItem.ratingCount || null,

@@ -11,6 +11,7 @@ export function buildRenderedItemKey(item) {
         item.subtitle,
         item.doubanRating,
         item.doubanCollectionStatus,
+        item.posterStatusLabel,
         item.posterPath,
         normalizeRealtimeMetricSignature(item.boxOffice),
         normalizeRealtimeMetricSignature(item.tvHeat)

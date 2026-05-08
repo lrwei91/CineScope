@@ -4,7 +4,7 @@
  */
 
 const QR_CODE_SIZE = 132;
-const QR_CODE_API_BASE_URL = 'https://api.qrserver.com/v1/create-qr-code/';
+const QR_CODE_API_BASE_URL = 'https://quickchart.io/qr';
 const BOTTOM_SECTION_GAP = 56;
 const QR_CARD_PADDING = 16;
 const QR_CARD_HEADER_HEIGHT = 28;
@@ -39,8 +39,8 @@ export function getShareBaseUrl(locationLike = globalThis.location) {
 
 export function getQrCodeUrl(text, size = QR_CODE_SIZE) {
     const qrUrl = new URL(QR_CODE_API_BASE_URL);
-    qrUrl.searchParams.set('size', `${size}x${size}`);
-    qrUrl.searchParams.set('data', text);
+    qrUrl.searchParams.set('size', size);
+    qrUrl.searchParams.set('text', text);
     qrUrl.searchParams.set('margin', '0');
     return qrUrl.toString();
 }
@@ -138,6 +138,23 @@ function getContainImageLayout(imageWidth, imageHeight, maxWidth, maxHeight) {
         drawHeight,
         offsetX: (maxWidth - drawWidth) / 2,
         offsetY: (maxHeight - drawHeight) / 2
+    };
+}
+
+function getCoverImageLayout(imageWidth, imageHeight, targetWidth, targetHeight) {
+    if (!imageWidth || !imageHeight || !targetWidth || !targetHeight) {
+        return null;
+    }
+
+    const scale = Math.max(targetWidth / imageWidth, targetHeight / imageHeight);
+    const drawWidth = imageWidth * scale;
+    const drawHeight = imageHeight * scale;
+
+    return {
+        drawWidth,
+        drawHeight,
+        offsetX: (targetWidth - drawWidth) / 2,
+        offsetY: (targetHeight - drawHeight) / 2
     };
 }
 
@@ -281,69 +298,54 @@ async function createShareImageFile(item) {
             }
         }
 
-        let posterAreaH = 0;
-        let posterLayout = null;
-        if (posterImage) {
-            const posterAspectRatio = posterImage.height / posterImage.width;
-            posterAreaH = Math.min(
-                HERO_MAX_HEIGHT,
-                Math.max(HERO_MIN_HEIGHT, Math.round(ticketW * posterAspectRatio))
-            );
-            posterLayout = getContainImageLayout(
-                posterImage.width,
-                posterImage.height,
-                ticketW,
-                posterAreaH
-            );
-        }
-
-        const punchY = Math.max(
-            ticketY + 200,
-            posterAreaH > 0 ? ticketY + posterAreaH - 120 : ticketY + 200
-        );
-
-        let cursorY = punchY + 60;
-        const dctx = document.createElement('canvas').getContext('2d');
-
-        dctx.font = '800 46px "Nunito Sans", sans-serif';
-        cursorY += wrapShareText(dctx, item.title || '未命名', 0, 0, metaW, 56, Infinity, true) * 56 + 10;
-
-        if (item.subtitle) {
-            dctx.font = '600 24px "Nunito Sans", sans-serif';
-            cursorY += wrapShareText(dctx, item.subtitle, 0, 0, metaW, 34, Infinity, true) * 34 + 10;
-        }
-        cursorY += 10;
-
-        cursorY += 34;
-        cursorY += 34;
         const typeStr = getVisibleGenresForShare(item).map(g => window.appContext && window.appContext.getGenreDisplayName ? window.appContext.getGenreDisplayName(g) : g).slice(0, 4).join(' · ');
-        if (typeStr) cursorY += 34;
+        
+        let heroH = 480;
+        const dctx = document.createElement('canvas').getContext('2d');
+        
+        if (!posterImage) {
+            let textH = 60;
+            dctx.font = '800 46px "Nunito Sans", sans-serif';
+            textH += wrapShareText(dctx, item.title || '未命名', 0, 0, metaW, 60, 3, true) * 60 + 10;
+            if (item.subtitle) {
+                dctx.font = '600 22px "Nunito Sans", sans-serif';
+                textH += wrapShareText(dctx, item.subtitle, 0, 0, metaW, 34, 2, true) * 34 + 20;
+            } else {
+                textH += 20;
+            }
+            textH += 40 + 40 + 40;
+            heroH = textH + 60;
+        }
+
+        const punchY = ticketY + heroH;
+        let cursorY = punchY + 40;
 
         const realtimeMetrics = getShareRealtimeMetrics(item);
         if (realtimeMetrics.length > 0) {
-            cursorY += 24 + REALTIME_CARD_HEIGHT;
+            cursorY += REALTIME_CARD_HEIGHT + 34;
         }
 
-        cursorY += 34;
-
         dctx.font = '500 22px "Nunito Sans", sans-serif';
+        let hasCrew = false;
         if (item.directors && item.directors.length > 0) {
+            hasCrew = true;
             const dirStr = `导演：${item.directors.join(' / ')}`;
             cursorY += wrapShareText(dctx, dirStr, 0, 0, metaW, 34, Infinity, true) * 34;
         }
         if (item.actors && item.actors.length > 0) {
+            hasCrew = true;
             const actorStr = `主演：${item.actors.slice(0, 8).join(' / ')}`;
             cursorY += wrapShareText(dctx, actorStr, 0, 0, metaW, 34, Infinity, true) * 34;
         }
 
-        cursorY += 30;
+        if (hasCrew) cursorY += 24;
 
         dctx.font = '400 22px "Nunito Sans", sans-serif';
         if (item.overview) {
-            cursorY += wrapShareText(dctx, item.overview, 0, 0, metaW, 42, 6, true) * 42;
+            cursorY += wrapShareText(dctx, item.overview, 0, 0, metaW, 40, Infinity, true) * 40;
         }
 
-        cursorY += BOTTOM_SECTION_GAP + qrBlockHeight;
+        cursorY += BOTTOM_SECTION_GAP + qrBlockHeight + 50;
         const height = Math.ceil(cursorY + ticketMargin);
         const ticketH = height - ticketMargin * 2;
 
@@ -361,36 +363,61 @@ async function createShareImageFile(item) {
         ctx.roundRect(ticketX, ticketY, ticketW, ticketH, 20);
         ctx.fill();
 
-        if (posterImage) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.roundRect(ticketX, ticketY, ticketW, punchY - ticketY, [20, 20, 0, 0]);
-            ctx.clip();
+        ctx.save();
+        ctx.beginPath();
+        ctx.roundRect(ticketX, ticketY, ticketW, heroH, [20, 20, 0, 0]);
+        ctx.clip();
 
-            const heroGradient = ctx.createLinearGradient(ticketX, ticketY, ticketX, ticketY + posterAreaH);
+        if (posterImage) {
+            const bgLayout = getCoverImageLayout(posterImage.width, posterImage.height, ticketW, heroH);
+            if (bgLayout) {
+                ctx.filter = 'blur(30px) brightness(0.4)';
+                ctx.drawImage(
+                    posterImage,
+                    ticketX + bgLayout.offsetX - 40,
+                    ticketY + bgLayout.offsetY - 40,
+                    bgLayout.drawWidth + 80,
+                    bgLayout.drawHeight + 80
+                );
+                ctx.filter = 'none';
+            }
+            
+            ctx.fillStyle = 'rgba(10, 12, 18, 0.4)';
+            ctx.fillRect(ticketX, ticketY, ticketW, heroH);
+
+            const posterW = 240;
+            const posterH = 360;
+            const posterX = ticketX + 40;
+            const posterY = ticketY + (heroH - posterH) / 2;
+            
+            ctx.save();
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+            ctx.shadowBlur = 24;
+            ctx.shadowOffsetY = 12;
+            ctx.beginPath();
+            ctx.roundRect(posterX, posterY, posterW, posterH, 12);
+            ctx.fill();
+            ctx.clip();
+            
+            const fgLayout = getCoverImageLayout(posterImage.width, posterImage.height, posterW, posterH);
+            if (fgLayout) {
+                ctx.drawImage(
+                    posterImage,
+                    posterX + fgLayout.offsetX,
+                    posterY + fgLayout.offsetY,
+                    fgLayout.drawWidth,
+                    fgLayout.drawHeight
+                );
+            }
+            ctx.restore();
+        } else {
+            const heroGradient = ctx.createLinearGradient(ticketX, ticketY, ticketX, punchY);
             heroGradient.addColorStop(0, '#1a1d25');
             heroGradient.addColorStop(1, '#10131a');
             ctx.fillStyle = heroGradient;
-            ctx.fillRect(ticketX, ticketY, ticketW, posterAreaH);
-
-            if (posterLayout) {
-                ctx.drawImage(
-                    posterImage,
-                    ticketX + posterLayout.offsetX,
-                    ticketY + posterLayout.offsetY,
-                    posterLayout.drawWidth,
-                    posterLayout.drawHeight
-                );
-            }
-
-            const gradient = ctx.createLinearGradient(0, punchY - 260, 0, punchY + 2);
-            gradient.addColorStop(0, 'rgba(241, 240, 234, 0)');
-            gradient.addColorStop(0.8, 'rgba(241, 240, 234, 0.9)');
-            gradient.addColorStop(1, creamColor);
-            ctx.fillStyle = gradient;
-            ctx.fillRect(ticketX, punchY - 260, ticketW, 262);
-            ctx.restore();
+            ctx.fillRect(ticketX, ticketY, ticketW, heroH);
         }
+        ctx.restore();
 
         const holeRadius = 24;
         ctx.globalCompositeOperation = 'destination-out';
@@ -409,45 +436,58 @@ async function createShareImageFile(item) {
         ctx.stroke();
         ctx.setLineDash([]);
 
-        cursorY = punchY + 60;
+        let heroCursorY;
+        const textX = posterImage ? ticketX + 316 : metaX;
+        const textW = posterImage ? ticketW - 356 : metaW;
+        
+        if (posterImage) {
+            heroCursorY = ticketY + 95;
+        } else {
+            heroCursorY = ticketY + 60;
+        }
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#111318';
+        ctx.fillStyle = '#ffffff';
         ctx.font = '800 46px "Nunito Sans", "Microsoft YaHei", sans-serif';
-        const titleLines = wrapShareText(ctx, item.title || '未命名', metaX, cursorY, metaW, 56, Infinity);
-        cursorY += titleLines * 56 + 10;
+        const titleLines = wrapShareText(ctx, item.title || '未命名', textX, heroCursorY, textW, 60, 3);
+        heroCursorY += titleLines * 60 + 10;
 
         if (item.subtitle) {
-            ctx.fillStyle = '#555964';
-            ctx.font = '600 24px "Nunito Sans", "Microsoft YaHei", sans-serif';
-            const subLines = wrapShareText(ctx, item.subtitle, metaX, cursorY, metaW, 34, Infinity);
-            cursorY += subLines * 34 + 10;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.font = '600 22px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            const subLines = wrapShareText(ctx, item.subtitle, textX, heroCursorY, textW, 34, 2);
+            heroCursorY += subLines * 34 + 20;
+        } else {
+            heroCursorY += 20;
         }
 
-        cursorY += 10;
+        const drawMetaLine = (label, value) => {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.font = '500 20px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.fillText(label, textX, heroCursorY);
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.font = '700 22px "Fira Code", "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.fillText(value, textX + 100, heroCursorY);
+            
+            heroCursorY += 40;
+        };
 
-        ctx.fillStyle = '#333742';
-        ctx.font = '600 20px "Fira Code", "Microsoft YaHei", monospace';
-        const ratingStr = item.doubanVerified && item.doubanRating ? `豆瓣评分：${item.doubanRating}` : '豆瓣评分：暂无';
-        const dateStr = item.date ? `上映时间：${item.date}` : '上映时间：UNKNOWN';
+        const ratingVal = item.doubanVerified && item.doubanRating ? item.doubanRating : '暂无';
+        drawMetaLine('豆瓣评分', ratingVal);
+        
+        const dateVal = item.date ? item.date : 'UNKNOWN';
+        drawMetaLine('上映时间', dateVal);
 
-        ctx.textAlign = 'left';
-        ctx.fillText(ratingStr, metaX, cursorY);
-        ctx.textAlign = 'right';
-        ctx.fillText(dateStr, ticketX + ticketW - 40, cursorY);
-
-        cursorY += 34;
         if (typeStr) {
-            ctx.textAlign = 'left';
-            ctx.fillText(`作品分类：${typeStr}`, metaX, cursorY);
+            drawMetaLine('作品分类', typeStr);
         }
+
+        cursorY = punchY + 40;
 
         if (realtimeMetrics.length > 0) {
-            cursorY += 24;
             drawRealtimeMetrics(ctx, realtimeMetrics, metaX, cursorY, metaW);
             cursorY += REALTIME_CARD_HEIGHT + 34;
-        } else {
-            cursorY += 50;
         }
 
         ctx.textAlign = 'left';
@@ -461,16 +501,16 @@ async function createShareImageFile(item) {
         if (item.actors && item.actors.length > 0) {
             const actorStr = `主演：${item.actors.slice(0, 8).join(' / ')}`;
             const count = wrapShareText(ctx, actorStr, metaX, cursorY + 4, metaW, 34, Infinity);
-            cursorY += count * 34 + 10;
+            cursorY += count * 34;
         }
 
-        cursorY += 24;
+        if (hasCrew) cursorY += 24;
 
         ctx.fillStyle = '#555964';
         ctx.font = '400 22px "Nunito Sans", "Microsoft YaHei", sans-serif';
         if (item.overview) {
-            const overviewLineCount = wrapShareText(ctx, item.overview, metaX, cursorY + 20, metaW, 42, 6);
-            cursorY += overviewLineCount * 42;
+            const overviewLineCount = wrapShareText(ctx, item.overview, metaX, cursorY + 10, metaW, 40, Infinity);
+            cursorY += overviewLineCount * 40;
         }
 
         cursorY += BOTTOM_SECTION_GAP;
@@ -520,7 +560,7 @@ async function createShareImageFile(item) {
                 ctx.fillStyle = '#555964';
                 ctx.font = '600 14px "Nunito Sans", "Microsoft YaHei", sans-serif';
                 ctx.textAlign = 'center';
-                wrapShareText(ctx, fallbackText, imageX + 14, imageY + 50, QR_CODE_SIZE - 28, 20, 3);
+                wrapShareText(ctx, fallbackText, imageX + (QR_CODE_SIZE / 2), imageY + 60, QR_CODE_SIZE - 20, 20, 3);
             }
         };
 
