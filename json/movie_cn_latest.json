@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "last_updated": "2026-05-08T16:38:26.318Z",
+    "last_updated": "2026-05-08T23:04:13.016Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-05-08T16:38:26.318Z",
+        "time": "2026-05-08T23:04:13.016Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+maoyan",
+    "source": "douban+tmdb+maoyan",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 19,
+        "count": 55,
         "fetch_error": null
       },
       {
@@ -29,9 +29,15 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 242,
+        "fetch_error": null
+      },
+      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 73,
+        "count": 65,
         "fetch_error": null
       }
     ],
@@ -82,7 +88,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1671541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1671541"
     },
     {
       "id": 26822087,
@@ -132,7 +140,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1658666,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1658666"
     },
     {
       "id": 36962219,
@@ -215,13 +225,15 @@
         "Mega Minions",
         "Minions 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32890033",
       "poster_path": "posters/douban/movie_cn/36962219.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36962219/",
       "douban_link_verified": true,
       "overview": "为了拍摄心中理想的怪兽电影，这群萌趣活宝四处物色演员，竟然真的集齐了各式怪兽，上演疯狂大乱斗！",
-      "durations": [],
+      "durations": [
+        "90分钟"
+      ],
       "release_windows": [
         {
           "id": "summer",
@@ -230,7 +242,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1315772,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1315772"
     },
     {
       "id": 37191746,
@@ -393,7 +407,7 @@
         "四渡赤水",
         "Crossing"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt39276601",
       "poster_path": "posters/douban/movie_cn/37191746.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37191746/",
@@ -403,7 +417,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1604133,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1604133"
     },
     {
       "id": 36238849,
@@ -461,28 +477,59 @@
         },
         {
           "id": 5,
-          "name": "布莱克·克拉克"
+          "name": "基努·里维斯"
         },
         {
           "id": 6,
-          "name": "托尼·海尔"
+          "name": "谢尔比·拉巴拉"
         },
         {
           "id": 7,
-          "name": "柯南·奥布莱恩"
+          "name": "克雷格·罗宾森"
         },
         {
           "id": 8,
-          "name": "埃涅·赫德森"
+          "name": "柯南·奥布莱恩"
         },
         {
           "id": 9,
-          "name": "安娜·法瑞丝"
+          "name": "安妮·波茨"
+        },
+        {
+          "id": 10,
+          "name": "邦妮·亨特"
+        },
+        {
+          "id": 11,
+          "name": "华莱士·肖恩"
+        },
+        {
+          "id": 12,
+          "name": "埃涅·赫德森"
+        },
+        {
+          "id": 13,
+          "name": "约翰·拉森贝格"
+        },
+        {
+          "id": 14,
+          "name": "克里斯汀·沙尔"
+        },
+        {
+          "id": 15,
+          "name": "克莉丝·马歇尔"
+        },
+        {
+          "id": 16,
+          "name": "托尼·海尔"
+        },
+        {
+          "id": 17,
+          "name": "布莱克·克拉克"
         }
       ],
       "countries": [
-        "美国",
-        "日本"
+        "美国"
       ],
       "languages": [
         "英语"
@@ -490,17 +537,21 @@
       "aka": [
         "反斗奇兵5(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29355505",
       "poster_path": "posters/douban/movie_cn/36238849.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36238849/",
       "douban_link_verified": true,
-      "overview": "胡迪、巴斯光年、翠丝等玩伴们，经历了时间的考验，这次要面对来自科技的挑战……",
-      "durations": [],
+      "overview": "本部续作中，胡迪、巴斯光年、翠斯等“元老级”玩具将跟随小主人邦妮的成长脚步，共同迎接数字时代下的全新挑战。随着无所不能的科技产品逐渐走进童年世界，一批充满科技感的崭新角色也随之重磅亮相：青蛙造型的智能平板小荷、憨态可掬的导航玩具小不丢、活力十足的抓拍好手小拍侠，以及自带笑点的臭屁小机灵。\n当身边的同龄朋友们开始沉浸在科技玩具带来的“电子陪伴”中，而玩具伙伴们也迎来了前所未有的生存难题：在屏幕占据注意力的时代，玩具的时代真的结束了吗？在“被取代”危机的当下，这群玩具伙伴还能否携手，帮助邦妮找回属于自己的真实友谊与快乐？",
+      "durations": [
+        "90分钟"
+      ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1084244,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1084244"
     },
     {
       "id": 37152802,
@@ -558,7 +609,7 @@
       "aka": [
         "Invictus"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35929985",
       "poster_path": "posters/douban/movie_cn/37152802.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37152802/",
@@ -568,7 +619,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1435047,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1435047"
     },
     {
       "id": 34833849,
@@ -732,7 +785,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1275051,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1275051"
     },
     {
       "id": 30226070,
@@ -812,12 +867,138 @@
       "durations": [
         "97分钟"
       ],
-      "release_windows": [
+      "release_windows": [],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 35575521,
+      "title": "森林之声",
+      "original_title": "Ozi: Voice of the Forest",
+      "release_date": "2026-05-30",
+      "genres": [
         {
-          "id": "weekend",
-          "label": "周末档"
+          "id": 1,
+          "name": "喜剧"
+        },
+        {
+          "id": 2,
+          "name": "动画"
+        },
+        {
+          "id": 3,
+          "name": "冒险"
         }
       ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "Tim Harper"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "唐纳德·萨瑟兰"
+        },
+        {
+          "id": 2,
+          "name": "劳拉·邓恩"
+        },
+        {
+          "id": 3,
+          "name": "杰曼·翰苏"
+        },
+        {
+          "id": 4,
+          "name": "迪恩-查尔斯·查普曼"
+        },
+        {
+          "id": 5,
+          "name": "阿曼德拉·斯坦伯格"
+        },
+        {
+          "id": 6,
+          "name": "鲁保罗"
+        },
+        {
+          "id": 7,
+          "name": "伊万诺·杰里迈亚"
+        },
+        {
+          "id": 8,
+          "name": "玛丽莎·安妮塔"
+        },
+        {
+          "id": 9,
+          "name": "乌兹拉·卡尔森"
+        },
+        {
+          "id": 10,
+          "name": "休·博纳维尔"
+        },
+        {
+          "id": 11,
+          "name": "Véronique Baylaucq"
+        },
+        {
+          "id": 12,
+          "name": "Wilson Benedito"
+        },
+        {
+          "id": 13,
+          "name": "凯马·鲍勃"
+        },
+        {
+          "id": 14,
+          "name": "利亚姆·劳-费尔南德斯"
+        },
+        {
+          "id": 15,
+          "name": "加里·马丁"
+        },
+        {
+          "id": 16,
+          "name": "路易斯·马丁"
+        },
+        {
+          "id": 17,
+          "name": "凯瑞·莎勒"
+        },
+        {
+          "id": 18,
+          "name": "蕾切尔·申顿"
+        },
+        {
+          "id": 19,
+          "name": "乔什·怀特豪斯"
+        }
+      ],
+      "countries": [
+        "英国",
+        "法国",
+        "美国",
+        "加拿大"
+      ],
+      "languages": [
+        "英语",
+        "德语"
+      ],
+      "aka": [
+        "森之声：猩火燎原(台)",
+        "奥齐"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/35575521.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/35575521/",
+      "douban_link_verified": true,
+      "overview": "印度尼西亚雨林的森林砍伐，一只名叫Ozi的十几岁的红毛猩猩被烧毁后成为孤儿。",
+      "durations": [
+        "87分钟"
+      ],
+      "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie"
@@ -918,7 +1099,7 @@
         "失忆",
         "Amnesia"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt39730566",
       "poster_path": "posters/douban/movie_cn/1304447.jpg",
       "douban_rating": "8.7",
       "douban_link_google": "https://movie.douban.com/subject/1304447/",
@@ -928,9 +1109,11 @@
         "113分钟"
       ],
       "release_windows": [],
-      "rating_count": 673009,
+      "rating_count": 673124,
       "rating_star_count": 4.5,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1657704,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1657704"
     },
     {
       "id": 36372941,
@@ -1012,7 +1195,7 @@
       "aka": [
         "All The Good Eyes"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt36598159",
       "poster_path": "posters/douban/movie_cn/36372941.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36372941/",
@@ -1021,31 +1204,28 @@
       "durations": [
         "117分钟"
       ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
+      "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1443374,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1443374",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-05-08T14:10:17.427Z",
-        "rank": 62,
+        "updated_at": "2026-05-08T22:07:45.711Z",
+        "rank": 54,
         "maoyan_movie_id": 1498147,
         "movie_name": "森中有林",
         "release_info": "点映",
-        "real_time_box_office": "0.02万",
+        "real_time_box_office": "0.01万",
         "cumulative_box_office": "421.2万",
         "split_cumulative_box_office": "372.4万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 22,
+        "show_count": 4,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.4%",
-        "avg_show_view": "0.4"
+        "seat_occupancy": "1.8%",
+        "avg_show_view": "1.8"
       }
     },
     {
@@ -1140,7 +1320,7 @@
         "曼达洛人与尤达宝宝",
         "The Mandalorian & Grogu"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt30825738",
       "poster_path": "posters/douban/movie_cn/36723035.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36723035/",
@@ -1152,7 +1332,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1228710,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1228710"
     },
     {
       "id": 37317133,
@@ -1215,7 +1397,7 @@
         "纯爱地",
         "Crossing A Dawn"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt37119662",
       "poster_path": "posters/douban/movie_cn/37317133.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37317133/",
@@ -1227,7 +1409,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1488778,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1488778"
     },
     {
       "id": 36594974,
@@ -1352,17 +1536,21 @@
         "失恋后也不必做的12件事",
         "Be Yourself"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35231529",
       "poster_path": "posters/douban/movie_cn/36117834.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36117834/",
       "douban_link_verified": true,
       "overview": "刚大学毕业的吴小北（庄达菲 饰）被初恋男友李天昊（周澄奧 饰）断崖式分手后陷入无尽的情绪反扑。她沉溺于失恋的痛苦，闺蜜米亚（赵佳丽 饰）像救命的解药，一直陪在她身边。而后，她又阴差阳错先后与情场高手老崔（白客 饰）和热情小奶狗小李（敖子逸 饰）产生交际，邂逅了灵魂契合却很难走近的Crush王哲远（王安宇 饰）。",
-      "durations": [],
+      "durations": [
+        "90分钟"
+      ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1607073,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1607073"
     },
     {
       "id": 37350266,
@@ -1436,7 +1624,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1512942,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1512942"
     },
     {
       "id": 35903155,
@@ -1568,7 +1758,7 @@
         "124分钟"
       ],
       "release_windows": [],
-      "rating_count": 1430,
+      "rating_count": 1432,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -1704,7 +1894,7 @@
         "满满三袋：羊群侦探大电影",
         "Three Bags Full: A Sheep Detective Movie"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32565993",
       "poster_path": "posters/douban/movie_cn/36918069.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36918069/",
@@ -1713,15 +1903,12 @@
       "durations": [
         "109分钟"
       ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
+      "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1301421,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1301421"
     },
     {
       "id": 36311696,
@@ -1781,7 +1968,7 @@
       "aka": [
         "A Man and a Woman"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27935723",
       "poster_path": "posters/douban/movie_cn/36311696.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36311696/",
@@ -1791,15 +1978,12 @@
         "113分钟",
         "117分钟(影展版)"
       ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
+      "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1297245,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1297245"
     },
     {
       "id": 1294941,
@@ -1898,7 +2082,7 @@
         "Stillness in the Water",
         "Hajen"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt42094011",
       "poster_path": "posters/douban/movie_cn/1294941.jpg",
       "douban_rating": "7.8",
       "douban_link_google": "https://movie.douban.com/subject/1294941/",
@@ -1909,9 +2093,11 @@
         "130分钟(美国电视版)"
       ],
       "release_windows": [],
-      "rating_count": 117787,
+      "rating_count": 117849,
       "rating_star_count": 4,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1681420,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1681420"
     },
     {
       "id": 36070920,
@@ -2016,7 +2202,7 @@
         "115分钟"
       ],
       "release_windows": [],
-      "rating_count": 4306,
+      "rating_count": 4332,
       "rating_star_count": 4,
       "type": "movie"
     },
@@ -2145,7 +2331,7 @@
         "真人快打II(台)",
         "真人快打续集"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt17490712",
       "poster_path": "posters/douban/movie_cn/35754057.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35754057/",
@@ -2158,22 +2344,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 931285,
+      "tmdbUrl": "https://www.themoviedb.org/movie/931285",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-05-08T14:10:17.427Z",
-        "rank": 4,
+        "updated_at": "2026-05-08T22:07:45.711Z",
+        "rank": 5,
         "maoyan_movie_id": 1482041,
         "movie_name": "真人快打2",
-        "release_info": "上映首日",
-        "real_time_box_office": "224.79万",
-        "cumulative_box_office": "244.9万",
-        "split_cumulative_box_office": "218.0万",
-        "box_office_rate": "6.5%",
-        "split_box_office_rate": "6.5%",
-        "show_count": 20873,
-        "show_count_rate": "5.6%",
-        "seat_occupancy": "2.0%",
-        "avg_show_view": "2.6"
+        "release_info": "上映2天",
+        "real_time_box_office": "52.55万",
+        "cumulative_box_office": "301.8万",
+        "split_cumulative_box_office": "268.4万",
+        "box_office_rate": "5.2%",
+        "split_box_office_rate": "5.2%",
+        "show_count": 32816,
+        "show_count_rate": "8.4%",
+        "seat_occupancy": "0.2%",
+        "avg_show_view": "0.4"
       }
     },
     {
@@ -2244,7 +2432,7 @@
       "aka": [
         "Qingtong & Kuihua"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt37331877",
       "poster_path": "posters/douban/movie_cn/36500314.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36500314/",
@@ -2257,213 +2445,75 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1500148,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1500148",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-05-08T14:10:17.427Z",
+        "updated_at": "2026-05-08T22:07:45.711Z",
         "rank": 9,
         "maoyan_movie_id": 1356611,
         "movie_name": "青铜葵花",
-        "release_info": "上映首日",
-        "real_time_box_office": "38.34万",
-        "cumulative_box_office": "67.1万",
-        "split_cumulative_box_office": "61.1万",
-        "box_office_rate": "1.1%",
-        "split_box_office_rate": "1.1%",
-        "show_count": 2559,
-        "show_count_rate": "0.6%",
-        "seat_occupancy": "4.4%",
-        "avg_show_view": "4.3"
+        "release_info": "上映2天",
+        "real_time_box_office": "13.10万",
+        "cumulative_box_office": "80.4万",
+        "split_cumulative_box_office": "72.6万",
+        "box_office_rate": "1.2%",
+        "split_box_office_rate": "1.2%",
+        "show_count": 2111,
+        "show_count_rate": "0.5%",
+        "seat_occupancy": "1.8%",
+        "avg_show_view": "1.8"
       }
     },
     {
-      "id": 1295409,
-      "title": "纵横四海",
-      "original_title": "縱橫四海",
-      "release_date": "2026-05-03",
+      "id": 38445184,
+      "title": "逢生：直面癌症",
+      "original_title": "逢生：直面癌症",
+      "release_date": "2026-05-08",
       "genres": [
         {
           "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "喜剧"
-        },
-        {
-          "id": 3,
-          "name": "动作"
-        },
-        {
-          "id": 4,
-          "name": "犯罪"
+          "name": "纪录片"
         }
       ],
       "directors": [
         {
           "id": 1,
-          "name": "吴宇森"
+          "name": "刘建中"
         }
       ],
       "actors": [
         {
           "id": 1,
-          "name": "周润发"
+          "name": "樊代明"
         },
         {
           "id": 2,
-          "name": "张国荣"
+          "name": "郝希山"
         },
         {
           "id": 3,
-          "name": "钟楚红"
+          "name": "樊嘉"
         },
         {
           "id": 4,
-          "name": "朱江"
+          "name": "徐兵河"
         },
         {
           "id": 5,
-          "name": "曾江"
+          "name": "季加孚"
         },
         {
           "id": 6,
-          "name": "胡枫"
+          "name": "王瑛"
         },
         {
           "id": 7,
-          "name": "唐宁"
+          "name": "赵勇"
         },
         {
           "id": 8,
-          "name": "邓一君"
-        }
-      ],
-      "countries": [
-        "中国香港"
-      ],
-      "languages": [
-        "粤语",
-        "汉语普通话",
-        "客家话",
-        "英语",
-        "法语"
-      ],
-      "aka": [
-        "Once a Thief"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/1295409.jpg",
-      "douban_rating": "8.8",
-      "douban_link_google": "https://movie.douban.com/subject/1295409/",
-      "douban_link_verified": true,
-      "overview": "砵仔糕（周润发 饰）、阿占（张国荣 饰）和红豆（钟楚红 饰）均是孤儿，在养父（曾江 饰）栽培下成为国际大盗。长大后成了帮他赚钱的艺术品大盗，而三人同时又认了警察（朱江 饰）为干爹。\n法国巴黎博物馆内，名画《赫林之女仆》被人盗走。与此同时，阿海、阿占和红豆三人以敏捷身手盗得另一幅名画，在与法国大哥交易时得知名画《赫林之女仆》在妖气重重的古堡内，他们在曾江安排下成功地盗取此画之后，反被集团原凶曾江与法国大哥合谋设下陷阱，派人追杀灭口。阿海驾车与杀手快艇相撞……\n三人失散，数年后，他们在香港重聚，阿海“瘫痪”住在朱江家里，阿占和红豆已经结婚了。曾江又逼他们去偷画……",
-      "durations": [
-        "109分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "may_day",
-          "label": "五一档"
-        }
-      ],
-      "rating_count": 483080,
-      "rating_star_count": 4.5,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-05-08T14:10:17.427Z",
-        "rank": 8,
-        "maoyan_movie_id": 78707,
-        "movie_name": "纵横四海",
-        "release_info": "上映6天",
-        "real_time_box_office": "45.49万",
-        "cumulative_box_office": "955.6万",
-        "split_cumulative_box_office": "836.7万",
-        "box_office_rate": "1.3%",
-        "split_box_office_rate": "1.3%",
-        "show_count": 9745,
-        "show_count_rate": "2.6%",
-        "seat_occupancy": "1.4%",
-        "avg_show_view": "1.3"
-      }
-    },
-    {
-      "id": 36965301,
-      "title": "消失的人",
-      "original_title": "消失的人",
-      "release_date": "2026-05-01",
-      "genres": [
-        {
-          "id": 1,
-          "name": "悬疑"
-        },
-        {
-          "id": 2,
-          "name": "惊悚"
-        },
-        {
-          "id": 3,
-          "name": "犯罪"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "程伟豪"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "郑恺"
-        },
-        {
-          "id": 2,
-          "name": "刘浩存"
-        },
-        {
-          "id": 3,
-          "name": "邱泽"
-        },
-        {
-          "id": 4,
-          "name": "李晨"
-        },
-        {
-          "id": 5,
-          "name": "姜妍"
-        },
-        {
-          "id": 6,
-          "name": "黄小蕾"
-        },
-        {
-          "id": 7,
-          "name": "李梦"
-        },
-        {
-          "id": 8,
-          "name": "张琪"
-        },
-        {
-          "id": 9,
-          "name": "毕雯珺"
-        },
-        {
-          "id": 10,
-          "name": "冯兵"
-        },
-        {
-          "id": 11,
-          "name": "滕哲"
-        },
-        {
-          "id": 12,
-          "name": "冯雪雅"
-        },
-        {
-          "id": 13,
-          "name": "汤心一"
+          "name": "胡歌"
         }
       ],
       "countries": [
@@ -2473,44 +2523,38 @@
         "汉语普通话"
       ],
       "aka": [
-        "消失的孩子(电影版)",
-        "海葵",
-        "Vanishing Point"
+        "逢生：直面肿瘤",
+        "New Lease On Life: Facing Cancer"
       ],
       "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36965301.jpg",
-      "douban_rating": "7.7",
-      "douban_link_google": "https://movie.douban.com/subject/36965301/",
+      "poster_path": "posters/douban/movie_cn/38445184.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/38445184/",
       "douban_link_verified": true,
-      "overview": "一个寻常的清晨，唐宇（郑恺 饰）的儿子在楼梯间凭空消失；隔壁单元里，独居女孩林雨彤（刘浩存 饰）在熟睡中被人侵犯；赌鬼租客严午（邱泽 饰）满身血污，谎编踪迹藏匿尸体。这栋看似平静、不起眼的居民楼里，每个擦肩而过的“熟人”，都有可能是藏着獠牙的恶鬼。当人心比鬼更可怕时，你每天出入的家门，都可能是通往地狱的入口……\n本片改编自豆瓣阅读连载小说《海葵》，作者贝客邦。",
+      "overview": "本片以真实病例为样本，通过医生的多方面多角度的讲解，从预防、筛查、诊断、治疗、康复五个方面详细讲述了我们应该如何认识癌症。",
       "durations": [
-        "140分钟"
+        "96分钟"
       ],
-      "release_windows": [
-        {
-          "id": "may_day",
-          "label": "五一档"
-        }
-      ],
-      "rating_count": 34115,
-      "rating_star_count": 4,
+      "release_windows": [],
+      "rating_count": null,
+      "rating_star_count": null,
       "type": "movie",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-05-08T14:10:17.427Z",
-        "rank": 1,
-        "maoyan_movie_id": 1528954,
-        "movie_name": "消失的人",
-        "release_info": "上映8天",
-        "real_time_box_office": "1168.50万",
-        "cumulative_box_office": "3.04亿",
-        "split_cumulative_box_office": "2.66亿",
-        "box_office_rate": "34.0%",
-        "split_box_office_rate": "33.6%",
-        "show_count": 102297,
-        "show_count_rate": "27.8%",
-        "seat_occupancy": "2.4%",
-        "avg_show_view": "3.3"
+        "updated_at": "2026-05-08T22:07:45.711Z",
+        "rank": 42,
+        "maoyan_movie_id": 1654480,
+        "movie_name": "逢生：直面癌症",
+        "release_info": "上映2天",
+        "real_time_box_office": "0.07万",
+        "cumulative_box_office": "3.3万",
+        "split_cumulative_box_office": "3.3万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 17,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "1.6%",
+        "avg_show_view": "1.5"
       }
     }
   ]

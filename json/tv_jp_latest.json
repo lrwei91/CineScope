@@ -1,41 +1,58 @@
 {
   "metadata": {
-    "last_updated": "2026-05-08T16:38:20.330Z",
+    "last_updated": "2026-05-08T23:02:24.942Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-05-08T16:38:20.330Z",
-        "summary": "已同步日剧数据（latest）：21 条"
+        "time": "2026-05-08T23:02:24.942Z",
+        "summary": "已同步日剧数据（latest）：49 条"
       }
     ],
-    "source": "douban",
+    "source": "douban+tmdb",
     "source_collections": [
       {
         "slug": "tv_japanese",
         "source": "douban",
-        "count": 38,
+        "count": 37,
+        "fetch_error": null
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 301,
         "fetch_error": null
       }
     ],
-    "total_items": 21
+    "total_items": 49
   },
   "shows": [
     {
-      "id": 37134474,
+      "id": 300529,
+      "tmdb_id": 300529,
       "name": "地狱占星师",
       "original_name": "地獄に堕ちるわよ",
-      "imdb_id": null,
+      "imdb_id": "tt38337374",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "传记"
         }
       ],
-      "networks": [],
+      "type": "Scripted",
+      "vote_average": 7.5,
+      "vote_count": 10,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -119,42 +136,42 @@
         "地獄に落ちるわよ",
         "Straight To Hell"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.netflix.com/title/81700182",
+      "popularity": 23.8125,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 9,
       "first_air_date": "2026-04-27",
       "last_air_date": "2026-04-27",
-      "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
-      "poster_path": "posters/douban/tv_jp/37134474.jpg",
-      "backdrop_path": null,
-      "overview": "细木数子是一位风靡全日本的传奇占星师，但这位善于操纵媒体、叱咤风云的女性，背后的真面目究竟为何？\n细木数子凭借独到的六星占术，以及“大杀界”和“你会下地狱！”等极具争议的预言，掀起一股占星热潮。她以一部电视节目及创下吉尼斯世界纪录的“史上最畅销占星书籍”席卷电视及出版业，众人无不为她围绕着财富、男人和名誉的惊人生命能量倾倒。\n一窥这位占星师令人崇敬的奋斗历程、无法满足的欲望等不为人知的过往。",
-      "rating_count": 5627,
+      "poster_path": "/jJFgBl3EILtmD6q2GsFtxYXmVax.jpg",
+      "backdrop_path": "/xsJDVNFmOg9N9uKZmPZh9tzyynl.jpg",
+      "overview": "细木数子是一位善于六星占术的占卜师，以直言不讳、充满警戒意味的预言，如“大杀界”和“你会下地狱”等语句席卷日本。她出身战后贫困家庭，二十多岁就一手创立多间知名夜店，成为东京夜生活名气响叮当的“银座女王”。后来，她以占卜师之姿在电视圈和出版界一枝独秀，笔下著作更创下吉尼斯世界纪录。然而，她的崛起也伴随着欺诈指控及黑帮流言的阴影。这个充满争议的大人物究竟真实面貌为何？",
+      "rating_count": 6551,
       "rating_star_count": 4,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 37134474,
+          "id": 300529,
           "air_date": "2026-04-27",
-          "episode_count": null,
-          "vote_average": 7.9,
-          "poster_path": "posters/douban/tv_jp/37134474.jpg",
+          "episode_count": 9,
+          "vote_average": 7.5,
+          "poster_path": "/jJFgBl3EILtmD6q2GsFtxYXmVax.jpg",
           "douban_rating": "7.9",
           "douban_link_google": "https://movie.douban.com/subject/37134474/",
-          "overview": "细木数子是一位风靡全日本的传奇占星师，但这位善于操纵媒体、叱咤风云的女性，背后的真面目究竟为何？\n细木数子凭借独到的六星占术，以及“大杀界”和“你会下地狱！”等极具争议的预言，掀起一股占星热潮。她以一部电视节目及创下吉尼斯世界纪录的“史上最畅销占星书籍”席卷电视及出版业，众人无不为她围绕着财富、男人和名誉的惊人生命能量倾倒。\n一窥这位占星师令人崇敬的奋斗历程、无法满足的欲望等不为人知的过往。",
+          "overview": "细木数子是一位善于六星占术的占卜师，以直言不讳、充满警戒意味的预言，如“大杀界”和“你会下地狱”等语句席卷日本。她出身战后贫困家庭，二十多岁就一手创立多间知名夜店，成为东京夜生活名气响叮当的“银座女王”。后来，她以占卜师之姿在电视圈和出版界一枝独秀，笔下著作更创下吉尼斯世界纪录。然而，她的崛起也伴随着欺诈指控及黑帮流言的阴影。这个充满争议的大人物究竟真实面貌为何？",
           "douban_link_verified": true
         }
       ]
     },
     {
       "id": 38357062,
-      "name": "禁忌女孩(日版)",
+      "name": "转校生娜诺",
       "original_name": "転校生ナノ",
-      "imdb_id": null,
+      "imdb_id": "tt40527341",
       "genres": [
         {
           "id": 1,
@@ -173,7 +190,20 @@
           "name": "奇幻"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 1,
+          "logo_path": "/4x4GsmRmSLLL0RVNKsoqAVH43tz.png",
+          "name": "Fuji TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2763,
+          "logo_path": "/xMGdd8hvu91BK098UwbUv9IdjM5.png",
+          "name": "FOD",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -208,15 +238,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 6,
       "first_air_date": "2026-04-24",
       "last_air_date": "2026-04-24",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38357062.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/ffmpyMKlOYhCtOLADniKKL4gza9.jpg",
       "overview": "故事延续原作内核，讲述神秘转学生Nanno现身校园，以其冰冷而聪慧的观察力洞悉人性的虚伪与欲望。每集她都会转入不同的学校，在教师与学生们隐藏的秘密中穿针引线，诱导他们做出选择，从而彻底撕开那些苦心经营的秩序伪装。",
       "rating_count": null,
       "rating_star_count": null,
@@ -234,13 +264,17 @@
           "overview": "故事延续原作内核，讲述神秘转学生Nanno现身校园，以其冰冷而聪慧的观察力洞悉人性的虚伪与欲望。每集她都会转入不同的学校，在教师与学生们隐藏的秘密中穿针引线，诱导他们做出选择，从而彻底撕开那些苦心经营的秩序伪装。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 314593,
+      "tmdbUrl": "https://www.themoviedb.org/tv/314593",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 38248420,
       "name": "伪装的真实之吻",
       "original_name": "フェイクファクトリップス",
-      "imdb_id": null,
+      "imdb_id": "tt41986837",
       "genres": [
         {
           "id": 1,
@@ -255,7 +289,20 @@
           "name": "同性"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 1136,
+          "logo_path": "/oMtJVGvqLAyQZvYTvjDIcbVEzwD.png",
+          "name": "BS Fuji",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2763,
+          "logo_path": "/xMGdd8hvu91BK098UwbUv9IdjM5.png",
+          "name": "FOD",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -304,15 +351,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 10,
       "first_air_date": "2026-04-23",
       "last_air_date": "2026-04-23",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38248420.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/tm1zoEz51ILDn1zdhB1rGGBDENH.jpg",
       "overview": "四谷良与志藤全自高中时代起便是竞争对手，如今又成为营业部同期。同样优秀的两人，从成绩、运动到情人节巧克力数量都要分个高下。工作后重逢，沉睡的斗志再度被点燃，连恋爱经验也成了较劲的项目。一次酒后争执让他们发展出荒唐的“恋爱胜负”，不服输的性格让比试不断升级，甚至演变成“谁先让对方动心谁就赢”的较量。明明职场能力出众，却在感情上青涩笨拙，两位大人展开一场又傻又甜的恋爱对决——究竟是谁先沦陷？\n本剧改编自末広マチ的同名原著漫画。",
       "rating_count": null,
       "rating_star_count": null,
@@ -330,7 +377,11 @@
           "overview": "四谷良与志藤全自高中时代起便是竞争对手，如今又成为营业部同期。同样优秀的两人，从成绩、运动到情人节巧克力数量都要分个高下。工作后重逢，沉睡的斗志再度被点燃，连恋爱经验也成了较劲的项目。一次酒后争执让他们发展出荒唐的“恋爱胜负”，不服输的性格让比试不断升级，甚至演变成“谁先让对方动心谁就赢”的较量。明明职场能力出众，却在感情上青涩笨拙，两位大人展开一场又傻又甜的恋爱对决——究竟是谁先沦陷？\n本剧改编自末広マチ的同名原著漫画。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 315758,
+      "tmdbUrl": "https://www.themoviedb.org/tv/315758",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 38246500,
@@ -347,7 +398,14 @@
           "name": "喜剧"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 1163,
+          "logo_path": "/1J33ZvSff1VOEt3aC8CyKmj9GEy.png",
+          "name": "Kansai TV",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -426,17 +484,17 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 11,
       "first_air_date": "2026-04-20",
       "last_air_date": "2026-04-20",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38246500.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/5l3R6deKKjyXkjqahFd2lSr8Rc2.jpg",
       "overview": "故事始于一封揭发政治家不正行为的告发信。执政党干事长之女、同时也是秘书的星野茉莉（黑木华 饰）暗中追查真相，却因此被父亲切割，失去工作与容身之所，人生瞬间跌入谷底。走投无路之际，她遇见了性格爽朗、毫无政治经验的小酒馆妈妈桑月冈明里（野吕佳代 饰）。一次突如其来的东京都知事选举，让茉莉萌生念头——推举这个“政治素人”参选。两名背景与性格截然不同的女性就此携手，在权谋与舆论交织的选战中并肩作战，展开一场笑中带泪、热血又另类的“选举娱乐”故事。",
-      "rating_count": 185,
+      "rating_count": 188,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -452,7 +510,11 @@
           "overview": "故事始于一封揭发政治家不正行为的告发信。执政党干事长之女、同时也是秘书的星野茉莉（黑木华 饰）暗中追查真相，却因此被父亲切割，失去工作与容身之所，人生瞬间跌入谷底。走投无路之际，她遇见了性格爽朗、毫无政治经验的小酒馆妈妈桑月冈明里（野吕佳代 饰）。一次突如其来的东京都知事选举，让茉莉萌生念头——推举这个“政治素人”参选。两名背景与性格截然不同的女性就此携手，在权谋与舆论交织的选战中并肩作战，展开一场笑中带泪、热血又另类的“选举娱乐”故事。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 314639,
+      "tmdbUrl": "https://www.themoviedb.org/tv/314639",
+      "vote_average": 7,
+      "vote_count": 1
     },
     {
       "id": 38220935,
@@ -525,7 +587,7 @@
       "poster_path": "posters/douban/tv_jp/38220935.jpg",
       "backdrop_path": null,
       "overview": "熊手真白的过去起点即将被揭露！",
-      "rating_count": 165,
+      "rating_count": 167,
       "rating_star_count": 4.5,
       "seasons": [
         {
@@ -547,7 +609,7 @@
       "id": 38210087,
       "name": "田锁兄弟",
       "original_name": "田鎖ブラザーズ",
-      "imdb_id": null,
+      "imdb_id": "tt41801303",
       "genres": [
         {
           "id": 1,
@@ -558,7 +620,14 @@
           "name": "犯罪"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 160,
+          "logo_path": "/lUACMATs6jcscXIrzNCQzbvNVN5.png",
+          "name": "TBS",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -639,15 +708,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 4,
       "first_air_date": "2026-04-17",
       "last_air_date": "2026-04-17",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38210087.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/sUmCt17u3XAGWiY6fpBN1iJeBQK.jpg",
       "overview": "31年前父母被杀的兄弟俩，长大后成为警察，为了亲手制裁因时效而无法被法律惩处的真凶，一边处理日常凶恶案件，一边追查过去的真相……",
       "rating_count": null,
       "rating_star_count": null,
@@ -665,13 +734,159 @@
           "overview": "31年前父母被杀的兄弟俩，长大后成为警察，为了亲手制裁因时效而无法被法律惩处的真凶，一边处理日常凶恶案件，一边追查过去的真相……",
           "douban_link_verified": true
         }
+      ],
+      "tmdb_id": 311871,
+      "tmdbUrl": "https://www.themoviedb.org/tv/311871",
+      "vote_average": 7,
+      "vote_count": 1
+    },
+    {
+      "id": 316973,
+      "tmdb_id": 316973,
+      "name": "蒲公英",
+      "original_name": "だんでらいおん",
+      "imdb_id": "tt40356933",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.1,
+      "vote_count": 7,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.netflix.com/title/81579317",
+      "popularity": 3.9748,
+      "number_of_seasons": 1,
+      "number_of_episodes": 7,
+      "first_air_date": "2026-04-16",
+      "last_air_date": "2026-04-16",
+      "in_production": false,
+      "status": "Ended",
+      "episodes_info": "Ended",
+      "adult": false,
+      "poster_path": "/defMsGyon7Zhnt9iIDfhxDnakDK.jpg",
+      "backdrop_path": "/wBT1pkBkZk9jkytbxUghIDWEq8T.jpg",
+      "overview": "日本天使联盟送迎部负责追踪留恋人间的亡灵，温柔地将他们送往来世。天使每天疲于奔命，但第 21 班蒲公英组的丹波铁男和组长黑铁美咲，决定走出自己的步调。他们不急于办案，而是花时间与亡灵相处、倾听悔恨，化解他们心中的罣碍。有天，他们发现一个年迈的亡灵正全力冲刺，亟欲逃离……",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 316973,
+          "air_date": "2026-04-16",
+          "episode_count": 7,
+          "vote_average": 8.1,
+          "poster_path": "/defMsGyon7Zhnt9iIDfhxDnakDK.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "日本天使联盟送迎部负责追踪留恋人间的亡灵，温柔地将他们送往来世。天使每天疲于奔命，但第 21 班蒲公英组的丹波铁男和组长黑铁美咲，决定走出自己的步调。他们不急于办案，而是花时间与亡灵相处、倾听悔恨，化解他们心中的罣碍。有天，他们发现一个年迈的亡灵正全力冲刺，亟欲逃离……",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 293697,
+      "tmdb_id": 293697,
+      "name": "想结束这场“我爱你”的游戏",
+      "original_name": "愛してるゲームを終わらせたい",
+      "imdb_id": "tt39122671",
+      "genres": [
+        {
+          "id": 35,
+          "name": "喜剧"
+        },
+        {
+          "id": 16,
+          "name": "动画"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 5.9,
+      "vote_count": 5,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.aishiteru-game.com/",
+      "popularity": 7.2785,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-14",
+      "last_air_date": "2026-05-05",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/zyyaIikcX14ezH2lHoKlWue0Dpt.jpg",
+      "backdrop_path": "/1VeWzVFQjqsPNDext7MHi7nTKHo.jpg",
+      "overview": "升上同一所高中的浅葱优希也与樱美玖，是一对「彼此暗恋」的青梅竹马。明明已经察觉到自己的心意，却始终无法坦率面对彼此，距离越近，越喜欢对方，也越是说不出口。无法坦率的两人，连系着他们的是从孩提时期就持续到现在的「我爱你游戏」。两人轮流说出「我爱你」，先害羞的人就输了，这般幼稚的游戏，直到现在，这场意气之争仍然持续着。为了摆脱彼此暗恋的关系，倾注所有心意的「恋爱游戏」即将开始！！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 293697,
+          "air_date": "2026-04-14",
+          "episode_count": 12,
+          "vote_average": 5.9,
+          "poster_path": "/zyyaIikcX14ezH2lHoKlWue0Dpt.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "升上同一所高中的浅葱优希也与樱美玖，是一对「彼此暗恋」的青梅竹马。明明已经察觉到自己的心意，却始终无法坦率面对彼此，距离越近，越喜欢对方，也越是说不出口。无法坦率的两人，连系着他们的是从孩提时期就持续到现在的「我爱你游戏」。两人轮流说出「我爱你」，先害羞的人就输了，这般幼稚的游戏，直到现在，这场意气之争仍然持续着。为了摆脱彼此暗恋的关系，倾注所有心意的「恋爱游戏」即将开始！！",
+          "douban_link_verified": false
+        }
       ]
     },
     {
       "id": 38363592,
-      "name": "再生 ～最后英雄～",
+      "name": "重生 ～最后的英雄～",
       "original_name": "リボーン ～最後のヒーロー～",
-      "imdb_id": null,
+      "imdb_id": "tt41564444",
       "genres": [
         {
           "id": 1,
@@ -682,7 +897,14 @@
           "name": "悬疑"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 103,
+          "logo_path": "/j3xAzk1SYQQwrQOD7acdSz675Wa.png",
+          "name": "tv asahi",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -743,17 +965,17 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 10,
       "first_air_date": "2026-04-14",
       "last_air_date": "2026-04-14",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38363592.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/xq3KsMcCSiGqHS8FuqZ88412VFA.jpg",
       "overview": "本作讲述了一位从成功IT社长转生为面临困境的普通人的男性之“再生＝REBORN”的故事。被称为时代宠儿的新兴IT企业社长根尾光诚，为实现君临业界顶点的野心而一意孤行，为此向创业成员强人所难，并毫不留情地将其舍弃。其在媒体上傲慢言论频出，被视为冷酷无情之人。某日，光诚遭人推下楼梯坠亡。不知为何，他在医院中醒来，发现自己已转生到2012年的世界，化身为与自己相貌一模一样的野本英人。\n作为东京下町萧条关闭的商店街上某家洗衣店的继承人英人，光诚开始了与自己原本性格和生活截然不同的人生。等待着他的是与那些转生前2026年自己曾倚仗财富名声打压过的商店街居民们的生活。光诚决心以手中掌握的“未来14年记忆”为武器，以英人的身份活下去，同时追查2026年杀害自己的真凶。最终，他将站在苦境的平民立场，与那些极致追求财富与名声的上层阶级展开对决。",
-      "rating_count": 238,
+      "rating_count": 242,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -769,7 +991,11 @@
           "overview": "本作讲述了一位从成功IT社长转生为面临困境的普通人的男性之“再生＝REBORN”的故事。被称为时代宠儿的新兴IT企业社长根尾光诚，为实现君临业界顶点的野心而一意孤行，为此向创业成员强人所难，并毫不留情地将其舍弃。其在媒体上傲慢言论频出，被视为冷酷无情之人。某日，光诚遭人推下楼梯坠亡。不知为何，他在医院中醒来，发现自己已转生到2012年的世界，化身为与自己相貌一模一样的野本英人。\n作为东京下町萧条关闭的商店街上某家洗衣店的继承人英人，光诚开始了与自己原本性格和生活截然不同的人生。等待着他的是与那些转生前2026年自己曾倚仗财富名声打压过的商店街居民们的生活。光诚决心以手中掌握的“未来14年记忆”为武器，以英人的身份活下去，同时追查2026年杀害自己的真凶。最终，他将站在苦境的平民立场，与那些极致追求财富与名声的上层阶级展开对决。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 315494,
+      "tmdbUrl": "https://www.themoviedb.org/tv/315494",
+      "vote_average": 7,
+      "vote_count": 1
     },
     {
       "id": 38349056,
@@ -794,9 +1020,66 @@
           "name": "犯罪"
         }
       ],
-      "networks": [],
-      "directors": [],
-      "actors": [],
+      "networks": [
+        {
+          "id": 1,
+          "logo_path": "/4x4GsmRmSLLL0RVNKsoqAVH43tz.png",
+          "name": "Fuji TV",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "田中亮"
+        },
+        {
+          "id": 2,
+          "name": "平野真"
+        },
+        {
+          "id": 3,
+          "name": "河野圭太"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "佐藤二朗"
+        },
+        {
+          "id": 2,
+          "name": "桥本爱"
+        },
+        {
+          "id": 3,
+          "name": "矢本悠马"
+        },
+        {
+          "id": 4,
+          "name": "中村海斗"
+        },
+        {
+          "id": 5,
+          "name": "齐藤京子"
+        },
+        {
+          "id": 6,
+          "name": "月岛琉衣"
+        },
+        {
+          "id": 7,
+          "name": "清水美沙"
+        },
+        {
+          "id": 8,
+          "name": "齐藤由贵"
+        },
+        {
+          "id": 9,
+          "name": "坂东弥十郎"
+        }
+      ],
       "countries": [
         "日本"
       ],
@@ -809,15 +1092,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 3,
       "first_air_date": "2026-04-14",
       "last_air_date": "2026-04-14",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38349056.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/25NPavGk3Q0xAXH4d0Mp0zcwUek.jpg",
       "overview": "故事设定在东京中野的沼袋警察署，佐藤二朗和桥本爱饰演一对配合默契的刑警搭档，但他俩其实是合法夫妻。因为警局有“夫妻不能同部门”的潜规则，为了不被拆散，两人只能隐瞒关系，在这个“职场”里装作只是普通同事。",
       "rating_count": null,
       "rating_star_count": null,
@@ -835,12 +1118,93 @@
           "overview": "故事设定在东京中野的沼袋警察署，佐藤二朗和桥本爱饰演一对配合默契的刑警搭档，但他俩其实是合法夫妻。因为警局有“夫妻不能同部门”的潜规则，为了不被拆散，两人只能隐瞒关系，在这个“职场”里装作只是普通同事。",
           "douban_link_verified": true
         }
+      ],
+      "tmdb_id": 314461,
+      "tmdbUrl": "https://www.themoviedb.org/tv/314461",
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "id": 297557,
+      "tmdb_id": 297557,
+      "name": "黑猫与魔女的教室",
+      "original_name": "黒猫と魔女の教室",
+      "imdb_id": "tt39123043",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 160,
+          "logo_path": "/lUACMATs6jcscXIrzNCQzbvNVN5.png",
+          "name": "TBS",
+          "origin_country": "JP"
+        },
+        {
+          "id": 201,
+          "logo_path": "/qNooLje0YQh1y3y9LUM2Y5QCtiF.png",
+          "name": "CBC",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://witch-classroom.com",
+      "popularity": 7.5156,
+      "number_of_seasons": 1,
+      "number_of_episodes": 6,
+      "first_air_date": "2026-04-12",
+      "last_air_date": "2026-04-26",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/rH1tLxuyG1Ad6GXswveI7ROIa31.jpg",
+      "backdrop_path": "/tR8AoRgTCLS0y0iI1Eou8vZylfq.jpg",
+      "overview": "　　“见习魔女”丝碧卡·瓦戈以考上“王立戴安娜魔法学校”并成为一等魔法师为目标，却一直无法成功使用魔法飞行。\n\n　　某天，一只会讲人话还会操纵魔法的神秘黑猫出现在她的面前！！\n\n　　想要学习魔法的丝碧卡和想要解除诅咒的黑猫想法完全一致！他们就此结成了秘密的师徒关系！！\n\n　　然而，解开诅咒的关键竟然是亲吻“×××”！？",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 297557,
+          "air_date": "2026-04-12",
+          "episode_count": 6,
+          "vote_average": 7,
+          "poster_path": "/rH1tLxuyG1Ad6GXswveI7ROIa31.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　“见习魔女”丝碧卡·瓦戈以考上“王立戴安娜魔法学校”并成为一等魔法师为目标，却一直无法成功使用魔法飞行。\n\n　　某天，一只会讲人话还会操纵魔法的神秘黑猫出现在她的面前！！\n\n　　想要学习魔法的丝碧卡和想要解除诅咒的黑猫想法完全一致！他们就此结成了秘密的师徒关系！！\n\n　　然而，解开诅咒的关键竟然是亲吻“×××”！？",
+          "douban_link_verified": false
+        }
       ]
     },
     {
       "id": 37560613,
       "name": "礼物",
-      "original_name": "ギフト",
+      "original_name": "GIFT",
       "imdb_id": null,
       "genres": [
         {
@@ -852,7 +1216,14 @@
           "name": "运动"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 160,
+          "logo_path": "/lUACMATs6jcscXIrzNCQzbvNVN5.png",
+          "name": "TBS",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -993,17 +1364,17 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 3,
       "first_air_date": "2026-04-12",
       "last_air_date": "2026-04-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/37560613.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/4C8nlqPrcZwwScTtdkPQKul4K8V.jpg",
       "overview": "本剧以轮椅橄榄球为舞台，讲述性格孤僻的天才宇宙物理学家伍铁文人（堤真一 饰），意外接触到由表姐执教的弱旅“烈焰公牛”。球队长期无胜、矛盾重重，他却把“问题成堆”视为最有趣的难题，夸口要带队夺冠。从不懂规则到深入其中，他在为球队拆解战术与人心困局的过程中，逐渐与队员真心碰撞，也开 始直面自己封闭孤独的人生伤口。这是一段关于羁绊、理解与重生的热血物语。",
-      "rating_count": 262,
+      "rating_count": 263,
       "rating_star_count": 3,
       "seasons": [
         {
@@ -1019,7 +1390,11 @@
           "overview": "本剧以轮椅橄榄球为舞台，讲述性格孤僻的天才宇宙物理学家伍铁文人（堤真一 饰），意外接触到由表姐执教的弱旅“烈焰公牛”。球队长期无胜、矛盾重重，他却把“问题成堆”视为最有趣的难题，夸口要带队夺冠。从不懂规则到深入其中，他在为球队拆解战术与人心困局的过程中，逐渐与队员真心碰撞，也开 始直面自己封闭孤独的人生伤口。这是一段关于羁绊、理解与重生的热血物语。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 314647,
+      "tmdbUrl": "https://www.themoviedb.org/tv/314647",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 38242792,
@@ -1032,7 +1407,14 @@
           "name": "剧情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 1410,
+          "logo_path": "/ca3Qw7exc3RPSd0CQFOZuSNbGjF.png",
+          "name": "ABC TV",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1097,15 +1479,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 4,
       "first_air_date": "2026-04-12",
       "last_air_date": "2026-04-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38242792.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/vB9MROsPg2FAdtTkDGsg263NslJ.jpg",
       "overview": "本作讲述了导致某位女性死亡的中田梦，与该女性的女儿大迫未央相遇的故事。两个月前，梦本欲救助试图自杀的女性，但该女性当晚却从大楼坠落身亡。死者独生女大迫未央无法接受母亲自杀的事实，陷入绝望。某日，梦与未央偶然相遇。意识到未央正是坠亡女性女儿的梦，再度直面自身过错的沉重，却无法说出真相。然而未央逐渐向梦敞开心扉，两人之间诞生的奇妙友谊不断成长。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1123,7 +1505,11 @@
           "overview": "本作讲述了导致某位女性死亡的中田梦，与该女性的女儿大迫未央相遇的故事。两个月前，梦本欲救助试图自杀的女性，但该女性当晚却从大楼坠落身亡。死者独生女大迫未央无法接受母亲自杀的事实，陷入绝望。某日，梦与未央偶然相遇。意识到未央正是坠亡女性女儿的梦，再度直面自身过错的沉重，却无法说出真相。然而未央逐渐向梦敞开心扉，两人之间诞生的奇妙友谊不断成长。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 313730,
+      "tmdbUrl": "https://www.themoviedb.org/tv/313730",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 38370993,
@@ -1140,7 +1526,14 @@
           "name": "爱情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 57,
+          "logo_path": "/uxaXSoT8K0S2NE5PWsBpHUl3GGU.png",
+          "name": "Nippon TV",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1180,15 +1573,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 2,
       "first_air_date": "2026-04-12",
       "last_air_date": "2026-04-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38370993.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/ePl97FntoVSfxHViwktHedE8eW7.jpg",
       "overview": "志尊饰演的是幼年失去日本父母、成为韩国财阀养子的青年金敏硕 / 青木照。他虽被视为继承人，却在养父死后失势，被逐出韩国家门，时隔23年重返日本。在那里，他邂逅了幼年丧父的医生河濑桃子。事实上两人幼年曾有过一面之缘，却未察觉此事实，跨越23年的时光彼此吸引。然而，意想不到的考验接连降临。标题引自韩国谚语：“任何困难之事，只要不断挑战终会成功”。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1205,6 +1598,480 @@
           "douban_link_google": "https://movie.douban.com/subject/38370993/",
           "overview": "志尊饰演的是幼年失去日本父母、成为韩国财阀养子的青年金敏硕 / 青木照。他虽被视为继承人，却在养父死后失势，被逐出韩国家门，时隔23年重返日本。在那里，他邂逅了幼年丧父的医生河濑桃子。事实上两人幼年曾有过一面之缘，却未察觉此事实，跨越23年的时光彼此吸引。然而，意想不到的考验接连降临。标题引自韩国谚语：“任何困难之事，只要不断挑战终会成功”。",
           "douban_link_verified": true
+        }
+      ],
+      "tmdb_id": 315848,
+      "tmdbUrl": "https://www.themoviedb.org/tv/315848",
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "id": 300131,
+      "tmdb_id": 300131,
+      "name": "杀手青春",
+      "original_name": "キルアオ",
+      "imdb_id": "tt39443399",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 9,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 98,
+          "logo_path": "/jnuO8pZNEBLEq5YaOP1f5OkmG91.png",
+          "name": "TV Tokyo",
+          "origin_country": "JP"
+        },
+        {
+          "id": 252,
+          "logo_path": "/zFZ5KCuvx7K0vP9XgGcidfXjuUd.png",
+          "name": "TV Aichi",
+          "origin_country": "JP"
+        },
+        {
+          "id": 822,
+          "logo_path": "/gOlBe3BMo5WJHeUlWBBfKawgdiO.png",
+          "name": "TVQ",
+          "origin_country": "JP"
+        },
+        {
+          "id": 824,
+          "logo_path": "/6foQmoPac7WCDnDuDbuCZklmDuA.png",
+          "name": "TV Osaka",
+          "origin_country": "JP"
+        },
+        {
+          "id": 938,
+          "logo_path": "/f12LLqBVFnDVIY8HidhWEitI77c.png",
+          "name": "TVh",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2064,
+          "logo_path": "/qi4L1ffRabF5LJqVimCaaUYpeSj.png",
+          "name": "TSC",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://kill-blue.jp",
+      "popularity": 10.6649,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-11",
+      "last_air_date": "2026-05-02",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/lM2EHO2QhFuI7DRqU0yM9fPw8QV.jpg",
+      "backdrop_path": "/veVpU91VITkLsua9EnRqtgNbyVU.jpg",
+      "overview": "　　离异有娃的大狼十三，是在幼时被组织收养的传说杀手。在某事件中被神秘生物兵器所蛰中，变成了初中生模样的十三，去读了初中……\n\n　　内心是大叔的中学生的，学园杀手重生喜剧，开始！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 300131,
+          "air_date": "2026-04-11",
+          "episode_count": 12,
+          "vote_average": 9,
+          "poster_path": "/lM2EHO2QhFuI7DRqU0yM9fPw8QV.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　离异有娃的大狼十三，是在幼时被组织收养的传说杀手。在某事件中被神秘生物兵器所蛰中，变成了初中生模样的十三，去读了初中……\n\n　　内心是大叔的中学生的，学园杀手重生喜剧，开始！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 295357,
+      "tmdb_id": 295357,
+      "name": "北斗神拳",
+      "original_name": "北斗の拳 -FIST OF THE NORTH STAR-",
+      "imdb_id": "tt29106483",
+      "genres": [
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        },
+        {
+          "id": 16,
+          "name": "动画"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.875,
+      "vote_count": 8,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 861,
+          "logo_path": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png",
+          "name": "BS11",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://hokuto-anime.com",
+      "popularity": 11.3151,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-11",
+      "last_air_date": "2026-04-25",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/bLHIVsA7o5mTqIpMzC4MYU7AQ73.jpg",
+      "backdrop_path": "/mVH9xKyA0ETdejTrCLKQI0mGJay.jpg",
+      "overview": "199X年，世界被核火吞噬！然而，人类依然设法存活了下来！出现了一名胸前刻有七道伤痕的独行男人，他的名字是健次郎，北斗神拳的继承者。在这个弱肉强食的世界里，健次郎用他的铁拳开拓出一条道路！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 295357,
+          "air_date": "2026-04-11",
+          "episode_count": 12,
+          "vote_average": 7.875,
+          "poster_path": "/bLHIVsA7o5mTqIpMzC4MYU7AQ73.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "199X年，世界被核火吞噬！然而，人类依然设法存活了下来！出现了一名胸前刻有七道伤痕的独行男人，他的名字是健次郎，北斗神拳的继承者。在这个弱肉强食的世界里，健次郎用他的铁拳开拓出一条道路！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 284447,
+      "tmdb_id": 284447,
+      "name": "弱弱老师",
+      "original_name": "よわよわ先生",
+      "imdb_id": "tt38895862",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 5.4,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 173,
+          "logo_path": "/fERjndErEpveJmQZccJbJDi93rj.png",
+          "name": "AT-X",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.yowayowasensei-anime.com",
+      "popularity": 12.6227,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-11",
+      "last_air_date": "2026-05-02",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/beGS8grRPmcvW1m1QRBA86XsqTo.jpg",
+      "backdrop_path": "/dKA8y1HxEq09M11p896hBkZsku1.jpg",
+      "overview": "　　新学期。成为升上高二的男高中生阿比仓同学他们班主任的是，传言一旦心情不佳就会诅咒人的俗称“咒恨老师”的，鶸村日和老师！在一天放学后，目击了，这样的“咒恨老师”背后一面的，阿比仓同学他……。意想不到的反差让人扭成蛆！挑起你的保护欲的，弱弱恋爱喜剧开幕！！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 284447,
+          "air_date": "2026-04-11",
+          "episode_count": 12,
+          "vote_average": 5.4,
+          "poster_path": "/beGS8grRPmcvW1m1QRBA86XsqTo.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　新学期。成为升上高二的男高中生阿比仓同学他们班主任的是，传言一旦心情不佳就会诅咒人的俗称“咒恨老师”的，鶸村日和老师！在一天放学后，目击了，这样的“咒恨老师”背后一面的，阿比仓同学他……。意想不到的反差让人扭成蛆！挑起你的保护欲的，弱弱恋爱喜剧开幕！！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 283905,
+      "tmdb_id": 283905,
+      "name": "上伊那牡丹，酒醉身姿似百合花般",
+      "original_name": "上伊那ぼたん、酔へる姿は百合の花",
+      "imdb_id": "tt38273912",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.5,
+      "vote_count": 9,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 343,
+          "logo_path": "/9rNqtDYAnD6yTOutvHI3synSEs2.png",
+          "name": "Gunma TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 715,
+          "logo_path": "/yhFNPfWqQTOj8olwR4Gk2H5397X.png",
+          "name": "Teletama",
+          "origin_country": "JP"
+        },
+        {
+          "id": 861,
+          "logo_path": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png",
+          "name": "BS11",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2478,
+          "logo_path": "/2v82HpzoKRveJEJcGHkeTcktMRM.png",
+          "name": "Tochigi TV",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://kamiina-botan.com",
+      "popularity": 8.9206,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-11",
+      "last_air_date": "2026-04-25",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/dUgMFhSKHQpmmWyoVsZ4qLvNVZ0.jpg",
+      "backdrop_path": "/krbKWrBEOjPdUmp1CGRgRVnLsrs.jpg",
+      "overview": "　　新晋大学生上伊那牡丹，在参观秩父特产市场时，目睹了学姐砺波伊吹独自坐在长椅上喝酒的模样，不由得发出了“看起来好好喝”的感想。\n\n　　从牡丹向伊吹讨酒喝开始，两人不但一起喝酒，还结伴购物、吃饭、旅行，相互间的距离逐渐拉近。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 283905,
+          "air_date": "2026-04-11",
+          "episode_count": 12,
+          "vote_average": 7.5,
+          "poster_path": "/dUgMFhSKHQpmmWyoVsZ4qLvNVZ0.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　新晋大学生上伊那牡丹，在参观秩父特产市场时，目睹了学姐砺波伊吹独自坐在长椅上喝酒的模样，不由得发出了“看起来好好喝”的感想。\n\n　　从牡丹向伊吹讨酒喝开始，两人不但一起喝酒，还结伴购物、吃饭、旅行，相互间的距离逐渐拉近。",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 291403,
+      "tmdb_id": 291403,
+      "name": "淡岛百景",
+      "original_name": "淡島百景",
+      "imdb_id": "tt37388613",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.3,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 1,
+          "logo_path": "/4x4GsmRmSLLL0RVNKsoqAVH43tz.png",
+          "name": "Fuji TV",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://awajima-anime.com",
+      "popularity": 5.0022,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-10",
+      "last_air_date": "2026-05-01",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/WAbrf6kONFAdXtG5N1s7no4zEw.jpg",
+      "backdrop_path": "/4u7uvGbu1RCZDX8IIFMljG8U9Zb.jpg",
+      "overview": "淡岛歌剧学校里，梦想着站上舞台的少女们自全国各地齐聚而来。憧憬着歌舞剧明星而入学的新生・若菜。背负着挚友的思念努力学习的舍长・绢枝。散发出压倒性存在感的，美丽特待生・绘美。憧憬她、嫉妒她，并不断渴求她目光的桂子与其家人――。她们无可替代的日子，随着人物视角的转换，在彼此交错之中缓缓连结起来。活在当下的少女们的，清新而鲜烈的青春涂鸦。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 291403,
+          "air_date": "2026-04-10",
+          "episode_count": 12,
+          "vote_average": 8.3,
+          "poster_path": "/WAbrf6kONFAdXtG5N1s7no4zEw.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "淡岛歌剧学校里，梦想着站上舞台的少女们自全国各地齐聚而来。憧憬着歌舞剧明星而入学的新生・若菜。背负着挚友的思念努力学习的舍长・绢枝。散发出压倒性存在感的，美丽特待生・绘美。憧憬她、嫉妒她，并不断渴求她目光的桂子与其家人――。她们无可替代的日子，随着人物视角的转换，在彼此交错之中缓缓连结起来。活在当下的少女们的，清新而鲜烈的青春涂鸦。",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 273467,
+      "tmdb_id": 273467,
+      "name": "女骑士成为蛮族新娘",
+      "original_name": "姫騎士は蛮族の嫁",
+      "imdb_id": "tt36593277",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 6.6,
+      "vote_count": 9,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 173,
+          "logo_path": "/fERjndErEpveJmQZccJbJDi93rj.png",
+          "name": "AT-X",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://himekishi-anime.com",
+      "popularity": 16.8519,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-09",
+      "last_air_date": "2026-05-07",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/qEVAv7TMtJw9wiuFGVOeoePJWeR.jpg",
+      "backdrop_path": "/xVRpdsYlQR6hsapwFbwxVnFXDBH.jpg",
+      "overview": "　　等待着在战斗中落败的最强女骑士的，居然是“和敌国的蛮族王结婚”？！原本互为敌人的两人所编织出的真格异世界婚姻故事，开幕！！\n\n　　“咕、杀了我！”塞拉菲娜·德·拉维兰特，是西方最强的女骑士。她在征讨东方的战争中落败，被蛮族给俘虏了！在敌国的寒冷牢狱中，等待着身为战败者的塞拉菲娜是，复仇、拷问，以及凌辱的日子——本这么想，向她提出的，居然是“和蛮族王结婚”——？！原本互为敌人的两人所编织出的真格异世界婚姻故事，开幕！！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 273467,
+          "air_date": "2026-04-09",
+          "episode_count": 12,
+          "vote_average": 6.6,
+          "poster_path": "/qEVAv7TMtJw9wiuFGVOeoePJWeR.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　等待着在战斗中落败的最强女骑士的，居然是“和敌国的蛮族王结婚”？！原本互为敌人的两人所编织出的真格异世界婚姻故事，开幕！！\n\n　　“咕、杀了我！”塞拉菲娜·德·拉维兰特，是西方最强的女骑士。她在征讨东方的战争中落败，被蛮族给俘虏了！在敌国的寒冷牢狱中，等待着身为战败者的塞拉菲娜是，复仇、拷问，以及凌辱的日子——本这么想，向她提出的，居然是“和蛮族王结婚”——？！原本互为敌人的两人所编织出的真格异世界婚姻故事，开幕！！",
+          "douban_link_verified": false
         }
       ]
     },
@@ -1288,7 +2155,7 @@
       "id": 37742722,
       "name": "恶之华",
       "original_name": "惡の華",
-      "imdb_id": null,
+      "imdb_id": "tt39048555",
       "genres": [
         {
           "id": 1,
@@ -1303,7 +2170,14 @@
           "name": "悬疑"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 98,
+          "logo_path": "/jnuO8pZNEBLEq5YaOP1f5OkmG91.png",
+          "name": "TV Tokyo",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1369,15 +2243,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 10,
       "first_air_date": "2026-04-09",
       "last_air_date": "2026-04-09",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/37742722.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/8xresvXWN0pzQH9gyQ9sY14K7bw.jpg",
       "overview": "性格怯弱的春日高男（铃木福 饰）一直沉迷法国诗人波德莱尔的诗集《恶之华》。一天在阴差阳错下拿走了暗恋对象佐伯奈奈子的运动服，过程却全被同班同学仲村佐和（志水彩乃 饰）看在眼内。仲村借此要胁春日与她订下契约，并屡次强迫春日做出一些怪异行为，与此同时，春日亦尝试与佐伯修补关系。一段环绕着三人的扭曲关系就此展开。\n本剧改编自押见修造的同名原著漫画。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1395,11 +2269,15 @@
           "overview": "性格怯弱的春日高男（铃木福 饰）一直沉迷法国诗人波德莱尔的诗集《恶之华》。一天在阴差阳错下拿走了暗恋对象佐伯奈奈子的运动服，过程却全被同班同学仲村佐和（志水彩乃 饰）看在眼内。仲村借此要胁春日与她订下契约，并屡次强迫春日做出一些怪异行为，与此同时，春日亦尝试与佐伯修补关系。一段环绕着三人的扭曲关系就此展开。\n本剧改编自押见修造的同名原著漫画。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 306640,
+      "tmdbUrl": "https://www.themoviedb.org/tv/306640",
+      "vote_average": 9,
+      "vote_count": 1
     },
     {
       "id": 38355370,
-      "name": "今夜在秘密厨房",
+      "name": "今夜、在秘密厨房",
       "original_name": "今夜、秘密のキッチンで",
       "imdb_id": null,
       "genres": [
@@ -1412,7 +2290,14 @@
           "name": "爱情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 1,
+          "logo_path": "/4x4GsmRmSLLL0RVNKsoqAVH43tz.png",
+          "name": "Fuji TV",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1489,15 +2374,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 5,
       "first_air_date": "2026-04-09",
       "last_air_date": "2026-04-09",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38355370.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/zJWScKhVuOeAoUWL18MWMymec7i.jpg",
       "overview": "原本被视为拥有幸福婚姻的主妇坪仓步（木南晴夏 饰），实际上长期承受丈夫的精神控制与压抑生活。某夜她在人生低谷中意外遇见神秘的意大利厨师Kei（高杉真宙 饰），两人在夜晚的厨房这一隐秘空间里，通过料理逐渐交流、互相治愈。随着一次次共同下厨，步重新找回自我与生活的热情，而背负秘密的Kei也逐渐敞开心扉。在有限的时间与空间里，两人的关系慢慢升温，一段融合料理、疗愈与爱情的大人童话禁断恋情悄然展开。\n本剧改编自黒沢明世的同名原著漫画。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1514,6 +2399,290 @@
           "douban_link_google": "https://movie.douban.com/subject/38355370/",
           "overview": "原本被视为拥有幸福婚姻的主妇坪仓步（木南晴夏 饰），实际上长期承受丈夫的精神控制与压抑生活。某夜她在人生低谷中意外遇见神秘的意大利厨师Kei（高杉真宙 饰），两人在夜晚的厨房这一隐秘空间里，通过料理逐渐交流、互相治愈。随着一次次共同下厨，步重新找回自我与生活的热情，而背负秘密的Kei也逐渐敞开心扉。在有限的时间与空间里，两人的关系慢慢升温，一段融合料理、疗愈与爱情的大人童话禁断恋情悄然展开。\n本剧改编自黒沢明世的同名原著漫画。",
           "douban_link_verified": true
+        }
+      ],
+      "tmdb_id": 315509,
+      "tmdbUrl": "https://www.themoviedb.org/tv/315509",
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "id": 312522,
+      "tmdb_id": 312522,
+      "name": "女神“异世界转生想成为什么”我“勇者的肋骨”",
+      "original_name": "女神『異世界転生何になりたいですか』俺『勇者の肋骨で』",
+      "imdb_id": "tt40547960",
+      "genres": [
+        {
+          "id": 35,
+          "name": "喜剧"
+        },
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7,
+      "vote_count": 5,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 57,
+          "logo_path": "/uxaXSoT8K0S2NE5PWsBpHUl3GGU.png",
+          "name": "Nippon TV",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://rokkotsu-anime.com",
+      "popularity": 6.2455,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-08",
+      "last_air_date": "2026-05-06",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/2mKPAVGjFoO6gp3Hdv5ckrhFu0m.jpg",
+      "backdrop_path": "/zheGPQDo6pOM4Dg1sE6GB246Usp.jpg",
+      "overview": "　　转生目标竟是……“后宫且迎来幸福结局的开挂勇者……的肋骨”！？颠覆常识的异世界转生动画诞生！\n\n　　故事的舞台是一个能自由选择转生去向的世界，然而近来转生申请者数量激增，“开挂后宫勇者”的等待时间长达五万年！就连转生为“魔王”都要等上千年之久。既然如此，主人公所选择的转生去向便是——“后宫且迎来幸福结局的开挂勇者……的肋骨”！\n\n　　不仅如此，从“寄居蟹”、“蔬菜”到“用来炸现充的爆炸物”，他竟接连不断地反复转生！？",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 312522,
+          "air_date": "2026-04-08",
+          "episode_count": 12,
+          "vote_average": 7,
+          "poster_path": "/2mKPAVGjFoO6gp3Hdv5ckrhFu0m.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　转生目标竟是……“后宫且迎来幸福结局的开挂勇者……的肋骨”！？颠覆常识的异世界转生动画诞生！\n\n　　故事的舞台是一个能自由选择转生去向的世界，然而近来转生申请者数量激增，“开挂后宫勇者”的等待时间长达五万年！就连转生为“魔王”都要等上千年之久。既然如此，主人公所选择的转生去向便是——“后宫且迎来幸福结局的开挂勇者……的肋骨”！\n\n　　不仅如此，从“寄居蟹”、“蔬菜”到“用来炸现充的爆炸物”，他竟接连不断地反复转生！？",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 309163,
+      "tmdb_id": 309163,
+      "name": "哪里有温柔对待阿宅的辣妹！？",
+      "original_name": "オタクに優しいギャルはいない!?",
+      "imdb_id": "tt39443176",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8,
+      "vote_count": 12,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 12,
+          "logo_path": "/eJSYeF1YIyQbZdTRNxuvVKaZOIK.png",
+          "name": "HTB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 103,
+          "logo_path": "/j3xAzk1SYQQwrQOD7acdSz675Wa.png",
+          "name": "tv asahi",
+          "origin_country": "JP"
+        },
+        {
+          "id": 576,
+          "logo_path": "/kW9bMQqnMFtPHvdoyCDpRqh7Gxt.png",
+          "name": "Nagoya TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1278,
+          "logo_path": "/49D825cN3Zb4slobKyGqIaI3Fx9.png",
+          "name": "KBC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1410,
+          "logo_path": "/ca3Qw7exc3RPSd0CQFOZuSNbGjF.png",
+          "name": "ABC TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 3756,
+          "logo_path": "/3lh8IYJbV6eHOaF0UFCvmmSJNvf.png",
+          "name": "NCC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4794,
+          "logo_path": "/vYcEzZlLmrxV9xKZx9jIUcHF1RC.png",
+          "name": "OAB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4798,
+          "logo_path": "/tiUMGPJVHYc5h1ZOt2jK80oNPz9.png",
+          "name": "ABA",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6270,
+          "logo_path": "/xnHINTAs2GnfXJ3lalaQ0se8aup.png",
+          "name": "Niigata Television Network 21",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6284,
+          "logo_path": "/8QybJL7YGkOr3ECilGaGTqeId7A.png",
+          "name": "khb",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6285,
+          "logo_path": "/cFOQIanQr8wKvJKgIgaKiM3xnMU.png",
+          "name": "KFB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6288,
+          "logo_path": "/gm3ksoi7zQMWpHsJJDzotTwF2GM.png",
+          "name": "HOME",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6289,
+          "logo_path": "/sSE8F5yoFoVzClCkzLBksTDK7iI.png",
+          "name": "KSB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6290,
+          "logo_path": "/kgfTkjNRsR0f2QEiaXf2fymKB6V.png",
+          "name": "Kagoshima Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6365,
+          "logo_path": "/c1pvlKoEVLjejgQUCBFq5Q9n8gL.png",
+          "name": "Iwate Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6366,
+          "logo_path": "/dmSnk8fI8hpQOyCIrUDhj3TxTT8.png",
+          "name": "Akita Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6367,
+          "logo_path": "/jJWtS13oV0os1M5djVT6zjvnyq3.png",
+          "name": "Yamagata Television System",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6368,
+          "logo_path": "/34nBfbkqxcjrbpVraEfI6MkCvgY.png",
+          "name": "Shizuoka Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6369,
+          "logo_path": "/ztA2E1CY6L3aF2roadAOHtLiDCP.png",
+          "name": "Asahi Broadcasting Nagano",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6370,
+          "logo_path": "/onsaMWqPfrINyAfgi2FnP8conv1.png",
+          "name": "Hokuriku Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6372,
+          "logo_path": "/1UunNUsoq9k1nMNppuY5qhgdWT3.png",
+          "name": "Ehime Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6373,
+          "logo_path": "/6iuVpZdxAE8lgPENUBuwzCspYF7.png",
+          "name": "Yamaguchi Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6374,
+          "logo_path": "/qBX8z5bj0EISsASQo5IE76BYpu5.png",
+          "name": "Kumamoto Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6375,
+          "logo_path": "/7hIrDssIDTG2sGLdq1IfYddv9tz.png",
+          "name": "Ryu-Q Asahi Broadcasting",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://otagal.jp/",
+      "popularity": 12.5435,
+      "number_of_seasons": 1,
+      "number_of_episodes": 6,
+      "first_air_date": "2026-04-08",
+      "last_air_date": "2026-05-06",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/wQFbXbQ33b2CWx6n1eR4xEJx3Wu.jpg",
+      "backdrop_path": "/5W6TJteqbJJMzFS54SkKW9t2r07.jpg",
+      "overview": "　　濑尾卓也是名喜欢没法大声说出自己喜欢的“女童向动画”的御宅族。一天，班上的辣妹天音同学和伊地知同学突然缠了过来，总感觉天音同学也有着阿宅的气息……？阿宅遇上辣妹的“喜欢”相交织的校园种姓恋爱喜剧！！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 309163,
+          "air_date": "2026-04-08",
+          "episode_count": 6,
+          "vote_average": 8,
+          "poster_path": "/wQFbXbQ33b2CWx6n1eR4xEJx3Wu.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　濑尾卓也是名喜欢没法大声说出自己喜欢的“女童向动画”的御宅族。一天，班上的辣妹天音同学和伊地知同学突然缠了过来，总感觉天音同学也有着阿宅的气息……？阿宅遇上辣妹的“喜欢”相交织的校园种姓恋爱喜剧！！",
+          "douban_link_verified": false
         }
       ]
     },
@@ -1536,7 +2705,14 @@
           "name": "悬疑"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 57,
+          "logo_path": "/uxaXSoT8K0S2NE5PWsBpHUl3GGU.png",
+          "name": "Nippon TV",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1589,17 +2765,17 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 5,
       "first_air_date": "2026-04-08",
       "last_air_date": "2026-04-08",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38244425.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/8jf9G5cEYfYRMpgHHCKnx3ArWMj.jpg",
       "overview": "银座混合酒吧的老板兼跨性别女性野宫露娜（波瑠 饰），以及被婚外情丈夫和任性的孩子困扰、生活充满烦恼的家庭主妇泽辻凉子（麻生久美子 饰），性格迥异却意外搭档的两人，在意外的相遇后踏上寻找凉子大学前男友的大阪之旅。在旅途中，她们不仅卷入了一起谋杀事件，还凭借夏目漱石、太宰治、江户川乱步等经典文学知识，逐步解开谜团，也体悟到了生活的智慧与文学的力量。\n本剧改编自秋吉理香子的同名原著小说。",
-      "rating_count": 408,
+      "rating_count": 415,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -1615,122 +2791,399 @@
           "overview": "银座混合酒吧的老板兼跨性别女性野宫露娜（波瑠 饰），以及被婚外情丈夫和任性的孩子困扰、生活充满烦恼的家庭主妇泽辻凉子（麻生久美子 饰），性格迥异却意外搭档的两人，在意外的相遇后踏上寻找凉子大学前男友的大阪之旅。在旅途中，她们不仅卷入了一起谋杀事件，还凭借夏目漱石、太宰治、江户川乱步等经典文学知识，逐步解开谜团，也体悟到了生活的智慧与文学的力量。\n本剧改编自秋吉理香子的同名原著小说。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 314644,
+      "tmdbUrl": "https://www.themoviedb.org/tv/314644",
+      "vote_average": 7,
+      "vote_count": 2
     },
     {
-      "id": 38363163,
-      "name": "所爱之人",
-      "original_name": "LOVED ONE",
-      "imdb_id": null,
+      "id": 301944,
+      "tmdb_id": 301944,
+      "name": "婚姻剧毒",
+      "original_name": "マリッジトキシン",
+      "imdb_id": "tt39122769",
       "genres": [
         {
-          "id": 1,
-          "name": "剧情"
+          "id": 16,
+          "name": "动画"
         },
         {
-          "id": 2,
-          "name": "悬疑"
+          "id": 10759,
+          "name": "动作冒险"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
         }
       ],
-      "networks": [],
-      "directors": [
+      "type": "Scripted",
+      "vote_average": 8.25,
+      "vote_count": 10,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
         {
           "id": 1,
-          "name": "松山博昭"
+          "logo_path": "/4x4GsmRmSLLL0RVNKsoqAVH43tz.png",
+          "name": "Fuji TV",
+          "origin_country": "JP"
         },
         {
-          "id": 2,
-          "name": "并木道子"
+          "id": 879,
+          "logo_path": "/pX3gDCsG8WcQvQbCNJ37t5w0HyG.png",
+          "name": "Tokai Television Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 3535,
+          "logo_path": "/sces9gh6ih1DaD54WXvqHeLMScE.png",
+          "name": "Fukui TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 3721,
+          "logo_path": "/vkOmMDoyA8Jj8gDJOyP6CjD06Kj.png",
+          "name": "Hokkaido Cultural Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4799,
+          "logo_path": "/y1F9WoEjz7MhzjN56im3tVKTd1r.png",
+          "name": "Iwate Menkoi Television",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4829,
+          "logo_path": "/qHGklsa90XMreAdYm7AZl6eeaCL.png",
+          "name": "Sendai Television",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4839,
+          "logo_path": "/pRhoUkllLEe3U9341NUCeKdQ7to.png",
+          "name": "SAGA TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4841,
+          "logo_path": "/7QZ9b8bIpNUU5AjdaW6BXcMziY6.png",
+          "name": "Ishikawa TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4850,
+          "logo_path": "/thh0SqE1oh7oOH08ISphk6cRghq.png",
+          "name": "TNC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4851,
+          "logo_path": "/wd94E8WjZwEbu1PLxhNNH0Ny3VT.png",
+          "name": "OHK",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4855,
+          "logo_path": "/vRWtsyWIcIrtw0PXbCbjC4xvXtw.png",
+          "name": "Kochi Sun Sun Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4970,
+          "logo_path": "/6hrEhIW5lIUKeX78BNTzMQ0e8aK.png",
+          "name": "Television Shin Hiroshima System",
+          "origin_country": "JP"
+        },
+        {
+          "id": 5644,
+          "logo_path": "/832SJcpnozaNWKto6hPSpYvDYQU.png",
+          "name": "TV Shizuoka",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6209,
+          "logo_path": "/fjenNun3vCLtnHHsTpAgVYkubMl.png",
+          "name": "NST",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6210,
+          "logo_path": "/kCNJcIxnOXI4fkc8oZLOk1BZb0o.png",
+          "name": "NBS",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6211,
+          "logo_path": "/mFM7fx4yt3FOa6leUbBbd8iGZIi.png",
+          "name": "Sakuranbo TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6212,
+          "logo_path": "/eAaH52WuIH4XNlqYSonXZRPRnGE.png",
+          "name": "TSK",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6213,
+          "logo_path": "/np5gbKJvysVLnJKg8g1OxhiA6Qa.png",
+          "name": "Ehime Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6214,
+          "logo_path": "/fF4u5E7SBK4qOoIUOVmr5FbYk2g.png",
+          "name": "KTS",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6666,
+          "logo_path": "/rCdk5TWd3RPKTZU1zlhDCEFuzsI.png",
+          "name": "Fukushima TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6819,
+          "logo_path": "/hNbCO6N6F4o09DCGAoz7g0G2E9F.png",
+          "name": "AKT",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6821,
+          "logo_path": "/mkTZDdapxuLVS4gzSCwD01DFkbw.png",
+          "name": "Toyama Television",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6822,
+          "logo_path": "/lquU1iSzXNKMWohDVIE91pxDzhE.png",
+          "name": "TV Kumamoto",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6823,
+          "logo_path": "/gRUUO3lBYddcSqQPfFruXVDAlv2.png",
+          "name": "Okinawa Television Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 8446,
+          "logo_path": "/dHp09KNT493NE46Wt8pnPyL84Ef.png",
+          "name": "KTN",
+          "origin_country": "JP"
         }
       ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "藤冈靛"
-        },
-        {
-          "id": 2,
-          "name": "泷内公美"
-        },
-        {
-          "id": 3,
-          "name": "八木勇征"
-        },
-        {
-          "id": 4,
-          "name": "纲启永"
-        },
-        {
-          "id": 5,
-          "name": "安齐星来"
-        },
-        {
-          "id": 6,
-          "name": "川床明日香"
-        },
-        {
-          "id": 7,
-          "name": "草川拓弥"
-        },
-        {
-          "id": 8,
-          "name": "山口纱弥加"
-        },
-        {
-          "id": 9,
-          "name": "上川拓郎"
-        },
-        {
-          "id": 10,
-          "name": "小松和重"
-        }
-      ],
-      "countries": [
-        "日本"
-      ],
-      "languages": [
-        "日语"
-      ],
-      "aka": [
-        "被爱之人",
-        "曾被爱的人",
-        "ラブドワン"
-      ],
-      "homepage": null,
-      "popularity": null,
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.marriagetoxin-anime.com/",
+      "popularity": 10.5355,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
-      "first_air_date": "2026-04-08",
-      "last_air_date": "2026-04-08",
-      "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "number_of_episodes": 13,
+      "first_air_date": "2026-04-07",
+      "last_air_date": "2026-05-05",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
-      "poster_path": "posters/douban/tv_jp/38363163.jpg",
-      "backdrop_path": null,
-      "overview": "日本每年有约20万具遗体被归为“死因不明”，真正接受法医学解剖的不足一成。为改变这一现状，厚生劳动省主导成立了拥有调查指示与解剖决定权的法医学专业团队——MEJ（Medical Examiner Japan）。\n从美国归来的天才法医学者水泽真澄（藤冈靛 饰）曾参与大量检死工作。他性格独特却洞察敏锐，不被常识束缚，常以一句“这存在矛盾”追问真相。面对遗体时，他以“LOVED ONE”相称，从细微痕迹中还原逝者生前的时间与被掩盖的事实。\n与他搭档的是MEJ中心长桐生麻帆（泷内公美 饰）。出身母子家庭的她立志通过制度改变社会，却在官僚体系中屡遭挫败。临危受命执掌MEJ的她虽无医学背景，却在一次次案件中直面“死因不明”背后的现实。\n立场与价值观截然不同的两人，在冲突与磨合中携手挑战疑难案件，揭开死亡背后的真相。",
+      "poster_path": "/vSMNi73O92Ga4jZKb9cDkhwhxuW.jpg",
+      "backdrop_path": "/edyP3Y3j5M1aponwAtDEUtTlPIA.jpg",
+      "overview": "　　干着持续了数百年的杀手行当“用毒人”的青年·下吕。对于干着暗中的工作，不擅长应对女性的他来说结婚并不是必须要做的东西。然而，为了不让“用毒人”的血脉断绝，老家通知他的妹妹要强制让她生下继承人。就在这时，下吕遇见了身为曾为其工作目标的骗婚师·城崎……？！“——这样的提案（求婚），还是第一次”让骗婚师当顾问的杀手结婚活动开始了！目标是最棒的结婚……世界第一困难的结婚活动战斗动作剧！！",
       "rating_count": null,
       "rating_star_count": null,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 38363163,
-          "air_date": "2026-04-08",
-          "episode_count": null,
-          "vote_average": 0,
-          "poster_path": "posters/douban/tv_jp/38363163.jpg",
+          "id": 301944,
+          "air_date": "2026-04-07",
+          "episode_count": 13,
+          "vote_average": 8.25,
+          "poster_path": "/vSMNi73O92Ga4jZKb9cDkhwhxuW.jpg",
           "douban_rating": null,
-          "douban_link_google": "https://movie.douban.com/subject/38363163/",
-          "overview": "日本每年有约20万具遗体被归为“死因不明”，真正接受法医学解剖的不足一成。为改变这一现状，厚生劳动省主导成立了拥有调查指示与解剖决定权的法医学专业团队——MEJ（Medical Examiner Japan）。\n从美国归来的天才法医学者水泽真澄（藤冈靛 饰）曾参与大量检死工作。他性格独特却洞察敏锐，不被常识束缚，常以一句“这存在矛盾”追问真相。面对遗体时，他以“LOVED ONE”相称，从细微痕迹中还原逝者生前的时间与被掩盖的事实。\n与他搭档的是MEJ中心长桐生麻帆（泷内公美 饰）。出身母子家庭的她立志通过制度改变社会，却在官僚体系中屡遭挫败。临危受命执掌MEJ的她虽无医学背景，却在一次次案件中直面“死因不明”背后的现实。\n立场与价值观截然不同的两人，在冲突与磨合中携手挑战疑难案件，揭开死亡背后的真相。",
-          "douban_link_verified": true
+          "douban_link_google": null,
+          "overview": "　　干着持续了数百年的杀手行当“用毒人”的青年·下吕。对于干着暗中的工作，不擅长应对女性的他来说结婚并不是必须要做的东西。然而，为了不让“用毒人”的血脉断绝，老家通知他的妹妹要强制让她生下继承人。就在这时，下吕遇见了身为曾为其工作目标的骗婚师·城崎……？！“——这样的提案（求婚），还是第一次”让骗婚师当顾问的杀手结婚活动开始了！目标是最棒的结婚……世界第一困难的结婚活动战斗动作剧！！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 300126,
+      "tmdb_id": 300126,
+      "name": "欺诈游戏",
+      "original_name": "LIAR GAME",
+      "imdb_id": "tt39229633",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.333,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 98,
+          "logo_path": "/jnuO8pZNEBLEq5YaOP1f5OkmG91.png",
+          "name": "TV Tokyo",
+          "origin_country": "JP"
+        },
+        {
+          "id": 252,
+          "logo_path": "/zFZ5KCuvx7K0vP9XgGcidfXjuUd.png",
+          "name": "TV Aichi",
+          "origin_country": "JP"
+        },
+        {
+          "id": 822,
+          "logo_path": "/gOlBe3BMo5WJHeUlWBBfKawgdiO.png",
+          "name": "TVQ",
+          "origin_country": "JP"
+        },
+        {
+          "id": 824,
+          "logo_path": "/6foQmoPac7WCDnDuDbuCZklmDuA.png",
+          "name": "TV Osaka",
+          "origin_country": "JP"
+        },
+        {
+          "id": 938,
+          "logo_path": "/f12LLqBVFnDVIY8HidhWEitI77c.png",
+          "name": "TVh",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2064,
+          "logo_path": "/qi4L1ffRabF5LJqVimCaaUYpeSj.png",
+          "name": "TSC",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "http://www.liargame-anime.com",
+      "popularity": 8.3112,
+      "number_of_seasons": 1,
+      "number_of_episodes": 5,
+      "first_air_date": "2026-04-07",
+      "last_air_date": "2026-04-28",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/1bBCTwdIDdau06vQaNWc7bHErqq.jpg",
+      "backdrop_path": "/Ag6VnSAb1g02YWHYxYFKRUiBtnc.jpg",
+      "overview": "一天突然收到了一个小包裹。在当中有着写着“恭喜你。你从十万分之一的概率当中，入选了欺诈游戏”的信，以及一亿日圆现金。而那就是欺诈游戏的开始。在30天后的游戏结束日，要归还自身所持的一亿日圆。规则就只有这些。顺利夺走对战对象所持金钱的胜利者就能获得一亿日圆，失败者就要背负一亿日圆的债务……谁是可信的，谁是不可信的……将在巨额金钱面前动摇的，人类的心理描绘得淋漓尽致的问题作！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 300126,
+          "air_date": "2026-04-07",
+          "episode_count": 5,
+          "vote_average": 8.333,
+          "poster_path": "/1bBCTwdIDdau06vQaNWc7bHErqq.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "一天突然收到了一个小包裹。在当中有着写着“恭喜你。你从十万分之一的概率当中，入选了欺诈游戏”的信，以及一亿日圆现金。而那就是欺诈游戏的开始。在30天后的游戏结束日，要归还自身所持的一亿日圆。规则就只有这些。顺利夺走对战对象所持金钱的胜利者就能获得一亿日圆，失败者就要背负一亿日圆的债务……谁是可信的，谁是不可信的……将在巨额金钱面前动摇的，人类的心理描绘得淋漓尽致的问题作！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 290019,
+      "tmdb_id": 290019,
+      "name": "和班上第二可爱的女孩子成为了朋友",
+      "original_name": "クラスで２番目に可愛い女の子と友だちになった",
+      "imdb_id": "tt37532971",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.9,
+      "vote_count": 12,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://kuranika.asmik-ace.co.jp",
+      "popularity": 18.6159,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-07",
+      "last_air_date": "2026-05-05",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/ka6MnzUKX9aVuCuyPGpfUZCgb7G.jpg",
+      "backdrop_path": "/q8vtAc81RluhMrh2QlaLgIm59Oa.jpg",
+      "overview": "　　连个熟人都没有的我·前原真树，交到的第一个朋友是朝凪海。\n\n　　被男生们说成是“班上第二可爱的”，对天真烂漫的No.1美少女天海照顾有加的朝凪——\n\n　　只在星期五放学后偷偷来我家玩。\n\n　　和电影、游戏、漫画趣味相投的她一起度过了快乐的时光。\n\n　　天真无邪、爱撒娇的素颜，从平时稳重可靠的人的样子来看是无法想象的。\n\n　　“快坐到我旁边，我们一起看漫画。” “这是我的床……” “现在是我的床，你过来吗?”\n\n　　距离不近吗，朝凪小姐?\n\n　　阴暗男子和第二女主角，真人大小的“朋友”爱情喜剧!",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 290019,
+          "air_date": "2026-04-07",
+          "episode_count": 12,
+          "vote_average": 7.9,
+          "poster_path": "/ka6MnzUKX9aVuCuyPGpfUZCgb7G.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　连个熟人都没有的我·前原真树，交到的第一个朋友是朝凪海。\n\n　　被男生们说成是“班上第二可爱的”，对天真烂漫的No.1美少女天海照顾有加的朝凪——\n\n　　只在星期五放学后偷偷来我家玩。\n\n　　和电影、游戏、漫画趣味相投的她一起度过了快乐的时光。\n\n　　天真无邪、爱撒娇的素颜，从平时稳重可靠的人的样子来看是无法想象的。\n\n　　“快坐到我旁边，我们一起看漫画。” “这是我的床……” “现在是我的床，你过来吗?”\n\n　　距离不近吗，朝凪小姐?\n\n　　阴暗男子和第二女主角，真人大小的“朋友”爱情喜剧!",
+          "douban_link_verified": false
         }
       ]
     },
     {
       "id": 38231349,
       "name": "为时已是寿司！？",
-      "original_name": "時すでにおスシ!?",
+      "original_name": "時すでにおスシ！？",
       "imdb_id": null,
       "genres": [
         {
@@ -1746,7 +3199,14 @@
           "name": "爱情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 160,
+          "logo_path": "/lUACMATs6jcscXIrzNCQzbvNVN5.png",
+          "name": "TBS",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1820,17 +3280,17 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 5,
       "first_air_date": "2026-04-07",
       "last_air_date": "2026-04-07",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38231349.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/bxVYGBQ7KSi8FXdv4V7eL1Yz6Ym.jpg",
       "overview": "丈夫去世后独自抚养儿子长大的50岁女性待山凑（永作博美 饰），在儿子独立离家后突然失去生活重心。迷茫之际，她意外进入一所“三个月速成寿司职人”的寿司学院学习。面对严肃古板、对寿司抱有极高自尊的男讲师大江户海弥（松山研一 饰），以及性格各异的同学们，凑在手忙脚乱中重新找回生活节奏，也逐渐思考“为自己而活”的意义。与此同时，她与那位总是与自己意见相左的寿司讲师之间，关系悄然发生变化，一段迟来的成年人恋爱也在不知不觉中展开。",
-      "rating_count": 199,
+      "rating_count": 201,
       "rating_star_count": 4,
       "seasons": [
         {
@@ -1846,13 +3306,165 @@
           "overview": "丈夫去世后独自抚养儿子长大的50岁女性待山凑（永作博美 饰），在儿子独立离家后突然失去生活重心。迷茫之际，她意外进入一所“三个月速成寿司职人”的寿司学院学习。面对严肃古板、对寿司抱有极高自尊的男讲师大江户海弥（松山研一 饰），以及性格各异的同学们，凑在手忙脚乱中重新找回生活节奏，也逐渐思考“为自己而活”的意义。与此同时，她与那位总是与自己意见相左的寿司讲师之间，关系悄然发生变化，一段迟来的成年人恋爱也在不知不觉中展开。",
           "douban_link_verified": true
         }
+      ],
+      "tmdb_id": 314642,
+      "tmdbUrl": "https://www.themoviedb.org/tv/314642",
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "id": 288590,
+      "tmdb_id": 288590,
+      "name": "自称恶役大小姐的婚约者观察记录。",
+      "original_name": "自称悪役令嬢な婚約者の観察記録。",
+      "imdb_id": "tt40546935",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.5,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://jisho-akuyaku-anime.jp",
+      "popularity": 9.6346,
+      "number_of_seasons": 1,
+      "number_of_episodes": 6,
+      "first_air_date": "2026-04-06",
+      "last_air_date": "2026-04-27",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/ayhpfFHm1MtgPgLw3yN0euOUxsp.jpg",
+      "backdrop_path": "/esmoeVNjHb4SAXRQJpkSoPX4nFB.jpg",
+      "overview": "　　王太子·赛希尔因太过优秀，而过着简单模式度日。他和侯爵千金·芭蒂雅订下婚约，然而某天，芭蒂雅却突然说出了奇怪的话…「赛希尔殿下！我是恶役千金!!」……芭蒂雅说她拥有前世记忆，而这里是『少女游戏』的世界，她是为了拆散赛希尔和女主角的『恶役千金』。芭蒂雅以成为完美反派并遭解除婚约为目标，横冲直撞的她开始将面对无聊生活的赛希尔一次次卷入骚动之中——？",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 288590,
+          "air_date": "2026-04-06",
+          "episode_count": 6,
+          "vote_average": 7.5,
+          "poster_path": "/ayhpfFHm1MtgPgLw3yN0euOUxsp.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　王太子·赛希尔因太过优秀，而过着简单模式度日。他和侯爵千金·芭蒂雅订下婚约，然而某天，芭蒂雅却突然说出了奇怪的话…「赛希尔殿下！我是恶役千金!!」……芭蒂雅说她拥有前世记忆，而这里是『少女游戏』的世界，她是为了拆散赛希尔和女主角的『恶役千金』。芭蒂雅以成为完美反派并遭解除婚约为目标，横冲直撞的她开始将面对无聊生活的赛希尔一次次卷入骚动之中——？",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 196950,
+      "tmdb_id": 196950,
+      "name": "尖帽子的魔法工房",
+      "original_name": "とんがり帽子のアトリエ",
+      "imdb_id": "tt32550889",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.9,
+      "vote_count": 33,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 861,
+          "logo_path": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png",
+          "name": "BS11",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://tongari-anime.com",
+      "popularity": 33.5111,
+      "number_of_seasons": 1,
+      "number_of_episodes": 13,
+      "first_air_date": "2026-04-06",
+      "last_air_date": "2026-05-04",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/eBWVcJmzpjxndjd6lN8vU7AFuUe.jpg",
+      "backdrop_path": "/7zSko8MBo8UxJi2fPwglXFz7gV.jpg",
+      "overview": "　　生活在一个偏远村庄的少女可可一直渴望成为一名魔法师，但是这个世界只有出生就是魔法师的人才能成为魔法师。在一次偶然事故中，可可不小心看到了魔法师奇夫利施展魔法的过程，发现了魔法的真相。于是可可便临摹起了自己还是孩童时一位自称魔法师的神秘男子卖给她的一本绘本，不料却用出了强大而危险的禁忌魔法，将自己的母亲与房子都变成了石头。发现了自己不小心将魔法真相泄露而返回寻找可可的奇夫利看到禁忌魔法所造成的惨状，决心将她收为自己的徒弟，解开「绘本」之谜，帮助她将自己的母亲恢复原状。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 196950,
+          "air_date": "2026-04-06",
+          "episode_count": 13,
+          "vote_average": 8.9,
+          "poster_path": "/eBWVcJmzpjxndjd6lN8vU7AFuUe.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　生活在一个偏远村庄的少女可可一直渴望成为一名魔法师，但是这个世界只有出生就是魔法师的人才能成为魔法师。在一次偶然事故中，可可不小心看到了魔法师奇夫利施展魔法的过程，发现了魔法的真相。于是可可便临摹起了自己还是孩童时一位自称魔法师的神秘男子卖给她的一本绘本，不料却用出了强大而危险的禁忌魔法，将自己的母亲与房子都变成了石头。发现了自己不小心将魔法真相泄露而返回寻找可可的奇夫利看到禁忌魔法所造成的惨状，决心将她收为自己的徒弟，解开「绘本」之谜，帮助她将自己的母亲恢复原状。",
+          "douban_link_verified": false
+        }
       ]
     },
     {
       "id": 38230920,
       "name": "烟蓝雨后晴",
       "original_name": "スモークブルーの雨のち晴れ",
-      "imdb_id": null,
+      "imdb_id": "tt40734806",
       "genres": [
         {
           "id": 1,
@@ -1863,7 +3475,14 @@
           "name": "同性"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 569,
+          "logo_path": "/cIMyE9cw1W4kMFGxmC17HKTnVz9.png",
+          "name": "YTV",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1892,17 +3511,17 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 10,
       "first_air_date": "2026-04-06",
       "last_air_date": "2026-04-06",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/38230920.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/KW4meIHP81E95GRrtzEsLFn8Dk.jpg",
       "overview": "曾在药企担任王牌销售的吾妻朔太郎（武田航平 饰）因事业瓶颈陷入迷茫，目前处于无职状态；他在偶然中被当年的职场劲敌、如今从事医疗翻译工作的久慈静（涩谷谦人 饰）所救。这对曾在八年前共度过一夜的旧友，在人生的转折点再度重逢，共同面对职场压力、亲人老去以及生活选择，开启了一段苦甜参半的成年爱情故事。",
-      "rating_count": 496,
+      "rating_count": 506,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -1918,6 +3537,520 @@
           "overview": "曾在药企担任王牌销售的吾妻朔太郎（武田航平 饰）因事业瓶颈陷入迷茫，目前处于无职状态；他在偶然中被当年的职场劲敌、如今从事医疗翻译工作的久慈静（涩谷谦人 饰）所救。这对曾在八年前共度过一夜的旧友，在人生的转折点再度重逢，共同面对职场压力、亲人老去以及生活选择，开启了一段苦甜参半的成年爱情故事。",
           "douban_link_verified": true
         }
+      ],
+      "tmdb_id": 316461,
+      "tmdbUrl": "https://www.themoviedb.org/tv/316461",
+      "vote_average": 8,
+      "vote_count": 1
+    },
+    {
+      "id": 312474,
+      "tmdb_id": 312474,
+      "name": "日本三国",
+      "original_name": "日本三國",
+      "imdb_id": "tt40548519",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        },
+        {
+          "id": 10768,
+          "name": "War & Politics"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.792,
+      "vote_count": 12,
+      "origin_country": [
+        "JP",
+        "US"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 1024,
+          "logo_path": "/w7HfLNm9CWwRmAMU58udl2L7We7.png",
+          "name": "Prime Video",
+          "origin_country": ""
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.nipponsangoku.com",
+      "popularity": 9.6176,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-05",
+      "last_air_date": "2026-04-26",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/lGyQoPUOqeTKhtu2HfBnmiojIQe.jpg",
+      "backdrop_path": "/m4RWzJwv5xm8K6lIgIOdRBScxhn.jpg",
+      "overview": "　　在文明崩溃后的近未来，一位青年为了再次统一再度化为战国时代的日本而挺身而出。其名为三角青辉。在后世被评价为奇才军师的他的传说，现在开始！！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 312474,
+          "air_date": "2026-04-05",
+          "episode_count": 12,
+          "vote_average": 7.792,
+          "poster_path": "/lGyQoPUOqeTKhtu2HfBnmiojIQe.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　在文明崩溃后的近未来，一位青年为了再次统一再度化为战国时代的日本而挺身而出。其名为三角青辉。在后世被评价为奇才军师的他的传说，现在开始！！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 305329,
+      "tmdb_id": 305329,
+      "name": "主播女孩重度依赖",
+      "original_name": "NEEDY GIRL OVERDOSE",
+      "imdb_id": "tt39403976",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.2,
+      "vote_count": 5,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 343,
+          "logo_path": "/9rNqtDYAnD6yTOutvHI3synSEs2.png",
+          "name": "Gunma TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 861,
+          "logo_path": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png",
+          "name": "BS11",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2478,
+          "logo_path": "/2v82HpzoKRveJEJcGHkeTcktMRM.png",
+          "name": "Tochigi TV",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://needygirl-anime.com",
+      "popularity": 4.4306,
+      "number_of_seasons": 1,
+      "number_of_episodes": 13,
+      "first_air_date": "2026-04-05",
+      "last_air_date": "2026-05-03",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/z0BUpIh50GCN0EytvodWdkHTWZ.jpg",
+      "backdrop_path": "/dot1NI6F5IrLck8xWIOn74ieaDH.jpg",
+      "overview": "描写了一位想要成为最强的主播同时迫切想要得到他人认可的女孩，与辅佐她的“阿P”共同生活的故事。令全世界着迷的“互联网天使”的动画即将拉开帷幕。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 305329,
+          "air_date": "2026-04-05",
+          "episode_count": 13,
+          "vote_average": 7.2,
+          "poster_path": "/z0BUpIh50GCN0EytvodWdkHTWZ.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "描写了一位想要成为最强的主播同时迫切想要得到他人认可的女孩，与辅佐她的“阿P”共同生活的故事。令全世界着迷的“互联网天使”的动画即将拉开帷幕。",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 299134,
+      "tmdb_id": 299134,
+      "name": "女仆小姐的贪吃日常",
+      "original_name": "メイドさんは食べるだけ",
+      "imdb_id": "tt38040630",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 6.3,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://meitabe-anime.com/",
+      "popularity": 4.3881,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-05",
+      "last_air_date": "2026-05-03",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/3HYUZAeE1WrA9ATGv6GjeyL6mOO.jpg",
+      "backdrop_path": "/xQbsLlDyPVND2fO47bA7uy84vT4.jpg",
+      "overview": "　　原先于英国宅邸担任女仆的雀，基于某些原因来到日本一角的小小公寓展开新生活。尽管有许多需要操心的事情，不过对日本食物充满好奇的雀，潇洒地离开公寓去寻找美食…！\n\n　　由非日常的小女仆所献上的窝心日常，就此开演！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 299134,
+          "air_date": "2026-04-05",
+          "episode_count": 12,
+          "vote_average": 6.3,
+          "poster_path": "/3HYUZAeE1WrA9ATGv6GjeyL6mOO.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　原先于英国宅邸担任女仆的雀，基于某些原因来到日本一角的小小公寓展开新生活。尽管有许多需要操心的事情，不过对日本食物充满好奇的雀，潇洒地离开公寓去寻找美食…！\n\n　　由非日常的小女仆所献上的窝心日常，就此开演！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 296870,
+      "tmdb_id": 296870,
+      "name": "楠木邸的神明庭院",
+      "original_name": "神の庭付き楠木邸",
+      "imdb_id": "tt17351512",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.5,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 12,
+          "logo_path": "/eJSYeF1YIyQbZdTRNxuvVKaZOIK.png",
+          "name": "HTB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 103,
+          "logo_path": "/j3xAzk1SYQQwrQOD7acdSz675Wa.png",
+          "name": "tv asahi",
+          "origin_country": "JP"
+        },
+        {
+          "id": 576,
+          "logo_path": "/kW9bMQqnMFtPHvdoyCDpRqh7Gxt.png",
+          "name": "Nagoya TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1278,
+          "logo_path": "/49D825cN3Zb4slobKyGqIaI3Fx9.png",
+          "name": "KBC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1410,
+          "logo_path": "/ca3Qw7exc3RPSd0CQFOZuSNbGjF.png",
+          "name": "ABC TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 3756,
+          "logo_path": "/3lh8IYJbV6eHOaF0UFCvmmSJNvf.png",
+          "name": "NCC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4794,
+          "logo_path": "/vYcEzZlLmrxV9xKZx9jIUcHF1RC.png",
+          "name": "OAB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4798,
+          "logo_path": "/tiUMGPJVHYc5h1ZOt2jK80oNPz9.png",
+          "name": "ABA",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6270,
+          "logo_path": "/xnHINTAs2GnfXJ3lalaQ0se8aup.png",
+          "name": "Niigata Television Network 21",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6284,
+          "logo_path": "/8QybJL7YGkOr3ECilGaGTqeId7A.png",
+          "name": "khb",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6285,
+          "logo_path": "/cFOQIanQr8wKvJKgIgaKiM3xnMU.png",
+          "name": "KFB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6288,
+          "logo_path": "/gm3ksoi7zQMWpHsJJDzotTwF2GM.png",
+          "name": "HOME",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6289,
+          "logo_path": "/sSE8F5yoFoVzClCkzLBksTDK7iI.png",
+          "name": "KSB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6290,
+          "logo_path": "/kgfTkjNRsR0f2QEiaXf2fymKB6V.png",
+          "name": "Kagoshima Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6365,
+          "logo_path": "/c1pvlKoEVLjejgQUCBFq5Q9n8gL.png",
+          "name": "Iwate Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6366,
+          "logo_path": "/dmSnk8fI8hpQOyCIrUDhj3TxTT8.png",
+          "name": "Akita Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6367,
+          "logo_path": "/jJWtS13oV0os1M5djVT6zjvnyq3.png",
+          "name": "Yamagata Television System",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6368,
+          "logo_path": "/34nBfbkqxcjrbpVraEfI6MkCvgY.png",
+          "name": "Shizuoka Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6369,
+          "logo_path": "/ztA2E1CY6L3aF2roadAOHtLiDCP.png",
+          "name": "Asahi Broadcasting Nagano",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6370,
+          "logo_path": "/onsaMWqPfrINyAfgi2FnP8conv1.png",
+          "name": "Hokuriku Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6372,
+          "logo_path": "/1UunNUsoq9k1nMNppuY5qhgdWT3.png",
+          "name": "Ehime Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6373,
+          "logo_path": "/6iuVpZdxAE8lgPENUBuwzCspYF7.png",
+          "name": "Yamaguchi Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6374,
+          "logo_path": "/qBX8z5bj0EISsASQo5IE76BYpu5.png",
+          "name": "Kumamoto Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6375,
+          "logo_path": "/7hIrDssIDTG2sGLdq1IfYddv9tz.png",
+          "name": "Ryu-Q Asahi Broadcasting",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://kusunokitei.com",
+      "popularity": 9.3037,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-05",
+      "last_air_date": "2026-05-03",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/tLLh8mezPtOJjwXqZF345sj92yf.jpg",
+      "backdrop_path": "/cXPaWWolacjHHKYvLlpOQ0j8o0X.jpg",
+      "overview": "　　楠木凑被任命为了乡下新建的独栋平房的管理员。其实那里是潜藏着恶灵的不得了的房产……本应如此，有着超乎规格的除灵之力的凑，在不知不觉间就将恶灵一扫而空。\n\n　　而由于被完全弄干净了的楠木邸的居住感受所吸引，富有个性的神明们开始聚集而来！喜欢甜的山神，以及其毛茸茸的眷属，喜欢酒的灵龟……。注意到时庭院已经成了神域？！甚至乎，为了依靠凑的除灵之力，就连现代的阴阳师也前来拜访……。\n\n　　和邻居的山神们一起度过的温暖乡间生活，现在开始。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 296870,
+          "air_date": "2026-04-05",
+          "episode_count": 12,
+          "vote_average": 8.5,
+          "poster_path": "/tLLh8mezPtOJjwXqZF345sj92yf.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　楠木凑被任命为了乡下新建的独栋平房的管理员。其实那里是潜藏着恶灵的不得了的房产……本应如此，有着超乎规格的除灵之力的凑，在不知不觉间就将恶灵一扫而空。\n\n　　而由于被完全弄干净了的楠木邸的居住感受所吸引，富有个性的神明们开始聚集而来！喜欢甜的山神，以及其毛茸茸的眷属，喜欢酒的灵龟……。注意到时庭院已经成了神域？！甚至乎，为了依靠凑的除灵之力，就连现代的阴阳师也前来拜访……。\n\n　　和邻居的山神们一起度过的温暖乡间生活，现在开始。",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 285818,
+      "tmdb_id": 285818,
+      "name": "迦楠大人的白给是恶魔级",
+      "original_name": "カナン様はあくまでチョロい",
+      "imdb_id": "tt37729351",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.2,
+      "vote_count": 5,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 861,
+          "logo_path": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png",
+          "name": "BS11",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://kanachoro-anime.com",
+      "popularity": 13.143,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-05",
+      "last_air_date": "2026-05-03",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/tL3Hhpqe6KuRw8WKsqtA63U4VQh.jpg",
+      "backdrop_path": "/mCJWUo6Np2y5daruzt7fhh5TiIA.jpg",
+      "overview": "　　【超可爱恶魔和天然积极人类的初恋喜剧♪】\n\n　　以人类的灵魂为粮食，潜伏在人界里的高中的女恶魔·迦楠。某日锁定了一名男高中生，出于某种原因，意外结下恋人的契约！？\n\n　　千年之间从未谈过恋爱的迦楠，迎来各种未知的情感…！酸酸甜甜的青春闹剧之风！纯情恶魔的超可爱恋爱喜剧开演！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 285818,
+          "air_date": "2026-04-05",
+          "episode_count": 12,
+          "vote_average": 8.2,
+          "poster_path": "/tL3Hhpqe6KuRw8WKsqtA63U4VQh.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　【超可爱恶魔和天然积极人类的初恋喜剧♪】\n\n　　以人类的灵魂为粮食，潜伏在人界里的高中的女恶魔·迦楠。某日锁定了一名男高中生，出于某种原因，意外结下恋人的契约！？\n\n　　千年之间从未谈过恋爱的迦楠，迎来各种未知的情感…！酸酸甜甜的青春闹剧之风！纯情恶魔的超可爱恋爱喜剧开演！",
+          "douban_link_verified": false
+        }
       ]
     },
     {
@@ -1931,7 +4064,14 @@
           "name": "剧情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 2334,
+          "logo_path": "/rioX0zGJHGnuEm9iGMVL6N9guA0.png",
+          "name": "NHK",
+          "origin_country": "JP"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1998,12 +4138,12 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 2,
       "first_air_date": "2026-04-05",
       "last_air_date": "2026-04-05",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_jp/37932343.jpg",
       "backdrop_path": null,
@@ -2023,6 +4163,514 @@
           "douban_link_google": "https://movie.douban.com/subject/37932343/",
           "overview": "某医科大学被曝在入学考试中刻意压低女性考生分数。为查清真相，报社记者檜叶菊乃（松本若菜 饰）展开独立调查，并将目标锁定在医大理事神林晴海（铃木保奈美 饰）身上。神林巧妙回避追问，檜叶却坚信她是关键，步步逼近事实。在男性主导的社会中，两位女性各自背负信念与伤痕正面交锋，这场对峙最终将迎来出乎意料的走向。本作描绘女性为追求幸福、对抗不公而奋起的社会派娱乐作品。\n本剧改编自月村了衛的同名原著小说。",
           "douban_link_verified": true
+        }
+      ],
+      "tmdb_id": 313899,
+      "tmdbUrl": "https://www.themoviedb.org/tv/313899",
+      "vote_average": 0,
+      "vote_count": 0
+    },
+    {
+      "id": 303460,
+      "tmdb_id": 303460,
+      "name": "最强的职业不是勇者也不是贤者好像是鉴定士（伪）的样子？",
+      "original_name": "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？",
+      "imdb_id": "tt41154853",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.5,
+      "vote_count": 8,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://kanteishikari-anime.com",
+      "popularity": 9.7712,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-04",
+      "last_air_date": "2026-04-18",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/lHGyS1Ks0QdTtqw3aMjsdTbCC6T.jpg",
+      "backdrop_path": "/lM6zDzORMUFQgvYVbPWj5LxtR8W.jpg",
+      "overview": "　　尽管无法战斗却是最强的？！就交给鉴定士(伪)吧！\n\n　　突然被召唤到异世界了的男高中生：响生。在辽阔得不得了的草原当中，孤身一人的他被赐予的是“鉴定士(伪)”这一谜之职业。\n\n　　有许许多多的冒险与邂逅等待着这样的响生。虽然可靠但是没有朋友的精灵，忠诚心太过于强的狼兽人，尽管年幼却蕴含着庞大魔力的少女……响生在与过于强大而猛烈的异世界人们加深着牵绊的同时，也在寻找着返回日本的方法。\n\n　　然后赐予给响生的土气～的技能，是来自主神的特大服务的礼物？！\n\n　　响生运用着其实超级有用的非战斗技能驰骋于异世界当中！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 303460,
+          "air_date": "2026-04-04",
+          "episode_count": 12,
+          "vote_average": 8.5,
+          "poster_path": "/lHGyS1Ks0QdTtqw3aMjsdTbCC6T.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　尽管无法战斗却是最强的？！就交给鉴定士(伪)吧！\n\n　　突然被召唤到异世界了的男高中生：响生。在辽阔得不得了的草原当中，孤身一人的他被赐予的是“鉴定士(伪)”这一谜之职业。\n\n　　有许许多多的冒险与邂逅等待着这样的响生。虽然可靠但是没有朋友的精灵，忠诚心太过于强的狼兽人，尽管年幼却蕴含着庞大魔力的少女……响生在与过于强大而猛烈的异世界人们加深着牵绊的同时，也在寻找着返回日本的方法。\n\n　　然后赐予给响生的土气～的技能，是来自主神的特大服务的礼物？！\n\n　　响生运用着其实超级有用的非战斗技能驰骋于异世界当中！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 297438,
+      "tmdb_id": 297438,
+      "name": "落语朱音",
+      "original_name": "あかね噺",
+      "imdb_id": "tt38797595",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.5,
+      "vote_count": 7,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 12,
+          "logo_path": "/eJSYeF1YIyQbZdTRNxuvVKaZOIK.png",
+          "name": "HTB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 103,
+          "logo_path": "/j3xAzk1SYQQwrQOD7acdSz675Wa.png",
+          "name": "tv asahi",
+          "origin_country": "JP"
+        },
+        {
+          "id": 576,
+          "logo_path": "/kW9bMQqnMFtPHvdoyCDpRqh7Gxt.png",
+          "name": "Nagoya TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1278,
+          "logo_path": "/49D825cN3Zb4slobKyGqIaI3Fx9.png",
+          "name": "KBC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1410,
+          "logo_path": "/ca3Qw7exc3RPSd0CQFOZuSNbGjF.png",
+          "name": "ABC TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 3756,
+          "logo_path": "/3lh8IYJbV6eHOaF0UFCvmmSJNvf.png",
+          "name": "NCC",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4794,
+          "logo_path": "/vYcEzZlLmrxV9xKZx9jIUcHF1RC.png",
+          "name": "OAB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 4798,
+          "logo_path": "/tiUMGPJVHYc5h1ZOt2jK80oNPz9.png",
+          "name": "ABA",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6270,
+          "logo_path": "/xnHINTAs2GnfXJ3lalaQ0se8aup.png",
+          "name": "Niigata Television Network 21",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6284,
+          "logo_path": "/8QybJL7YGkOr3ECilGaGTqeId7A.png",
+          "name": "khb",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6285,
+          "logo_path": "/cFOQIanQr8wKvJKgIgaKiM3xnMU.png",
+          "name": "KFB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6288,
+          "logo_path": "/gm3ksoi7zQMWpHsJJDzotTwF2GM.png",
+          "name": "HOME",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6289,
+          "logo_path": "/sSE8F5yoFoVzClCkzLBksTDK7iI.png",
+          "name": "KSB",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6290,
+          "logo_path": "/kgfTkjNRsR0f2QEiaXf2fymKB6V.png",
+          "name": "Kagoshima Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6365,
+          "logo_path": "/c1pvlKoEVLjejgQUCBFq5Q9n8gL.png",
+          "name": "Iwate Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6366,
+          "logo_path": "/dmSnk8fI8hpQOyCIrUDhj3TxTT8.png",
+          "name": "Akita Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6367,
+          "logo_path": "/jJWtS13oV0os1M5djVT6zjvnyq3.png",
+          "name": "Yamagata Television System",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6368,
+          "logo_path": "/34nBfbkqxcjrbpVraEfI6MkCvgY.png",
+          "name": "Shizuoka Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6369,
+          "logo_path": "/ztA2E1CY6L3aF2roadAOHtLiDCP.png",
+          "name": "Asahi Broadcasting Nagano",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6370,
+          "logo_path": "/onsaMWqPfrINyAfgi2FnP8conv1.png",
+          "name": "Hokuriku Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6372,
+          "logo_path": "/1UunNUsoq9k1nMNppuY5qhgdWT3.png",
+          "name": "Ehime Asahi TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6373,
+          "logo_path": "/6iuVpZdxAE8lgPENUBuwzCspYF7.png",
+          "name": "Yamaguchi Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6374,
+          "logo_path": "/qBX8z5bj0EISsASQo5IE76BYpu5.png",
+          "name": "Kumamoto Asahi Broadcasting",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6375,
+          "logo_path": "/7hIrDssIDTG2sGLdq1IfYddv9tz.png",
+          "name": "Ryu-Q Asahi Broadcasting",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://akane-banashi.com",
+      "popularity": 9.5204,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-04",
+      "last_air_date": "2026-05-02",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/n9DzK2EKckkkNrPVw5xlgt9nt9V.jpg",
+      "backdrop_path": "/6QwDoRZ7tiRXeMlsYtNto5sSMUg.jpg",
+      "overview": "　　以其身及文字来诠释故事的一切，说话艺术的极致――「落语」\n\n　　被这究极的表演方法迷住的是落语家·阿良川志太及其女儿·朱音见证父亲在落语晋级考试的努力后，朱音将踏上自己的落语家之道――\n\n　　落语家的故事正式开幕！！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 297438,
+          "air_date": "2026-04-04",
+          "episode_count": 12,
+          "vote_average": 8.5,
+          "poster_path": "/n9DzK2EKckkkNrPVw5xlgt9nt9V.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　以其身及文字来诠释故事的一切，说话艺术的极致――「落语」\n\n　　被这究极的表演方法迷住的是落语家·阿良川志太及其女儿·朱音见证父亲在落语晋级考试的努力后，朱音将踏上自己的落语家之道――\n\n　　落语家的故事正式开幕！！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 295999,
+      "tmdb_id": 295999,
+      "name": "摩绪",
+      "original_name": "MAO",
+      "imdb_id": "tt37577523",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.3,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 469,
+          "logo_path": "/3E5bxm9VfOU9LkAX545jtpKAe6Z.png",
+          "name": "NHK G",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.anime-mao.com",
+      "popularity": 7.0866,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-04",
+      "last_air_date": "2026-05-02",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/dFArU0XkiDzJFLJhoHYLYLI1L5J.jpg",
+      "backdrop_path": "/pk8QkwzyLrmtm7bx6rcKAIuCIlq.jpg",
+      "overview": "大正时代的阴阳师「摩绪」，因诅咒而活了超过900年。令和时代的少女「菜花」，意外穿越到妖怪横行的大正时代，并在摩绪指出她身上的异变后，得知两人竟被施下同样的诅咒！跨越时代的邂逅、交错的命运。摩绪与菜花携手对抗连锁蔓延的诅咒，揭开背后的真相！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 295999,
+          "air_date": "2026-04-04",
+          "episode_count": 12,
+          "vote_average": 7.3,
+          "poster_path": "/dFArU0XkiDzJFLJhoHYLYLI1L5J.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "大正时代的阴阳师「摩绪」，因诅咒而活了超过900年。令和时代的少女「菜花」，意外穿越到妖怪横行的大正时代，并在摩绪指出她身上的异变后，得知两人竟被施下同样的诅咒！跨越时代的邂逅、交错的命运。摩绪与菜花携手对抗连锁蔓延的诅咒，揭开背后的真相！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 260463,
+      "tmdb_id": 260463,
+      "name": "黄泉的使者",
+      "original_name": "黄泉のツガイ",
+      "imdb_id": "tt37532356",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.474,
+      "vote_count": 19,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 343,
+          "logo_path": "/9rNqtDYAnD6yTOutvHI3synSEs2.png",
+          "name": "Gunma TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 861,
+          "logo_path": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png",
+          "name": "BS11",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2478,
+          "logo_path": "/2v82HpzoKRveJEJcGHkeTcktMRM.png",
+          "name": "Tochigi TV",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://yominotsugai.com",
+      "popularity": 18.4912,
+      "number_of_seasons": 1,
+      "number_of_episodes": 24,
+      "first_air_date": "2026-04-04",
+      "last_air_date": "2026-05-02",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/7DwXtgv3ngMM3BDLlK2nHiwLyHp.jpg",
+      "backdrop_path": "/qc30hdrxHQgN5wiopU4bkRZow5L.jpg",
+      "overview": "少年尤尔出生在一个清净的深山村庄里。 从小到大都一直没有离开这个村庄。 而他的双胞胎妹妹阿萨，则是一直被关在村子深处的牢狱里工作，而且不知道为什么，只有一部分的村民能够见到阿萨。  某一天，这个村庄突然遭到神秘人士的入侵，村民一一遭到杀害，带头的其中一个女性，居然自称为阿萨，而且称呼尤尔为兄长，甚至还说牢里的阿萨是假的，前来攻击村庄的目的，就是要把尤尔带走。  在情急之下，尤尔唤醒了大家一直视为村庄守护神的左右大人应战，而左右大人却称呼尤尔为「主人」...",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 260463,
+          "air_date": "2026-04-04",
+          "episode_count": 24,
+          "vote_average": 8.474,
+          "poster_path": "/7DwXtgv3ngMM3BDLlK2nHiwLyHp.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "少年尤尔出生在一个清净的深山村庄里。 从小到大都一直没有离开这个村庄。 而他的双胞胎妹妹阿萨，则是一直被关在村子深处的牢狱里工作，而且不知道为什么，只有一部分的村民能够见到阿萨。  某一天，这个村庄突然遭到神秘人士的入侵，村民一一遭到杀害，带头的其中一个女性，居然自称为阿萨，而且称呼尤尔为兄长，甚至还说牢里的阿萨是假的，前来攻击村庄的目的，就是要把尤尔带走。  在情急之下，尤尔唤醒了大家一直视为村庄守护神的左右大人应战，而左右大人却称呼尤尔为「主人」...",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 310921,
+      "tmdb_id": 310921,
+      "name": "吞噬魔物的冒险者～只有我能通过吞噬魔物变强～",
+      "original_name": "魔物喰らいの冒険者～俺だけ魔物を喰らって強くなる～",
+      "imdb_id": "tt39673631",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 10759,
+          "name": "动作冒险"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8,
+      "vote_count": 8,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://animationid.com/mamonogurai/",
+      "popularity": 10.0661,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-03",
+      "last_air_date": "2026-05-01",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/zAGPJpmAAKDG8f2rmn1EcYMgNKs.jpg",
+      "backdrop_path": "/uKGWyKucpzWHMPSUQXeIf03oxO5.jpg",
+      "overview": "E级冒险者路德。他唯一的技能“异常状态无效化”，在充满瘴气的迷宫中采集药草时，除了采集外几乎毫无用处的鸡肋存在。战斗能力近乎为零，被冒险者同伴们戏称为“瘴气渔夫”。甚至被人讥讽为“饭桶”。为了打破这种现状，路德决定挑战新的迷宫，却遭到同伴背叛而遇险。物资耗尽濒临死亡之际，他毅然决定吞食被视为禁忌的魔物血肉——然而路德不断吞噬魔物获取新技能的“魔物吞噬者”冒险传奇，就此展开！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 310921,
+          "air_date": "2026-04-03",
+          "episode_count": 12,
+          "vote_average": 8,
+          "poster_path": "/zAGPJpmAAKDG8f2rmn1EcYMgNKs.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "E级冒险者路德。他唯一的技能“异常状态无效化”，在充满瘴气的迷宫中采集药草时，除了采集外几乎毫无用处的鸡肋存在。战斗能力近乎为零，被冒险者同伴们戏称为“瘴气渔夫”。甚至被人讥讽为“饭桶”。为了打破这种现状，路德决定挑战新的迷宫，却遭到同伴背叛而遇险。物资耗尽濒临死亡之际，他毅然决定吞食被视为禁忌的魔物血肉——然而路德不断吞噬魔物获取新技能的“魔物吞噬者”冒险传奇，就此展开！",
+          "douban_link_verified": false
         }
       ]
     },
@@ -2150,7 +4798,7 @@
       "poster_path": "posters/douban/tv_jp/38359420.jpg",
       "backdrop_path": null,
       "overview": "《孤独的美食家》 第11季宣布回归，定档4月3日开播。\n这也是继2022年10月第10季播出以来，该系列时隔三年半再次推出新一季。\n面对这次回归，松重丰表示，在经历了10季剧集、衍生剧以及电影版后，本来是深成身退的最佳时机，但由于种种缘由决定继续出演。他感叹顺应命运、吃完眼前的料理也是人生。",
-      "rating_count": 731,
+      "rating_count": 743,
       "rating_star_count": 4.5,
       "seasons": [
         {
@@ -2169,25 +4817,100 @@
       ]
     },
     {
-      "id": 37315587,
-      "name": "九条的大罪",
-      "original_name": "九条の大罪",
-      "imdb_id": null,
+      "id": 304820,
+      "tmdb_id": 304820,
+      "name": "溜掉的大鱼比不上自己钓到的鱼",
+      "original_name": "逃がした魚は大きかったが釣りあげた魚が大きすぎた件",
+      "imdb_id": "tt39122552",
       "genres": [
         {
-          "id": 1,
-          "name": "剧情"
+          "id": 16,
+          "name": "动画"
         },
         {
-          "id": 2,
-          "name": "悬疑"
+          "id": 35,
+          "name": "喜剧"
         },
         {
-          "id": 3,
-          "name": "犯罪"
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 6.7,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
       "networks": [],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://nigetsuri-anime.com",
+      "popularity": 8.814,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-02",
+      "last_air_date": "2026-05-07",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/77uvjgXSPR1lAxXKcce1MtCWeea.jpg",
+      "backdrop_path": "/ak8tHoMgClt1aKDNve2GzE5dkJU.jpg",
+      "overview": "公爵千金玛丽伊娅，因为弟弟出生而匆忙地从继承家业的角色上退下。然而，国内出色的贵族子弟们早已有了未婚妻，这样下去就要变成不折不扣的剩女了！就在投奔远房亲戚前往邻国留学并努力开展结婚活动的时候，被第一王子下达了自己都不记得的婚约废弃宣言？！诶，我还没有定下婚约的来着？！？剩女大小姐的结婚活动恋爱喜剧♪",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 304820,
+          "air_date": "2026-04-02",
+          "episode_count": 12,
+          "vote_average": 6.7,
+          "poster_path": "/77uvjgXSPR1lAxXKcce1MtCWeea.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "公爵千金玛丽伊娅，因为弟弟出生而匆忙地从继承家业的角色上退下。然而，国内出色的贵族子弟们早已有了未婚妻，这样下去就要变成不折不扣的剩女了！就在投奔远房亲戚前往邻国留学并努力开展结婚活动的时候，被第一王子下达了自己都不记得的婚约废弃宣言？！诶，我还没有定下婚约的来着？！？剩女大小姐的结婚活动恋爱喜剧♪",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 303405,
+      "tmdb_id": 303405,
+      "name": "九条的大罪",
+      "original_name": "九条の大罪",
+      "imdb_id": "tt38742795",
+      "genres": [
+        {
+          "id": 80,
+          "name": "犯罪"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 6.4,
+      "vote_count": 10,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -2285,34 +5008,186 @@
       "aka": [
         "九条的大罪(真人版)"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.netflix.com/title/81581947",
+      "popularity": 6.2982,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 10,
       "first_air_date": "2026-04-02",
       "last_air_date": "2026-04-02",
-      "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
-      "poster_path": "posters/douban/tv_jp/37315587.jpg",
-      "backdrop_path": null,
+      "poster_path": "/a4wmKvDSlSc0DgPUnrlkmP0tu6u.jpg",
+      "backdrop_path": "/m2px7CZWxArlG8Lyld1XKIkD5aA.jpg",
       "overview": "该剧改编自同名漫画，讲述九条间人（柳乐优弥 饰）是一名专门接手“半灰势力”、黑社会、前科犯等棘手委托案件的律师，被世人称为“恶德律师”。但他以法律为武器，即便面对道德上无法原谅的恶人，也坚持为其辩护。九条所坚持的“正义”究竟是什么？",
-      "rating_count": 2273,
+      "rating_count": 2296,
       "rating_star_count": 3.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 37315587,
+          "id": 303405,
           "air_date": "2026-04-02",
-          "episode_count": null,
-          "vote_average": 7.2,
-          "poster_path": "posters/douban/tv_jp/37315587.jpg",
+          "episode_count": 10,
+          "vote_average": 6.4,
+          "poster_path": "/a4wmKvDSlSc0DgPUnrlkmP0tu6u.jpg",
           "douban_rating": "7.2",
           "douban_link_google": "https://movie.douban.com/subject/37315587/",
           "overview": "该剧改编自同名漫画，讲述九条间人（柳乐优弥 饰）是一名专门接手“半灰势力”、黑社会、前科犯等棘手委托案件的律师，被世人称为“恶德律师”。但他以法律为武器，即便面对道德上无法原谅的恶人，也坚持为其辩护。九条所坚持的“正义”究竟是什么？",
           "douban_link_verified": true
+        }
+      ]
+    },
+    {
+      "id": 283428,
+      "tmdb_id": 283428,
+      "name": "冰之城墙",
+      "original_name": "氷の城壁",
+      "imdb_id": "tt39123061",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 7.2,
+      "vote_count": 6,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 160,
+          "logo_path": "/lUACMATs6jcscXIrzNCQzbvNVN5.png",
+          "name": "TBS",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://korinojoheki-pr.com",
+      "popularity": 19.1002,
+      "number_of_seasons": 1,
+      "number_of_episodes": 12,
+      "first_air_date": "2026-04-02",
+      "last_air_date": "2026-04-30",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/3RUFjYHzsmM8QN1QbVej2CAq825.jpg",
+      "backdrop_path": "/ht6WUmez8cFbwlrFmGdjbYyn3RG.jpg",
+      "overview": "　　冰川小雪不擅长与人接触，与他人之间竖起了一堵城墙。尽管在高中里不与人扯上关系独自度过，却和不知为何不停逼近的雨宫凑相遇了——？孤高的女子小雪，学校里的人气之人美姬，毫无距离感男子凑，有着悠哉温柔氛围的阳太。有些问题的四人的，令人着急的青春混线故事！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 283428,
+          "air_date": "2026-04-02",
+          "episode_count": 12,
+          "vote_average": 7.2,
+          "poster_path": "/3RUFjYHzsmM8QN1QbVej2CAq825.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　冰川小雪不擅长与人接触，与他人之间竖起了一堵城墙。尽管在高中里不与人扯上关系独自度过，却和不知为何不停逼近的雨宫凑相遇了——？孤高的女子小雪，学校里的人气之人美姬，毫无距离感男子凑，有着悠哉温柔氛围的阳太。有些问题的四人的，令人着急的青春混线故事！",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
+      "id": 274622,
+      "tmdb_id": 274622,
+      "name": "加油！中村同学！！",
+      "original_name": "ガンバレ！中村くん！！",
+      "imdb_id": "tt37182080",
+      "genres": [
+        {
+          "id": 16,
+          "name": "动画"
+        },
+        {
+          "id": 35,
+          "name": "喜剧"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 8.5,
+      "vote_count": 14,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "networks": [
+        {
+          "id": 343,
+          "logo_path": "/9rNqtDYAnD6yTOutvHI3synSEs2.png",
+          "name": "Gunma TV",
+          "origin_country": "JP"
+        },
+        {
+          "id": 614,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 861,
+          "logo_path": "/JQ5bx6n7Qmdmyqz6sqjo5Fz2iR.png",
+          "name": "BS11",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2478,
+          "logo_path": "/2v82HpzoKRveJEJcGHkeTcktMRM.png",
+          "name": "Tochigi TV",
+          "origin_country": "JP"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://nakamura-kun.love",
+      "popularity": 16.4865,
+      "number_of_seasons": 1,
+      "number_of_episodes": 13,
+      "first_air_date": "2026-04-02",
+      "last_air_date": "2026-05-07",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/zUWZOv5bLj3fmHQM6FWPI1MqiVr.jpg",
+      "backdrop_path": "/wpsLsjCcIf3QexYO6pCaLm9PI0Z.jpg",
+      "overview": "　　“怎么办 好喜欢 最喜欢了”\n\n　　有些奇怪的高中生，中村同学对同班的广濑同学一见钟情？！明明还不是朋友……却无法止住心动！！新派80年代风的新锐“春泥”所献上的，粘着系男子的单相思暴走的生存☆恋爱喜剧！！",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 274622,
+          "air_date": "2026-04-02",
+          "episode_count": 13,
+          "vote_average": 8.5,
+          "poster_path": "/zUWZOv5bLj3fmHQM6FWPI1MqiVr.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "　　“怎么办 好喜欢 最喜欢了”\n\n　　有些奇怪的高中生，中村同学对同班的广濑同学一见钟情？！明明还不是朋友……却无法止住心动！！新派80年代风的新锐“春泥”所献上的，粘着系男子的单相思暴走的生存☆恋爱喜剧！！",
+          "douban_link_verified": false
         }
       ]
     }
