@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "started_at": "2026-05-14T14:29:01.112Z",
+    "started_at": "2026-05-14T15:06:19.456Z",
     "mode": "partial",
     "category_ids": [
       "movie_cn"
@@ -38,7 +38,7 @@
         }
       ],
       "counts": {
-        "douban_after_date_filter": 258,
+        "douban_after_date_filter": 259,
         "douban_after_signature_dedupe": 250,
         "anilist": 0,
         "tmdb": 0,
@@ -49,15 +49,14 @@
         "latest": 24
       },
       "fallback_summary": {
-        "total": 15,
+        "total": 14,
         "byStatus": [
           [
             "400",
-            15
+            14
           ]
         ],
         "sampleIds": [
-          "36539561",
           "35192382",
           "36953756",
           "37296925",
@@ -65,8 +64,9 @@
           "36779597",
           "36916000",
           "36961785",
+          "34850565",
           "36116464",
-          "34850565"
+          "37123674"
         ]
       },
       "quality": {
@@ -94,15 +94,15 @@
   ],
   "douban_statuses": null,
   "douban_subject_cache": {
-    "hits": 36,
+    "hits": 38,
     "misses": 15,
-    "stale": 211,
+    "stale": 209,
     "invalid": 0,
-    "writes": 0,
-    "errors": 226,
-    "staleFallbacks": 211,
+    "writes": 12,
+    "errors": 212,
+    "staleFallbacks": 198,
     "total_reads": 262,
-    "hit_rate": 0.1374,
+    "hit_rate": 0.145,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -117,9 +117,9 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-05-14T14:29:09.435Z",
+  "completed_at": "2026-05-14T15:11:55.549Z",
   "box_office": {
-    "last_updated": "2026-05-13T22:21:04.625Z",
+    "last_updated": "2026-05-14T13:00:20.149Z",
     "source": "maoyan",
     "source_url": "https://60s.viki.moe/v2/maoyan/realtime/movie",
     "status": "ok",
@@ -127,15 +127,15 @@
     "market": {
       "title": "实时大盘",
       "show_count_desc": "35.4万",
-      "view_count_desc": "16.0万",
-      "box_office": "568.4",
+      "view_count_desc": "111.6万",
+      "box_office": "3867.7",
       "box_office_unit": "万",
-      "split_box_office": "568.4",
+      "split_box_office": "3867.7",
       "split_box_office_unit": "万",
       "update_gap_second": 5,
-      "updated": "2026-05-13 22:21:04",
-      "updated_at": 1778710864625
+      "updated": "2026-05-14 13:00:20",
+      "updated_at": 1778763620149
     },
-    "total_items": 59
+    "total_items": 71
   }
 }

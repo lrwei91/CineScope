@@ -5,10 +5,14 @@ import path from 'node:path';
 import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
 
 import {
+    buildCatalogTrailerLookupKeys,
     buildTrailerCandidateKeys,
+    extractBilibiliSearchResultsFromHtml,
     fetchBilibiliTrailerRows,
     loadBilibiliTrailerDataset,
-    mergeTrailersIntoMovies
+    mergeTrailersIntoCatalogItems,
+    mergeTrailersIntoMovies,
+    searchBilibiliTrailerRowsForMovies
 } from '../scripts/lib/bilibili-trailers.mjs';
 
 test('buildTrailerCandidateKeys extracts movie title from decorated Bilibili trailer title', () => {
@@ -107,6 +111,44 @@ test('mergeTrailersIntoMovies lets manual overrides take precedence over auto ma
 
     assert.equal(merged[0].trailers.length, 1);
     assert.equal(merged[0].trailers[0].bvid, 'BV1manual44444');
+});
+
+test('buildCatalogTrailerLookupKeys includes tv-specific title fields', () => {
+    const keys = buildCatalogTrailerLookupKeys({
+        name: '长安的荔枝',
+        original_name: '长安的荔枝',
+        aka: ['The Litchi Road']
+    });
+
+    assert.ok(keys.includes('长安的荔枝'));
+    assert.ok(keys.includes('thelitchiroad'));
+});
+
+test('mergeTrailersIntoCatalogItems matches tv trailers by normalized show titles', () => {
+    const shows = [
+        {
+            id: 101,
+            name: '长安的荔枝',
+            original_name: '长安的荔枝',
+            first_air_date: '2026-05-20',
+            aka: ['The Litchi Road']
+        }
+    ];
+    const trailers = [
+        {
+            title: '《长安的荔枝》首支预告',
+            bvid: 'BV1tvmatch0001',
+            url: 'https://www.bilibili.com/video/BV1tvmatch0001',
+            embedUrl: 'https://player.bilibili.com/player.html?bvid=BV1tvmatch0001&page=1',
+            cover: '',
+            publishedAt: '2026-05-10T00:00:00.000Z'
+        }
+    ];
+
+    const merged = mergeTrailersIntoCatalogItems(shows, trailers);
+
+    assert.equal(merged[0].trailers.length, 1);
+    assert.equal(merged[0].trailers[0].bvid, 'BV1tvmatch0001');
 });
 
 test('loadBilibiliTrailerDataset falls back to cached rows when remote fetch fails', async () => {
@@ -209,4 +251,174 @@ test('fetchBilibiliTrailerRows stops early in incremental mode after hitting kno
     assert.equal(result.mode, 'incremental');
     assert.equal(result.rows.length, 2);
     assert.equal(result.rows[0].bvid, 'BV1new888888');
+});
+
+test('fetchBilibiliTrailerRows ignores cache short-circuit in force bootstrap mode', async () => {
+    const payloads = [
+        {
+            code: 0,
+            data: {
+                page: { count: 60 },
+                list: {
+                    vlist: [
+                        { title: '《新片》预告', bvid: 'BV1new888888', created: 1715600000 },
+                        { title: '《消失的人》预告片', bvid: 'BV1cached55555', created: 1715500000 }
+                    ]
+                }
+            }
+        },
+        {
+            code: 0,
+            data: {
+                page: { count: 60 },
+                list: {
+                    vlist: [
+                        { title: '《第二页影片》预告', bvid: 'BV1page29999', created: 1715400000 }
+                    ]
+                }
+            }
+        }
+    ];
+    let callCount = 0;
+
+    const result = await fetchBilibiliTrailerRows({
+        existingRows: [
+            {
+                title: '《消失的人》预告片',
+                bvid: 'BV1cached55555',
+                url: 'https://www.bilibili.com/video/BV1cached55555',
+                embedUrl: 'https://player.bilibili.com/player.html?bvid=BV1cached55555&page=1',
+                cover: '',
+                publishedAt: '2026-05-01T00:00:00.000Z'
+            }
+        ],
+        forceBootstrap: true,
+        bootstrapPageLimit: 2,
+        requestDelayMs: 0,
+        requestJitterMs: 0,
+        fetchImpl: async () => {
+            const payload = payloads[callCount];
+            callCount += 1;
+            return {
+                ok: true,
+                async text() {
+                    return JSON.stringify(payload);
+                }
+            };
+        }
+    });
+
+    assert.equal(callCount, 2);
+    assert.equal(result.mode, 'bootstrap');
+    assert.equal(result.rows.length, 3);
+});
+
+test('fetchBilibiliTrailerRows retries transient rate-limit responses before succeeding', async () => {
+    let callCount = 0;
+
+    const result = await fetchBilibiliTrailerRows({
+        bootstrapPageLimit: 1,
+        requestDelayMs: 0,
+        requestJitterMs: 0,
+        retryBaseDelayMs: 0,
+        maxRetries: 2,
+        fetchImpl: async () => {
+            callCount += 1;
+            if (callCount === 1) {
+                return {
+                    ok: true,
+                    async text() {
+                        return JSON.stringify({
+                            code: -352,
+                            message: '请求过于频繁，请稍后再试'
+                        });
+                    }
+                };
+            }
+
+            return {
+                ok: true,
+                async text() {
+                    return JSON.stringify({
+                        code: 0,
+                        data: {
+                            page: { count: 1 },
+                            list: {
+                                vlist: [
+                                    { title: '《重试成功》预告', bvid: 'BV1retry12345', created: 1715600000 }
+                                ]
+                            }
+                        }
+                    });
+                }
+            };
+        }
+    });
+
+    assert.equal(callCount, 2);
+    assert.equal(result.rows.length, 1);
+    assert.equal(result.rows[0].bvid, 'BV1retry12345');
+});
+
+test('extractBilibiliSearchResultsFromHtml reads search results from __pinia payload', () => {
+    const html = `
+        <html>
+            <body>
+                <script type="text/javascript">
+                    window.__pinia=(function(){return {searchResponse:{searchAllResponse:{result:[
+                        {type:"video",title:"《消失的人》终极预告",author:"乌鸦预告片",mid:8465957,bvid:"BV1test11111",pic:"//i0.hdslb.com/test.jpg",pubdate:1715600000}
+                    ]}}}})();
+                </script>
+            </body>
+        </html>
+    `;
+
+    const results = extractBilibiliSearchResultsFromHtml(html);
+
+    assert.equal(results.length, 1);
+    assert.equal(results[0].bvid, 'BV1test11111');
+});
+
+test('searchBilibiliTrailerRowsForMovies filters HTML search results to the target up mid', async () => {
+    const movies = [
+        {
+            id: 1,
+            title: '消失的人',
+            original_title: '消失的人',
+            release_date: '2026-05-01',
+            aka: []
+        }
+    ];
+    let fetchCount = 0;
+
+    const rows = await searchBilibiliTrailerRowsForMovies({
+        movies,
+        requestDelayMs: 0,
+        requestJitterMs: 0,
+        retryBaseDelayMs: 0,
+        fetchImpl: async () => {
+            fetchCount += 1;
+            return {
+                ok: true,
+                async text() {
+                    return `
+                        <html>
+                            <body>
+                                <script type="text/javascript">
+                                    window.__pinia=(function(){return {searchResponse:{searchAllResponse:{result:[
+                                        {type:"video",title:"《消失的人》终极预告",author:"乌鸦预告片",mid:8465957,bvid:"BV1target1111",pic:"//i0.hdslb.com/target.jpg",pubdate:1715600000},
+                                        {type:"video",title:"《消失的人》影评",author:"别的作者",mid:123456,bvid:"BV1other22222",pic:"//i0.hdslb.com/other.jpg",pubdate:1715600001}
+                                    ]}}}})();
+                                </script>
+                            </body>
+                        </html>
+                    `;
+                }
+            };
+        }
+    });
+
+    assert.equal(fetchCount, 1);
+    assert.equal(rows.length, 1);
+    assert.equal(rows[0].bvid, 'BV1target1111');
 });

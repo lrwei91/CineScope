@@ -33,14 +33,14 @@ function renderTrailerModal() {
     const externalLink = document.getElementById('trailer-modal-link');
 
     if (titleElement) {
-        titleElement.textContent = item?.title || '影片预告片';
+        titleElement.textContent = item?.title || '预告片';
     }
     if (subtitleElement) {
         subtitleElement.textContent = trailer?.title || '';
     }
     if (iframeElement) {
         iframeElement.src = trailer?.embedUrl || '';
-        iframeElement.title = trailer?.title || item?.title || '影片预告片';
+        iframeElement.title = trailer?.title || item?.title || '预告片';
     }
     if (externalLink) {
         if (trailer?.url) {

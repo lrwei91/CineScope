@@ -7,7 +7,15 @@ import { createCategoryReport, createBuildReport } from './lib/build-report.mjs'
 import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
 import { createDoubanSearchCache } from './lib/douban-search-cache.mjs';
 import { mergeBoxOfficeIntoMovies } from './lib/box-office.mjs';
-import { loadBilibiliTrailerDataset, mergeTrailersIntoMovies } from './lib/bilibili-trailers.mjs';
+import {
+    DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH,
+    DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH,
+    DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX,
+    DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
+    loadBilibiliTrailerDataset,
+    mergeTrailersIntoCatalogItems,
+    searchBilibiliTrailerRowsForCatalogItems
+} from './lib/bilibili-trailers.mjs';
 import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -28,6 +36,15 @@ const BOX_OFFICE_PATH = 'json/maoyan_box_office.json';
 const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 7);
 const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 14);
 const DOUBAN_SEARCH_QUERY_LIMIT = getNumberEnv('DOUBAN_SEARCH_QUERY_LIMIT', 1);
+const BILIBILI_TRAILER_FORCE_BOOTSTRAP = getBooleanEnv('BILIBILI_TRAILER_FORCE_BOOTSTRAP', false);
+const BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT = getNumberEnv('BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT', 8);
+const BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT = getNumberEnv('BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT', 4);
+const BILIBILI_TRAILER_REQUEST_DELAY_MS = getNumberEnv('BILIBILI_TRAILER_REQUEST_DELAY_MS', 1200);
+const BILIBILI_TRAILER_REQUEST_JITTER_MS = getNumberEnv('BILIBILI_TRAILER_REQUEST_JITTER_MS', 400);
+const BILIBILI_TRAILER_MAX_RETRIES = getNumberEnv('BILIBILI_TRAILER_MAX_RETRIES', 3);
+const BILIBILI_TRAILER_RETRY_BASE_DELAY_MS = getNumberEnv('BILIBILI_TRAILER_RETRY_BASE_DELAY_MS', 3000);
+const BILIBILI_TRAILER_ENABLE_SEARCH_FALLBACK = getBooleanEnv('BILIBILI_TRAILER_ENABLE_SEARCH_FALLBACK', false);
+const BILIBILI_TRAILER_REQUEST_TIMEOUT_MS = getNumberEnv('BILIBILI_TRAILER_REQUEST_TIMEOUT_MS', 15000);
 const doubanSubjectCache = createDoubanSubjectCache({
     rootDir: ROOT_DIR,
     ttlDays: DOUBAN_SUBJECT_CACHE_TTL_DAYS
@@ -111,6 +128,13 @@ const CATEGORY_SPECS = [
             { slug: 'tv_domestic', includeItem: isMainlandChinaEntry },
             { slug: 'tv_hot', includeItem: isMainlandChinaEntry }
         ],
+        trailerSource: {
+            mid: DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
+            cacheRelativePath: DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH,
+            overridesRelativePath: DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH,
+            searchSuffix: DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX,
+            sourceSlug: `bilibili_up_${DEFAULT_BILIBILI_TV_TRAILER_UP_MID}`
+        },
         tmdb: {
             discoverPath: '/discover/tv',
             detailPath: '/tv',
@@ -221,6 +245,13 @@ const CATEGORY_SPECS = [
             { slug: 'movie_soon' },
             { slug: 'movie_latest', totalLimit: 200 }
         ],
+        trailerSource: {
+            mid: '8465957',
+            cacheRelativePath: '.cache/bilibili/up-8465957-videos.json',
+            overridesRelativePath: 'scripts/data/movie_cn_trailer_overrides.json',
+            searchSuffix: '乌鸦预告片',
+            sourceSlug: 'bilibili_up_8465957'
+        },
         tmdb: {
             discoverPath: '/discover/movie',
             detailPath: '/movie',
@@ -424,20 +455,54 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
         spec.id === 'movie_cn' && boxOfficeRows.length > 0
             ? mergeBoxOfficeIntoMovies(tmdbEnrichedItems, boxOfficeRows)
             : tmdbEnrichedItems;
-    const existingMovies = Array.isArray(existingCompletePayload?.movies) ? existingCompletePayload.movies : [];
-    const trailerDataset = spec.id === 'movie_cn'
+    const payloadKey = spec.kind === 'movie' ? 'movies' : 'shows';
+    const existingItems = Array.isArray(existingCompletePayload?.[payloadKey]) ? existingCompletePayload[payloadKey] : [];
+    const trailerDataset = spec.trailerSource
         ? await loadBilibiliTrailerDataset({
-              rootDir: ROOT_DIR
+              rootDir: ROOT_DIR,
+              mid: spec.trailerSource.mid,
+              cacheRelativePath: spec.trailerSource.cacheRelativePath,
+              overridesRelativePath: spec.trailerSource.overridesRelativePath,
+              forceBootstrap: BILIBILI_TRAILER_FORCE_BOOTSTRAP,
+              bootstrapPageLimit: BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT,
+              incrementalPageLimit: BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT,
+              requestDelayMs: BILIBILI_TRAILER_REQUEST_DELAY_MS,
+              requestJitterMs: BILIBILI_TRAILER_REQUEST_JITTER_MS,
+              maxRetries: BILIBILI_TRAILER_MAX_RETRIES,
+              retryBaseDelayMs: BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+              requestTimeoutMs: BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
           })
         : null;
     const trailerRows = trailerDataset?.rows || [];
-    const finalItems =
-        spec.id === 'movie_cn'
-            ? mergeTrailersIntoMovies(boxOfficeMergedItems, trailerRows, {
-                  existingMovies,
+    let finalItems =
+        spec.trailerSource
+            ? mergeTrailersIntoCatalogItems(boxOfficeMergedItems, trailerRows, {
+                  existingItems,
                   overrides: trailerDataset?.overrides || []
               })
             : boxOfficeMergedItems;
+    let searchFallbackRows = [];
+
+    if (spec.trailerSource && BILIBILI_TRAILER_ENABLE_SEARCH_FALLBACK && trailerDataset?.metadata?.status !== 'remote') {
+        const missingTrailerMovies = finalItems.filter((movie) => !Array.isArray(movie.trailers) || movie.trailers.length === 0);
+        searchFallbackRows = await searchBilibiliTrailerRowsForCatalogItems({
+            items: missingTrailerMovies,
+            mid: spec.trailerSource.mid,
+            searchSuffix: spec.trailerSource.searchSuffix,
+            requestDelayMs: BILIBILI_TRAILER_REQUEST_DELAY_MS,
+            requestJitterMs: BILIBILI_TRAILER_REQUEST_JITTER_MS,
+            maxRetries: BILIBILI_TRAILER_MAX_RETRIES,
+            retryBaseDelayMs: BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+            requestTimeoutMs: BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
+        });
+
+        if (searchFallbackRows.length > 0) {
+            finalItems = mergeTrailersIntoCatalogItems(boxOfficeMergedItems, [...trailerRows, ...searchFallbackRows], {
+                existingItems,
+                overrides: trailerDataset?.overrides || []
+            });
+        }
+    }
 
     const latestItems = selectLatestItems(spec, finalItems);
     const sourceResults = [
@@ -453,12 +518,19 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
         ...(spec.id === 'movie_cn' && boxOfficeRows.length > 0
             ? [{ slug: 'maoyan_box_office', source: 'maoyan', items: boxOfficeRows }]
             : []),
-        ...(spec.id === 'movie_cn'
+        ...(spec.trailerSource
             ? [{
-                  slug: 'bilibili_up_8465957',
+                  slug: spec.trailerSource.sourceSlug,
                   source: 'bilibili',
                   items: trailerRows,
                   fetchError: trailerDataset?.metadata?.status === 'failed' ? trailerDataset?.metadata?.message || null : null
+              }]
+            : []),
+        ...(spec.trailerSource && searchFallbackRows.length > 0
+            ? [{
+                  slug: 'bilibili_search_html',
+                  source: 'bilibili',
+                  items: searchFallbackRows
               }]
             : [])
     ];
@@ -605,6 +677,14 @@ function logFallbackSummary(categoryId, summary) {
 function getNumberEnv(name, fallbackValue) {
     const value = Number(process.env[name]);
     return Number.isFinite(value) ? value : fallbackValue;
+}
+
+function getBooleanEnv(name, fallbackValue) {
+    const value = String(process.env[name] || '').trim().toLowerCase();
+    if (!value) return fallbackValue;
+    if (['1', 'true', 'yes', 'on'].includes(value)) return true;
+    if (['0', 'false', 'no', 'off'].includes(value)) return false;
+    return fallbackValue;
 }
 
 async function buildTmdbItems(spec, doubanLookup) {

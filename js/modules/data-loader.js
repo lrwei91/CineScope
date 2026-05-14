@@ -255,6 +255,7 @@ function normalizeTvItems(shows, config = {}) {
         const genres = normalizeNameList(show.genres, { filterValid: true });
         const networks = normalizeNameList(show.networks);
         const tmdbId = typeof show.tmdb_id === 'number' ? show.tmdb_id : null;
+        const trailers = normalizeTrailerList(show.trailers);
 
         seasons.forEach((season) => {
             if (!season.air_date) return;
@@ -292,6 +293,8 @@ function normalizeTvItems(shows, config = {}) {
                 languages: normalizeStringList(show.languages),
                 aka: normalizeStringList(show.aka),
                 overview: show.overview || season.overview || '',
+                trailers,
+                primaryTrailer: trailers[0] || null,
                 dossierTitle,
                 dossierSubtitle,
                 dossierOverview,

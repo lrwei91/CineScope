@@ -81,6 +81,8 @@ import {
     initMobileSheetEvents
 } from './js/modules/mobile-sheet.js';
 
+import { getPageEndIndex } from './js/modules/paging.js';
+
 // =====================================================
 // 全局状态
 // =====================================================
@@ -199,6 +201,7 @@ async function switchCategory(categoryId) {
 
 async function ensureCategoryLoaded(categoryId) {
     const catState = state.categoryState[categoryId];
+    const config = CATEGORY_CONFIG[categoryId];
 
     if (catState.completeLoaded || catState.latestLoaded) {
         if (categoryId === state.currentCategoryId) {
@@ -207,6 +210,11 @@ async function ensureCategoryLoaded(categoryId) {
         if (!catState.completeLoaded) {
             loadCategoryData(categoryId, 'complete', state.categoryState);
         }
+        return;
+    }
+
+    if (config?.preferCompleteOnFirstLoad) {
+        await loadCategoryData(categoryId, 'complete', state.categoryState);
         return;
     }
 
@@ -604,7 +612,12 @@ function loadMoreItems() {
     }
 
     const startIndex = (state.currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const endIndex = getPageEndIndex(
+        state.filteredPastAndPresentItems,
+        startIndex,
+        ITEMS_PER_PAGE,
+        { keepMonthIntact: Boolean(getCurrentCategoryConfig()?.keepMonthIntactOnPaging) }
+    );
     const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
 
     if (itemsToRender.length > 0) {
@@ -635,7 +648,12 @@ async function loadMoreItemsAsync() {
 
         state.isLoading = true;
         const startIndex = (state.currentPage - 1) * ITEMS_PER_PAGE;
-        const endIndex = startIndex + ITEMS_PER_PAGE;
+        const endIndex = getPageEndIndex(
+            state.filteredPastAndPresentItems,
+            startIndex,
+            ITEMS_PER_PAGE,
+            { keepMonthIntact: Boolean(getCurrentCategoryConfig()?.keepMonthIntactOnPaging) }
+        );
         const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
 
         if (itemsToRender.length > 0) {

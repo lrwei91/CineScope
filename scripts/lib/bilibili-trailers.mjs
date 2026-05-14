@@ -1,16 +1,33 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import vm from 'node:vm';
 
 export const DEFAULT_BILIBILI_TRAILER_UP_MID = '8465957';
 export const DEFAULT_BILIBILI_TRAILER_CACHE_PATH = '.cache/bilibili/up-8465957-videos.json';
 export const DEFAULT_BILIBILI_TRAILER_OVERRIDES_PATH = 'scripts/data/movie_cn_trailer_overrides.json';
 export const DEFAULT_BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT = 8;
 export const DEFAULT_BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT = 4;
+export const DEFAULT_BILIBILI_TRAILER_REQUEST_DELAY_MS = 1200;
+export const DEFAULT_BILIBILI_TRAILER_REQUEST_JITTER_MS = 400;
+export const DEFAULT_BILIBILI_TRAILER_MAX_RETRIES = 3;
+export const DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS = 3000;
+export const DEFAULT_BILIBILI_TRAILER_SEARCH_SUFFIX = '乌鸦预告片';
+export const DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS = 15000;
+export const DEFAULT_BILIBILI_TV_TRAILER_UP_MID = '229864363';
+export const DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH = '.cache/bilibili/up-229864363-videos.json';
+export const DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH = 'scripts/data/tv_cn_trailer_overrides.json';
+export const DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX = '追剧情报社';
 
 const BILIBILI_API_HEADERS = {
     Accept: 'application/json, text/plain, */*',
     Origin: 'https://www.bilibili.com',
-    Referer: `https://space.bilibili.com/${DEFAULT_BILIBILI_TRAILER_UP_MID}/upload/video`,
+    'User-Agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'
+};
+
+const BILIBILI_SEARCH_PAGE_HEADERS = {
+    Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    Referer: 'https://www.bilibili.com/',
     'User-Agent':
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'
 };
@@ -75,7 +92,13 @@ export async function loadBilibiliTrailerDataset({
     cacheRelativePath = DEFAULT_BILIBILI_TRAILER_CACHE_PATH,
     overridesRelativePath = DEFAULT_BILIBILI_TRAILER_OVERRIDES_PATH,
     bootstrapPageLimit = DEFAULT_BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT,
-    incrementalPageLimit = DEFAULT_BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT
+    incrementalPageLimit = DEFAULT_BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT,
+    forceBootstrap = false,
+    requestDelayMs = DEFAULT_BILIBILI_TRAILER_REQUEST_DELAY_MS,
+    requestJitterMs = DEFAULT_BILIBILI_TRAILER_REQUEST_JITTER_MS,
+    maxRetries = DEFAULT_BILIBILI_TRAILER_MAX_RETRIES,
+    retryBaseDelayMs = DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+    requestTimeoutMs = DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
 } = {}) {
     if (!rootDir) {
         throw new Error('loadBilibiliTrailerDataset requires a rootDir.');
@@ -95,7 +118,13 @@ export async function loadBilibiliTrailerDataset({
             fetchImpl,
             existingRows: cachedRows,
             bootstrapPageLimit,
-            incrementalPageLimit
+            incrementalPageLimit,
+            forceBootstrap,
+            requestDelayMs,
+            requestJitterMs,
+            maxRetries,
+            retryBaseDelayMs,
+            requestTimeoutMs
         });
         const rows = fetchResult.rows;
         const payload = {
@@ -157,7 +186,13 @@ export async function fetchBilibiliTrailerRows({
     fetchImpl = fetch,
     existingRows = [],
     bootstrapPageLimit = DEFAULT_BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT,
-    incrementalPageLimit = DEFAULT_BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT
+    incrementalPageLimit = DEFAULT_BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT,
+    forceBootstrap = false,
+    requestDelayMs = DEFAULT_BILIBILI_TRAILER_REQUEST_DELAY_MS,
+    requestJitterMs = DEFAULT_BILIBILI_TRAILER_REQUEST_JITTER_MS,
+    maxRetries = DEFAULT_BILIBILI_TRAILER_MAX_RETRIES,
+    retryBaseDelayMs = DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+    requestTimeoutMs = DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
 } = {}) {
     const rows = [];
     let page = 1;
@@ -165,12 +200,23 @@ export async function fetchBilibiliTrailerRows({
     let fetchedPages = 0;
     const normalizedExistingRows = normalizeBilibiliTrailerRows(existingRows, mid);
     const cachedKeys = new Set(normalizedExistingRows.map((row) => row.bvid || row.url).filter(Boolean));
-    const hasExistingCache = normalizedExistingRows.length > 0;
+    const hasExistingCache = normalizedExistingRows.length > 0 && !forceBootstrap;
     const pageLimit = hasExistingCache ? incrementalPageLimit : bootstrapPageLimit;
     let reachedKnownRow = false;
 
     while (page <= pageLimit) {
-        const payload = await fetchBilibiliVideoPage({ mid, page, fetchImpl });
+        if (fetchedPages > 0) {
+            await sleep(resolveWaitDuration(requestDelayMs, requestJitterMs));
+        }
+
+        const payload = await fetchBilibiliVideoPage({
+            mid,
+            page,
+            fetchImpl,
+            maxRetries,
+            retryBaseDelayMs,
+            requestTimeoutMs
+        });
         const list = Array.isArray(payload?.data?.list?.vlist) ? payload.data.list.vlist : [];
         const pageCount = Number(payload?.data?.page?.count);
         fetchedPages += 1;
@@ -208,39 +254,261 @@ export async function fetchBilibiliTrailerRows({
     };
 }
 
-async function fetchBilibiliVideoPage({ mid, page, fetchImpl }) {
-    const url = new URL('https://api.bilibili.com/x/space/arc/search');
-    url.searchParams.set('mid', String(mid));
-    url.searchParams.set('pn', String(page));
-    url.searchParams.set('ps', '30');
-    url.searchParams.set('order', 'pubdate');
-    url.searchParams.set('jsonp', 'jsonp');
-
-    const response = await fetchImpl(url, {
-        headers: BILIBILI_API_HEADERS
+export async function searchBilibiliTrailerRowsForMovies({
+    movies = [],
+    mid = DEFAULT_BILIBILI_TRAILER_UP_MID,
+    fetchImpl = fetch,
+    requestDelayMs = DEFAULT_BILIBILI_TRAILER_REQUEST_DELAY_MS,
+    requestJitterMs = DEFAULT_BILIBILI_TRAILER_REQUEST_JITTER_MS,
+    maxRetries = DEFAULT_BILIBILI_TRAILER_MAX_RETRIES,
+    retryBaseDelayMs = DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+    searchSuffix = DEFAULT_BILIBILI_TRAILER_SEARCH_SUFFIX,
+    requestTimeoutMs = DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
+} = {}) {
+    return searchBilibiliTrailerRowsForCatalogItems({
+        items: movies,
+        mid,
+        fetchImpl,
+        requestDelayMs,
+        requestJitterMs,
+        maxRetries,
+        retryBaseDelayMs,
+        searchSuffix,
+        requestTimeoutMs
     });
-    const responseText = await response.text();
+}
 
-    if (!response.ok) {
-        throw new Error(`Bilibili trailer request failed (${response.status})`);
+export async function searchBilibiliTrailerRowsForCatalogItems({
+    items = [],
+    mid = DEFAULT_BILIBILI_TRAILER_UP_MID,
+    fetchImpl = fetch,
+    requestDelayMs = DEFAULT_BILIBILI_TRAILER_REQUEST_DELAY_MS,
+    requestJitterMs = DEFAULT_BILIBILI_TRAILER_REQUEST_JITTER_MS,
+    maxRetries = DEFAULT_BILIBILI_TRAILER_MAX_RETRIES,
+    retryBaseDelayMs = DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+    searchSuffix = DEFAULT_BILIBILI_TRAILER_SEARCH_SUFFIX,
+    requestTimeoutMs = DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
+} = {}) {
+    const normalizedMovies = Array.isArray(items) ? items : [];
+    const rows = [];
+
+    for (let index = 0; index < normalizedMovies.length; index += 1) {
+        const movie = normalizedMovies[index];
+        const searchQueries = buildTrailerSearchQueries(movie, searchSuffix);
+        let matchedRows = [];
+
+        for (const query of searchQueries) {
+            if (index > 0 || matchedRows.length > 0) {
+                await sleep(resolveWaitDuration(requestDelayMs, requestJitterMs));
+            }
+
+            let searchResults = [];
+            try {
+                searchResults = await fetchBilibiliSearchPageResults({
+                    keyword: query,
+                    fetchImpl,
+                    maxRetries,
+                    retryBaseDelayMs,
+                    requestTimeoutMs
+                });
+            } catch {
+                continue;
+            }
+            matchedRows = searchResults
+                .filter((result) => String(result?.mid || '') === String(mid) || String(result?.author || '').trim() === searchSuffix)
+                .map((result) => normalizeSingleTrailerRow(result, mid))
+                .filter(Boolean)
+                .filter((row) => scoreTrailerMovieMatch(row, movie) > 0);
+
+            if (matchedRows.length > 0) {
+                break;
+            }
+        }
+
+        rows.push(...matchedRows);
     }
 
-    if (/<!doctype html/i.test(responseText) || /验证码/i.test(responseText)) {
-        throw new Error('Bilibili trailer request was blocked by a captcha page.');
+    return dedupeTrailerCollections([rows]);
+}
+
+async function fetchBilibiliVideoPage({
+    mid,
+    page,
+    fetchImpl,
+    maxRetries = DEFAULT_BILIBILI_TRAILER_MAX_RETRIES,
+    retryBaseDelayMs = DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+    requestTimeoutMs = DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
+}) {
+    let attempt = 0;
+
+    while (true) {
+        try {
+            const url = new URL('https://api.bilibili.com/x/space/arc/search');
+            url.searchParams.set('mid', String(mid));
+            url.searchParams.set('pn', String(page));
+            url.searchParams.set('ps', '30');
+            url.searchParams.set('order', 'pubdate');
+            url.searchParams.set('jsonp', 'jsonp');
+
+            const response = await fetchImpl(url, {
+                headers: getBilibiliApiHeaders(mid),
+                signal: createTimeoutSignal(requestTimeoutMs)
+            });
+            const responseText = await response.text();
+
+            if (!response.ok) {
+                throw createBilibiliFetchError(`Bilibili trailer request failed (${response.status})`, response.status);
+            }
+
+            if (/<!doctype html/i.test(responseText) || /验证码/i.test(responseText)) {
+                throw createBilibiliFetchError('Bilibili trailer request was blocked by a captcha page.');
+            }
+
+            let payload = null;
+            try {
+                payload = JSON.parse(responseText);
+            } catch {
+                throw createBilibiliFetchError('Bilibili trailer response is not valid JSON.');
+            }
+
+            if (Number(payload?.code) !== 0) {
+                throw createBilibiliFetchError(
+                    payload?.message || `Bilibili trailer request failed with code ${payload?.code ?? 'unknown'}.`,
+                    payload?.code
+                );
+            }
+
+            return payload;
+        } catch (error) {
+            attempt += 1;
+
+            if (!shouldRetryBilibiliError(error) || attempt > maxRetries) {
+                throw error;
+            }
+
+            await sleep(resolveRetryDelay(retryBaseDelayMs, attempt));
+        }
+    }
+}
+
+function createBilibiliFetchError(message, code = null) {
+    const error = new Error(message);
+    error.code = code;
+    return error;
+}
+
+async function fetchBilibiliSearchPageResults({
+    keyword,
+    page = 1,
+    fetchImpl,
+    maxRetries = DEFAULT_BILIBILI_TRAILER_MAX_RETRIES,
+    retryBaseDelayMs = DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+    requestTimeoutMs = DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
+}) {
+    let attempt = 0;
+
+    while (true) {
+        try {
+            const url = new URL('https://search.bilibili.com/all');
+            url.searchParams.set('keyword', String(keyword || '').trim());
+            url.searchParams.set('page', String(page));
+
+            const response = await fetchImpl(url, {
+                headers: BILIBILI_SEARCH_PAGE_HEADERS,
+                signal: createTimeoutSignal(requestTimeoutMs)
+            });
+            const html = await response.text();
+
+            if (!response.ok) {
+                throw createBilibiliFetchError(`Bilibili search page request failed (${response.status})`, response.status);
+            }
+
+            if (/<!doctype html/i.test(html) && /出错啦/i.test(html)) {
+                throw createBilibiliFetchError('Bilibili search page request was blocked by a risk-control page.');
+            }
+
+            return extractBilibiliSearchResultsFromHtml(html);
+        } catch (error) {
+            attempt += 1;
+
+            if (!shouldRetryBilibiliError(error) || attempt > maxRetries) {
+                throw error;
+            }
+
+            await sleep(resolveRetryDelay(retryBaseDelayMs, attempt));
+        }
+    }
+}
+
+export function extractBilibiliSearchResultsFromHtml(html) {
+    const rawHtml = String(html || '');
+    const scriptMatch = rawHtml.match(/window\.__pinia\s*=\s*(\(function[\s\S]*?\)\([\s\S]*?\));/);
+    if (!scriptMatch) {
+        throw new Error('Bilibili search page payload is missing __pinia data.');
     }
 
-    let payload = null;
-    try {
-        payload = JSON.parse(responseText);
-    } catch {
-        throw new Error('Bilibili trailer response is not valid JSON.');
+    const context = {
+        window: {}
+    };
+    vm.createContext(context);
+    vm.runInContext(scriptMatch[0], context, { timeout: 1000 });
+
+    const results = context.window?.__pinia?.searchResponse?.searchAllResponse?.result;
+    return Array.isArray(results) ? results : [];
+}
+
+function shouldRetryBilibiliError(error) {
+    const message = String(error?.message || '').toLowerCase();
+    const code = Number(error?.code);
+
+    if ([412, 429, -352].includes(code)) {
+        return true;
     }
 
-    if (Number(payload?.code) !== 0) {
-        throw new Error(payload?.message || `Bilibili trailer request failed with code ${payload?.code ?? 'unknown'}.`);
+    return (
+        message.includes('captcha') ||
+        message.includes('频繁') ||
+        message.includes('稍后再试') ||
+        message.includes('too many requests') ||
+        message.includes('request failed (412)') ||
+        message.includes('request failed (429)') ||
+        message.includes('risk control')
+    );
+}
+
+function resolveWaitDuration(requestDelayMs, requestJitterMs) {
+    const baseDelay = Math.max(0, Number(requestDelayMs) || 0);
+    const jitter = Math.max(0, Number(requestJitterMs) || 0);
+    if (jitter === 0) {
+        return baseDelay;
     }
 
-    return payload;
+    return baseDelay + Math.floor(Math.random() * (jitter + 1));
+}
+
+function resolveRetryDelay(retryBaseDelayMs, attempt) {
+    const baseDelay = Math.max(0, Number(retryBaseDelayMs) || 0);
+    return baseDelay * attempt;
+}
+
+function createTimeoutSignal(timeoutMs) {
+    const safeTimeoutMs = Math.max(0, Number(timeoutMs) || 0);
+    if (safeTimeoutMs === 0 || typeof AbortSignal === 'undefined' || typeof AbortSignal.timeout !== 'function') {
+        return undefined;
+    }
+
+    return AbortSignal.timeout(safeTimeoutMs);
+}
+
+function sleep(durationMs) {
+    const safeDurationMs = Math.max(0, Number(durationMs) || 0);
+    if (safeDurationMs === 0) {
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+        setTimeout(resolve, safeDurationMs);
+    });
 }
 
 export function normalizeBilibiliTrailerRows(rows, mid = DEFAULT_BILIBILI_TRAILER_UP_MID) {
@@ -326,10 +594,22 @@ export function normalizeMovieTrailerMatchKey(value) {
 }
 
 export function buildMovieTrailerLookupKeys(movie) {
-    if (!movie || typeof movie !== 'object') return [];
+    return buildCatalogTrailerLookupKeys(movie);
+}
+
+export function buildCatalogTrailerLookupKeys(item) {
+    if (!item || typeof item !== 'object') return [];
 
     return [...new Set(
-        [movie.title, movie.original_title, movie.originalTitle, ...(Array.isArray(movie.aka) ? movie.aka : [])]
+        [
+            item.title,
+            item.name,
+            item.original_title,
+            item.originalTitle,
+            item.original_name,
+            item.originalName,
+            ...(Array.isArray(item.aka) ? item.aka : [])
+        ]
             .map(normalizeMovieTrailerMatchKey)
             .filter(Boolean)
     )];
@@ -360,6 +640,22 @@ export function buildTrailerCandidateKeys(title) {
     return [...keys].sort((left, right) => right.length - left.length);
 }
 
+function buildTrailerSearchQueries(movie, searchSuffix = DEFAULT_BILIBILI_TRAILER_SEARCH_SUFFIX) {
+    const rawTitles = [
+        movie?.title,
+        movie?.name,
+        movie?.original_title,
+        movie?.originalTitle,
+        movie?.original_name,
+        movie?.originalName,
+        ...(Array.isArray(movie?.aka) ? movie.aka : [])
+    ]
+        .map((value) => String(value || '').trim())
+        .filter(Boolean);
+
+    return [...new Set(rawTitles.map((title) => `${title} ${searchSuffix}`.trim()))];
+}
+
 function normalizeTrailerDescriptorText(value) {
     let cleaned = String(value || '').trim();
     cleaned = cleaned.replace(/[【】\[\]()（）]/g, ' ');
@@ -373,9 +669,13 @@ function normalizeTrailerDescriptorText(value) {
 }
 
 export function mergeTrailersIntoMovies(movies, trailerRows, options = {}) {
-    const normalizedMovies = Array.isArray(movies) ? movies : [];
+    return mergeTrailersIntoCatalogItems(movies, trailerRows, options);
+}
+
+export function mergeTrailersIntoCatalogItems(items, trailerRows, options = {}) {
+    const normalizedMovies = Array.isArray(items) ? items : [];
     const normalizedRows = normalizeBilibiliTrailerRows(trailerRows);
-    const existingTrailersByMovie = createExistingTrailersMap(options.existingMovies);
+    const existingTrailersByMovie = createExistingTrailersMap(options.existingMovies || options.existingItems);
     const manualOverrides = normalizeTrailerOverrides(options.overrides);
     const assignedTrailers = new Map();
     const lockedMovieIds = new Set();
@@ -399,7 +699,7 @@ export function mergeTrailersIntoMovies(movies, trailerRows, options = {}) {
         const matchedTrailers = assignedTrailers.get(movie.id);
         const preservedTrailers =
             existingTrailersByMovie.byMovieId.get(movie.id) ||
-            buildMovieTrailerLookupKeys(movie)
+            buildCatalogTrailerLookupKeys(movie)
                 .map((titleKey) => existingTrailersByMovie.byTitleKey.get(titleKey))
                 .find((trailers) => Array.isArray(trailers) && trailers.length > 0) ||
             [];
@@ -415,6 +715,13 @@ export function mergeTrailersIntoMovies(movies, trailerRows, options = {}) {
             trailers: nextTrailers
         };
     });
+}
+
+function getBilibiliApiHeaders(mid) {
+    return {
+        ...BILIBILI_API_HEADERS,
+        Referer: `https://space.bilibili.com/${String(mid || DEFAULT_BILIBILI_TRAILER_UP_MID)}/upload/video`
+    };
 }
 
 function createExistingTrailersMap(existingMovies) {
@@ -435,7 +742,7 @@ function createExistingTrailersMap(existingMovies) {
             trailersByMovieId.set(movie.id, trailers);
         }
 
-        buildMovieTrailerLookupKeys(movie).forEach((titleKey) => {
+        buildCatalogTrailerLookupKeys(movie).forEach((titleKey) => {
             if (titleKey && !trailersByTitleKey.has(titleKey)) {
                 trailersByTitleKey.set(titleKey, trailers);
             }
@@ -466,7 +773,7 @@ function findBestMovieMatch(row, movies, lockedMovieIds) {
 }
 
 export function scoreTrailerMovieMatch(row, movie) {
-    const movieKeys = buildMovieTrailerLookupKeys(movie);
+    const movieKeys = buildCatalogTrailerLookupKeys(movie);
     const trailerKeys = buildTrailerCandidateKeys(row?.title);
     if (movieKeys.length === 0 || trailerKeys.length === 0) {
         return -1;
@@ -593,6 +900,7 @@ function movieMatchesOverride(movie, match = {}) {
     if (!movie || !match || typeof match !== 'object') return false;
 
     if (match.movieId && String(match.movieId) === String(movie.id)) return true;
+    if (match.itemId && String(match.itemId) === String(movie.id)) return true;
     if (match.tmdbId && String(match.tmdbId) === String(movie.tmdb_id || movie.tmdbId)) return true;
     if (match.doubanSubjectId && String(match.doubanSubjectId) === String(extractDoubanSubjectId(movie.douban_link_google || movie.doubanLink || ''))) {
         return true;
@@ -606,7 +914,7 @@ function movieMatchesOverride(movie, match = {}) {
         .filter(Boolean);
     if (candidateTitles.length === 0) return false;
 
-    const movieKeys = new Set(buildMovieTrailerLookupKeys(movie));
+    const movieKeys = new Set(buildCatalogTrailerLookupKeys(movie));
     return candidateTitles.some((titleKey) => movieKeys.has(titleKey));
 }
 

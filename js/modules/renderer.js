@@ -123,12 +123,12 @@ function createTvHeatHtml(item) {
 }
 
 function createTrailerButtonHtml(item) {
-    if (item.kind !== 'movie' || !item.primaryTrailer) {
+    if (!item.primaryTrailer) {
         return '';
     }
 
     return `
-        <button class="poster-trailer-btn" type="button" aria-label="播放 ${item.title || '影片'} 预告片" title="播放预告片">
+        <button class="poster-trailer-btn" type="button" aria-label="播放 ${item.title || '作品'} 预告片" title="播放预告片">
             <span class="poster-trailer-icon">▶</span>
         </button>
     `;
