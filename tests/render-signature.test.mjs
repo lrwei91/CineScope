@@ -45,3 +45,24 @@ test('render signature changes when realtime TV heat is merged after first rende
 
     assert.notEqual(after, before);
 });
+
+test('render signature changes when trailers are merged after first render', () => {
+    const before = buildRenderedItemsSignature([createItem()]);
+    const after = buildRenderedItemsSignature([
+        createItem({
+            trailers: [
+                {
+                    source: 'bilibili',
+                    title: '测试预告片',
+                    bvid: 'BV1test66666',
+                    url: 'https://www.bilibili.com/video/BV1test66666',
+                    embedUrl: 'https://player.bilibili.com/player.html?bvid=BV1test66666&page=1',
+                    cover: '',
+                    publishedAt: '2026-05-14T00:00:00.000Z'
+                }
+            ]
+        })
+    ]);
+
+    assert.notEqual(after, before);
+});

@@ -7,6 +7,7 @@ import { createCategoryReport, createBuildReport } from './lib/build-report.mjs'
 import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
 import { createDoubanSearchCache } from './lib/douban-search-cache.mjs';
 import { mergeBoxOfficeIntoMovies } from './lib/box-office.mjs';
+import { loadBilibiliTrailerDataset, mergeTrailersIntoMovies } from './lib/bilibili-trailers.mjs';
 import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -288,7 +289,8 @@ async function main() {
     const boxOfficePayload = shouldLoadBoxOffice ? await loadBoxOfficePayloadFromCache() : null;
 
     for (const spec of activeCategorySpecs) {
-        const result = await buildCategoryData(spec, boxOfficePayload);
+        const existingCompletePayload = await readExistingPayload(spec.completePath);
+        const result = await buildCategoryData(spec, boxOfficePayload, existingCompletePayload);
         const latestPayloadToWrite = await preferExistingNonEmptyPayload(
             spec,
             result.latestPayload,
@@ -387,7 +389,7 @@ function getPayloadItemCount(kind, payload) {
     return Array.isArray(payload.movies) ? payload.movies.length : 0;
 }
 
-async function buildCategoryData(spec, boxOfficePayload = null) {
+async function buildCategoryData(spec, boxOfficePayload = null, existingCompletePayload = null) {
     const fallbackCollector = createFallbackCollector();
     const doubanSourceResults = [
         ...(await buildDoubanSourceResults(spec, fallbackCollector)),
@@ -418,10 +420,24 @@ async function buildCategoryData(spec, boxOfficePayload = null) {
     const tmdbEnrichedItems =
         TMDB_API_KEY && spec.tmdb ? await enrichItemsWithTmdbFallback(spec, finallyDedupedItems) : finallyDedupedItems;
     const boxOfficeRows = boxOfficePayload?.metadata?.status === 'ok' ? boxOfficePayload.movies : [];
-    const finalItems =
+    const boxOfficeMergedItems =
         spec.id === 'movie_cn' && boxOfficeRows.length > 0
             ? mergeBoxOfficeIntoMovies(tmdbEnrichedItems, boxOfficeRows)
             : tmdbEnrichedItems;
+    const existingMovies = Array.isArray(existingCompletePayload?.movies) ? existingCompletePayload.movies : [];
+    const trailerDataset = spec.id === 'movie_cn'
+        ? await loadBilibiliTrailerDataset({
+              rootDir: ROOT_DIR
+          })
+        : null;
+    const trailerRows = trailerDataset?.rows || [];
+    const finalItems =
+        spec.id === 'movie_cn'
+            ? mergeTrailersIntoMovies(boxOfficeMergedItems, trailerRows, {
+                  existingMovies,
+                  overrides: trailerDataset?.overrides || []
+              })
+            : boxOfficeMergedItems;
 
     const latestItems = selectLatestItems(spec, finalItems);
     const sourceResults = [
@@ -436,6 +452,14 @@ async function buildCategoryData(spec, boxOfficePayload = null) {
             : []),
         ...(spec.id === 'movie_cn' && boxOfficeRows.length > 0
             ? [{ slug: 'maoyan_box_office', source: 'maoyan', items: boxOfficeRows }]
+            : []),
+        ...(spec.id === 'movie_cn'
+            ? [{
+                  slug: 'bilibili_up_8465957',
+                  source: 'bilibili',
+                  items: trailerRows,
+                  fetchError: trailerDataset?.metadata?.status === 'failed' ? trailerDataset?.metadata?.message || null : null
+              }]
             : [])
     ];
 

@@ -122,10 +122,22 @@ function createTvHeatHtml(item) {
     `;
 }
 
+function createTrailerButtonHtml(item) {
+    if (item.kind !== 'movie' || !item.primaryTrailer) {
+        return '';
+    }
+
+    return `
+        <button class="poster-trailer-btn" type="button" aria-label="播放 ${item.title || '影片'} 预告片" title="播放预告片">
+            <span class="poster-trailer-icon">▶</span>
+        </button>
+    `;
+}
+
 /**
  * 创建目录卡片
  */
-export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
+export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTrailerClick) {
     const posterUrl = resolvePosterUrl(item.posterPath);
     const titleText = item.title || '未命名';
     const titleFontSize = getCardTitleFontSize(titleText);
@@ -152,8 +164,9 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
     const posterRibbonHtml = item.categoryId === 'tv_cn' && item.posterStatusLabel
         ? `<span class="poster-airing-ribbon">${item.posterStatusLabel}</span>`
         : '';
+    const trailerButtonHtml = createTrailerButtonHtml(item);
 
-    const posterHTML = `${posterRibbonHtml}${statusBadgeHtml}${imageHTML}`;
+    const posterHTML = `${posterRibbonHtml}${statusBadgeHtml}${trailerButtonHtml}${imageHTML}`;
 
     const card = document.createElement('div');
     card.className = 'show-card matrix-enter clickable';
@@ -162,6 +175,15 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick) {
 
     if (onCardClick) {
         card.addEventListener('click', () => onCardClick(item));
+    }
+
+    const trailerButton = card.querySelector('.poster-trailer-btn');
+    if (trailerButton && onTrailerClick) {
+        trailerButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            onTrailerClick(item, 0);
+        });
     }
 
     // 3D 悬停效果
@@ -215,7 +237,7 @@ export function showSkeletonLoader(container, skeletonContainer) {
 /**
  * 渲染即将上映卡片
  */
-export function renderComingSoon(futureItems, onCardClick) {
+export function renderComingSoon(futureItems, onCardClick, onTrailerClick) {
     const comingSoonContainer = document.getElementById('coming-soon-container');
     if (!comingSoonContainer) return;
 
@@ -240,7 +262,7 @@ export function renderComingSoon(futureItems, onCardClick) {
     if (horizontalScroller) {
         const fragment = document.createDocumentFragment();
         futureItems.forEach((item, index) => {
-            fragment.appendChild(createCatalogCard(item, index, onCardClick));
+            fragment.appendChild(createCatalogCard(item, index, onCardClick, onTrailerClick));
         });
         horizontalScroller.appendChild(fragment);
     }
@@ -312,7 +334,7 @@ export function renderTimeline(years, activeYear, visibleYearCount, onYearClick)
 /**
  * 附加项目到容器
  */
-export function appendItemsToContainer(itemsToRender, container, specialFilterMode, onCardClick) {
+export function appendItemsToContainer(itemsToRender, container, specialFilterMode, onCardClick, onTrailerClick) {
     let currentGrid = container.querySelector('.month-grid:last-of-type');
 
     if (specialFilterMode === 'recent_high_score' && !currentGrid) {
@@ -340,7 +362,7 @@ export function appendItemsToContainer(itemsToRender, container, specialFilterMo
             }
         }
 
-        const card = createCatalogCard(item, 0, onCardClick);
+        const card = createCatalogCard(item, 0, onCardClick, onTrailerClick);
         if (!currentGrid) {
             currentGrid = document.createElement('div');
             currentGrid.className = 'month-grid';

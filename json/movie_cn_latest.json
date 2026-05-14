@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "last_updated": "2026-05-13T23:13:39.518Z",
+    "last_updated": "2026-05-14T14:29:09.432Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-05-13T23:13:39.518Z",
+        "time": "2026-05-14T14:29:09.432Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+tmdb+maoyan",
+    "source": "douban+maoyan+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 51,
+        "count": 31,
         "fetch_error": null
       },
       {
@@ -29,15 +29,15 @@
         "fetch_error": null
       },
       {
-        "slug": "discover/movie",
-        "source": "tmdb",
-        "count": 246,
-        "fetch_error": null
-      },
-      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
         "count": 59,
+        "fetch_error": null
+      },
+      {
+        "slug": "bilibili_up_8465957",
+        "source": "bilibili",
+        "count": 30,
         "fetch_error": null
       }
     ],
@@ -88,9 +88,7 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1671541,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1671541"
+      "type": "movie"
     },
     {
       "id": 26822087,
@@ -140,9 +138,7 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1658666,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1658666"
+      "type": "movie"
     },
     {
       "id": 36962219,
@@ -225,15 +221,13 @@
         "Mega Minions",
         "Minions 3"
       ],
-      "imdb_id": "tt32890033",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36962219.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36962219/",
       "douban_link_verified": true,
       "overview": "为了拍摄心中理想的怪兽电影，这群萌趣活宝四处物色演员，竟然真的集齐了各式怪兽，上演疯狂大乱斗！",
-      "durations": [
-        "90分钟"
-      ],
+      "durations": [],
       "release_windows": [
         {
           "id": "summer",
@@ -243,8 +237,17 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
-      "tmdb_id": 1315772,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1315772"
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "异世界大怪兽来了！暑期动画大片《小黄人3》全新预告，内地定档07.03",
+          "bvid": "BV1sadABWEbb",
+          "url": "https://www.bilibili.com/video/BV1sadABWEbb",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1sadABWEbb&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/82753c47b6f57aeed8035b5255fc371085277739.jpg",
+          "publishedAt": "2026-05-07T16:36:51.000Z"
+        }
+      ]
     },
     {
       "id": 37191746,
@@ -407,7 +410,7 @@
         "四渡赤水",
         "Crossing"
       ],
-      "imdb_id": "tt39276601",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/37191746.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37191746/",
@@ -417,9 +420,7 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1604133,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1604133"
+      "type": "movie"
     },
     {
       "id": 36238849,
@@ -477,59 +478,28 @@
         },
         {
           "id": 5,
-          "name": "基努·里维斯"
+          "name": "布莱克·克拉克"
         },
         {
           "id": 6,
-          "name": "谢尔比·拉巴拉"
-        },
-        {
-          "id": 7,
-          "name": "克雷格·罗宾森"
-        },
-        {
-          "id": 8,
-          "name": "柯南·奥布莱恩"
-        },
-        {
-          "id": 9,
-          "name": "安妮·波茨"
-        },
-        {
-          "id": 10,
-          "name": "邦妮·亨特"
-        },
-        {
-          "id": 11,
-          "name": "华莱士·肖恩"
-        },
-        {
-          "id": 12,
-          "name": "埃涅·赫德森"
-        },
-        {
-          "id": 13,
-          "name": "约翰·拉森贝格"
-        },
-        {
-          "id": 14,
-          "name": "克里斯汀·沙尔"
-        },
-        {
-          "id": 15,
-          "name": "克莉丝·马歇尔"
-        },
-        {
-          "id": 16,
           "name": "托尼·海尔"
         },
         {
-          "id": 17,
-          "name": "布莱克·克拉克"
+          "id": 7,
+          "name": "柯南·奥布莱恩"
+        },
+        {
+          "id": 8,
+          "name": "埃涅·赫德森"
+        },
+        {
+          "id": 9,
+          "name": "安娜·法瑞丝"
         }
       ],
       "countries": [
-        "美国"
+        "美国",
+        "日本"
       ],
       "languages": [
         "英语"
@@ -537,21 +507,28 @@
       "aka": [
         "反斗奇兵5(港)"
       ],
-      "imdb_id": "tt29355505",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36238849.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36238849/",
       "douban_link_verified": true,
-      "overview": "本部续作中，胡迪、巴斯光年、翠斯等“元老级”玩具将跟随小主人邦妮的成长脚步，共同迎接数字时代下的全新挑战。随着无所不能的科技产品逐渐走进童年世界，一批充满科技感的崭新角色也随之重磅亮相：青蛙造型的智能平板小荷、憨态可掬的导航玩具小不丢、活力十足的抓拍好手小拍侠，以及自带笑点的臭屁小机灵。\n当身边的同龄朋友们开始沉浸在科技玩具带来的“电子陪伴”中，而玩具伙伴们也迎来了前所未有的生存难题：在屏幕占据注意力的时代，玩具的时代真的结束了吗？在“被取代”危机的当下，这群玩具伙伴还能否携手，帮助邦妮找回属于自己的真实友谊与快乐？",
-      "durations": [
-        "90分钟"
-      ],
+      "overview": "胡迪、巴斯光年、翠丝等玩伴们，经历了时间的考验，这次要面对来自科技的挑战……",
+      "durations": [],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
-      "tmdb_id": 1084244,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1084244"
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "传统玩具vs科技玩具！皮克斯《玩具总动员5》定档预告，06.19中美同步",
+          "bvid": "BV1rXdFBGEDR",
+          "url": "https://www.bilibili.com/video/BV1rXdFBGEDR",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1rXdFBGEDR&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/319d11752243c4f3df95d07a4ea307a06a6be937.jpg",
+          "publishedAt": "2026-05-07T04:35:48.000Z"
+        }
+      ]
     },
     {
       "id": 37152802,
@@ -609,7 +586,7 @@
       "aka": [
         "Invictus"
       ],
-      "imdb_id": "tt35929985",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/37152802.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37152802/",
@@ -619,9 +596,7 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1435047,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1435047"
+      "type": "movie"
     },
     {
       "id": 34833849,
@@ -785,14 +760,12 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1275051,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1275051"
+      "type": "movie"
     },
     {
       "id": 36916000,
       "title": "诺曼底72小时",
-      "original_title": "Pressure",
+      "original_title": "诺曼底72小时",
       "release_date": "2026-06-06",
       "genres": [
         {
@@ -822,103 +795,27 @@
         {
           "id": 3,
           "name": "凯瑞·康顿"
-        },
-        {
-          "id": 4,
-          "name": "克里斯·梅西纳"
-        },
-        {
-          "id": 5,
-          "name": "戴米恩·路易斯"
-        },
-        {
-          "id": 6,
-          "name": "亨利·阿什顿"
-        },
-        {
-          "id": 7,
-          "name": "康·奥尼尔"
-        },
-        {
-          "id": 8,
-          "name": "塔姆馨·托波尔斯基"
-        },
-        {
-          "id": 9,
-          "name": "威尔·柯班"
-        },
-        {
-          "id": 10,
-          "name": "丹尼尔·奎恩-托伊"
-        },
-        {
-          "id": 11,
-          "name": "迈克尔·本茨"
-        },
-        {
-          "id": 12,
-          "name": "杰米·B·钱伯斯"
-        },
-        {
-          "id": 13,
-          "name": "哈里森·奥斯特菲尔德"
-        },
-        {
-          "id": 14,
-          "name": "泰勒·厄特利"
-        },
-        {
-          "id": 15,
-          "name": "理查德·克洛西尔"
-        },
-        {
-          "id": 16,
-          "name": "麦克斯·克罗斯"
-        },
-        {
-          "id": 17,
-          "name": "乔舒亚·希尔"
-        },
-        {
-          "id": 18,
-          "name": "托比·威廉姆斯"
-        },
-        {
-          "id": 19,
-          "name": "罗莎娜·布朗"
-        },
-        {
-          "id": 20,
-          "name": "保罗·贝利"
         }
       ],
-      "countries": [
-        "英国",
-        "法国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "诺曼第风暴(港)",
-        "极限高压",
-        "高压"
-      ],
-      "imdb_id": "tt32547691",
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36916000.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36916000/",
       "douban_link_verified": true,
-      "overview": "聚焦诺曼底登陆前夕的紧张局势，围绕盟军远征军最高司令部首席气象学家詹姆斯·斯塔格上尉展开，他的职责是向盟军最高指挥官德怀特·戴维·艾森豪威尔通报决定成败的天气状况。",
-      "durations": [
-        "110分钟"
+      "overview": "",
+      "durations": [],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
       ],
-      "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1318413,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1318413"
+      "type": "movie"
     },
     {
       "id": 36961785,
@@ -960,25 +857,178 @@
         }
       ],
       "countries": [],
-      "languages": [
-        "zh"
-      ],
+      "languages": [],
       "aka": [],
       "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36961785.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36961785/",
       "douban_link_verified": true,
-      "overview": "　　影片讲述了从小酷爱汽车修理的新疆少女娜依拉通过广东省招收新疆内职生的考试，远赴深圳学习汽修技术，在以男性为主的汽修比赛中，娜依拉突破女性生理极限等重重困难，勇夺全国冠军的励志故事。",
+      "overview": "",
+      "durations": [],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 1951286,
+      "title": "宇宙巨人：希曼崛起",
+      "original_title": "Masters of the Universe",
+      "release_date": "2026-06-05",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "动作"
+        },
+        {
+          "id": 3,
+          "name": "科幻"
+        },
+        {
+          "id": 4,
+          "name": "奇幻"
+        },
+        {
+          "id": 5,
+          "name": "冒险"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "特拉维斯·奈特"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "尼古拉斯·加利齐纳"
+        },
+        {
+          "id": 2,
+          "name": "卡米拉·门德斯"
+        },
+        {
+          "id": 3,
+          "name": "伊德瑞斯·艾尔巴"
+        },
+        {
+          "id": 4,
+          "name": "杰瑞德·莱托"
+        },
+        {
+          "id": 5,
+          "name": "夏洛特·莱利"
+        },
+        {
+          "id": 6,
+          "name": "詹姆斯·鲍弗"
+        },
+        {
+          "id": 7,
+          "name": "莫蕾娜·巴卡琳"
+        },
+        {
+          "id": 8,
+          "name": "爱丽森·布里"
+        },
+        {
+          "id": 9,
+          "name": "克里斯汀·韦格"
+        },
+        {
+          "id": 10,
+          "name": "约翰内斯·豪克尔·约翰内森"
+        },
+        {
+          "id": 11,
+          "name": "阿尔蒂·威尔金森-亨特"
+        },
+        {
+          "id": 12,
+          "name": "萨希尔·泽玛塔"
+        },
+        {
+          "id": 13,
+          "name": "马克斯·克劳斯"
+        },
+        {
+          "id": 14,
+          "name": "科乔·阿塔"
+        },
+        {
+          "id": 15,
+          "name": "山姆·C·威尔逊"
+        },
+        {
+          "id": 16,
+          "name": "哈夫托尔·尤利乌斯·比约恩松"
+        },
+        {
+          "id": 17,
+          "name": "埃尔·法瑞尔"
+        },
+        {
+          "id": 18,
+          "name": "詹姆斯·威尔金森"
+        },
+        {
+          "id": 19,
+          "name": "Jon Xue Zhang"
+        },
+        {
+          "id": 20,
+          "name": "斯蒂芬·阿登坦"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "太空超人(台)",
+        "Masters of the Universe 宇宙天王(港)",
+        "宇宙巨人希曼",
+        "宇宙巨人希曼(真人版)",
+        "Grayskull",
+        "He-Man"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/1951286.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/1951286/",
+      "douban_link_verified": true,
+      "overview": "亚当（尼古拉斯·加利齐纳 饰）在神秘圣剑的召唤下，尘封十五年的异世界王子身份觉醒，平凡人生被彻底颠覆。他跨越时空重返埃坦尼亚，但故乡早已在骷髅王的统治下分崩离析。为拯救曾经的家园与现在的世界，亚当必须再次拔出圣剑，喊出那句响彻寰宇的咒语——“赐予我力量吧！我是希曼！”",
       "durations": [
-        "95分钟"
+        "122分钟"
       ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
-      "tmdb_id": 1693737,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1693737"
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "\"大黄蜂\"导演！奇幻史诗巨制《宇宙巨人:希曼崛起》新预告，内地官宣引进",
+          "bvid": "BV1T5ReBVEhL",
+          "url": "https://www.bilibili.com/video/BV1T5ReBVEhL",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1T5ReBVEhL&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/9c0a932c39f82f1ab35992bf3895cdd5a84af7aa.jpg",
+          "publishedAt": "2026-05-04T03:09:13.000Z"
+        }
+      ]
     },
     {
       "id": 36779597,
@@ -1015,90 +1065,20 @@
           "name": "郑润奇"
         }
       ],
-      "countries": [
-        "China"
-      ],
-      "languages": [
-        "zh"
-      ],
+      "countries": [],
+      "languages": [],
       "aka": [],
-      "imdb_id": "tt38744582",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36779597.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36779597/",
       "douban_link_verified": true,
-      "overview": "阿杰（黄曦彦 饰）曾是辍学两年的街头混混，人生写满了“没出息”；小光（张祎曈 饰）是活在自己安静世界里的少女，与喧嚣人世始终隔着一道无声的墙。一场强制的保安工作，让两条平行线意外交汇。爱让混世魔王变身专属骑士，也让沉默的少女第一次为爱勇敢发声。两个不被看好的人，一段不被看好的爱情，却成了彼此黑暗世界里唯一且最亮的光——“全世界都当我不存在，只有他，拼命想听见我的声音。”",
+      "overview": "",
       "durations": [],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1563614,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1563614"
-    },
-    {
-      "id": 35517408,
-      "title": "监狱来的妈妈",
-      "original_title": "监狱来的妈妈",
-      "release_date": "2026-05-30",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "秦晓宇"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "赵箫泓"
-        },
-        {
-          "id": 2,
-          "name": "张皓宇"
-        },
-        {
-          "id": 3,
-          "name": "刘舒祎"
-        },
-        {
-          "id": 4,
-          "name": "周平"
-        },
-        {
-          "id": 5,
-          "name": "郝燕飞"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "Her Heart Beats In its Cage"
-      ],
-      "imdb_id": "tt37982638",
-      "poster_path": "posters/douban/movie_cn/35517408.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/35517408/",
-      "douban_link_verified": true,
-      "overview": "她因反抗家暴，在一次冲突中失手杀夫，被判入狱。十年后，她被特赦出狱，面对的不仅是陌生的世界，更是一个不曾叫过她“妈妈”的儿子，以及被自己杀死了儿子的婆婆。她能否在一片废墟之上重新站立起来？\n影片根据真实故事改编。",
-      "durations": [
-        "86分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1532474,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1532474"
+      "type": "movie"
     },
     {
       "id": 30226070,
@@ -1178,141 +1158,26 @@
       "durations": [
         "97分钟"
       ],
-      "release_windows": [],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 35575521,
-      "title": "森林之声",
-      "original_title": "Ozi: Voice of the Forest",
-      "release_date": "2026-05-30",
-      "genres": [
+      "type": "movie",
+      "trailers": [
         {
-          "id": 1,
-          "name": "喜剧"
-        },
-        {
-          "id": 2,
-          "name": "动画"
-        },
-        {
-          "id": 3,
-          "name": "冒险"
+          "source": "bilibili",
+          "title": "2026神话动画电影《钟馗》首曝预告，地府神仙全员亮相！定档05.30",
+          "bvid": "BV1R7RdBSEzy",
+          "url": "https://www.bilibili.com/video/BV1R7RdBSEzy",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1R7RdBSEzy&page=1&qn=64&high_quality=1",
+          "cover": "http://i1.hdslb.com/bfs/archive/772b8b1cb8343aebd231ebe5e0699276778b2df5.jpg",
+          "publishedAt": "2026-05-09T14:33:46.000Z"
         }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "Tim Harper"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "唐纳德·萨瑟兰"
-        },
-        {
-          "id": 2,
-          "name": "劳拉·邓恩"
-        },
-        {
-          "id": 3,
-          "name": "杰曼·翰苏"
-        },
-        {
-          "id": 4,
-          "name": "迪恩-查尔斯·查普曼"
-        },
-        {
-          "id": 5,
-          "name": "阿曼德拉·斯坦伯格"
-        },
-        {
-          "id": 6,
-          "name": "鲁保罗"
-        },
-        {
-          "id": 7,
-          "name": "伊万诺·杰里迈亚"
-        },
-        {
-          "id": 8,
-          "name": "玛丽莎·安妮塔"
-        },
-        {
-          "id": 9,
-          "name": "乌兹拉·卡尔森"
-        },
-        {
-          "id": 10,
-          "name": "休·博纳维尔"
-        },
-        {
-          "id": 11,
-          "name": "Véronique Baylaucq"
-        },
-        {
-          "id": 12,
-          "name": "Wilson Benedito"
-        },
-        {
-          "id": 13,
-          "name": "凯马·鲍勃"
-        },
-        {
-          "id": 14,
-          "name": "利亚姆·劳-费尔南德斯"
-        },
-        {
-          "id": 15,
-          "name": "加里·马丁"
-        },
-        {
-          "id": 16,
-          "name": "路易斯·马丁"
-        },
-        {
-          "id": 17,
-          "name": "凯瑞·莎勒"
-        },
-        {
-          "id": 18,
-          "name": "蕾切尔·申顿"
-        },
-        {
-          "id": 19,
-          "name": "乔什·怀特豪斯"
-        }
-      ],
-      "countries": [
-        "英国",
-        "法国",
-        "美国",
-        "加拿大"
-      ],
-      "languages": [
-        "英语",
-        "德语"
-      ],
-      "aka": [
-        "森之声：猩火燎原(台)",
-        "奥齐"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/35575521.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/35575521/",
-      "douban_link_verified": true,
-      "overview": "印度尼西亚雨林的森林砍伐，一只名叫Ozi的十几岁的红毛猩猩被烧毁后成为孤儿。",
-      "durations": [
-        "87分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
+      ]
     },
     {
       "id": 1304447,
@@ -1410,7 +1275,7 @@
         "失忆",
         "Amnesia"
       ],
-      "imdb_id": "tt39730566",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/1304447.jpg",
       "douban_rating": "8.7",
       "douban_link_google": "https://movie.douban.com/subject/1304447/",
@@ -1420,11 +1285,9 @@
         "113分钟"
       ],
       "release_windows": [],
-      "rating_count": 673124,
+      "rating_count": 673009,
       "rating_star_count": 4.5,
-      "type": "movie",
-      "tmdb_id": 1657704,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1657704"
+      "type": "movie"
     },
     {
       "id": 36372941,
@@ -1515,7 +1378,12 @@
       "durations": [
         "117分钟"
       ],
-      "release_windows": [],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie"
@@ -1612,7 +1480,7 @@
         "曼达洛人与尤达宝宝",
         "The Mandalorian & Grogu"
       ],
-      "imdb_id": "tt30825738",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36723035.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36723035/",
@@ -1625,8 +1493,17 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
-      "tmdb_id": 1228710,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1228710"
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "场面震撼！《钢铁侠》导演科幻巨制《曼达洛人与古古》终极预告，内地定档05.22",
+          "bvid": "BV13Y5s6ZEab",
+          "url": "https://www.bilibili.com/video/BV13Y5s6ZEab",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV13Y5s6ZEab&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/cc5a5b58ddb5cf53998211e9967565b27886e589.jpg",
+          "publishedAt": "2026-05-11T04:11:19.000Z"
+        }
+      ]
     },
     {
       "id": 37317133,
@@ -1701,7 +1578,18 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "欲望拉扯！大胆聊性！马思纯×陈昊森《今晚正好》预告，定档05.22",
+          "bvid": "BV1UPRTBNEjS",
+          "url": "https://www.bilibili.com/video/BV1UPRTBNEjS",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UPRTBNEjS&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/00272e222ba990087719f6b1410752eea496b19f.jpg",
+          "publishedAt": "2026-05-01T02:19:08.000Z"
+        }
+      ]
     },
     {
       "id": 36594974,
@@ -1743,191 +1631,6 @@
       "overview": "国立博物馆和毛里茨之家举办了一场汇集维米尔杰作的展览。博物馆馆长和策展人带领他们进行私人导览，分享关于维米尔艺术创作过程及创作动机的新研究。",
       "durations": [
         "90分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 37296925,
-      "title": "突破3000米的日月潭",
-      "original_title": "突破：三千米的泳氣",
-      "release_date": "2026-05-22",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "运动"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "安景鸿"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "李罗"
-        },
-        {
-          "id": 2,
-          "name": "李紫嫣"
-        },
-        {
-          "id": 3,
-          "name": "范逸臣"
-        },
-        {
-          "id": 4,
-          "name": "言承旭"
-        },
-        {
-          "id": 5,
-          "name": "太保"
-        },
-        {
-          "id": 6,
-          "name": "洪瑜鸿"
-        }
-      ],
-      "countries": [
-        "中国台湾"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "突破：3000米的日月潭",
-        "Breakthrough: 3000m of courage",
-        "Second Life"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/37296925.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/37296925/",
-      "douban_link_verified": true,
-      "overview": "故事改编自真人真事。一位曾经顶尖的游泳教练因一场意外告别泳坛，靠送外卖为生；一位视力逐渐退化的女孩，决定挑战自己，实现泳渡日月潭的梦想。命运让两位相遇，开启一段全新旅程……",
-      "durations": [
-        "123分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 35192382,
-      "title": "烈刃之怒",
-      "original_title": "The Legend of Maula Jatt",
-      "release_date": "2026-05-21",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "战争"
-        },
-        {
-          "id": 3,
-          "name": "奇幻"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "比拉勒·拉沙里"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "法瓦德·可汗"
-        },
-        {
-          "id": 2,
-          "name": "哈姆扎·阿里·阿巴斯"
-        },
-        {
-          "id": 3,
-          "name": "玛希拉·汗"
-        },
-        {
-          "id": 4,
-          "name": "胡迈玛·马利克"
-        },
-        {
-          "id": 5,
-          "name": "米尔扎·戈哈尔·拉希德"
-        },
-        {
-          "id": 6,
-          "name": "阿里·拉扎"
-        },
-        {
-          "id": 7,
-          "name": "阿赫桑·汗"
-        },
-        {
-          "id": 8,
-          "name": "纳亚尔·伊贾兹"
-        },
-        {
-          "id": 9,
-          "name": "巴巴尔·阿里"
-        },
-        {
-          "id": 10,
-          "name": "雷沙姆"
-        },
-        {
-          "id": 11,
-          "name": "拉希拉·阿加"
-        },
-        {
-          "id": 12,
-          "name": "阿尔沙德·尼亚齐"
-        },
-        {
-          "id": 13,
-          "name": "沙夫卡特·奇马"
-        },
-        {
-          "id": 14,
-          "name": "阿赫森·穆拉德"
-        },
-        {
-          "id": 15,
-          "name": "阿卜杜勒·拉扎克"
-        }
-      ],
-      "countries": [
-        "巴基斯坦"
-      ],
-      "languages": [
-        "旁遮普语",
-        "乌尔都语",
-        "英语"
-      ],
-      "aka": [
-        "毛拉·贾特传奇"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/35192382.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/35192382/",
-      "douban_link_verified": true,
-      "overview": "这是一个关于真相和正义的故事。少年茂拉虽在家族惨遭灭门后只身幸存，并在养母的抚养下成长为威震四方的赏金拳手。但噩梦从未远去——当命运的齿轮再度转动，茂拉终于揭开了自己深埋已久的真实身份，宿敌努里的名字也随之浮出水面。这位令整个旁遮普闻风丧胆的帮派首领，正是当年灭门惨案的始作俑者之一。赏金拳手茂拉为了复仇，向穷凶极恶的帮派首领努里发起正面挑战，随后走向了一条家破人亡、挚爱分离的道路。",
-      "durations": [
-        "153分钟",
-        "133分钟"
       ],
       "release_windows": [],
       "rating_count": null,
@@ -2011,97 +1714,17 @@
         "失恋后也不必做的12件事",
         "Be Yourself"
       ],
-      "imdb_id": "tt35231529",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36117834.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36117834/",
       "douban_link_verified": true,
       "overview": "刚大学毕业的吴小北（庄达菲 饰）被初恋男友李天昊（周澄奧 饰）断崖式分手后陷入无尽的情绪反扑。她沉溺于失恋的痛苦，闺蜜米亚（赵佳丽 饰）像救命的解药，一直陪在她身边。而后，她又阴差阳错先后与情场高手老崔（白客 饰）和热情小奶狗小李（敖子逸 饰）产生交际，邂逅了灵魂契合却很难走近的Crush王哲远（王安宇 饰）。",
-      "durations": [
-        "90分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1607073,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1607073"
-    },
-    {
-      "id": 37350266,
-      "title": "为我的心动买单",
-      "original_title": "为我的心动买单",
-      "release_date": "2026-05-20",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "黄斌"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "艾伦"
-        },
-        {
-          "id": 2,
-          "name": "戚薇"
-        },
-        {
-          "id": 3,
-          "name": "郑业成"
-        },
-        {
-          "id": 4,
-          "name": "蒋依依"
-        },
-        {
-          "id": 5,
-          "name": "梓渝"
-        },
-        {
-          "id": 6,
-          "name": "易梦玲"
-        },
-        {
-          "id": 7,
-          "name": "王成思"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "爱情大乱斗(中国版)",
-        "心动保单",
-        "Love Battle"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/37350266.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/37350266/",
-      "douban_link_verified": true,
-      "overview": "分手后的夏临（戚薇 饰）一心扑在事业上，在“不相信爱情”的自我和时代面前，推出“真爱保险”，试图通过用户的分手率提高个人业绩和公司收益，这一工作目标遭到同事谭杰（艾伦 饰）的反对。\n两人在经历各异的投保人中不断斡旋，开启一场以真爱为名的分合大战。心动是否能被保险，真爱又能否通过挑战？答案并不是对比出来的数字，是内心深处最坚定的告白。\n影片根据泰国大热爆笑喜剧改编。",
       "durations": [],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1512942,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1512942"
+      "type": "movie"
     },
     {
       "id": 35903155,
@@ -2233,7 +1856,7 @@
         "124分钟"
       ],
       "release_windows": [],
-      "rating_count": 1432,
+      "rating_count": 1430,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -2369,7 +1992,7 @@
         "满满三袋：羊群侦探大电影",
         "Three Bags Full: A Sheep Detective Movie"
       ],
-      "imdb_id": "tt32565993",
+      "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/36918069.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36918069/",
@@ -2378,12 +2001,537 @@
       "durations": [
         "109分钟"
       ],
-      "release_windows": [],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
       "rating_count": null,
       "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 36311696,
+      "title": "一个男人和一个女人",
+      "original_title": "一个男人和一个女人",
+      "release_date": "2026-05-16",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "管虎"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "黄渤"
+        },
+        {
+          "id": 2,
+          "name": "倪妮"
+        },
+        {
+          "id": 3,
+          "name": "周励淇"
+        },
+        {
+          "id": 4,
+          "name": "林雪"
+        },
+        {
+          "id": 5,
+          "name": "鲍起静"
+        },
+        {
+          "id": 6,
+          "name": "伍咏薇"
+        },
+        {
+          "id": 7,
+          "name": "颜卓灵"
+        }
+      ],
+      "countries": [
+        "中国大陆",
+        "中国香港"
+      ],
+      "languages": [
+        "汉语普通话",
+        "粤语"
+      ],
+      "aka": [
+        "A Man and a Woman"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/36311696.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/36311696/",
+      "douban_link_verified": true,
+      "overview": "男人（黄渤 饰）和女人（倪妮 饰）飞机同时落地，入住同一家酒店，成为一墙之隔的邻居。不够隔音的房间暴露了男人和女人因生活暂停陷入的困境，健康、家庭、婚姻、经济......成年人的生活里从来没有“容易”二字，当各种各样的烦心事蜂拥而至之时，人生惊喜也不期而遇，两个陌生人在艰难时刻给予彼此温暖的善意，治愈了对方濒临崩溃的内心，更让他们遇见了更好的自己。",
+      "durations": [
+        "113分钟",
+        "117分钟(影展版)"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 1294941,
+      "title": "大白鲨",
+      "original_title": "Jaws",
+      "release_date": "2026-05-15",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "惊悚"
+        },
+        {
+          "id": 3,
+          "name": "冒险"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "史蒂文·斯皮尔伯格"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "罗伊·谢德"
+        },
+        {
+          "id": 2,
+          "name": "罗伯特·肖"
+        },
+        {
+          "id": 3,
+          "name": "理查德·德莱福斯"
+        },
+        {
+          "id": 4,
+          "name": "洛兰·加里"
+        },
+        {
+          "id": 5,
+          "name": "莫瑞·汉密尔顿"
+        },
+        {
+          "id": 6,
+          "name": "卡尔·哥特列布"
+        },
+        {
+          "id": 7,
+          "name": "杰弗瑞·克莱默"
+        },
+        {
+          "id": 8,
+          "name": "苏珊·巴克林尼"
+        },
+        {
+          "id": 9,
+          "name": "乔纳森·菲利"
+        },
+        {
+          "id": 10,
+          "name": "泰迪·格鲁斯曼"
+        },
+        {
+          "id": 11,
+          "name": "克里斯·雷贝洛"
+        },
+        {
+          "id": 12,
+          "name": "杰伊·梅洛"
+        },
+        {
+          "id": 13,
+          "name": "李·菲耶罗"
+        },
+        {
+          "id": 14,
+          "name": "杰弗里·沃里斯"
+        },
+        {
+          "id": 15,
+          "name": "克雷格·金斯伯里"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "Stillness in the Water",
+        "Hajen"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/1294941.jpg",
+      "douban_rating": "7.8",
+      "douban_link_google": "https://movie.douban.com/subject/1294941/",
+      "douban_link_verified": true,
+      "overview": "艾米蒂岛是一个旅游度假胜地，有大批的游客来这里游泳。然而，大白鲨的出现却改变了这一切。事故从一对情侣开始，他们下海游泳，女的不幸成为了第一个牺牲者，支离破碎的尸体令人惨不忍睹。当地官员却不愿意封场调查，他们怕影响旅游收入，于是请来了生物学家胡珀（理查德•德莱福斯 Ric hard Dreyfuss 饰）。\n胡珀断定，这是一只非比寻常的巨大白鲨。他的提醒并没有引起当局的足够重视，紧接着又有人死于非命，事态才变得越发严重。当地一个熟练捕鱼手、警察和胡珀一共三人，决心要捕杀大白鲨，凶险重重的搏斗开始了，谁才是最后的胜者？要获得这场战斗的胜利，又要付出怎样的代价？",
+      "durations": [
+        "124 分钟",
+        "130分钟(美国电视版)"
+      ],
+      "release_windows": [],
+      "rating_count": 117787,
+      "rating_star_count": 4,
       "type": "movie",
-      "tmdb_id": 1301421,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1301421"
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-05-13T22:21:04.625Z",
+        "rank": 25,
+        "maoyan_movie_id": 3532,
+        "movie_name": "大白鲨",
+        "release_info": "零点场",
+        "real_time_box_office": "0.50万",
+        "cumulative_box_office": "5070",
+        "split_cumulative_box_office": "4401",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 295,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "0.1%",
+        "avg_show_view": "0.3"
+      },
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "斯皮尔伯格影史经典！7.8分惊悚片《大白鲨》内地预告，定档05.15",
+          "bvid": "BV1zZ5s66Ea7",
+          "url": "https://www.bilibili.com/video/BV1zZ5s66Ea7",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1zZ5s66Ea7&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/efa410bc2b094efd26aa537adaa949f6064a22d0.jpg",
+          "publishedAt": "2026-05-11T03:03:43.000Z"
+        }
+      ]
+    },
+    {
+      "id": 36070920,
+      "title": "再见，朱莉娅",
+      "original_title": "وداعا جوليا",
+      "release_date": "2026-05-13",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "穆罕默德·科尔多法尼"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "艾曼·尤瑟夫"
+        },
+        {
+          "id": 2,
+          "name": "西兰·里亚克"
+        },
+        {
+          "id": 3,
+          "name": "纳扎尔·戈马"
+        },
+        {
+          "id": 4,
+          "name": "格·达尼"
+        },
+        {
+          "id": 5,
+          "name": "穆斯塔法·阿卡利法"
+        },
+        {
+          "id": 6,
+          "name": "莫阿维亚·卡利德·尼利"
+        },
+        {
+          "id": 7,
+          "name": "斯特凡诺斯·詹姆斯·彼得"
+        },
+        {
+          "id": 8,
+          "name": "路易斯·丹尼尔·丁"
+        },
+        {
+          "id": 9,
+          "name": "莫塔西姆·阿卜杜勒拉齐格·艾哈迈德"
+        },
+        {
+          "id": 10,
+          "name": "保利诺·维克多·博尔"
+        },
+        {
+          "id": 11,
+          "name": "玛莎·尼尔瓦克·坎杜"
+        },
+        {
+          "id": 12,
+          "name": "沙姆萨尔丁·明托·阿布提"
+        },
+        {
+          "id": 13,
+          "name": "穆罕默德·阿卜杜勒阿齐姆"
+        },
+        {
+          "id": 14,
+          "name": "穆罕默德·沙姆塞丁"
+        },
+        {
+          "id": 15,
+          "name": "纳加特·塔哈"
+        }
+      ],
+      "countries": [
+        "苏丹",
+        "瑞典",
+        "德国",
+        "沙特阿拉伯",
+        "法国",
+        "埃及"
+      ],
+      "languages": [
+        "阿拉伯语"
+      ],
+      "aka": [
+        "Goodbye Julia"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/36070920.jpg",
+      "douban_rating": "8.2",
+      "douban_link_google": "https://movie.douban.com/subject/36070920/",
+      "douban_link_verified": true,
+      "overview": "北苏丹人莫娜曾是一名歌手，结婚后退出歌坛。生活体面的她却被内心秘密折磨：她曾间接引发了一起谋杀。为平息愧疚，她收留了失去生活来源的死者遗孀和儿子：来自苏丹南部的朱莉娅和丹尼尔。在家庭内外，两个完全不同的女人建立起意外却暗藏危机的友谊。由于无法坦白罪行，莫娜决定抛开过去，努力适应现状。但她没有想到，国家的动荡蔓延至她的家中，令她必须直面内心分裂。",
+      "durations": [
+        "120分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 5915,
+      "rating_star_count": 4,
+      "type": "movie",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-05-13T22:21:04.625Z",
+        "rank": 18,
+        "maoyan_movie_id": 1478428,
+        "movie_name": "再见，朱莉娅",
+        "release_info": "上映2天",
+        "real_time_box_office": "1.86万",
+        "cumulative_box_office": "14.4万",
+        "split_cumulative_box_office": "12.9万",
+        "box_office_rate": "0.3%",
+        "split_box_office_rate": "0.3%",
+        "show_count": 5200,
+        "show_count_rate": "1.4%",
+        "seat_occupancy": "0.0%",
+        "avg_show_view": "<0.1"
+      }
+    },
+    {
+      "id": 35754057,
+      "title": "真人快打2",
+      "original_title": "Mortal Kombat 2",
+      "release_date": "2026-05-08",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "科幻"
+        },
+        {
+          "id": 3,
+          "name": "惊悚"
+        },
+        {
+          "id": 4,
+          "name": "奇幻"
+        },
+        {
+          "id": 5,
+          "name": "冒险"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "西蒙·麦奎德"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "卡尔·厄本"
+        },
+        {
+          "id": 2,
+          "name": "阿德莱恩·鲁道夫"
+        },
+        {
+          "id": 3,
+          "name": "杰西卡·麦克娜美"
+        },
+        {
+          "id": 4,
+          "name": "约什·劳森"
+        },
+        {
+          "id": 5,
+          "name": "马丁·福特"
+        },
+        {
+          "id": 6,
+          "name": "林路迪"
+        },
+        {
+          "id": 7,
+          "name": "麦卡德·布鲁克斯"
+        },
+        {
+          "id": 8,
+          "name": "塔蒂·加布里埃"
+        },
+        {
+          "id": 9,
+          "name": "刘易斯·陈"
+        },
+        {
+          "id": 10,
+          "name": "黄又亮"
+        },
+        {
+          "id": 11,
+          "name": "达蒙·海瑞曼"
+        },
+        {
+          "id": 12,
+          "name": "黄经汉"
+        },
+        {
+          "id": 13,
+          "name": "浅野忠信"
+        },
+        {
+          "id": 14,
+          "name": "乔·塔斯利姆"
+        },
+        {
+          "id": 15,
+          "name": "真田广之"
+        },
+        {
+          "id": 16,
+          "name": "戴斯蒙·詹"
+        },
+        {
+          "id": 17,
+          "name": "CJ·布隆菲尔德"
+        },
+        {
+          "id": 18,
+          "name": "索菲亚·徐"
+        },
+        {
+          "id": 19,
+          "name": "安娜·图·阮"
+        },
+        {
+          "id": 20,
+          "name": "朱利安·威克斯"
+        },
+        {
+          "id": 21,
+          "name": "艾萨克·普瑞斯特"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "真人快打II(台)",
+        "真人快打续集"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/35754057.jpg",
+      "douban_rating": "6.3",
+      "douban_link_google": "https://movie.douban.com/subject/35754057/",
+      "douban_link_verified": true,
+      "overview": "过气好莱坞演员强尼·凯奇（卡尔·厄本 饰）被意外选中，加入一场决定地球命运的真人快打。吉塔娜（阿德莱恩·鲁道夫 饰）、刀锋索尼娅（杰西卡·麦克娜美 饰）、卡诺（约什·劳森 饰）、刘康（林路迪 饰）、贾克斯（麦卡德·布鲁克斯 饰）、尚宗（黄经汉 饰）、雷电（浅野忠信 饰）、避寒（乔·塔斯利姆 饰）、蝎子（真田广之 饰）等角色也将各显身手，开启血浆狂飙的格斗厮杀。",
+      "durations": [
+        "116分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 10242,
+      "rating_star_count": 3,
+      "type": "movie",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-05-13T22:21:04.625Z",
+        "rank": 6,
+        "maoyan_movie_id": 1482041,
+        "movie_name": "真人快打2",
+        "release_info": "上映7天",
+        "real_time_box_office": "8.04万",
+        "cumulative_box_office": "1230.4万",
+        "split_cumulative_box_office": "1095.7万",
+        "box_office_rate": "1.4%",
+        "split_box_office_rate": "1.4%",
+        "show_count": 16778,
+        "show_count_rate": "4.7%",
+        "seat_occupancy": "0.0%",
+        "avg_show_view": "0.1"
+      },
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "空佬vs刘康!蝎子vs避寒!《真人快打2》三大打戏片段，强尼凯奇vs吉塔娜",
+          "bvid": "BV1SVRmBnEtf",
+          "url": "https://www.bilibili.com/video/BV1SVRmBnEtf",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1SVRmBnEtf&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/66536920e9956a6c6dd61141c35ad46d01f3ff82.jpg",
+          "publishedAt": "2026-05-08T15:32:39.000Z"
+        },
+        {
+          "source": "bilibili",
+          "title": "原版无删改！R级动作爽片《真人快打2》终极预告，血肉横飞！终结技还原！",
+          "bvid": "BV1WvdABHEAj",
+          "url": "https://www.bilibili.com/video/BV1WvdABHEAj",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1WvdABHEAj&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/8e40837a486a296a0de11a726ecd29196e300bb7.jpg",
+          "publishedAt": "2026-05-07T16:08:33.000Z"
+        }
+      ]
     }
   ]
 }

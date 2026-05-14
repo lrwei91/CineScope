@@ -3,6 +3,11 @@ function normalizeRealtimeMetricSignature(value) {
     return JSON.stringify(value);
 }
 
+function normalizeTrailerSignature(value) {
+    if (!Array.isArray(value) || value.length === 0) return '';
+    return JSON.stringify(value);
+}
+
 export function buildRenderedItemKey(item) {
     return [
         item.id,
@@ -14,7 +19,8 @@ export function buildRenderedItemKey(item) {
         item.posterStatusLabel,
         item.posterPath,
         normalizeRealtimeMetricSignature(item.boxOffice),
-        normalizeRealtimeMetricSignature(item.tvHeat)
+        normalizeRealtimeMetricSignature(item.tvHeat),
+        normalizeTrailerSignature(item.trailers)
     ].join('|');
 }
 

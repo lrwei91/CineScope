@@ -8,6 +8,7 @@ import { resolvePosterUrl } from './renderer.js';
 import { getGenreDisplayName } from './filters.js';
 
 let currentDossierItem = null;
+let onOpenTrailerCallback = null;
 
 /**
  * 从标题生成 ID
@@ -77,6 +78,18 @@ function createExternalLink({ href, label, title, iconUrl, fallback }) {
             <span class="sr-only">${title}</span>
         </a>
     `;
+}
+
+function syncBodyModalState() {
+    const hasActiveModal = Boolean(
+        document.getElementById('intel-dossier')?.classList.contains('active') ||
+        document.getElementById('intel-dossier-overlay')?.classList.contains('active') ||
+        document.getElementById('trailer-modal')?.classList.contains('active') ||
+        document.getElementById('trailer-modal-overlay')?.classList.contains('active') ||
+        document.getElementById('mobile-sheet-overlay')?.classList.contains('active')
+    );
+
+    document.body.classList.toggle('modal-open', hasActiveModal);
 }
 
 /**
@@ -192,6 +205,31 @@ export function openIntelDossier(item) {
         }
     }
 
+    const trailersSection = document.getElementById('dossier-trailers-section');
+    const trailersContainer = document.getElementById('dossier-trailers');
+    if (trailersSection && trailersContainer) {
+        trailersContainer.innerHTML = '';
+        const trailers = Array.isArray(item.trailers) ? item.trailers : [];
+        if (trailers.length > 0) {
+            trailers.forEach((trailer, index) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'dossier-trailer-btn';
+                button.textContent = trailers.length > 1 ? `预告片 ${index + 1}` : '播放预告片';
+                button.title = trailer.title || '播放预告片';
+                button.addEventListener('click', () => {
+                    if (typeof onOpenTrailerCallback === 'function') {
+                        onOpenTrailerCallback(item, index);
+                    }
+                });
+                trailersContainer.appendChild(button);
+            });
+            trailersSection.hidden = false;
+        } else {
+            trailersSection.hidden = true;
+        }
+    }
+
     // 外部链接
     const linksContainer = document.getElementById('dossier-links-container');
     if (linksContainer) {
@@ -257,8 +295,8 @@ export function closeIntelDossier() {
     dossierDrawer.classList.remove('active');
     dossierDrawer.classList.remove('swiping-close');
     dossierDrawer.style.removeProperty('--swipe-close-translate');
-    document.body.classList.remove('modal-open');
     currentDossierItem = null;
+    syncBodyModalState();
 }
 
 /**
@@ -340,11 +378,12 @@ export function setupDossierSwipeClose() {
 /**
  * 初始化详情面板事件
  */
-export function initDossierEvents(onShare) {
+export function initDossierEvents(onShare, onOpenTrailer) {
     const closeDossierBtn = document.getElementById('close-dossier-btn');
     const shareDossierBtn = document.getElementById('share-dossier-btn');
     const dossierOverlay = document.getElementById('intel-dossier-overlay');
     const dossierDrawer = document.getElementById('intel-dossier');
+    onOpenTrailerCallback = typeof onOpenTrailer === 'function' ? onOpenTrailer : null;
 
     if (closeDossierBtn) closeDossierBtn.addEventListener('click', closeIntelDossier);
     if (dossierOverlay) dossierOverlay.addEventListener('click', closeIntelDossier);

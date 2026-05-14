@@ -665,6 +665,39 @@ h1 .update-date {
     color: #000;
 }
 
+.poster-trailer-btn {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    border-radius: 999px;
+    background: rgba(5, 8, 15, 0.86);
+    color: var(--palette-bg-primary-core);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.poster-trailer-btn:hover {
+    transform: scale(1.05);
+    border-color: var(--palette-bg-primary-core);
+    background: rgba(0, 240, 255, 0.12);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.28);
+}
+
+.poster-trailer-icon {
+    padding-left: 2px;
+    font-size: 16px;
+    line-height: 1;
+}
+
 .card-content {
     display: grid;
     flex: 1;
@@ -1933,6 +1966,13 @@ body.cursor-hover #custom-cursor-ring {
     gap: 8px;
 }
 
+.dossier-trailer-row,
+.trailer-list-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .dossier-tag-item {
     background: rgba(0, 240, 255, 0.05);
     color: var(--palette-bg-primary-core);
@@ -2054,6 +2094,119 @@ body.cursor-hover #custom-cursor-ring {
     transform: translateX(-50%) translateY(-2px);
 }
 
+.dossier-trailer-btn,
+.trailer-list-btn,
+.trailer-modal-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid rgba(0, 240, 255, 0.24);
+    border-radius: 8px;
+    background: rgba(0, 240, 255, 0.06);
+    color: var(--palette-bg-primary-core);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dossier-trailer-btn:hover,
+.trailer-list-btn:hover,
+.trailer-modal-link:hover,
+.trailer-list-btn.active {
+    border-color: var(--palette-bg-primary-core);
+    background: rgba(0, 240, 255, 0.14);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.14) inset;
+}
+
+.trailer-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100100;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.trailer-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.trailer-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 100101;
+    width: min(1000px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    padding: 56px 24px 24px;
+    border: 1px solid rgba(0, 240, 255, 0.18);
+    border-radius: 18px;
+    background: rgba(10, 10, 14, 0.96);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.86), 0 0 24px rgba(0, 240, 255, 0.08);
+    transform: translate(-50%, -50%) scale(0.96);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.trailer-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.trailer-modal-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.8fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.trailer-player-shell {
+    overflow: hidden;
+    border: 1px solid rgba(0, 240, 255, 0.18);
+    border-radius: 14px;
+    background: #000;
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.08);
+}
+
+.trailer-modal-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    background: #000;
+}
+
+.trailer-modal-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+}
+
+.trailer-modal-title {
+    margin: 0;
+    color: var(--palette-text-primary);
+    font-size: clamp(24px, 4vw, 32px);
+    line-height: 1.15;
+}
+
+.trailer-modal-subtitle {
+    margin: 0;
+    color: var(--palette-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -2089,5 +2242,21 @@ body.modal-open {
     .dossier-overview-text {
         font-size: 14px;
         line-height: 1.7;
+    }
+
+    .trailer-modal {
+        width: calc(100vw - 16px);
+        max-height: calc(100vh - 16px);
+        padding: 48px 16px 16px;
+        border-radius: 16px;
+    }
+
+    .trailer-modal-content {
+        grid-template-columns: 1fr;
+    }
+
+    .poster-trailer-btn {
+        width: 38px;
+        height: 38px;
     }
 }

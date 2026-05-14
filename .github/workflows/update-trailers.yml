@@ -1,0 +1,83 @@
+name: 更新院线电影预告片
+
+on:
+  schedule:
+    # 每天 UTC 12:00 运行（北京时间 20:00）
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-movie-trailers
+  cancel-in-progress: false
+
+jobs:
+  update-movie-trailers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: 恢复豆瓣详情缓存
+        uses: actions/cache@v4
+        with:
+          path: .cache/douban/subjects
+          key: douban-subjects-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            douban-subjects-${{ runner.os }}-
+
+      - name: 恢复 B 站预告片缓存
+        uses: actions/cache@v4
+        with:
+          path: .cache/bilibili
+          key: bilibili-trailers-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            bilibili-trailers-${{ runner.os }}-
+
+      - name: 增量刷新院线电影预告片
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          CATEGORY_IDS: movie_cn
+        run: |
+          node scripts/generate_douban_catalog.mjs
+
+      - name: 检查是否有变更
+        id: git-check
+        run: |
+          git add json/movie_cn_latest.json json/movie_cn_complete.json json/build_report.json posters/douban/movie_cn/
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 提交并推送变更
+        if: steps.git-check.outputs.has_changes == 'true'
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git commit \
+            -m "增量刷新院线电影预告片" \
+            -m "复用 B 站 UP 8465957 的本地缓存，仅增量拉取新视频并重建 movie_cn 预告片字段。" \
+            -m "Constraint: GitHub cron 使用 UTC，当前定时对应北京时间 20:00。" \
+            -m "Confidence: high" \
+            -m "Scope-risk: narrow" \
+            -m "Directive: 继续通过 .cache/bilibili 持久化预告片缓存；不要把页面运行时改成直连 B 站。" \
+            -m "Tested: CATEGORY_IDS=movie_cn node scripts/generate_douban_catalog.mjs"
+          git push
+
+      - name: 无变更通知
+        if: steps.git-check.outputs.has_changes == 'false'
+        run: echo "院线电影预告片无变更，跳过提交"

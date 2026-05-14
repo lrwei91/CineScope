@@ -292,6 +292,11 @@
                     <div id="dossier-networks" class="dossier-tag-row"></div>
                 </div>
 
+                <div id="dossier-trailers-section" class="dossier-tags-section" hidden>
+                    <p class="dossier-section-title">> 预告片</p>
+                    <div id="dossier-trailers" class="dossier-trailer-row"></div>
+                </div>
+
                 <div class="dossier-actions">
                     <p class="dossier-section-title">> 外部跳转</p>
                     <div class="dossier-share-row" style="display: none;"></div>
@@ -302,5 +307,30 @@
             </div>
         </div>
     </aside>
+
+    <div id="trailer-modal-overlay" class="trailer-modal-overlay"></div>
+    <section id="trailer-modal" class="trailer-modal" aria-label="预告片播放器">
+        <button id="close-trailer-modal-btn" class="close-btn" type="button" aria-label="关闭预告片弹层">╳</button>
+        <div class="trailer-modal-content">
+            <div class="trailer-player-shell">
+                <iframe
+                    id="trailer-modal-frame"
+                    class="trailer-modal-frame"
+                    src=""
+                    title="预告片播放器"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer"
+                ></iframe>
+            </div>
+            <div class="trailer-modal-meta">
+                <p class="dossier-subtext">TRAILER FEED // BILIBILI</p>
+                <h2 id="trailer-modal-title" class="trailer-modal-title"></h2>
+                <p id="trailer-modal-subtitle" class="trailer-modal-subtitle"></p>
+                <div id="trailer-modal-list" class="trailer-list-row"></div>
+                <a id="trailer-modal-link" class="trailer-modal-link" href="" target="_blank" rel="noopener noreferrer">前往 B 站播放</a>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

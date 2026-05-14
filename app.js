@@ -64,6 +64,11 @@ import {
 } from './js/modules/dossier.js';
 
 import {
+    openTrailerModal,
+    initTrailerModalEvents
+} from './js/modules/trailer-modal.js';
+
+import {
     isMobile,
     openMobileFilterSheet,
     closeMobileFilterSheet,
@@ -525,12 +530,12 @@ function filterAndRenderItems(options = {}) {
             document.body.style.visibility = 'visible';
         }
         if (shouldUpdateComingSoon) {
-            renderComingSoon(nextResults.futureItems, openIntelDossier);
+            renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
         }
         refreshRenderMetadata();
     } else {
         if (shouldUpdateComingSoon) {
-            renderComingSoon(nextResults.futureItems, openIntelDossier);
+            renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
         }
         startRendering();
     }
@@ -603,7 +608,13 @@ function loadMoreItems() {
     const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
 
     if (itemsToRender.length > 0) {
-        appendItemsToContainer(itemsToRender, elements.resultsContainer, state.specialFilterMode, openIntelDossier);
+        appendItemsToContainer(
+            itemsToRender,
+            elements.resultsContainer,
+            state.specialFilterMode,
+            openIntelDossier,
+            openTrailerModal
+        );
         state.currentPage += 1;
     }
 
@@ -628,7 +639,13 @@ async function loadMoreItemsAsync() {
         const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
 
         if (itemsToRender.length > 0) {
-            appendItemsToContainer(itemsToRender, elements.resultsContainer, state.specialFilterMode, openIntelDossier);
+            appendItemsToContainer(
+                itemsToRender,
+                elements.resultsContainer,
+                state.specialFilterMode,
+                openIntelDossier,
+                openTrailerModal
+            );
             state.currentPage += 1;
         }
 
@@ -940,7 +957,8 @@ function bootstrapApp() {
     setupScrollFade(document.getElementById('network-filter-container'));
 
     // 初始化详情面板
-    initDossierEvents(shareDossier);
+    initDossierEvents(shareDossier, openTrailerModal);
+    initTrailerModalEvents();
 
     // 初始化移动端 Action Sheet
     initMobileSheetEvents();

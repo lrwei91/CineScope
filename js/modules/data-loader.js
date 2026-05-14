@@ -378,6 +378,7 @@ function normalizeMovieItems(movies) {
         const primaryTitle = movie.title || movie.name || movie.original_title || movie.original_name || '未命名';
         const originalTitle = movie.original_title || movie.original_name || primaryTitle;
         const tmdbId = typeof movie.tmdb_id === 'number' ? movie.tmdb_id : null;
+        const trailers = normalizeTrailerList(movie.trailers);
 
         normalizedItems.push({
             kind: 'movie',
@@ -407,6 +408,8 @@ function normalizeMovieItems(movies) {
             languages: normalizeStringList(movie.languages),
             aka: normalizeStringList(movie.aka),
             overview: movie.overview || '',
+            trailers,
+            primaryTrailer: trailers[0] || null,
             dossierTitle: primaryTitle,
             dossierSubtitle: primaryTitle !== originalTitle ? originalTitle : '',
             dossierOverview: movie.overview || '',
@@ -477,6 +480,7 @@ function normalizeCatalogText(value) {
 function mergeCatalogItems(leftItem, rightItem) {
     const preferredItem = scoreCatalogItem(rightItem) > scoreCatalogItem(leftItem) ? rightItem : leftItem;
     const secondaryItem = preferredItem === rightItem ? leftItem : rightItem;
+    const mergedTrailers = mergeTrailers(preferredItem.trailers, secondaryItem.trailers);
 
     return {
         ...secondaryItem,
@@ -500,6 +504,8 @@ function mergeCatalogItems(leftItem, rightItem) {
         languages: mergeUniqueStrings(preferredItem.languages, secondaryItem.languages),
         aka: mergeUniqueStrings(preferredItem.aka, secondaryItem.aka),
         overview: preferredItem.overview || secondaryItem.overview || '',
+        trailers: mergedTrailers,
+        primaryTrailer: mergedTrailers[0] || null,
         dossierTitle: preferredItem.dossierTitle || secondaryItem.dossierTitle || preferredItem.title || secondaryItem.title,
         dossierSubtitle: preferredItem.dossierSubtitle || secondaryItem.dossierSubtitle || preferredItem.subtitle || secondaryItem.subtitle,
         dossierOverview: preferredItem.dossierOverview || secondaryItem.dossierOverview || preferredItem.overview || secondaryItem.overview || '',
@@ -545,6 +551,21 @@ function mergeReleaseWindows(primaryList = [], secondaryList = []) {
     });
 }
 
+function mergeTrailers(primaryList = [], secondaryList = []) {
+    const dedupedTrailers = new Map();
+
+    [...(primaryList || []), ...(secondaryList || [])]
+        .map((trailer) => normalizeSingleTrailer(trailer))
+        .filter(Boolean)
+        .forEach((trailer) => {
+            const trailerKey = trailer.bvid || trailer.url || `${trailer.title}-${trailer.publishedAt}`;
+            if (!trailerKey || dedupedTrailers.has(trailerKey)) return;
+            dedupedTrailers.set(trailerKey, trailer);
+        });
+
+    return [...dedupedTrailers.values()];
+}
+
 /**
  * 标准化名称列表（用于类型、网络等）
  */
@@ -583,6 +604,59 @@ function normalizeReleaseWindows(list) {
             label: String(item?.label || '').trim()
         }))
         .filter((item) => item.id && item.label);
+}
+
+export function normalizeTrailerList(list) {
+    if (!Array.isArray(list)) return [];
+
+    return list
+        .map((item) => normalizeSingleTrailer(item))
+        .filter(Boolean);
+}
+
+function normalizeSingleTrailer(item) {
+    if (!item || typeof item !== 'object') return null;
+
+    const title = String(item.title || '').trim();
+    const bvid = String(item.bvid || '').trim();
+    const url = String(item.url || '').trim();
+    const embedUrl = normalizeTrailerEmbedUrl(item.embedUrl || item.embed_url || '', bvid);
+    if (!title || (!bvid && !url)) {
+        return null;
+    }
+
+    return {
+        source: String(item.source || 'bilibili').trim() || 'bilibili',
+        title,
+        bvid,
+        url,
+        embedUrl,
+        cover: String(item.cover || '').trim(),
+        publishedAt: String(item.publishedAt || item.published_at || '').trim()
+    };
+}
+
+export function normalizeTrailerEmbedUrl(value, bvid = '') {
+    const rawUrl = String(value || '').trim();
+    const rawBvid = String(bvid || '').trim();
+
+    if (!rawUrl && !rawBvid) return '';
+
+    const url = rawUrl
+        ? new URL(rawUrl, 'https://player.bilibili.com')
+        : new URL('https://player.bilibili.com/player.html');
+
+    if (rawBvid && !url.searchParams.get('bvid')) {
+        url.searchParams.set('bvid', rawBvid);
+    }
+    if (!url.searchParams.get('page')) {
+        url.searchParams.set('page', '1');
+    }
+
+    url.searchParams.set('qn', '64');
+    url.searchParams.set('high_quality', '1');
+
+    return url.toString();
 }
 
 function normalizeBoxOffice(value) {
