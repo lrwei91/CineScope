@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "last_updated": "2026-05-13T23:11:57.323Z",
+    "last_updated": "2026-05-14T15:34:53.071Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-05-13T23:11:57.323Z",
+        "time": "2026-05-14T15:34:53.071Z",
         "summary": "已同步国产剧数据（latest）：27 条"
       }
     ],
-    "source": "douban+tmdb",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "tv_domestic",
@@ -25,8 +25,14 @@
       {
         "slug": "discover/tv",
         "source": "tmdb",
-        "count": 148,
+        "count": 138,
         "fetch_error": null
+      },
+      {
+        "slug": "bilibili_up_229864363",
+        "source": "bilibili",
+        "count": 0,
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
     "total_items": 27
@@ -155,8 +161,8 @@
       ],
       "tmdb_id": 254486,
       "tmdbUrl": "https://www.themoviedb.org/tv/254486",
-      "vote_average": 9,
-      "vote_count": 1
+      "vote_average": 5,
+      "vote_count": 2
     },
     {
       "id": 36449293,
@@ -391,7 +397,7 @@
       "episodes_info": "更新至4集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35295564.jpg",
-      "backdrop_path": "/eumEgh3ovgVEON4HqsEBono1lTt.jpg",
+      "backdrop_path": "/9dYtSX3Dd1t52q8DNOWuEZgUisd.jpg",
       "overview": "多年前，县剧团招学员，在团里任司鼓的胡三元（张嘉益 饰）替外甥女报名，将年少的她改名易秦娥（刘浩存 饰）从家乡带出来学唱秦腔。因胡三元造成的事故，易秦娥受到影响，学习秦腔之路屡遭波折。但她凭借刻苦的劲头和自身的条件获得了老艺人的赏识和热情帮扶。她的“破蒙戏”在乡村舞台上音惊四座，后改名忆秦娥被调入省秦腔团。 她勤学苦练，在台上的演出屡获成功。历经波折，她终于明白对秦腔艺术的传承才是她作为“主角”的真正意义，她将继续培养新一代秦腔舞台上亮丽的主角。",
       "rating_count": null,
       "rating_star_count": null,
@@ -637,7 +643,7 @@
       "id": 36402046,
       "name": "喀什恋歌",
       "original_name": "喀什恋歌",
-      "imdb_id": "tt34992884",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -741,7 +747,7 @@
       "episodes_info": "8集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36402046.jpg",
-      "backdrop_path": "/gBJCFYpPMwKdSPb4IyEsJ9uR58s.jpg",
+      "backdrop_path": null,
       "overview": "沪漂女孩夏孜在经历失业等一系列失意后，逃离内卷的大城市回到故乡喀什，慢慢在烟火气中找回内心的节奏。在重建身边世界的过程中，她携手两位儿时好友一起找到自我、重启人生。在与疆漂青年周恒之携手改造百年客栈的过程中，也重新看见了这片土地的可能性。最终她发现，故乡从来不是退路，而是另一段人生的起点。",
       "rating_count": null,
       "rating_star_count": null,
@@ -759,11 +765,7 @@
           "overview": "沪漂女孩夏孜在经历失业等一系列失意后，逃离内卷的大城市回到故乡喀什，慢慢在烟火气中找回内心的节奏。在重建身边世界的过程中，她携手两位儿时好友一起找到自我、重启人生。在与疆漂青年周恒之携手改造百年客栈的过程中，也重新看见了这片土地的可能性。最终她发现，故乡从来不是退路，而是另一段人生的起点。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 289708,
-      "tmdbUrl": "https://www.themoviedb.org/tv/289708",
-      "vote_average": 8,
-      "vote_count": 1
+      ]
     },
     {
       "id": 38456706,
@@ -784,14 +786,7 @@
           "name": "古装"
         }
       ],
-      "networks": [
-        {
-          "id": 9139,
-          "logo_path": "/qNvw1UWbA15OezR1Gsb6KeDJbJc.png",
-          "name": "FlickReels",
-          "origin_country": "SG"
-        }
-      ],
+      "networks": [],
       "directors": [],
       "actors": [
         {
@@ -817,12 +812,12 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 2,
+      "number_of_episodes": null,
       "first_air_date": "2026-05-05",
       "last_air_date": "2026-05-05",
       "in_production": false,
-      "status": "Returning Series",
-      "episodes_info": "Returning Series",
+      "status": "",
+      "episodes_info": null,
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38456706.jpg",
       "backdrop_path": null,
@@ -843,11 +838,7 @@
           "overview": "七岁那年，祝小萤替许非墨喝下毒药，从此心智停滞。多年后，她为赴婚约，阴差阳错上了巡抚徐风清的花轿。这个误会中的新郎，会为她放纸鸢、扎秋干、寻医问药，一笔一划教她写自己的名字，她第一次知道，原来自己也可以被温柔以待。当真相揭晓，青梅竹马追至面前。错嫁的乌龙将她推到抉择的路口，而她终于选择了那个教会她爱自己的人。那只从泥泞里被捞起的萤火，终于在懂她的人眼里，绽放成照亮彼此的光。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 321790,
-      "tmdbUrl": "https://www.themoviedb.org/tv/321790",
-      "vote_average": 8,
-      "vote_count": 1
+      ]
     },
     {
       "id": 272432,
@@ -1048,11 +1039,11 @@
         "擒贼记"
       ],
       "homepage": "https://www.iqiyi.com/a_25vgx15887l.html",
-      "popularity": 50.3815,
+      "popularity": 61.5234,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-05-04",
-      "last_air_date": "2026-05-12",
+      "last_air_date": "2026-05-13",
       "in_production": false,
       "status": "Ended",
       "episodes_info": "更新至20集",
@@ -1384,7 +1375,7 @@
       "id": 37014529,
       "name": "人间惊鸿客",
       "original_name": "人间惊鸿客",
-      "imdb_id": "tt40659363",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -1474,7 +1465,7 @@
       "episodes_info": "22集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37014529.jpg",
-      "backdrop_path": "/do4lhqH2USNUMVYzQWn9kMq1chJ.jpg",
+      "backdrop_path": null,
       "overview": "该剧以靖澜边境的战乱为背景，讲述了女神医寒云苓与少年将军萧池在乱世中相识，携手并肩作战，相互救赎，最终成功平息内忧外患，为国家带来安定的感人故事",
       "rating_count": null,
       "rating_star_count": null,
@@ -1492,17 +1483,13 @@
           "overview": "该剧以靖澜边境的战乱为背景，讲述了女神医寒云苓与少年将军萧池在乱世中相识，携手并肩作战，相互救赎，最终成功平息内忧外患，为国家带来安定的感人故事",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 283158,
-      "tmdbUrl": "https://www.themoviedb.org/tv/283158",
-      "vote_average": 0,
-      "vote_count": 0
+      ]
     },
     {
       "id": 35321975,
       "name": "爱情没有神话",
       "original_name": "爱情没有神话",
-      "imdb_id": "tt32740239",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -1649,7 +1636,7 @@
       "episodes_info": "更新至32集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35321975.jpg",
-      "backdrop_path": "/nQKWL5akhnv0puDu2jbsWpyqRG4.jpg",
+      "backdrop_path": null,
       "overview": "该剧改编自亦舒小说《独身女人》，讲述了以林展翘（唐嫣 饰）、何韩（赵又廷 饰）为代表的独身男女们，在事业与情感的交织浪潮中，彼此形成深厚羁绊，他们不断探寻自我，最终与爱人、朋友一道绽放绚烂人生的故事。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1667,17 +1654,13 @@
           "overview": "该剧改编自亦舒小说《独身女人》，讲述了以林展翘（唐嫣 饰）、何韩（赵又廷 饰）为代表的独身男女们，在事业与情感的交织浪潮中，彼此形成深厚羁绊，他们不断探寻自我，最终与爱人、朋友一道绽放绚烂人生的故事。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 273129,
-      "tmdbUrl": "https://www.themoviedb.org/tv/273129",
-      "vote_average": 8,
-      "vote_count": 1
+      ]
     },
     {
       "id": 35922594,
       "name": "黑夜告白",
       "original_name": "黑夜告白",
-      "imdb_id": "tt31701210",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -1771,7 +1754,7 @@
       "episodes_info": "更新至24集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35922594.jpg",
-      "backdrop_path": "/uanVvZJ17m4LlEFbjIkUW2KYYh5.jpg",
+      "backdrop_path": null,
       "overview": "1997年，一对神秘父女在元龙里小区离奇失踪，将资深警察何远航（潘粤明 饰）与新晋警员冉方旭（王鹤棣 饰）卷入其中，开启18年命运羁绊。何远航半路出家正烦恼职场转型，冉方旭高校毕业对一切新奇懵懂，面对人生第一案，两人从针锋相对到渐生默契，误以为查明失踪真相，却无意触动自己的人生。2002年新线索的突然出现，2015年相关案件的再起，竟都与18年前的父女失踪案有关，随着案件的不断深入，谜底愈加复杂，彻底推翻何远航和冉方旭之前查明的所有真相。面对重重迷雾，他们有过迷惘，也有过怀疑，但最终三代刑警拼尽全力，用坚韧和信念驱散阴影，一步步逼近真相的核心。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1789,17 +1772,13 @@
           "overview": "1997年，一对神秘父女在元龙里小区离奇失踪，将资深警察何远航（潘粤明 饰）与新晋警员冉方旭（王鹤棣 饰）卷入其中，开启18年命运羁绊。何远航半路出家正烦恼职场转型，冉方旭高校毕业对一切新奇懵懂，面对人生第一案，两人从针锋相对到渐生默契，误以为查明失踪真相，却无意触动自己的人生。2002年新线索的突然出现，2015年相关案件的再起，竟都与18年前的父女失踪案有关，随着案件的不断深入，谜底愈加复杂，彻底推翻何远航和冉方旭之前查明的所有真相。面对重重迷雾，他们有过迷惘，也有过怀疑，但最终三代刑警拼尽全力，用坚韧和信念驱散阴影，一步步逼近真相的核心。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 254498,
-      "tmdbUrl": "https://www.themoviedb.org/tv/254498",
-      "vote_average": 8.5,
-      "vote_count": 4
+      ]
     },
     {
       "id": 35633767,
       "name": "佳偶天成",
       "original_name": "佳偶天成",
-      "imdb_id": "tt41926853",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -1978,7 +1957,7 @@
       "episodes_info": "40集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35633767.jpg",
-      "backdrop_path": "/caMAXpi8r9nc5aPkn0qkOBSMzn6.jpg",
+      "backdrop_path": null,
       "overview": "该剧改编自十四郎的同名小说。\n身负\"五不全\"诅咒降生的战鬼陆千乔，需要通过换皮、换肉、换血、换骨、换心，才能成为\"健全\"的普通人。陆千乔在换肉时为给自己留存一线生机，和想借与死囚成婚化解\"克夫\"厄运的修仙者辛湄结为夫妻。二人命运绑定，携手闯关京城、崇灵谷、西域等地，最终破除战鬼族及开天会的阴谋，解除 战鬼族人身上的诅咒，辛湄也在此过程中突破道心戒律，守护人间。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1996,17 +1975,13 @@
           "overview": "该剧改编自十四郎的同名小说。\n身负\"五不全\"诅咒降生的战鬼陆千乔，需要通过换皮、换肉、换血、换骨、换心，才能成为\"健全\"的普通人。陆千乔在换肉时为给自己留存一线生机，和想借与死囚成婚化解\"克夫\"厄运的修仙者辛湄结为夫妻。二人命运绑定，携手闯关京城、崇灵谷、西域等地，最终破除战鬼族及开天会的阴谋，解除 战鬼族人身上的诅咒，辛湄也在此过程中突破道心戒律，守护人间。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 272715,
-      "tmdbUrl": "https://www.themoviedb.org/tv/272715",
-      "vote_average": 8.7,
-      "vote_count": 3
+      ]
     },
     {
       "id": 36635712,
       "name": "掌中刃",
       "original_name": "掌中刃",
-      "imdb_id": "tt41988433",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -2097,7 +2072,7 @@
       "episodes_info": "24集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36635712.jpg",
-      "backdrop_path": "/nFSltOtI5i5ZSmdN5BgAR1K5ChR.jpg",
+      "backdrop_path": null,
       "overview": "自小被寄养在顾家的顾鱼落嫁与少主顾朝夕，即将成为新任玄机阁阁主之际，顾朝夕却遭人暗杀，为稳定局势，鱼落寻回与顾朝夕长相相似之人，欲调教其代替顾朝夕。太子殷昼为避祸调查潜入顾家，人前温柔缱绻，人后杀伐果断，却发现鱼落的夫君竟正是当年他失踪的大哥，各自怀揣秘密的二人从针锋相对到互生情愫，最终心意相通……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2115,17 +2090,13 @@
           "overview": "自小被寄养在顾家的顾鱼落嫁与少主顾朝夕，即将成为新任玄机阁阁主之际，顾朝夕却遭人暗杀，为稳定局势，鱼落寻回与顾朝夕长相相似之人，欲调教其代替顾朝夕。太子殷昼为避祸调查潜入顾家，人前温柔缱绻，人后杀伐果断，却发现鱼落的夫君竟正是当年他失踪的大哥，各自怀揣秘密的二人从针锋相对到互生情愫，最终心意相通……",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 320411,
-      "tmdbUrl": "https://www.themoviedb.org/tv/320411",
-      "vote_average": 0,
-      "vote_count": 0
+      ]
     },
     {
       "id": 36589693,
       "name": "将夜",
       "original_name": "将夜",
-      "imdb_id": "tt32221651",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -2144,14 +2115,7 @@
           "name": "武侠"
         }
       ],
-      "networks": [
-        {
-          "id": 1605,
-          "logo_path": "/cdRh1NZIUaqDUhwjgqWbp6zhWHK.png",
-          "name": "bilibili",
-          "origin_country": "CN"
-        }
-      ],
+      "networks": [],
       "directors": [
         {
           "id": 1,
@@ -2197,15 +2161,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 19,
+      "number_of_episodes": null,
       "first_air_date": "2026-04-23",
       "last_air_date": "2026-04-23",
       "in_production": false,
-      "status": "Returning Series",
-      "episodes_info": "Returning Series",
+      "status": "",
+      "episodes_info": null,
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36589693.jpg",
-      "backdrop_path": "/51Nzjc7HqNXyV3PO4RLspCRMW9x.jpg",
+      "backdrop_path": null,
       "overview": "这是昊天治下的世界，有很多不可知之地，不可知之人，还有一段关于永夜的末日预言。外来者宁缺身负不为人知的过去，与在死人堆中捡到的弃婴桑桑相依为命，亡命天涯。三把刀、一把伞，渭城的轻雨中，少年与少女，走进了天下。",
       "rating_count": null,
       "rating_star_count": null,
@@ -2223,17 +2187,13 @@
           "overview": "这是昊天治下的世界，有很多不可知之地，不可知之人，还有一段关于永夜的末日预言。外来者宁缺身负不为人知的过去，与在死人堆中捡到的弃婴桑桑相依为命，亡命天涯。三把刀、一把伞，渭城的轻雨中，少年与少女，走进了天下。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 282136,
-      "tmdbUrl": "https://www.themoviedb.org/tv/282136",
-      "vote_average": 10,
-      "vote_count": 2
+      ]
     },
     {
       "id": 37406587,
       "name": "有港回信",
       "original_name": "有港回信",
-      "imdb_id": "tt41512588",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -2295,7 +2255,7 @@
       "episodes_info": "28集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37406587.jpg",
-      "backdrop_path": "/mZedksNcxLROXnzSjfnnXcH5HCT.jpg",
+      "backdrop_path": null,
       "overview": "港城许氏遭遇连番重创，濒临崩塌，许晚信（胡连馨 饰）求助婚约家族反被趁火打劫。科创奇才沈顾（赵华为 饰）携重磅股权归来，与她契约联姻，二人联手抵御外资吞并、粉碎沈氏父子阴谋，在并肩守护家业中渐生真情。而在晚信祖父许老眼中，晚信和沈顾的缘分，要追溯到民国时期的一对传奇伉俪……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2313,17 +2273,13 @@
           "overview": "港城许氏遭遇连番重创，濒临崩塌，许晚信（胡连馨 饰）求助婚约家族反被趁火打劫。科创奇才沈顾（赵华为 饰）携重磅股权归来，与她契约联姻，二人联手抵御外资吞并、粉碎沈氏父子阴谋，在并肩守护家业中渐生真情。而在晚信祖父许老眼中，晚信和沈顾的缘分，要追溯到民国时期的一对传奇伉俪……",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 318840,
-      "tmdbUrl": "https://www.themoviedb.org/tv/318840",
-      "vote_average": 7,
-      "vote_count": 1
+      ]
     },
     {
       "id": 35479722,
       "name": "夏末初见",
       "original_name": "夏末初见",
-      "imdb_id": "tt37094954",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -2391,7 +2347,7 @@
       "episodes_info": "40集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35479722.jpg",
-      "backdrop_path": "/nxif2Iq5qxmM8acrfkxFbOZYn46.jpg",
+      "backdrop_path": null,
       "overview": "沈蕾作为情感插画师，独自抚养两个孩子。因林森父女搬入隔壁，引发占道、噪音等矛盾，双方长期回避，未曾谋面。机缘巧合下，两人发现彼此竟是工作中互生好感的理想对象；但子女在学校成为敌对同桌，导致家庭关系进一步恶化。",
       "rating_count": null,
       "rating_star_count": null,
@@ -2409,17 +2365,13 @@
           "overview": "沈蕾作为情感插画师，独自抚养两个孩子。因林森父女搬入隔壁，引发占道、噪音等矛盾，双方长期回避，未曾谋面。机缘巧合下，两人发现彼此竟是工作中互生好感的理想对象；但子女在学校成为敌对同桌，导致家庭关系进一步恶化。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 291602,
-      "tmdbUrl": "https://www.themoviedb.org/tv/291602",
-      "vote_average": 8,
-      "vote_count": 1
+      ]
     },
     {
       "id": 36939912,
       "name": "方圆八百米",
       "original_name": "方圆八百米",
-      "imdb_id": "tt34896451",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -2535,7 +2487,7 @@
       "episodes_info": "20集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36939912.jpg",
-      "backdrop_path": "/cA8pX6GhKBvgdo1tAiyetEMDMCk.jpg",
+      "backdrop_path": null,
       "overview": "故事聚焦上世纪九十年代末的丰阳小镇矿区。一具无名女尸的出现，打破了表面的平静，小镇内的违禁药品贩卖网络随之浮出水面。警察陈红兵（丁勇岱 饰）紧跟线索，却步步逼近亲生儿子陈辉（许凯 饰）。在方圆八百米的小天地里，父子间的对抗、职责与亲情的纠结、法律与人性的交缠，让这个家庭与小城一同面临善恶的抉择与考验。",
       "rating_count": 20243,
       "rating_star_count": 3.5,
@@ -2553,17 +2505,13 @@
           "overview": "故事聚焦上世纪九十年代末的丰阳小镇矿区。一具无名女尸的出现，打破了表面的平静，小镇内的违禁药品贩卖网络随之浮出水面。警察陈红兵（丁勇岱 饰）紧跟线索，却步步逼近亲生儿子陈辉（许凯 饰）。在方圆八百米的小天地里，父子间的对抗、职责与亲情的纠结、法律与人性的交缠，让这个家庭与小城一同面临善恶的抉择与考验。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 278868,
-      "tmdbUrl": "https://www.themoviedb.org/tv/278868",
-      "vote_average": 5.2,
-      "vote_count": 2
+      ]
     },
     {
       "id": 37284831,
       "name": "重案解密",
       "original_name": "重案解密",
-      "imdb_id": "tt41835879",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -2679,7 +2627,7 @@
       "episodes_info": "12集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37284831.jpg",
-      "backdrop_path": "/iIs3yBoBwDa9nfFpsc6efw449wg.jpg",
+      "backdrop_path": null,
       "overview": "尘封的档案被翻开，紧张感扑面而来。当香港真实奇案成为故事蓝本，陈旧的案件是否能被揭开？在追踪线索的路上，能否突破困局，让真相大白于天下？",
       "rating_count": 7901,
       "rating_star_count": 3,
@@ -2697,11 +2645,7 @@
           "overview": "尘封的档案被翻开，紧张感扑面而来。当香港真实奇案成为故事蓝本，陈旧的案件是否能被揭开？在追踪线索的路上，能否突破困局，让真相大白于天下？",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 290700,
-      "tmdbUrl": "https://www.themoviedb.org/tv/290700",
-      "vote_average": 9,
-      "vote_count": 1
+      ]
     },
     {
       "id": 36838657,
@@ -2877,7 +2821,7 @@
       "id": 36093334,
       "name": "金关",
       "original_name": "金关",
-      "imdb_id": "tt31052331",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -2976,7 +2920,7 @@
       "episodes_info": "22集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36093334.jpg",
-      "backdrop_path": "/A0nRQCblI1MaBsmzYhnossyLAZ0.jpg",
+      "backdrop_path": null,
       "overview": "滨海空港海关旅检一科科长郭聪带领张瑜、吕晓妍、言柏然等关员坚守海关一线，在长约五十米的海关出入境通道之内，识别并拦截各种走私分子。在基因样本走私案、《层峦时景图》走私案、HPV九价疫苗走私案、盔犀鸟头胄走私案等案件中，他们战胜了重重困难，揪出走私团伙幕后头目，保护了国家利益。郭聪、张瑜等新一代海关人也各自有了宝贵的收获，在并肩作战中迅速成长起来。",
       "rating_count": 3181,
       "rating_star_count": 3.5,
@@ -2994,17 +2938,13 @@
           "overview": "滨海空港海关旅检一科科长郭聪带领张瑜、吕晓妍、言柏然等关员坚守海关一线，在长约五十米的海关出入境通道之内，识别并拦截各种走私分子。在基因样本走私案、《层峦时景图》走私案、HPV九价疫苗走私案、盔犀鸟头胄走私案等案件中，他们战胜了重重困难，揪出走私团伙幕后头目，保护了国家利益。郭聪、张瑜等新一代海关人也各自有了宝贵的收获，在并肩作战中迅速成长起来。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 272476,
-      "tmdbUrl": "https://www.themoviedb.org/tv/272476",
-      "vote_average": 0,
-      "vote_count": 0
+      ]
     },
     {
       "id": 36449637,
       "name": "蜜语纪",
       "original_name": "蜜语纪",
-      "imdb_id": "tt35288198",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -3103,7 +3043,7 @@
       "episodes_info": "38集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36449637.jpg",
-      "backdrop_path": "/prYJ8pqjylUAyY8PukxPp1WoMg5.jpg",
+      "backdrop_path": null,
       "overview": "许蜜语的“完美”婚姻在十周年纪念日被打破，她看清了自己在婚姻关系里的委曲求全和迷失自我，决绝离婚。酒店经理人纪封选择回到事业的起点——浦荣饭店，一切归零的许蜜语从浦荣饭店客房保洁做起，纪封则作为浦荣饭店新任总经理正式亮相。两人携手面对职场挑战，从同舟共济到爱意萌生，收获美满爱情的同时，也让浦荣饭店成为了城市新地标……\n剧集改编自红九所著小说《蜜语纪》。",
       "rating_count": 20906,
       "rating_star_count": 2.5,
@@ -3121,17 +3061,13 @@
           "overview": "许蜜语的“完美”婚姻在十周年纪念日被打破，她看清了自己在婚姻关系里的委曲求全和迷失自我，决绝离婚。酒店经理人纪封选择回到事业的起点——浦荣饭店，一切归零的许蜜语从浦荣饭店客房保洁做起，纪封则作为浦荣饭店新任总经理正式亮相。两人携手面对职场挑战，从同舟共济到爱意萌生，收获美满爱情的同时，也让浦荣饭店成为了城市新地标……\n剧集改编自红九所著小说《蜜语纪》。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 281231,
-      "tmdbUrl": "https://www.themoviedb.org/tv/281231",
-      "vote_average": 9,
-      "vote_count": 1
+      ]
     },
     {
       "id": 36809858,
       "name": "冰湖重生",
       "original_name": "冰湖重生",
-      "imdb_id": "tt34903771",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -3236,7 +3172,7 @@
       "episodes_info": "40集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36809858.jpg",
-      "backdrop_path": "/9gjYUk8NfKMExVKXkxkofgEJPI1.jpg",
+      "backdrop_path": null,
       "overview": "奴籍少女楚乔被燕北世子燕洵所救后两人结下深厚友谊，楚乔力助燕洵，但燕洵却以楚乔为饵，设伏诛杀大夏世家公子诸葛玥，诸葛玥与楚乔一起跌入冰湖。楚乔获救后，寻机刺杀燕洵，为诸葛玥报仇。燕洵逃回燕北后一意孤行要攻打大夏，当初的屠龙少年终成恶龙，他对楚乔也由爱生恨，不择手段想让她臣服自己。楚乔一边对抗燕洵，一边怀疑与自己一同跌落冰湖的诸葛玥其实还活着，于是努力寻找他的下落。她在帮助卞唐平定内乱时得到一位神秘的男子几次三番的救助，楚乔对他有种似曾相识的感觉，原来他就是诸葛玥。最终楚乔平定四方征战，与官兵和百姓并肩携手一起守护美好家园。",
       "rating_count": 25947,
       "rating_star_count": 1.5,
@@ -3254,11 +3190,7 @@
           "overview": "奴籍少女楚乔被燕北世子燕洵所救后两人结下深厚友谊，楚乔力助燕洵，但燕洵却以楚乔为饵，设伏诛杀大夏世家公子诸葛玥，诸葛玥与楚乔一起跌入冰湖。楚乔获救后，寻机刺杀燕洵，为诸葛玥报仇。燕洵逃回燕北后一意孤行要攻打大夏，当初的屠龙少年终成恶龙，他对楚乔也由爱生恨，不择手段想让她臣服自己。楚乔一边对抗燕洵，一边怀疑与自己一同跌落冰湖的诸葛玥其实还活着，于是努力寻找他的下落。她在帮助卞唐平定内乱时得到一位神秘的男子几次三番的救助，楚乔对他有种似曾相识的感觉，原来他就是诸葛玥。最终楚乔平定四方征战，与官兵和百姓并肩携手一起守护美好家园。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 278894,
-      "tmdbUrl": "https://www.themoviedb.org/tv/278894",
-      "vote_average": 7.5,
-      "vote_count": 2
+      ]
     },
     {
       "id": 316795,
@@ -3300,7 +3232,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/6540/feel-what-you-feel-2026",
-      "popularity": 5.6286,
+      "popularity": 5.6221,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-04-03",
@@ -3334,7 +3266,7 @@
       "id": 36513446,
       "name": "钢铁森林",
       "original_name": "钢铁森林",
-      "imdb_id": "tt32465914",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -3386,15 +3318,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 28,
+      "number_of_episodes": null,
       "first_air_date": "2026-04-03",
       "last_air_date": "2026-04-03",
       "in_production": false,
-      "status": "Ended",
-      "episodes_info": "Ended",
+      "status": "",
+      "episodes_info": null,
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36513446.jpg",
-      "backdrop_path": "/6p2BAwHKgIQfkoRdqVf3apf9ON9.jpg",
+      "backdrop_path": null,
       "overview": "一具女尸牵出“8•17”悬案的全新线索，旧案重启。犯罪心理学教授江寒声（井柏然 饰）空降专案组令刑侦女警周瑾（蔡文静 饰）震惊，闪婚丈夫竟曾是省厅干警，调查矛头直指她青梅竹马的初恋蒋诚（秦俊杰 饰）。因尘封旧案被困人生低谷的三人再次纠葛，能否突破重重隐秘与陷阱查清真相，治愈所爱，是命运最难解的谜题。",
       "rating_count": 32717,
       "rating_star_count": 3.5,
@@ -3412,11 +3344,7 @@
           "overview": "一具女尸牵出“8•17”悬案的全新线索，旧案重启。犯罪心理学教授江寒声（井柏然 饰）空降专案组令刑侦女警周瑾（蔡文静 饰）震惊，闪婚丈夫竟曾是省厅干警，调查矛头直指她青梅竹马的初恋蒋诚（秦俊杰 饰）。因尘封旧案被困人生低谷的三人再次纠葛，能否突破重重隐秘与陷阱查清真相，治愈所爱，是命运最难解的谜题。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 281392,
-      "tmdbUrl": "https://www.themoviedb.org/tv/281392",
-      "vote_average": 7,
-      "vote_count": 2
+      ]
     },
     {
       "id": 278275,
@@ -3561,7 +3489,7 @@
         "Veil of Shadows"
       ],
       "homepage": "https://v.youku.com/v_show/id_XNjUxMjU4MzYyOA==.html",
-      "popularity": 21.086,
+      "popularity": 21.1198,
       "number_of_seasons": 1,
       "number_of_episodes": 29,
       "first_air_date": "2026-04-01",
@@ -3595,7 +3523,7 @@
       "id": 36457187,
       "name": "叵测",
       "original_name": "叵测",
-      "imdb_id": "tt33265527",
+      "imdb_id": null,
       "genres": [
         {
           "id": 1,
@@ -3683,15 +3611,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 16,
+      "number_of_episodes": null,
       "first_air_date": "2026-04-01",
       "last_air_date": "2026-04-01",
       "in_production": false,
-      "status": "Ended",
-      "episodes_info": "Ended",
+      "status": "",
+      "episodes_info": null,
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36457187.jpg",
-      "backdrop_path": "/pjMwBMHMo1IS7Bh307YT4Jf0EhR.jpg",
+      "backdrop_path": null,
       "overview": "被边缘化的老警察朱赫来（刘烨 饰）突然获得一桩尘封的抢劫案线索，抓捕民工出身的企业家孟广才（聂远 饰），孟广才联合当年的抢劫团伙拿出反复锤炼的谎言迷局，在审讯中与朱赫来及警方进行极限周旋，由此揭开二人纠缠28年彼此起伏曲折的命运。",
       "rating_count": 4323,
       "rating_star_count": 3,
@@ -3709,11 +3637,7 @@
           "overview": "被边缘化的老警察朱赫来（刘烨 饰）突然获得一桩尘封的抢劫案线索，抓捕民工出身的企业家孟广才（聂远 饰），孟广才联合当年的抢劫团伙拿出反复锤炼的谎言迷局，在审讯中与朱赫来及警方进行极限周旋，由此揭开二人纠缠28年彼此起伏曲折的命运。",
           "douban_link_verified": true
         }
-      ],
-      "tmdb_id": 282902,
-      "tmdbUrl": "https://www.themoviedb.org/tv/282902",
-      "vote_average": 7.5,
-      "vote_count": 2
+      ]
     }
   ]
 }
