@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "started_at": "2026-05-16T16:23:41.721Z",
+    "started_at": "2026-05-16T16:33:35.989Z",
     "mode": "partial",
     "category_ids": [
-      "tv_cn"
+      "movie_cn"
     ],
     "tmdb_enabled": false,
     "douban_subject_cache_ttl_days": 7,
@@ -12,75 +12,92 @@
   },
   "categories": [
     {
-      "id": "tv_cn",
-      "kind": "tv",
-      "latest_path": "json/tv_cn_latest.json",
-      "complete_path": "json/tv_cn_complete.json",
+      "id": "movie_cn",
+      "kind": "movie",
+      "latest_path": "json/movie_cn_latest.json",
+      "complete_path": "json/movie_cn_complete.json",
       "min_date": "2025-01-01",
       "source_collections": [
         {
-          "slug": "tv_domestic",
-          "raw_count": 49,
-          "included_count": 42,
-          "normalized_count": 42
+          "slug": "movie_showing",
+          "raw_count": 32,
+          "included_count": 32,
+          "normalized_count": 32
         },
         {
-          "slug": "tv_hot",
-          "raw_count": 250,
-          "included_count": 47,
-          "normalized_count": 47
+          "slug": "movie_soon",
+          "raw_count": 31,
+          "included_count": 31,
+          "normalized_count": 31
+        },
+        {
+          "slug": "movie_latest",
+          "raw_count": 200,
+          "included_count": 200,
+          "normalized_count": 200
         }
       ],
       "counts": {
-        "douban_after_date_filter": 89,
-        "douban_after_signature_dedupe": 47,
+        "douban_after_date_filter": 261,
+        "douban_after_signature_dedupe": 247,
         "anilist": 0,
         "tmdb": 0,
-        "merged_candidates": 47,
-        "merged_after_signature_dedupe": 47,
-        "merged_after_name_year_dedupe": 47,
-        "complete": 47,
-        "latest": 25
+        "merged_candidates": 247,
+        "merged_after_signature_dedupe": 247,
+        "merged_after_name_year_dedupe": 247,
+        "complete": 247,
+        "latest": 24
       },
       "fallback_summary": {
-        "total": 0,
-        "byStatus": [],
-        "sampleIds": []
+        "total": 5,
+        "byStatus": [
+          [
+            "400",
+            5
+          ]
+        ],
+        "sampleIds": [
+          "37512260",
+          "37657502",
+          "34930810",
+          "34850565",
+          "37069578"
+        ]
       },
       "quality": {
-        "total_items": 47,
+        "total_items": 247,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 17,
+          "rating": 34,
           "douban_link": 0,
-          "overview": 0,
-          "directors": 1,
-          "actors": 0
+          "overview": 6,
+          "directors": 3,
+          "actors": 4
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.3617,
+          "rating": 0.1377,
           "douban_link": 0,
-          "overview": 0,
-          "directors": 0.0213,
-          "actors": 0
+          "overview": 0.0243,
+          "directors": 0.0121,
+          "actors": 0.0162
         }
       }
     }
   ],
   "douban_statuses": null,
   "douban_subject_cache": {
-    "hits": 89,
-    "misses": 0,
-    "stale": 0,
+    "hits": 116,
+    "misses": 5,
+    "stale": 142,
     "invalid": 0,
     "writes": 0,
-    "errors": 0,
-    "staleFallbacks": 0,
-    "total_reads": 89,
-    "hit_rate": 1,
+    "errors": 147,
+    "staleFallbacks": 142,
+    "total_reads": 263,
+    "hit_rate": 0.4411,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -95,5 +112,25 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-05-16T16:24:06.496Z"
+  "completed_at": "2026-05-16T16:34:00.604Z",
+  "box_office": {
+    "last_updated": "2026-05-16T16:06:49.201Z",
+    "source": "maoyan",
+    "source_url": "https://60s.viki.moe/v2/maoyan/realtime/movie",
+    "status": "ok",
+    "message": "获取成功。当前部署平台 Deno Deploy Classic 预计将于 7 月 20 日 终止服务，公共 API 服务后续迁移到其他平台后，额度、兼容性等方面可能会受影响。建议尽快迁移至私有部署，以确保服务持续可用。开源地址 https://github.com/vikiboss/60s，反馈群 595941841。",
+    "market": {
+      "title": "实时大盘",
+      "show_count_desc": "42.4万",
+      "view_count_desc": "63.9万",
+      "box_office": "2275.0",
+      "box_office_unit": "万",
+      "split_box_office": "2275.0",
+      "split_box_office_unit": "万",
+      "update_gap_second": 5,
+      "updated": "2026-05-16 16:06:49",
+      "updated_at": 1778947609201
+    },
+    "total_items": 68
+  }
 }
