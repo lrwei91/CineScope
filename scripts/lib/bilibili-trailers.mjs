@@ -1,6 +1,5 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import vm from 'node:vm';
 
 export const DEFAULT_BILIBILI_TRAILER_UP_MID = '8465957';
 export const DEFAULT_BILIBILI_TRAILER_CACHE_PATH = '.cache/bilibili/up-8465957-videos.json';
@@ -26,8 +25,9 @@ const BILIBILI_API_HEADERS = {
 };
 
 const BILIBILI_SEARCH_PAGE_HEADERS = {
-    Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    Accept: 'application/json, text/plain, */*',
     Referer: 'https://www.bilibili.com/',
+    Origin: 'https://www.bilibili.com',
     'User-Agent':
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'
 };
@@ -409,7 +409,7 @@ async function fetchBilibiliSearchPageResults({
 
     while (true) {
         try {
-            const url = new URL('https://search.bilibili.com/all');
+            const url = new URL('https://api.bilibili.com/x/web-interface/wbi/search/all/v2');
             url.searchParams.set('keyword', String(keyword || '').trim());
             url.searchParams.set('page', String(page));
 
@@ -417,17 +417,17 @@ async function fetchBilibiliSearchPageResults({
                 headers: BILIBILI_SEARCH_PAGE_HEADERS,
                 signal: createTimeoutSignal(requestTimeoutMs)
             });
-            const html = await response.text();
+            const responseText = await response.text();
 
             if (!response.ok) {
-                throw createBilibiliFetchError(`Bilibili search page request failed (${response.status})`, response.status);
+                throw createBilibiliFetchError(`Bilibili search API request failed (${response.status})`, response.status);
             }
 
-            if (/<!doctype html/i.test(html) && /出错啦/i.test(html)) {
-                throw createBilibiliFetchError('Bilibili search page request was blocked by a risk-control page.');
+            if (/<!doctype html/i.test(responseText) || /验证码|出错啦/i.test(responseText)) {
+                throw createBilibiliFetchError('Bilibili search API request was blocked by a risk-control page.');
             }
 
-            return extractBilibiliSearchResultsFromHtml(html);
+            return extractBilibiliSearchResultsFromJson(responseText);
         } catch (error) {
             attempt += 1;
 
@@ -440,20 +440,26 @@ async function fetchBilibiliSearchPageResults({
     }
 }
 
-export function extractBilibiliSearchResultsFromHtml(html) {
-    const rawHtml = String(html || '');
-    const scriptMatch = rawHtml.match(/window\.__pinia\s*=\s*(\(function[\s\S]*?\)\([\s\S]*?\));/);
-    if (!scriptMatch) {
-        throw new Error('Bilibili search page payload is missing __pinia data.');
+export function extractBilibiliSearchResultsFromJson(jsonText) {
+    const rawText = String(jsonText || '').trim();
+    if (!rawText) {
+        throw new Error('Bilibili search API response is empty.');
     }
 
-    const context = {
-        window: {}
-    };
-    vm.createContext(context);
-    vm.runInContext(scriptMatch[0], context, { timeout: 1000 });
+    let payload = null;
+    try {
+        payload = JSON.parse(rawText);
+    } catch {
+        throw new Error('Bilibili search API response is not valid JSON.');
+    }
 
-    const results = context.window?.__pinia?.searchResponse?.searchAllResponse?.result;
+    if (Number(payload?.code) !== 0) {
+        throw new Error(payload?.message || `Bilibili search API failed with code ${payload?.code ?? 'unknown'}.`);
+    }
+
+    const resultGroups = Array.isArray(payload?.data?.result) ? payload.data.result : [];
+    const videoGroup = resultGroups.find((group) => group?.result_type === 'video');
+    const results = videoGroup?.data;
     return Array.isArray(results) ? results : [];
 }
 

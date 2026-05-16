@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCategoryReport, createBuildReport } from './lib/build-report.mjs';
@@ -36,6 +36,8 @@ const BOX_OFFICE_PATH = 'json/maoyan_box_office.json';
 const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 7);
 const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 14);
 const DOUBAN_SEARCH_QUERY_LIMIT = getNumberEnv('DOUBAN_SEARCH_QUERY_LIMIT', 1);
+const HTTP_REQUEST_TIMEOUT_MS = getNumberEnv('HTTP_REQUEST_TIMEOUT_MS', 15000);
+const SKIP_POSTER_DOWNLOADS = getBooleanEnv('SKIP_POSTER_DOWNLOADS', false);
 const BILIBILI_TRAILER_FORCE_BOOTSTRAP = getBooleanEnv('BILIBILI_TRAILER_FORCE_BOOTSTRAP', false);
 const BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT = getNumberEnv('BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT', 8);
 const BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT = getNumberEnv('BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT', 4);
@@ -1061,7 +1063,8 @@ async function fetchDoubanSubjectDetail(kind, subjectId) {
 
 async function fetchJson(url) {
     const response = await fetch(url, {
-        headers: REQUEST_HEADERS
+        headers: REQUEST_HEADERS,
+        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
     });
 
     if (!response.ok) {
@@ -1073,7 +1076,8 @@ async function fetchJson(url) {
 
 async function fetchBinary(url) {
     const response = await fetch(url, {
-        headers: REQUEST_HEADERS
+        headers: REQUEST_HEADERS,
+        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
     });
 
     if (!response.ok) {
@@ -1090,7 +1094,8 @@ async function fetchHtml(url) {
             Referer: 'https://movie.douban.com/',
             'User-Agent': REQUEST_HEADERS['User-Agent'],
             Accept: 'text/html,application/xhtml+xml'
-        }
+        },
+        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
     });
 
     if (!response.ok) {
@@ -1101,9 +1106,19 @@ async function fetchHtml(url) {
 }
 
 async function materializePoster(categoryId, subjectId, remoteUrl) {
-    if (!remoteUrl || !/^https?:\/\//i.test(remoteUrl)) {
+    if (!remoteUrl || !/^https?:\/\//i.test(remoteUrl) || SKIP_POSTER_DOWNLOADS) {
         return remoteUrl;
     }
+
+    const relativePath = `posters/douban/${categoryId}/${subjectId}.jpg`;
+    const targetPath = path.resolve(ROOT_DIR, relativePath);
+
+    try {
+        const existing = await stat(targetPath);
+        if (existing.isFile() && existing.size > 0) {
+            return relativePath;
+        }
+    } catch {}
 
     const posterBuffer = await fetchBinary(remoteUrl).catch((error) => {
         console.warn(`Poster download skipped for ${subjectId}: ${error.message}`);
@@ -1114,8 +1129,6 @@ async function materializePoster(categoryId, subjectId, remoteUrl) {
         return remoteUrl;
     }
 
-    const relativePath = `posters/douban/${categoryId}/${subjectId}.jpg`;
-    const targetPath = path.resolve(ROOT_DIR, relativePath);
     await mkdir(path.dirname(targetPath), { recursive: true });
     await writeFile(targetPath, posterBuffer);
     return relativePath;
@@ -1250,7 +1263,8 @@ async function fetchTmdbJson(endpoint, params = {}) {
         headers: {
             Accept: 'application/json',
             'User-Agent': REQUEST_HEADERS['User-Agent']
-        }
+        },
+        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
     });
 
     if (!response.ok) {
@@ -1362,7 +1376,8 @@ async function fetchAniListJson(query, variables) {
             'Content-Type': 'application/json',
             'User-Agent': REQUEST_HEADERS['User-Agent']
         },
-        body: JSON.stringify({ query, variables })
+        body: JSON.stringify({ query, variables }),
+        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
     });
 
     if (!response.ok) {

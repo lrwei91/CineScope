@@ -7,7 +7,7 @@ import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
 import {
     buildCatalogTrailerLookupKeys,
     buildTrailerCandidateKeys,
-    extractBilibiliSearchResultsFromHtml,
+    extractBilibiliSearchResultsFromJson,
     fetchBilibiliTrailerRows,
     loadBilibiliTrailerDataset,
     mergeTrailersIntoCatalogItems,
@@ -360,26 +360,41 @@ test('fetchBilibiliTrailerRows retries transient rate-limit responses before suc
     assert.equal(result.rows[0].bvid, 'BV1retry12345');
 });
 
-test('extractBilibiliSearchResultsFromHtml reads search results from __pinia payload', () => {
-    const html = `
-        <html>
-            <body>
-                <script type="text/javascript">
-                    window.__pinia=(function(){return {searchResponse:{searchAllResponse:{result:[
-                        {type:"video",title:"《消失的人》终极预告",author:"乌鸦预告片",mid:8465957,bvid:"BV1test11111",pic:"//i0.hdslb.com/test.jpg",pubdate:1715600000}
-                    ]}}}})();
-                </script>
-            </body>
-        </html>
-    `;
+test('extractBilibiliSearchResultsFromJson reads video results from search API payload', () => {
+    const payload = {
+        code: 0,
+        message: '0',
+        ttl: 1,
+        data: {
+            result: [
+                {
+                    result_type: 'media_ft',
+                    data: [{ title: '别的结果' }]
+                },
+                {
+                    result_type: 'video',
+                    data: [
+                        {
+                            title: '《消失的人》终极预告',
+                            author: '乌鸦预告片',
+                            mid: 8465957,
+                            bvid: 'BV1test11111',
+                            pic: '//i0.hdslb.com/test.jpg',
+                            pubdate: 1715600000
+                        }
+                    ]
+                }
+            ]
+        }
+    };
 
-    const results = extractBilibiliSearchResultsFromHtml(html);
+    const results = extractBilibiliSearchResultsFromJson(JSON.stringify(payload));
 
     assert.equal(results.length, 1);
     assert.equal(results[0].bvid, 'BV1test11111');
 });
 
-test('searchBilibiliTrailerRowsForMovies filters HTML search results to the target up mid', async () => {
+test('searchBilibiliTrailerRowsForMovies filters search API results to the target up mid', async () => {
     const movies = [
         {
             id: 1,
@@ -401,18 +416,36 @@ test('searchBilibiliTrailerRowsForMovies filters HTML search results to the targ
             return {
                 ok: true,
                 async text() {
-                    return `
-                        <html>
-                            <body>
-                                <script type="text/javascript">
-                                    window.__pinia=(function(){return {searchResponse:{searchAllResponse:{result:[
-                                        {type:"video",title:"《消失的人》终极预告",author:"乌鸦预告片",mid:8465957,bvid:"BV1target1111",pic:"//i0.hdslb.com/target.jpg",pubdate:1715600000},
-                                        {type:"video",title:"《消失的人》影评",author:"别的作者",mid:123456,bvid:"BV1other22222",pic:"//i0.hdslb.com/other.jpg",pubdate:1715600001}
-                                    ]}}}})();
-                                </script>
-                            </body>
-                        </html>
-                    `;
+                    return JSON.stringify({
+                        code: 0,
+                        message: '0',
+                        ttl: 1,
+                        data: {
+                            result: [
+                                {
+                                    result_type: 'video',
+                                    data: [
+                                        {
+                                            title: '《消失的人》终极预告',
+                                            author: '乌鸦预告片',
+                                            mid: 8465957,
+                                            bvid: 'BV1target1111',
+                                            pic: '//i0.hdslb.com/target.jpg',
+                                            pubdate: 1715600000
+                                        },
+                                        {
+                                            title: '《消失的人》影评',
+                                            author: '别的作者',
+                                            mid: 123456,
+                                            bvid: 'BV1other22222',
+                                            pic: '//i0.hdslb.com/other.jpg',
+                                            pubdate: 1715600001
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    });
                 }
             };
         }
