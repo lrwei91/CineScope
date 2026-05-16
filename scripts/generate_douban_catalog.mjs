@@ -1106,7 +1106,7 @@ async function fetchHtml(url) {
 }
 
 async function materializePoster(categoryId, subjectId, remoteUrl) {
-    if (!remoteUrl || !/^https?:\/\//i.test(remoteUrl) || SKIP_POSTER_DOWNLOADS) {
+    if (!remoteUrl || !/^https?:\/\//i.test(remoteUrl)) {
         return remoteUrl;
     }
 
@@ -1119,6 +1119,10 @@ async function materializePoster(categoryId, subjectId, remoteUrl) {
             return relativePath;
         }
     } catch {}
+
+    if (SKIP_POSTER_DOWNLOADS) {
+        return remoteUrl;
+    }
 
     const posterBuffer = await fetchBinary(remoteUrl).catch((error) => {
         console.warn(`Poster download skipped for ${subjectId}: ${error.message}`);
