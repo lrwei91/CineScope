@@ -15,7 +15,7 @@ export const DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS = 15000;
 export const DEFAULT_BILIBILI_TV_TRAILER_UP_MID = '229864363';
 export const DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH = '.cache/bilibili/up-229864363-videos.json';
 export const DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH = 'scripts/data/tv_cn_trailer_overrides.json';
-export const DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX = '追剧情报社';
+export const DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX = '罐头预告片';
 
 const BILIBILI_API_HEADERS = {
     Accept: 'application/json, text/plain, */*',
