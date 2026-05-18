@@ -25,3 +25,16 @@ export function getPageEndIndex(items, startIndex, pageSize, options = {}) {
 
     return endIndex;
 }
+
+export function getNextPageRange(items, renderedItemCount, pageSize, options = {}) {
+    const safeItems = Array.isArray(items) ? items : [];
+    const startIndex = Math.min(
+        safeItems.length,
+        Math.max(0, Number(renderedItemCount) || 0)
+    );
+
+    return {
+        startIndex,
+        endIndex: getPageEndIndex(safeItems, startIndex, pageSize, options)
+    };
+}

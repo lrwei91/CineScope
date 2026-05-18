@@ -2131,12 +2131,14 @@ body.cursor-hover #custom-cursor-ring {
     backdrop-filter: blur(10px);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .trailer-modal-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .trailer-modal {
@@ -2154,6 +2156,7 @@ body.cursor-hover #custom-cursor-ring {
     transform: translate(-50%, -50%) scale(0.96);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     overflow-y: auto;
 }
@@ -2161,6 +2164,7 @@ body.cursor-hover #custom-cursor-ring {
 .trailer-modal.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
 

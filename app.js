@@ -81,7 +81,7 @@ import {
     initMobileSheetEvents
 } from './js/modules/mobile-sheet.js';
 
-import { getPageEndIndex } from './js/modules/paging.js';
+import { getNextPageRange } from './js/modules/paging.js';
 
 // =====================================================
 // 全局状态
@@ -97,6 +97,7 @@ const state = {
     selectedRating: '全部',
     searchQuery: '',
     currentPage: 1,
+    renderedItemCount: 0,
     isLoading: false,
     lastRenderedMonth: null,
     allAvailableYears: [],
@@ -454,7 +455,7 @@ function canPreserveRenderedResults(previousResults, nextResults) {
 
     const renderedPastCount = Math.min(
         previousResults.filteredPastAndPresentItems.length,
-        Math.max(0, (state.currentPage - 1) * ITEMS_PER_PAGE)
+        state.renderedItemCount
     );
     if (renderedPastCount === 0) return false;
 
@@ -574,6 +575,7 @@ function startRendering() {
     }
 
     state.currentPage = 1;
+    state.renderedItemCount = 0;
     state.lastRenderedMonth = null;
 
     state.allAvailableYears = [
@@ -602,6 +604,29 @@ function startRendering() {
     }
 }
 
+function appendNextItemsToResults() {
+    const { startIndex, endIndex } = getNextPageRange(
+        state.filteredPastAndPresentItems,
+        state.renderedItemCount,
+        ITEMS_PER_PAGE,
+        { keepMonthIntact: Boolean(getCurrentCategoryConfig()?.keepMonthIntactOnPaging) }
+    );
+    const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
+    if (itemsToRender.length > 0) {
+        appendItemsToContainer(
+            itemsToRender,
+            elements.resultsContainer,
+            state.specialFilterMode,
+            openIntelDossier,
+            openTrailerModal
+        );
+        state.renderedItemCount = endIndex;
+        state.currentPage += 1;
+    }
+
+    return itemsToRender.length;
+}
+
 function loadMoreItems() {
     if (state.isLoading) return;
 
@@ -611,25 +636,7 @@ function loadMoreItems() {
         elements.loader.style.display = 'block';
     }
 
-    const startIndex = (state.currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = getPageEndIndex(
-        state.filteredPastAndPresentItems,
-        startIndex,
-        ITEMS_PER_PAGE,
-        { keepMonthIntact: Boolean(getCurrentCategoryConfig()?.keepMonthIntactOnPaging) }
-    );
-    const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
-
-    if (itemsToRender.length > 0) {
-        appendItemsToContainer(
-            itemsToRender,
-            elements.resultsContainer,
-            state.specialFilterMode,
-            openIntelDossier,
-            openTrailerModal
-        );
-        state.currentPage += 1;
-    }
+    appendNextItemsToResults();
 
     state.isLoading = false;
     elements.loader.style.display = 'none';
@@ -647,25 +654,7 @@ async function loadMoreItemsAsync() {
         }
 
         state.isLoading = true;
-        const startIndex = (state.currentPage - 1) * ITEMS_PER_PAGE;
-        const endIndex = getPageEndIndex(
-            state.filteredPastAndPresentItems,
-            startIndex,
-            ITEMS_PER_PAGE,
-            { keepMonthIntact: Boolean(getCurrentCategoryConfig()?.keepMonthIntactOnPaging) }
-        );
-        const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
-
-        if (itemsToRender.length > 0) {
-            appendItemsToContainer(
-                itemsToRender,
-                elements.resultsContainer,
-                state.specialFilterMode,
-                openIntelDossier,
-                openTrailerModal
-            );
-            state.currentPage += 1;
-        }
+        appendNextItemsToResults();
 
         state.isLoading = false;
         setTimeout(resolve, 50);
@@ -711,7 +700,7 @@ async function ensureYearIsLoadedAndScroll(year, preloadOnly = false) {
             elements.loadingOverlay?.classList.add('visible');
         }
 
-        while (!targetElement && (state.currentPage - 1) * ITEMS_PER_PAGE < state.filteredPastAndPresentItems.length) {
+        while (!targetElement && state.renderedItemCount < state.filteredPastAndPresentItems.length) {
             await loadMoreItemsAsync();
             targetElement = document.querySelector(`#results-container .month-group-header[id^="month-${year}"]`);
         }
