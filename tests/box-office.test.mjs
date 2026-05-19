@@ -2,11 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+    createTvHeatFallbackPayload,
     createBoxOfficePayload,
     mergeBoxOfficeIntoMovies,
     normalizeBoxOfficeRows,
     normalizeBoxOfficeTitle,
     createTvHeatPayload,
+    isTvHeatPayloadShape,
     mergeTvHeatIntoCatalogItems,
     normalizeTvHeatRows
 } from '../scripts/lib/box-office.mjs';
@@ -175,4 +177,36 @@ test('createTvHeatPayload strips internal title keys from persisted rows', () =>
     assert.equal(payload.metadata.total_items, 1);
     assert.equal(payload.series[0].title_key, undefined);
     assert.equal(payload.series[0].curr_heat, '1890.44');
+});
+
+test('isTvHeatPayloadShape validates persisted TV heat payload structure', () => {
+    assert.equal(isTvHeatPayloadShape({ metadata: {}, series: [] }), true);
+    assert.equal(isTvHeatPayloadShape({ metadata: {} }), false);
+    assert.equal(isTvHeatPayloadShape(null), false);
+});
+
+test('createTvHeatFallbackPayload marks cached TV heat payload as stale when upstream fails', () => {
+    const cachedPayload = createTvHeatPayload(
+        [
+            {
+                series_id: 1386256,
+                series_name: '爱情没有神话',
+                curr_heat: 1890.44
+            }
+        ],
+        {
+            updatedAt: '2026-05-05T00:00:00.000Z',
+            message: '旧缓存'
+        }
+    );
+
+    const payload = createTvHeatFallbackPayload(cachedPayload, new Error('数据异常'), {
+        sourceUrl: 'https://example.com/tv'
+    });
+
+    assert.equal(payload.metadata.status, 'stale_upstream');
+    assert.equal(payload.metadata.source_url, 'https://example.com/tv');
+    assert.match(payload.metadata.message, /数据异常/);
+    assert.match(payload.metadata.message, /2026-05-05T00:00:00.000Z/);
+    assert.equal(payload.series.length, 1);
 });
