@@ -1,11 +1,12 @@
 {
   "metadata": {
-    "started_at": "2026-05-23T10:25:11.500Z",
+    "started_at": "2026-05-23T12:03:16.248Z",
     "mode": "partial",
     "category_ids": [
-      "tv_cn"
+      "tv_cn",
+      "movie_cn"
     ],
-    "tmdb_enabled": true,
+    "tmdb_enabled": false,
     "douban_subject_cache_ttl_days": 7,
     "douban_search_cache_ttl_days": 14,
     "douban_search_query_limit": 1
@@ -35,10 +36,10 @@
         "douban_after_date_filter": 88,
         "douban_after_signature_dedupe": 46,
         "anilist": 0,
-        "tmdb": 151,
-        "merged_candidates": 197,
-        "merged_after_signature_dedupe": 186,
-        "merged_after_name_year_dedupe": 186,
+        "tmdb": 0,
+        "merged_candidates": 46,
+        "merged_after_signature_dedupe": 46,
+        "merged_after_name_year_dedupe": 46,
         "complete": 186,
         "latest": 28
       },
@@ -68,19 +69,91 @@
           "actors": 0.7527
         }
       }
+    },
+    {
+      "id": "movie_cn",
+      "kind": "movie",
+      "latest_path": "json/movie_cn_latest.json",
+      "complete_path": "json/movie_cn_complete.json",
+      "min_date": "2025-01-01",
+      "source_collections": [
+        {
+          "slug": "movie_showing",
+          "raw_count": 32,
+          "included_count": 32,
+          "normalized_count": 32
+        },
+        {
+          "slug": "movie_soon",
+          "raw_count": 31,
+          "included_count": 31,
+          "normalized_count": 31
+        },
+        {
+          "slug": "movie_latest",
+          "raw_count": 200,
+          "included_count": 200,
+          "normalized_count": 200
+        }
+      ],
+      "counts": {
+        "douban_after_date_filter": 258,
+        "douban_after_signature_dedupe": 254,
+        "anilist": 0,
+        "tmdb": 0,
+        "merged_candidates": 254,
+        "merged_after_signature_dedupe": 254,
+        "merged_after_name_year_dedupe": 254,
+        "complete": 369,
+        "latest": 24
+      },
+      "fallback_summary": {
+        "total": 2,
+        "byStatus": [
+          [
+            "400",
+            2
+          ]
+        ],
+        "sampleIds": [
+          "37069578",
+          "34850565"
+        ]
+      },
+      "quality": {
+        "total_items": 369,
+        "missing": {
+          "date": 0,
+          "poster": 0,
+          "rating": 151,
+          "douban_link": 115,
+          "overview": 1,
+          "directors": 118,
+          "actors": 120
+        },
+        "missing_rate": {
+          "date": 0,
+          "poster": 0,
+          "rating": 0.4092,
+          "douban_link": 0.3117,
+          "overview": 0.0027,
+          "directors": 0.3198,
+          "actors": 0.3252
+        }
+      }
     }
   ],
   "douban_statuses": null,
   "douban_subject_cache": {
-    "hits": 85,
-    "misses": 3,
-    "stale": 0,
+    "hits": 303,
+    "misses": 2,
+    "stale": 46,
     "invalid": 0,
-    "writes": 3,
-    "errors": 0,
-    "staleFallbacks": 0,
-    "total_reads": 88,
-    "hit_rate": 0.9659,
+    "writes": 20,
+    "errors": 28,
+    "staleFallbacks": 26,
+    "total_reads": 351,
+    "hit_rate": 0.8632,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -95,5 +168,25 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-05-23T10:25:51.911Z"
+  "completed_at": "2026-05-23T12:04:02.508Z",
+  "box_office": {
+    "last_updated": "2026-05-23T09:08:18.537Z",
+    "source": "maoyan",
+    "source_url": "https://60s.viki.moe/v2/maoyan/realtime/movie",
+    "status": "ok",
+    "message": "获取成功。当前部署平台 Deno Deploy Classic 预计将于 7 月 20 日 终止服务，公共 API 服务后续迁移到其他平台后，额度、兼容性等方面可能会受影响。建议尽快迁移至私有部署，以确保服务持续可用。开源地址 https://github.com/vikiboss/60s，反馈群 595941841。",
+    "market": {
+      "title": "实时大盘",
+      "show_count_desc": "44.3万",
+      "view_count_desc": "329.6万",
+      "box_office": "11590.4",
+      "box_office_unit": "万",
+      "split_box_office": "11590.4",
+      "split_box_office_unit": "万",
+      "update_gap_second": 5,
+      "updated": "2026-05-23 09:08:18",
+      "updated_at": 1779527298537
+    },
+    "total_items": 86
+  }
 }
