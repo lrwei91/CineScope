@@ -459,6 +459,10 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
             : tmdbEnrichedItems;
     const payloadKey = spec.kind === 'movie' ? 'movies' : 'shows';
     const existingItems = Array.isArray(existingCompletePayload?.[payloadKey]) ? existingCompletePayload[payloadKey] : [];
+    
+    // [NEW] Backfill Douban ratings, links, poster paths and metadata from existing complete items to prevent losing data
+    const backfilledItems = backfillFromExistingItems(spec.kind, boxOfficeMergedItems, existingItems);
+
     const trailerDataset = spec.trailerSource
         ? await loadBilibiliTrailerDataset({
               rootDir: ROOT_DIR,
@@ -478,11 +482,11 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
     const trailerRows = trailerDataset?.rows || [];
     let finalItems =
         spec.trailerSource
-            ? mergeTrailersIntoCatalogItems(boxOfficeMergedItems, trailerRows, {
+            ? mergeTrailersIntoCatalogItems(backfilledItems, trailerRows, {
                   existingItems,
                   overrides: trailerDataset?.overrides || []
               })
-            : boxOfficeMergedItems;
+            : backfilledItems;
     let searchFallbackRows = [];
 
     if (spec.trailerSource && BILIBILI_TRAILER_ENABLE_SEARCH_FALLBACK && trailerDataset?.metadata?.status !== 'remote') {
@@ -2369,6 +2373,177 @@ async function mapWithConcurrency(items, concurrency, mapper) {
     const workers = Array.from({ length: Math.min(concurrency, items.length || 1) }, () => worker());
     await Promise.all(workers);
     return results;
+}
+
+function backfillFromExistingItems(kind, items, existingItems) {
+    if (!Array.isArray(existingItems) || existingItems.length === 0) {
+        return items;
+    }
+
+    const existingMap = new Map();
+    const signatureMap = new Map();
+
+    existingItems.forEach((oldItem) => {
+        const signature = createItemSignature(kind, oldItem);
+        if (signature) {
+            signatureMap.set(signature, oldItem);
+        }
+
+        const oldDoubanLink = kind === 'tv'
+            ? oldItem.seasons?.[0]?.douban_link_google || oldItem.douban_link_google || ''
+            : oldItem.douban_link_google || '';
+        const doubanId = oldDoubanLink ? extractDoubanSubjectId(oldDoubanLink) : (kind === 'movie' ? oldItem.id : null);
+        if (doubanId) {
+            existingMap.set(`douban::${doubanId}`, oldItem);
+        }
+
+        if (oldItem.tmdb_id) {
+            existingMap.set(`tmdb::${oldItem.tmdb_id}`, oldItem);
+        }
+
+        if (oldItem.imdb_id) {
+            existingMap.set(`imdb::${oldItem.imdb_id}`, oldItem);
+        }
+    });
+
+    const backfilled = items.map((newItem) => {
+        let oldItem = null;
+
+        const signature = createItemSignature(kind, newItem);
+        if (signature && signatureMap.has(signature)) {
+            oldItem = signatureMap.get(signature);
+        }
+
+        if (!oldItem && newItem.tmdb_id && existingMap.has(`tmdb::${newItem.tmdb_id}`)) {
+            oldItem = existingMap.get(`tmdb::${newItem.tmdb_id}`);
+        }
+
+        const newDoubanLink = kind === 'tv'
+            ? newItem.seasons?.[0]?.douban_link_google || newItem.douban_link_google || ''
+            : newItem.douban_link_google || '';
+        const newDoubanId = newDoubanLink ? extractDoubanSubjectId(newDoubanLink) : (kind === 'movie' ? newItem.id : null);
+        if (!oldItem && newDoubanId && existingMap.has(`douban::${newDoubanId}`)) {
+            oldItem = existingMap.get(`douban::${newDoubanId}`);
+        }
+
+        if (!oldItem && newItem.imdb_id && existingMap.has(`imdb::${newItem.imdb_id}`)) {
+            oldItem = existingMap.get(`imdb::${newItem.imdb_id}`);
+        }
+
+        if (!oldItem) {
+            return newItem;
+        }
+
+        const merged = { ...newItem };
+
+        // 1. Douban rating and links
+        if (kind === 'movie') {
+            if (!merged.douban_link_google && oldItem.douban_link_google) {
+                merged.douban_link_google = oldItem.douban_link_google;
+            }
+            if (!merged.douban_link_verified && oldItem.douban_link_verified) {
+                merged.douban_link_verified = oldItem.douban_link_verified;
+            }
+            if ((merged.douban_rating === null || merged.douban_rating === undefined || merged.douban_rating === 0) && oldItem.douban_rating) {
+                merged.douban_rating = oldItem.douban_rating;
+            }
+            if (merged.rating_count === null || merged.rating_count === undefined || merged.rating_count === 0) {
+                if (oldItem.rating_count) merged.rating_count = oldItem.rating_count;
+            }
+            if (merged.rating_star_count === null || merged.rating_star_count === undefined || merged.rating_star_count === 0) {
+                if (oldItem.rating_star_count) merged.rating_star_count = oldItem.rating_star_count;
+            }
+        }
+
+        // 2. Poster path
+        if (oldItem.poster_path && oldItem.poster_path.startsWith('posters/') && (!merged.poster_path || !merged.poster_path.startsWith('posters/'))) {
+            merged.poster_path = oldItem.poster_path;
+        }
+
+        // 3. Crew/cast fields
+        if ((!Array.isArray(merged.directors) || merged.directors.length === 0) && Array.isArray(oldItem.directors) && oldItem.directors.length > 0) {
+            merged.directors = oldItem.directors;
+        }
+        if ((!Array.isArray(merged.actors) || merged.actors.length === 0) && Array.isArray(oldItem.actors) && oldItem.actors.length > 0) {
+            merged.actors = oldItem.actors;
+        }
+
+        // 4. Metadata details
+        if ((!Array.isArray(merged.countries) || merged.countries.length === 0) && Array.isArray(oldItem.countries) && oldItem.countries.length > 0) {
+            merged.countries = oldItem.countries;
+        }
+        if ((!Array.isArray(merged.languages) || merged.languages.length === 0) && Array.isArray(oldItem.languages) && oldItem.languages.length > 0) {
+            merged.languages = oldItem.languages;
+        }
+        if ((!Array.isArray(merged.aka) || merged.aka.length === 0) && Array.isArray(oldItem.aka) && oldItem.aka.length > 0) {
+            merged.aka = oldItem.aka;
+        }
+        if ((!merged.overview || merged.overview.trim().length === 0) && oldItem.overview && oldItem.overview.trim().length > 0) {
+            merged.overview = oldItem.overview;
+        }
+
+        // 5. Durations / Release windows
+        if (kind === 'movie') {
+            if ((!Array.isArray(merged.durations) || merged.durations.length === 0) && Array.isArray(oldItem.durations) && oldItem.durations.length > 0) {
+                merged.durations = oldItem.durations;
+            }
+            if ((!Array.isArray(merged.release_windows) || merged.release_windows.length === 0) && Array.isArray(oldItem.release_windows) && oldItem.release_windows.length > 0) {
+                merged.release_windows = oldItem.release_windows;
+            }
+        }
+
+        // 6. Seasons (for TV show)
+        if (kind === 'tv' && Array.isArray(oldItem.seasons) && oldItem.seasons.length > 0) {
+            if (!Array.isArray(merged.seasons) || merged.seasons.length === 0) {
+                merged.seasons = oldItem.seasons;
+            } else {
+                merged.seasons = merged.seasons.map((newSeason) => {
+                    const oldSeason = oldItem.seasons.find((s) => s.season_number === newSeason.season_number);
+                    if (!oldSeason) return newSeason;
+                    const mergedSeason = { ...newSeason };
+                    if (!mergedSeason.douban_rating && oldSeason.douban_rating) {
+                        mergedSeason.douban_rating = oldSeason.douban_rating;
+                    }
+                    if (!mergedSeason.douban_link_google && oldSeason.douban_link_google) {
+                        mergedSeason.douban_link_google = oldSeason.douban_link_google;
+                    }
+                    if (!mergedSeason.douban_link_verified && oldSeason.douban_link_verified) {
+                        mergedSeason.douban_link_verified = oldSeason.douban_link_verified;
+                    }
+                    if (oldSeason.poster_path && oldSeason.poster_path.startsWith('posters/') && (!mergedSeason.poster_path || !mergedSeason.poster_path.startsWith('posters/'))) {
+                        mergedSeason.poster_path = oldSeason.poster_path;
+                    }
+                    if ((!mergedSeason.overview || mergedSeason.overview.trim().length === 0) && oldSeason.overview && oldSeason.overview.trim().length > 0) {
+                        mergedSeason.overview = oldSeason.overview;
+                    }
+                    return mergedSeason;
+                });
+            }
+        }
+
+        return merged;
+    });
+
+    const backfilledSignatures = new Set(backfilled.map((item) => createItemSignature(kind, item)));
+    const preservedItems = [];
+
+    existingItems.forEach((oldItem) => {
+        const signature = createItemSignature(kind, oldItem);
+        if (signature && !backfilledSignatures.has(signature)) {
+            const date = getItemDate(kind, oldItem);
+            if (date && date >= '2025-01-01') {
+                preservedItems.push(oldItem);
+                backfilledSignatures.add(signature);
+            }
+        }
+    });
+
+    if (preservedItems.length > 0) {
+        console.log(`[${kind}] Preserved ${preservedItems.length} valid historical items from existing payload.`);
+        return sortByDateDesc([...backfilled, ...preservedItems]);
+    }
+
+    return backfilled;
 }
 
 async function writeJson(relativePath, payload) {
