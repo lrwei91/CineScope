@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "started_at": "2026-05-25T12:02:53.494Z",
+    "started_at": "2026-05-26T12:10:03.065Z",
     "mode": "partial",
     "category_ids": [
       "tv_cn",
@@ -27,7 +27,7 @@
         },
         {
           "slug": "tv_hot",
-          "raw_count": 243,
+          "raw_count": 241,
           "included_count": 43,
           "normalized_count": 43
         }
@@ -79,15 +79,15 @@
       "source_collections": [
         {
           "slug": "movie_showing",
-          "raw_count": 47,
-          "included_count": 47,
-          "normalized_count": 47
+          "raw_count": 46,
+          "included_count": 46,
+          "normalized_count": 46
         },
         {
           "slug": "movie_soon",
-          "raw_count": 31,
-          "included_count": 31,
-          "normalized_count": 31
+          "raw_count": 32,
+          "included_count": 32,
+          "normalized_count": 32
         },
         {
           "slug": "movie_latest",
@@ -98,13 +98,13 @@
       ],
       "counts": {
         "douban_after_date_filter": 257,
-        "douban_after_signature_dedupe": 252,
+        "douban_after_signature_dedupe": 251,
         "anilist": 0,
         "tmdb": 0,
-        "merged_candidates": 252,
-        "merged_after_signature_dedupe": 252,
-        "merged_after_name_year_dedupe": 252,
-        "complete": 388,
+        "merged_candidates": 251,
+        "merged_after_signature_dedupe": 251,
+        "merged_after_name_year_dedupe": 251,
+        "complete": 392,
         "latest": 24
       },
       "fallback_summary": {
@@ -121,39 +121,39 @@
         ]
       },
       "quality": {
-        "total_items": 388,
+        "total_items": 392,
         "missing": {
           "date": 0,
           "poster": 0,
           "rating": 159,
           "douban_link": 115,
           "overview": 2,
-          "directors": 118,
-          "actors": 120
+          "directors": 119,
+          "actors": 121
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.4098,
-          "douban_link": 0.2964,
-          "overview": 0.0052,
-          "directors": 0.3041,
-          "actors": 0.3093
+          "rating": 0.4056,
+          "douban_link": 0.2934,
+          "overview": 0.0051,
+          "directors": 0.3036,
+          "actors": 0.3087
         }
       }
     }
   ],
   "douban_statuses": null,
   "douban_subject_cache": {
-    "hits": 257,
-    "misses": 18,
-    "stale": 86,
+    "hits": 238,
+    "misses": 5,
+    "stale": 118,
     "invalid": 0,
-    "writes": 20,
-    "errors": 84,
-    "staleFallbacks": 82,
+    "writes": 21,
+    "errors": 102,
+    "staleFallbacks": 100,
     "total_reads": 361,
-    "hit_rate": 0.7119,
+    "hit_rate": 0.6593,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -168,9 +168,9 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-05-25T12:03:42.016Z",
+  "completed_at": "2026-05-26T12:11:13.948Z",
   "box_office": {
-    "last_updated": "2026-05-24T23:10:52.868Z",
+    "last_updated": "2026-05-25T12:39:54.497Z",
     "source": "maoyan",
     "source_url": "https://60s.viki.moe/v2/maoyan/realtime/movie",
     "status": "ok",
@@ -178,15 +178,15 @@
     "market": {
       "title": "实时大盘",
       "show_count_desc": "36.5万",
-      "view_count_desc": "15.1万",
-      "box_office": "531.6",
+      "view_count_desc": "131.3万",
+      "box_office": "4554.0",
       "box_office_unit": "万",
-      "split_box_office": "531.6",
+      "split_box_office": "4554.0",
       "split_box_office_unit": "万",
       "update_gap_second": 5,
-      "updated": "2026-05-24 23:10:52",
-      "updated_at": 1779664252868
+      "updated": "2026-05-25 12:39:54",
+      "updated_at": 1779712794497
     },
-    "total_items": 60
+    "total_items": 74
   }
 }
