@@ -19,6 +19,8 @@ concurrency:
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
       - name: 检出仓库
         uses: actions/checkout@v5
@@ -30,6 +32,17 @@ jobs:
         with:
           node-version: '20'
 
+      - name: 验证 TMDB API Key
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          if [ -z "$TMDB_API_KEY" ]; then
+            echo "::warning::TMDB_API_KEY is not configured. Data quality will be reduced."
+            echo "tmdb_available=false" >> $GITHUB_ENV
+          else
+            echo "tmdb_available=true" >> $GITHUB_ENV
+          fi
+
       - name: 恢复豆瓣详情缓存
         uses: actions/cache@v4
         with:
@@ -37,6 +50,24 @@ jobs:
           key: douban-subjects-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
             douban-subjects-${{ runner.os }}-
+
+      - name: 恢复豆瓣搜索缓存
+        uses: actions/cache@v4
+        with:
+          path: .cache/douban/search
+          key: douban-search-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            douban-search-${{ runner.os }}-
+
+      - name: 恢复 B站预告片缓存
+        uses: actions/cache@v4
+        with:
+          path: |
+            .cache/bilibili
+            scripts/data/bilibili_tv_trailer_cache.json
+          key: bilibili-trailers-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            bilibili-trailers-${{ runner.os }}-
 
       - name: 更新猫眼缓存
         run: node scripts/generate_maoyan_cache.mjs
@@ -46,6 +77,117 @@ jobs:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         run: node scripts/generate_douban_catalog.mjs
 
+      - name: 验证数据完整性
+        run: |
+          echo "=== 数据完整性检查 ==="
+
+          # 检查关键文件是否存在
+          required_files=(
+            "json/tv_cn_latest.json"
+            "json/tv_cn_complete.json"
+            "json/movie_cn_latest.json"
+            "json/movie_cn_complete.json"
+            "json/tv_kr_latest.json"
+            "json/tv_jp_latest.json"
+            "json/tv_jp_anime_latest.json"
+            "json/tv_us_latest.json"
+            "json/douban_top250.json"
+            "json/douban_statuses.json"
+            "json/maoyan_box_office.json"
+            "json/maoyan_tv_heat.json"
+            "json/build_report.json"
+          )
+
+          missing_files=()
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              missing_files+=("$file")
+            fi
+          done
+
+          if [ ${#missing_files[@]} -gt 0 ]; then
+            echo "::error::Missing required files: ${missing_files[*]}"
+            exit 1
+          fi
+
+          # 检查文件大小（至少 1KB）
+          small_files=()
+          for file in "${required_files[@]}"; do
+            size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null)
+            if [ "$size" -lt 1024 ]; then
+              small_files+=("$file ($size bytes)")
+            fi
+          done
+
+          if [ ${#small_files[@]} -gt 0 ]; then
+            echo "::warning::Files smaller than 1KB: ${small_files[*]}"
+          fi
+
+          # 检查 JSON 格式
+          invalid_json=()
+          for file in "${required_files[@]}"; do
+            if ! jq empty "$file" 2>/dev/null; then
+              invalid_json+=("$file")
+            fi
+          done
+
+          if [ ${#invalid_json[@]} -gt 0 ]; then
+            echo "::error::Invalid JSON files: ${invalid_json[*]}"
+            exit 1
+          fi
+
+          # 检查数据质量
+          echo ""
+          echo "=== 数据质量报告 ==="
+          for category in tv_cn movie_cn tv_kr tv_jp tv_jp_anime tv_us tv_cn_variety; do
+            latest_file="json/${category}_latest.json"
+            if [ -f "$latest_file" ]; then
+              count=$(jq 'if .shows then .shows | length elif .movies then .movies | length else 0 end' "$latest_file")
+              echo "$category: $count items"
+            fi
+          done
+
+          # 检查 Top250
+          top250_count=$(jq '.movies | length' json/douban_top250.json 2>/dev/null || echo "0")
+          echo "douban_top250: $top250_count items"
+
+          # 检查用户状态
+          status_count=$(jq '.metadata.total_items' json/douban_statuses.json 2>/dev/null || echo "0")
+          echo "douban_statuses: $status_count items"
+
+          # 检查猫眼数据
+          box_office_count=$(jq '.metadata.total_items' json/maoyan_box_office.json 2>/dev/null || echo "0")
+          tv_heat_count=$(jq '.metadata.total_items' json/maoyan_tv_heat.json 2>/dev/null || echo "0")
+          echo "maoyan_box_office: $box_office_count items"
+          echo "maoyan_tv_heat: $tv_heat_count items"
+
+          echo ""
+          echo "=== 验证完成 ==="
+
+      - name: 检查构建报告
+        run: |
+          # 读取构建报告
+          tmdb_enabled=$(jq -r '.metadata.tmdb_enabled' json/build_report.json)
+          douban_status=$(jq -r '.douban_statuses.status // "ok"' json/build_report.json)
+          top250_status=$(jq -r '.douban_top250.status // "ok"' json/build_report.json)
+
+          echo "TMDB Enabled: $tmdb_enabled"
+          echo "Douban Status: $douban_status"
+          echo "Top250 Status: $top250_status"
+
+          # 检查是否有严重问题
+          if [ "$tmdb_enabled" = "false" ] && [ "$tmdb_available" = "true" ]; then
+            echo "::error::TMDB API key is configured but not enabled. Check API key validity."
+          fi
+
+          if [ "$douban_status" = "failed" ]; then
+            echo "::warning::Douban status fetch failed. Existing data preserved."
+          fi
+
+          if [ "$top250_status" = "failed" ]; then
+            echo "::warning::Douban Top250 update failed. Existing data preserved."
+          fi
+
       - name: 检查是否有变更
         id: git-check
         run: |
@@ -54,6 +196,9 @@ jobs:
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
+            # 显示变更摘要
+            echo "=== 变更文件 ==="
+            git diff --staged --name-only
           fi
 
       - name: 提交并推送变更
@@ -61,9 +206,38 @@ jobs:
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git commit -m "chore: 每日数据更新 $(date '+%Y-%m-%d')"
+
+          # 生成详细的提交信息
+          timestamp=$(date '+%Y-%m-%d %H:%M')
+          changed_files=$(git diff --staged --name-only | wc -l | tr -d ' ')
+
+          git commit -m "chore: 每日数据更新 ($timestamp)" -m "Updated $changed_files files"
           git push
 
       - name: 完成通知
         if: steps.git-check.outputs.has_changes == 'false'
-        run: echo "数据无变更"
+        run: echo "数据无变更，跳过提交"
+
+      - name: 生成更新摘要
+        if: always()
+        run: |
+          echo "## 每日更新摘要" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**时间**: $(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
+          echo "**TMDB**: $tmdb_available" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f json/build_report.json ]; then
+            echo "### 数据质量" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            jq '.categories[] | "\(.id): \(.quality.total_items) items, rating missing: \(.quality.missing_rate.rating * 100 | round)%"' json/build_report.json >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ "${{ steps.git-check.outputs.has_changes }}" = "true" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 变更文件" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            git diff --staged --name-only >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
