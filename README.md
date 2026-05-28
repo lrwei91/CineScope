@@ -1,8 +1,8 @@
-# 最新影视内容实时更新
+# CineScope
 
-一个静态聚合展示页，聚焦近期影视内容的浏览和筛选。当前前端支持八个分类：国产剧、院线电影、综艺、韩剧、日剧、日漫、美剧、豆瓣Top250。页面会优先加载默认分类的最新数据，再按分类懒加载完整数据，兼顾首屏速度和后续浏览体验。
+影视内容聚合展示平台，实时追踪全球热门影视动态。
 
-在线体验：[https://lrwei91.github.io/latest_tv/](https://lrwei91.github.io/latest_tv/)
+[在线体验](https://lrwei91.github.io/latest_tv/) · [反馈建议](https://github.com/lrwei91/CineScope/issues)
 
 ## 预览
 
@@ -10,241 +10,182 @@
 
 ## 功能特性
 
-- 分类切换：支持 `tv_cn` 国产剧、`movie_cn` 院线电影、`tv_cn_variety` 综艺、`tv_kr` 韩剧、`tv_jp` 日剧、`tv_jp_anime` 日漫、`tv_us` 美剧、`douban_top250` 豆瓣Top250
-- 评分筛选：支持全部、`> 9分`、`> 8分`、`> 7分`、近 2 年高分
-- 类型筛选：按当前分类数据动态生成，未预设的类型也会直接展示
-- 平台筛选：TV 分类按当前数据动态生成平台/电视网，院线电影默认隐藏该筛选
-- 时间线导航：按年份和月份浏览历史条目，并保留即将上映区域
-- 分页加载：滚动时渐进追加卡片，降低一次性渲染压力
-- 日漫分页：使用独立 `tv_jp_anime` 数据源，和日剧分开抓取、分开缓存、分开展示
-- 猫眼缓存：`movie_cn` 合并缓存的院线票房快照，`tv_cn` 合并缓存的剧集热度快照；页面只读取仓库内 JSON，不在页面运行时直连 60s API
-- 豆瓣状态：默认展示豆瓣用户 `lrwei91` 的想看、在看、看过状态，并在卡片上显示状态标签
+### 影视分类
 
-## 加载策略
+| 分类 | 说明 |
+|------|------|
+| 国产剧 | 大陆热播剧集 |
+| 院线电影 | 正在上映及即将上映 |
+| 综艺 | 大陆综艺节目 |
+| 韩剧 | 韩国电视剧 |
+| 日剧 | 日本电视剧 |
+| 日漫 | 日本动画（独立数据源） |
+| 美剧 | 美国电视剧 |
+| 豆瓣 Top250 | 经典佳作 |
 
-- 首页默认进入 `tv_cn`
-- 初始化时只请求 `json/tv_cn_latest.json`
-- `json/tv_cn_latest.json` 渲染完成后，后台再请求 `json/tv_cn_complete.json`
-- 其他分类在首次切换时，先请求各自 `latest`，随后异步请求各自 `complete`
-- `tv_jp_anime` 使用独立的 `json/tv_jp_anime_latest.json` / `json/tv_jp_anime_complete.json`
-- 已加载过的分类会直接命中前端缓存，不重复请求
-- 豆瓣状态和猫眼 60s 数据由仓库内脚本抓取并缓存为静态 JSON，前端不会在页面加载时直接抓取上游站点
+### 智能筛选
 
-这样做的目的，是避免在进入页面时同时预取多份完整 JSON，导致静态站点的后台流量和解析成本明显上升。
+- **评分筛选**：全部 / >9分 / >8分 / >7分 / 近2年高分
+- **类型筛选**：根据当前分类动态生成
+- **平台筛选**：按播出平台/电视网筛选（院线电影除外）
 
-## 豆瓣数据生成
+### 浏览体验
 
-国产剧、韩剧、日剧、日漫、综艺和院线电影目前由脚本统一生成：
+- **时间线导航**：按年月快速定位
+- **分页加载**：滚动时渐进加载，首屏秒开
+- **懒加载策略**：优先加载最新数据，后台补全完整数据
 
-- `tv_cn`：`subject_collection/tv_domestic` + `subject_collection/tv_hot`（筛中国大陆）
-- `tv_cn_variety`：`subject_collection/tv_variety_show`（筛中国大陆）
-- `tv_kr`：`subject_collection/tv_korean`（筛韩国）
-- `tv_jp`：`subject_collection/tv_japanese`（筛日本）
-- `tv_jp_anime`：AniList 季度动画发现源 + `subject_collection/tv_animation` 豆瓣补全（用于覆盖当季续作和不进入豆瓣动画集合的季度条目）
-- `movie_cn`：`subject_collection/movie_showing` + `subject_collection/movie_soon` + `subject_collection/movie_latest`
+### 数据整合
 
-刷新这些分类数据：
+- **猫眼票房**：院线电影实时票房数据
+- **猫眼热度**：国产剧实时热度排行
+- **豆瓣状态**：同步个人想看/在看/看过状态
 
-```bash
-TMDB_API_KEY=你的_tmdb_api_key node scripts/generate_douban_catalog.mjs
+## 技术架构
+
+### 数据源
+
+| 来源 | 内容 |
+|------|------|
+| TMDB | 影视基础信息、海报 |
+| 豆瓣 | 评分、Top250、用户状态 |
+| AniList | 日本动画季度数据 |
+| 猫眼 60s | 实时票房、剧集热度 |
+
+### 加载策略
+
+```
+首页 → tv_cn_latest.json (首屏)
+        ↓
+      tv_cn_complete.json (后台)
+        ↓
+      切换分类 → 各分类 latest → complete
 ```
 
-猫眼票房和国产剧热度默认从 60s API 生成缓存快照。页面只读取 `json/maoyan_box_office.json` 和 `json/maoyan_tv_heat.json`；上游 60s 请求只在脚本或定时任务中发生。也可以通过 `MAOYAN_BOX_OFFICE_API_URL` / `MAOYAN_TV_HEAT_API_URL` 覆盖默认接口地址，例如指向自己的 60s 私有部署。
+- 首屏只加载当前分类的最新数据
+- 切换分类时按需加载
+- 已加载分类命中缓存，不重复请求
 
-单独刷新猫眼缓存：
+### 自动更新
+
+GitHub Actions 每天 06:00 / 12:00 / 18:00 / 00:00 (北京时间) 自动刷新数据：
+
+- 影视分类数据
+- 猫眼票房 & 热度缓存
+- 豆瓣用户状态
+
+## 快速开始
+
+### 环境要求
+
+- Node.js 18+
+- TMDB API Key
+
+### 安装
 
 ```bash
+git clone https://github.com/lrwei91/CineScope.git
+cd CineScope
+cp .env.example .env
+# 编辑 .env 填入 TMDB_API_KEY
+```
+
+### 刷新数据
+
+```bash
+# 刷新影视分类数据
+TMDB_API_KEY=你的key node scripts/generate_douban_catalog.mjs
+
+# 刷新猫眼缓存
 node scripts/generate_maoyan_cache.mjs
 ```
 
-GitHub Actions 会在北京时间每天 06:00、12:00、18:00、00:00 自动执行一次缓存刷新，并在数据变化时提交：
+### 本地运行
 
-- `.github/workflows/update-maoyan-cache.yml`
-- `json/maoyan_box_office.json`
-- `json/maoyan_tv_heat.json`
+直接用任意静态服务器托管：
 
-影视分类脚本会更新：
+```bash
+# Python
+python -m http.server 8000
 
-- `json/tv_cn_latest.json`
-- `json/tv_cn_complete.json`
-- `json/tv_cn_variety_latest.json`
-- `json/tv_cn_variety_complete.json`
-- `json/tv_kr_latest.json`
-- `json/tv_kr_complete.json`
-- `json/tv_jp_latest.json`
-- `json/tv_jp_complete.json`
-- `json/tv_jp_anime_latest.json`
-- `json/tv_jp_anime_complete.json`
-- `json/douban_statuses.json`
-- `json/build_report.json`
-- `json/movie_cn_latest.json`
-- `json/movie_cn_complete.json`
-- `posters/douban/tv_cn/*`
-- `posters/douban/tv_cn_variety/*`
-- `posters/douban/tv_kr/*`
-- `posters/douban/tv_jp/*`
-- `posters/douban/tv_jp_anime/*`
-- `posters/douban/movie_cn/*`
+# Node.js
+npx serve .
+```
 
-脚本会把豆瓣 subject 详情缓存到 `.cache/douban/subjects/`，用于减少重复详情请求并在远端临时失败时回退到过期缓存。该目录不进入 Git；GitHub Actions 会单独恢复缓存。`json/build_report.json` 会记录本次生成的分类计数、数据缺字段情况、详情 fallback 和缓存命中情况。生成院线电影时只读取已有的 `json/maoyan_box_office.json` 缓存来合并票房，不会在全量片单生成时直连 60s。
+访问 `http://localhost:8000`
 
-## 数据契约
+## 项目结构
+
+```
+CineScope/
+├── index.html          # 主页面
+├── app.js              # 核心逻辑
+├── style.css           # 样式
+├── js/modules/         # 功能模块
+│   ├── data-loader.js  # 数据加载
+│   ├── renderer.js     # 渲染引擎
+│   ├── filters.js      # 筛选逻辑
+│   └── ...
+├── json/               # 数据文件 (LFS)
+├── posters/            # 海报图片 (LFS)
+└── scripts/            # 数据生成脚本
+```
+
+## 数据格式
 
 ### TV 分类
 
-TV 分类继续沿用现有结构：
-
 ```json
 {
-  "metadata": {
-    "last_updated": "2026-04-06T06:06:47+08:00"
-  },
-  "shows": [
-    {
-      "id": 123,
-      "name": "中文名",
-      "original_name": "Original Title",
-      "genres": [{ "name": "剧情" }],
-      "networks": [{ "name": "Netflix" }],
-      "directors": [{ "name": "导演甲" }],
-      "actors": [{ "name": "演员甲" }, { "name": "演员乙" }],
-      "countries": ["中国大陆"],
-      "languages": ["汉语普通话"],
-      "aka": ["别名 A"],
-      "imdb_id": "tt1234567",
-      "poster_path": "/poster.jpg",
-      "overview": "剧情简介",
-      "rating_count": 12345,
-      "rating_star_count": 4,
-      "episodes_info": "更新至12集",
-      "seasons": [
-        {
-          "id": 456,
-          "season_number": 1,
-          "name": "第 1 季",
-          "air_date": "2026-04-01",
-          "poster_path": "/season.jpg",
-          "douban_rating": "8.2",
-          "douban_link_google": "https://movie.douban.com/subject/...",
-          "douban_link_verified": true
-        }
-      ]
-    }
-  ]
+  "shows": [{
+    "id": 123,
+    "name": "剧名",
+    "original_name": "Original Title",
+    "genres": [{ "name": "剧情" }],
+    "seasons": [{
+      "douban_rating": "8.2",
+      "douban_link_verified": true
+    }]
+  }]
 }
 ```
 
 ### 电影分类
 
-院线电影使用新的结构：
-
 ```json
 {
-  "metadata": {
-    "last_updated": "2026-04-06T06:06:47+08:00"
-  },
-  "movies": [
-    {
-      "id": 123,
-      "title": "片名",
-      "original_title": "Original Title",
-      "release_date": "2026-04-01",
-      "genres": [{ "name": "剧情" }],
-      "directors": [{ "name": "导演甲" }],
-      "actors": [{ "name": "演员甲" }, { "name": "演员乙" }],
-      "countries": ["中国大陆"],
-      "languages": ["汉语普通话"],
-      "aka": ["别名 A"],
-      "imdb_id": "tt1234567",
-      "poster_path": "/poster.jpg",
-      "douban_rating": "8.2",
-      "douban_link_google": "https://movie.douban.com/subject/...",
-      "douban_link_verified": true,
-      "overview": "剧情简介",
-      "durations": ["118分钟"],
-      "release_windows": [{ "id": "summer", "label": "暑期档" }],
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-05-05T00:00:00.000Z",
-        "rank": 1,
-        "maoyan_movie_id": 1294273,
-        "movie_name": "片名",
-        "release_info": "上映25天",
-        "real_time_box_office": "536.55万",
-        "cumulative_box_office": "129.48亿",
-        "split_cumulative_box_office": "116.92亿",
-        "box_office_rate": "90.2%",
-        "split_box_office_rate": "90.2%",
-        "show_count": 234524,
-        "show_count_rate": "57.1%",
-        "seat_occupancy": "15.5%",
-        "avg_show_view": "22.7"
-      },
-      "rating_count": 12345,
-      "rating_star_count": 4
+  "movies": [{
+    "id": 123,
+    "title": "片名",
+    "release_date": "2026-04-01",
+    "douban_rating": "8.2",
+    "box_office": {
+      "cumulative_box_office": "129.48亿",
+      "rank": 1
     }
-  ]
+  }]
 }
 ```
 
-前端内部会把 TV 和电影都归一化成统一的 `CatalogItem`，字段至少包含：
+## Git LFS
 
-- `kind`
-- `id`
-- `date`
-- `title`
-- `subtitle`
-- `posterPath`
-- `genres`
-- `releaseWindows`
-- `networks`
-- `doubanRating`
-- `doubanLink`
-- `doubanVerified`
-- `tmdbUrl`
-- `imdbUrl`
-- `directors`
-- `actors`
-- `countries`
-- `languages`
-- `overview`
+大型数据文件（JSON + 海报）使用 Git LFS 存储：
 
-## 当前 JSON 文件
+```bash
+# 正常 clone（自动下载 LFS 文件）
+git clone https://github.com/lrwei91/CineScope.git
 
-- `json/tv_us_latest.json`
-- `json/tv_us_complete.json`
-- `json/douban_top250.json`
-- `json/tv_cn_latest.json`
-- `json/tv_cn_complete.json`
-- `json/tv_cn_variety_latest.json`
-- `json/tv_cn_variety_complete.json`
-- `json/tv_kr_latest.json`
-- `json/tv_kr_complete.json`
-- `json/tv_jp_latest.json`
-- `json/tv_jp_complete.json`
-- `json/tv_jp_anime_latest.json`
-- `json/tv_jp_anime_complete.json`
-- `json/movie_cn_latest.json`
-- `json/movie_cn_complete.json`
-- `json/maoyan_box_office.json`
-- `json/build_report.json`
+# 仅 clone 代码（跳过 LFS）
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/lrwei91/CineScope.git
+```
 
-其中国产剧、综艺、韩剧、日剧和院线电影文件仍主要使用 `tmdb+douban` 混合源；`tv_jp_anime` 改为 AniList 季度发现 + 豆瓣匹配补全，并在提供 `TMDB_API_KEY` 时进一步回填中文标题、海报与简介。美剧仍沿用原有 JSON 数据来源。`douban_top250` 通过爬取豆瓣 Top 250 页面生成。
+## 许可证
 
-## 数据来源
+MIT License
 
-- 影视基础信息：The Movie Database (TMDB)
-- 评分信息：豆瓣
-- 院线实时票房：60s API 的猫眼实时票房接口，定时脚本缓存到 `json/maoyan_box_office.json` 后，前端按片名/别名匹配到 `movie_cn` 条目
-- 国产剧实时热度：60s API 的猫眼剧集热度接口，定时脚本缓存到 `json/maoyan_tv_heat.json` 后，前端按片名/别名匹配到 `tv_cn` 条目
+## 致谢
 
-## 说明
-
-这个仓库当前不包含原有美剧的抓取 pipeline；但已经包含国产剧、韩剧、日剧、日漫、院线电影和豆瓣Top250的数据生成脚本，用于直接更新前端消费的 JSON 文件。
-
-## 豆瓣状态同步
-
-- 页面默认展示豆瓣用户 `lrwei91` 的 `想看 / 在看 / 看过`
-- 抓取脚本会同步 `https://movie.douban.com/people/lrwei91/` 下的公开电影列表页
-- 抓取结果会写入 `json/douban_statuses.json`
-- 列表卡片通过现有 `douban_link_google` 提取 subject id，与抓取到的状态做匹配
+- [TMDB](https://www.themoviedb.org/) - 影视数据
+- [豆瓣](https://movie.douban.com/) - 评分数据
+- [AniList](https://anilist.co/) - 动画数据
+- [猫眼](https://maoyan.com/) - 票房数据
