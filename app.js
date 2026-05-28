@@ -24,11 +24,9 @@ import {
     getCurrentRatingConfig,
     getGenreDisplayName,
     getSortedGenres,
-    getSortedNetworks,
     applyFilters,
     createRatingTag,
-    createGenreTag,
-    createNetworkTag
+    createGenreTag
 } from './js/modules/filters.js';
 
 import {
@@ -93,7 +91,6 @@ const state = {
     currentCategoryId: DEFAULT_CATEGORY_ID,
     specialFilterMode: null,
     selectedGenres: [],
-    selectedNetworks: [],
     selectedRating: '全部',
     searchQuery: '',
     currentPage: 1,
@@ -105,7 +102,6 @@ const state = {
     visibleYearCount: 3,
     isScrollingProgrammatically: false,
     genreFiltersExpanded: false,
-    networkFiltersExpanded: false,
     lastAutoRefreshAt: 0
 };
 
@@ -161,7 +157,6 @@ function resetFilterState() {
     state.specialFilterMode = null;
     state.selectedRating = '全部';
     state.selectedGenres = [];
-    state.selectedNetworks = [];
     state.searchQuery = '';
     if (elements.radarSearchInput) {
         elements.radarSearchInput.value = '';
@@ -171,7 +166,6 @@ function resetFilterState() {
         mobileSheetSearch.value = '';
     }
     state.genreFiltersExpanded = false;
-    state.networkFiltersExpanded = false;
 }
 
 function setCurrentCategory(categoryId) {
@@ -181,7 +175,6 @@ function setCurrentCategory(categoryId) {
     elements.categoryFilterContainer.querySelectorAll('.genre-tag').forEach((tag) => {
         tag.classList.toggle('active', tag.dataset.category === categoryId);
     });
-    populateNetworkFilters([]);
     syncMobileSheetFilters();
     updateFabState();
 }
@@ -243,7 +236,6 @@ function syncCurrentCategoryData() {
     state.allItems = syncAllItems(catState.items);
     updateSubtitleText();
     populateGenreFilters(state.allItems);
-    populateNetworkFilters(state.allItems);
     filterAndRenderItems({
         preserveRenderedContent: true,
         previousItems
@@ -390,87 +382,11 @@ function handleGenreClick(actualValue, tag) {
     }
 }
 
-function handleNetworkClick(networkName, tag) {
-    const isActive = tag.classList.contains('active');
-
-    if (networkName === '全部') {
-        if (isActive) return;
-        state.selectedNetworks = [];
-    } else if (isActive) {
-        state.selectedNetworks = state.selectedNetworks.filter((network) => network !== networkName);
-    } else {
-        state.selectedNetworks.push(networkName);
-    }
-
-    populateNetworkFilters(state.allItems);
-    filterAndRenderItems();
-
-    if (isMobile()) {
-        tag.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-    }
-}
-
-function populateNetworkFilters(items) {
-    const networkFilterContainer = document.getElementById('network-filter-container');
-    const networkFilterToggle = document.getElementById('network-filter-toggle');
-
-    if (!networkFilterContainer) {
-        state.selectedNetworks = [];
-        syncMobileSheetFilters();
-        updateFabState();
-        return;
-    }
-
-    const config = getCurrentCategoryConfig();
-    const networkFilterSection = networkFilterContainer.closest('.filter-block-network');
-
-    state.selectedNetworks = config.showNetworkFilter ? state.selectedNetworks : [];
-    networkFilterContainer.innerHTML = '';
-
-    if (!config.showNetworkFilter) {
-        if (networkFilterSection) networkFilterSection.style.display = 'none';
-        networkFilterContainer.style.display = 'none';
-        if (networkFilterToggle) networkFilterToggle.hidden = true;
-        syncMobileSheetFilters();
-        updateFabState();
-        return;
-    }
-
-    if (networkFilterSection) networkFilterSection.style.display = '';
-    networkFilterContainer.style.display = '';
-
-    const availableNetworks = getSortedNetworks(items);
-    state.selectedNetworks = state.selectedNetworks.filter((network) => availableNetworks.includes(network));
-
-    const allTag = createNetworkTag('全部', state.selectedNetworks.length === 0, () => handleNetworkClick('全部', allTag));
-    networkFilterContainer.appendChild(allTag);
-
-    availableNetworks.forEach((networkName) => {
-        const tag = createNetworkTag(networkName, state.selectedNetworks.includes(networkName), () =>
-            handleNetworkClick(networkName, tag)
-        );
-        networkFilterContainer.appendChild(tag);
-    });
-
-    requestAnimationFrame(() => updateNetworkFilterCollapse());
-    syncMobileSheetFilters();
-    updateFabState();
-}
-
 function updateGenreFilterCollapse() {
     updateFilterCollapse(
         elements.genreFilterContainer,
         elements.genreFilterToggle,
         state.genreFiltersExpanded
-    );
-}
-
-function updateNetworkFilterCollapse() {
-    updateFilterCollapse(
-        document.getElementById('network-filter-container'),
-        document.getElementById('network-filter-toggle'),
-        state.networkFiltersExpanded,
-        getCurrentCategoryConfig().showNetworkFilter
     );
 }
 
@@ -483,8 +399,7 @@ function getCurrentFilters() {
         searchQuery: state.searchQuery,
         specialFilterMode: state.specialFilterMode,
         selectedRating: state.selectedRating,
-        selectedGenres: state.selectedGenres,
-        selectedNetworks: state.selectedNetworks
+        selectedGenres: state.selectedGenres
     };
 }
 
@@ -886,15 +801,8 @@ function setupEventListeners() {
         updateGenreFilterCollapse();
     });
 
-    const networkFilterToggle = document.getElementById('network-filter-toggle');
-    networkFilterToggle?.addEventListener('click', () => {
-        state.networkFiltersExpanded = !state.networkFiltersExpanded;
-        updateNetworkFilterCollapse();
-    });
-
     window.addEventListener('resize', () => {
         requestAnimationFrame(updateGenreFilterCollapse);
-        requestAnimationFrame(updateNetworkFilterCollapse);
     });
 
     // 搜索
@@ -1011,7 +919,6 @@ function bootstrapApp() {
     setupEventListeners();
     setupScrollFade(elements.ratingFilterContainer);
     setupScrollFade(elements.genreFilterContainer);
-    setupScrollFade(document.getElementById('network-filter-container'));
 
     // 初始化详情面板
     initDossierEvents(shareDossier, openTrailerModal);

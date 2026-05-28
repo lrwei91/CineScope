@@ -112,8 +112,6 @@ export function syncMobileCategoryLabel() {
 export function syncMobileSheetFilters() {
     const mobileRatingMirror = document.getElementById('mobile-rating-mirror');
     const mobileGenreMirror = document.getElementById('mobile-genre-mirror');
-    const mobileNetworkMirror = document.getElementById('mobile-network-mirror');
-    const mobileNetworkSection = document.querySelector('.sheet-section-network');
     if (!mobileRatingMirror || !mobileGenreMirror) return;
 
     // 镜像评分筛选
@@ -140,31 +138,6 @@ export function syncMobileSheetFilters() {
         mobileGenreMirror.appendChild(clone);
     });
 
-    // 镜像平台筛选
-    if (mobileNetworkMirror && mobileNetworkSection) {
-        const networkContainer = document.getElementById('network-filter-container');
-        const networkSection = networkContainer?.closest('.filter-block-network');
-        const networkTags = document.querySelectorAll('#network-filter-container .genre-tag');
-        const isNetworkVisible =
-            networkTags.length > 0 &&
-            networkContainer?.style.display !== 'none' &&
-            networkSection?.style.display !== 'none';
-
-        mobileNetworkMirror.innerHTML = '';
-        mobileNetworkSection.hidden = !isNetworkVisible;
-        if (isNetworkVisible) {
-            networkTags.forEach((tag) => {
-                const clone = tag.cloneNode(true);
-                clone.addEventListener('click', () => {
-                    tag.click();
-                    setTimeout(() => syncMobileSheetFilters(), 50);
-                    updateFabState();
-                });
-                mobileNetworkMirror.appendChild(clone);
-            });
-        }
-    }
-
     const mobileSheetSearch = document.getElementById('mobile-sheet-search');
     const mainSearch = document.getElementById('radar-search');
     if (mobileSheetSearch && mainSearch && mobileSheetSearch.value !== mainSearch.value) {
@@ -190,12 +163,10 @@ export function updateFabState() {
     const state = window.__appState || {};
     const hasRating = Boolean(state.selectedRating && state.selectedRating !== '全部') || Boolean(state.specialFilterMode);
     const hasGenre = (state.selectedGenres || []).length > 0;
-    const hasNetwork = (state.selectedNetworks || []).length > 0;
     const hasSearch = (state.searchQuery || '').length > 0;
     const totalActive =
         (hasRating ? 1 : 0) +
         (hasGenre ? (state.selectedGenres || []).length : 0) +
-        (hasNetwork ? (state.selectedNetworks || []).length : 0) +
         (hasSearch ? 1 : 0);
 
     mobileFilterFab.classList.toggle('has-active', totalActive > 0);

@@ -22,15 +22,13 @@ export const CATEGORY_CONFIG = {
         label: '美剧',
         kind: 'tv',
         latestUrl: 'json/tv_us_latest.json',
-        completeUrl: 'json/tv_us_complete.json',
-        showNetworkFilter: true
+        completeUrl: 'json/tv_us_complete.json'
     },
     douban_top250: {
         id: 'douban_top250',
         label: '豆瓣Top250',
         kind: 'movie',
-        completeUrl: 'json/douban_top250.json',
-        showNetworkFilter: false
+        completeUrl: 'json/douban_top250.json'
     },
     tv_cn: {
         id: 'tv_cn',
@@ -38,24 +36,21 @@ export const CATEGORY_CONFIG = {
         kind: 'tv',
         latestUrl: 'json/tv_cn_latest.json',
         completeUrl: 'json/tv_cn_complete.json',
-        tvHeatUrl: 'json/maoyan_tv_heat.json',
-        showNetworkFilter: true
+        tvHeatUrl: 'json/maoyan_tv_heat.json'
     },
     tv_kr: {
         id: 'tv_kr',
         label: '韩剧',
         kind: 'tv',
         latestUrl: 'json/tv_kr_latest.json',
-        completeUrl: 'json/tv_kr_complete.json',
-        showNetworkFilter: true
+        completeUrl: 'json/tv_kr_complete.json'
     },
     tv_jp: {
         id: 'tv_jp',
         label: '日剧',
         kind: 'tv',
         latestUrl: 'json/tv_jp_latest.json',
-        completeUrl: 'json/tv_jp_complete.json',
-        showNetworkFilter: true
+        completeUrl: 'json/tv_jp_complete.json'
     },
     tv_jp_anime: {
         id: 'tv_jp_anime',
@@ -63,7 +58,6 @@ export const CATEGORY_CONFIG = {
         kind: 'tv',
         latestUrl: 'json/tv_jp_anime_latest.json',
         completeUrl: 'json/tv_jp_anime_complete.json',
-        showNetworkFilter: true,
         allowUnratedAnimation: true
     },
     movie_cn: {
@@ -73,7 +67,6 @@ export const CATEGORY_CONFIG = {
         latestUrl: 'json/movie_cn_latest.json',
         completeUrl: 'json/movie_cn_complete.json',
         boxOfficeUrl: 'json/maoyan_box_office.json',
-        showNetworkFilter: false,
         preferCompleteOnFirstLoad: true,
         keepMonthIntactOnPaging: true
     },
@@ -82,8 +75,7 @@ export const CATEGORY_CONFIG = {
         label: '综艺',
         kind: 'tv',
         latestUrl: 'json/tv_cn_variety_latest.json',
-        completeUrl: 'json/tv_cn_variety_complete.json',
-        showNetworkFilter: true
+        completeUrl: 'json/tv_cn_variety_complete.json'
     }
 };
 
@@ -326,34 +318,6 @@ export const GENRE_PRIORITY = [
     '电视电影',
     '剧情',
     '动画'
-];
-
-export const NETWORK_PRIORITY = [
-    'Netflix',
-    'Apple TV',
-    'Prime Video',
-    'Disney',
-    'Disney+',
-    'Max',
-    'HBO',
-    'Hulu',
-    'Paramount',
-    'BBC',
-    'BBC One',
-    'BBC Two',
-    'Sky',
-    'ITV',
-    'Channel 4',
-    '腾讯视频',
-    '爱奇艺',
-    '优酷',
-    '芒果 TV',
-    '哔哩哔哩',
-    'CCTV',
-    '湖南卫视',
-    '东方卫视',
-    '江苏卫视',
-    '浙江卫视'
 ];
 
 export function createCategoryState() {

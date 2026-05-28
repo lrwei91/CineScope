@@ -8,7 +8,6 @@ import {
     DEFAULT_RATING_CONFIG,
     GENRE_DISPLAY_MAP,
     GENRE_PRIORITY,
-    NETWORK_PRIORITY,
     HIDDEN_GENRES,
     CATEGORY_CONFIG
 } from './config.js';
@@ -52,26 +51,6 @@ export function getSortedGenres(items) {
 }
 
 /**
- * 获取排序后的网络列表
- */
-export function getSortedNetworks(items) {
-    const uniqueNetworks = [...new Set(items.flatMap((item) => item.networks))];
-
-    return uniqueNetworks.sort((left, right) => {
-        const leftPriority = NETWORK_PRIORITY.findIndex((name) => name.toLowerCase() === left.toLowerCase());
-        const rightPriority = NETWORK_PRIORITY.findIndex((name) => name.toLowerCase() === right.toLowerCase());
-
-        if (leftPriority !== -1 || rightPriority !== -1) {
-            if (leftPriority === -1) return 1;
-            if (rightPriority === -1) return -1;
-            return leftPriority - rightPriority;
-        }
-
-        return left.localeCompare(right, 'zh-CN');
-    });
-}
-
-/**
  * 检查项目是否包含某类型
  */
 export function itemHasGenre(item, genreName) {
@@ -93,8 +72,7 @@ export function applyFilters(allItems, filters, categoryId) {
         searchQuery,
         specialFilterMode,
         selectedRating,
-        selectedGenres,
-        selectedNetworks
+        selectedGenres
     } = filters;
 
     let sourceItems = [...allItems];
@@ -152,23 +130,11 @@ export function applyFilters(allItems, filters, categoryId) {
               return !(isAnimation && !hasRating);
           });
 
-    // 网络/平台筛选
-    const networkFiltered =
-        selectedNetworks.length === 0
-            ? filteredNoRatingAnime
-            : filteredNoRatingAnime.filter((item) =>
-                  item.networks.some((network) =>
-                      selectedNetworks.some(
-                          (selectedNetwork) => selectedNetwork.toLowerCase() === network.toLowerCase()
-                      )
-                  )
-              );
-
     // 分离即将上映和已上映
     const futureItems =
         specialFilterMode === 'recent_high_score'
             ? []
-            : networkFiltered
+            : filteredNoRatingAnime
                   .filter((item) => isDateAfterToday(item.date))
                   .sort(
                       (left, right) =>
@@ -177,8 +143,8 @@ export function applyFilters(allItems, filters, categoryId) {
 
     const pastAndPresentItems =
         specialFilterMode === 'recent_high_score'
-            ? networkFiltered
-            : networkFiltered.filter((item) => !isDateAfterToday(item.date));
+            ? filteredNoRatingAnime
+            : filteredNoRatingAnime.filter((item) => !isDateAfterToday(item.date));
 
     // 排序
     const sortedItems = pastAndPresentItems.sort((left, right) => {
@@ -225,23 +191,6 @@ export function createGenreTag(displayName, actualValue, isSelected, onClick) {
     tag.className = 'genre-tag';
     tag.textContent = displayName;
     tag.dataset.genre = actualValue;
-
-    if (isSelected) {
-        tag.classList.add('active', 'multiselect-tick');
-    }
-
-    tag.addEventListener('click', onClick);
-    return tag;
-}
-
-/**
- * 创建网络筛选标签
- */
-export function createNetworkTag(networkName, isSelected, onClick) {
-    const tag = document.createElement('div');
-    tag.className = 'genre-tag';
-    tag.textContent = networkName;
-    tag.dataset.network = networkName;
 
     if (isSelected) {
         tag.classList.add('active', 'multiselect-tick');
