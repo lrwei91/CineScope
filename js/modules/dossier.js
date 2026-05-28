@@ -86,7 +86,10 @@ function syncBodyModalState() {
         document.getElementById('intel-dossier-overlay')?.classList.contains('active') ||
         document.getElementById('trailer-modal')?.classList.contains('active') ||
         document.getElementById('trailer-modal-overlay')?.classList.contains('active') ||
-        document.getElementById('mobile-sheet-overlay')?.classList.contains('active')
+        document.getElementById('mobile-filter-sheet')?.classList.contains('active') ||
+        document.getElementById('mobile-sheet-overlay')?.classList.contains('active') ||
+        document.getElementById('mobile-category-sheet')?.classList.contains('active') ||
+        document.getElementById('mobile-category-overlay')?.classList.contains('active')
     );
 
     document.body.classList.toggle('modal-open', hasActiveModal);

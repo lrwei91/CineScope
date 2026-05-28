@@ -7,11 +7,23 @@ import { TMDB_IMAGE_BASE_URL, HIDDEN_GENRES, FUTURE_TAG, DOUBAN_STATUS_LABELS, G
 import { getGenreDisplayName } from './filters.js';
 import { parseDateStringAsLocalDate } from './date-utils.js';
 
+const POSTER_FALLBACK_SVG = encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750">
+  <rect width="500" height="750" fill="#111318"/>
+  <rect x="56" y="78" width="388" height="594" rx="18" fill="#191d25" stroke="#2f3642" stroke-width="2"/>
+  <path d="M156 330h188v28H156zM156 382h128v18H156z" fill="#5c6675"/>
+  <circle cx="250" cy="264" r="52" fill="#2f3642"/>
+  <text x="250" y="490" fill="#8792a3" font-family="Arial,sans-serif" font-size="28" font-weight="700" text-anchor="middle">NO POSTER</text>
+</svg>
+`);
+
+const POSTER_FALLBACK_URL = `data:image/svg+xml;charset=utf-8,${POSTER_FALLBACK_SVG}`;
+
 /**
  * 解析海报 URL
  */
 export function resolvePosterUrl(posterPath) {
-    if (!posterPath) return 'https://via.placeholder.com/500x750.png?text=No+Image';
+    if (!posterPath) return POSTER_FALLBACK_URL;
     if (/^https?:\/\//i.test(posterPath)) return posterPath;
     return posterPath.startsWith('/') ? `${TMDB_IMAGE_BASE_URL}${posterPath}` : posterPath;
 }
@@ -129,7 +141,7 @@ function createTrailerButtonHtml(item) {
 
     return `
         <button class="poster-trailer-btn" type="button" aria-label="播放 ${item.title || '作品'} 预告片" title="播放预告片">
-            <span class="poster-trailer-icon">▶</span>
+            <span class="poster-trailer-icon" aria-hidden="true"></span>
         </button>
     `;
 }
@@ -156,7 +168,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
     const airDateInfo = item.date ? `<p class="card-meta-info">上映日期：${item.date}</p>` : '';
     const boxOfficeHtml = createBoxOfficeHtml(item);
     const tvHeatHtml = createTvHeatHtml(item);
-    const imageHTML = `<img src="${posterUrl}" alt="${titleText}" class="poster" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750.png?text=No+Image';">`;
+    const imageHTML = `<img src="${posterUrl}" alt="${titleText}" class="poster" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${POSTER_FALLBACK_URL}';">`;
 
     const statusBadgeHtml = item.doubanCollectionStatus
         ? `<span class="poster-status-badge ${item.doubanCollectionStatus}">${DOUBAN_STATUS_LABELS[item.doubanCollectionStatus] || item.doubanCollectionStatus}</span>`
@@ -250,11 +262,11 @@ export function renderComingSoon(futureItems, onCardClick, onTrailerClick) {
     comingSoonContainer.innerHTML = `
         <h2 class="month-group-header">即将上映</h2>
         <div class="scroller-wrapper">
-            <button class="scroller-arrow left" aria-label="Scroll left">‹</button>
+            <button class="scroller-arrow left" type="button" aria-label="向左滚动"></button>
             <div class="scroller-container">
                 <div class="horizontal-scroller"></div>
             </div>
-            <button class="scroller-arrow right" aria-label="Scroll right">›</button>
+            <button class="scroller-arrow right" type="button" aria-label="向右滚动"></button>
         </div>
     `;
 

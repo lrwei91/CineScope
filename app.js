@@ -166,6 +166,10 @@ function resetFilterState() {
     if (elements.radarSearchInput) {
         elements.radarSearchInput.value = '';
     }
+    const mobileSheetSearch = document.getElementById('mobile-sheet-search');
+    if (mobileSheetSearch) {
+        mobileSheetSearch.value = '';
+    }
     state.genreFiltersExpanded = false;
     state.networkFiltersExpanded = false;
 }
@@ -177,13 +181,16 @@ function setCurrentCategory(categoryId) {
     elements.categoryFilterContainer.querySelectorAll('.genre-tag').forEach((tag) => {
         tag.classList.toggle('active', tag.dataset.category === categoryId);
     });
+    populateNetworkFilters([]);
+    syncMobileSheetFilters();
+    updateFabState();
 }
 
 async function switchCategory(categoryId) {
     if (categoryId === state.currentCategoryId || !CATEGORY_CONFIG[categoryId]) return;
 
-    setCurrentCategory(categoryId);
     resetFilterState();
+    setCurrentCategory(categoryId);
     populateRatingFilters();
 
     const catState = state.categoryState[categoryId];
@@ -197,7 +204,10 @@ async function switchCategory(categoryId) {
 
     populateGenreFilters([]);
     showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
-    await ensureCategoryLoaded(categoryId);
+    const loaded = await ensureCategoryLoaded(categoryId);
+    if (!loaded) {
+        showLoadError();
+    }
 }
 
 async function ensureCategoryLoaded(categoryId) {
@@ -211,21 +221,20 @@ async function ensureCategoryLoaded(categoryId) {
         if (!catState.completeLoaded) {
             loadCategoryData(categoryId, 'complete', state.categoryState);
         }
-        return;
+        return true;
     }
 
     if (config?.preferCompleteOnFirstLoad) {
-        await loadCategoryData(categoryId, 'complete', state.categoryState);
-        return;
+        return loadCategoryData(categoryId, 'complete', state.categoryState);
     }
 
     const latestLoaded = await loadCategoryData(categoryId, 'latest', state.categoryState);
     if (!latestLoaded) {
-        await loadCategoryData(categoryId, 'complete', state.categoryState);
-        return;
+        return loadCategoryData(categoryId, 'complete', state.categoryState);
     }
 
     loadCategoryData(categoryId, 'complete', state.categoryState);
+    return true;
 }
 
 function syncCurrentCategoryData() {
@@ -234,6 +243,7 @@ function syncCurrentCategoryData() {
     state.allItems = syncAllItems(catState.items);
     updateSubtitleText();
     populateGenreFilters(state.allItems);
+    populateNetworkFilters(state.allItems);
     filterAndRenderItems({
         preserveRenderedContent: true,
         previousItems
@@ -276,6 +286,29 @@ function updateSubtitleText() {
     }
 }
 
+function showLoadError(message = '加载数据失败，请稍后重试或手动选择当前分类 JSON 文件。') {
+    if (elements.statusMessage) {
+        elements.statusMessage.textContent = message;
+        elements.statusMessage.style.color = '#ff6b8f';
+    }
+    if (elements.skeletonContainer) {
+        elements.skeletonContainer.style.display = 'none';
+    }
+    if (elements.comingSoonContainer) {
+        elements.comingSoonContainer.style.display = 'none';
+    }
+    if (elements.resultsContainer) {
+        elements.resultsContainer.innerHTML = '';
+    }
+    if (elements.noResultsMessage) {
+        elements.noResultsMessage.textContent = message;
+        elements.noResultsMessage.style.display = 'block';
+    }
+    elements.loader.style.display = 'none';
+    document.getElementById('interactive-timeline')?.classList.remove('visible');
+    document.body.style.visibility = 'visible';
+}
+
 // =====================================================
 // 筛选器 UI
 // =====================================================
@@ -308,6 +341,9 @@ function populateRatingFilters() {
 
         elements.ratingFilterContainer.appendChild(tag);
     });
+
+    syncMobileSheetFilters();
+    updateFabState();
 }
 
 function populateGenreFilters(items) {
@@ -330,6 +366,8 @@ function populateGenreFilters(items) {
     });
 
     requestAnimationFrame(() => updateGenreFilterCollapse());
+    syncMobileSheetFilters();
+    updateFabState();
 }
 
 function handleGenreClick(actualValue, tag) {
@@ -378,6 +416,8 @@ function populateNetworkFilters(items) {
 
     if (!networkFilterContainer) {
         state.selectedNetworks = [];
+        syncMobileSheetFilters();
+        updateFabState();
         return;
     }
 
@@ -391,6 +431,8 @@ function populateNetworkFilters(items) {
         if (networkFilterSection) networkFilterSection.style.display = 'none';
         networkFilterContainer.style.display = 'none';
         if (networkFilterToggle) networkFilterToggle.hidden = true;
+        syncMobileSheetFilters();
+        updateFabState();
         return;
     }
 
@@ -411,6 +453,8 @@ function populateNetworkFilters(items) {
     });
 
     requestAnimationFrame(() => updateNetworkFilterCollapse());
+    syncMobileSheetFilters();
+    updateFabState();
 }
 
 function updateGenreFilterCollapse() {
@@ -482,6 +526,9 @@ function shouldRerenderComingSoon(previousResults, nextResults) {
 }
 
 function refreshRenderMetadata() {
+    if (elements.noResultsMessage) {
+        elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
+    }
     elements.noResultsMessage.style.display = 'none';
 
     state.allAvailableYears = [
@@ -560,6 +607,7 @@ function startRendering() {
     }
 
     elements.resultsContainer.innerHTML = '';
+    elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
     elements.noResultsMessage.style.display = 'none';
 
     // 首次渲染内容时显示 body（如果还没显示）
@@ -589,6 +637,7 @@ function startRendering() {
     state.currentActiveYear = null;
 
     if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
+        elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
         elements.noResultsMessage.style.display = 'block';
     }
 
@@ -774,17 +823,13 @@ async function initialize() {
 
     try {
         await hydrateDoubanStatuses();
-        await ensureCategoryLoaded(DEFAULT_CATEGORY_ID);
-    } catch (error) {
-        elements.statusMessage.textContent = '加载数据失败或文件格式无效。';
-        elements.statusMessage.style.color = '#F44336';
-        console.error('Initialize failed:', error);
-        if (elements.skeletonContainer) {
-            elements.skeletonContainer.style.display = 'none';
+        const loaded = await ensureCategoryLoaded(DEFAULT_CATEGORY_ID);
+        if (!loaded) {
+            showLoadError();
         }
-        elements.comingSoonContainer.style.display = 'none';
-        // 错误情况下也要显示 body
-        document.body.style.visibility = 'visible';
+    } catch (error) {
+        console.error('Initialize failed:', error);
+        showLoadError();
     }
 }
 
@@ -814,6 +859,7 @@ function setupEventListeners() {
             } catch (error) {
                 elements.statusMessage.textContent = `文件 "${file.name}" 不是有效的当前分类 JSON 格式。`;
                 elements.statusMessage.style.color = 'red';
+                showLoadError(`文件 "${file.name}" 不是有效的当前分类 JSON 格式。`);
             }
         };
         reader.readAsText(file);
@@ -855,6 +901,10 @@ function setupEventListeners() {
     if (elements.radarSearchInput) {
         elements.radarSearchInput.addEventListener('input', (e) => {
             state.searchQuery = e.target.value.trim();
+            const mobileSheetSearch = document.getElementById('mobile-sheet-search');
+            if (mobileSheetSearch && mobileSheetSearch.value !== e.target.value) {
+                mobileSheetSearch.value = e.target.value;
+            }
             filterAndRenderItems();
         });
     }

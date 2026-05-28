@@ -4,7 +4,7 @@
  */
 
 const QR_CODE_SIZE = 132;
-const QR_CODE_API_BASE_URL = 'https://quickchart.io/qr';
+const QR_CODE_API_BASE_URL = 'https://api.qrserver.com/v1/create-qr-code/';
 const BOTTOM_SECTION_GAP = 56;
 const QR_CARD_PADDING = 16;
 const QR_CARD_HEADER_HEIGHT = 28;
@@ -39,8 +39,8 @@ export function getShareBaseUrl(locationLike = globalThis.location) {
 
 export function getQrCodeUrl(text, size = QR_CODE_SIZE) {
     const qrUrl = new URL(QR_CODE_API_BASE_URL);
-    qrUrl.searchParams.set('size', size);
-    qrUrl.searchParams.set('text', text);
+    qrUrl.searchParams.set('size', `${size}x${size}`);
+    qrUrl.searchParams.set('data', text);
     qrUrl.searchParams.set('margin', '0');
     return qrUrl.toString();
 }

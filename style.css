@@ -5,6 +5,7 @@
     --palette-bg-surface-soft: #1a1a24;
     --palette-bg-primary-core: #00f0ff; /* Cyberpunk Cyan */
     --palette-bg-primary-pressed: #00c3d9;
+    --palette-accent-primary: var(--palette-bg-primary-core);
     --palette-text-primary: #ffffff;
     --palette-text-secondary: #aaaaaa;
     --palette-text-tertiary: #666666;
@@ -250,14 +251,24 @@ h1 .update-date {
 .search-icon {
     position: absolute;
     left: 12px;
-    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    color: var(--palette-bg-primary-core);
     pointer-events: none;
-    filter: sepia(1) hue-rotate(150deg) saturate(3) brightness(1.2); /* make default emoji cyan-ish */
 }
 
-.filter-row {
+.filter-row,
+.sticky-header {
     display: grid;
     gap: 18px;
+}
+
+.sticky-header {
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+    align-items: start;
 }
 
 .filter-row-primary {
@@ -344,10 +355,15 @@ h1 .update-date {
 
 #genre-filter-container .genre-tag.active.multiselect-tick::before,
 #network-filter-container .genre-tag.active.multiselect-tick::before {
-    content: "■ ";
-    font-family: var(--font-mono);
-    color: var(--palette-warning);
-    margin-right: 4px;
+    content: "";
+    display: inline-block;
+    flex: 0 0 7px;
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    background: var(--palette-warning);
+    box-shadow: 0 0 6px rgba(255, 0, 85, 0.55);
+    transform: rotate(45deg);
 }
 
 .filter-toggle {
@@ -489,6 +505,23 @@ h1 .update-date {
     cursor: pointer;
     transition: all 0.2s ease;
     backdrop-filter: blur(4px);
+}
+
+.scroller-arrow::before {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+}
+
+.scroller-arrow.left::before {
+    transform: rotate(-45deg);
+}
+
+.scroller-arrow.right::before {
+    transform: rotate(135deg);
 }
 
 .scroller-arrow:hover {
@@ -693,9 +726,13 @@ h1 .update-date {
 }
 
 .poster-trailer-icon {
-    padding-left: 2px;
-    font-size: 16px;
-    line-height: 1;
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: 3px;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 11px solid currentColor;
 }
 
 .card-content {
@@ -1213,6 +1250,7 @@ h1 .update-date {
 
     .sticky-header {
         top: 8px;
+        grid-template-columns: 1fr;
     }
 
     .network-filter-container,
@@ -1363,6 +1401,7 @@ h1 .update-date {
 
 .mobile-category-trigger {
     display: flex;
+    visibility: visible;
     align-items: center;
     gap: 6px;
     padding: 8px 14px;
@@ -1394,17 +1433,17 @@ h1 .update-date {
 .mobile-category-overlay {
     position: fixed;
     inset: 0;
+    display: none;
     background: rgba(0, 0, 0, 0.5);
     z-index: 600;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.25s, visibility 0.25s;
+    transition: opacity 0.25s ease;
     backdrop-filter: blur(4px);
 }
 
 .mobile-category-overlay.active {
+    display: block;
     opacity: 1;
-    visibility: visible;
 }
 
 .mobile-category-sheet {
@@ -1413,16 +1452,16 @@ h1 .update-date {
     left: 0;
     right: 0;
     z-index: 601;
+    display: none;
     background: rgba(12, 12, 16, 0.98);
     border-bottom: 1px solid var(--palette-border);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
-    transform: translateY(-100%);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: none;
     padding-bottom: 20px;
 }
 
 .mobile-category-sheet.active {
-    transform: translateY(0);
+    display: block;
 }
 
 .mobile-category-pills {
@@ -1471,6 +1510,7 @@ h1 .update-date {
     transform: translateX(-50%);
     z-index: 500;
     display: flex;
+    visibility: visible;
     align-items: center;
     gap: 8px;
     padding: 14px 28px;
@@ -1499,6 +1539,10 @@ h1 .update-date {
     box-shadow: 0 0 20px rgba(255, 0, 85, 0.2), 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
+.sheet-section[hidden] {
+    display: none !important;
+}
+
 .fab-icon {
     font-size: 18px;
 }
@@ -1522,17 +1566,17 @@ h1 .update-date {
 .mobile-sheet-overlay {
     position: fixed;
     inset: 0;
+    display: none;
     background: rgba(0, 0, 0, 0.6);
     z-index: 5000;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+    transition: opacity 0.3s ease;
     backdrop-filter: blur(6px);
 }
 
 .mobile-sheet-overlay.active {
+    display: block;
     opacity: 1;
-    visibility: visible;
 }
 
 .mobile-filter-sheet {
@@ -1547,14 +1591,12 @@ h1 .update-date {
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8), 0 -1px 0 rgba(0, 240, 255, 0.1);
     max-height: 85vh;
     overflow-y: auto;
-    transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
 .mobile-filter-sheet.active {
-    transform: translateY(0);
+    display: flex;
 }
 
 .sheet-drag-handle {
@@ -1759,17 +1801,17 @@ body.cursor-hover #custom-cursor-ring {
     left: 0;
     width: 100vw;
     height: 100vh;
+    display: none;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     z-index: 100000;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s;
+    transition: opacity 0.3s ease;
 }
 
 .dossier-overlay.active {
+    display: block;
     opacity: 1;
-    visibility: visible;
 }
 
 .dossier-drawer {
@@ -1783,9 +1825,7 @@ body.cursor-hover #custom-cursor-ring {
     border-left: 1px solid var(--palette-border);
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8), -2px 0 10px rgba(0, 240, 255, 0.1);
     z-index: 100001;
-    transform: translateX(100%);
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
+    display: none;
     flex-direction: column;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -1794,7 +1834,8 @@ body.cursor-hover #custom-cursor-ring {
 }
 
 .dossier-drawer.active {
-    transform: translateX(0);
+    display: flex;
+    transform: translateX(0) !important;
 }
 
 .dossier-drawer.active.swiping-close {

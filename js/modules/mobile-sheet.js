@@ -35,7 +35,7 @@ export function closeMobileFilterSheet() {
 
     mobileSheetOverlay.classList.remove('active');
     mobileFilterSheet.classList.remove('active');
-    document.body.classList.remove('modal-open');
+    syncBodyModalState();
 }
 
 /**
@@ -44,12 +44,13 @@ export function closeMobileFilterSheet() {
 export function openMobileCategorySheet(onBuild) {
     const mobileCategorySheet = document.getElementById('mobile-category-sheet');
     const mobileCategoryOverlay = document.getElementById('mobile-category-overlay');
-    if (!mobileCategorySheet) return;
+    if (!mobileCategorySheet || !mobileCategoryOverlay) return;
 
     if (onBuild) onBuild();
 
     mobileCategorySheet.classList.add('active');
     mobileCategoryOverlay.classList.add('active');
+    document.body.classList.add('modal-open');
     const mobileCategoryTrigger = document.getElementById('mobile-category-trigger');
     if (mobileCategoryTrigger) mobileCategoryTrigger.classList.add('open');
 }
@@ -60,12 +61,13 @@ export function openMobileCategorySheet(onBuild) {
 export function closeMobileCategorySheet() {
     const mobileCategorySheet = document.getElementById('mobile-category-sheet');
     const mobileCategoryOverlay = document.getElementById('mobile-category-overlay');
-    if (!mobileCategorySheet) return;
+    if (!mobileCategorySheet || !mobileCategoryOverlay) return;
 
     mobileCategorySheet.classList.remove('active');
     mobileCategoryOverlay.classList.remove('active');
     const mobileCategoryTrigger = document.getElementById('mobile-category-trigger');
     if (mobileCategoryTrigger) mobileCategoryTrigger.classList.remove('open');
+    syncBodyModalState();
 }
 
 /**
@@ -110,6 +112,8 @@ export function syncMobileCategoryLabel() {
 export function syncMobileSheetFilters() {
     const mobileRatingMirror = document.getElementById('mobile-rating-mirror');
     const mobileGenreMirror = document.getElementById('mobile-genre-mirror');
+    const mobileNetworkMirror = document.getElementById('mobile-network-mirror');
+    const mobileNetworkSection = document.querySelector('.sheet-section-network');
     if (!mobileRatingMirror || !mobileGenreMirror) return;
 
     // 镜像评分筛选
@@ -136,6 +140,37 @@ export function syncMobileSheetFilters() {
         mobileGenreMirror.appendChild(clone);
     });
 
+    // 镜像平台筛选
+    if (mobileNetworkMirror && mobileNetworkSection) {
+        const networkContainer = document.getElementById('network-filter-container');
+        const networkSection = networkContainer?.closest('.filter-block-network');
+        const networkTags = document.querySelectorAll('#network-filter-container .genre-tag');
+        const isNetworkVisible =
+            networkTags.length > 0 &&
+            networkContainer?.style.display !== 'none' &&
+            networkSection?.style.display !== 'none';
+
+        mobileNetworkMirror.innerHTML = '';
+        mobileNetworkSection.hidden = !isNetworkVisible;
+        if (isNetworkVisible) {
+            networkTags.forEach((tag) => {
+                const clone = tag.cloneNode(true);
+                clone.addEventListener('click', () => {
+                    tag.click();
+                    setTimeout(() => syncMobileSheetFilters(), 50);
+                    updateFabState();
+                });
+                mobileNetworkMirror.appendChild(clone);
+            });
+        }
+    }
+
+    const mobileSheetSearch = document.getElementById('mobile-sheet-search');
+    const mainSearch = document.getElementById('radar-search');
+    if (mobileSheetSearch && mainSearch && mobileSheetSearch.value !== mainSearch.value) {
+        mobileSheetSearch.value = mainSearch.value;
+    }
+
     // 同步豆瓣状态
     const doubanEl = document.getElementById('douban-auth-status');
     const mobileDoubanStatus = document.getElementById('mobile-douban-status');
@@ -153,14 +188,34 @@ export function updateFabState() {
     if (!mobileFilterFab || !fabActiveBadge) return;
 
     const state = window.__appState || {};
-    const hasRating = true;
+    const hasRating = Boolean(state.selectedRating && state.selectedRating !== '全部') || Boolean(state.specialFilterMode);
     const hasGenre = (state.selectedGenres || []).length > 0;
+    const hasNetwork = (state.selectedNetworks || []).length > 0;
     const hasSearch = (state.searchQuery || '').length > 0;
-    const totalActive = (hasRating ? 1 : 0) + (hasGenre ? (state.selectedGenres || []).length : 0) + (hasSearch ? 1 : 0);
+    const totalActive =
+        (hasRating ? 1 : 0) +
+        (hasGenre ? (state.selectedGenres || []).length : 0) +
+        (hasNetwork ? (state.selectedNetworks || []).length : 0) +
+        (hasSearch ? 1 : 0);
 
-    mobileFilterFab.classList.add('has-active');
-    fabActiveBadge.textContent = totalActive;
-    fabActiveBadge.hidden = false;
+    mobileFilterFab.classList.toggle('has-active', totalActive > 0);
+    fabActiveBadge.textContent = String(totalActive);
+    fabActiveBadge.hidden = totalActive === 0;
+}
+
+function syncBodyModalState() {
+    const hasActiveModal = Boolean(
+        document.getElementById('intel-dossier')?.classList.contains('active') ||
+        document.getElementById('intel-dossier-overlay')?.classList.contains('active') ||
+        document.getElementById('trailer-modal')?.classList.contains('active') ||
+        document.getElementById('trailer-modal-overlay')?.classList.contains('active') ||
+        document.getElementById('mobile-filter-sheet')?.classList.contains('active') ||
+        document.getElementById('mobile-sheet-overlay')?.classList.contains('active') ||
+        document.getElementById('mobile-category-sheet')?.classList.contains('active') ||
+        document.getElementById('mobile-category-overlay')?.classList.contains('active')
+    );
+
+    document.body.classList.toggle('modal-open', hasActiveModal);
 }
 
 /**
