@@ -56,6 +56,8 @@ const doubanSearchCache = createDoubanSearchCache({
     ttlDays: DOUBAN_SEARCH_CACHE_TTL_DAYS
 });
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const REQUEST_HEADERS = {
     Referer: 'https://m.douban.com/',
     'User-Agent':
@@ -352,16 +354,26 @@ async function main() {
     }
 
     if (CATEGORY_IDS.length === 0) {
-        const doubanStatusesPayload = await buildDoubanStatusesPayload(DOUBAN_DEFAULT_USER_ID);
-        await writeJson('json/douban_statuses.json', doubanStatusesPayload);
-        buildReport.douban_statuses = {
-            user_id: DOUBAN_DEFAULT_USER_ID,
-            total_items: doubanStatusesPayload.metadata.total_items,
-            last_updated: doubanStatusesPayload.metadata.last_updated
-        };
-        console.log(
-            `[douban_statuses] user=${DOUBAN_DEFAULT_USER_ID} total=${doubanStatusesPayload.metadata.total_items} -> json/douban_statuses.json`
-        );
+        try {
+            const doubanStatusesPayload = await buildDoubanStatusesPayload(DOUBAN_DEFAULT_USER_ID);
+            if (doubanStatusesPayload.metadata.total_items > 0) {
+                await writeJson('json/douban_statuses.json', doubanStatusesPayload);
+                buildReport.douban_statuses = {
+                    user_id: DOUBAN_DEFAULT_USER_ID,
+                    total_items: doubanStatusesPayload.metadata.total_items,
+                    last_updated: doubanStatusesPayload.metadata.last_updated
+                };
+                console.log(
+                    `[douban_statuses] user=${DOUBAN_DEFAULT_USER_ID} total=${doubanStatusesPayload.metadata.total_items} -> json/douban_statuses.json`
+                );
+            } else {
+                console.warn(`[douban_statuses] Fetched 0 items, keeping existing data`);
+                buildReport.douban_statuses = { status: 'skipped', reason: 'fetch_returned_empty' };
+            }
+        } catch (error) {
+            console.warn(`[douban_statuses] Failed to fetch: ${error.message}, keeping existing data`);
+            buildReport.douban_statuses = { status: 'failed', error: error.message };
+        }
     }
 
     buildReport.completed_at = new Date().toISOString();
@@ -1178,18 +1190,35 @@ async function fetchDoubanUserStatuses(userId) {
         collect: 'watched'
     };
     const statuses = {};
+    const MAX_RETRIES = 3;
+    const RETRY_DELAY_MS = 2000;
 
     for (const [slug, normalizedStatus] of Object.entries(statusMap)) {
         let start = 0;
 
         while (true) {
             let html;
-            try {
-                html = await fetchHtml(buildDoubanPeopleUrl(userId, slug, start));
-            } catch (error) {
-                console.warn(`[douban_user] Skipped ${slug} page (start=${start}): ${error.message}`);
+            let lastError;
+
+            for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+                try {
+                    html = await fetchHtml(buildDoubanPeopleUrl(userId, slug, start));
+                    lastError = null;
+                    break;
+                } catch (error) {
+                    lastError = error;
+                    if (attempt < MAX_RETRIES) {
+                        console.warn(`[douban_user] Retry ${attempt}/${MAX_RETRIES} for ${slug} (start=${start}): ${error.message}`);
+                        await sleep(RETRY_DELAY_MS * attempt);
+                    }
+                }
+            }
+
+            if (lastError) {
+                console.warn(`[douban_user] Skipped ${slug} page (start=${start}) after ${MAX_RETRIES} attempts: ${lastError.message}`);
                 break;
             }
+
             const page = parseDoubanPeoplePage(html, normalizedStatus);
             page.items.forEach((item) => {
                 statuses[item.subjectId] = {
@@ -1203,6 +1232,8 @@ async function fetchDoubanUserStatuses(userId) {
             }
 
             start += page.items.length;
+            // Add delay between pages to avoid rate limiting
+            await sleep(1000);
         }
     }
 
