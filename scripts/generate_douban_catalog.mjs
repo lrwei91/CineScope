@@ -33,8 +33,8 @@ const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
 const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
 const BUILD_REPORT_PATH = 'json/build_report.json';
 const BOX_OFFICE_PATH = 'json/maoyan_box_office.json';
-const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 7);
-const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 14);
+const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 14);
+const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 30);
 const DOUBAN_SEARCH_QUERY_LIMIT = getNumberEnv('DOUBAN_SEARCH_QUERY_LIMIT', 1);
 const HTTP_REQUEST_TIMEOUT_MS = getNumberEnv('HTTP_REQUEST_TIMEOUT_MS', 15000);
 const SKIP_POSTER_DOWNLOADS = getBooleanEnv('SKIP_POSTER_DOWNLOADS', false);
@@ -298,6 +298,31 @@ const CATEGORY_SPECS = [
                 'vote_count.gte': '5'
             }
         }
+    },
+    {
+        id: 'tv_us',
+        kind: 'tv',
+        latestCount: 18,
+        latestSelectionMode: 'current_quarter_all',
+        minDate: '2025-01-01',
+        latestPath: 'json/tv_us_latest.json',
+        completePath: 'json/tv_us_complete.json',
+        doubanSources: [
+            { slug: 'tv_american', includeItem: isAmericanEntry }
+        ],
+        tmdb: {
+            discoverPath: '/discover/tv',
+            detailPath: '/tv',
+            params: {
+                language: 'zh-CN',
+                sort_by: 'first_air_date.desc',
+                'first_air_date.gte': '2025-01-01',
+                'first_air_date.lte': END_OF_CURRENT_YEAR,
+                with_origin_country: 'US',
+                include_null_first_air_dates: 'false',
+                'vote_count.gte': '5'
+            }
+        }
     }
 ];
 
@@ -373,6 +398,27 @@ async function main() {
         } catch (error) {
             console.warn(`[douban_statuses] Failed to fetch: ${error.message}, keeping existing data`);
             buildReport.douban_statuses = { status: 'failed', error: error.message };
+        }
+    }
+
+    // Update Douban Top250
+    if (CATEGORY_IDS.length === 0) {
+        try {
+            const { generateDoubanTop250 } = await import('./generate_douban_top250.mjs');
+            const top250Result = await generateDoubanTop250({ silent: true });
+            if (top250Result && top250Result.total_items > 0) {
+                buildReport.douban_top250 = {
+                    total_items: top250Result.total_items,
+                    last_updated: top250Result.last_updated
+                };
+                console.log(`[douban_top250] total=${top250Result.total_items} -> json/douban_top250.json`);
+            } else {
+                console.warn(`[douban_top250] Update returned no items, keeping existing data`);
+                buildReport.douban_top250 = { status: 'skipped', reason: 'no_items' };
+            }
+        } catch (error) {
+            console.warn(`[douban_top250] Failed to update: ${error.message}, keeping existing data`);
+            buildReport.douban_top250 = { status: 'failed', error: error.message };
         }
     }
 
@@ -2287,6 +2333,11 @@ function isAnimationEntry(item) {
 
 function isJapaneseAnimationEntry(item) {
     return isJapaneseEntry(item) && isAnimationEntry(item);
+}
+
+function isAmericanEntry(item) {
+    const subtitle = item?.card_subtitle || item?.info || '';
+    return subtitle.includes('美国');
 }
 
 /**

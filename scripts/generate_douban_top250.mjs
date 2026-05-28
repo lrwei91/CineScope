@@ -293,8 +293,10 @@ function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function main() {
-    console.log('=== 豆瓣电影 Top 250 爬虫 ===\n');
+async function main(options = {}) {
+    if (!options.silent) {
+        console.log('=== 豆瓣电影 Top 250 爬虫 ===\n');
+    }
 
     const allMovies = [];
 
@@ -311,10 +313,14 @@ async function main() {
         }
     }
 
-    console.log(`\n爬取完成！共 ${allMovies.length} 部电影`);
+    if (!options.silent) {
+        console.log(`\n爬取完成！共 ${allMovies.length} 部电影`);
+    }
 
     // 下载海报
-    console.log('\n开始下载海报...');
+    if (!options.silent) {
+        console.log('\n开始下载海报...');
+    }
     for (let i = 0; i < allMovies.length; i++) {
         const movie = allMovies[i];
         if (movie.poster_path && movie.poster_path.startsWith('http')) {
@@ -355,11 +361,24 @@ async function main() {
     await mkdir(path.dirname(targetPath), { recursive: true });
     await writeFile(targetPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
 
-    console.log(`\n数据已保存到 ${OUTPUT_PATH}`);
-    console.log(`共 ${allMovies.length} 部电影`);
+    if (!options.silent) {
+        console.log(`\n数据已保存到 ${OUTPUT_PATH}`);
+        console.log(`共 ${allMovies.length} 部电影`);
+    }
+
+    return {
+        total_items: allMovies.length,
+        last_updated: payload.metadata.last_updated
+    };
 }
 
-main().catch((error) => {
-    console.error('爬虫执行失败:', error);
-    process.exit(1);
-});
+export async function generateDoubanTop250(options = {}) {
+    return main(options);
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main().catch((error) => {
+        console.error('爬虫执行失败:', error);
+        process.exit(1);
+    });
+}

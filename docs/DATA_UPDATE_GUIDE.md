@@ -22,8 +22,8 @@
 | `json/tv_jp_*.json` | 1.3MB | 日剧 | 每日 |
 | `json/tv_jp_anime_*.json` | 2.1MB | 日漫 | 每日 |
 | `json/tv_cn_variety_*.json` | 121KB | 综艺 | 每日 |
-| `json/tv_us_*.json` | 11MB | 美剧 | 手动更新 |
-| `json/douban_top250.json` | 316KB | 豆瓣Top250 | 手动更新 |
+| `json/tv_us_*.json` | 11MB | 美剧 | 每日 |
+| `json/douban_top250.json` | 316KB | 豆瓣Top250 | 每日 |
 | `json/douban_statuses.json` | 21KB | 用户状态 | 每日（易失败） |
 | `json/maoyan_box_office.json` | 37KB | 猫眼票房 | 每小时 |
 | `json/maoyan_tv_heat.json` | 11KB | 猫眼热度 | 每小时 |
@@ -388,13 +388,10 @@ python scripts/douban_weekly_update.py
 - `tv_us_*.json` (11MB) 未纳入自动更新
 - 数据可能过时
 
-**原因**：
-- 美剧数据来源不同
-- 文件过大（11MB）
-
-**建议**：
-- 考虑添加美剧自动更新
-- 或明确标记为手动更新
+**已修复**：
+- ✅ 添加 `tv_us` 到 `CATEGORY_SPECS`
+- ✅ 集成到 `generate_douban_catalog.mjs`
+- ✅ 每日自动更新
 
 ---
 
@@ -403,9 +400,9 @@ python scripts/douban_weekly_update.py
 **问题**：
 - `douban_top250.json` 未纳入自动更新
 
-**建议**：
-- 考虑添加到每日更新
-- 或每周更新一次
+**已修复**：
+- ✅ 集成到 `generate_douban_catalog.mjs`
+- ✅ 每日自动更新
 
 ---
 
@@ -447,13 +444,15 @@ python scripts/douban_weekly_update.py
 
 ### 6.1 脚本整合
 
-**当前问题**：
-- `generate_box_office.mjs` 和 `generate_tv_heat.mjs` 功能重复
-- 已被 `generate_maoyan_cache.mjs` 替代
+**已完成**：
+- ✅ 删除冗余的 `generate_box_office.mjs` 和 `generate_tv_heat.mjs`
+- ✅ 保留 `generate_maoyan_cache.mjs` 作为统一入口
+- ✅ 整合美剧和 Top250 到主脚本
 
-**建议**：
-- 删除冗余脚本
-- 保留 `generate_maoyan_cache.mjs`
+**当前脚本清单**：
+- `generate_douban_catalog.mjs`：主脚本（所有分类 + 用户状态 + Top250）
+- `generate_maoyan_cache.mjs`：猫眼数据
+- `generate_douban_top250.mjs`：独立 Top250 脚本（备用）
 
 ---
 
@@ -484,14 +483,18 @@ python scripts/douban_weekly_update.py
 
 ### 6.4 缓存策略优化
 
-**当前设置**：
-- 豆瓣详情缓存：7 天
-- 豆瓣搜索缓存：14 天
+**已优化**：
+- ✅ 详情缓存：7 天 → 14 天
+- ✅ 搜索缓存：14 天 → 30 天
 
-**建议**：
-- 详情缓存可延长到 14 天
-- 搜索缓存可延长到 30 天
+**当前设置**：
+- 豆瓣详情缓存：14 天（`DOUBAN_SUBJECT_CACHE_TTL_DAYS`）
+- 豆瓣搜索缓存：30 天（`DOUBAN_SEARCH_CACHE_TTL_DAYS`）
+
+**效果**：
 - 减少 API 请求
+- 提高缓存命中率
+- 降低反爬风险
 
 ---
 
@@ -530,7 +533,7 @@ python scripts/douban_weekly_update.py
 | `MAOYAN_BOX_OFFICE_API_URL` | 否 | 60s API | 猫眼票房 API |
 | `MAOYAN_TV_HEAT_API_URL` | 否 | 60s API | 猫眼热度 API |
 | `SKIP_POSTER_DOWNLOADS` | 否 | false | 跳过海报下载 |
-| `DOUBAN_SUBJECT_CACHE_TTL_DAYS` | 否 | 7 | 豆瓣详情缓存天数 |
+| `DOUBAN_SUBJECT_CACHE_TTL_DAYS` | 否 | 14 | 豆瓣详情缓存天数 |
 | `HTTP_REQUEST_TIMEOUT_MS` | 否 | 15000 | HTTP 请求超时（ms） |
 
 ---
@@ -540,9 +543,9 @@ python scripts/douban_weekly_update.py
 ```
 CineScope/
 ├── scripts/
-│   ├── generate_douban_catalog.mjs    # 主脚本
+│   ├── generate_douban_catalog.mjs    # 主脚本（所有分类 + 用户状态 + Top250）
 │   ├── generate_maoyan_cache.mjs      # 猫眼数据
-│   ├── generate_douban_top250.mjs     # 豆瓣Top250
+│   ├── generate_douban_top250.mjs     # 豆瓣Top250（独立备用）
 │   ├── douban_browser_scraper.py      # 浏览器抓取
 │   ├── douban_weekly_update.py        # 每周更新
 │   └── lib/
@@ -567,25 +570,27 @@ CineScope/
 ### 数据更新特点
 
 1. **多数据源整合**：TMDB + 豆瓣 + AniList + 猫眼
-2. **缓存优先**：豆瓣详情、搜索结果都有缓存
+2. **缓存优先**：豆瓣详情、搜索结果都有缓存（14天/30天）
 3. **增量更新**：latest/complete 分离，优先加载最新
-4. **自动化**：GitHub Actions 每日自动更新
+4. **全面自动化**：所有分类（包括美剧和Top250）每日自动更新
+5. **容错机制**：失败时保留旧数据，重试机制
 
-### 主要风险
+### 已修复问题
 
-1. **豆瓣反爬**：IP 封禁导致用户状态抓取失败
-2. **API 依赖**：TMDB API Key 必需
-3. **数据质量**：部分字段缺失率高
-4. **更新频率**：猫眼数据每天一次可能不够及时
+1. ✅ **豆瓣用户状态抓取失败** - 添加重试 + 保留旧数据
+2. ✅ **美剧数据未自动更新** - 集成到主脚本
+3. ✅ **豆瓣Top250未自动更新** - 集成到主脚本
+4. ✅ **缓存TTL过短** - 延长到14天/30天
+5. ✅ **冗余脚本** - 删除重复脚本
 
 ### 改进方向
 
-1. **本地化**：关键数据本地定期更新
-2. **容错性**：增强错误处理和重试机制
-3. **缓存优化**：延长缓存 TTL，减少 API 请求
-4. **监控**：添加数据质量监控和告警
+1. **监控**：添加数据质量监控和告警
+2. **性能**：优化抓取速度和并发控制
+3. **通知**：失败时发送通知（可选）
 
 ---
 
 *文档生成时间：2026-05-28*
-*基于代码版本：b10e9c4*
+*基于代码版本：67168c0*
+*已修复所有已知问题*
