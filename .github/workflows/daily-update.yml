@@ -1,11 +1,10 @@
-name: 每日自动抓取并部署
+name: 每日数据更新
 
 on:
   schedule:
-    # 每天 UTC 时间 22:00 运行（北京时间早上 6:00）
-    - cron: '0 22 * * *'
+    # 北京时间 22:00 (UTC 14:00)
+    - cron: '0 14 * * *'
   workflow_dispatch:
-    # 允许手动触发
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
@@ -13,8 +12,12 @@ env:
 permissions:
   contents: write
 
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
 jobs:
-  fetch-and-deploy:
+  update-data:
     runs-on: ubuntu-latest
     steps:
       - name: 检出仓库
@@ -35,11 +38,13 @@ jobs:
           restore-keys: |
             douban-subjects-${{ runner.os }}-
 
-      - name: 抓取最新数据
+      - name: 更新猫眼缓存
+        run: node scripts/generate_maoyan_cache.mjs
+
+      - name: 更新影视数据
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
-        run: |
-          node scripts/generate_douban_catalog.mjs
+        run: node scripts/generate_douban_catalog.mjs
 
       - name: 检查是否有变更
         id: git-check
@@ -56,9 +61,9 @@ jobs:
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git commit -m "chore: 自动更新影视数据 $(date '+%Y-%m-%d %H:%M:%S')"
+          git commit -m "chore: 每日数据更新 $(date '+%Y-%m-%d')"
           git push
 
-      - name: 无变更通知
+      - name: 完成通知
         if: steps.git-check.outputs.has_changes == 'false'
-        run: echo "数据无变更，跳过提交"
+        run: echo "数据无变更"
