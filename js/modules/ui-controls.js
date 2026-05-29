@@ -10,6 +10,7 @@ export function updateFilterCollapse(container, toggleButton, isExpanded, enable
     if (!container || !toggleButton) return;
 
     container.classList.remove('collapsed');
+    container.removeAttribute('data-visible-rows');
     container.style.removeProperty('--collapsed-height');
     toggleButton.hidden = true;
 
@@ -18,17 +19,28 @@ export function updateFilterCollapse(container, toggleButton, isExpanded, enable
     const tags = [...container.querySelectorAll('.genre-tag')];
     if (tags.length === 0) return;
 
-    const rowTops = [...new Set(tags.map((tag) => tag.offsetTop))].sort((a, b) => a - b);
-    if (rowTops.length <= 2) return;
+    const containerTop = container.getBoundingClientRect().top;
+    const tagRows = tags.map((tag) => {
+        const rect = tag.getBoundingClientRect();
+        return {
+            tag,
+            top: Math.round(rect.top - containerTop),
+            bottom: Math.ceil(rect.bottom - containerTop)
+        };
+    });
 
-    const visibleRows = new Set(rowTops.slice(0, 2));
+    const rowTops = [...new Set(tagRows.map((row) => row.top))].sort((a, b) => a - b);
+    if (rowTops.length <= 1) return;
+
+    const visibleRows = new Set(rowTops.slice(0, 1));
     const collapsedHeight = Math.max(
-        ...tags
-            .filter((tag) => visibleRows.has(tag.offsetTop))
-            .map((tag) => tag.offsetTop + tag.offsetHeight)
+        ...tagRows
+            .filter((row) => visibleRows.has(row.top))
+            .map((row) => row.bottom)
     );
 
     container.style.setProperty('--collapsed-height', `${collapsedHeight}px`);
+    container.dataset.visibleRows = '1';
     container.classList.toggle('collapsed', !isExpanded);
     toggleButton.hidden = false;
     toggleButton.textContent = isExpanded ? '收起' : '展开';
