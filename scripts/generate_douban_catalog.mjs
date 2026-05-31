@@ -1396,7 +1396,13 @@ function normalizeDoubanTvEntry(item, detail) {
         return null;
     }
 
-    const posterUrl = detail?.pic?.large || item?.pic?.large || item?.pic?.normal || null;
+    const posterUrl =
+        detail?.cover?.image?.large?.url ||
+        detail?.cover?.image?.normal?.url ||
+        detail?.pic?.large ||
+        item?.pic?.large ||
+        item?.pic?.normal ||
+        null;
     const ratingValue = getRatingValue(detail?.rating?.value ?? item?.rating?.value);
     const directors = extractPersonObjects(detail?.directors);
     const actors = extractPersonObjects(detail?.actors);
@@ -1465,7 +1471,12 @@ function normalizeDoubanMovieEntry(item, detail) {
         return null;
     }
 
-    const posterUrl = detail?.pic?.large || item?.cover?.url || null;
+    const posterUrl =
+        detail?.cover?.image?.large?.url ||
+        detail?.cover?.image?.normal?.url ||
+        detail?.pic?.large ||
+        item?.cover?.url ||
+        null;
     const ratingValue = getRatingValue(detail?.rating?.value ?? item?.rating?.value);
     const directors = extractPersonObjects(detail?.directors?.length ? detail.directors : item?.directors);
     const actors = extractPersonObjects(detail?.actors?.length ? detail.actors : item?.actors);

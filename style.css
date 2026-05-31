@@ -634,8 +634,8 @@ h1 .update-date {
 .show-card img.poster {
     display: block;
     width: 100%;
-    aspect-ratio: 2 / 3; /* 2:3 黄金比例 */
-    object-fit: contain; /* 改为 contain，100% 完整无裁切呈现海报的上下与左右内容 */
+    aspect-ratio: 9 / 16; /* 升级为 9:16 新尺寸黄金比例 */
+    object-fit: cover; /* 上下左右填满，极致视觉沉浸 */
     background: #0a0c0e;
     transition: transform 0.4s ease, filter 0.4s ease;
 }
@@ -1830,8 +1830,8 @@ h1 .update-date {
 .dossier-poster-container img {
     width: 100%;
     display: block;
-    aspect-ratio: 2 / 3; /* 统一为 2:3 黄金比例 */
-    object-fit: contain; /* 100% 完整显示详情页海报，解决上下裁切问题 */
+    aspect-ratio: 9 / 16; /* 升级为 9:16 新尺寸黄金比例 */
+    object-fit: cover; /* 上下左右填满，极致视觉沉浸 */
     background: #0a0c0e;
 }
 
