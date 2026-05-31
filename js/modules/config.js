@@ -67,8 +67,7 @@ export const CATEGORY_CONFIG = {
         latestUrl: 'json/movie_cn_latest.json',
         completeUrl: 'json/movie_cn_complete.json',
         boxOfficeUrl: 'json/maoyan_box_office.json',
-        preferCompleteOnFirstLoad: true,
-        keepMonthIntactOnPaging: true
+        preferCompleteOnFirstLoad: true
     },
     tv_cn_variety: {
         id: 'tv_cn_variety',

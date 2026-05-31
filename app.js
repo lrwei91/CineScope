@@ -37,7 +37,6 @@ import {
     appendItemsToContainer
 } from './js/modules/renderer.js';
 
-import { buildRenderedItemsSignature } from './js/modules/render-signature.js';
 
 import {
     hydrateDoubanStatuses,
@@ -407,107 +406,48 @@ function getFilteredResults(items) {
     return applyFilters(items, getCurrentFilters(), state.currentCategoryId);
 }
 
-function canPreserveRenderedResults(previousResults, nextResults) {
-    if (!elements.resultsContainer?.children.length) return false;
-    if (elements.skeletonContainer?.style.display === 'block') return false;
-    if (state.specialFilterMode === 'recent_high_score') return false;
-
-    const renderedPastCount = Math.min(
-        previousResults.filteredPastAndPresentItems.length,
-        state.renderedItemCount
-    );
-    if (renderedPastCount === 0) return false;
-
-    const previousVisiblePast = previousResults.filteredPastAndPresentItems.slice(0, renderedPastCount);
-    const nextVisiblePast = nextResults.filteredPastAndPresentItems.slice(0, renderedPastCount);
-
-    if (previousVisiblePast.length !== nextVisiblePast.length) return false;
-
-    return buildRenderedItemsSignature(previousVisiblePast) === buildRenderedItemsSignature(nextVisiblePast);
-}
-
-function shouldRerenderComingSoon(previousResults, nextResults) {
-    if (!nextResults) {
-        return false;
-    }
-
-    if (!previousResults) {
-        return true;
-    }
-
-    const previousFutureSignature = buildRenderedItemsSignature(previousResults.futureItems || []);
-    const nextFutureSignature = buildRenderedItemsSignature(nextResults.futureItems || []);
-    return previousFutureSignature !== nextFutureSignature;
-}
-
-function refreshRenderMetadata() {
-    if (elements.noResultsMessage) {
-        elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
-    }
-    elements.noResultsMessage.style.display = 'none';
-
+function updateTimelineMetadata() {
     state.allAvailableYears = [
         ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
     ];
     if (elements.comingSoonContainer.style.display === 'block') {
         state.allAvailableYears.unshift(FUTURE_TAG);
     }
-
     state.visibleYearCount = Math.min(
         Math.max(state.visibleYearCount, 3),
         Math.max(state.allAvailableYears.length, 0)
     );
-
-    if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
-        elements.noResultsMessage.style.display = 'block';
-        elements.yearList.innerHTML = '';
-        elements.loader.style.display = 'none';
-        document.getElementById('interactive-timeline')?.classList.remove('visible');
-        return;
+    if (state.specialFilterMode !== 'recent_high_score') {
+        const nextActiveYear = state.allAvailableYears.includes(state.currentActiveYear)
+            ? state.currentActiveYear
+            : null;
+        renderTimeline(state.allAvailableYears, nextActiveYear, state.visibleYearCount, handleYearClick);
     }
-
-    if (state.specialFilterMode === 'recent_high_score') {
-        document.getElementById('interactive-timeline')?.classList.remove('visible');
-        return;
-    }
-
-    document.getElementById('interactive-timeline')?.classList.add('visible');
-
-    const nextActiveYear = state.allAvailableYears.includes(state.currentActiveYear)
-        ? state.currentActiveYear
-        : null;
-    renderTimeline(state.allAvailableYears, nextActiveYear, state.visibleYearCount, handleYearClick);
 }
 
 function filterAndRenderItems(options = {}) {
-    const { preserveRenderedContent = false, previousItems = state.allItems } = options;
+    const { preserveRenderedContent = false } = options;
     const nextResults = getFilteredResults(state.allItems);
-    const previousResults = preserveRenderedContent ? getFilteredResults(previousItems) : null;
-    const shouldPreserveContent =
-        preserveRenderedContent &&
-        previousItems !== state.allItems &&
-        previousResults &&
-        canPreserveRenderedResults(previousResults, nextResults);
-    const shouldUpdateComingSoon =
-        !preserveRenderedContent || shouldRerenderComingSoon(previousResults, nextResults);
-
     state.filteredPastAndPresentItems = nextResults.filteredPastAndPresentItems;
 
-    if (shouldPreserveContent) {
-        if (elements.skeletonContainer) {
-            elements.skeletonContainer.style.display = 'none';
+    renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
+
+    if (preserveRenderedContent && state.renderedItemCount > 0) {
+        elements.resultsContainer.innerHTML = '';
+        const itemsToRender = state.filteredPastAndPresentItems.slice(0, state.renderedItemCount);
+        if (itemsToRender.length > 0) {
+            appendItemsToContainer(
+                itemsToRender,
+                elements.resultsContainer,
+                state.specialFilterMode,
+                openIntelDossier,
+                openTrailerModal
+            );
+        } else {
+            elements.noResultsMessage.style.display = 'block';
         }
-        if (document.body.style.visibility !== 'visible') {
-            document.body.style.visibility = 'visible';
-        }
-        if (shouldUpdateComingSoon) {
-            renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
-        }
-        refreshRenderMetadata();
+        updateTimelineMetadata();
     } else {
-        if (shouldUpdateComingSoon) {
-            renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
-        }
         startRendering();
     }
 
@@ -573,7 +513,7 @@ function appendNextItemsToResults() {
         state.filteredPastAndPresentItems,
         state.renderedItemCount,
         ITEMS_PER_PAGE,
-        { keepMonthIntact: Boolean(getCurrentCategoryConfig()?.keepMonthIntactOnPaging) }
+        { keepMonthIntact: true }
     );
     const itemsToRender = state.filteredPastAndPresentItems.slice(startIndex, endIndex);
     if (itemsToRender.length > 0) {
@@ -723,12 +663,12 @@ function updateActiveTimeline() {
 // 初始化
 // =====================================================
 
-async function initialize() {
+async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
     updateDoubanUI();
     populateRatingFilters();
     populateGenreFilters([]);
 
-    const catState = state.categoryState[DEFAULT_CATEGORY_ID];
+    const catState = state.categoryState[initialCategoryId];
     const hasCachedData = catState.completeLoaded || catState.latestLoaded;
 
     // 只有在没有缓存数据时才显示骨架屏
@@ -738,7 +678,7 @@ async function initialize() {
 
     try {
         await hydrateDoubanStatuses();
-        const loaded = await ensureCategoryLoaded(DEFAULT_CATEGORY_ID);
+        const loaded = await ensureCategoryLoaded(initialCategoryId);
         if (!loaded) {
             showLoadError();
         }
@@ -749,11 +689,19 @@ async function initialize() {
 }
 
 function setupEventListeners() {
-    // 分类筛选
+    // 分类筛选 (通过 Hash 驱动独立路由)
     elements.categoryFilterContainer.addEventListener('click', (event) => {
         const target = event.target.closest('.genre-tag');
         if (!target || !target.dataset.category) return;
-        void switchCategory(target.dataset.category);
+        window.location.hash = target.dataset.category;
+    });
+
+    // 监听 Hash 变化以实现独立路由切换
+    window.addEventListener('hashchange', () => {
+        const categoryId = window.location.hash.replace('#', '');
+        if (CATEGORY_CONFIG[categoryId]) {
+            void switchCategory(categoryId);
+        }
     });
 
     // 文件上传
@@ -844,63 +792,6 @@ async function shareDossier(item) {
 }
 
 // =====================================================
-// 自定义光标
-// =====================================================
-
-function setupCustomCursor() {
-    const cursorCore = document.getElementById('custom-cursor-core');
-    const cursorRing = document.getElementById('custom-cursor-ring');
-
-    if (!cursorCore || !cursorRing) return;
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    }, { passive: true });
-
-    const updateCursor = () => {
-        cursorCore.style.left = mouseX + 'px';
-        cursorCore.style.top = mouseY + 'px';
-        cursorRing.style.left = mouseX + 'px';
-        cursorRing.style.top = mouseY + 'px';
-        requestAnimationFrame(updateCursor);
-    };
-    requestAnimationFrame(updateCursor);
-
-    const setHoverState = () => document.body.classList.add('cursor-hover');
-    const removeHoverState = () => document.body.classList.remove('cursor-hover');
-
-    const interactiveSelectors = [
-        'a',
-        'button',
-        'input',
-        '.clickable',
-        '.genre-tag',
-        '.scroller-arrow',
-        '.poster-link',
-        '.interactive-timeline li',
-        '.year-item',
-        '.card-poster-container',
-        '.card-title'
-    ].join(',');
-
-    document.addEventListener('mouseover', (e) => {
-        if (e.target.closest(interactiveSelectors)) {
-            setHoverState();
-        }
-    });
-
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.closest(interactiveSelectors)) {
-            removeHoverState();
-        }
-    });
-}
-
-// =====================================================
 // 启动应用
 // =====================================================
 
@@ -913,7 +804,14 @@ function bootstrapApp() {
         elements.pageTitleText.textContent = DEFAULT_TITLE;
     }
 
-    setCurrentCategory(DEFAULT_CATEGORY_ID);
+    // 解析初始 Hash 路由，默认为 DEFAULT_CATEGORY_ID
+    let initialCategory = window.location.hash.replace('#', '');
+    if (!CATEGORY_CONFIG[initialCategory]) {
+        initialCategory = DEFAULT_CATEGORY_ID;
+        window.location.hash = DEFAULT_CATEGORY_ID;
+    }
+
+    setCurrentCategory(initialCategory);
 
     // 设置事件监听器
     setupEventListeners();
@@ -927,11 +825,8 @@ function bootstrapApp() {
     // 初始化移动端 Action Sheet
     initMobileSheetEvents();
 
-    // 设置自定义光标
-    setupCustomCursor();
-
     // 启动应用
-    initialize();
+    initialize(initialCategory);
 }
 
 // 启动
