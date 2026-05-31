@@ -101,7 +101,8 @@ const state = {
     visibleYearCount: 3,
     isScrollingProgrammatically: false,
     genreFiltersExpanded: false,
-    lastAutoRefreshAt: 0
+    lastAutoRefreshAt: 0,
+    isSwitchingCategory: false
 };
 
 // 暴露状态供其他模块访问
@@ -178,8 +179,47 @@ function setCurrentCategory(categoryId) {
     updateFabState();
 }
 
+/**
+ * 淡出主内容区域，执行回调后淡入。
+ * 用于分类切换时消除视觉闪烁。
+ */
+function crossfadeMainContent(swapCallback) {
+    const mainContent = document.getElementById('main-content');
+    if (!mainContent) {
+        swapCallback();
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+        mainContent.classList.add('category-fade-out');
+
+        const afterFadeOut = () => {
+            mainContent.removeEventListener('transitionend', afterFadeOut);
+            swapCallback();
+
+            // 在下一帧移除 fade-out 让 transition 反向播放（淡入）
+            requestAnimationFrame(() => {
+                mainContent.classList.remove('category-fade-out');
+                resolve();
+            });
+        };
+
+        mainContent.addEventListener('transitionend', afterFadeOut, { once: true });
+
+        // 兜底：如果 transition 被跳过（例如 prefers-reduced-motion），150ms 后强制继续
+        setTimeout(() => {
+            if (mainContent.classList.contains('category-fade-out')) {
+                mainContent.removeEventListener('transitionend', afterFadeOut);
+                afterFadeOut();
+            }
+        }, 200);
+    });
+}
+
 async function switchCategory(categoryId) {
-    if (categoryId === state.currentCategoryId || !CATEGORY_CONFIG[categoryId]) return;
+    if (categoryId === state.currentCategoryId || !CATEGORY_CONFIG[categoryId] || state.isSwitchingCategory) return;
+
+    state.isSwitchingCategory = true;
 
     resetFilterState();
     setCurrentCategory(categoryId);
@@ -187,19 +227,35 @@ async function switchCategory(categoryId) {
 
     const catState = state.categoryState[categoryId];
     if (catState.latestLoaded || catState.completeLoaded) {
-        syncCurrentCategoryData();
+        // 已缓存的分类：淡出 → 换内容 → 淡入（跳过卡片级联动画）
+        elements.resultsContainer.classList.add('no-cascade');
+        await crossfadeMainContent(() => {
+            window.scrollTo({ top: 0 });
+            syncCurrentCategoryData();
+        });
+        // 淡入完成后恢复级联动画（供后续分页使用）
+        requestAnimationFrame(() => {
+            elements.resultsContainer.classList.remove('no-cascade');
+        });
         if (!catState.completeLoaded) {
             loadCategoryData(categoryId, 'complete', state.categoryState);
         }
+        state.isSwitchingCategory = false;
         return;
     }
 
-    populateGenreFilters([]);
-    showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
+    // 未缓存的分类：淡出 → 显示骨架屏 → 淡入骨架屏 → 加载数据
+    await crossfadeMainContent(() => {
+        window.scrollTo({ top: 0 });
+        populateGenreFilters([]);
+        showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
+    });
+
     const loaded = await ensureCategoryLoaded(categoryId);
     if (!loaded) {
         showLoadError();
     }
+    state.isSwitchingCategory = false;
 }
 
 async function ensureCategoryLoaded(categoryId) {

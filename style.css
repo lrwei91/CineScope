@@ -404,6 +404,16 @@ h1 .update-date {
 
 #main-content {
     min-height: 480px;
+    transition: opacity 0.15s ease-out;
+}
+
+#main-content.category-fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#main-content.category-fade-in {
+    opacity: 1;
 }
 
 .content-section + .content-section {
@@ -1726,6 +1736,13 @@ h1 .update-date {
     opacity: 0;
     transform: translateY(40px) scale(0.95);
     animation: cascade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 分类切换淡入淡出时跳过卡片级联动画，避免双重动画冲突 */
+.no-cascade .show-card.matrix-enter {
+    opacity: 1;
+    transform: none;
+    animation: none;
 }
 
 @keyframes cascade-in {
