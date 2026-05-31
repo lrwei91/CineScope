@@ -65,60 +65,6 @@ const REQUEST_HEADERS = {
     Accept: 'application/json'
 };
 
-const DOUBAN_TV_JP_ANIME_OVERRIDE_ITEMS = [
-    {
-        id: 37295319,
-        name: 'Re：从零开始的异世界生活 第四季',
-        original_name: 'Re:ゼロから始める異世界生活 4th season',
-        imdb_id: null,
-        genres: [
-            { id: 1, name: '剧情' },
-            { id: 2, name: '动画' },
-            { id: 3, name: '奇幻' }
-        ],
-        networks: [],
-        directors: [],
-        actors: [],
-        countries: ['日本'],
-        languages: ['日语'],
-        aka: [
-            'Re:Zero kara Hajimeru Isekai Seikatsu 4th Season',
-            'Re:ZERO -Starting Life in Another World- Season 4',
-            'Re：从零开始的异世界生活 第四季'
-        ],
-        homepage: 'https://re-zero-anime.jp/tv/',
-        popularity: null,
-        number_of_seasons: 4,
-        number_of_episodes: null,
-        first_air_date: '2026-04-08',
-        last_air_date: '2026-04-08',
-        in_production: true,
-        status: '尚未播出',
-        episodes_info: null,
-        adult: false,
-        poster_path: null,
-        backdrop_path: null,
-        overview: '',
-        rating_count: null,
-        rating_star_count: null,
-        seasons: [
-            {
-                name: '第 4 季',
-                season_number: 4,
-                id: 37295319,
-                air_date: '2026-04-08',
-                episode_count: null,
-                vote_average: 0,
-                poster_path: null,
-                douban_rating: null,
-                douban_link_google: 'https://movie.douban.com/subject/37295319/',
-                overview: '',
-                douban_link_verified: true
-            }
-        ]
-    }
-];
-
 const CATEGORY_SPECS = [
     {
         id: 'tv_cn',
@@ -199,39 +145,6 @@ const CATEGORY_SPECS = [
                 'first_air_date.gte': '2025-01-01',
                 'first_air_date.lte': END_OF_CURRENT_YEAR,
                 with_origin_country: 'JP',
-                include_null_first_air_dates: 'false',
-                'vote_count.gte': '5'
-            }
-        }
-    },
-    {
-        id: 'tv_jp_anime',
-        kind: 'tv',
-        latestCount: 18,
-        latestWindowDays: 60,
-        minDate: '2025-01-01',
-        latestPath: 'json/tv_jp_anime_latest.json',
-        completePath: 'json/tv_jp_anime_complete.json',
-        doubanSources: [
-            { slug: 'tv_animation', includeItem: isJapaneseAnimationEntry }
-        ],
-        doubanOverrideItems: DOUBAN_TV_JP_ANIME_OVERRIDE_ITEMS,
-        doubanSearchFallback: true,
-        anilist: {
-            formats: ['TV', 'TV_SHORT', 'ONA'],
-            countryOfOrigin: 'JP'
-        },
-        tmdb: {
-            discoverPath: '/discover/tv',
-            detailPath: '/tv',
-            params: {
-                language: 'zh-CN',
-                sort_by: 'first_air_date.desc',
-                'first_air_date.gte': '2025-01-01',
-                'first_air_date.lte': END_OF_CURRENT_YEAR,
-                with_origin_country: 'JP',
-                with_original_language: 'ja',
-                with_genres: '16',
                 include_null_first_air_dates: 'false',
                 'vote_count.gte': '5'
             }
@@ -1774,7 +1687,6 @@ function createPayload(spec, items, sourceResults, level) {
         tv_cn_variety: '综艺',
         tv_kr: '韩剧',
         tv_jp: '日剧',
-        tv_jp_anime: '日漫',
         movie_cn: '院线电影'
     };
 

@@ -52,14 +52,6 @@ export const CATEGORY_CONFIG = {
         latestUrl: 'json/tv_jp_latest.json',
         completeUrl: 'json/tv_jp_complete.json'
     },
-    tv_jp_anime: {
-        id: 'tv_jp_anime',
-        label: '日漫',
-        kind: 'tv',
-        latestUrl: 'json/tv_jp_anime_latest.json',
-        completeUrl: 'json/tv_jp_anime_complete.json',
-        allowUnratedAnimation: true
-    },
     movie_cn: {
         id: 'movie_cn',
         label: '院线电影',
@@ -123,20 +115,6 @@ export const CATEGORY_RATING_CONFIG = {
         }
     },
     tv_jp: {
-        thresholds: [
-            { label: '全部', value: 0 },
-            { label: '> 8 分', value: 8 },
-            { label: '> 7 分', value: 7 },
-            { label: '> 6 分', value: 6 }
-        ],
-        special: {
-            label: '近 2 年高分',
-            value: 'recent_high_score',
-            years: 2,
-            minRating: 7
-        }
-    },
-    tv_jp_anime: {
         thresholds: [
             { label: '全部', value: 0 },
             { label: '> 8 分', value: 8 },

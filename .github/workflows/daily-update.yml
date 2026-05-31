@@ -89,7 +89,6 @@ jobs:
             "json/movie_cn_complete.json"
             "json/tv_kr_latest.json"
             "json/tv_jp_latest.json"
-            "json/tv_jp_anime_latest.json"
             "json/tv_us_latest.json"
             "json/douban_top250.json"
             "json/douban_statuses.json"
@@ -144,7 +143,7 @@ jobs:
           # 检查数据质量
           echo ""
           echo "=== 数据质量报告 ==="
-          for category in tv_cn movie_cn tv_kr tv_jp tv_jp_anime tv_us tv_cn_variety; do
+          for category in tv_cn movie_cn tv_kr tv_jp tv_us tv_cn_variety; do
             latest_file="json/${category}_latest.json"
             if [ -f "$latest_file" ]; then
               count=$(jq 'if .shows then .shows | length elif .movies then .movies | length else 0 end' "$latest_file")
