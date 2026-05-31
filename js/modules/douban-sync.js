@@ -8,7 +8,30 @@ import { buildFreshUrl, formatUpdateTimestamp } from './data-loader.js';
 
 let doubanStatuses = {};
 let doubanStatusesMetadata = null;
+let buildReportDoubanStatus = null;
 let isDoubanSyncing = false;
+
+/**
+ * 获取相对时间描述
+ */
+function getRelativeTimeDesc(timestamp) {
+    if (!timestamp) return '';
+    const diffMs = Date.now() - new Date(timestamp).getTime();
+    if (diffMs < 0) return '刚刚';
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (diffDays <= 0) {
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        if (diffHours <= 0) {
+            const diffMinutes = Math.floor(diffMs / (1000 * 60));
+            if (diffMinutes <= 0) {
+                return '刚刚';
+            }
+            return `${diffMinutes}分钟前`;
+        }
+        return `${diffHours}小时前`;
+    }
+    return `${diffDays}天前`;
+}
 
 /**
  * 获取豆瓣状态数据
@@ -65,6 +88,7 @@ export async function hydrateDoubanStatuses() {
     updateDoubanAuthUI();
 
     try {
+        // 1. 获取豆瓣本身的用户收藏状态
         const response = await fetch(buildFreshUrl(DOUBAN_STATUS_URL), { cache: 'no-store' });
         if (!response.ok) {
             throw new Error(`Could not load ${DOUBAN_STATUS_URL}`);
@@ -72,6 +96,19 @@ export async function hydrateDoubanStatuses() {
         const payload = await response.json();
         doubanStatuses = payload.statuses || {};
         doubanStatusesMetadata = payload.metadata || null;
+
+        // 2. 尝试获取构建报告，检测豆瓣定时任务的最近同步状态
+        try {
+            const reportResponse = await fetch(buildFreshUrl('json/build_report.json'), { cache: 'no-store' });
+            if (reportResponse.ok) {
+                const reportPayload = await reportResponse.json();
+                buildReportDoubanStatus = reportPayload.douban_statuses || null;
+            }
+        } catch (reportError) {
+            console.warn('Failed to load build report:', reportError);
+            buildReportDoubanStatus = null;
+        }
+
     } catch (error) {
         console.error('Failed to hydrate Douban statuses:', error);
         doubanStatuses = {};
@@ -79,6 +116,11 @@ export async function hydrateDoubanStatuses() {
     } finally {
         isDoubanSyncing = false;
         updateDoubanAuthUI();
+        
+        // 3. 数据同步完毕后，由于首屏可能已提前渲染，主动触发大盘数据绑定和重绘
+        if (typeof window.syncCurrentCategoryData === 'function') {
+            window.syncCurrentCategoryData();
+        }
     }
 }
 
@@ -96,7 +138,22 @@ function updateDoubanAuthUI() {
         statusText = '> 正在同步数据...';
     } else {
         const lastUpdated = doubanStatusesMetadata?.last_updated;
-        if (lastUpdated) {
+        const isFailed = buildReportDoubanStatus?.status === 'failed';
+        const isSkipped = buildReportDoubanStatus?.status === 'skipped';
+
+        if (isFailed) {
+            if (lastUpdated) {
+                statusText = `> 同步失败 (使用${getRelativeTimeDesc(lastUpdated)}前数据)`;
+            } else {
+                statusText = '> 同步失败 (暂无数据)';
+            }
+        } else if (isSkipped) {
+            if (lastUpdated) {
+                statusText = `> 同步跳过 (使用${getRelativeTimeDesc(lastUpdated)}前数据)`;
+            } else {
+                statusText = '> 同步跳过 (暂无数据)';
+            }
+        } else if (lastUpdated) {
             statusText = `> 已同步 ${formatUpdateTimestamp(lastUpdated)}`;
         } else {
             statusText = '> 同步完成';
