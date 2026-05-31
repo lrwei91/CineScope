@@ -231,6 +231,8 @@ async function ensureCategoryLoaded(categoryId) {
 
 function syncCurrentCategoryData() {
     const catState = getCurrentCategoryState();
+    if (!catState || (!catState.latestLoaded && !catState.completeLoaded)) return;
+
     const previousItems = state.allItems;
     state.allItems = syncAllItems(catState.items);
     updateSubtitleText();
