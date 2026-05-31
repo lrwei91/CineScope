@@ -77,8 +77,28 @@ export function createDoubanSubjectCache({ rootDir, ttlDays = 7 }) {
                 return { state: 'invalid', payload: null };
             }
 
+            // 1. 废弃无效/残缺的 payload（没有关键字段如 title 或 name 说明是残缺垃圾缓存）
+            if (payload && !payload.title && !payload.name) {
+                return { state: 'invalid', payload: null };
+            }
+
+            // 2. 差异化 TTL 机制（无评分的缓存 1 天过期，403 被阻断缓存 1 天过期，有评分的健康缓存正常 TTL）
+            let maxFreshDurationMs = ttlMs;
+            if (isBlockedEntry) {
+                maxFreshDurationMs = 1 * 24 * 60 * 60 * 1000; // 403 阻断的缓存 1 天后必须重新重试
+            } else {
+                const ratingVal = payload?.rating?.value;
+                const hasNoRating = ratingVal === null || ratingVal === undefined || ratingVal === 0;
+                if (hasNoRating) {
+                    maxFreshDurationMs = 1 * 24 * 60 * 60 * 1000; // 暂无评分的影视 1 天后重新抓取，以便及时捕捉最新开分
+                }
+            }
+
+            const elapsedMs = Date.now() - fetchedAt;
+            const isFresh = elapsedMs <= maxFreshDurationMs;
+
             return {
-                state: Date.now() - fetchedAt <= ttlMs ? 'fresh' : 'stale',
+                state: isFresh ? 'fresh' : 'stale',
                 payload,
                 blocked: isBlockedEntry
             };
