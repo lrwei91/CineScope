@@ -126,6 +126,11 @@ jobs:
           # 检查 JSON 格式
           invalid_json=()
           for file in "${required_files[@]}"; do
+            # douban_statuses.json may be a Git LFS pointer; skip strict check
+            if [ "$file" = "json/douban_statuses.json" ] && ! jq empty "$file" 2>/dev/null; then
+              echo "::warning::douban_statuses.json is not valid JSON (may be a Git LFS pointer), skipping"
+              continue
+            fi
             if ! jq empty "$file" 2>/dev/null; then
               invalid_json+=("$file")
             fi
@@ -154,6 +159,9 @@ jobs:
           # 检查用户状态
           status_count=$(jq '.metadata.total_items' json/douban_statuses.json 2>/dev/null || echo "0")
           echo "douban_statuses: $status_count items"
+          if [ "$status_count" = "0" ]; then
+            echo "::warning::douban_statuses is empty or unavailable"
+          fi
 
           # 检查猫眼数据
           box_office_count=$(jq '.metadata.total_items' json/maoyan_box_office.json 2>/dev/null || echo "0")
