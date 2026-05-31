@@ -598,7 +598,7 @@ h1 .update-date {
 .card-poster-container {
     position: relative;
     overflow: hidden;
-    background: #000;
+    background: #0a0c0e; /* 高级磨砂黑，使两侧/上下留白区域自然和谐 */
 }
 
 .poster-link {
@@ -634,9 +634,9 @@ h1 .update-date {
 .show-card img.poster {
     display: block;
     width: 100%;
-    aspect-ratio: 2 / 3; /* 经典官方电影海报 2:3 黄金比例，高度完美契合，防止上下部被切 */
-    object-fit: cover;
-    background: #111;
+    aspect-ratio: 2 / 3; /* 2:3 黄金比例 */
+    object-fit: contain; /* 改为 contain，100% 完整无裁切呈现海报的上下与左右内容 */
+    background: #0a0c0e;
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
@@ -1824,12 +1824,15 @@ h1 .update-date {
     border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+    background: #0a0c0e; /* 高级暗色磨砂黑背景 */
 }
 
 .dossier-poster-container img {
     width: 100%;
     display: block;
-    object-fit: cover;
+    aspect-ratio: 2 / 3; /* 统一为 2:3 黄金比例 */
+    object-fit: contain; /* 100% 完整显示详情页海报，解决上下裁切问题 */
+    background: #0a0c0e;
 }
 
 
