@@ -386,7 +386,7 @@ async function createShareImageFile(item) {
             ctx.fillRect(ticketX, ticketY, ticketW, heroH);
 
             const posterW = 240;
-            const posterH = 360;
+            const posterH = 426; // 9:16 新尺寸黄金比例 (240px 宽度对应 426px 高度)
             const posterX = ticketX + 40;
             const posterY = ticketY + (heroH - posterH) / 2;
             
