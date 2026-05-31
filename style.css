@@ -634,7 +634,7 @@ h1 .update-date {
 .show-card img.poster {
     display: block;
     width: 100%;
-    aspect-ratio: 2 / 3;
+    aspect-ratio: 1 / 1.414; /* 完美契合电影海报 1:1.414 物理标准比例，防止侧边被过度裁切 */
     object-fit: cover;
     background: #111;
     transition: transform 0.4s ease, filter 0.4s ease;
