@@ -3,9 +3,10 @@
  * 负责滑动详情面板的展示和控制
  */
 
-import { DOUBAN_STATUS_LABELS, HIDDEN_GENRES, GENRE_PRIORITY } from './config.js';
+import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { resolvePosterUrl } from './renderer.js';
 import { getGenreDisplayName } from './filters.js';
+import { syncBodyModalState } from './modal-state.js';
 
 let currentDossierItem = null;
 let onOpenTrailerCallback = null;
@@ -71,28 +72,40 @@ function setDossierField(rowId, valueId, values) {
 }
 
 function createExternalLink({ href, label, title, iconUrl, fallback }) {
-    return `
-        <a href="${href}" class="dossier-external-btn" target="_blank" rel="noopener noreferrer" aria-label="${title}" title="${title}" data-label="${label}">
-            <img class="dossier-external-icon" src="${iconUrl}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
-            <span class="dossier-external-fallback" hidden aria-hidden="true">${fallback}</span>
-            <span class="sr-only">${title}</span>
-        </a>
-    `;
-}
+    const link = document.createElement('a');
+    link.className = 'dossier-external-btn';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('aria-label', title);
+    link.title = title;
+    link.dataset.label = label;
+    link.href = href;
 
-function syncBodyModalState() {
-    const hasActiveModal = Boolean(
-        document.getElementById('intel-dossier')?.classList.contains('active') ||
-        document.getElementById('intel-dossier-overlay')?.classList.contains('active') ||
-        document.getElementById('trailer-modal')?.classList.contains('active') ||
-        document.getElementById('trailer-modal-overlay')?.classList.contains('active') ||
-        document.getElementById('mobile-filter-sheet')?.classList.contains('active') ||
-        document.getElementById('mobile-sheet-overlay')?.classList.contains('active') ||
-        document.getElementById('mobile-category-sheet')?.classList.contains('active') ||
-        document.getElementById('mobile-category-overlay')?.classList.contains('active')
-    );
+    const icon = document.createElement('img');
+    icon.className = 'dossier-external-icon';
+    icon.alt = '';
+    icon.loading = 'lazy';
+    icon.referrerPolicy = 'no-referrer';
+    icon.src = iconUrl;
+    icon.addEventListener('error', () => {
+        icon.hidden = true;
+        if (fallbackSpan) fallbackSpan.hidden = false;
+    }, { once: true });
+    link.appendChild(icon);
 
-    document.body.classList.toggle('modal-open', hasActiveModal);
+    const fallbackSpan = document.createElement('span');
+    fallbackSpan.className = 'dossier-external-fallback';
+    fallbackSpan.hidden = true;
+    fallbackSpan.setAttribute('aria-hidden', 'true');
+    fallbackSpan.textContent = fallback;
+    link.appendChild(fallbackSpan);
+
+    const srOnly = document.createElement('span');
+    srOnly.className = 'sr-only';
+    srOnly.textContent = title;
+    link.appendChild(srOnly);
+
+    return link;
 }
 
 /**
@@ -167,10 +180,7 @@ export function openIntelDossier(item) {
     if (tagsContainer) {
         tagsContainer.innerHTML = '';
         const releaseWindows = Array.isArray(item.releaseWindows) ? item.releaseWindows : [];
-        const visibleGenres = (item.genres || []).filter((genreName) => {
-            const displayName = getGenreDisplayName(genreName);
-            return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
-        });
+        const visibleGenres = item.genres || [];
         // 按优先级排序
         const sortedGenres = sortGenresByPriority(visibleGenres);
         if (releaseWindows.length > 0 || sortedGenres.length > 0) {
@@ -236,10 +246,10 @@ export function openIntelDossier(item) {
     // 外部链接
     const linksContainer = document.getElementById('dossier-links-container');
     if (linksContainer) {
-        linksContainer.innerHTML = '';
-        const links = [];
+        linksContainer.replaceChildren();
+        const linkBuilders = [];
         if (item.doubanVerified && item.doubanLink) {
-            links.push(createExternalLink({
+            linkBuilders.push(() => createExternalLink({
                 href: item.doubanLink,
                 label: '豆瓣',
                 title: '打开豆瓣详情',
@@ -248,7 +258,7 @@ export function openIntelDossier(item) {
             }));
         }
         if (item.tmdbUrl) {
-            links.push(createExternalLink({
+            linkBuilders.push(() => createExternalLink({
                 href: item.tmdbUrl,
                 label: 'TMDB',
                 title: '打开 TMDB 详情',
@@ -256,7 +266,7 @@ export function openIntelDossier(item) {
                 fallback: 'T'
             }));
         } else if (item.tmdbSearchUrl) {
-            links.push(createExternalLink({
+            linkBuilders.push(() => createExternalLink({
                 href: item.tmdbSearchUrl,
                 label: '搜索',
                 title: '在 TMDB 搜索',
@@ -265,7 +275,7 @@ export function openIntelDossier(item) {
             }));
         }
         if (item.imdbUrl) {
-            links.push(createExternalLink({
+            linkBuilders.push(() => createExternalLink({
                 href: item.imdbUrl,
                 label: 'IMDb',
                 title: '打开 IMDb 详情',
@@ -273,10 +283,13 @@ export function openIntelDossier(item) {
                 fallback: 'I'
             }));
         }
-        if (links.length > 0) {
-            linksContainer.innerHTML = links.join('');
+        if (linkBuilders.length > 0) {
+            linkBuilders.forEach((build) => linksContainer.appendChild(build()));
         } else {
-            linksContainer.innerHTML = '<span class="dossier-subtext">暂无外部链接</span>';
+            const empty = document.createElement('span');
+            empty.className = 'dossier-subtext';
+            empty.textContent = '暂无外部链接';
+            linksContainer.appendChild(empty);
         }
     }
 

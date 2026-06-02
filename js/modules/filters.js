@@ -8,7 +8,6 @@ import {
     DEFAULT_RATING_CONFIG,
     GENRE_DISPLAY_MAP,
     GENRE_PRIORITY,
-    HIDDEN_GENRES,
     CATEGORY_CONFIG
 } from './config.js';
 import { isDateAfterToday, parseDateStringAsLocalDate } from './date-utils.js';
@@ -31,10 +30,7 @@ export function getGenreDisplayName(genreName) {
  * 获取排序后的类型列表
  */
 export function getSortedGenres(items) {
-    const uniqueGenres = [...new Set(items.flatMap((item) => item.genres))].filter((genreName) => {
-        const displayName = getGenreDisplayName(genreName);
-        return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
-    });
+    const uniqueGenres = [...new Set(items.flatMap((item) => item.genres))];
 
     return uniqueGenres.sort((left, right) => {
         const leftPriority = GENRE_PRIORITY.indexOf(getGenreDisplayName(left));

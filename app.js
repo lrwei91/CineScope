@@ -10,6 +10,7 @@ import {
     ITEMS_PER_PAGE,
     FUTURE_TAG,
     DOUBAN_STATUS_LABELS,
+    HIDDEN_GENRES,
     createCategoryState
 } from './js/modules/config.js';
 
@@ -56,8 +57,7 @@ import {
 import {
     openIntelDossier,
     closeIntelDossier,
-    initDossierEvents,
-    getCurrentDossierItem
+    initDossierEvents
 } from './js/modules/dossier.js';
 
 import {
@@ -110,11 +110,21 @@ window.__appState = state;
 window.syncCurrentCategoryData = syncCurrentCategoryData;
 window.typeWriterEffect = typeWriterEffect;
 
+// 统一封装 loadCategoryData 的回调选项（避免每个调用点重复透传）
+function buildLoadOptions(extra = {}) {
+    return {
+        getCurrentCategoryId: () => state.currentCategoryId,
+        onSync: () => syncCurrentCategoryData(),
+        isDesktop: !isMobile(),
+        ...extra
+    };
+}
+
 // 暴露 appContext 供 share.js 使用
 window.appContext = {
     resolvePosterUrl,
     getGenreDisplayName,
-    HIDDEN_GENRES: new Set(['剧情', '动画']),
+    HIDDEN_GENRES,
     showToast
 };
 
@@ -238,7 +248,7 @@ async function switchCategory(categoryId) {
             elements.resultsContainer.classList.remove('no-cascade');
         });
         if (!catState.completeLoaded) {
-            loadCategoryData(categoryId, 'complete', state.categoryState);
+            loadCategoryData(categoryId, 'complete', state.categoryState, buildLoadOptions({ silent: true }));
         }
         state.isSwitchingCategory = false;
         return;
@@ -261,27 +271,28 @@ async function switchCategory(categoryId) {
 async function ensureCategoryLoaded(categoryId) {
     const catState = state.categoryState[categoryId];
     const config = CATEGORY_CONFIG[categoryId];
+    const options = buildLoadOptions();
 
     if (catState.completeLoaded || catState.latestLoaded) {
         if (categoryId === state.currentCategoryId) {
             syncCurrentCategoryData();
         }
         if (!catState.completeLoaded) {
-            loadCategoryData(categoryId, 'complete', state.categoryState);
+            loadCategoryData(categoryId, 'complete', state.categoryState, { ...options, silent: true });
         }
         return true;
     }
 
     if (config?.preferCompleteOnFirstLoad) {
-        return loadCategoryData(categoryId, 'complete', state.categoryState);
+        return loadCategoryData(categoryId, 'complete', state.categoryState, options);
     }
 
-    const latestLoaded = await loadCategoryData(categoryId, 'latest', state.categoryState);
+    const latestLoaded = await loadCategoryData(categoryId, 'latest', state.categoryState, options);
     if (!latestLoaded) {
-        return loadCategoryData(categoryId, 'complete', state.categoryState);
+        return loadCategoryData(categoryId, 'complete', state.categoryState, { ...options, silent: true });
     }
 
-    loadCategoryData(categoryId, 'complete', state.categoryState);
+    loadCategoryData(categoryId, 'complete', state.categoryState, { ...options, silent: true });
     return true;
 }
 
@@ -307,7 +318,8 @@ async function refreshCurrentCategoryData() {
 
     await loadCategoryData(state.currentCategoryId, refreshLevel, state.categoryState, {
         forceRefresh: true,
-        silent: true
+        silent: true,
+        ...buildLoadOptions()
     });
 }
 
@@ -608,21 +620,6 @@ function loadMoreItems() {
     }
 }
 
-async function loadMoreItemsAsync() {
-    return new Promise((resolve) => {
-        if (state.isLoading) {
-            resolve();
-            return;
-        }
-
-        state.isLoading = true;
-        appendNextItemsToResults();
-
-        state.isLoading = false;
-        setTimeout(resolve, 50);
-    });
-}
-
 function handleYearClick(year, isLastItem) {
     if (isLastItem && state.visibleYearCount < state.allAvailableYears.length) {
         state.visibleYearCount = Math.min(state.allAvailableYears.length, state.visibleYearCount + 2);
@@ -663,7 +660,13 @@ async function ensureYearIsLoadedAndScroll(year, preloadOnly = false) {
         }
 
         while (!targetElement && state.renderedItemCount < state.filteredPastAndPresentItems.length) {
-            await loadMoreItemsAsync();
+            if (!state.isLoading) {
+                state.isLoading = true;
+                appendNextItemsToResults();
+                state.isLoading = false;
+            }
+            // 等下一帧让浏览器渲染新卡片，再检查目标月份是否出现
+            await new Promise((resolve) => setTimeout(resolve, 50));
             targetElement = document.querySelector(`#results-container .month-group-header[id^="month-${year}"]`);
         }
 
@@ -771,7 +774,10 @@ function setupEventListeners() {
         reader.onload = (readerEvent) => {
             try {
                 const data = JSON.parse(readerEvent.target.result);
-                ingestCategoryData(state.currentCategoryId, data, 'complete', state.categoryState);
+                ingestCategoryData(state.currentCategoryId, data, 'complete', state.categoryState, {
+                    getCurrentCategoryId: () => state.currentCategoryId,
+                    onSync: () => syncCurrentCategoryData()
+                });
                 const catState = state.categoryState[state.currentCategoryId];
                 catState.latestLoaded = true;
                 catState.completeLoaded = true;

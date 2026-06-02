@@ -1,3 +1,5 @@
+import { syncBodyModalState } from './modal-state.js';
+
 let currentTrailerItem = null;
 let currentTrailerIndex = 0;
 
@@ -10,21 +12,6 @@ function getTrailerState() {
         trailer: trailers[nextIndex] || null,
         index: nextIndex
     };
-}
-
-function syncBodyModalState() {
-    const hasActiveModal = Boolean(
-        document.getElementById('intel-dossier')?.classList.contains('active') ||
-        document.getElementById('intel-dossier-overlay')?.classList.contains('active') ||
-        document.getElementById('trailer-modal')?.classList.contains('active') ||
-        document.getElementById('trailer-modal-overlay')?.classList.contains('active') ||
-        document.getElementById('mobile-filter-sheet')?.classList.contains('active') ||
-        document.getElementById('mobile-sheet-overlay')?.classList.contains('active') ||
-        document.getElementById('mobile-category-sheet')?.classList.contains('active') ||
-        document.getElementById('mobile-category-overlay')?.classList.contains('active')
-    );
-
-    document.body.classList.toggle('modal-open', hasActiveModal);
 }
 
 function renderTrailerModal() {

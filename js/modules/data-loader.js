@@ -5,9 +5,15 @@
 
 import { CATEGORY_CONFIG, TMDB_IMAGE_BASE_URL, VALID_GENRES } from './config.js';
 import { parseDateStringAsLocalDate } from './date-utils.js';
+import { showToast } from './ui-controls.js';
 
 const realtimePayloadCache = new Map();
 
+// 实时数据源驱动表。新增数据源时，请同时：
+//   1) 在 CATEGORY_CONFIG 中配 urlKey 指向的 URL（如 boxOfficeUrl / tvHeatUrl）
+//   2) 在 fetchMaoyan*Payload（scripts/lib/box-office.mjs）中实现对应的解析
+//   3) 在 normalize* 函数中定义归一化输出形状
+// 漏配任意一项都会让前端拿不到对应数据，但不会报错。
 const REALTIME_ENRICHMENTS = [
     {
         urlKey: 'boxOfficeUrl',
@@ -65,6 +71,11 @@ export function formatUpdateTimestamp(value) {
 
 /**
  * 加载分类数据
+ *
+ * 依赖由 options 显式传入（便于测试与解耦）：
+ *   - getCurrentCategoryId: () => string         // 默认回退到 window.__appState
+ *   - onSync: (categoryState) => void            // 默认回退到 window.syncCurrentCategoryData
+ *   - isDesktop: boolean                         // 默认 false。决定 complete 加载完成时是否弹 toast
  */
 export async function loadCategoryData(categoryId, level, categoryState, options = {}) {
     const config = CATEGORY_CONFIG[categoryId];
@@ -72,7 +83,17 @@ export async function loadCategoryData(categoryId, level, categoryState, options
     const promiseKey = level === 'latest' ? 'latestPromise' : 'completePromise';
     const loadedKey = level === 'latest' ? 'latestLoaded' : 'completeLoaded';
     const url = level === 'latest' ? config.latestUrl : config.completeUrl;
-    const { forceRefresh = false, silent = false } = options;
+    const {
+        forceRefresh = false,
+        silent = false,
+        getCurrentCategoryId = () => window.__appState?.currentCategoryId,
+        onSync = (categoryState) => {
+            if (typeof window.syncCurrentCategoryData === 'function') {
+                window.syncCurrentCategoryData(categoryState);
+            }
+        },
+        isDesktop = false
+    } = options;
 
     // 没有对应 URL 的级别直接跳过（如 douban_top250 没有 latestUrl）
     if (!url) return false;
@@ -95,19 +116,17 @@ export async function loadCategoryData(categoryId, level, categoryState, options
             ingestCategoryData(categoryId, data, level, categoryState, { sync: false });
             await applyRealtimeDataIfNeeded(categoryId, config, state);
             if (categoryId === getCurrentCategoryId()) {
-                syncCurrentCategoryData(categoryState);
+                onSync(categoryState);
             }
 
-            const currentCategoryId = window.__appState?.currentCategoryId;
-            if (!silent && level === 'complete' && categoryId === currentCategoryId && window.innerWidth > 900) {
+            if (!silent && level === 'complete' && categoryId === getCurrentCategoryId() && isDesktop) {
                 showToast('已加载全部内容');
             }
 
             return true;
         } catch (error) {
             console.error(`Failed to load ${level} data for ${categoryId}:`, error);
-            const currentCategoryId = window.__appState?.currentCategoryId;
-            if (level === 'complete' && categoryId === currentCategoryId && !state.latestLoaded) {
+            if (level === 'complete' && categoryId === getCurrentCategoryId() && !state.latestLoaded) {
                 const statusMessage = document.getElementById('status-message');
                 if (statusMessage) {
                     statusMessage.textContent = '加载数据失败或文件格式无效。';
@@ -205,7 +224,15 @@ function normalizeTvHeat(value) {
 export function ingestCategoryData(categoryId, data, level, categoryState, options = {}) {
     const config = CATEGORY_CONFIG[categoryId];
     const state = categoryState[categoryId];
-    const { sync = true } = options;
+    const {
+        sync = true,
+        getCurrentCategoryId = () => window.__appState?.currentCategoryId,
+        onSync = (categoryState) => {
+            if (typeof window.syncCurrentCategoryData === 'function') {
+                window.syncCurrentCategoryData(categoryState);
+            }
+        }
+    } = options;
 
     if (level === 'latest' && state.completeLoaded) return;
 
@@ -216,7 +243,7 @@ export function ingestCategoryData(categoryId, data, level, categoryState, optio
     state.completeLoaded = state.completeLoaded || level === 'complete';
 
     if (sync && categoryId === getCurrentCategoryId()) {
-        syncCurrentCategoryData(categoryState);
+        onSync(categoryState);
     }
 }
 
@@ -323,7 +350,7 @@ export function resolveTvPosterStatusLabel(show, referenceDate = new Date()) {
     const lastAirDate = parseDateStringAsLocalDate(show.last_air_date || '');
     const hasValidReferenceDate = referenceDate instanceof Date && !Number.isNaN(referenceDate.getTime());
     const daysSinceLastAir = lastAirDate && hasValidReferenceDate
-        ? getDayDifference(lastAirDate, referenceDate)
+        ? computeDayDifference(lastAirDate, referenceDate)
         : null;
     const explicitEndedStatus = ['ended', 'canceled', 'cancelled'].includes(normalizedStatusValue);
     const explicitReturningStatus = normalizedStatusValue.includes('returning series');
@@ -365,7 +392,7 @@ export function resolveTvPosterStatusLabel(show, referenceDate = new Date()) {
     return null;
 }
 
-function getDayDifference(fromDate, toDate) {
+function computeDayDifference(fromDate, toDate) {
     const millisecondsPerDay = 24 * 60 * 60 * 1000;
     return Math.floor((toDate.getTime() - fromDate.getTime()) / millisecondsPerDay);
 }
@@ -716,31 +743,4 @@ function buildLocalizedTitle(name, originalName) {
 function extractDoubanSubjectId(link) {
     const match = String(link || '').match(/subject\/(\d+)/);
     return match ? match[1] : null;
-}
-
-/**
- * 获取当前分类 ID（从全局状态）
- */
-function getCurrentCategoryId() {
-    return window.__appState?.currentCategoryId;
-}
-
-/**
- * 同步当前分类数据
- */
-function syncCurrentCategoryData(categoryState) {
-    if (typeof window.syncCurrentCategoryData === 'function') {
-        window.syncCurrentCategoryData(categoryState);
-    }
-}
-
-/**
- * 显示 Toast 提示
- */
-function showToast(message) {
-    const toast = document.getElementById('toast-notification');
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
 }

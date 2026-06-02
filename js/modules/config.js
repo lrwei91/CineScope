@@ -174,7 +174,9 @@ export const GENRE_DISPLAY_MAP = {
     Western: '西部'
 };
 
-export const HIDDEN_GENRES = new Set();
+// 仅用于分享图（Canvas 渲染）时隐藏「剧情/动画」这两个过于宽泛的标签。
+// 前端 UI 的 type/genre 筛选逻辑请勿引用它 —— 那些是用户可选项，不应被隐藏。
+export const HIDDEN_GENRES = new Set(['剧情', '动画']);
 
 // 有效类型白名单，用于过滤脏数据（如人名）
 export const VALID_GENRES = new Set([

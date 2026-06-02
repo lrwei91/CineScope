@@ -10,17 +10,8 @@ const QR_CARD_PADDING = 16;
 const QR_CARD_HEADER_HEIGHT = 28;
 const QR_CONTENT_SHIFT_Y = 8;
 const QR_CARD_FOOTER_PADDING = 14;
-const HERO_MAX_HEIGHT = 560;
 const REALTIME_CARD_HEIGHT = 88;
 const REALTIME_CARD_GAP = 12;
-const HERO_MIN_HEIGHT = 320;
-
-function sanitizeFileName(name) {
-    return String(name || 'latest_tv')
-        .replace(/[\\/:*?"<>|]+/g, '_')
-        .replace(/\s+/g, '_')
-        .slice(0, 80);
-}
 
 export function getShareBaseUrl(locationLike = globalThis.location) {
     if (!locationLike?.href) {

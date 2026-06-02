@@ -4,6 +4,13 @@
  */
 
 /**
+ * 移动端 Action Sheet 模块
+ * 负责移动端筛选面板和分类选择面板
+ */
+
+import { syncBodyModalState } from './modal-state.js';
+
+/**
  * 检查是否为移动端
  */
 export function isMobile() {
@@ -172,21 +179,6 @@ export function updateFabState() {
     mobileFilterFab.classList.toggle('has-active', totalActive > 0);
     fabActiveBadge.textContent = String(totalActive);
     fabActiveBadge.hidden = totalActive === 0;
-}
-
-function syncBodyModalState() {
-    const hasActiveModal = Boolean(
-        document.getElementById('intel-dossier')?.classList.contains('active') ||
-        document.getElementById('intel-dossier-overlay')?.classList.contains('active') ||
-        document.getElementById('trailer-modal')?.classList.contains('active') ||
-        document.getElementById('trailer-modal-overlay')?.classList.contains('active') ||
-        document.getElementById('mobile-filter-sheet')?.classList.contains('active') ||
-        document.getElementById('mobile-sheet-overlay')?.classList.contains('active') ||
-        document.getElementById('mobile-category-sheet')?.classList.contains('active') ||
-        document.getElementById('mobile-category-overlay')?.classList.contains('active')
-    );
-
-    document.body.classList.toggle('modal-open', hasActiveModal);
 }
 
 /**
