@@ -5,29 +5,29 @@ import { getQrCodeUrl, getShareBaseUrl, getShareQrCodeUrl, getShareRealtimeMetri
 
 test('getShareBaseUrl removes query and hash while preserving deployed path', () => {
     const shareUrl = getShareBaseUrl({
-        href: 'https://latesttv.lrwei.com/?category=movie_cn#share'
+        href: 'https://cinescope.lrwei.com/?category=movie_cn#share'
     });
 
-    assert.equal(shareUrl, 'https://latesttv.lrwei.com/');
+    assert.equal(shareUrl, 'https://cinescope.lrwei.com/');
 });
 
 test('getShareBaseUrl preserves nested path deployments', () => {
     const shareUrl = getShareBaseUrl({
-        href: 'https://example.com/latest_tv/index.html?foo=bar#baz'
+        href: 'https://example.com/cinescope/index.html?foo=bar#baz'
     });
 
-    assert.equal(shareUrl, 'https://example.com/latest_tv/index.html');
+    assert.equal(shareUrl, 'https://example.com/cinescope/index.html');
 });
 
 test('getShareQrCodeUrl points QR generation at the normalized share URL', () => {
     const qrUrl = new URL(
-        getShareQrCodeUrl({ href: 'https://latesttv.lrwei.com/?foo=bar#section' }, 180)
+        getShareQrCodeUrl({ href: 'https://cinescope.lrwei.com/?foo=bar#section' }, 180)
     );
 
     assert.equal(qrUrl.origin + qrUrl.pathname, 'https://api.qrserver.com/v1/create-qr-code/');
     assert.equal(qrUrl.searchParams.get('size'), '180x180');
     assert.equal(qrUrl.searchParams.get('margin'), '0');
-    assert.equal(qrUrl.searchParams.get('data'), 'https://latesttv.lrwei.com/');
+    assert.equal(qrUrl.searchParams.get('data'), 'https://cinescope.lrwei.com/');
 });
 
 test('getQrCodeUrl supports arbitrary targets such as Douban links', () => {

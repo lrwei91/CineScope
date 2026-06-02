@@ -7,7 +7,7 @@ import path from 'node:path';
 import { createDoubanSearchCache } from '../scripts/lib/douban-search-cache.mjs';
 
 test('createDoubanSearchCache parses static subject_search DATA payload and reuses cache', async () => {
-    const rootDir = await mkdtemp(path.join(tmpdir(), 'latest-tv-douban-search-'));
+    const rootDir = await mkdtemp(path.join(tmpdir(), 'cinescope-douban-search-'));
     let calls = 0;
     const cache = createDoubanSearchCache({ rootDir, ttlDays: 14 });
     const html = `

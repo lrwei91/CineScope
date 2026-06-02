@@ -678,7 +678,7 @@ async function shareItem(currentDossierItem) {
         const canShareFiles = typeof navigator.canShare === 'function' ? navigator.canShare({ files: [file] }) : false;
         if (navigator.share && canShareFiles) {
             const shareText = buildShareText(currentDossierItem);
-            await navigator.share({ title: currentDossierItem.title || 'latest_tv', text: shareText, files: [file] });
+            await navigator.share({ title: currentDossierItem.title || 'CineScope', text: shareText, files: [file] });
             showToast('已打开系统分享');
             return;
         }

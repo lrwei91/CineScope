@@ -2,7 +2,7 @@
 
 影视内容聚合展示平台，实时追踪全球热门影视动态。
 
-[在线体验](https://lrwei91.github.io/latest_tv/) · [反馈建议](https://github.com/lrwei91/CineScope/issues)
+[在线体验](https://lrwei91.github.io/CineScope/) · [反馈建议](https://github.com/lrwei91/CineScope/issues)
 
 ## 预览
 

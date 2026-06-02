@@ -368,7 +368,7 @@ python scripts/douban_weekly_update.py
        ▼
 ┌──────────────────────────────────────────────────────────────┐
 │                 GitHub Pages (deploy-pages.yml)              │
-│                 https://lrwei91.github.io/latest_tv/        │
+│                 https://lrwei91.github.io/CineScope/       │
 └──────────────────────────────────────────────────────────────┘
 ```
 

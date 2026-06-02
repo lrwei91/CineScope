@@ -152,7 +152,7 @@ test('mergeTrailersIntoCatalogItems matches tv trailers by normalized show title
 });
 
 test('loadBilibiliTrailerDataset falls back to cached rows when remote fetch fails', async () => {
-    const rootDir = await mkdtemp(path.join(os.tmpdir(), 'latest-tv-bili-'));
+    const rootDir = await mkdtemp(path.join(os.tmpdir(), 'cinescope-bili-'));
     const cacheRelativePath = '.cache/bilibili/up-8465957-videos.json';
     const overrideRelativePath = 'scripts/data/movie_cn_trailer_overrides.json';
     const cachePath = path.join(rootDir, cacheRelativePath);
