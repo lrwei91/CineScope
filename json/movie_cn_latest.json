@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-06-01T19:19:07.970Z",
+    "last_updated": "2026-06-02T18:01:59.229Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-06-01T19:19:07.970Z",
+        "time": "2026-06-02T18:01:59.229Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
@@ -31,20 +31,20 @@
       {
         "slug": "discover/movie",
         "source": "tmdb",
-        "count": 254,
+        "count": 255,
         "fetch_error": null
       },
       {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 75,
+        "count": 76,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
         "count": 0,
-        "fetch_error": "Bilibili trailer request failed (412)"
+        "fetch_error": "请求过于频繁，请稍后再试"
       }
     ],
     "total_items": 24
@@ -1342,23 +1342,6 @@
       "type": "movie",
       "tmdb_id": 1695202,
       "tmdbUrl": "https://www.themoviedb.org/movie/1695202",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-06-01T19:16:34.341Z",
-        "rank": 61,
-        "maoyan_movie_id": 1619887,
-        "movie_name": "走马观花",
-        "release_info": "点映",
-        "real_time_box_office": "0.00万",
-        "cumulative_box_office": "1.6万",
-        "split_cumulative_box_office": "1.6万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 1,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "2.5%",
-        "avg_show_view": "3.0"
-      },
       "trailers": [
         {
           "source": "bilibili",
@@ -1711,23 +1694,6 @@
       "type": "movie",
       "tmdb_id": 1693737,
       "tmdbUrl": "https://www.themoviedb.org/movie/1693737",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-06-01T19:16:34.341Z",
-        "rank": 51,
-        "maoyan_movie_id": 1504204,
-        "movie_name": "加油吧！娜依拉",
-        "release_info": "点映",
-        "real_time_box_office": "0.02万",
-        "cumulative_box_office": "8.4万",
-        "split_cumulative_box_office": "8.4万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 2,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.2%",
-        "avg_show_view": "2.5"
-      },
       "trailers": [
         {
           "source": "bilibili",
@@ -1948,7 +1914,24 @@
       "release_windows": [],
       "rating_count": 9165,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-06-02T17:59:52.147Z",
+        "rank": 38,
+        "maoyan_movie_id": 1569979,
+        "movie_name": "危险动物",
+        "release_info": "点映",
+        "real_time_box_office": "0.15万",
+        "cumulative_box_office": "1539",
+        "split_cumulative_box_office": "1383",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 124,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "0.2%",
+        "avg_show_view": "0.3"
+      }
     },
     {
       "id": 36449457,
@@ -2109,17 +2092,17 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1698208",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-06-01T19:16:34.341Z",
-        "rank": 17,
+        "updated_at": "2026-06-02T17:59:52.147Z",
+        "rank": 15,
         "maoyan_movie_id": 1491803,
         "movie_name": "极限逃生",
         "release_info": "点映",
-        "real_time_box_office": "1.22万",
-        "cumulative_box_office": "16.4万",
-        "split_cumulative_box_office": "15.2万",
-        "box_office_rate": "0.3%",
-        "split_box_office_rate": "0.3%",
-        "show_count": 1196,
+        "real_time_box_office": "1.26万",
+        "cumulative_box_office": "23.5万",
+        "split_cumulative_box_office": "21.4万",
+        "box_office_rate": "0.4%",
+        "split_box_office_rate": "0.4%",
+        "show_count": 1128,
         "show_count_rate": "0.3%",
         "seat_occupancy": "0.2%",
         "avg_show_view": "0.3"
