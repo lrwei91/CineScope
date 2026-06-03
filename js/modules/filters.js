@@ -117,14 +117,12 @@ export function applyFilters(allItems, filters, categoryId) {
                   item.genres.some((genre) => selectedGenres.includes(genre))
               );
 
-    // 日漫无评分处理
-    const filteredNoRatingAnime = CATEGORY_CONFIG[categoryId]?.allowUnratedAnimation
-        ? genreFiltered
-        : genreFiltered.filter((item) => {
-              const isAnimation = isAnimationItem(item);
-              const hasRating = item.doubanRating && Number(item.doubanRating) > 0;
-              return !(isAnimation && !hasRating);
-          });
+    // 过滤动画类型 + 无评分的项
+    const filteredNoRatingAnime = genreFiltered.filter((item) => {
+        const isAnimation = isAnimationItem(item);
+        const hasRating = item.doubanRating && Number(item.doubanRating) > 0;
+        return !(isAnimation && !hasRating);
+    });
 
     // 分离即将上映和已上映
     const futureItems =

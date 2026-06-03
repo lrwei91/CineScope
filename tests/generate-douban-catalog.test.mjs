@@ -61,17 +61,17 @@ test('selectLatestItems falls back to latestCount when quarter has no items', ()
     );
 });
 
-test('selectLatestItems keeps latestWindowDays behavior for anime specs', () => {
+test('selectLatestItems keeps latestWindowDays behavior for window-based latest specs', () => {
     const items = [
-        createTvItem('2026-07-01', '七月番'),
-        createTvItem('2026-06-15', '六月番'),
-        createTvItem('2026-05-20', '五月番'),
-        createTvItem('2026-02-01', '二月番')
+        createTvItem('2026-07-01', '七月剧'),
+        createTvItem('2026-06-15', '六月剧'),
+        createTvItem('2026-05-20', '五月剧'),
+        createTvItem('2026-02-01', '二月剧')
     ];
 
     const selected = selectLatestItems(
         {
-            id: 'tv_jp_anime',
+            id: 'tv_jp',
             kind: 'tv',
             latestCount: 3,
             latestWindowDays: 60
@@ -82,6 +82,6 @@ test('selectLatestItems keeps latestWindowDays behavior for anime specs', () => 
 
     assert.deepEqual(
         selected.map((item) => item.name),
-        ['七月番', '六月番', '五月番']
+        ['七月剧', '六月剧', '五月剧']
     );
 });

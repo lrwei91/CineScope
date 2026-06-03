@@ -42,7 +42,6 @@ export function createCategoryReport(spec, summary) {
         counts: {
             douban_after_date_filter: summary.doubanSourceItems.length,
             douban_after_signature_dedupe: summary.doubanItems.length,
-            anilist: summary.anilistItems.length,
             tmdb: summary.tmdbItems.length,
             merged_candidates: summary.mergedCandidateItems.length,
             merged_after_signature_dedupe: summary.mergedItems.length,
