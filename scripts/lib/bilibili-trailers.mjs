@@ -685,17 +685,29 @@ export function mergeTrailersIntoCatalogItems(items, trailerRows, options = {}) 
     const manualOverrides = normalizeTrailerOverrides(options.overrides);
     const assignedTrailers = new Map();
     const lockedMovieIds = new Set();
+    // 06-03 改造：bvid 维度的全局锁定。
+    // 旧版只对 override 锁 movie id，对 '同一 bvid 在不同跑次中漂移到不同 movie' 无防御
+    // ——一次跑匹配到 A 电影，下一次跑可能匹配到 B 电影，cron 报告会误判为 B 新增。
+    // 现在：每个 bvid 在整轮中只允许匹配到第一个分数最高且 > 0 的 movie，重复 bvid 跳过。
+    const assignedBvids = new Set();
 
     manualOverrides.forEach((override) => {
         const movie = normalizedMovies.find((candidate) => movieMatchesOverride(candidate, override.match));
         if (!movie) return;
         assignedTrailers.set(movie.id, dedupeTrailers(override.trailers));
         lockedMovieIds.add(movie.id);
+        (override.trailers || []).forEach((t) => {
+            const bvid = String(t?.bvid || '').trim();
+            if (bvid) assignedBvids.add(bvid);
+        });
     });
 
     normalizedRows.forEach((row) => {
+        const rowBvid = String(row?.bvid || '').trim();
+        if (rowBvid && assignedBvids.has(rowBvid)) return; // 已锁定
         const match = findBestMovieMatch(row, normalizedMovies, lockedMovieIds);
         if (!match) return;
+        if (rowBvid) assignedBvids.add(rowBvid);
         const movieTrailers = assignedTrailers.get(match.movie.id) || [];
         movieTrailers.push(row);
         assignedTrailers.set(match.movie.id, dedupeTrailers(movieTrailers));
