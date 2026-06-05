@@ -1,25 +1,25 @@
 {
   "metadata": {
-    "last_updated": "2026-06-05T12:03:00.787Z",
+    "last_updated": "2026-06-05T16:27:59.630Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-06-05T12:03:00.787Z",
+        "time": "2026-06-05T16:27:59.630Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+maoyan+bilibili",
+    "source": "douban+tmdb+maoyan+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 48,
+        "count": 93,
         "fetch_error": null
       },
       {
         "slug": "movie_soon",
         "source": "douban",
-        "count": 29,
+        "count": 27,
         "fetch_error": null
       },
       {
@@ -29,16 +29,22 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 257,
+        "fetch_error": null
+      },
+      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 73,
+        "count": 69,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 66,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
     "total_items": 24
@@ -139,72 +145,24 @@
         {
           "id": 3,
           "name": "高叶"
-        },
-        {
-          "id": 4,
-          "name": "大鹏"
-        },
-        {
-          "id": 5,
-          "name": "庄达菲"
-        },
-        {
-          "id": 6,
-          "name": "孙艺洲"
-        },
-        {
-          "id": 7,
-          "name": "田雨"
-        },
-        {
-          "id": 8,
-          "name": "王耀庆"
-        },
-        {
-          "id": 9,
-          "name": "李乃文"
-        },
-        {
-          "id": 10,
-          "name": "李晨"
-        },
-        {
-          "id": 11,
-          "name": "欧阳奋强"
-        },
-        {
-          "id": 12,
-          "name": "童漠男"
-        },
-        {
-          "id": 13,
-          "name": "滕哲"
-        },
-        {
-          "id": 14,
-          "name": "闫佩伦"
-        },
-        {
-          "id": 15,
-          "name": "钟汉良"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "年会不能停2",
         "Make Zhonghe Great Again"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38035813",
       "poster_path": "posters/douban/movie_cn/36850814.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36850814/",
       "douban_link_verified": true,
-      "overview": "当刘奔（张若昀 饰）遇上天降搭子马杰（白客 饰），这对天选“牛马”披荆斩棘，一套组合拳，能否打通升职加薪底层逻辑？玩转当下职场规则？",
+      "overview": "　　众和集团分公司的小组长刘奔（张若昀 饰），遇到了曾经在年会上大出风头的马杰（白客 饰），两个人一起开启了奇葩的职场之旅，寻找到了自己真正的价值。",
       "durations": [],
       "release_windows": [
         {
@@ -215,6 +173,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1541125,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1541125",
       "trailers": [
         {
           "source": "bilibili",
@@ -264,121 +224,25 @@
         {
           "id": 3,
           "name": "易烊千玺"
-        },
-        {
-          "id": 4,
-          "name": "侯雯元"
-        },
-        {
-          "id": 5,
-          "name": "罗一舟"
-        },
-        {
-          "id": 6,
-          "name": "耿乐"
-        },
-        {
-          "id": 7,
-          "name": "宋洋"
-        },
-        {
-          "id": 8,
-          "name": "赵丽颖"
-        },
-        {
-          "id": 9,
-          "name": "倪大红"
-        },
-        {
-          "id": 10,
-          "name": "韩童生"
-        },
-        {
-          "id": 11,
-          "name": "张晋"
-        },
-        {
-          "id": 12,
-          "name": "胡明"
-        },
-        {
-          "id": 13,
-          "name": "林子烨"
-        },
-        {
-          "id": 14,
-          "name": "王雨甜"
-        },
-        {
-          "id": 15,
-          "name": "马京京"
-        },
-        {
-          "id": 16,
-          "name": "王子宸"
-        },
-        {
-          "id": 17,
-          "name": "王乃训"
-        },
-        {
-          "id": 18,
-          "name": "答有为"
-        },
-        {
-          "id": 19,
-          "name": "刘学"
-        },
-        {
-          "id": 20,
-          "name": "赵川"
-        },
-        {
-          "id": 21,
-          "name": "刘佳"
-        },
-        {
-          "id": 22,
-          "name": "乔振宇"
-        },
-        {
-          "id": 23,
-          "name": "沈凯"
-        },
-        {
-          "id": 24,
-          "name": "许明虎"
-        },
-        {
-          "id": 25,
-          "name": "杨大鹏"
-        },
-        {
-          "id": 26,
-          "name": "邢杰"
-        },
-        {
-          "id": 27,
-          "name": "宫宏佳"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "怒海交锋",
         "Peng Hu",
         "The Belief"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35267312",
       "poster_path": "posters/douban/movie_cn/35558234.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35558234/",
       "douban_link_verified": true,
-      "overview": "公元1681年，台湾权臣冯锡范刘国轩弑杀监国郑克臧，挟立12岁郑克塽为新王，冯刘集团加剧分疆裂土以武谋独进程，并长期袭扰东南沿海城镇。康熙皇帝（易烊千玺 饰）多次派员招抚未果，于公元1683年，命福建水师提督施琅（王学圻 饰）领兵平台。施琅于澎湖大败台湾水师，最终以武止戈，实现了台湾和平统一。",
+      "overview": "康𤋮二十二年（公元1683年），康熙皇帝为阻止台湾郑氏悍然独立的企图，派出福建水师提督施琅领兵收台。一支朝廷先遣队付出了惨烈的代价， 诱使郑氏水军中计。施琅率水师大军奇袭攻入澎湖，歼灭郑军主力，最终统一了台湾。",
       "durations": [
         "144分钟"
       ],
@@ -391,6 +255,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1298718,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1298718",
       "trailers": [
         {
           "source": "bilibili",
@@ -426,10 +292,10 @@
       ],
       "actors": [],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [],
       "imdb_id": null,
@@ -437,7 +303,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36752981/",
       "douban_link_verified": true,
-      "overview": "东汉末年，三国鼎立大幕未启，黄巾军起，外戚弄权，宦官乱政。天下动荡之际，曹操、袁绍欲借大将军何进之力制衡宦官，匡扶汉室。不料董卓趁乱进京，图谋废立。乱世棋局渐开，袁术、吕布、孙坚及刘关张等各路群雄相继登场，洛阳风云起，大汉的命运走向十字路口……",
+      "overview": "东汉末年，危机四伏，宦官掌权，百姓困苦。黄巾军起，曹操、袁绍、袁术、吕布、孙坚、刘备等乱世英雄初露头角。各方势力争斗洛阳，惊涛骇浪中，曹操、袁绍如何应对？",
       "durations": [],
       "release_windows": [
         {
@@ -448,6 +314,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1671541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "trailers": [
         {
           "source": "bilibili",
@@ -463,7 +331,7 @@
     {
       "id": 36343469,
       "title": "海洋奇缘：启航",
-      "original_title": "Moana",
+      "original_title": "海洋奇缘：启航",
       "release_date": "2026-07-10",
       "genres": [
         {
@@ -505,34 +373,25 @@
         {
           "id": 3,
           "name": "约翰·图伊"
-        },
-        {
-          "id": 4,
-          "name": "弗兰基·亚当斯"
-        },
-        {
-          "id": 5,
-          "name": "丽纳·欧文"
         }
       ],
       "countries": [
-        "美国",
-        "新西兰"
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "海洋奇缘真人版",
         "海洋奇缘(台)",
         "魔海奇缘(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27419466",
       "poster_path": "posters/douban/movie_cn/36343469.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36343469/",
       "douban_link_verified": true,
-      "overview": "莫阿娜（凯瑟琳·拉加艾亚 饰）为守护岛屿与族人，和半神毛伊（道恩·强森 饰）一同乘风踏浪，向海而行。",
+      "overview": "海的召唤，从未停止。熟悉的旋律响起，属于“莫阿娜”的冒险，再次扬帆启航。",
       "durations": [
         "131分钟"
       ],
@@ -544,7 +403,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1108427,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1108427"
     },
     {
       "id": 26822087,
@@ -568,10 +429,10 @@
       "directors": [],
       "actors": [],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "混世之王：大圣崛起",
@@ -584,7 +445,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/26822087/",
       "douban_link_verified": true,
-      "overview": "硬币有两面，很多时候，人们只能看到其中的一面。《混世之王：大圣崛起》讲述的故事，是西行背后的故事，是硬币的另一面，关于另外一个真相的故事。大闹天宫     500年后，大圣答应佛祖用14年的时间，护送一个和尚去西天取经。大圣的行为，引起同族弟兄的不解，纷纷起而阻止……",
+      "overview": "硬币有两面，很多时候，人们只能看到其中的一面。《大圣崛起》讲述的故事，是西行背后的故事，是硬币的另一面，关于另外一个真相的故事。大闹天宫 500年后，大圣答应佛祖用14年的时间，护送一个和尚去西天取经。大圣的行为，引起同族弟兄的不解，纷纷起而阻止……",
       "durations": [],
       "release_windows": [
         {
@@ -595,6 +456,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1658666,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1658666",
       "trailers": [
         {
           "source": "bilibili",
@@ -696,6 +559,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1353926,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1353926",
       "trailers": [
         {
           "source": "bilibili",
@@ -789,7 +654,7 @@
         "Mega Minions",
         "Minions 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32890033",
       "poster_path": "posters/douban/movie_cn/36962219.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36962219/",
@@ -807,6 +672,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1315772,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1315772",
       "trailers": [
         {
           "source": "bilibili",
@@ -850,15 +717,19 @@
           "name": "潘斌龙"
         }
       ],
-      "countries": [],
-      "languages": [],
+      "countries": [
+        "China"
+      ],
+      "languages": [
+        "zh"
+      ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt43349923",
       "poster_path": "posters/douban/movie_cn/37942006.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37942006/",
       "douban_link_verified": true,
-      "overview": "",
+      "overview": "环卫女工季红（张天爱 饰）为让孩子获得入学机会，面临职场领导以“玩笑”为名的越界骚扰，其他员工对此习以为常，而性格倔强的季红决定反抗。",
       "durations": [],
       "release_windows": [
         {
@@ -868,7 +739,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1613857,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1613857"
     },
     {
       "id": 35211447,
@@ -943,7 +816,7 @@
         "我抬头发现两朵一样的云",
         "The Boy Who Counted Cars"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27931170",
       "poster_path": "posters/douban/movie_cn/35211447.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35211447/",
@@ -953,7 +826,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1269075,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1269075"
     },
     {
       "id": 36225840,
@@ -1043,7 +918,7 @@
         "超级女孩： 明日之姝",
         "Supergirl: Woman of Tomorrow"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt8814476",
       "poster_path": "posters/douban/movie_cn/36225840.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36225840/",
@@ -1056,6 +931,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1081003,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1081003",
       "trailers": [
         {
           "source": "bilibili",
@@ -1249,7 +1126,7 @@
         "四渡赤水",
         "Crossing"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt39276601",
       "poster_path": "posters/douban/movie_cn/37191746.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37191746/",
@@ -1262,6 +1139,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1604133,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1604133",
       "trailers": [
         {
           "source": "bilibili",
@@ -1313,20 +1192,28 @@
           "name": "希玛"
         }
       ],
-      "countries": [],
-      "languages": [],
+      "countries": [
+        "Thailand"
+      ],
+      "languages": [
+        "th"
+      ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt36958999",
       "poster_path": "posters/douban/movie_cn/37354866.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37354866/",
       "douban_link_verified": true,
-      "overview": "",
-      "durations": [],
+      "overview": "　　影片以细腻的叙事串联起三段跨越十年的缘分，透过一只狗纯净的眼睛，折射出人类的孤独、勇气与希望。\r 　　2016年，退休日本工程师弘志在泰国偶然遇见蜷缩在便利店外的小白狗“Gohan”。从最初简单的喂食，到后来深刻的陪伴，Gohan让他重新感受到生活的温情。\r 　　2021年，缅甸籍女佣南查目睹雇主虐待一只被遗弃的狗，毅然决定救走它，并将它改名为“Brownie”。一人一狗展开了一场惊心动魄的逃亡之旅。\r 　　2026年，迷茫的大学生佩莱遇见了一只年迈病重的流浪狗，他为它取名“Hima”。在照顾Hima最后时光的过程里，佩莱尝试挽回逝去的感情，也逐渐在痛苦与怜悯中学会了如何真正去爱。",
+      "durations": [
+        "145分钟"
+      ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1319522,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1319522"
     },
     {
       "id": 34786813,
@@ -1557,7 +1444,7 @@
       "aka": [
         "反斗奇兵5(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29355505",
       "poster_path": "posters/douban/movie_cn/36238849.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36238849/",
@@ -1570,6 +1457,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1084244,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1084244",
       "trailers": [
         {
           "source": "bilibili",
@@ -1642,7 +1531,7 @@
       "aka": [
         "Invictus"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35929985",
       "poster_path": "posters/douban/movie_cn/37152802.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37152802/",
@@ -1653,6 +1542,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1435047,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1435047",
       "trailers": [
         {
           "source": "bilibili",
@@ -1828,6 +1719,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1275051,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1275051",
       "trailers": [
         {
           "source": "bilibili",
@@ -1965,7 +1858,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1579223,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1579223"
     },
     {
       "id": 37463047,
@@ -2031,7 +1926,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1707968,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1707968"
     },
     {
       "id": 36860212,
@@ -2150,7 +2047,7 @@
         "揭密日(港)",
         "The Dish"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt15047880",
       "poster_path": "posters/douban/movie_cn/36860212.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36860212/",
@@ -2163,6 +2060,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1275779,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1275779",
       "trailers": [
         {
           "source": "bilibili",
@@ -2230,7 +2129,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1609560,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1609560"
     },
     {
       "id": 37667608,
@@ -2309,23 +2210,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-06-04T16:44:36.363Z",
-        "rank": 70,
-        "maoyan_movie_id": 1619887,
-        "movie_name": "走马观花",
-        "release_info": "点映",
-        "real_time_box_office": "0.00万",
-        "cumulative_box_office": "2.3万",
-        "split_cumulative_box_office": "2.3万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 2,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.5%",
-        "avg_show_view": "1.0"
-      },
+      "tmdb_id": 1695202,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1695202",
       "trailers": [
         {
           "source": "bilibili",
@@ -2430,7 +2316,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1698965,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1698965"
     }
   ]
 }
