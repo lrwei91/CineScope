@@ -12,9 +12,11 @@ import {
     DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH,
     DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX,
     DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
+    dedupeTrailerCollections,
     loadBilibiliTrailerDataset,
     mergeTrailersIntoCatalogItems,
-    searchBilibiliTrailerRowsForCatalogItems
+    searchBilibiliTrailerRowsForCatalogItems,
+    searchTrailerRowsForCatalogWithCache
 } from './lib/bilibili-trailers.mjs';
 import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
 
@@ -82,7 +84,10 @@ const CATEGORY_SPECS = [
             cacheRelativePath: DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH,
             overridesRelativePath: DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH,
             searchSuffix: DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX,
-            sourceSlug: `bilibili_up_${DEFAULT_BILIBILI_TV_TRAILER_UP_MID}`
+            sourceSlug: `bilibili_up_${DEFAULT_BILIBILI_TV_TRAILER_UP_MID}`,
+            // 2026-06-06: 按 catalog latest 列表逐部搜预告片, 并行补充 UP 主空间拉取
+            searchFromCatalog: true,
+            searchFromCatalogCacheRelativePath: '.cache/bilibili/tv-cn-search-from-catalog.json'
         },
         tmdb: {
             discoverPath: '/discover/tv',
@@ -432,6 +437,10 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
     // [NEW] Backfill Douban ratings, links, poster paths and metadata from existing complete items to prevent losing data
     const backfilledItems = backfillFromExistingItems(spec.kind, boxOfficeMergedItems, existingItems);
 
+    // 2026-06-06: latestItems 提前生成,供 searchFromCatalog 用
+    // (原 line 485 才生成,但 trailer 任务需要 latest 列表作为搜索目标)
+    const latestItemsForTrailerSearch = selectLatestItems(spec, backfilledItems);
+
     const trailerDataset = spec.trailerSource
         ? await loadBilibiliTrailerDataset({
               rootDir: ROOT_DIR,
@@ -449,9 +458,30 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
           })
         : null;
     const trailerRows = trailerDataset?.rows || [];
+
+    // 2026-06-06: 按 catalog latest 列表逐部搜预告片 (并行补充 UP 主空间拉取)
+    let catalogSearchRows = [];
+    if (spec.trailerSource?.searchFromCatalog && latestItemsForTrailerSearch.length > 0) {
+        catalogSearchRows = await searchTrailerRowsForCatalogWithCache({
+            items: latestItemsForTrailerSearch,
+            mid: spec.trailerSource.mid,
+            searchSuffix: spec.trailerSource.searchSuffix,
+            cacheRelativePath: spec.trailerSource.searchFromCatalogCacheRelativePath,
+            rootDir: ROOT_DIR,
+            requestDelayMs: BILIBILI_TRAILER_REQUEST_DELAY_MS,
+            requestJitterMs: BILIBILI_TRAILER_REQUEST_JITTER_MS,
+            maxRetries: BILIBILI_TRAILER_MAX_RETRIES,
+            retryBaseDelayMs: BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+            requestTimeoutMs: BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
+        });
+    }
+
+    // merge UP 主空间 rows + catalog search rows, dedupe by bvid
+    const mergedTrailerRows = dedupeTrailerCollections([trailerRows, catalogSearchRows]);
+
     let finalItems =
         spec.trailerSource
-            ? mergeTrailersIntoCatalogItems(backfilledItems, trailerRows, {
+            ? mergeTrailersIntoCatalogItems(backfilledItems, mergedTrailerRows, {
                   existingItems,
                   overrides: trailerDataset?.overrides || []
               })
@@ -472,7 +502,7 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
         });
 
         if (searchFallbackRows.length > 0) {
-            finalItems = mergeTrailersIntoCatalogItems(boxOfficeMergedItems, [...trailerRows, ...searchFallbackRows], {
+            finalItems = mergeTrailersIntoCatalogItems(boxOfficeMergedItems, [...trailerRows, ...catalogSearchRows, ...searchFallbackRows], {
                 existingItems,
                 overrides: trailerDataset?.overrides || []
             });
@@ -498,6 +528,13 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
                   source: 'bilibili',
                   items: trailerRows,
                   fetchError: trailerDataset?.metadata?.status === 'failed' ? trailerDataset?.metadata?.message || null : null
+              }]
+            : []),
+        ...(spec.trailerSource?.searchFromCatalog && catalogSearchRows.length > 0
+            ? [{
+                  slug: 'bilibili_search_from_catalog',
+                  source: 'bilibili',
+                  items: catalogSearchRows
               }]
             : []),
         ...(spec.trailerSource && searchFallbackRows.length > 0

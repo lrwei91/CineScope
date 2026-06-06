@@ -318,7 +318,8 @@ export async function searchBilibiliTrailerRowsForCatalogItems({
                 .filter((result) => String(result?.mid || '') === String(mid) || String(result?.author || '').trim() === searchSuffix)
                 .map((result) => normalizeSingleTrailerRow(result, mid))
                 .filter(Boolean)
-                .filter((row) => scoreTrailerMovieMatch(row, movie) > 0);
+                .filter((row) => scoreTrailerMovieMatch(row, movie) > 0)
+                .map((row) => ({ ...row, _matchedItemId: String(movie?.id ?? '') }));
 
             if (matchedRows.length > 0) {
                 break;
@@ -329,6 +330,120 @@ export async function searchBilibiliTrailerRowsForCatalogItems({
     }
 
     return dedupeTrailerCollections([rows]);
+}
+
+// 2026-06-06: 按 catalog items 搜预告片, 加缓存 (TTL 7 天)
+// 仅搜 "新进入 latest 列表" 或 "上次搜过但 7 天前的" item, 避免每次全量重搜
+const SEARCH_FROM_CATALOG_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
+export async function searchTrailerRowsForCatalogWithCache({
+    items = [],
+    mid = DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
+    searchSuffix = DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX,
+    cacheRelativePath = null,
+    rootDir = null,
+    requestDelayMs = DEFAULT_BILIBILI_TRAILER_REQUEST_DELAY_MS,
+    requestJitterMs = DEFAULT_BILIBILI_TRAILER_REQUEST_JITTER_MS,
+    maxRetries = DEFAULT_BILIBILI_TRAILER_MAX_RETRIES,
+    retryBaseDelayMs = DEFAULT_BILIBILI_TRAILER_RETRY_BASE_DELAY_MS,
+    requestTimeoutMs = DEFAULT_BILIBILI_TRAILER_REQUEST_TIMEOUT_MS
+} = {}) {
+    if (!Array.isArray(items) || items.length === 0) {
+        return [];
+    }
+    if (!cacheRelativePath || !rootDir) {
+        // 缓存路径缺失, 退化到无缓存全量搜
+        return searchBilibiliTrailerRowsForCatalogItems({
+            items,
+            mid,
+            searchSuffix,
+            requestDelayMs,
+            requestJitterMs,
+            maxRetries,
+            retryBaseDelayMs,
+            requestTimeoutMs
+        });
+    }
+
+    const cachePath = path.resolve(rootDir, cacheRelativePath);
+    const cache = await readSearchFromCatalogCache(cachePath);
+    const now = Date.now();
+
+    // 按 id 分桶: fresh (用缓存) / stale (需重搜)
+    const freshRows = [];
+    const staleItems = [];
+    for (const item of items) {
+        const itemId = String(item?.id ?? '');
+        if (!itemId) continue;
+        const cached = cache[itemId];
+        if (cached && cached.searched_at && (now - Date.parse(cached.searched_at)) < SEARCH_FROM_CATALOG_TTL_MS) {
+            freshRows.push(...(Array.isArray(cached.rows) ? cached.rows : []));
+        } else {
+            staleItems.push(item);
+        }
+    }
+
+    let newRows = [];
+    if (staleItems.length > 0) {
+        newRows = await searchBilibiliTrailerRowsForCatalogItems({
+            items: staleItems,
+            mid,
+            searchSuffix,
+            requestDelayMs,
+            requestJitterMs,
+            maxRetries,
+            retryBaseDelayMs,
+            requestTimeoutMs
+        });
+    }
+
+    // 把 stale 搜到的结果回写缓存
+    if (staleItems.length > 0) {
+        const newEntries = {};
+        // 先把所有 stale item id 初始化为空数组
+        for (const item of staleItems) {
+            const itemId = String(item?.id ?? '');
+            if (!itemId) continue;
+            const itemTitle = String(item?.name || item?.title || item?.original_name || itemId);
+            newEntries[itemId] = {
+                title: itemTitle,
+                searched_at: new Date(now).toISOString(),
+                rows: []
+            };
+        }
+        // 按 _matchedItemId 分桶
+        for (const row of newRows) {
+            const mid = row?._matchedItemId;
+            if (mid && newEntries[mid]) {
+                // 缓存里不存 _matchedItemId (避免污染 row 结构)
+                const { _matchedItemId, ...cleanRow } = row;
+                newEntries[mid].rows.push(cleanRow);
+            }
+        }
+        await writeSearchFromCatalogCache(cachePath, { ...cache, ...newEntries });
+    }
+
+    return dedupeTrailerCollections([freshRows, newRows]);
+}
+
+async function readSearchFromCatalogCache(cachePath) {
+    try {
+        const text = await readFile(cachePath, 'utf-8');
+        const data = JSON.parse(text);
+        return (data && typeof data === 'object') ? data : {};
+    } catch (error) {
+        if (error?.code === 'ENOENT') return {};
+        return {};
+    }
+}
+
+async function writeSearchFromCatalogCache(cachePath, data) {
+    try {
+        await mkdir(path.dirname(cachePath), { recursive: true });
+        await writeFile(cachePath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+    } catch {
+        // 缓存写入失败不致命, 下次再写
+    }
 }
 
 async function fetchBilibiliVideoPage({
@@ -856,7 +971,7 @@ function dedupeTrailers(trailers) {
     });
 }
 
-function dedupeTrailerCollections(collections) {
+export function dedupeTrailerCollections(collections) {
     const trailerMap = new Map();
 
     collections
