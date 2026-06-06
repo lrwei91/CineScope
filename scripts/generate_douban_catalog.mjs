@@ -2146,11 +2146,11 @@ function backfillFromExistingItems(kind, items, existingItems) {
         const merged = { ...newItem };
 
         // 0. Lock id (2026-06-06): douban_search 每次跑返回的 candidate.id 不稳定,
-        // 同一电影在不同 run 会被分配到不同 subject_id,导致 cron diff 误报"新增"。
+        // 同一电影/电视剧在不同 run 会被分配到不同 subject_id,导致 cron diff 误报"新增"。
         // 既然 backfill 已经按 signature/tmdb/douban_link 三个 key 找 oldItem,
         // 那就说明 merged 和 oldItem 是同一部 —— 直接用 oldItem.id 锁定,跨 run 稳定。
-        // 仅对 movie 生效 (tv 的 id 来自 TMDB detail,本身稳定)。
-        if (kind === 'movie' && oldItem.id != null) {
+        // 2026-06-06 验证: movie + tv 都需要 (tv 之前漏了, 6/3 6/4 跑出现过长 id 漂移)
+        if (oldItem.id != null) {
             merged.id = oldItem.id;
         }
 
