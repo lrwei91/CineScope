@@ -737,7 +737,10 @@ export function buildCatalogTrailerLookupKeys(item) {
 }
 
 export function buildTrailerCandidateKeys(title) {
-    const rawTitle = String(title || '').trim();
+    // 2026-06-06: B 站 v2 搜索 API 返回 title 含 HTML 高亮标签 <em class=keyword>,
+    // 必须在所有处理前先 strip, 否则 normalizeMovieTrailerMatchKey 输出 新剧<emclass=keyword>主角...
+    // 跟 movie key 主角 匹配不到
+    const rawTitle = stripHtmlTags(String(title || '')).trim();
     if (!rawTitle) return [];
 
     const keys = new Set();
@@ -759,6 +762,10 @@ export function buildTrailerCandidateKeys(title) {
     }
 
     return [...keys].sort((left, right) => right.length - left.length);
+}
+
+function stripHtmlTags(value) {
+    return String(value || '').replace(/<[^>]+>/g, '');
 }
 
 function buildTrailerSearchQueries(movie, searchSuffix = DEFAULT_BILIBILI_TRAILER_SEARCH_SUFFIX) {
