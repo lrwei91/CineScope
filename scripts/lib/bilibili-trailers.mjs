@@ -398,7 +398,9 @@ export async function searchTrailerRowsForCatalogWithCache({
     }
 
     // 把 stale 搜到的结果回写缓存
-    if (staleItems.length > 0) {
+    // 2026-06-07: 0 rows 不写 cache (失败/限流情况下不要锁 7 天,
+    // 否则限流解除后 7 天内 searchFromCatalog 仍然不重搜, 错过 UP 主新发布的 trailer)
+    if (staleItems.length > 0 && newRows.length > 0) {
         const newEntries = {};
         // 先把所有 stale item id 初始化为空数组
         for (const item of staleItems) {
