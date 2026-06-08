@@ -1034,7 +1034,12 @@ function normalizeManualTrailer(trailer) {
         url,
         embedUrl,
         cover: normalizeBilibiliCoverUrl(trailer.cover || ''),
-        publishedAt: normalizePublishedAt(trailer.publishedAt || trailer.published_at || '')
+        publishedAt: normalizePublishedAt(trailer.publishedAt || trailer.published_at || ''),
+        // 2026-06-08: 保留 _matchedItemId 等额外字段
+        // 之前 normalizeManualTrailer 只返回标准字段, 丢弃 _matchedItemId,
+        // 导致 searchTrailerRowsForCatalogWithCache cache 写入分桶失效 (rows=[]),
+        // 搜到的 trailer 写不进 cache, 下次重搜浪费时间
+        ...(trailer._matchedItemId ? { _matchedItemId: trailer._matchedItemId } : {})
     };
 }
 

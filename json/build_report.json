@@ -1,10 +1,9 @@
 {
   "metadata": {
-    "started_at": "2026-06-08T12:01:35.931Z",
+    "started_at": "2026-06-08T14:15:39.776Z",
     "mode": "partial",
     "category_ids": [
-      "tv_cn",
-      "movie_cn"
+      "tv_cn"
     ],
     "tmdb_enabled": false,
     "douban_subject_cache_ttl_days": 14,
@@ -27,7 +26,7 @@
         },
         {
           "slug": "tv_hot",
-          "raw_count": 247,
+          "raw_count": 252,
           "included_count": 40,
           "normalized_count": 40
         }
@@ -68,90 +67,19 @@
           "actors": 0.7333
         }
       }
-    },
-    {
-      "id": "movie_cn",
-      "kind": "movie",
-      "latest_path": "json/movie_cn_latest.json",
-      "complete_path": "json/movie_cn_complete.json",
-      "min_date": "2025-01-01",
-      "source_collections": [
-        {
-          "slug": "movie_showing",
-          "raw_count": 41,
-          "included_count": 41,
-          "normalized_count": 41
-        },
-        {
-          "slug": "movie_soon",
-          "raw_count": 31,
-          "included_count": 31,
-          "normalized_count": 31
-        },
-        {
-          "slug": "movie_latest",
-          "raw_count": 200,
-          "included_count": 200,
-          "normalized_count": 200
-        }
-      ],
-      "counts": {
-        "douban_after_date_filter": 257,
-        "douban_after_signature_dedupe": 251,
-        "tmdb": 0,
-        "merged_candidates": 251,
-        "merged_after_signature_dedupe": 251,
-        "merged_after_name_year_dedupe": 251,
-        "complete": 444,
-        "latest": 24
-      },
-      "fallback_summary": {
-        "total": 2,
-        "byStatus": [
-          [
-            "400",
-            2
-          ]
-        ],
-        "sampleIds": [
-          "36318703",
-          "10756537"
-        ]
-      },
-      "quality": {
-        "total_items": 444,
-        "missing": {
-          "date": 0,
-          "poster": 0,
-          "rating": 179,
-          "douban_link": 120,
-          "overview": 2,
-          "directors": 124,
-          "actors": 129
-        },
-        "missing_rate": {
-          "date": 0,
-          "poster": 0,
-          "rating": 0.4032,
-          "douban_link": 0.2703,
-          "overview": 0.0045,
-          "directors": 0.2793,
-          "actors": 0.2905
-        }
-      }
     }
   ],
   "douban_statuses": null,
   "douban_subject_cache": {
-    "hits": 256,
-    "misses": 4,
-    "stale": 91,
+    "hits": 79,
+    "misses": 0,
+    "stale": 0,
     "invalid": 0,
-    "writes": 28,
-    "errors": 67,
-    "staleFallbacks": 65,
-    "total_reads": 351,
-    "hit_rate": 0.7293,
+    "writes": 0,
+    "errors": 0,
+    "staleFallbacks": 0,
+    "total_reads": 79,
+    "hit_rate": 1,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -166,25 +94,5 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-06-08T12:02:26.362Z",
-  "box_office": {
-    "last_updated": "2026-06-07T15:18:22.384Z",
-    "source": "maoyan",
-    "source_url": "https://60s.viki.moe/v2/maoyan/realtime/movie",
-    "status": "ok",
-    "message": "获取成功。当前部署平台已迁移到 Cloudflare Workers，如有问题请及时反馈。开源地址 https://github.com/vikiboss/60s，反馈群 595941841。",
-    "market": {
-      "title": "实时大盘",
-      "show_count_desc": "42.5万",
-      "view_count_desc": "187.2万",
-      "box_office": "6684.0",
-      "box_office_unit": "万",
-      "split_box_office": "6684.0",
-      "split_box_office_unit": "万",
-      "update_gap_second": 5,
-      "updated": "2026-06-07 15:18:22",
-      "updated_at": 1780845502384
-    },
-    "total_items": 96
-  }
+  "completed_at": "2026-06-08T14:18:14.993Z"
 }
