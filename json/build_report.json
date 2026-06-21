@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "started_at": "2026-06-21T12:42:21.914Z",
+    "started_at": "2026-06-21T12:55:29.823Z",
     "mode": "full",
     "category_ids": [
       "tv_cn",
@@ -26,8 +26,8 @@
         {
           "slug": "tv_domestic",
           "raw_count": 50,
-          "included_count": 43,
-          "normalized_count": 43
+          "included_count": 42,
+          "normalized_count": 42
         },
         {
           "slug": "tv_hot",
@@ -37,7 +37,7 @@
         }
       ],
       "counts": {
-        "douban_after_date_filter": 94,
+        "douban_after_date_filter": 93,
         "douban_after_signature_dedupe": 51,
         "tmdb": 0,
         "merged_candidates": 51,
@@ -203,27 +203,24 @@
       ],
       "counts": {
         "douban_after_date_filter": 258,
-        "douban_after_signature_dedupe": 251,
+        "douban_after_signature_dedupe": 253,
         "tmdb": 0,
-        "merged_candidates": 251,
-        "merged_after_signature_dedupe": 251,
-        "merged_after_name_year_dedupe": 251,
+        "merged_candidates": 253,
+        "merged_after_signature_dedupe": 253,
+        "merged_after_name_year_dedupe": 253,
         "complete": 357,
         "latest": 24
       },
       "fallback_summary": {
-        "total": 4,
+        "total": 1,
         "byStatus": [
           [
             "400",
-            4
+            1
           ]
         ],
         "sampleIds": [
-          "37162852",
-          "37279589",
-          "10756537",
-          "37424953"
+          "10756537"
         ]
       },
       "quality": {
@@ -233,7 +230,7 @@
           "poster": 0,
           "rating": 70,
           "douban_link": 1,
-          "overview": 4,
+          "overview": 1,
           "directors": 6,
           "actors": 10
         },
@@ -242,7 +239,7 @@
           "poster": 0,
           "rating": 0.1961,
           "douban_link": 0.0028,
-          "overview": 0.0112,
+          "overview": 0.0028,
           "directors": 0.0168,
           "actors": 0.028
         }
@@ -309,19 +306,19 @@
         {
           "slug": "tv_american",
           "raw_count": 50,
-          "included_count": 35,
-          "normalized_count": 35
+          "included_count": 36,
+          "normalized_count": 36
         }
       ],
       "counts": {
-        "douban_after_date_filter": 35,
-        "douban_after_signature_dedupe": 35,
+        "douban_after_date_filter": 36,
+        "douban_after_signature_dedupe": 36,
         "tmdb": 0,
-        "merged_candidates": 35,
-        "merged_after_signature_dedupe": 35,
-        "merged_after_name_year_dedupe": 35,
-        "complete": 427,
-        "latest": 66
+        "merged_candidates": 36,
+        "merged_after_signature_dedupe": 36,
+        "merged_after_name_year_dedupe": 36,
+        "complete": 428,
+        "latest": 67
       },
       "fallback_summary": {
         "total": 0,
@@ -329,11 +326,11 @@
         "sampleIds": []
       },
       "quality": {
-        "total_items": 427,
+        "total_items": 428,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 305,
+          "rating": 306,
           "douban_link": 273,
           "overview": 84,
           "directors": 381,
@@ -342,11 +339,11 @@
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.7143,
-          "douban_link": 0.6393,
-          "overview": 0.1967,
-          "directors": 0.8923,
-          "actors": 0.8829
+          "rating": 0.715,
+          "douban_link": 0.6379,
+          "overview": 0.1963,
+          "directors": 0.8902,
+          "actors": 0.8808
         }
       }
     }
@@ -356,15 +353,15 @@
     "reason": "fetch_returned_empty"
   },
   "douban_subject_cache": {
-    "hits": 317,
-    "misses": 6,
-    "stale": 157,
+    "hits": 359,
+    "misses": 2,
+    "stale": 119,
     "invalid": 0,
-    "writes": 39,
-    "errors": 124,
-    "staleFallbacks": 120,
+    "writes": 3,
+    "errors": 118,
+    "staleFallbacks": 117,
     "total_reads": 480,
-    "hit_rate": 0.6604,
+    "hit_rate": 0.7479,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -379,7 +376,7 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-06-21T12:43:43.307Z",
+  "completed_at": "2026-06-21T12:56:58.496Z",
   "box_office": {
     "last_updated": "2026-06-20T15:28:29.326Z",
     "source": "maoyan",
