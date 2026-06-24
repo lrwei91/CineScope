@@ -1,25 +1,25 @@
 {
   "metadata": {
-    "last_updated": "2026-06-24T12:02:16.308Z",
+    "last_updated": "2026-06-24T16:11:31.174Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-06-24T12:02:16.308Z",
+        "time": "2026-06-24T16:11:31.174Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+maoyan+bilibili",
+    "source": "douban+tmdb+maoyan+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 29,
+        "count": 68,
         "fetch_error": null
       },
       {
         "slug": "movie_soon",
         "source": "douban",
-        "count": 36,
+        "count": 35,
         "fetch_error": null
       },
       {
@@ -29,16 +29,22 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 267,
+        "fetch_error": null
+      },
+      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 64,
+        "count": 70,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 116,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "请求过于频繁，请稍后再试"
       }
     ],
     "total_items": 24
@@ -143,33 +149,13 @@
         {
           "id": 3,
           "name": "邵峰"
-        },
-        {
-          "id": 4,
-          "name": "谢承颖"
-        },
-        {
-          "id": 5,
-          "name": "李晓川"
-        },
-        {
-          "id": 6,
-          "name": "黄龄"
-        },
-        {
-          "id": 7,
-          "name": "徐祥"
-        },
-        {
-          "id": 8,
-          "name": "张羽霖"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "一号秘档",
@@ -180,7 +166,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35209727/",
       "douban_link_verified": true,
-      "overview": "1942年上海沦陷的至暗时刻里，小沙渡路五十二号石库门老房中，数箱中共绝密档案深藏于此。日伪环伺，敌我难辨，方寸之间，暗流涌动。市井底层小人物，在动荡世事的夹缝中艰难栖身。地下党成员徐书亭（袁弘 饰）与妻子沈玉琳（李妍锡 饰）接到新任务，变成大海里的两滴水，在随波逐流与信仰坚守的漩涡中，用生命守护希望的火种。\n影片取材早期党史的真实历史事件。",
+      "overview": "大革命失败，绝密的中共文件藏匿于一幢人蛇混杂的居民楼。在腥风血雨的环境中，中共文档保管员突破敌伪围剿，在完成延安高难度“调档”任务的同时，将所有秘密文件转移至安全之地。影片取材早期党史的真实历史事件。",
       "durations": [],
       "release_windows": [
         {
@@ -190,177 +176,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 37452950,
-      "title": "偷偷藏不住",
-      "original_title": "偷偷藏不住",
-      "release_date": "2026-08-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "张裕笛"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "朱珞宁"
-        },
-        {
-          "id": 2,
-          "name": "周皓崎"
-        },
-        {
-          "id": 3,
-          "name": "夏浩然"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "偷偷藏不住(电影版)",
-        "Hidden Love"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/37452950.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/37452950/",
-      "douban_link_verified": true,
-      "overview": "暗恋这件事，偷偷藏不住。\n桑稚青春里最隐秘的少女心事，是喜欢上哥哥桑延的大学室友段嘉许。这份因为年龄差距不敢言说的青涩暗恋，被小桑稚笨拙地藏了起来，不敢让任何人发现。\n几年后再度重逢，桑稚长大成为明媚阳光的模样，而段嘉许也在相处中因她身上的光芒而心动。曾经悄无声息的喜欢，终于变成了彼此心照不宣的悸动……",
-      "durations": [],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 36994226,
-      "title": "偷偷喜欢你",
-      "original_title": "夏日最後的秘密",
-      "release_date": "2026-08-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "邱晧洲"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "施柏宇"
-        },
-        {
-          "id": 2,
-          "name": "程予希"
-        },
-        {
-          "id": 3,
-          "name": "林子闳"
-        },
-        {
-          "id": 4,
-          "name": "赖雅妍"
-        },
-        {
-          "id": 5,
-          "name": "纪卜心"
-        },
-        {
-          "id": 6,
-          "name": "曾少宗"
-        },
-        {
-          "id": 7,
-          "name": "陈如山"
-        },
-        {
-          "id": 8,
-          "name": "黄柏峰"
-        },
-        {
-          "id": 9,
-          "name": "海裕芬"
-        },
-        {
-          "id": 10,
-          "name": "钱薇真"
-        },
-        {
-          "id": 11,
-          "name": "苏达"
-        },
-        {
-          "id": 12,
-          "name": "郑颖"
-        },
-        {
-          "id": 13,
-          "name": "张宸呈"
-        },
-        {
-          "id": 14,
-          "name": "吴函峮"
-        }
-      ],
-      "countries": [
-        "中国台湾"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "夏日最后的秘密",
-        "Summer Blue Hour"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36994226.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/36994226/",
-      "douban_link_verified": true,
-      "overview": "苏明仪（程予希 饰）暗恋同校的颜立尧（施柏宇 饰）很久了，没想到分班后成为同学，颜立尧不受拘束的性格让他经常被风纪股长苏明仪“记名字”，记着记着，同时也在心里刻下了不可磨灭的印记，殊不知，卸下风纪的她，只是一个暗恋他许久的傻女孩罢了。当别人还在挥霍青春，年少的三人被迫提早面对人生的课题。\n“其实，我早就喜欢你，只是不敢告诉你”⋯\n故事线长达10年，懵懂的他们各自把秘密埋在心底，直到真正变成大人的那一天。",
-      "durations": [
-        "115分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1502135,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1502135"
     },
     {
       "id": 35390242,
@@ -395,21 +213,13 @@
         {
           "id": 3,
           "name": "王砚辉"
-        },
-        {
-          "id": 4,
-          "name": "侯勇"
-        },
-        {
-          "id": 5,
-          "name": "刘巴特尔"
         }
       ],
       "countries": [
         "中国大陆"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "明天的我与昨天的你约会",
@@ -430,12 +240,14 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1716541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1716541"
     },
     {
       "id": 36318703,
       "title": "逃出绝命街",
-      "original_title": "The End of Oak Street",
+      "original_title": "逃出绝命街",
       "release_date": "2026-08-14",
       "genres": [
         {
@@ -473,81 +285,13 @@
         {
           "id": 3,
           "name": "梅西·斯黛拉"
-        },
-        {
-          "id": 4,
-          "name": "克里斯蒂安·康佛瑞"
-        },
-        {
-          "id": 5,
-          "name": "乔丹·亚历山大·戴维斯"
-        },
-        {
-          "id": 6,
-          "name": "克里斯·科伊"
-        },
-        {
-          "id": 7,
-          "name": "P·J·伯恩"
-        },
-        {
-          "id": 8,
-          "name": "贝瑟妮·安妮·林德"
-        },
-        {
-          "id": 9,
-          "name": "安德里亚·弗兰克尔"
-        },
-        {
-          "id": 10,
-          "name": "德尼特拉·艾斯勒"
-        },
-        {
-          "id": 11,
-          "name": "哈德森·米克"
-        },
-        {
-          "id": 12,
-          "name": "派雷特·邦奇"
-        },
-        {
-          "id": 13,
-          "name": "格雷森·索恩·基尔帕特里克"
-        },
-        {
-          "id": 14,
-          "name": "西姆斯·梅"
-        },
-        {
-          "id": 15,
-          "name": "萨凡纳·蕾妮"
-        },
-        {
-          "id": 16,
-          "name": "道格拉斯·R·韦斯"
-        },
-        {
-          "id": 17,
-          "name": "雨果·西尔弗"
-        },
-        {
-          "id": 18,
-          "name": "约翰·米凯尔"
-        },
-        {
-          "id": 19,
-          "name": "迈克尔-克里斯蒂安·摩尔"
-        },
-        {
-          "id": 20,
-          "name": "斯科特·安德森"
         }
       ],
       "countries": [
-        "美国"
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "末世橡树街(港)",
@@ -557,12 +301,12 @@
         "Flowervale Street‎",
         "Flowervale St"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27165187",
       "poster_path": "posters/douban/movie_cn/36318703.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36318703/",
       "douban_link_verified": true,
-      "overview": "一场神秘事件，让橡树街从平静郊区穿越回史前时代，导致恐龙突然惊现人类小区，并开始大肆吃人！普拉特一家发现他们只有团结一心奋力一搏，才有希望逃出绝命街，才有可能活下去。",
+      "overview": "居住在花谷街的一对夫妻，察觉到社区里发生了一些细微的变化。当一场剧烈的雷暴袭来后，他们连同他们的孩子和邻居醒来发现自己竟被“传送回了史前时代”，身边被恐龙和其他野生生物包围。",
       "durations": [
         "110分钟"
       ],
@@ -575,6 +319,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1101383,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1101383",
       "trailers": [
         {
           "source": "bilibili",
@@ -623,10 +369,6 @@
         {
           "id": 1,
           "name": "程腾"
-        },
-        {
-          "id": 2,
-          "name": "黄珉"
         }
       ],
       "actors": [
@@ -641,25 +383,13 @@
         {
           "id": 3,
           "name": "蔡海婷"
-        },
-        {
-          "id": 4,
-          "name": "张喆"
-        },
-        {
-          "id": 5,
-          "name": "王凯"
-        },
-        {
-          "id": 6,
-          "name": "范哲琛"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "长安探案录",
@@ -681,6 +411,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1630030,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1630030",
       "trailers": [
         {
           "source": "bilibili",
@@ -696,7 +428,7 @@
     {
       "id": 36791178,
       "title": "汪汪队立大功大电影3：勇闯恐龙岛",
-      "original_title": "PAW Patrol: The Dino Movie",
+      "original_title": "汪汪队立大功大电影3：勇闯恐龙岛",
       "release_date": "2026-08-08",
       "genres": [
         {
@@ -734,62 +466,15 @@
         {
           "id": 3,
           "name": "福琼·费姆斯特"
-        },
-        {
-          "id": 4,
-          "name": "贾米拉·贾米尔"
-        },
-        {
-          "id": 5,
-          "name": "詹妮弗·哈德森"
-        },
-        {
-          "id": 6,
-          "name": "史努比狗狗"
-        },
-        {
-          "id": 7,
-          "name": "帕丽斯·希尔顿"
-        },
-        {
-          "id": 8,
-          "name": "比尔·奈"
-        },
-        {
-          "id": 9,
-          "name": "罗恩·帕尔多"
-        },
-        {
-          "id": 10,
-          "name": "梅雷迪思·麦克尼尔"
-        },
-        {
-          "id": 11,
-          "name": "雷恩·詹朱阿"
-        },
-        {
-          "id": 12,
-          "name": "尼兰·帕尔西潘"
-        },
-        {
-          "id": 13,
-          "name": "吕西安·邓肯-里德"
-        },
-        {
-          "id": 14,
-          "name": "卡特·扬"
-        },
-        {
-          "id": 15,
-          "name": "威廉·德罗西耶"
         }
       ],
       "countries": [
-        "加拿大",
-        "美国"
+        "Canada",
+        "France",
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "汪汪队立大功：恐龙大电影(港/台)",
@@ -797,7 +482,7 @@
         "汪汪队立大功大电影3",
         "Paw Patrol 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29356163",
       "poster_path": "posters/douban/movie_cn/36791178.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36791178/",
@@ -814,7 +499,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1185806,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1185806"
     },
     {
       "id": 36850814,
@@ -845,72 +532,24 @@
         {
           "id": 3,
           "name": "高叶"
-        },
-        {
-          "id": 4,
-          "name": "大鹏"
-        },
-        {
-          "id": 5,
-          "name": "庄达菲"
-        },
-        {
-          "id": 6,
-          "name": "孙艺洲"
-        },
-        {
-          "id": 7,
-          "name": "田雨"
-        },
-        {
-          "id": 8,
-          "name": "王耀庆"
-        },
-        {
-          "id": 9,
-          "name": "李乃文"
-        },
-        {
-          "id": 10,
-          "name": "李晨"
-        },
-        {
-          "id": 11,
-          "name": "欧阳奋强"
-        },
-        {
-          "id": 12,
-          "name": "童漠男"
-        },
-        {
-          "id": 13,
-          "name": "滕哲"
-        },
-        {
-          "id": 14,
-          "name": "闫佩伦"
-        },
-        {
-          "id": 15,
-          "name": "钟汉良"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "年会不能停2",
         "Make Zhonghe Great Again"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38035813",
       "poster_path": "posters/douban/movie_cn/36850814.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36850814/",
       "douban_link_verified": true,
-      "overview": "当刘奔（张若昀 饰）遇上天降搭子马杰（白客 饰），这对天选“牛马”披荆斩棘，一套组合拳，能否打通升职加薪底层逻辑？玩转当下职场规则？",
+      "overview": "　　众和集团分公司的小组长刘奔（张若昀 饰），遇到了曾经在年会上大出风头的马杰（白客 饰），两个人一起开启了奇葩的职场之旅，寻找到了自己真正的价值。",
       "durations": [],
       "release_windows": [
         {
@@ -921,6 +560,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1541125,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1541125",
       "trailers": [
         {
           "source": "bilibili",
@@ -966,47 +607,23 @@
         {
           "id": 3,
           "name": "高叶"
-        },
-        {
-          "id": 4,
-          "name": "孙阳"
-        },
-        {
-          "id": 5,
-          "name": "李乃文"
-        },
-        {
-          "id": 6,
-          "name": "郭涛"
-        },
-        {
-          "id": 7,
-          "name": "杨新鸣"
-        },
-        {
-          "id": 8,
-          "name": "杜志国"
-        },
-        {
-          "id": 9,
-          "name": "沈月"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "The Decisive Moment"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32634286",
       "poster_path": "posters/douban/movie_cn/35875462.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35875462/",
       "douban_link_verified": true,
-      "overview": "2035年，三名中国航天员在返回地球途中突遇险情，与地面指挥中心彻底失去联系。就在希望破灭的绝境中，意外收到一条来自1970的神秘信号，他们该如何求救？隔着65年的科技鸿沟，过去能否拯救未来……",
+      "overview": "未来时空，三名中国航天员在返回地球的途中，遇到复杂情况与地面失去联系，万分危急时刻，收到了一条电子信号，而他们的命运将被这个信号里隐藏的一段神秘代码彻底改变。",
       "durations": [
         "129分钟"
       ],
@@ -1019,6 +636,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1305665,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1305665",
       "trailers": [
         {
           "source": "bilibili",
@@ -1034,7 +653,7 @@
     {
       "id": 36246195,
       "title": "蜘蛛侠：崭新之日",
-      "original_title": "Spider-Man: Brand New Day",
+      "original_title": "蜘蛛侠：崭新之日",
       "release_date": "2026-07-29",
       "genres": [
         {
@@ -1072,53 +691,13 @@
         {
           "id": 3,
           "name": "乔·博恩瑟"
-        },
-        {
-          "id": 4,
-          "name": "赞达亚"
-        },
-        {
-          "id": 5,
-          "name": "雅各布·贝塔隆"
-        },
-        {
-          "id": 6,
-          "name": "萨迪·辛克"
-        },
-        {
-          "id": 7,
-          "name": "迈克尔·曼多"
-        },
-        {
-          "id": 8,
-          "name": "艾曼·埃斯凡迪"
-        },
-        {
-          "id": 9,
-          "name": "特拉梅尔·提尔曼"
-        },
-        {
-          "id": 10,
-          "name": "马文·琼斯三世"
-        },
-        {
-          "id": 11,
-          "name": "莉莎·科伦-扎亚斯"
-        },
-        {
-          "id": 12,
-          "name": "伊恩·钱斯"
-        },
-        {
-          "id": 13,
-          "name": "贾马尔·伯彻"
         }
       ],
       "countries": [
-        "美国"
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "蜘蛛侠：英雄重生(港)",
@@ -1129,12 +708,12 @@
         "蜘蛛侠4",
         "Spider-Man 4"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt22084616",
       "poster_path": "posters/douban/movie_cn/36246195.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36246195/",
       "douban_link_verified": true,
-      "overview": "彼得·帕克（汤姆·霍兰德 饰）自愿让全世界遗忘自己，转眼已是四年。失去挚友、挚爱与亲人的陪伴，他独自重返街头，以全职蜘蛛侠的身份坚守使命，守护整座城市。\n然而，日益沉重的责任与无尽压力，意外引发了一场骇人的身体异变，直接威胁到蜘蛛侠的生命，迫使他向“绿巨人”班纳博士寻求帮助。与此同时，多方邪恶势力趁虚而入，纽约再度陷入危机。面对前所未有的强敌，蜘蛛侠能否绝境破局，完成破茧重生？",
+      "overview": "重建普通生活后，彼得一边在大学完成学业、一边从事兼职以维持生计，同时仍肩负着守护纽约街头的蜘蛛侠责任。然而，当一个神秘力量从内部腐蚀这座城市的安全与秩序，彼得被迫再次披上战衣。他必须在强大的敌人与昔日纽带之间找到平衡，并重新定义英雄的意义。",
       "durations": [
         "150分钟"
       ],
@@ -1147,6 +726,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 969681,
+      "tmdbUrl": "https://www.themoviedb.org/movie/969681",
       "trailers": [
         {
           "source": "bilibili",
@@ -1214,121 +795,25 @@
         {
           "id": 3,
           "name": "易烊千玺"
-        },
-        {
-          "id": 4,
-          "name": "侯雯元"
-        },
-        {
-          "id": 5,
-          "name": "罗一舟"
-        },
-        {
-          "id": 6,
-          "name": "耿乐"
-        },
-        {
-          "id": 7,
-          "name": "宋洋"
-        },
-        {
-          "id": 8,
-          "name": "赵丽颖"
-        },
-        {
-          "id": 9,
-          "name": "倪大红"
-        },
-        {
-          "id": 10,
-          "name": "韩童生"
-        },
-        {
-          "id": 11,
-          "name": "张晋"
-        },
-        {
-          "id": 12,
-          "name": "胡明"
-        },
-        {
-          "id": 13,
-          "name": "林子烨"
-        },
-        {
-          "id": 14,
-          "name": "王雨甜"
-        },
-        {
-          "id": 15,
-          "name": "马京京"
-        },
-        {
-          "id": 16,
-          "name": "王子宸"
-        },
-        {
-          "id": 17,
-          "name": "王乃训"
-        },
-        {
-          "id": 18,
-          "name": "答有为"
-        },
-        {
-          "id": 19,
-          "name": "刘学"
-        },
-        {
-          "id": 20,
-          "name": "赵川"
-        },
-        {
-          "id": 21,
-          "name": "刘佳"
-        },
-        {
-          "id": 22,
-          "name": "乔振宇"
-        },
-        {
-          "id": 23,
-          "name": "沈凯"
-        },
-        {
-          "id": 24,
-          "name": "许明虎"
-        },
-        {
-          "id": 25,
-          "name": "杨大鹏"
-        },
-        {
-          "id": 26,
-          "name": "邢杰"
-        },
-        {
-          "id": 27,
-          "name": "宫宏佳"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "怒海交锋",
         "Peng Hu",
         "The Belief"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35267312",
       "poster_path": "posters/douban/movie_cn/35558234.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35558234/",
       "douban_link_verified": true,
-      "overview": "公元1681年，台湾权臣冯锡范刘国轩弑杀监国郑克臧，挟立12岁郑克塽为新王，冯刘集团加剧分疆裂土以武谋独进程，并长期袭扰东南沿海城镇。康熙皇帝（易烊千玺 饰）多次派员招抚未果，于公元1683年，命福建水师提督施琅（王学圻 饰）领兵平台。施琅于澎湖大败台湾水师，最终以武止戈，实现了台湾和平统一。",
+      "overview": "康𤋮二十二年（公元1683年），康熙皇帝为阻止台湾郑氏悍然独立的企图，派出福建水师提督施琅领兵收台。一支朝廷先遣队付出了惨烈的代价， 诱使郑氏水军中计。施琅率水师大军奇袭攻入澎湖，歼灭郑军主力，最终统一了台湾。",
       "durations": [
         "144分钟"
       ],
@@ -1341,6 +826,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1298718,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1298718",
       "trailers": [
         {
           "source": "bilibili",
@@ -1382,21 +869,13 @@
         {
           "id": 3,
           "name": "任彬"
-        },
-        {
-          "id": 4,
-          "name": "李孝谦"
-        },
-        {
-          "id": 5,
-          "name": "鸟鸟"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "已经开始想你(中国版)",
@@ -1408,7 +887,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37021936/",
       "douban_link_verified": true,
-      "overview": "你见过最好的友情是什么样呢？高凡（章若楠饰）和汪美丽（金靖饰）她俩一定有发言权。\n从小时候相见时的“一眼定情”，再到长大后从北闯南的相伴同行，一路跌宕快乐走过二十余载，两人是彼此主动选择的“家人。高凡会和汪美丽分享她全部的野心与秘密，高凡会让汪美丽陪她度过一切重要的时刻，高凡会永远站在汪美丽这边……最重要的是，高凡会和汪美丽做一辈子的朋友，很长很长的那种，一辈子的朋友。\n影片改编自英国电影《已经开始想你》。",
+      "overview": "从小时候相见时的“一眼定情”，再到长大后从北闯南的相伴同行，一路跌宕快乐走过二十余载，两人是彼此主动选择的“家人。高凡会和汪美丽分享她全部的野心与秘密，高凡会让汪美丽陪她度过一切重要的时刻，高凡会永远站在汪美丽这边……最重要的是，高凡会和汪美丽做一辈子的朋友，很长很长的那种，一辈子的朋友。",
       "durations": [],
       "release_windows": [
         {
@@ -1418,7 +897,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1713529,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1713529"
     },
     {
       "id": 36882191,
@@ -1461,53 +942,13 @@
         {
           "id": 3,
           "name": "立冬"
-        },
-        {
-          "id": 4,
-          "name": "果子哥哥"
-        },
-        {
-          "id": 5,
-          "name": "董天弋"
-        },
-        {
-          "id": 6,
-          "name": "喻鹏力"
-        },
-        {
-          "id": 7,
-          "name": "黄豫硕"
-        },
-        {
-          "id": 8,
-          "name": "张运气"
-        },
-        {
-          "id": 9,
-          "name": "曹知善"
-        },
-        {
-          "id": 10,
-          "name": "邓先森"
-        },
-        {
-          "id": 11,
-          "name": "零柒"
-        },
-        {
-          "id": 12,
-          "name": "韩雨泽"
-        },
-        {
-          "id": 13,
-          "name": "张天宇"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "八仙之瞒天过海",
@@ -1518,7 +959,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36882191/",
       "douban_link_verified": true,
-      "overview": "面对十辈子都花不完的财富，你敢不敢赌上一切搏一回？吕洞宾、钟离权带队，集结何仙姑、铁拐李、韩湘子、曹国舅、蓝采和与张果老，八个身份各异的凡人因不同机缘稀里糊涂凑在了蓬莱仙境，有人临时起意有人开团秒跟，他们假扮神仙花式作死准备干票大的！一场蓄谋已久的“成仙”骗局正式上演！假神仙的身份下，是滚烫的暴富野心；草台班子的外壳里，藏着瞒天过海的胆识。怎料一个惊天阴谋正悄咪咪朝他们砸过来，这场啼笑皆非的奇幻之旅，最终会走向何处呢？\n影片以家喻户晓的传统民间故事“八仙过海”为灵感进行创新性改编。",
+      "overview": "沿海边的渔村连年遭遇蛟龙侵害。吕洞宾用计捉拿蛟龙，却三战三败，身受重伤。太上老君的弟子铁拐李下凡协助吕洞宾寻找能人异士组成屠龙小队。最终，八人齐心协力将蛟龙封印，挽救渔村。",
       "durations": [],
       "release_windows": [
         {
@@ -1529,6 +970,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1633056,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1633056",
       "trailers": [
         {
           "source": "bilibili",
@@ -1574,18 +1017,6 @@
         {
           "id": 3,
           "name": "毕雪"
-        },
-        {
-          "id": 4,
-          "name": "单明凯"
-        },
-        {
-          "id": 5,
-          "name": "许诺"
-        },
-        {
-          "id": 6,
-          "name": "朱嘉镇"
         }
       ],
       "countries": [
@@ -1702,6 +1133,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1671541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "trailers": [
         {
           "source": "bilibili",
@@ -1781,7 +1214,7 @@
         "海洋奇缘(台)",
         "魔海奇缘(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27419466",
       "poster_path": "posters/douban/movie_cn/36343469.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36343469/",
@@ -1799,6 +1232,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1108427,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1108427",
       "trailers": [
         {
           "source": "bilibili",
@@ -1860,6 +1295,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1658666,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1658666",
       "trailers": [
         {
           "source": "bilibili",
@@ -1933,70 +1370,6 @@
         {
           "id": 10,
           "name": "刘流"
-        },
-        {
-          "id": 11,
-          "name": "马旭东"
-        },
-        {
-          "id": 12,
-          "name": "蒋诗萌"
-        },
-        {
-          "id": 13,
-          "name": "宋木子"
-        },
-        {
-          "id": 14,
-          "name": "宋家腾"
-        },
-        {
-          "id": 15,
-          "name": "孙立荣"
-        },
-        {
-          "id": 16,
-          "name": "张祐维"
-        },
-        {
-          "id": 17,
-          "name": "蒋易"
-        },
-        {
-          "id": 18,
-          "name": "张小婉"
-        },
-        {
-          "id": 19,
-          "name": "合文俊"
-        },
-        {
-          "id": 20,
-          "name": "周铁男"
-        },
-        {
-          "id": 21,
-          "name": "李飞"
-        },
-        {
-          "id": 22,
-          "name": "郭耘奇"
-        },
-        {
-          "id": 23,
-          "name": "何广智"
-        },
-        {
-          "id": 24,
-          "name": "刘雪涛"
-        },
-        {
-          "id": 25,
-          "name": "金天宇"
-        },
-        {
-          "id": 26,
-          "name": "刘乙蒙"
         }
       ],
       "countries": [
@@ -2027,6 +1400,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1353926,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1353926",
       "trailers": [
         {
           "source": "bilibili",
@@ -2124,7 +1499,7 @@
         "Mega Minions",
         "Minions 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32890033",
       "poster_path": "posters/douban/movie_cn/36962219.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36962219/",
@@ -2142,6 +1517,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1315772,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1315772",
       "trailers": [
         {
           "source": "bilibili",
@@ -2334,7 +1711,7 @@
         "魔方奶奶",
         "This is My Time"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt36130077",
       "poster_path": "posters/douban/movie_cn/36808520.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36808520/",
@@ -2352,22 +1729,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1257942,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1257942",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-06-23T16:20:39.276Z",
-        "rank": 9,
+        "updated_at": "2026-06-24T16:08:50.048Z",
+        "rank": 7,
         "maoyan_movie_id": 1522535,
         "movie_name": "魔方小姐",
         "release_info": "点映",
-        "real_time_box_office": "9.13万",
-        "cumulative_box_office": "219.3万",
-        "split_cumulative_box_office": "188.6万",
-        "box_office_rate": "2.1%",
-        "split_box_office_rate": "1.7%",
-        "show_count": 5414,
+        "real_time_box_office": "18.52万",
+        "cumulative_box_office": "273.5万",
+        "split_cumulative_box_office": "236.6万",
+        "box_office_rate": "4.4%",
+        "split_box_office_rate": "4.4%",
+        "show_count": 5375,
         "show_count_rate": "1.4%",
-        "seat_occupancy": "0.4%",
-        "avg_show_view": "0.4"
+        "seat_occupancy": "0.7%",
+        "avg_show_view": "0.7"
       },
       "trailers": [
         {
@@ -2410,87 +1789,23 @@
         {
           "id": 3,
           "name": "潘斌龙"
-        },
-        {
-          "id": 4,
-          "name": "孙艺洲"
-        },
-        {
-          "id": 5,
-          "name": "孔令美"
-        },
-        {
-          "id": 6,
-          "name": "佟晨洁"
-        },
-        {
-          "id": 7,
-          "name": "俞灏明"
-        },
-        {
-          "id": 8,
-          "name": "蒋易"
-        },
-        {
-          "id": 9,
-          "name": "陈玺旭"
-        },
-        {
-          "id": 10,
-          "name": "东靖川"
-        },
-        {
-          "id": 11,
-          "name": "冯秦川"
-        },
-        {
-          "id": 12,
-          "name": "张帆"
-        },
-        {
-          "id": 13,
-          "name": "张进"
-        },
-        {
-          "id": 14,
-          "name": "郭晗"
-        },
-        {
-          "id": 15,
-          "name": "任思诺"
-        },
-        {
-          "id": 16,
-          "name": "李龙君"
-        },
-        {
-          "id": 17,
-          "name": "朱丹"
-        },
-        {
-          "id": 18,
-          "name": "詹鑫"
-        },
-        {
-          "id": 19,
-          "name": "王柠"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "A Joke"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt43349923",
       "poster_path": "posters/douban/movie_cn/37942006.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37942006/",
       "douban_link_verified": true,
-      "overview": "环卫女工季红（张天爱 饰）长期遭受环卫站站长以“玩笑”为名的言语骚扰，其他员工对此习以为常，而性格倔强的季红决定反抗。她历经三年，暗中取证，并找到脾气耿直的年轻律师吴忧（春夏 饰），两位女性联手走上维权之路，反击站长罗勇正（潘斌龙 饰），执意为尊严正名。\n影片根据真人故事改编。",
+      "overview": "环卫女工季红（张天爱 饰）为让孩子获得入学机会，面临职场领导以“玩笑”为名的越界骚扰，其他员工对此习以为常，而性格倔强的季红决定反抗。",
       "durations": [],
       "release_windows": [
         {
@@ -2500,7 +1815,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1613857,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1613857"
     },
     {
       "id": 35619616,
@@ -2550,7 +1867,7 @@
       "aka": [
         "Minibus Driver"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt16917812",
       "poster_path": "posters/douban/movie_cn/35619616.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35619616/",
@@ -2562,7 +1879,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1591929,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1591929"
     },
     {
       "id": 37234431,
@@ -2659,7 +1978,324 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1719063,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1719063"
+    },
+    {
+      "id": 36315000,
+      "title": "爸爸",
+      "original_title": "爸爸",
+      "release_date": "2026-06-27",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "翁子光"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "刘青云"
+        },
+        {
+          "id": 2,
+          "name": "谷祖琳"
+        },
+        {
+          "id": 3,
+          "name": "苏文涛"
+        },
+        {
+          "id": 4,
+          "name": "熊诺颐"
+        },
+        {
+          "id": 5,
+          "name": "杨伟伦"
+        },
+        {
+          "id": 6,
+          "name": "谭玉瑛"
+        },
+        {
+          "id": 7,
+          "name": "陈丽云"
+        },
+        {
+          "id": 8,
+          "name": "覃恩美"
+        },
+        {
+          "id": 9,
+          "name": "罗永昌"
+        },
+        {
+          "id": 10,
+          "name": "Nic Tsang Chun-Yuen"
+        },
+        {
+          "id": 11,
+          "name": "Siu Fa"
+        },
+        {
+          "id": 12,
+          "name": "许素莹"
+        },
+        {
+          "id": 13,
+          "name": "岑建勋"
+        },
+        {
+          "id": 14,
+          "name": "陈辉虹"
+        },
+        {
+          "id": 15,
+          "name": "太保"
+        },
+        {
+          "id": 16,
+          "name": "何启南"
+        },
+        {
+          "id": 17,
+          "name": "麦沛东"
+        },
+        {
+          "id": 18,
+          "name": "Wong Kar Wai"
+        },
+        {
+          "id": 19,
+          "name": "阮文泰"
+        },
+        {
+          "id": 20,
+          "name": "吕爵安"
+        }
+      ],
+      "countries": [
+        "中国香港"
+      ],
+      "languages": [
+        "粤语",
+        "客家话"
+      ],
+      "aka": [
+        "Papa"
+      ],
+      "imdb_id": "tt19896510",
+      "poster_path": "posters/douban/movie_cn/36315000.jpg",
+      "douban_rating": "7.5",
+      "douban_link_google": "https://movie.douban.com/subject/36315000/",
+      "douban_link_verified": true,
+      "overview": "失去了家人的阮永年（刘青云 饰）如常回到茶餐厅开店，让自己感觉一切依旧，他生活在回忆的日常里⋯⋯发妻金燕（谷祖琳 饰）准备早餐的厨房，儿子厚明（苏文涛 饰）玩网络游戏的电脑桌，女儿厚恩（熊诺颐 饰）收养的三色猫“三花”，还有一家人共进晚餐的快乐谷茶餐厅，仿佛那一夜从未将一切吞噬。血缘的摰亲夺走了生命的挚爱，永年既无法憎恨生者，更无法忘记逝者，唯有回忆与幻想相濡以沫，让永年在迷茫的生活中找到一些真实感，纵与儿子一窗之隔，永年比以往更努力活得像一个“爸爸”。 父与子，这段窒息的关系会否迎来长夜尽头，成为彼此活着的救赎？\n影片改编自2010香港荃湾享和街弑亲案。",
+      "durations": [
+        "131分钟",
+        "130分钟(中国大陆)"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": 3190,
+      "rating_star_count": 4,
+      "type": "movie",
+      "tmdb_id": 972232,
+      "tmdbUrl": "https://www.themoviedb.org/movie/972232",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-06-24T16:08:50.048Z",
+        "rank": 36,
+        "maoyan_movie_id": 1536765,
+        "movie_name": "爸爸",
+        "release_info": "点映",
+        "real_time_box_office": "0.11万",
+        "cumulative_box_office": "44.9万",
+        "split_cumulative_box_office": "41.4万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 122,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "0.2%",
+        "avg_show_view": "0.3"
+      }
+    },
+    {
+      "id": 36937765,
+      "title": "一个部门的诞生",
+      "original_title": "一個部門的誕生",
+      "release_date": "2026-06-27",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "喜剧"
+        },
+        {
+          "id": 3,
+          "name": "犯罪"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "麦天枢"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "白只"
+        },
+        {
+          "id": 2,
+          "name": "麦沛东"
+        },
+        {
+          "id": 3,
+          "name": "梁雍婷"
+        },
+        {
+          "id": 4,
+          "name": "戴玉麒"
+        },
+        {
+          "id": 5,
+          "name": "廖子妤"
+        },
+        {
+          "id": 6,
+          "name": "谢君豪"
+        },
+        {
+          "id": 7,
+          "name": "鲍起静"
+        },
+        {
+          "id": 8,
+          "name": "谢咏欣"
+        },
+        {
+          "id": 9,
+          "name": "伍咏诗"
+        },
+        {
+          "id": 10,
+          "name": "邓月平"
+        },
+        {
+          "id": 11,
+          "name": "卢宛茵"
+        },
+        {
+          "id": 12,
+          "name": "彭栢然"
+        },
+        {
+          "id": 13,
+          "name": "黄智伟"
+        },
+        {
+          "id": 14,
+          "name": "苏宸褕"
+        },
+        {
+          "id": 15,
+          "name": "徐浩昌"
+        },
+        {
+          "id": 16,
+          "name": "徐伟栋"
+        },
+        {
+          "id": 17,
+          "name": "朱柏谦"
+        },
+        {
+          "id": 18,
+          "name": "毛曄穎"
+        },
+        {
+          "id": 19,
+          "name": "杨伟伦"
+        },
+        {
+          "id": 20,
+          "name": "张达伦"
+        }
+      ],
+      "countries": [
+        "中国香港",
+        "中国大陆"
+      ],
+      "languages": [
+        "粤语",
+        "汉语普通话"
+      ],
+      "aka": [
+        "Dog Day Evening"
+      ],
+      "imdb_id": "tt35111865",
+      "poster_path": "posters/douban/movie_cn/36937765.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/36937765/",
+      "douban_link_verified": true,
+      "overview": "青年德仔（戴玉麒 饰）因电视台会员套餐问题多次拨打客服电话却始终无法退订，前往营业厅线下办理退订业务时遇到重重阻碍，阴差阳错之下变成“持枪劫匪”。客服人员（白只 饰）、执勤警员（麦沛东 饰）连同电视台吉祥物（廖子妤 饰）、来访用户等人尽数被挟持，开心电视台客户服务大厅内闹剧不断。小小的退费纠纷迅速发酵成全城关注的荒诞劫案，就连警方介入帮忙后，也难逃工作人员层层推诿扯皮、热线电话等候永无止境的无解局面，这场离谱的退订风波最终将如何收场？",
+      "durations": [
+        "109分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1396674,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1396674",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-06-24T16:08:50.048Z",
+        "rank": 16,
+        "maoyan_movie_id": 1528390,
+        "movie_name": "一个部门的诞生",
+        "release_info": "点映",
+        "real_time_box_office": "2.11万",
+        "cumulative_box_office": "27.3万",
+        "split_cumulative_box_office": "24.1万",
+        "box_office_rate": "0.5%",
+        "split_box_office_rate": "0.5%",
+        "show_count": 444,
+        "show_count_rate": "0.1%",
+        "seat_occupancy": "1.1%",
+        "avg_show_view": "1.2"
+      },
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "会员乱扣费，退订遇阻怒变劫匪！港式荒诞喜剧《一个部门的诞生》内地定档预告",
+          "bvid": "BV1UxER6UEYM",
+          "url": "https://www.bilibili.com/video/BV1UxER6UEYM",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UxER6UEYM&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/0b78c0a96c7b945d40c7a97c0f940c36d243b658.jpg",
+          "publishedAt": "2026-06-10T14:27:46.000Z"
+        }
+      ]
     }
   ]
 }
