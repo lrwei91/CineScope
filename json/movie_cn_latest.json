@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "last_updated": "2026-06-30T13:16:05.613Z",
+    "last_updated": "2026-06-30T16:18:01.548Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-06-30T13:16:05.613Z",
+        "time": "2026-06-30T16:18:01.548Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+maoyan+bilibili",
+    "source": "douban+tmdb+maoyan+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 44,
+        "count": 19,
         "fetch_error": null
       },
       {
@@ -29,16 +29,22 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 268,
+        "fetch_error": null
+      },
+      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 77,
+        "count": 76,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 137,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "请求过于频繁，请稍后再试"
       }
     ],
     "total_items": 24
@@ -190,7 +196,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1502135,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1502135"
     },
     {
       "id": 37659649,
@@ -245,24 +253,7 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-06-29T16:49:07.438Z",
-        "rank": 22,
-        "maoyan_movie_id": 1616851,
-        "movie_name": "手捧繁星",
-        "release_info": null,
-        "real_time_box_office": "1.27万",
-        "cumulative_box_office": "1.2万",
-        "split_cumulative_box_office": "1.2万",
-        "box_office_rate": "0.2%",
-        "split_box_office_rate": "0.2%",
-        "show_count": 3,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "100.0%",
-        "avg_show_view": "146.0"
-      }
+      "type": "movie"
     },
     {
       "id": 36994226,
@@ -432,7 +423,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1609560,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1609560"
     },
     {
       "id": 35390242,
@@ -514,7 +507,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1716541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1716541"
     },
     {
       "id": 36808876,
@@ -647,7 +642,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt33764258",
       "poster_path": "posters/douban/movie_cn/36808876.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36808876/",
@@ -665,6 +660,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1368337,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1368337",
       "trailers": [
         {
           "source": "bilibili",
@@ -820,7 +817,7 @@
         "Flowervale Street‎",
         "Flowervale St"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27165187",
       "poster_path": "posters/douban/movie_cn/36318703.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36318703/",
@@ -838,6 +835,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1101383,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1101383",
       "trailers": [
         {
           "source": "bilibili",
@@ -944,6 +943,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1630030,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1630030",
       "trailers": [
         {
           "source": "bilibili",
@@ -1060,7 +1061,7 @@
         "汪汪队立大功大电影3",
         "Paw Patrol 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29356163",
       "poster_path": "posters/douban/movie_cn/36791178.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36791178/",
@@ -1077,7 +1078,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1185806,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1185806"
     },
     {
       "id": 36850814,
@@ -1168,7 +1171,7 @@
         "年会不能停2",
         "Make Zhonghe Great Again"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38035813",
       "poster_path": "posters/douban/movie_cn/36850814.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36850814/",
@@ -1184,6 +1187,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1541125,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1541125",
       "trailers": [
         {
           "source": "bilibili",
@@ -1264,7 +1269,7 @@
       "aka": [
         "The Decisive Moment"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32634286",
       "poster_path": "posters/douban/movie_cn/35875462.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35875462/",
@@ -1282,6 +1287,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1305665,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1305665",
       "trailers": [
         {
           "source": "bilibili",
@@ -1392,7 +1399,7 @@
         "蜘蛛侠4",
         "Spider-Man 4"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt22084616",
       "poster_path": "posters/douban/movie_cn/36246195.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36246195/",
@@ -1410,6 +1417,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 969681,
+      "tmdbUrl": "https://www.themoviedb.org/movie/969681",
       "trailers": [
         {
           "source": "bilibili",
@@ -1586,7 +1595,7 @@
         "Peng Hu",
         "The Belief"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35267312",
       "poster_path": "posters/douban/movie_cn/35558234.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35558234/",
@@ -1604,6 +1613,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1298718,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1298718",
       "trailers": [
         {
           "source": "bilibili",
@@ -1681,7 +1692,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1713529,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1713529"
     },
     {
       "id": 36882191,
@@ -1792,6 +1805,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1633056,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1633056",
       "trailers": [
         {
           "source": "bilibili",
@@ -1965,22 +1980,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1671541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-06-29T16:49:07.438Z",
-        "rank": 12,
+        "updated_at": "2026-06-30T16:15:37.453Z",
+        "rank": 10,
         "maoyan_movie_id": 1519937,
         "movie_name": "三国第一部：争洛阳",
         "release_info": "点映",
-        "real_time_box_office": "5.47万",
-        "cumulative_box_office": "146.5万",
-        "split_cumulative_box_office": "131.0万",
+        "real_time_box_office": "6.89万",
+        "cumulative_box_office": "178.1万",
+        "split_cumulative_box_office": "159.4万",
         "box_office_rate": "0.9%",
         "split_box_office_rate": "0.9%",
-        "show_count": 2097,
+        "show_count": 2152,
         "show_count_rate": "0.5%",
-        "seat_occupancy": "0.5%",
-        "avg_show_view": "0.7"
+        "seat_occupancy": "0.6%",
+        "avg_show_view": "0.8"
       },
       "trailers": [
         {
@@ -2069,7 +2086,7 @@
         "海洋奇缘(台)",
         "魔海奇缘(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27419466",
       "poster_path": "posters/douban/movie_cn/36343469.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36343469/",
@@ -2087,6 +2104,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1108427,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1108427",
       "trailers": [
         {
           "source": "bilibili",
@@ -2317,22 +2336,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1353926,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1353926",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-06-29T16:49:07.438Z",
-        "rank": 49,
+        "updated_at": "2026-06-30T16:15:37.453Z",
+        "rank": 48,
         "maoyan_movie_id": 1531115,
         "movie_name": "特立独行",
         "release_info": "点映",
-        "real_time_box_office": "0.05万",
+        "real_time_box_office": "0.08万",
         "cumulative_box_office": "278.3万",
-        "split_cumulative_box_office": "248.7万",
+        "split_cumulative_box_office": "248.6万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 12,
+        "show_count": 3,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.2%",
-        "avg_show_view": "1.6"
+        "seat_occupancy": "14.0%",
+        "avg_show_view": "10.0"
       },
       "trailers": [
         {
@@ -2391,67 +2412,46 @@
         },
         {
           "id": 2,
-          "name": "特雷·帕克"
-        },
-        {
-          "id": 3,
           "name": "克里斯托弗·瓦尔兹"
         },
         {
-          "id": 4,
-          "name": "杰西·艾森伯格"
-        },
-        {
-          "id": 5,
-          "name": "佐伊·达奇"
-        },
-        {
-          "id": 6,
+          "id": 3,
           "name": "杰夫·布里吉斯"
         },
         {
-          "id": 7,
-          "name": "乔治·卢卡斯"
-        },
-        {
-          "id": 8,
+          "id": 4,
           "name": "艾莉森·珍妮"
         },
         {
-          "id": 9,
+          "id": 5,
+          "name": "杰西·艾森伯格"
+        },
+        {
+          "id": 6,
+          "name": "佐伊·达奇"
+        },
+        {
+          "id": 7,
           "name": "鲍比·莫尼汉"
         },
         {
-          "id": 10,
+          "id": 8,
           "name": "菲尔·拉马"
         },
         {
-          "id": 11,
-          "name": "卡洛斯·阿拉斯拉奇"
+          "id": 9,
+          "name": "乔治·卢卡斯"
         },
         {
-          "id": 12,
-          "name": "芭芭拉·伊芙·哈里斯"
-        },
-        {
-          "id": 13,
-          "name": "艾瑞克·鲍扎"
-        },
-        {
-          "id": 14,
-          "name": "亚伦·亨德利"
-        },
-        {
-          "id": 15,
-          "name": "卡姆登·布鲁克斯"
+          "id": 10,
+          "name": "特雷·帕克"
         }
       ],
       "countries": [
         "美国"
       ],
       "languages": [
-        "英语",
-        "德语"
+        "英语"
       ],
       "aka": [
         "小黄人大眼萌3",
@@ -2461,12 +2461,12 @@
         "Mega Minions",
         "Minions 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32890033",
       "poster_path": "posters/douban/movie_cn/36962219.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36962219/",
       "douban_link_verified": true,
-      "overview": "为了拍摄心中理想的怪兽电影，小黄人（皮埃尔·柯芬 Pierre Coffin 配音）这群萌趣活宝四处物色演员，竟然真的集齐了各式怪兽，上演疯狂大乱斗！",
+      "overview": "为了拍摄心中理想的怪兽电影，这群萌趣活宝四处物色演员，竟然真的集齐了各式怪兽，上演疯狂大乱斗！",
       "durations": [
         "90分钟"
       ],
@@ -2479,6 +2479,25 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1315772,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1315772",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-06-30T16:15:37.453Z",
+        "rank": 14,
+        "maoyan_movie_id": 1528803,
+        "movie_name": "小黄人与大怪兽",
+        "release_info": "点映",
+        "real_time_box_office": "2.91万",
+        "cumulative_box_office": "2.9万",
+        "split_cumulative_box_office": "2.9万",
+        "box_office_rate": "0.3%",
+        "split_box_office_rate": "0.4%",
+        "show_count": 3,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "99.8%",
+        "avg_show_view": "167.0"
+      },
       "trailers": [
         {
           "source": "bilibili",
@@ -2749,22 +2768,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1572830,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1572830",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-06-29T16:49:07.438Z",
-        "rank": 26,
+        "updated_at": "2026-06-30T16:15:37.453Z",
+        "rank": 44,
         "maoyan_movie_id": 1509397,
         "movie_name": "不成功穿越指南",
-        "release_info": "点映",
-        "real_time_box_office": "0.87万",
-        "cumulative_box_office": "17.4万",
-        "split_cumulative_box_office": "16.6万",
-        "box_office_rate": "0.1%",
-        "split_box_office_rate": "0.1%",
-        "show_count": 69,
+        "release_info": "零点场",
+        "real_time_box_office": "0.12万",
+        "cumulative_box_office": "17.7万",
+        "split_cumulative_box_office": "16.9万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 64,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "3.4%",
-        "avg_show_view": "2.7"
+        "seat_occupancy": "0.6%",
+        "avg_show_view": "0.6"
       }
     }
   ]
