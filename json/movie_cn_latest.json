@@ -1,25 +1,25 @@
 {
   "metadata": {
-    "last_updated": "2026-07-02T12:03:44.769Z",
+    "last_updated": "2026-07-02T16:02:23.525Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-02T12:03:44.769Z",
+        "time": "2026-07-02T16:02:23.525Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+maoyan+bilibili",
+    "source": "douban+tmdb+maoyan+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 45,
+        "count": 72,
         "fetch_error": null
       },
       {
         "slug": "movie_soon",
         "source": "douban",
-        "count": 24,
+        "count": 22,
         "fetch_error": null
       },
       {
@@ -29,16 +29,22 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 269,
+        "fetch_error": null
+      },
+      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 71,
+        "count": 93,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 137,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
     "total_items": 24
@@ -190,7 +196,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1502135,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1502135"
     },
     {
       "id": 37659649,
@@ -273,15 +281,19 @@
         }
       ],
       "actors": [],
-      "countries": [],
-      "languages": [],
+      "countries": [
+        "China"
+      ],
+      "languages": [
+        "zh"
+      ],
       "aka": [],
       "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/35275131.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35275131/",
       "douban_link_verified": true,
-      "overview": "",
+      "overview": "　　面包店老板王结香被一只千纸鹤带到一座神奇的小岛上，与变成兔子的失忆前男友殷显一同闯关冒险，找回殷显过去的记忆。在最后一个小屋里，他们重新经历了从相遇到分手的全过程。王结香终于放下心结，与殷显好好告别。\r 　　影片改编自番大王的同名网络小说。",
       "durations": [],
       "release_windows": [
         {
@@ -291,7 +303,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1724637,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1724637"
     },
     {
       "id": 36994226,
@@ -461,7 +475,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1609560,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1609560"
     },
     {
       "id": 35390242,
@@ -543,7 +559,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1716541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1716541"
     },
     {
       "id": 36808876,
@@ -676,7 +694,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt33764258",
       "poster_path": "posters/douban/movie_cn/36808876.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36808876/",
@@ -694,6 +712,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1368337,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1368337",
       "trailers": [
         {
           "source": "bilibili",
@@ -849,7 +869,7 @@
         "Flowervale Street‎",
         "Flowervale St"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27165187",
       "poster_path": "posters/douban/movie_cn/36318703.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36318703/",
@@ -867,6 +887,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1101383,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1101383",
       "trailers": [
         {
           "source": "bilibili",
@@ -973,6 +995,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1630030,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1630030",
       "trailers": [
         {
           "source": "bilibili",
@@ -1089,7 +1113,7 @@
         "汪汪队立大功大电影3",
         "Paw Patrol 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29356163",
       "poster_path": "posters/douban/movie_cn/36791178.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36791178/",
@@ -1106,7 +1130,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1185806,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1185806"
     },
     {
       "id": 36850814,
@@ -1197,7 +1223,7 @@
         "年会不能停2",
         "Make Zhonghe Great Again"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38035813",
       "poster_path": "posters/douban/movie_cn/36850814.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36850814/",
@@ -1213,6 +1239,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1541125,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1541125",
       "trailers": [
         {
           "source": "bilibili",
@@ -1293,7 +1321,7 @@
       "aka": [
         "The Decisive Moment"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32634286",
       "poster_path": "posters/douban/movie_cn/35875462.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35875462/",
@@ -1311,6 +1339,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1305665,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1305665",
       "trailers": [
         {
           "source": "bilibili",
@@ -1421,7 +1451,7 @@
         "蜘蛛侠4",
         "Spider-Man 4"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt22084616",
       "poster_path": "posters/douban/movie_cn/36246195.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36246195/",
@@ -1439,6 +1469,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 969681,
+      "tmdbUrl": "https://www.themoviedb.org/movie/969681",
       "trailers": [
         {
           "source": "bilibili",
@@ -1615,7 +1647,7 @@
         "Peng Hu",
         "The Belief"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35267312",
       "poster_path": "posters/douban/movie_cn/35558234.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35558234/",
@@ -1633,6 +1665,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1298718,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1298718",
       "trailers": [
         {
           "source": "bilibili",
@@ -1754,6 +1788,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1633056,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1633056",
       "trailers": [
         {
           "source": "bilibili",
@@ -1831,7 +1867,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1713529,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1713529"
     },
     {
       "id": 26588017,
@@ -2108,22 +2146,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1671541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-01T16:15:42.306Z",
-        "rank": 11,
+        "updated_at": "2026-07-02T15:59:42.727Z",
+        "rank": 10,
         "maoyan_movie_id": 1519937,
         "movie_name": "三国第一部：争洛阳",
         "release_info": "点映",
-        "real_time_box_office": "8.31万",
-        "cumulative_box_office": "213.1万",
-        "split_cumulative_box_office": "190.8万",
-        "box_office_rate": "1.3%",
-        "split_box_office_rate": "1.3%",
-        "show_count": 2173,
+        "real_time_box_office": "33.88万",
+        "cumulative_box_office": "238.7万",
+        "split_cumulative_box_office": "213.7万",
+        "box_office_rate": "0.8%",
+        "split_box_office_rate": "0.8%",
+        "show_count": 2144,
         "show_count_rate": "0.5%",
-        "seat_occupancy": "0.8%",
-        "avg_show_view": "1.0"
+        "seat_occupancy": "3.4%",
+        "avg_show_view": "4.1"
       },
       "trailers": [
         {
@@ -2212,7 +2252,7 @@
         "海洋奇缘(台)",
         "魔海奇缘(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27419466",
       "poster_path": "posters/douban/movie_cn/36343469.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36343469/",
@@ -2230,6 +2270,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1108427,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1108427",
       "trailers": [
         {
           "source": "bilibili",
