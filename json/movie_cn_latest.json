@@ -1,25 +1,25 @@
 {
   "metadata": {
-    "last_updated": "2026-07-03T12:03:34.174Z",
+    "last_updated": "2026-07-03T15:50:47.513Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-03T12:03:34.174Z",
+        "time": "2026-07-03T15:50:47.513Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+maoyan+bilibili",
+    "source": "douban+tmdb+maoyan+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 48,
+        "count": 74,
         "fetch_error": null
       },
       {
         "slug": "movie_soon",
         "source": "douban",
-        "count": 22,
+        "count": 23,
         "fetch_error": null
       },
       {
@@ -29,16 +29,22 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 270,
+        "fetch_error": null
+      },
+      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 93,
+        "count": 91,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 137,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "请求过于频繁，请稍后再试"
       }
     ],
     "total_items": 24
@@ -190,7 +196,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1502135,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1502135"
     },
     {
       "id": 37659649,
@@ -274,10 +282,10 @@
       ],
       "actors": [],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "To Your Island"
@@ -287,7 +295,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35275131/",
       "douban_link_verified": true,
-      "overview": "改编自番大王的同名网络小说。\n王结香在一只神秘千纸鹤的牵引下，孤身来到了一座由记忆构筑的奇幻小岛，在岛上她遇到了失忆的前男友殷显变成的兔子。他们并肩推开一间间尘封的屋门，直面层层积压的旧日伤痕，一点点捡拾早已破碎消散的回忆。",
+      "overview": "　　面包店老板王结香被一只千纸鹤带到一座神奇的小岛上，与变成兔子的失忆前男友殷显一同闯关冒险，找回殷显过去的记忆。在最后一个小屋里，他们重新经历了从相遇到分手的全过程。王结香终于放下心结，与殷显好好告别。\r 　　影片改编自番大王的同名网络小说。",
       "durations": [],
       "release_windows": [
         {
@@ -297,7 +305,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1724637,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1724637"
     },
     {
       "id": 36994226,
@@ -467,7 +477,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1609560,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1609560"
     },
     {
       "id": 35390242,
@@ -549,7 +561,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1716541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1716541"
     },
     {
       "id": 36808876,
@@ -682,7 +696,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt33764258",
       "poster_path": "posters/douban/movie_cn/36808876.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36808876/",
@@ -700,6 +714,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1368337,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1368337",
       "trailers": [
         {
           "source": "bilibili",
@@ -855,7 +871,7 @@
         "Flowervale Street‎",
         "Flowervale St"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27165187",
       "poster_path": "posters/douban/movie_cn/36318703.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36318703/",
@@ -873,6 +889,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1101383,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1101383",
       "trailers": [
         {
           "source": "bilibili",
@@ -979,6 +997,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1630030,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1630030",
       "trailers": [
         {
           "source": "bilibili",
@@ -1095,7 +1115,7 @@
         "汪汪队立大功大电影3",
         "Paw Patrol 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29356163",
       "poster_path": "posters/douban/movie_cn/36791178.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36791178/",
@@ -1112,7 +1132,128 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1185806,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1185806"
+    },
+    {
+      "id": 36850814,
+      "title": "年会不能停2！",
+      "original_title": "年会不能停2！",
+      "release_date": "2026-08-07",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "董润年"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "张若昀"
+        },
+        {
+          "id": 2,
+          "name": "白客"
+        },
+        {
+          "id": 3,
+          "name": "高叶"
+        },
+        {
+          "id": 4,
+          "name": "大鹏"
+        },
+        {
+          "id": 5,
+          "name": "庄达菲"
+        },
+        {
+          "id": 6,
+          "name": "孙艺洲"
+        },
+        {
+          "id": 7,
+          "name": "田雨"
+        },
+        {
+          "id": 8,
+          "name": "王耀庆"
+        },
+        {
+          "id": 9,
+          "name": "李乃文"
+        },
+        {
+          "id": 10,
+          "name": "李晨"
+        },
+        {
+          "id": 11,
+          "name": "欧阳奋强"
+        },
+        {
+          "id": 12,
+          "name": "童漠男"
+        },
+        {
+          "id": 13,
+          "name": "滕哲"
+        },
+        {
+          "id": 14,
+          "name": "闫佩伦"
+        },
+        {
+          "id": 15,
+          "name": "钟汉良"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "年会不能停2",
+        "Make Zhonghe Great Again"
+      ],
+      "imdb_id": "tt38035813",
+      "poster_path": "posters/douban/movie_cn/36850814.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/36850814/",
+      "douban_link_verified": true,
+      "overview": "当刘奔（张若昀 饰）遇上天降搭子马杰（白客 饰），这对天选“牛马”披荆斩棘，一套组合拳，能否打通升职加薪底层逻辑？玩转当下职场规则？",
+      "durations": [],
+      "release_windows": [
+        {
+          "id": "summer",
+          "label": "暑期档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1541125,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1541125",
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "2026喜剧《年会不能停2》首曝预告！张若昀白客\"牛马组合\"！定档08.07",
+          "bvid": "BV1kcGQ62Erv",
+          "url": "https://www.bilibili.com/video/BV1kcGQ62Erv",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1kcGQ62Erv&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/a7576feb49ef01e00835ae2908b5074e78b2b5da.jpg",
+          "publishedAt": "2026-05-28T03:36:53.000Z"
+        }
+      ]
     },
     {
       "id": 10756537,
@@ -1252,123 +1393,6 @@
       "type": "movie"
     },
     {
-      "id": 36850814,
-      "title": "年会不能停2！",
-      "original_title": "年会不能停2！",
-      "release_date": "2026-08-07",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "董润年"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "张若昀"
-        },
-        {
-          "id": 2,
-          "name": "白客"
-        },
-        {
-          "id": 3,
-          "name": "高叶"
-        },
-        {
-          "id": 4,
-          "name": "大鹏"
-        },
-        {
-          "id": 5,
-          "name": "庄达菲"
-        },
-        {
-          "id": 6,
-          "name": "孙艺洲"
-        },
-        {
-          "id": 7,
-          "name": "田雨"
-        },
-        {
-          "id": 8,
-          "name": "王耀庆"
-        },
-        {
-          "id": 9,
-          "name": "李乃文"
-        },
-        {
-          "id": 10,
-          "name": "李晨"
-        },
-        {
-          "id": 11,
-          "name": "欧阳奋强"
-        },
-        {
-          "id": 12,
-          "name": "童漠男"
-        },
-        {
-          "id": 13,
-          "name": "滕哲"
-        },
-        {
-          "id": 14,
-          "name": "闫佩伦"
-        },
-        {
-          "id": 15,
-          "name": "钟汉良"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "年会不能停2",
-        "Make Zhonghe Great Again"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36850814.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/36850814/",
-      "douban_link_verified": true,
-      "overview": "当刘奔（张若昀 饰）遇上天降搭子马杰（白客 饰），这对天选“牛马”披荆斩棘，一套组合拳，能否打通升职加薪底层逻辑？玩转当下职场规则？",
-      "durations": [],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "2026喜剧《年会不能停2》首曝预告！张若昀白客\"牛马组合\"！定档08.07",
-          "bvid": "BV1kcGQ62Erv",
-          "url": "https://www.bilibili.com/video/BV1kcGQ62Erv",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1kcGQ62Erv&page=1&qn=64&high_quality=1",
-          "cover": "http://i2.hdslb.com/bfs/archive/a7576feb49ef01e00835ae2908b5074e78b2b5da.jpg",
-          "publishedAt": "2026-05-28T03:36:53.000Z"
-        }
-      ]
-    },
-    {
       "id": 35875462,
       "title": "群星闪耀时",
       "original_title": "群星闪耀时",
@@ -1436,7 +1460,7 @@
       "aka": [
         "The Decisive Moment"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32634286",
       "poster_path": "posters/douban/movie_cn/35875462.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35875462/",
@@ -1454,6 +1478,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1305665,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1305665",
       "trailers": [
         {
           "source": "bilibili",
@@ -1564,7 +1590,7 @@
         "蜘蛛侠4",
         "Spider-Man 4"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt22084616",
       "poster_path": "posters/douban/movie_cn/36246195.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36246195/",
@@ -1582,6 +1608,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 969681,
+      "tmdbUrl": "https://www.themoviedb.org/movie/969681",
       "trailers": [
         {
           "source": "bilibili",
@@ -1758,7 +1786,7 @@
         "Peng Hu",
         "The Belief"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35267312",
       "poster_path": "posters/douban/movie_cn/35558234.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35558234/",
@@ -1776,6 +1804,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1298718,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1298718",
       "trailers": [
         {
           "source": "bilibili",
@@ -1897,6 +1927,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1633056,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1633056",
       "trailers": [
         {
           "source": "bilibili",
@@ -1974,7 +2006,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1713529,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1713529"
     },
     {
       "id": 26588017,
@@ -2069,7 +2103,7 @@
         "英国国家剧院现场：哈姆雷特",
         "Hamlet"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt7798632",
       "poster_path": "posters/douban/movie_cn/26588017.jpg",
       "douban_rating": "8.3",
       "douban_link_google": "https://movie.douban.com/subject/26588017/",
@@ -2084,9 +2118,11 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 9216,
+      "rating_count": 9209,
       "rating_star_count": 4,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 843342,
+      "tmdbUrl": "https://www.themoviedb.org/movie/843342"
     },
     {
       "id": 37435260,
@@ -2162,6 +2198,65 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie"
+    },
+    {
+      "id": 38541236,
+      "title": "全城追缉",
+      "original_title": "全城追缉",
+      "release_date": "2026-07-11",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "犯罪"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "崔景宣"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "凌潇肃"
+        },
+        {
+          "id": 2,
+          "name": "余男"
+        },
+        {
+          "id": 3,
+          "name": "郭晓东"
+        }
+      ],
+      "countries": [],
+      "languages": [
+        "zh"
+      ],
+      "aka": [],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/38541236.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/38541236/",
+      "douban_link_verified": true,
+      "overview": "",
+      "durations": [],
+      "release_windows": [
+        {
+          "id": "summer",
+          "label": "暑期档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1725228,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1725228"
     },
     {
       "id": 36752981,
@@ -2249,22 +2344,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1671541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-02T15:59:42.727Z",
-        "rank": 10,
+        "updated_at": "2026-07-03T15:48:06.876Z",
+        "rank": 11,
         "maoyan_movie_id": 1519937,
         "movie_name": "三国第一部：争洛阳",
         "release_info": "点映",
-        "real_time_box_office": "33.88万",
-        "cumulative_box_office": "238.7万",
-        "split_cumulative_box_office": "213.7万",
-        "box_office_rate": "0.8%",
-        "split_box_office_rate": "0.8%",
-        "show_count": 2144,
-        "show_count_rate": "0.5%",
-        "seat_occupancy": "3.4%",
-        "avg_show_view": "4.1"
+        "real_time_box_office": "32.72万",
+        "cumulative_box_office": "271.4万",
+        "split_cumulative_box_office": "243.1万",
+        "box_office_rate": "0.3%",
+        "split_box_office_rate": "0.3%",
+        "show_count": 1484,
+        "show_count_rate": "0.3%",
+        "seat_occupancy": "5.0%",
+        "avg_show_view": "5.5"
       },
       "trailers": [
         {
@@ -2353,7 +2450,7 @@
         "海洋奇缘(台)",
         "魔海奇缘(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27419466",
       "poster_path": "posters/douban/movie_cn/36343469.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36343469/",
@@ -2371,6 +2468,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1108427,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1108427",
       "trailers": [
         {
           "source": "bilibili",
@@ -2443,159 +2542,6 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1sLXMBfEqZ&page=1&qn=64&high_quality=1",
           "cover": "http://i1.hdslb.com/bfs/archive/dec04892e371c34a6cb62d148fadb0a4444e197c.jpg",
           "publishedAt": "2026-03-27T14:46:12.000Z"
-        }
-      ]
-    },
-    {
-      "id": 36962219,
-      "title": "小黄人与大怪兽",
-      "original_title": "Minions & Monsters",
-      "release_date": "2026-07-03",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        },
-        {
-          "id": 2,
-          "name": "科幻"
-        },
-        {
-          "id": 3,
-          "name": "动画"
-        },
-        {
-          "id": 4,
-          "name": "冒险"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "皮埃尔·柯芬"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "皮埃尔·柯芬"
-        },
-        {
-          "id": 2,
-          "name": "特雷·帕克"
-        },
-        {
-          "id": 3,
-          "name": "克里斯托弗·瓦尔兹"
-        },
-        {
-          "id": 4,
-          "name": "杰西·艾森伯格"
-        },
-        {
-          "id": 5,
-          "name": "佐伊·达奇"
-        },
-        {
-          "id": 6,
-          "name": "杰夫·布里吉斯"
-        },
-        {
-          "id": 7,
-          "name": "乔治·卢卡斯"
-        },
-        {
-          "id": 8,
-          "name": "艾莉森·珍妮"
-        },
-        {
-          "id": 9,
-          "name": "鲍比·莫尼汉"
-        },
-        {
-          "id": 10,
-          "name": "菲尔·拉马"
-        },
-        {
-          "id": 11,
-          "name": "卡洛斯·阿拉斯拉奇"
-        },
-        {
-          "id": 12,
-          "name": "芭芭拉·伊芙·哈里斯"
-        },
-        {
-          "id": 13,
-          "name": "艾瑞克·鲍扎"
-        },
-        {
-          "id": 14,
-          "name": "亚伦·亨德利"
-        },
-        {
-          "id": 15,
-          "name": "卡姆登·布鲁克斯"
-        }
-      ],
-      "countries": [
-        "美国"
-      ],
-      "languages": [
-        "英语",
-        "德语"
-      ],
-      "aka": [
-        "小黄人大眼萌3",
-        "小黄人3",
-        "迷你兵团与大怪兽(港)",
-        "小小兵&大怪兽(台)",
-        "Mega Minions",
-        "Minions 3"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36962219.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/36962219/",
-      "douban_link_verified": true,
-      "overview": "为了拍摄心中理想的怪兽电影，小黄人（皮埃尔·柯芬 Pierre Coffin 配音）这群萌趣活宝四处物色演员，竟然真的集齐了各式怪兽，上演疯狂大乱斗！",
-      "durations": [
-        "90分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-02T15:59:42.727Z",
-        "rank": 30,
-        "maoyan_movie_id": 1528803,
-        "movie_name": "小黄人与大怪兽",
-        "release_info": "点映",
-        "real_time_box_office": "2.50万",
-        "cumulative_box_office": "5.6万",
-        "split_cumulative_box_office": "5.5万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 6,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "62.8%",
-        "avg_show_view": "89.8"
-      },
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "异世界大怪兽来了！暑期动画大片《小黄人3》全新预告，内地定档07.03",
-          "bvid": "BV1sadABWEbb",
-          "url": "https://www.bilibili.com/video/BV1sadABWEbb",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1sadABWEbb&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/82753c47b6f57aeed8035b5255fc371085277739.jpg",
-          "publishedAt": "2026-05-07T16:36:51.000Z"
         }
       ]
     }
