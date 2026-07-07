@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "last_updated": "2026-07-06T16:50:55.313Z",
+    "last_updated": "2026-07-07T16:20:23.405Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-06T16:50:55.313Z",
+        "time": "2026-07-07T16:20:23.405Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
@@ -13,7 +13,7 @@
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 18,
+        "count": 69,
         "fetch_error": null
       },
       {
@@ -31,20 +31,20 @@
       {
         "slug": "discover/movie",
         "source": "tmdb",
-        "count": 271,
+        "count": 272,
         "fetch_error": null
       },
       {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 66,
+        "count": 72,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
         "count": 0,
-        "fetch_error": "请求过于频繁，请稍后再试"
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
     "total_items": 24
@@ -1971,6 +1971,23 @@
       "type": "movie",
       "tmdb_id": 1633056,
       "tmdbUrl": "https://www.themoviedb.org/movie/1633056",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 11,
+        "maoyan_movie_id": 1525868,
+        "movie_name": "八仙！",
+        "release_info": "点映",
+        "real_time_box_office": "5.60万",
+        "cumulative_box_office": "5.6万",
+        "split_cumulative_box_office": "4.9万",
+        "box_office_rate": "0.8%",
+        "split_box_office_rate": "0.8%",
+        "show_count": 8,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "35.0%",
+        "avg_show_view": "119.3"
+      },
       "trailers": [
         {
           "source": "bilibili",
@@ -2688,17 +2705,17 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 7,
         "maoyan_movie_id": 1519937,
         "movie_name": "三国第一部：争洛阳",
         "release_info": "点映",
-        "real_time_box_office": "24.74万",
-        "cumulative_box_office": "854.4万",
-        "split_cumulative_box_office": "760.7万",
-        "box_office_rate": "4.0%",
-        "split_box_office_rate": "3.9%",
-        "show_count": 6899,
+        "real_time_box_office": "24.54万",
+        "cumulative_box_office": "964.4万",
+        "split_cumulative_box_office": "858.3万",
+        "box_office_rate": "3.7%",
+        "split_box_office_rate": "3.7%",
+        "show_count": 6937,
         "show_count_rate": "1.6%",
         "seat_occupancy": "0.8%",
         "avg_show_view": "1.0"

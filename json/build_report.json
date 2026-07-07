@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "started_at": "2026-07-06T16:47:40.844Z",
+    "started_at": "2026-07-07T16:17:56.501Z",
     "mode": "full",
     "category_ids": [
       "tv_cn",
@@ -26,21 +26,21 @@
         {
           "slug": "tv_domestic",
           "raw_count": 50,
-          "included_count": 43,
-          "normalized_count": 43
+          "included_count": 42,
+          "normalized_count": 42
         },
         {
           "slug": "tv_hot",
-          "raw_count": 282,
-          "included_count": 51,
-          "normalized_count": 51
+          "raw_count": 286,
+          "included_count": 50,
+          "normalized_count": 50
         }
       ],
       "counts": {
-        "douban_after_date_filter": 94,
-        "douban_after_signature_dedupe": 51,
+        "douban_after_date_filter": 92,
+        "douban_after_signature_dedupe": 50,
         "tmdb": 163,
-        "merged_candidates": 214,
+        "merged_candidates": 213,
         "merged_after_signature_dedupe": 202,
         "merged_after_name_year_dedupe": 202,
         "complete": 231,
@@ -141,12 +141,12 @@
       "counts": {
         "douban_after_date_filter": 40,
         "douban_after_signature_dedupe": 40,
-        "tmdb": 333,
-        "merged_candidates": 373,
-        "merged_after_signature_dedupe": 362,
-        "merged_after_name_year_dedupe": 362,
-        "complete": 379,
-        "latest": 5
+        "tmdb": 334,
+        "merged_candidates": 374,
+        "merged_after_signature_dedupe": 363,
+        "merged_after_name_year_dedupe": 363,
+        "complete": 381,
+        "latest": 6
       },
       "fallback_summary": {
         "total": 0,
@@ -154,24 +154,24 @@
         "sampleIds": []
       },
       "quality": {
-        "total_items": 379,
+        "total_items": 381,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 329,
-          "douban_link": 321,
+          "rating": 331,
+          "douban_link": 322,
           "overview": 1,
-          "directors": 322,
-          "actors": 322
+          "directors": 323,
+          "actors": 323
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.8681,
-          "douban_link": 0.847,
+          "rating": 0.8688,
+          "douban_link": 0.8451,
           "overview": 0.0026,
-          "directors": 0.8496,
-          "actors": 0.8496
+          "directors": 0.8478,
+          "actors": 0.8478
         }
       }
     },
@@ -184,9 +184,9 @@
       "source_collections": [
         {
           "slug": "movie_showing",
-          "raw_count": 18,
-          "included_count": 18,
-          "normalized_count": 18
+          "raw_count": 69,
+          "included_count": 69,
+          "normalized_count": 69
         },
         {
           "slug": "movie_soon",
@@ -202,38 +202,38 @@
         }
       ],
       "counts": {
-        "douban_after_date_filter": 242,
-        "douban_after_signature_dedupe": 235,
-        "tmdb": 271,
-        "merged_candidates": 416,
-        "merged_after_signature_dedupe": 365,
-        "merged_after_name_year_dedupe": 365,
-        "complete": 518,
+        "douban_after_date_filter": 265,
+        "douban_after_signature_dedupe": 252,
+        "tmdb": 272,
+        "merged_candidates": 434,
+        "merged_after_signature_dedupe": 379,
+        "merged_after_name_year_dedupe": 379,
+        "complete": 520,
         "latest": 24
       },
       "fallback_summary": {
-        "total": 120,
+        "total": 121,
         "byStatus": [
           [
             "400",
-            120
+            121
           ]
         ],
         "sampleIds": [
           "35275131",
-          "37249352",
           "37437456",
-          "37192135",
-          "37346299",
           "35474289",
+          "38449270",
+          "37192135",
+          "37249352",
+          "35974602",
           "36912404",
-          "34954059",
-          "36396335",
-          "38407729"
+          "37346299",
+          "34954059"
         ]
       },
       "quality": {
-        "total_items": 518,
+        "total_items": 520,
         "missing": {
           "date": 0,
           "poster": 0,
@@ -241,16 +241,16 @@
           "douban_link": 117,
           "overview": 1,
           "directors": 122,
-          "actors": 128
+          "actors": 127
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.3668,
-          "douban_link": 0.2259,
+          "rating": 0.3654,
+          "douban_link": 0.225,
           "overview": 0.0019,
-          "directors": 0.2355,
-          "actors": 0.2471
+          "directors": 0.2346,
+          "actors": 0.2442
         }
       }
     },
@@ -263,7 +263,7 @@
       "source_collections": [
         {
           "slug": "tv_variety_show",
-          "raw_count": 64,
+          "raw_count": 66,
           "included_count": 29,
           "normalized_count": 29
         }
@@ -360,18 +360,18 @@
   "douban_statuses": {
     "user_id": "lrwei91",
     "total_items": 257,
-    "last_updated": "2026-07-06T16:51:29.480Z"
+    "last_updated": "2026-07-07T16:20:53.566Z"
   },
   "douban_subject_cache": {
-    "hits": 193,
-    "misses": 36,
-    "stale": 239,
+    "hits": 310,
+    "misses": 32,
+    "stale": 175,
     "invalid": 0,
-    "writes": 97,
-    "errors": 178,
-    "staleFallbacks": 58,
-    "total_reads": 468,
-    "hit_rate": 0.4124,
+    "writes": 31,
+    "errors": 176,
+    "staleFallbacks": 55,
+    "total_reads": 517,
+    "hit_rate": 0.5996,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -386,29 +386,29 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-07-06T16:53:45.193Z",
+  "completed_at": "2026-07-07T16:22:55.763Z",
   "box_office": {
-    "last_updated": "2026-07-06T16:47:39.438Z",
+    "last_updated": "2026-07-07T16:17:55.720Z",
     "source": "maoyan",
     "source_url": "https://60s.viki.moe/v2/maoyan/realtime/movie",
     "status": "ok",
     "message": "获取成功。当前部署平台已迁移到 Cloudflare Workers，如有问题请及时反馈。开源地址 https://github.com/vikiboss/60s，反馈群 595941841。",
     "market": {
       "title": "实时大盘",
-      "show_count_desc": "41.6万",
-      "view_count_desc": "16.3万",
-      "box_office": "611.0",
+      "show_count_desc": "41.4万",
+      "view_count_desc": "17.3万",
+      "box_office": "647.6",
       "box_office_unit": "万",
-      "split_box_office": "611.0",
+      "split_box_office": "647.6",
       "split_box_office_unit": "万",
       "update_gap_second": 5,
-      "updated": "2026-07-06 16:47:39",
-      "updated_at": 1783356459438
+      "updated": "2026-07-07 16:17:55",
+      "updated_at": 1783441075720
     },
-    "total_items": 66
+    "total_items": 72
   },
   "douban_top250": {
     "total_items": 250,
-    "last_updated": "2026-07-06T16:53:45.189Z"
+    "last_updated": "2026-07-07T16:22:55.758Z"
   }
 }

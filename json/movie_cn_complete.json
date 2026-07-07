@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "last_updated": "2026-07-06T16:50:55.313Z",
+    "last_updated": "2026-07-07T16:20:23.405Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-06T16:50:55.313Z",
-        "summary": "已同步院线电影数据（complete）：518 条"
+        "time": "2026-07-07T16:20:23.405Z",
+        "summary": "已同步院线电影数据（complete）：520 条"
       }
     ],
     "source": "douban+tmdb+maoyan+bilibili",
@@ -13,7 +13,7 @@
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 18,
+        "count": 69,
         "fetch_error": null
       },
       {
@@ -31,23 +31,23 @@
       {
         "slug": "discover/movie",
         "source": "tmdb",
-        "count": 271,
+        "count": 272,
         "fetch_error": null
       },
       {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 66,
+        "count": 72,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
         "count": 0,
-        "fetch_error": "请求过于频繁，请稍后再试"
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
-    "total_items": 518
+    "total_items": 520
   },
   "movies": [
     {
@@ -1971,6 +1971,23 @@
       "type": "movie",
       "tmdb_id": 1633056,
       "tmdbUrl": "https://www.themoviedb.org/movie/1633056",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 11,
+        "maoyan_movie_id": 1525868,
+        "movie_name": "八仙！",
+        "release_info": "点映",
+        "real_time_box_office": "5.60万",
+        "cumulative_box_office": "5.6万",
+        "split_cumulative_box_office": "4.9万",
+        "box_office_rate": "0.8%",
+        "split_box_office_rate": "0.8%",
+        "show_count": 8,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "35.0%",
+        "avg_show_view": "119.3"
+      },
       "trailers": [
         {
           "source": "bilibili",
@@ -2688,17 +2705,17 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 7,
         "maoyan_movie_id": 1519937,
         "movie_name": "三国第一部：争洛阳",
         "release_info": "点映",
-        "real_time_box_office": "24.74万",
-        "cumulative_box_office": "854.4万",
-        "split_cumulative_box_office": "760.7万",
-        "box_office_rate": "4.0%",
-        "split_box_office_rate": "3.9%",
-        "show_count": 6899,
+        "real_time_box_office": "24.54万",
+        "cumulative_box_office": "964.4万",
+        "split_cumulative_box_office": "858.3万",
+        "box_office_rate": "3.7%",
+        "split_box_office_rate": "3.7%",
+        "show_count": 6937,
         "show_count_rate": "1.6%",
         "seat_occupancy": "0.8%",
         "avg_show_view": "1.0"
@@ -3026,7 +3043,7 @@
         "乌合之众‎",
         "Keep Real"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt43295610",
       "poster_path": "posters/douban/movie_cn/36953973.jpg",
       "douban_rating": "6.6",
       "douban_link_google": "https://movie.douban.com/subject/36953973/",
@@ -3048,18 +3065,18 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1353926",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 4,
         "maoyan_movie_id": 1531115,
         "movie_name": "特立独行",
-        "release_info": "上映5天",
-        "real_time_box_office": "71.34万",
-        "cumulative_box_office": "8413.2万",
-        "split_cumulative_box_office": "7475.1万",
-        "box_office_rate": "11.6%",
-        "split_box_office_rate": "11.7%",
-        "show_count": 81047,
-        "show_count_rate": "19.4%",
+        "release_info": "上映6天",
+        "real_time_box_office": "58.08万",
+        "cumulative_box_office": "9190.3万",
+        "split_cumulative_box_office": "8166.0万",
+        "box_office_rate": "8.9%",
+        "split_box_office_rate": "8.8%",
+        "show_count": 79538,
+        "show_count_rate": "19.1%",
         "seat_occupancy": "0.1%",
         "avg_show_view": "0.2"
       },
@@ -3221,18 +3238,18 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1315772",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 1,
         "maoyan_movie_id": 1528803,
         "movie_name": "小黄人与大怪兽",
-        "release_info": "上映5天",
-        "real_time_box_office": "167.44万",
-        "cumulative_box_office": "1.27亿",
-        "split_cumulative_box_office": "1.14亿",
-        "box_office_rate": "27.4%",
-        "split_box_office_rate": "27.2%",
-        "show_count": 106025,
-        "show_count_rate": "25.5%",
+        "release_info": "上映6天",
+        "real_time_box_office": "160.02万",
+        "cumulative_box_office": "1.40亿",
+        "split_cumulative_box_office": "1.26亿",
+        "box_office_rate": "24.7%",
+        "split_box_office_rate": "24.5%",
+        "show_count": 104891,
+        "show_count_rate": "25.3%",
         "seat_occupancy": "0.2%",
         "avg_show_view": "0.4"
       },
@@ -3519,20 +3536,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1572830",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 23,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 28,
         "maoyan_movie_id": 1509397,
         "movie_name": "不成功穿越指南",
-        "release_info": "上映6天",
-        "real_time_box_office": "0.59万",
-        "cumulative_box_office": "72.2万",
-        "split_cumulative_box_office": "66.3万",
+        "release_info": "上映7天",
+        "real_time_box_office": "0.37万",
+        "cumulative_box_office": "73.1万",
+        "split_cumulative_box_office": "67.1万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 513,
-        "show_count_rate": "0.1%",
-        "seat_occupancy": "0.3%",
-        "avg_show_view": "0.3"
+        "show_count": 285,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "0.4%",
+        "avg_show_view": "0.4"
       }
     },
     {
@@ -3738,18 +3755,18 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1257942",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 9,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 10,
         "maoyan_movie_id": 1522535,
         "movie_name": "魔方小姐",
-        "release_info": "上映8天",
-        "real_time_box_office": "5.84万",
-        "cumulative_box_office": "1460.0万",
-        "split_cumulative_box_office": "1203.6万",
+        "release_info": "上映9天",
+        "real_time_box_office": "6.33万",
+        "cumulative_box_office": "1500.0万",
+        "split_cumulative_box_office": "1236.8万",
         "box_office_rate": "0.9%",
-        "split_box_office_rate": "0.8%",
-        "show_count": 10919,
-        "show_count_rate": "2.6%",
+        "split_box_office_rate": "0.9%",
+        "show_count": 10501,
+        "show_count_rate": "2.5%",
         "seat_occupancy": "0.2%",
         "avg_show_view": "0.2"
       },
@@ -3983,140 +4000,24 @@
       "rating_star_count": null,
       "type": "movie",
       "tmdb_id": 1719063,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1719063"
-    },
-    {
-      "id": 37457160,
-      "title": "小气鬼",
-      "original_title": "小气鬼",
-      "release_date": "2026-06-27",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "钟伟"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "孟鹤堂"
-        },
-        {
-          "id": 2,
-          "name": "管乐"
-        },
-        {
-          "id": 3,
-          "name": "吴笛畅"
-        },
-        {
-          "id": 4,
-          "name": "柯达"
-        },
-        {
-          "id": 5,
-          "name": "谭维维"
-        },
-        {
-          "id": 6,
-          "name": "雷淞然"
-        },
-        {
-          "id": 7,
-          "name": "庞博"
-        },
-        {
-          "id": 8,
-          "name": "柯蓝"
-        },
-        {
-          "id": 9,
-          "name": "段博文"
-        },
-        {
-          "id": 10,
-          "name": "清一色"
-        },
-        {
-          "id": 11,
-          "name": "胡姗姗"
-        },
-        {
-          "id": 12,
-          "name": "刘诣文"
-        },
-        {
-          "id": 13,
-          "name": "刘陆"
-        },
-        {
-          "id": 14,
-          "name": "刘十六"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "The Thrifty Angel"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/37457160.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/37457160/",
-      "douban_link_verified": true,
-      "overview": "民乐团唢呐手高艺（孟鹤堂 饰），人见人嫌，是把“省一分是一分”刻进DNA里的小气鬼。他却因贪图三百块钱，受托临时照顾4岁男孩阿乌（吴笛畅 饰），不料男孩的母亲一去不返，打破了高艺原本平静的生活，两人被迫搭伙成为“半路父子”。\n与此同时，高艺对大提琴手温兰（管乐 饰）一见钟情。两人共同经历了一场惊心动魄的Livehouse炸裂演出之后，高艺向温兰展开了一系列抠搜绝伦的求爱攻势。经过一番啼笑皆非的喜笑离合，高艺前半生坚守的金钱原则和人生态度，似乎也在不经意间开始改变……",
-      "durations": [
-        "113分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1522776,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1522776",
+      "tmdbUrl": "https://www.themoviedb.org/movie/1719063",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 26,
-        "maoyan_movie_id": 1501226,
-        "movie_name": "小气鬼",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 45,
+        "maoyan_movie_id": 1552047,
+        "movie_name": "续范亭将军",
         "release_info": "上映11天",
-        "real_time_box_office": "0.33万",
-        "cumulative_box_office": "362.0万",
-        "split_cumulative_box_office": "320.2万",
+        "real_time_box_office": "0.06万",
+        "cumulative_box_office": "7.0万",
+        "split_cumulative_box_office": "7.0万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 890,
-        "show_count_rate": "0.2%",
-        "seat_occupancy": "0.1%",
-        "avg_show_view": "0.1"
-      },
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "孟鹤堂+管乐！2026喜剧片《小气鬼》定档预告，小气鬼vs精致抠",
-          "bvid": "BV1DbEm6YEHc",
-          "url": "https://www.bilibili.com/video/BV1DbEm6YEHc",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1DbEm6YEHc&page=1&qn=64&high_quality=1",
-          "cover": "http://i2.hdslb.com/bfs/archive/c1d0dfac72619e0af9814c22400eeb26b4b8f2d1.jpg",
-          "publishedAt": "2026-06-09T12:23:52.000Z"
-        }
-      ]
+        "show_count": 60,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "0.2%",
+        "avg_show_view": "0.3"
+      }
     },
     {
       "id": 36315000,
@@ -4227,7 +4128,7 @@
       "aka": [
         "Papa"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt19896510",
       "poster_path": "posters/douban/movie_cn/36315000.jpg",
       "douban_rating": "7.6",
       "douban_link_google": "https://movie.douban.com/subject/36315000/",
@@ -4243,25 +4144,27 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 5873,
+      "rating_count": 5422,
       "rating_star_count": 4,
       "type": "movie",
+      "tmdb_id": 972232,
+      "tmdbUrl": "https://www.themoviedb.org/movie/972232",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 34,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 36,
         "maoyan_movie_id": 1536765,
         "movie_name": "爸爸",
-        "release_info": "上映9天",
-        "real_time_box_office": "1.26万",
-        "cumulative_box_office": "94.6万",
-        "split_cumulative_box_office": "85.9万",
+        "release_info": "上映12天",
+        "real_time_box_office": "0.14万",
+        "cumulative_box_office": "96.3万",
+        "split_cumulative_box_office": "87.4万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 109,
+        "show_count": 149,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "4.5%",
-        "avg_show_view": "3.3"
+        "seat_occupancy": "0.3%",
+        "avg_show_view": "0.3"
       }
     },
     {
@@ -4404,20 +4307,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1396674",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 23,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 32,
         "maoyan_movie_id": 1528390,
         "movie_name": "一个部门的诞生",
-        "release_info": "上映9天",
-        "real_time_box_office": "6.09万",
-        "cumulative_box_office": "130.4万",
-        "split_cumulative_box_office": "114.9万",
+        "release_info": "上映12天",
+        "real_time_box_office": "0.21万",
+        "cumulative_box_office": "136.3万",
+        "split_cumulative_box_office": "120.3万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 404,
+        "show_count": 403,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "4.6%",
-        "avg_show_view": "4.3"
+        "seat_occupancy": "0.1%",
+        "avg_show_view": "0.2"
       },
       "trailers": [
         {
@@ -4428,6 +4331,139 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UxER6UEYM&page=1&qn=64&high_quality=1",
           "cover": "http://i2.hdslb.com/bfs/archive/0b78c0a96c7b945d40c7a97c0f940c36d243b658.jpg",
           "publishedAt": "2026-06-10T14:27:46.000Z"
+        }
+      ]
+    },
+    {
+      "id": 37457160,
+      "title": "小气鬼",
+      "original_title": "小气鬼",
+      "release_date": "2026-06-27",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "钟伟"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "孟鹤堂"
+        },
+        {
+          "id": 2,
+          "name": "管乐"
+        },
+        {
+          "id": 3,
+          "name": "吴笛畅"
+        },
+        {
+          "id": 4,
+          "name": "柯达"
+        },
+        {
+          "id": 5,
+          "name": "谭维维"
+        },
+        {
+          "id": 6,
+          "name": "雷淞然"
+        },
+        {
+          "id": 7,
+          "name": "庞博"
+        },
+        {
+          "id": 8,
+          "name": "柯蓝"
+        },
+        {
+          "id": 9,
+          "name": "段博文"
+        },
+        {
+          "id": 10,
+          "name": "清一色"
+        },
+        {
+          "id": 11,
+          "name": "胡姗姗"
+        },
+        {
+          "id": 12,
+          "name": "刘诣文"
+        },
+        {
+          "id": 13,
+          "name": "刘陆"
+        },
+        {
+          "id": 14,
+          "name": "刘十六"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "The Thrifty Angel"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/37457160.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/37457160/",
+      "douban_link_verified": true,
+      "overview": "民乐团唢呐手高艺（孟鹤堂 饰），人见人嫌，是把“省一分是一分”刻进DNA里的小气鬼。他却因贪图三百块钱，受托临时照顾4岁男孩阿乌（吴笛畅 饰），不料男孩的母亲一去不返，打破了高艺原本平静的生活，两人被迫搭伙成为“半路父子”。\n与此同时，高艺对大提琴手温兰（管乐 饰）一见钟情。两人共同经历了一场惊心动魄的Livehouse炸裂演出之后，高艺向温兰展开了一系列抠搜绝伦的求爱攻势。经过一番啼笑皆非的喜笑离合，高艺前半生坚守的金钱原则和人生态度，似乎也在不经意间开始改变……",
+      "durations": [
+        "113分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1522776,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1522776",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 25,
+        "maoyan_movie_id": 1501226,
+        "movie_name": "小气鬼",
+        "release_info": "上映12天",
+        "real_time_box_office": "0.46万",
+        "cumulative_box_office": "366.3万",
+        "split_cumulative_box_office": "324.1万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 846,
+        "show_count_rate": "0.2%",
+        "seat_occupancy": "0.1%",
+        "avg_show_view": "0.1"
+      },
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "孟鹤堂+管乐！2026喜剧片《小气鬼》定档预告，小气鬼vs精致抠",
+          "bvid": "BV1DbEm6YEHc",
+          "url": "https://www.bilibili.com/video/BV1DbEm6YEHc",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1DbEm6YEHc&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/c1d0dfac72619e0af9814c22400eeb26b4b8f2d1.jpg",
+          "publishedAt": "2026-06-09T12:23:52.000Z"
         }
       ]
     },
@@ -4537,20 +4573,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1698965",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 29,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 22,
         "maoyan_movie_id": 1589388,
         "movie_name": "我的爱人",
-        "release_info": "上映9天",
-        "real_time_box_office": "2.07万",
-        "cumulative_box_office": "96.5万",
-        "split_cumulative_box_office": "87.1万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 258,
+        "release_info": "上映12天",
+        "real_time_box_office": "0.74万",
+        "cumulative_box_office": "99.8万",
+        "split_cumulative_box_office": "90.2万",
+        "box_office_rate": "0.1%",
+        "split_box_office_rate": "0.1%",
+        "show_count": 192,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "2.7%",
-        "avg_show_view": "2.5"
+        "seat_occupancy": "1.4%",
+        "avg_show_view": "1.3"
       }
     },
     {
@@ -4631,20 +4667,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1715479",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 60,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 54,
         "maoyan_movie_id": 1655172,
         "movie_name": "幻影游船",
-        "release_info": "上映9天",
-        "real_time_box_office": "0.24万",
-        "cumulative_box_office": "34.7万",
+        "release_info": "上映12天",
+        "real_time_box_office": "0.03万",
+        "cumulative_box_office": "34.8万",
         "split_cumulative_box_office": "31.1万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 145,
+        "show_count": 86,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.5%",
-        "avg_show_view": "0.5"
+        "seat_occupancy": "0.1%",
+        "avg_show_view": "0.1"
       }
     },
     {
@@ -4826,18 +4862,18 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1083381",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 3,
         "maoyan_movie_id": 1591067,
         "movie_name": "后室",
-        "release_info": "上映12天",
-        "real_time_box_office": "98.83万",
-        "cumulative_box_office": "1.06亿",
-        "split_cumulative_box_office": "9419.9万",
+        "release_info": "上映13天",
+        "real_time_box_office": "104.46万",
+        "cumulative_box_office": "1.13亿",
+        "split_cumulative_box_office": "1.00亿",
         "box_office_rate": "16.1%",
-        "split_box_office_rate": "15.8%",
-        "show_count": 46342,
-        "show_count_rate": "11.1%",
+        "split_box_office_rate": "15.7%",
+        "show_count": 48341,
+        "show_count_rate": "11.6%",
         "seat_occupancy": "0.5%",
         "avg_show_view": "0.6"
       },
@@ -5051,20 +5087,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1604133",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 2,
         "maoyan_movie_id": 1545588,
         "movie_name": "四渡",
-        "release_info": "上映12天",
-        "real_time_box_office": "102.88万",
-        "cumulative_box_office": "1.95亿",
-        "split_cumulative_box_office": "1.78亿",
-        "box_office_rate": "16.8%",
-        "split_box_office_rate": "17.6%",
-        "show_count": 57541,
-        "show_count_rate": "13.8%",
-        "seat_occupancy": "0.4%",
-        "avg_show_view": "0.5"
+        "release_info": "上映13天",
+        "real_time_box_office": "144.86万",
+        "cumulative_box_office": "2.02亿",
+        "split_cumulative_box_office": "1.85亿",
+        "box_office_rate": "22.3%",
+        "split_box_office_rate": "23.5%",
+        "show_count": 57023,
+        "show_count_rate": "13.7%",
+        "seat_occupancy": "0.5%",
+        "avg_show_view": "0.7"
       },
       "trailers": [
         {
@@ -5219,19 +5255,19 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1081003",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 17,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 21,
         "maoyan_movie_id": 1490393,
         "movie_name": "超级少女",
-        "release_info": "上映12天",
-        "real_time_box_office": "1.02万",
-        "cumulative_box_office": "738.7万",
-        "split_cumulative_box_office": "655.1万",
+        "release_info": "上映13天",
+        "real_time_box_office": "0.79万",
+        "cumulative_box_office": "741.2万",
+        "split_cumulative_box_office": "657.3万",
         "box_office_rate": "0.1%",
-        "split_box_office_rate": "0.1%",
-        "show_count": 890,
+        "split_box_office_rate": "<0.1%",
+        "show_count": 906,
         "show_count_rate": "0.2%",
-        "seat_occupancy": "0.2%",
+        "seat_occupancy": "0.1%",
         "avg_show_view": "0.2"
       },
       "trailers": [
@@ -5394,20 +5430,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1579223",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 14,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 17,
         "maoyan_movie_id": 1458771,
         "movie_name": "北回归线以北",
-        "release_info": "上映12天",
-        "real_time_box_office": "1.43万",
-        "cumulative_box_office": "215.2万",
-        "split_cumulative_box_office": "211.2万",
-        "box_office_rate": "0.2%",
+        "release_info": "上映13天",
+        "real_time_box_office": "1.27万",
+        "cumulative_box_office": "224.3万",
+        "split_cumulative_box_office": "220.3万",
+        "box_office_rate": "0.1%",
         "split_box_office_rate": "0.2%",
-        "show_count": 97,
+        "show_count": 91,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "3.2%",
-        "avg_show_view": "3.1"
+        "seat_occupancy": "3.9%",
+        "avg_show_view": "3.7"
       }
     },
     {
@@ -5458,7 +5494,7 @@
         "101分钟"
       ],
       "release_windows": [],
-      "rating_count": 682,
+      "rating_count": 709,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1397385,
@@ -5537,18 +5573,18 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1714841",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 13,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 15,
         "maoyan_movie_id": 1298426,
         "movie_name": "关索岭",
-        "release_info": "上映13天",
-        "real_time_box_office": "2.16万",
-        "cumulative_box_office": "180.6万",
-        "split_cumulative_box_office": "176.6万",
-        "box_office_rate": "0.3%",
+        "release_info": "上映14天",
+        "real_time_box_office": "1.86万",
+        "cumulative_box_office": "191.8万",
+        "split_cumulative_box_office": "187.7万",
+        "box_office_rate": "0.2%",
         "split_box_office_rate": "0.3%",
-        "show_count": 4715,
-        "show_count_rate": "1.1%",
+        "show_count": 4071,
+        "show_count_rate": "0.9%",
         "seat_occupancy": "0.0%",
         "avg_show_view": "0.1"
       }
@@ -5715,7 +5751,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 8311,
+      "rating_count": 8413,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1122573,
@@ -5728,6 +5764,10 @@
       "original_title": "抓特务",
       "release_date": "2026-06-19",
       "genres": [
+        {
+          "id": 36,
+          "name": "历史"
+        },
         {
           "id": 18,
           "name": "剧情"
@@ -5846,20 +5886,20 @@
       "type": "movie",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 8,
         "maoyan_movie_id": 1522873,
         "movie_name": "抓特务",
-        "release_info": "上映19天",
-        "real_time_box_office": "10.94万",
-        "cumulative_box_office": "1.14亿",
+        "release_info": "上映20天",
+        "real_time_box_office": "11.74万",
+        "cumulative_box_office": "1.15亿",
         "split_cumulative_box_office": "1.02亿",
-        "box_office_rate": "1.7%",
+        "box_office_rate": "1.8%",
         "split_box_office_rate": "1.8%",
-        "show_count": 11158,
+        "show_count": 11042,
         "show_count_rate": "2.6%",
         "seat_occupancy": "0.2%",
-        "avg_show_view": "0.2"
+        "avg_show_view": "0.3"
       },
       "trailers": [
         {
@@ -6039,18 +6079,18 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1084244",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 6,
         "maoyan_movie_id": 1490532,
         "movie_name": "玩具总动员5",
-        "release_info": "上映19天",
-        "real_time_box_office": "47.21万",
-        "cumulative_box_office": "2.54亿",
-        "split_cumulative_box_office": "2.28亿",
-        "box_office_rate": "7.7%",
-        "split_box_office_rate": "7.6%",
-        "show_count": 26680,
-        "show_count_rate": "6.4%",
+        "release_info": "上映20天",
+        "real_time_box_office": "47.80万",
+        "cumulative_box_office": "2.57亿",
+        "split_cumulative_box_office": "2.30亿",
+        "box_office_rate": "7.3%",
+        "split_box_office_rate": "7.2%",
+        "show_count": 27102,
+        "show_count_rate": "6.5%",
         "seat_occupancy": "0.4%",
         "avg_show_view": "0.4"
       },
@@ -6153,17 +6193,17 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1435047",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 20,
         "maoyan_movie_id": 1547444,
         "movie_name": "爱是愤怒",
-        "release_info": "上映19天",
-        "real_time_box_office": "0.81万",
-        "cumulative_box_office": "3700.2万",
-        "split_cumulative_box_office": "3321.7万",
+        "release_info": "上映20天",
+        "real_time_box_office": "0.85万",
+        "cumulative_box_office": "3704.8万",
+        "split_cumulative_box_office": "3325.8万",
         "box_office_rate": "0.1%",
         "split_box_office_rate": "0.1%",
-        "show_count": 1965,
+        "show_count": 1943,
         "show_count_rate": "0.4%",
         "seat_occupancy": "0.1%",
         "avg_show_view": "0.1"
@@ -6270,19 +6310,19 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1269075",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 24,
         "maoyan_movie_id": 1366168,
         "movie_name": "我看见两朵一样的云",
-        "release_info": "上映19天",
-        "real_time_box_office": "0.58万",
-        "cumulative_box_office": "5368.4万",
-        "split_cumulative_box_office": "5108.8万",
+        "release_info": "上映20天",
+        "real_time_box_office": "0.50万",
+        "cumulative_box_office": "5370.0万",
+        "split_cumulative_box_office": "5110.3万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 856,
+        "show_count": 859,
         "show_count_rate": "0.2%",
-        "seat_occupancy": "0.2%",
+        "seat_occupancy": "0.1%",
         "avg_show_view": "0.2"
       },
       "trailers": [
@@ -6296,318 +6336,6 @@
           "publishedAt": "2026-06-09T05:05:25.000Z"
         }
       ]
-    },
-    {
-      "id": 38491047,
-      "title": "阴风诡影",
-      "original_title": "阴风诡影",
-      "release_date": "2026-06-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "惊悚"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "唐明智"
-        },
-        {
-          "id": 2,
-          "name": "武山君"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "徐锦江"
-        },
-        {
-          "id": 2,
-          "name": "安娜珊珊"
-        },
-        {
-          "id": 3,
-          "name": "姜语心"
-        },
-        {
-          "id": 4,
-          "name": "常笑笑"
-        },
-        {
-          "id": 5,
-          "name": "连晋"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "Yin Wind Shadow"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/38491047.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/38491047/",
-      "douban_link_verified": true,
-      "overview": "午夜墓场，女鬼爬出坟墓！阴风阵阵，鬼影飘飘，野火隐隐，怪鸟鸣叫，谁敢踏入阴阳交汇的追魂场？！当主人公午夜探路，寻找种种诡异真相，那狰狞鬼面突然出现，揪心鬼笑飘忽响起，夺命的利爪已经插入胸口！惨叫连连，鲜血四溅！是冤死的妻子诈尸还魂？还是内心的魔咒幻化成厉鬼？亦或是坟场的千年诅咒打开了怨灵的禁忌牢笼？午夜惊魂时刻，当恐怖鬼影现了真身，所有人必将不寒而栗！魂飞魄散！",
-      "durations": [
-        "88分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 31,
-        "maoyan_movie_id": 1529735,
-        "movie_name": "阴风诡影",
-        "release_info": "上映19天",
-        "real_time_box_office": "0.25万",
-        "cumulative_box_office": "317.2万",
-        "split_cumulative_box_office": "285.4万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 1348,
-        "show_count_rate": "0.3%",
-        "seat_occupancy": "0.0%",
-        "avg_show_view": "<0.1"
-      }
-    },
-    {
-      "id": 33455977,
-      "title": "真爱留声",
-      "original_title": "Voicemails For Isabelle",
-      "release_date": "2026-06-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "莉亚·麦肯德里克"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "佐伊·达奇"
-        },
-        {
-          "id": 2,
-          "name": "卢卡斯·盖奇"
-        },
-        {
-          "id": 3,
-          "name": "尼克·罗宾森"
-        },
-        {
-          "id": 4,
-          "name": "尼克·奥弗曼"
-        },
-        {
-          "id": 5,
-          "name": "托比·桑德曼"
-        },
-        {
-          "id": 6,
-          "name": "岑勇康"
-        },
-        {
-          "id": 7,
-          "name": "吉尔·贝罗斯"
-        },
-        {
-          "id": 8,
-          "name": "席亚拉·博拉沃"
-        },
-        {
-          "id": 9,
-          "name": "斯宾塞·洛德"
-        },
-        {
-          "id": 10,
-          "name": "莉亚·麦肯德里克"
-        },
-        {
-          "id": 11,
-          "name": "威廉·C·沃恩"
-        },
-        {
-          "id": 12,
-          "name": "卡利克斯·弗雷泽"
-        },
-        {
-          "id": 13,
-          "name": "梅甘旦娑"
-        },
-        {
-          "id": 14,
-          "name": "吉尔·莫里森"
-        },
-        {
-          "id": 15,
-          "name": "泽尼亚·马歇尔"
-        }
-      ],
-      "countries": [
-        "美国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [],
-      "imdb_id": "tt10375624",
-      "poster_path": "posters/douban/movie_cn/33455977.jpg",
-      "douban_rating": "7.1",
-      "douban_link_google": "https://movie.douban.com/subject/33455977/",
-      "douban_link_verified": true,
-      "overview": "吉尔通过给姐姐的语音信箱留言来排解姐姐去世的痛苦，留言里详细记录了她在旧金山的混乱生活。后来，这个号码在她不知情的情况下转给了别人，让一名深居简出的奥斯汀房地产经纪人开始收到这些既搞笑又极度坦诚的留言。",
-      "durations": [
-        "118分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 1928,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 614945,
-      "tmdbUrl": "https://www.themoviedb.org/movie/614945"
-    },
-    {
-      "id": 37249352,
-      "title": "人夫总动员",
-      "original_title": "人夫总动员",
-      "release_date": "2026-06-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "朴奎泰"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "陈善圭"
-        },
-        {
-          "id": 2,
-          "name": "孔明"
-        },
-        {
-          "id": 3,
-          "name": "金知硕"
-        }
-      ],
-      "countries": [
-        "South Korea"
-      ],
-      "languages": [
-        "ko"
-      ],
-      "aka": [
-        "Husbands in Action"
-      ],
-      "imdb_id": "tt36876775",
-      "poster_path": "posters/douban/movie_cn/37249352.jpg",
-      "douban_rating": "6.0",
-      "douban_link_google": "https://movie.douban.com/subject/37249352/",
-      "douban_link_verified": true,
-      "overview": "一名警探与前妻的新任丈夫一起追踪绑架她的人。这对毫不搭调的组合能否放下分歧，展开疯狂的营救？",
-      "durations": [
-        "110分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 1267,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1451344,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1451344"
-    },
-    {
-      "id": 37192135,
-      "title": "公民义警",
-      "original_title": "公民义警",
-      "release_date": "2026-06-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "惊悚"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "乌维·鲍尔"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "艾米·汉莫"
-        },
-        {
-          "id": 2,
-          "name": "科斯塔斯·曼迪勒"
-        },
-        {
-          "id": 3,
-          "name": "本杰明·施诺"
-        }
-      ],
-      "countries": [
-        "Germany",
-        "Croatia",
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "黑暗骑士",
-        "Dark Knight"
-      ],
-      "imdb_id": "tt35309713",
-      "poster_path": "posters/douban/movie_cn/37192135.jpg",
-      "douban_rating": "6.6",
-      "douban_link_google": "https://movie.douban.com/subject/37192135/",
-      "douban_link_verified": true,
-      "overview": "男主角桑德斯是一名义警，他追捕罪犯、伸张正义，成为社交媒体红人和公众眼中的英雄，但当地警察局长认为他是社会的威胁，打算将他打倒。",
-      "durations": [
-        "89分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 3879,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1413976,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1413976"
     },
     {
       "id": 34833849,
@@ -6772,22 +6500,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1275051,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1275051",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 46,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 50,
         "maoyan_movie_id": 1299355,
         "movie_name": "绝密任务",
-        "release_info": "上映17天",
-        "real_time_box_office": "0.44万",
-        "cumulative_box_office": "440.5万",
-        "split_cumulative_box_office": "397.5万",
+        "release_info": "上映20天",
+        "real_time_box_office": "0.04万",
+        "cumulative_box_office": "440.9万",
+        "split_cumulative_box_office": "397.8万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 137,
+        "show_count": 145,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.0%",
-        "avg_show_view": "0.9"
+        "seat_occupancy": "0.1%",
+        "avg_show_view": "<0.1"
       },
       "trailers": [
         {
@@ -6800,6 +6530,93 @@
           "publishedAt": "2024-06-05T02:10:00.000Z"
         }
       ]
+    },
+    {
+      "id": 38491047,
+      "title": "阴风诡影",
+      "original_title": "阴风诡影",
+      "release_date": "2026-06-19",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "惊悚"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "唐明智"
+        },
+        {
+          "id": 2,
+          "name": "武山君"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "徐锦江"
+        },
+        {
+          "id": 2,
+          "name": "安娜珊珊"
+        },
+        {
+          "id": 3,
+          "name": "姜语心"
+        },
+        {
+          "id": 4,
+          "name": "常笑笑"
+        },
+        {
+          "id": 5,
+          "name": "连晋"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "Yin Wind Shadow"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/38491047.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/38491047/",
+      "douban_link_verified": true,
+      "overview": "午夜墓场，女鬼爬出坟墓！阴风阵阵，鬼影飘飘，野火隐隐，怪鸟鸣叫，谁敢踏入阴阳交汇的追魂场？！当主人公午夜探路，寻找种种诡异真相，那狰狞鬼面突然出现，揪心鬼笑飘忽响起，夺命的利爪已经插入胸口！惨叫连连，鲜血四溅！是冤死的妻子诈尸还魂？还是内心的魔咒幻化成厉鬼？亦或是坟场的千年诅咒打开了怨灵的禁忌牢笼？午夜惊魂时刻，当恐怖鬼影现了真身，所有人必将不寒而栗！魂飞魄散！",
+      "durations": [
+        "88分钟"
+      ],
+      "release_windows": [],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 35,
+        "maoyan_movie_id": 1529735,
+        "movie_name": "阴风诡影",
+        "release_info": "上映20天",
+        "real_time_box_office": "0.16万",
+        "cumulative_box_office": "320.8万",
+        "split_cumulative_box_office": "288.7万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 1364,
+        "show_count_rate": "0.3%",
+        "seat_occupancy": "0.0%",
+        "avg_show_view": "<0.1"
+      }
     },
     {
       "id": 37463047,
@@ -6870,21 +6687,246 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1707968",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 62,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 30,
         "maoyan_movie_id": 1455660,
         "movie_name": "无微不至",
-        "release_info": "上映17天",
-        "real_time_box_office": "0.20万",
-        "cumulative_box_office": "44.1万",
-        "split_cumulative_box_office": "41.1万",
+        "release_info": "上映20天",
+        "real_time_box_office": "0.32万",
+        "cumulative_box_office": "44.5万",
+        "split_cumulative_box_office": "41.4万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
         "show_count": 9,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "7.8%",
-        "avg_show_view": "7.8"
+        "seat_occupancy": "7.3%",
+        "avg_show_view": "7.1"
       }
+    },
+    {
+      "id": 33455977,
+      "title": "真爱留声",
+      "original_title": "Voicemails For Isabelle",
+      "release_date": "2026-06-19",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        },
+        {
+          "id": 2,
+          "name": "爱情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "莉亚·麦肯德里克"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "佐伊·达奇"
+        },
+        {
+          "id": 2,
+          "name": "卢卡斯·盖奇"
+        },
+        {
+          "id": 3,
+          "name": "尼克·罗宾森"
+        },
+        {
+          "id": 4,
+          "name": "尼克·奥弗曼"
+        },
+        {
+          "id": 5,
+          "name": "托比·桑德曼"
+        },
+        {
+          "id": 6,
+          "name": "岑勇康"
+        },
+        {
+          "id": 7,
+          "name": "吉尔·贝罗斯"
+        },
+        {
+          "id": 8,
+          "name": "席亚拉·博拉沃"
+        },
+        {
+          "id": 9,
+          "name": "斯宾塞·洛德"
+        },
+        {
+          "id": 10,
+          "name": "莉亚·麦肯德里克"
+        },
+        {
+          "id": 11,
+          "name": "威廉·C·沃恩"
+        },
+        {
+          "id": 12,
+          "name": "卡利克斯·弗雷泽"
+        },
+        {
+          "id": 13,
+          "name": "梅甘旦娑"
+        },
+        {
+          "id": 14,
+          "name": "吉尔·莫里森"
+        },
+        {
+          "id": 15,
+          "name": "泽尼亚·马歇尔"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [],
+      "imdb_id": "tt10375624",
+      "poster_path": "posters/douban/movie_cn/33455977.jpg",
+      "douban_rating": "7.1",
+      "douban_link_google": "https://movie.douban.com/subject/33455977/",
+      "douban_link_verified": true,
+      "overview": "吉尔通过给姐姐的语音信箱留言来排解姐姐去世的痛苦，留言里详细记录了她在旧金山的混乱生活。后来，这个号码在她不知情的情况下转给了别人，让一名深居简出的奥斯汀房地产经纪人开始收到这些既搞笑又极度坦诚的留言。",
+      "durations": [
+        "118分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 1928,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 614945,
+      "tmdbUrl": "https://www.themoviedb.org/movie/614945"
+    },
+    {
+      "id": 37249352,
+      "title": "人夫总动员",
+      "original_title": "人夫总动员",
+      "release_date": "2026-06-19",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "朴奎泰"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "陈善圭"
+        },
+        {
+          "id": 2,
+          "name": "孔明"
+        },
+        {
+          "id": 3,
+          "name": "金知硕"
+        }
+      ],
+      "countries": [
+        "South Korea"
+      ],
+      "languages": [
+        "ko"
+      ],
+      "aka": [
+        "Husbands in Action"
+      ],
+      "imdb_id": "tt36876775",
+      "poster_path": "posters/douban/movie_cn/37249352.jpg",
+      "douban_rating": "6.0",
+      "douban_link_google": "https://movie.douban.com/subject/37249352/",
+      "douban_link_verified": true,
+      "overview": "一名警探与前妻的新任丈夫一起追踪绑架她的人。这对毫不搭调的组合能否放下分歧，展开疯狂的营救？",
+      "durations": [
+        "110分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 1283,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1451344,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1451344"
+    },
+    {
+      "id": 37192135,
+      "title": "公民义警",
+      "original_title": "公民义警",
+      "release_date": "2026-06-19",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "惊悚"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "乌维·鲍尔"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "艾米·汉莫"
+        },
+        {
+          "id": 2,
+          "name": "科斯塔斯·曼迪勒"
+        },
+        {
+          "id": 3,
+          "name": "本杰明·施诺"
+        }
+      ],
+      "countries": [
+        "Germany",
+        "Croatia",
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "黑暗骑士",
+        "Dark Knight"
+      ],
+      "imdb_id": "tt35309713",
+      "poster_path": "posters/douban/movie_cn/37192135.jpg",
+      "douban_rating": "6.6",
+      "douban_link_google": "https://movie.douban.com/subject/37192135/",
+      "douban_link_verified": true,
+      "overview": "男主角桑德斯是一名义警，他追捕罪犯、伸张正义，成为社交媒体红人和公众眼中的英雄，但当地警察局长认为他是社会的威胁，打算将他打倒。",
+      "durations": [
+        "89分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 4148,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1413976,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1413976"
     },
     {
       "id": 37346574,
@@ -7007,7 +7049,7 @@
       "genres": [
         {
           "id": 1,
-          "name": "谭小燕"
+          "name": "剧情"
         }
       ],
       "directors": [
@@ -7016,7 +7058,12 @@
           "name": "谭小燕"
         }
       ],
-      "actors": [],
+      "actors": [
+        {
+          "id": 1,
+          "name": "李飞、谭锦宸、赵雍、张山、祝延平"
+        }
+      ],
       "countries": [
         "中国大陆"
       ],
@@ -7041,24 +7088,7 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-03T15:48:06.876Z",
-        "rank": 75,
-        "maoyan_movie_id": 1351333,
-        "movie_name": "陵水誓言",
-        "release_info": "上映19天",
-        "real_time_box_office": "0.04万",
-        "cumulative_box_office": "5.7万",
-        "split_cumulative_box_office": "5.7万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 4,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "4.0%",
-        "avg_show_view": "4.0"
-      }
+      "type": "movie"
     },
     {
       "id": 38502416,
@@ -7313,7 +7343,7 @@
         "揭密日(港/台)",
         "The Dish"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt15047880",
       "poster_path": "posters/douban/movie_cn/36860212.jpg",
       "douban_rating": "6.5",
       "douban_link_google": "https://movie.douban.com/subject/36860212/",
@@ -7323,25 +7353,27 @@
         "146分钟"
       ],
       "release_windows": [],
-      "rating_count": 42087,
+      "rating_count": 42952,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1275779,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1275779",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 15,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 18,
         "maoyan_movie_id": 672275,
         "movie_name": "揭秘日",
-        "release_info": "上映24天",
-        "real_time_box_office": "14.48万",
-        "cumulative_box_office": "3269.9万",
-        "split_cumulative_box_office": "2904.3万",
+        "release_info": "上映27天",
+        "real_time_box_office": "0.94万",
+        "cumulative_box_office": "3280.3万",
+        "split_cumulative_box_office": "2913.4万",
         "box_office_rate": "0.1%",
         "split_box_office_rate": "0.1%",
-        "show_count": 542,
+        "show_count": 608,
         "show_count_rate": "0.1%",
-        "seat_occupancy": "5.8%",
-        "avg_show_view": "5.6"
+        "seat_occupancy": "0.3%",
+        "avg_show_view": "0.3"
       },
       "trailers": [
         {
@@ -7558,17 +7590,17 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1280738",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 12,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 13,
         "maoyan_movie_id": 1595371,
         "movie_name": "火遮眼",
-        "release_info": "上映27天",
-        "real_time_box_office": "4.39万",
-        "cumulative_box_office": "2.03亿",
+        "release_info": "上映28天",
+        "real_time_box_office": "3.94万",
+        "cumulative_box_office": "2.04亿",
         "split_cumulative_box_office": "1.79亿",
-        "box_office_rate": "0.7%",
-        "split_box_office_rate": "0.6%",
-        "show_count": 9597,
+        "box_office_rate": "0.6%",
+        "split_box_office_rate": "0.5%",
+        "show_count": 9792,
         "show_count_rate": "2.3%",
         "seat_occupancy": "0.1%",
         "avg_show_view": "0.1"
@@ -7806,27 +7838,27 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 40197,
+      "rating_count": 52582,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1318413,
       "tmdbUrl": "https://www.themoviedb.org/movie/1318413",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 16,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 19,
         "maoyan_movie_id": 1594038,
         "movie_name": "诺曼底72小时",
-        "release_info": "上映32天",
-        "real_time_box_office": "1.07万",
-        "cumulative_box_office": "2290.9万",
-        "split_cumulative_box_office": "2038.8万",
+        "release_info": "上映33天",
+        "real_time_box_office": "0.89万",
+        "cumulative_box_office": "2295.9万",
+        "split_cumulative_box_office": "2043.2万",
         "box_office_rate": "0.1%",
         "split_box_office_rate": "0.1%",
-        "show_count": 441,
+        "show_count": 475,
         "show_count_rate": "0.1%",
-        "seat_occupancy": "0.6%",
-        "avg_show_view": "0.6"
+        "seat_occupancy": "0.4%",
+        "avg_show_view": "0.5"
       },
       "trailers": [
         {
@@ -8881,24 +8913,7 @@
       "rating_star_count": null,
       "type": "movie",
       "tmdb_id": 1697919,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1697919",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 32,
-        "maoyan_movie_id": 1475066,
-        "movie_name": "中国动画100年",
-        "release_info": "上映35天",
-        "real_time_box_office": "1.37万",
-        "cumulative_box_office": "106.7万",
-        "split_cumulative_box_office": "97.8万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 15,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "21.5%",
-        "avg_show_view": "36.7"
-      }
+      "tmdbUrl": "https://www.themoviedb.org/movie/1697919"
     },
     {
       "id": 30226070,
@@ -9348,6 +9363,146 @@
       ]
     },
     {
+      "id": 1304447,
+      "title": "记忆碎片",
+      "original_title": "Memento",
+      "release_date": "2026-05-29",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "悬疑"
+        },
+        {
+          "id": 3,
+          "name": "惊悚"
+        },
+        {
+          "id": 4,
+          "name": "犯罪"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "克里斯托弗·诺兰"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "盖·皮尔斯"
+        },
+        {
+          "id": 2,
+          "name": "凯瑞-安·莫斯"
+        },
+        {
+          "id": 3,
+          "name": "乔·潘托里亚诺"
+        },
+        {
+          "id": 4,
+          "name": "小马克·布恩"
+        },
+        {
+          "id": 5,
+          "name": "拉什·费加"
+        },
+        {
+          "id": 6,
+          "name": "乔雅·福克斯"
+        },
+        {
+          "id": 7,
+          "name": "斯蒂芬·托布罗斯基"
+        },
+        {
+          "id": 8,
+          "name": "哈里特·桑塞姆·哈里斯"
+        },
+        {
+          "id": 9,
+          "name": "托马斯·列农"
+        },
+        {
+          "id": 10,
+          "name": "考乐姆·吉斯·雷尼"
+        },
+        {
+          "id": 11,
+          "name": "金伯利·坎贝尔"
+        },
+        {
+          "id": 12,
+          "name": "玛丽安妮·穆勒雷尔"
+        },
+        {
+          "id": 13,
+          "name": "拉里·霍尔登"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "凶心人(港)",
+        "记忆拼图(台)",
+        "记忆迷局",
+        "失忆",
+        "Amnesia"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/1304447.jpg",
+      "douban_rating": "8.7",
+      "douban_link_google": "https://movie.douban.com/subject/1304447/",
+      "douban_link_verified": true,
+      "overview": "当记忆支离破碎后，你该怎样面对生活？本片的主人公就遭遇了这样的事情。\n莱纳·谢尔比（盖·皮尔斯 饰）在家遭到歹徒的袭击，妻子被残忍的奸杀，自己脑部也受到严重的伤害。\n醒来后，他发现自己患了罕见的“短期记忆丧失症”，他只能记住十几分钟前发生的事情，为了让生活继续下去，更为了替惨死的妻子报仇，他凭借纹身、纸条、宝丽来快照等零碎的小东西，保存记忆，收集线索，展开了艰难的调查。\n调查中，莱纳遇上粗俗的酒吧女招待娜塔莉娅（凯瑞-安·莫斯 饰），她似乎知道一些莱昂纳多感兴趣的事；还有泰迪（乔·潘托利亚诺 饰），自称是他以前好朋友，但看上去鬼鬼祟祟的，不怀好意。到底谁能相信？娜塔莉娅？泰迪？还是他自己？\n抽丝剥茧之后，真相呼之欲出，简单之至却又残酷无比，而莱纳是否有面对这一切的勇气？",
+      "durations": [
+        "114分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 711837,
+      "rating_star_count": 4.5,
+      "type": "movie",
+      "tmdb_id": 1664935,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1664935",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 47,
+        "maoyan_movie_id": 10433,
+        "movie_name": "记忆碎片",
+        "release_info": "上映41天",
+        "real_time_box_office": "0.05万",
+        "cumulative_box_office": "2339.7万",
+        "split_cumulative_box_office": "2082.1万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 34,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "0.3%",
+        "avg_show_view": "0.4"
+      },
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "诺兰《记忆碎片》二十年纪念修复版预告片",
+          "bvid": "BV1g14y1J7DP",
+          "url": "https://www.bilibili.com/video/BV1g14y1J7DP",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1g14y1J7DP&page=1&qn=64&high_quality=1",
+          "cover": "http://i1.hdslb.com/bfs/archive/1d3d91a94f8ada27df7eceddc17092bb03b6ef51.jpg",
+          "publishedAt": "2022-12-04T09:27:16.000Z"
+        }
+      ]
+    },
+    {
       "id": 36367195,
       "title": "家弑服务",
       "original_title": "The Housemaid",
@@ -9507,20 +9662,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1721125",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 43,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 68,
         "maoyan_movie_id": 1547920,
         "movie_name": "家弑服务",
-        "release_info": "上映40天",
-        "real_time_box_office": "0.04万",
-        "cumulative_box_office": "1158.3万",
+        "release_info": "上映41天",
+        "real_time_box_office": "0.00万",
+        "cumulative_box_office": "1158.4万",
         "split_cumulative_box_office": "1027.3万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 10,
+        "show_count": 13,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.2%",
-        "avg_show_view": "1.3"
+        "seat_occupancy": "0.1%",
+        "avg_show_view": "0.2"
       },
       "trailers": [
         {
@@ -9531,146 +9686,6 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1Bv5d6oEww&page=1&qn=64&high_quality=1",
           "cover": "http://i2.hdslb.com/bfs/archive/7fc37419dfd6ec89ab67656663d9261bf6f2d86f.jpg",
           "publishedAt": "2026-05-14T13:37:54.000Z"
-        }
-      ]
-    },
-    {
-      "id": 1304447,
-      "title": "记忆碎片",
-      "original_title": "Memento",
-      "release_date": "2026-05-29",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "悬疑"
-        },
-        {
-          "id": 3,
-          "name": "惊悚"
-        },
-        {
-          "id": 4,
-          "name": "犯罪"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "克里斯托弗·诺兰"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "盖·皮尔斯"
-        },
-        {
-          "id": 2,
-          "name": "凯瑞-安·莫斯"
-        },
-        {
-          "id": 3,
-          "name": "乔·潘托里亚诺"
-        },
-        {
-          "id": 4,
-          "name": "小马克·布恩"
-        },
-        {
-          "id": 5,
-          "name": "拉什·费加"
-        },
-        {
-          "id": 6,
-          "name": "乔雅·福克斯"
-        },
-        {
-          "id": 7,
-          "name": "斯蒂芬·托布罗斯基"
-        },
-        {
-          "id": 8,
-          "name": "哈里特·桑塞姆·哈里斯"
-        },
-        {
-          "id": 9,
-          "name": "托马斯·列农"
-        },
-        {
-          "id": 10,
-          "name": "考乐姆·吉斯·雷尼"
-        },
-        {
-          "id": 11,
-          "name": "金伯利·坎贝尔"
-        },
-        {
-          "id": 12,
-          "name": "玛丽安妮·穆勒雷尔"
-        },
-        {
-          "id": 13,
-          "name": "拉里·霍尔登"
-        }
-      ],
-      "countries": [
-        "美国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "凶心人(港)",
-        "记忆拼图(台)",
-        "记忆迷局",
-        "失忆",
-        "Amnesia"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/1304447.jpg",
-      "douban_rating": "8.7",
-      "douban_link_google": "https://movie.douban.com/subject/1304447/",
-      "douban_link_verified": true,
-      "overview": "当记忆支离破碎后，你该怎样面对生活？本片的主人公就遭遇了这样的事情。\n莱纳·谢尔比（盖·皮尔斯 饰）在家遭到歹徒的袭击，妻子被残忍的奸杀，自己脑部也受到严重的伤害。\n醒来后，他发现自己患了罕见的“短期记忆丧失症”，他只能记住十几分钟前发生的事情，为了让生活继续下去，更为了替惨死的妻子报仇，他凭借纹身、纸条、宝丽来快照等零碎的小东西，保存记忆，收集线索，展开了艰难的调查。\n调查中，莱纳遇上粗俗的酒吧女招待娜塔莉娅（凯瑞-安·莫斯 饰），她似乎知道一些莱昂纳多感兴趣的事；还有泰迪（乔·潘托利亚诺 饰），自称是他以前好朋友，但看上去鬼鬼祟祟的，不怀好意。到底谁能相信？娜塔莉娅？泰迪？还是他自己？\n抽丝剥茧之后，真相呼之欲出，简单之至却又残酷无比，而莱纳是否有面对这一切的勇气？",
-      "durations": [
-        "114分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 709475,
-      "rating_star_count": 4.5,
-      "type": "movie",
-      "tmdb_id": 1664935,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1664935",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 35,
-        "maoyan_movie_id": 10433,
-        "movie_name": "记忆碎片",
-        "release_info": "上映38天",
-        "real_time_box_office": "1.21万",
-        "cumulative_box_office": "2339.0万",
-        "split_cumulative_box_office": "2081.4万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 26,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "11.4%",
-        "avg_show_view": "10.1"
-      },
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "诺兰《记忆碎片》二十年纪念修复版预告片",
-          "bvid": "BV1g14y1J7DP",
-          "url": "https://www.bilibili.com/video/BV1g14y1J7DP",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1g14y1J7DP&page=1&qn=64&high_quality=1",
-          "cover": "http://i1.hdslb.com/bfs/archive/1d3d91a94f8ada27df7eceddc17092bb03b6ef51.jpg",
-          "publishedAt": "2022-12-04T09:27:16.000Z"
         }
       ]
     },
@@ -9808,20 +9823,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1443374",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 64,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 70,
         "maoyan_movie_id": 1498147,
         "movie_name": "森中有林",
-        "release_info": "上映46天",
+        "release_info": "上映47天",
         "real_time_box_office": "0.00万",
         "cumulative_box_office": "1618.4万",
         "split_cumulative_box_office": "1428.0万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 8,
+        "show_count": 15,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.2%",
-        "avg_show_view": "0.3"
+        "seat_occupancy": "0.0%",
+        "avg_show_view": "<0.1"
       },
       "trailers": [
         {
@@ -9832,6 +9847,232 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1AkQxB3E3t&page=1&qn=64&high_quality=1",
           "cover": "http://i2.hdslb.com/bfs/archive/b33a1a9e050a7af44af901e9be20fbd902b29e79.jpg",
           "publishedAt": "2026-04-13T02:04:48.000Z"
+        }
+      ]
+    },
+    {
+      "id": 36723035,
+      "title": "星球大战：曼达洛人与古古",
+      "original_title": "Star Wars: The Mandalorian & Grogu",
+      "release_date": "2026-05-22",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "科幻"
+        },
+        {
+          "id": 3,
+          "name": "奇幻"
+        },
+        {
+          "id": 4,
+          "name": "冒险"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "乔恩·费儒"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "佩德罗·帕斯卡"
+        },
+        {
+          "id": 2,
+          "name": "杰瑞米·艾伦·怀特"
+        },
+        {
+          "id": 3,
+          "name": "西格妮·韦弗"
+        },
+        {
+          "id": 4,
+          "name": "史蒂夫·布卢姆"
+        },
+        {
+          "id": 5,
+          "name": "乔尼·科因"
+        },
+        {
+          "id": 6,
+          "name": "马丁·斯科塞斯"
+        },
+        {
+          "id": 7,
+          "name": "马修·维利希"
+        },
+        {
+          "id": 8,
+          "name": "李善亨"
+        },
+        {
+          "id": 9,
+          "name": "哈姆基·马戴拉"
+        },
+        {
+          "id": 10,
+          "name": "安东尼·丹尼尔斯"
+        },
+        {
+          "id": 11,
+          "name": "瑞克·法穆易瓦"
+        },
+        {
+          "id": 12,
+          "name": "迈尔斯·哈姆帕斯"
+        },
+        {
+          "id": 13,
+          "name": "伦敦·斯塔布尔菲尔德"
+        },
+        {
+          "id": 14,
+          "name": "克里斯托弗·艾伦·罗宾逊"
+        },
+        {
+          "id": 15,
+          "name": "波西亚·D·哈里斯"
+        },
+        {
+          "id": 16,
+          "name": "戴夫·菲洛尼"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "曼达洛人与古古",
+        "曼达洛人和格洛古",
+        "曼达洛人和古古",
+        "曼达洛人与尤达宝宝",
+        "The Mandalorian & Grogu"
+      ],
+      "imdb_id": "tt30825738",
+      "poster_path": "posters/douban/movie_cn/36723035.jpg",
+      "douban_rating": "7.5",
+      "douban_link_google": "https://movie.douban.com/subject/36723035/",
+      "douban_link_verified": true,
+      "overview": "在秩序动荡的银河系，“最强奶爸”丁·贾伦（佩德罗·帕斯卡 饰）与“银河系萌娃”古古这对非血缘父子并肩登场。冷峻坚毅的赏金猎人丁·贾伦身披贝斯卡钢甲，凭悍勇战力屡屡从围堵中突围；看似弱小的原力学徒古古，则总能在关键时刻爆发出惊人战力，为搭档化解危机。他们一同执行关乎银河命运的绝密任务，直面远比以往更为凶险的挑战与博弈。",
+      "durations": [
+        "132分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 45698,
+      "rating_star_count": 4,
+      "type": "movie",
+      "tmdb_id": 1228710,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1228710",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 14,
+        "maoyan_movie_id": 1518418,
+        "movie_name": "星球大战：曼达洛人与古古",
+        "release_info": "上映48天",
+        "real_time_box_office": "3.47万",
+        "cumulative_box_office": "9353.7万",
+        "split_cumulative_box_office": "8358.9万",
+        "box_office_rate": "0.5%",
+        "split_box_office_rate": "0.5%",
+        "show_count": 362,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "1.6%",
+        "avg_show_view": "1.8"
+      },
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "场面震撼！《钢铁侠》导演科幻巨制《曼达洛人与古古》终极预告，内地定档05.22",
+          "bvid": "BV13Y5s6ZEab",
+          "url": "https://www.bilibili.com/video/BV13Y5s6ZEab",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV13Y5s6ZEab&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/cc5a5b58ddb5cf53998211e9967565b27886e589.jpg",
+          "publishedAt": "2026-05-11T04:11:19.000Z"
+        }
+      ]
+    },
+    {
+      "id": 36594974,
+      "title": "维米尔·旷世大展",
+      "original_title": "Vermeer: The Greatest Exhibition",
+      "release_date": "2026-05-22",
+      "genres": [
+        {
+          "id": 1,
+          "name": "纪录片"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "大卫·比克斯达夫"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "罗伯特·林德森"
+        }
+      ],
+      "countries": [
+        "英国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "维梅尔：光影大师"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/36594974.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/36594974/",
+      "douban_link_verified": true,
+      "overview": "国立博物馆和毛里茨之家举办了一场汇集维米尔杰作的展览。博物馆馆长和策展人带领他们进行私人导览，分享关于维米尔艺术创作过程及创作动机的新研究。",
+      "durations": [
+        "93分钟"
+      ],
+      "release_windows": [],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 31,
+        "maoyan_movie_id": 1642743,
+        "movie_name": "维米尔·旷世大展",
+        "release_info": "上映48天",
+        "real_time_box_office": "0.31万",
+        "cumulative_box_office": "48.8万",
+        "split_cumulative_box_office": "43.5万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 12,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "5.1%",
+        "avg_show_view": "4.4"
+      },
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "记录电影《维米尔·旷世大展》内地上映最新宣传定档预告",
+          "bvid": "BV1aN5d67Ex8",
+          "url": "https://www.bilibili.com/video/BV1aN5d67Ex8",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1aN5d67Ex8&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/8a36e4ae88462014862fcdbdd94042922846653b.jpg",
+          "publishedAt": "2026-05-14T13:50:38.000Z"
         }
       ]
     },
@@ -10028,235 +10269,11 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 1069,
+      "rating_count": 1165,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1339588,
       "tmdbUrl": "https://www.themoviedb.org/movie/1339588"
-    },
-    {
-      "id": 36723035,
-      "title": "星球大战：曼达洛人与古古",
-      "original_title": "Star Wars: The Mandalorian & Grogu",
-      "release_date": "2026-05-22",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "科幻"
-        },
-        {
-          "id": 3,
-          "name": "奇幻"
-        },
-        {
-          "id": 4,
-          "name": "冒险"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "乔恩·费儒"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "佩德罗·帕斯卡"
-        },
-        {
-          "id": 2,
-          "name": "杰瑞米·艾伦·怀特"
-        },
-        {
-          "id": 3,
-          "name": "西格妮·韦弗"
-        },
-        {
-          "id": 4,
-          "name": "史蒂夫·布卢姆"
-        },
-        {
-          "id": 5,
-          "name": "乔尼·科因"
-        },
-        {
-          "id": 6,
-          "name": "马丁·斯科塞斯"
-        },
-        {
-          "id": 7,
-          "name": "马修·维利希"
-        },
-        {
-          "id": 8,
-          "name": "李善亨"
-        },
-        {
-          "id": 9,
-          "name": "哈姆基·马戴拉"
-        },
-        {
-          "id": 10,
-          "name": "安东尼·丹尼尔斯"
-        },
-        {
-          "id": 11,
-          "name": "瑞克·法穆易瓦"
-        },
-        {
-          "id": 12,
-          "name": "迈尔斯·哈姆帕斯"
-        },
-        {
-          "id": 13,
-          "name": "伦敦·斯塔布尔菲尔德"
-        },
-        {
-          "id": 14,
-          "name": "克里斯托弗·艾伦·罗宾逊"
-        },
-        {
-          "id": 15,
-          "name": "波西亚·D·哈里斯"
-        },
-        {
-          "id": 16,
-          "name": "戴夫·菲洛尼"
-        }
-      ],
-      "countries": [
-        "美国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "曼达洛人与古古",
-        "曼达洛人和格洛古",
-        "曼达洛人和古古",
-        "曼达洛人与尤达宝宝",
-        "The Mandalorian & Grogu"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36723035.jpg",
-      "douban_rating": "7.5",
-      "douban_link_google": "https://movie.douban.com/subject/36723035/",
-      "douban_link_verified": true,
-      "overview": "在秩序动荡的银河系，“最强奶爸”丁·贾伦（佩德罗·帕斯卡 饰）与“银河系萌娃”古古这对非血缘父子并肩登场。冷峻坚毅的赏金猎人丁·贾伦身披贝斯卡钢甲，凭悍勇战力屡屡从围堵中突围；看似弱小的原力学徒古古，则总能在关键时刻爆发出惊人战力，为搭档化解危机。他们一同执行关乎银河命运的绝密任务，直面远比以往更为凶险的挑战与博弈。",
-      "durations": [
-        "132分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 44650,
-      "rating_star_count": 4,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 14,
-        "maoyan_movie_id": 1518418,
-        "movie_name": "星球大战：曼达洛人与古古",
-        "release_info": "上映45天",
-        "real_time_box_office": "15.11万",
-        "cumulative_box_office": "9309.8万",
-        "split_cumulative_box_office": "8316.1万",
-        "box_office_rate": "0.1%",
-        "split_box_office_rate": "0.1%",
-        "show_count": 312,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "9.8%",
-        "avg_show_view": "10.0"
-      },
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "场面震撼！《钢铁侠》导演科幻巨制《曼达洛人与古古》终极预告，内地定档05.22",
-          "bvid": "BV13Y5s6ZEab",
-          "url": "https://www.bilibili.com/video/BV13Y5s6ZEab",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV13Y5s6ZEab&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/cc5a5b58ddb5cf53998211e9967565b27886e589.jpg",
-          "publishedAt": "2026-05-11T04:11:19.000Z"
-        }
-      ]
-    },
-    {
-      "id": 36594974,
-      "title": "维米尔·旷世大展",
-      "original_title": "Vermeer: The Greatest Exhibition",
-      "release_date": "2026-05-22",
-      "genres": [
-        {
-          "id": 1,
-          "name": "纪录片"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "大卫·比克斯达夫"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "罗伯特·林德森"
-        }
-      ],
-      "countries": [
-        "英国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "维梅尔：光影大师"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36594974.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/36594974/",
-      "douban_link_verified": true,
-      "overview": "国立博物馆和毛里茨之家举办了一场汇集维米尔杰作的展览。博物馆馆长和策展人带领他们进行私人导览，分享关于维米尔艺术创作过程及创作动机的新研究。",
-      "durations": [
-        "93分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 70,
-        "maoyan_movie_id": 1642743,
-        "movie_name": "维米尔·旷世大展",
-        "release_info": "上映45天",
-        "real_time_box_office": "0.12万",
-        "cumulative_box_office": "48.3万",
-        "split_cumulative_box_office": "43.1万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 10,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "3.3%",
-        "avg_show_view": "2.7"
-      },
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "记录电影《维米尔·旷世大展》内地上映最新宣传定档预告",
-          "bvid": "BV1aN5d67Ex8",
-          "url": "https://www.bilibili.com/video/BV1aN5d67Ex8",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1aN5d67Ex8&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/8a36e4ae88462014862fcdbdd94042922846653b.jpg",
-          "publishedAt": "2026-05-14T13:50:38.000Z"
-        }
-      ]
     },
     {
       "id": 37317133,
@@ -11478,7 +11495,7 @@
       "aka": [],
       "imdb_id": "tt37740247",
       "poster_path": "posters/douban/movie_cn/34954059.jpg",
-      "douban_rating": "6.7",
+      "douban_rating": "6.8",
       "douban_link_google": "https://movie.douban.com/subject/34954059/",
       "douban_link_verified": true,
       "overview": "算命先生告诉63岁的萨科尔：他的母亲时日无多。为了给母亲延寿，萨科尔策划了一场一日九寺的祈福之行——三代人挤上一辆车，从清晨跑到日暮。漫漫路途，身心俱疲，潜藏的家庭矛盾随之爆发。",
@@ -11486,7 +11503,7 @@
         "140分钟"
       ],
       "release_windows": [],
-      "rating_count": 380,
+      "rating_count": 381,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1046304,
@@ -11778,20 +11795,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1301421",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 34,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 41,
         "maoyan_movie_id": 1528176,
         "movie_name": "绵羊侦探团",
-        "release_info": "上映53天",
-        "real_time_box_office": "0.14万",
-        "cumulative_box_office": "2232.7万",
-        "split_cumulative_box_office": "1998.8万",
+        "release_info": "上映54天",
+        "real_time_box_office": "0.08万",
+        "cumulative_box_office": "2232.8万",
+        "split_cumulative_box_office": "1998.9万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 34,
+        "show_count": 39,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.0%",
-        "avg_show_view": "0.9"
+        "seat_occupancy": "0.6%",
+        "avg_show_view": "0.5"
       }
     },
     {
@@ -11944,62 +11961,6 @@
       }
     },
     {
-      "id": 38407729,
-      "title": "单程夜航",
-      "original_title": "单程夜航",
-      "release_date": "2026-05-15",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "约翰·特拉沃尔塔"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "克拉克·肖特韦尔"
-        },
-        {
-          "id": 2,
-          "name": "凯莉·B·埃维斯顿"
-        },
-        {
-          "id": 3,
-          "name": "艾伦·特拉沃尔塔"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "单程夜航"
-      ],
-      "imdb_id": "tt41367695",
-      "poster_path": "posters/douban/movie_cn/38407729.jpg",
-      "douban_rating": "6.9",
-      "douban_link_google": "https://movie.douban.com/subject/38407729/",
-      "douban_link_verified": true,
-      "overview": "在航空业的黄金时代，一名热爱飞机的男孩与母亲展开一段横跨全国前往好莱坞的旅程，一趟平凡的飞行之旅悄然成为了毕生难忘的回忆。",
-      "durations": [
-        "60分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 1199,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1662414,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1662414"
-    },
-    {
       "id": 37434315,
       "title": "凌晨两点半4",
       "original_title": "凌晨两点半4",
@@ -12103,24 +12064,63 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 38407729,
+      "title": "单程夜航",
+      "original_title": "单程夜航",
+      "release_date": "2026-05-15",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "约翰·特拉沃尔塔"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "克拉克·肖特韦尔"
+        },
+        {
+          "id": 2,
+          "name": "凯莉·B·埃维斯顿"
+        },
+        {
+          "id": 3,
+          "name": "艾伦·特拉沃尔塔"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "单程夜航"
+      ],
+      "imdb_id": "tt41367695",
+      "poster_path": "posters/douban/movie_cn/38407729.jpg",
+      "douban_rating": "6.9",
+      "douban_link_google": "https://movie.douban.com/subject/38407729/",
+      "douban_link_verified": true,
+      "overview": "在航空业的黄金时代，一名热爱飞机的男孩与母亲展开一段横跨全国前往好莱坞的旅程，一趟平凡的飞行之旅悄然成为了毕生难忘的回忆。",
+      "durations": [
+        "60分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 1204,
+      "rating_star_count": 3.5,
       "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 71,
-        "maoyan_movie_id": 1536843,
-        "movie_name": "凌晨两点半4",
-        "release_info": "上映52天",
-        "real_time_box_office": "0.09万",
-        "cumulative_box_office": "109.4万",
-        "split_cumulative_box_office": "96.0万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 9,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.5%",
-        "avg_show_view": "1.3"
-      }
+      "tmdb_id": 1662414,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1662414"
     },
     {
       "id": 1294941,
@@ -13149,20 +13149,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/931285",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 63,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 29,
         "maoyan_movie_id": 1482041,
         "movie_name": "真人快打2",
-        "release_info": "上映61天",
-        "real_time_box_office": "0.00万",
-        "cumulative_box_office": "1774.6万",
-        "split_cumulative_box_office": "1576.3万",
+        "release_info": "上映62天",
+        "real_time_box_office": "0.33万",
+        "cumulative_box_office": "1775.9万",
+        "split_cumulative_box_office": "1577.6万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 10,
+        "show_count": 12,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.3%",
-        "avg_show_view": "0.2"
+        "seat_occupancy": "5.2%",
+        "avg_show_view": "6.9"
       },
       "trailers": [
         {
@@ -13505,6 +13505,69 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1630423"
     },
     {
+      "id": 38449270,
+      "title": "加里市",
+      "original_title": "加里市",
+      "release_date": "2026-05-05",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "喜剧"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "克里斯托弗·斯托勒"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "艾邦·摩斯-巴克拉赫"
+        },
+        {
+          "id": 2,
+          "name": "乔·博恩瑟"
+        },
+        {
+          "id": 3,
+          "name": "阿尤·艾德维利"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [],
+      "imdb_id": "tt42373968",
+      "poster_path": "posters/douban/movie_cn/38449270.jpg",
+      "douban_rating": "6.7",
+      "douban_link_google": "https://movie.douban.com/subject/38449270/",
+      "douban_link_verified": true,
+      "overview": "设定在《熊家餐馆》故事之前，讲述Richie（艾邦·摩斯-巴克拉赫）和Mikey（乔·博恩瑟）一起去印第安纳州加里市出的一趟差。",
+      "durations": [
+        "58分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "may_day",
+          "label": "五一档"
+        }
+      ],
+      "rating_count": 330,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1688652,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1688652"
+    },
+    {
       "id": 1295409,
       "title": "纵横四海",
       "original_title": "縱橫四海",
@@ -13829,20 +13892,20 @@
       "type": "movie",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 39,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 62,
         "maoyan_movie_id": 1525209,
         "movie_name": "寒战1994",
-        "release_info": "上映68天",
-        "real_time_box_office": "0.06万",
+        "release_info": "上映69天",
+        "real_time_box_office": "0.01万",
         "cumulative_box_office": "2.96亿",
         "split_cumulative_box_office": "2.61亿",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 36,
+        "show_count": 48,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.4%",
-        "avg_show_view": "0.3"
+        "seat_occupancy": "0.1%",
+        "avg_show_view": "<0.1"
       }
     },
     {
@@ -13957,17 +14020,17 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1658653",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 11,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 9,
         "maoyan_movie_id": 1528954,
         "movie_name": "消失的人",
-        "release_info": "上映68天",
-        "real_time_box_office": "5.32万",
+        "release_info": "上映69天",
+        "real_time_box_office": "6.74万",
         "cumulative_box_office": "5.72亿",
-        "split_cumulative_box_office": "4.99亿",
-        "box_office_rate": "0.8%",
-        "split_box_office_rate": "0.8%",
-        "show_count": 4265,
+        "split_cumulative_box_office": "5.00亿",
+        "box_office_rate": "1.0%",
+        "split_box_office_rate": "0.9%",
+        "show_count": 4513,
         "show_count_rate": "1.0%",
         "seat_occupancy": "0.4%",
         "avg_show_view": "0.4"
@@ -13983,75 +14046,6 @@
           "publishedAt": "2026-05-14T00:00:00.000Z"
         }
       ]
-    },
-    {
-      "id": 38396481,
-      "title": "麦卡托·骑士",
-      "original_title": "メルカトル・ナイト",
-      "release_date": "2026-05-01",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "悬疑"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "大山晃一郎"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "水泽林太郎"
-        },
-        {
-          "id": 2,
-          "name": "须贺健太"
-        },
-        {
-          "id": 3,
-          "name": "恒松祐里"
-        },
-        {
-          "id": 4,
-          "name": "新木宏典"
-        },
-        {
-          "id": 5,
-          "name": "弓木奈於"
-        }
-      ],
-      "countries": [
-        "日本"
-      ],
-      "languages": [
-        "日语"
-      ],
-      "aka": [
-        "墨丘利之夜"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/38396481.jpg",
-      "douban_rating": "6.4",
-      "douban_link_google": "https://movie.douban.com/subject/38396481/",
-      "douban_link_verified": true,
-      "overview": "人气女作家（恒松祐里）向恶名昭彰的私家侦探麦卡托（水泽林太郎）提出调查委托，称“自己可能正遭人追杀”。每天送达的神秘扑克牌仿佛预示着“杀人倒计时”，这究竟意味着什么……？麦卡托与他的助手兼作家美袋三条（须贺健太）的推理锋芒毕露——。",
-      "durations": [],
-      "release_windows": [
-        {
-          "id": "may_day",
-          "label": "五一档"
-        }
-      ],
-      "rating_count": 435,
-      "rating_star_count": 3,
-      "type": "movie"
     },
     {
       "id": 36631864,
@@ -14175,6 +14169,75 @@
       "type": "movie",
       "tmdb_id": 1007757,
       "tmdbUrl": "https://www.themoviedb.org/movie/1007757"
+    },
+    {
+      "id": 38396481,
+      "title": "麦卡托·骑士",
+      "original_title": "メルカトル・ナイト",
+      "release_date": "2026-05-01",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "悬疑"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "大山晃一郎"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "水泽林太郎"
+        },
+        {
+          "id": 2,
+          "name": "须贺健太"
+        },
+        {
+          "id": 3,
+          "name": "恒松祐里"
+        },
+        {
+          "id": 4,
+          "name": "新木宏典"
+        },
+        {
+          "id": 5,
+          "name": "弓木奈於"
+        }
+      ],
+      "countries": [
+        "日本"
+      ],
+      "languages": [
+        "日语"
+      ],
+      "aka": [
+        "墨丘利之夜"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/38396481.jpg",
+      "douban_rating": "6.4",
+      "douban_link_google": "https://movie.douban.com/subject/38396481/",
+      "douban_link_verified": true,
+      "overview": "人气女作家（恒松祐里）向恶名昭彰的私家侦探麦卡托（水泽林太郎）提出调查委托，称“自己可能正遭人追杀”。每天送达的神秘扑克牌仿佛预示着“杀人倒计时”，这究竟意味着什么……？麦卡托与他的助手兼作家美袋三条（须贺健太）的推理锋芒毕露——。",
+      "durations": [],
+      "release_windows": [
+        {
+          "id": "may_day",
+          "label": "五一档"
+        }
+      ],
+      "rating_count": 435,
+      "rating_star_count": 3,
+      "type": "movie"
     },
     {
       "id": 37193307,
@@ -14699,18 +14762,18 @@
       "type": "movie",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
+        "updated_at": "2026-07-07T16:17:55.720Z",
         "rank": 5,
         "maoyan_movie_id": 1516982,
         "movie_name": "给阿嬷的情书",
-        "release_info": "上映69天",
-        "real_time_box_office": "49.39万",
-        "cumulative_box_office": "19.64亿",
-        "split_cumulative_box_office": "17.29亿",
-        "box_office_rate": "8.0%",
-        "split_box_office_rate": "7.8%",
-        "show_count": 39195,
-        "show_count_rate": "9.4%",
+        "release_info": "上映70天",
+        "real_time_box_office": "49.09万",
+        "cumulative_box_office": "19.68亿",
+        "split_cumulative_box_office": "17.32亿",
+        "box_office_rate": "7.5%",
+        "split_box_office_rate": "7.3%",
+        "show_count": 39834,
+        "show_count_rate": "9.6%",
         "seat_occupancy": "0.3%",
         "avg_show_view": "0.4"
       },
@@ -15136,107 +15199,139 @@
       ]
     },
     {
-      "id": 36779303,
-      "title": "巅峰猎杀",
-      "original_title": "Apex",
-      "release_date": "2026-04-24",
+      "id": 26967871,
+      "title": "寂静的朋友",
+      "original_title": "Stiller Freund",
+      "release_date": "2026-04-25",
       "genres": [
         {
           "id": 1,
-          "name": "动作"
+          "name": "剧情"
         },
         {
           "id": 2,
-          "name": "惊悚"
+          "name": "科幻"
         }
       ],
       "directors": [
         {
           "id": 1,
-          "name": "巴塔萨·科马库"
+          "name": "伊尔蒂科·茵叶蒂"
         }
       ],
       "actors": [
         {
           "id": 1,
-          "name": "查理兹·塞隆"
+          "name": "梁朝伟"
         },
         {
           "id": 2,
-          "name": "塔伦·埃哲顿"
+          "name": "卢娜·韦德勒"
         },
         {
           "id": 3,
-          "name": "艾瑞克·巴纳"
+          "name": "恩佐·布鲁姆"
         },
         {
           "id": 4,
-          "name": "马特·惠伦"
+          "name": "蕾雅·赛杜"
         },
         {
           "id": 5,
-          "name": "贝茜·霍兰德"
+          "name": "西尔维斯特·格罗特"
         },
         {
           "id": 6,
-          "name": "亚伦·佩德森"
+          "name": "黄云"
         },
         {
           "id": 7,
-          "name": "罗伯·卡尔顿"
+          "name": "卢卡·瓦伦蒂尼"
         },
         {
           "id": 8,
-          "name": "邓肯·法洛"
+          "name": "菲利克斯·布罗斯"
         },
         {
           "id": 9,
-          "name": "朱莉娅·奥汉尼西安"
+          "name": "赖纳·博克"
         },
         {
           "id": 10,
-          "name": "尼阿姆·霍根"
+          "name": "玛莱内·布罗"
         },
         {
           "id": 11,
-          "name": "威洛·西格"
+          "name": "厄文·吉瑟"
         },
         {
           "id": 12,
-          "name": "扎卡里·加雷德"
+          "name": "约翰内斯·赫格曼"
         },
         {
           "id": 13,
-          "name": "凯特琳·斯塔西"
+          "name": "斯凯·霍夫曼"
+        },
+        {
+          "id": 14,
+          "name": "约翰内斯·沙伊德魏勒"
+        },
+        {
+          "id": 15,
+          "name": "马丁·乌特克"
         }
       ],
       "countries": [
-        "加拿大",
-        "澳大利亚",
-        "美国",
-        "冰岛"
+        "德国",
+        "匈牙利",
+        "法国",
+        "中国大陆"
       ],
       "languages": [
-        "英语"
+        "英语",
+        "粤语",
+        "德语"
       ],
       "aka": [
-        "巅峰"
+        "你是不会当树吗(台)",
+        "喑哑的友人",
+        "Csendes barát",
+        "A néma barát",
+        "Silent Friend",
+        "Stille Freundin"
       ],
-      "imdb_id": "tt16431404",
-      "poster_path": "posters/douban/movie_cn/36779303.jpg",
-      "douban_rating": "6.3",
-      "douban_link_google": "https://movie.douban.com/subject/36779303/",
+      "imdb_id": "tt27811632",
+      "poster_path": "posters/douban/movie_cn/26967871.jpg",
+      "douban_rating": "7.9",
+      "douban_link_google": "https://movie.douban.com/subject/26967871/",
       "douban_link_verified": true,
-      "overview": "为了考验自己的极限，莎夏（查理兹·塞隆 饰）深入偏僻无情的澳洲荒野，却发觉自己不只必须在严苛环境中奋勇求生，还得对抗一名残忍又危险的恶徒（塔伦·埃哲顿 饰）。",
+      "overview": "在德国一座中世纪大学城的植物园中，一棵古老的银杏树静静矗立，见证着三个时代中人与自然之间的深层联结。1908年，大学首位女性学生透过摄影镜头，在植物的微观结构中发现宇宙的神圣秩序；1972年，一位沉默的青年在观察天竺葵的过程中，悄然改变了对世界的感知；2020年，一位来自香港的神经科学家在研究婴儿意识的同时，与这棵树展开一场意想不到的实验。",
       "durations": [
-        "95分钟"
+        "147分钟"
       ],
       "release_windows": [],
-      "rating_count": 17135,
-      "rating_star_count": 3,
+      "rating_count": 36028,
+      "rating_star_count": 4,
       "type": "movie",
-      "tmdb_id": 1318447,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1318447"
+      "tmdb_id": 1168719,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1168719",
+      "box_office": {
+        "source": "maoyan",
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 57,
+        "maoyan_movie_id": 1503025,
+        "movie_name": "寂静的朋友",
+        "release_info": "上映75天",
+        "real_time_box_office": "0.02万",
+        "cumulative_box_office": "519.7万",
+        "split_cumulative_box_office": "473.6万",
+        "box_office_rate": "<0.1%",
+        "split_box_office_rate": "<0.1%",
+        "show_count": 6,
+        "show_count_rate": "<0.1%",
+        "seat_occupancy": "0.7%",
+        "avg_show_view": "0.5"
+      }
     },
     {
       "id": 35948919,
@@ -15369,20 +15464,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/936075",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 28,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 33,
         "maoyan_movie_id": 1477992,
         "movie_name": "迈克尔·杰克逊：巨星之路",
-        "release_info": "上映75天",
-        "real_time_box_office": "0.27万",
-        "cumulative_box_office": "7139.8万",
-        "split_cumulative_box_office": "6335.9万",
+        "release_info": "上映76天",
+        "real_time_box_office": "0.21万",
+        "cumulative_box_office": "7140.4万",
+        "split_cumulative_box_office": "6336.4万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 60,
+        "show_count": 65,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.0%",
-        "avg_show_view": "1.0"
+        "seat_occupancy": "0.8%",
+        "avg_show_view": "0.7"
       }
     },
     {
@@ -15444,21 +15539,124 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1645455",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-05T15:05:38.771Z",
-        "rank": 54,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 46,
         "maoyan_movie_id": 1478932,
         "movie_name": "登月（第一部）",
-        "release_info": "上映73天",
-        "real_time_box_office": "0.32万",
-        "cumulative_box_office": "273.4万",
-        "split_cumulative_box_office": "263.9万",
+        "release_info": "上映76天",
+        "real_time_box_office": "0.05万",
+        "cumulative_box_office": "275.4万",
+        "split_cumulative_box_office": "265.8万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 9,
+        "show_count": 13,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "9.2%",
-        "avg_show_view": "7.6"
+        "seat_occupancy": "1.2%",
+        "avg_show_view": "1.1"
       }
+    },
+    {
+      "id": 36779303,
+      "title": "巅峰猎杀",
+      "original_title": "Apex",
+      "release_date": "2026-04-24",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "惊悚"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "巴塔萨·科马库"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "查理兹·塞隆"
+        },
+        {
+          "id": 2,
+          "name": "塔伦·埃哲顿"
+        },
+        {
+          "id": 3,
+          "name": "艾瑞克·巴纳"
+        },
+        {
+          "id": 4,
+          "name": "马特·惠伦"
+        },
+        {
+          "id": 5,
+          "name": "贝茜·霍兰德"
+        },
+        {
+          "id": 6,
+          "name": "亚伦·佩德森"
+        },
+        {
+          "id": 7,
+          "name": "罗伯·卡尔顿"
+        },
+        {
+          "id": 8,
+          "name": "邓肯·法洛"
+        },
+        {
+          "id": 9,
+          "name": "朱莉娅·奥汉尼西安"
+        },
+        {
+          "id": 10,
+          "name": "尼阿姆·霍根"
+        },
+        {
+          "id": 11,
+          "name": "威洛·西格"
+        },
+        {
+          "id": 12,
+          "name": "扎卡里·加雷德"
+        },
+        {
+          "id": 13,
+          "name": "凯特琳·斯塔西"
+        }
+      ],
+      "countries": [
+        "加拿大",
+        "澳大利亚",
+        "美国",
+        "冰岛"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "巅峰"
+      ],
+      "imdb_id": "tt16431404",
+      "poster_path": "posters/douban/movie_cn/36779303.jpg",
+      "douban_rating": "6.3",
+      "douban_link_google": "https://movie.douban.com/subject/36779303/",
+      "douban_link_verified": true,
+      "overview": "为了考验自己的极限，莎夏（查理兹·塞隆 饰）深入偏僻无情的澳洲荒野，却发觉自己不只必须在严苛环境中奋勇求生，还得对抗一名残忍又危险的恶徒（塔伦·埃哲顿 饰）。",
+      "durations": [
+        "95分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 17135,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1318447,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1318447"
     },
     {
       "id": 38406961,
@@ -16410,6 +16608,68 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1461254"
     },
     {
+      "id": 35974602,
+      "title": "弗拉维亚",
+      "original_title": "弗拉维亚",
+      "release_date": "2026-04-04",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        },
+        {
+          "id": 2,
+          "name": "悬疑"
+        },
+        {
+          "id": 3,
+          "name": "冒险"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "贝瑞特·奈鲁利"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "马丁·弗瑞曼"
+        },
+        {
+          "id": 2,
+          "name": "乔纳森·普雷斯"
+        },
+        {
+          "id": 3,
+          "name": "托比·琼斯"
+        }
+      ],
+      "countries": [
+        "United Kingdom"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [],
+      "imdb_id": "tt11662534",
+      "poster_path": "posters/douban/movie_cn/35974602.jpg",
+      "douban_rating": "6.4",
+      "douban_link_google": "https://movie.douban.com/subject/35974602/",
+      "douban_link_verified": true,
+      "overview": "1951年，英国乡村边缘，德卢斯家族的庄园已在岁月中斑驳颓败。11岁的弗拉维亚·德卢斯，是家族里最离经叛道的孩子——她痴迷化学，尤其精通毒药，更有着超越年龄的侦探天赋。当一具陌生尸体出现在庄园的庭院中，她的父亲哈维兰上校成了警方的头号嫌疑人。为了洗刷父亲的冤屈，弗拉维亚拿起放大镜与化学试剂，在老宅的藏书室、实验室与庄园的隐秘角落中展开调查。她周旋于警探、古怪的家族成员与小镇居民之间，在层层迷雾中探寻真相，而随着调查深入，她也逐渐揭开了家族隐藏多年的秘密。",
+      "durations": [
+        "92分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 324,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1129104,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1129104"
+    },
+    {
       "id": 35159709,
       "title": "天才游戏",
       "original_title": "天才游戏",
@@ -16856,123 +17116,6 @@
       "type": "movie"
     },
     {
-      "id": 37332784,
-      "title": "我，许可",
-      "original_title": "我，许可",
-      "release_date": "2026-04-03",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "喜剧"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "杨荔钠"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "文淇"
-        },
-        {
-          "id": 2,
-          "name": "秦海璐"
-        },
-        {
-          "id": 3,
-          "name": "白客"
-        },
-        {
-          "id": 4,
-          "name": "李雪琴"
-        },
-        {
-          "id": 5,
-          "name": "牛莉"
-        },
-        {
-          "id": 6,
-          "name": "刘佳"
-        },
-        {
-          "id": 7,
-          "name": "啜妮"
-        },
-        {
-          "id": 8,
-          "name": "王和"
-        },
-        {
-          "id": 9,
-          "name": "张馨文"
-        },
-        {
-          "id": 10,
-          "name": "张懿曼"
-        },
-        {
-          "id": 11,
-          "name": "黄少峰"
-        },
-        {
-          "id": 12,
-          "name": "李哲霆"
-        },
-        {
-          "id": 13,
-          "name": "黄博远"
-        },
-        {
-          "id": 14,
-          "name": "李冠廷"
-        },
-        {
-          "id": 15,
-          "name": "刘杰毅"
-        },
-        {
-          "id": 16,
-          "name": "合文俊"
-        },
-        {
-          "id": 17,
-          "name": "翟韬"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "两分钟的事",
-        "It's OK"
-      ],
-      "imdb_id": "tt40915506",
-      "poster_path": "posters/douban/movie_cn/37332784.jpg",
-      "douban_rating": "8.1",
-      "douban_link_google": "https://movie.douban.com/subject/37332784/",
-      "douban_link_verified": true,
-      "overview": "00后“母单”女孩儿许可（文淇 饰）面临一场迫在眉睫的妇科手术，却因妈妈胡春蓉（秦海璐 饰）的突袭式造访打乱了所有计划。母女同居，冲突乍起。在新旧观念的摩擦中，没想到女儿对妈妈展开了一次又一次反向教育——跟妈谈心，不如带妈蹦迪；给妈上生理课，不如直接送妈小玩具……最终许可能否顺利手术，胡春蓉又能否鼓起勇气开始新生活？这场笑点和泪点齐飞的大戏，又将如何重塑两人之间的母女关系……",
-      "durations": [
-        "118分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 293736,
-      "rating_star_count": 4,
-      "type": "movie",
-      "tmdb_id": 1546855,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1546855"
-    },
-    {
       "id": 36806351,
       "title": "超级马力欧银河大电影",
       "original_title": "The Super Mario Galaxy Movie",
@@ -17090,21 +17233,138 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1226863",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 44,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 42,
         "maoyan_movie_id": 1522280,
         "movie_name": "超级马力欧银河大电影",
-        "release_info": "上映96天",
-        "real_time_box_office": "0.04万",
+        "release_info": "上映97天",
+        "real_time_box_office": "0.06万",
         "cumulative_box_office": "1.54亿",
         "split_cumulative_box_office": "1.38亿",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 63,
+        "show_count": 62,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.2%",
-        "avg_show_view": "0.2"
+        "seat_occupancy": "0.3%",
+        "avg_show_view": "0.3"
       }
+    },
+    {
+      "id": 37332784,
+      "title": "我，许可",
+      "original_title": "我，许可",
+      "release_date": "2026-04-03",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "喜剧"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "杨荔钠"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "文淇"
+        },
+        {
+          "id": 2,
+          "name": "秦海璐"
+        },
+        {
+          "id": 3,
+          "name": "白客"
+        },
+        {
+          "id": 4,
+          "name": "李雪琴"
+        },
+        {
+          "id": 5,
+          "name": "牛莉"
+        },
+        {
+          "id": 6,
+          "name": "刘佳"
+        },
+        {
+          "id": 7,
+          "name": "啜妮"
+        },
+        {
+          "id": 8,
+          "name": "王和"
+        },
+        {
+          "id": 9,
+          "name": "张馨文"
+        },
+        {
+          "id": 10,
+          "name": "张懿曼"
+        },
+        {
+          "id": 11,
+          "name": "黄少峰"
+        },
+        {
+          "id": 12,
+          "name": "李哲霆"
+        },
+        {
+          "id": 13,
+          "name": "黄博远"
+        },
+        {
+          "id": 14,
+          "name": "李冠廷"
+        },
+        {
+          "id": 15,
+          "name": "刘杰毅"
+        },
+        {
+          "id": 16,
+          "name": "合文俊"
+        },
+        {
+          "id": 17,
+          "name": "翟韬"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "两分钟的事",
+        "It's OK"
+      ],
+      "imdb_id": "tt40915506",
+      "poster_path": "posters/douban/movie_cn/37332784.jpg",
+      "douban_rating": "8.1",
+      "douban_link_google": "https://movie.douban.com/subject/37332784/",
+      "douban_link_verified": true,
+      "overview": "00后“母单”女孩儿许可（文淇 饰）面临一场迫在眉睫的妇科手术，却因妈妈胡春蓉（秦海璐 饰）的突袭式造访打乱了所有计划。母女同居，冲突乍起。在新旧观念的摩擦中，没想到女儿对妈妈展开了一次又一次反向教育——跟妈谈心，不如带妈蹦迪；给妈上生理课，不如直接送妈小玩具……最终许可能否顺利手术，胡春蓉又能否鼓起勇气开始新生活？这场笑点和泪点齐飞的大戏，又将如何重塑两人之间的母女关系……",
+      "durations": [
+        "118分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 293736,
+      "rating_star_count": 4,
+      "type": "movie",
+      "tmdb_id": 1546855,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1546855"
     },
     {
       "id": 37818637,
@@ -17290,19 +17550,19 @@
       "type": "movie",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 58,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 67,
         "maoyan_movie_id": 1594037,
         "movie_name": "心犬相随",
         "release_info": "展映",
-        "real_time_box_office": "0.01万",
+        "real_time_box_office": "0.00万",
         "cumulative_box_office": "138.3万",
         "split_cumulative_box_office": "125.0万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 18,
+        "show_count": 13,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "0.2%",
+        "seat_occupancy": "0.1%",
         "avg_show_view": "0.2"
       }
     },
@@ -17588,7 +17848,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 52932,
+      "rating_count": 53001,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1566589,
@@ -17663,7 +17923,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 10120,
+      "rating_count": 10119,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 696393,
@@ -18018,107 +18278,6 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1630433"
     },
     {
-      "id": 38363138,
-      "title": "欧阳万成：终于回家了",
-      "original_title": "欧阳万成：终于回家了",
-      "release_date": "2026-03-20",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "欧阳万成"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "欧阳万成"
-        }
-      ],
-      "countries": [
-        "美国"
-      ],
-      "languages": [
-        "英语",
-        "粤语"
-      ],
-      "aka": [],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/38363138.jpg",
-      "douban_rating": "7.7",
-      "douban_link_google": "https://movie.douban.com/subject/38363138/",
-      "douban_link_verified": true,
-      "overview": "作为首位在北美和香港院线同时首发个人单口喜剧特辑的华裔脱口秀演员，这部作品融入了他在香港的成长记忆、文化碰撞以及多位神秘嘉宾的惊喜客串。",
-      "durations": [
-        "75分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 512,
-      "rating_star_count": 4,
-      "type": "movie"
-    },
-    {
-      "id": 37061195,
-      "title": "谍杀风暴",
-      "original_title": "谍杀风暴",
-      "release_date": "2026-03-20",
-      "genres": [
-        {
-          "id": 1,
-          "name": "惊悚"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "丹尼·德拉托雷"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "马里奥·卡萨斯"
-        },
-        {
-          "id": 2,
-          "name": "玛蕾拉·嘉里加"
-        },
-        {
-          "id": 3,
-          "name": "路易斯·扎赫拉"
-        }
-      ],
-      "countries": [
-        "Spain"
-      ],
-      "languages": [
-        "es"
-      ],
-      "aka": [
-        "特工泽塔"
-      ],
-      "imdb_id": "tt32880540",
-      "poster_path": "posters/douban/movie_cn/37061195.jpg",
-      "douban_rating": "5.6",
-      "douban_link_google": "https://movie.douban.com/subject/37061195/",
-      "douban_link_verified": true,
-      "overview": "四名前西班牙特工在全球不同地点同时遇刺。西班牙国家情报中心发现，数十年前他们都在哥伦比亚参与了秘密的谢纳加行动。西班牙国家情报中心最出色的特工泽塔必须追查并保护唯一的幸存者，这将是他迄今为止最危险的全球任务。哥伦比亚顶级特工阿尔法将与泽塔并肩行动，而她似乎比他更了解谢纳加行动背后的秘密。",
-      "durations": [
-        "133分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 798,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1314786,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1314786"
-    },
-    {
       "id": 35010610,
       "title": "挽救计划",
       "original_title": "Project Hail Mary",
@@ -18280,6 +18439,107 @@
       "type": "movie",
       "tmdb_id": 687163,
       "tmdbUrl": "https://www.themoviedb.org/movie/687163"
+    },
+    {
+      "id": 38363138,
+      "title": "欧阳万成：终于回家了",
+      "original_title": "欧阳万成：终于回家了",
+      "release_date": "2026-03-20",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "欧阳万成"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "欧阳万成"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语",
+        "粤语"
+      ],
+      "aka": [],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/38363138.jpg",
+      "douban_rating": "7.7",
+      "douban_link_google": "https://movie.douban.com/subject/38363138/",
+      "douban_link_verified": true,
+      "overview": "作为首位在北美和香港院线同时首发个人单口喜剧特辑的华裔脱口秀演员，这部作品融入了他在香港的成长记忆、文化碰撞以及多位神秘嘉宾的惊喜客串。",
+      "durations": [
+        "75分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 512,
+      "rating_star_count": 4,
+      "type": "movie"
+    },
+    {
+      "id": 37061195,
+      "title": "谍杀风暴",
+      "original_title": "谍杀风暴",
+      "release_date": "2026-03-20",
+      "genres": [
+        {
+          "id": 1,
+          "name": "惊悚"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "丹尼·德拉托雷"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "马里奥·卡萨斯"
+        },
+        {
+          "id": 2,
+          "name": "玛蕾拉·嘉里加"
+        },
+        {
+          "id": 3,
+          "name": "路易斯·扎赫拉"
+        }
+      ],
+      "countries": [
+        "Spain"
+      ],
+      "languages": [
+        "es"
+      ],
+      "aka": [
+        "特工泽塔"
+      ],
+      "imdb_id": "tt32880540",
+      "poster_path": "posters/douban/movie_cn/37061195.jpg",
+      "douban_rating": "5.6",
+      "douban_link_google": "https://movie.douban.com/subject/37061195/",
+      "douban_link_verified": true,
+      "overview": "四名前西班牙特工在全球不同地点同时遇刺。西班牙国家情报中心发现，数十年前他们都在哥伦比亚参与了秘密的谢纳加行动。西班牙国家情报中心最出色的特工泽塔必须追查并保护唯一的幸存者，这将是他迄今为止最危险的全球任务。哥伦比亚顶级特工阿尔法将与泽塔并肩行动，而她似乎比他更了解谢纳加行动背后的秘密。",
+      "durations": [
+        "133分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 799,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1314786,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1314786"
     },
     {
       "id": 36999793,
@@ -18517,7 +18777,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 27124,
+      "rating_count": 27169,
       "rating_star_count": 3,
       "type": "movie"
     },
@@ -18586,7 +18846,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 3894,
+      "rating_count": 3918,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1390300,
@@ -18655,7 +18915,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 2059,
+      "rating_count": 2061,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1115544,
@@ -18908,6 +19168,136 @@
       "type": "movie",
       "tmdb_id": 1297842,
       "tmdbUrl": "https://www.themoviedb.org/movie/1297842"
+    },
+    {
+      "id": 36963690,
+      "title": "呼啸山庄",
+      "original_title": "Wuthering Heights",
+      "release_date": "2026-03-13",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "爱情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "埃默拉尔德·芬内尔"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "玛格特·罗比"
+        },
+        {
+          "id": 2,
+          "name": "雅各布·艾洛蒂"
+        },
+        {
+          "id": 3,
+          "name": "周洪"
+        },
+        {
+          "id": 4,
+          "name": "沙扎德·拉蒂夫"
+        },
+        {
+          "id": 5,
+          "name": "艾莉森·奥利弗"
+        },
+        {
+          "id": 6,
+          "name": "马丁·克鲁勒斯"
+        },
+        {
+          "id": 7,
+          "name": "伊旺·米切尔"
+        },
+        {
+          "id": 8,
+          "name": "艾米·摩根"
+        },
+        {
+          "id": 9,
+          "name": "杰西卡·奈佩特"
+        },
+        {
+          "id": 10,
+          "name": "夏洛特·梅林顿"
+        },
+        {
+          "id": 11,
+          "name": "欧文·库珀"
+        },
+        {
+          "id": 12,
+          "name": "薇·阮"
+        },
+        {
+          "id": 13,
+          "name": "米莉·肯特"
+        },
+        {
+          "id": 14,
+          "name": "薇琪·佩珀代因"
+        },
+        {
+          "id": 15,
+          "name": "保罗·瑞斯"
+        },
+        {
+          "id": 16,
+          "name": "罗伯特·考西"
+        },
+        {
+          "id": 17,
+          "name": "加布里埃尔·比塞特 - 史密斯"
+        },
+        {
+          "id": 18,
+          "name": "路易·本杰明·波茨"
+        },
+        {
+          "id": 19,
+          "name": "特雷斯顿·布雷恩"
+        },
+        {
+          "id": 20,
+          "name": "杰登·伊斯特曼"
+        }
+      ],
+      "countries": [
+        "英国",
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "咆哮山庄(港/台)",
+        "“咆哮山庄”"
+      ],
+      "imdb_id": "tt32897959",
+      "poster_path": "posters/douban/movie_cn/36963690.jpg",
+      "douban_rating": "6.2",
+      "douban_link_google": "https://movie.douban.com/subject/36963690/",
+      "douban_link_verified": true,
+      "overview": "改编自英国著名作家艾米莉·勃朗特同名经典作品，英格兰北部的荒原之上，一场跨越阶级的禁忌之恋正在上演。庄园之主的女儿凯茜（玛格特·罗比 饰）与被收养的孤儿希斯克利夫（雅各布·艾洛蒂 饰）青梅竹马，灵魂契合彼此深陷。爱意悄然滋长之时，现实的残酷和命运的捉弄却将二人分开。多年以后，他携风暴回来，纯洁的爱火逐渐从浪漫演变为痴狂，谱写了一曲关于欲望、爱与疯狂的史诗篇章。",
+      "durations": [
+        "137分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 98798,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1316092,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1316092"
     },
     {
       "id": 36238726,
@@ -19451,136 +19841,6 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1493859"
     },
     {
-      "id": 36963690,
-      "title": "呼啸山庄",
-      "original_title": "Wuthering Heights",
-      "release_date": "2026-03-13",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "埃默拉尔德·芬内尔"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "玛格特·罗比"
-        },
-        {
-          "id": 2,
-          "name": "雅各布·艾洛蒂"
-        },
-        {
-          "id": 3,
-          "name": "周洪"
-        },
-        {
-          "id": 4,
-          "name": "沙扎德·拉蒂夫"
-        },
-        {
-          "id": 5,
-          "name": "艾莉森·奥利弗"
-        },
-        {
-          "id": 6,
-          "name": "马丁·克鲁勒斯"
-        },
-        {
-          "id": 7,
-          "name": "伊旺·米切尔"
-        },
-        {
-          "id": 8,
-          "name": "艾米·摩根"
-        },
-        {
-          "id": 9,
-          "name": "杰西卡·奈佩特"
-        },
-        {
-          "id": 10,
-          "name": "夏洛特·梅林顿"
-        },
-        {
-          "id": 11,
-          "name": "欧文·库珀"
-        },
-        {
-          "id": 12,
-          "name": "薇·阮"
-        },
-        {
-          "id": 13,
-          "name": "米莉·肯特"
-        },
-        {
-          "id": 14,
-          "name": "薇琪·佩珀代因"
-        },
-        {
-          "id": 15,
-          "name": "保罗·瑞斯"
-        },
-        {
-          "id": 16,
-          "name": "罗伯特·考西"
-        },
-        {
-          "id": 17,
-          "name": "加布里埃尔·比塞特 - 史密斯"
-        },
-        {
-          "id": 18,
-          "name": "路易·本杰明·波茨"
-        },
-        {
-          "id": 19,
-          "name": "特雷斯顿·布雷恩"
-        },
-        {
-          "id": 20,
-          "name": "杰登·伊斯特曼"
-        }
-      ],
-      "countries": [
-        "英国",
-        "美国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "咆哮山庄(港/台)",
-        "“咆哮山庄”"
-      ],
-      "imdb_id": "tt32897959",
-      "poster_path": "posters/douban/movie_cn/36963690.jpg",
-      "douban_rating": "6.2",
-      "douban_link_google": "https://movie.douban.com/subject/36963690/",
-      "douban_link_verified": true,
-      "overview": "改编自英国著名作家艾米莉·勃朗特同名经典作品，英格兰北部的荒原之上，一场跨越阶级的禁忌之恋正在上演。庄园之主的女儿凯茜（玛格特·罗比 饰）与被收养的孤儿希斯克利夫（雅各布·艾洛蒂 饰）青梅竹马，灵魂契合彼此深陷。爱意悄然滋长之时，现实的残酷和命运的捉弄却将二人分开。多年以后，他携风暴回来，纯洁的爱火逐渐从浪漫演变为痴狂，谱写了一曲关于欲望、爱与疯狂的史诗篇章。",
-      "durations": [
-        "137分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 98798,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1316092,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1316092"
-    },
-    {
       "id": 37317101,
       "title": "神头岭1938",
       "original_title": "神头岭1938",
@@ -20011,7 +20271,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 36084,
+      "rating_count": 36105,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1171145,
@@ -21657,7 +21917,7 @@
           "label": "春节档"
         }
       ],
-      "rating_count": 466074,
+      "rating_count": 466340,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -21726,7 +21986,7 @@
           "label": "春节档"
         }
       ],
-      "rating_count": 287932,
+      "rating_count": 288181,
       "rating_star_count": 3,
       "type": "movie"
     },
@@ -22204,7 +22464,7 @@
           "label": "春节档"
         }
       ],
-      "rating_count": 32530,
+      "rating_count": 32556,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1607088,
@@ -22331,7 +22591,7 @@
           "label": "春节档"
         }
       ],
-      "rating_count": 745,
+      "rating_count": 746,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 884692,
@@ -22398,7 +22658,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 5326,
+      "rating_count": 5330,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1635742,
@@ -22567,7 +22827,7 @@
         "124分钟"
       ],
       "release_windows": [],
-      "rating_count": 312,
+      "rating_count": 314,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1530941,
@@ -22628,7 +22888,7 @@
         "119分钟"
       ],
       "release_windows": [],
-      "rating_count": 5430,
+      "rating_count": 5434,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1268127,
@@ -22686,7 +22946,7 @@
         "105分钟"
       ],
       "release_windows": [],
-      "rating_count": 1530,
+      "rating_count": 1533,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1411577,
@@ -22740,7 +23000,7 @@
       ],
       "imdb_id": "tt32272771",
       "poster_path": "posters/douban/movie_cn/36208896.jpg",
-      "douban_rating": "6.0",
+      "douban_rating": "5.9",
       "douban_link_google": "https://movie.douban.com/subject/36208896/",
       "douban_link_verified": true,
       "overview": "香港核心商业地带油尖旺地区近日突发连环抢劫大案，区域内多家珠宝店遭遇悍匪团伙的洗劫！奉命执行任务的冲锋队Car 3在组长郑志斌（方中信 饰）的带领下一路追击，但查探到的线索却令郑志斌心头一紧。原来，悍匪头目阮卓龙（张继聪 饰）、阮卓武（安志杰 饰）是多年前另一桩持枪抢劫案的在逃要犯。如今两兄弟卷土重来，犯案同时还不断向警方挑衅，令整个警队焦灼且困惑。此外，阮氏兄弟的步步紧逼亦令Car 3队员张家和（陈家乐 饰）难以自制，郑志斌看在眼里却也有心无力…..宿命般的四人在不断交锋中，揭开了背后尘封已久的秘密……",
@@ -22748,7 +23008,7 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 3642,
+      "rating_count": 3645,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1071640,
@@ -22813,7 +23073,7 @@
         "130分钟"
       ],
       "release_windows": [],
-      "rating_count": 833,
+      "rating_count": 834,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1570282,
@@ -22943,7 +23203,7 @@
         "102分钟"
       ],
       "release_windows": [],
-      "rating_count": 633,
+      "rating_count": 634,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1261188,
@@ -23001,7 +23261,7 @@
         "96分钟"
       ],
       "release_windows": [],
-      "rating_count": 708,
+      "rating_count": 710,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1291335,
@@ -23065,7 +23325,7 @@
         "117分钟"
       ],
       "release_windows": [],
-      "rating_count": 16666,
+      "rating_count": 16746,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1321179,
@@ -23247,7 +23507,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 361,
+      "rating_count": 362,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -23449,7 +23709,7 @@
         "115分钟"
       ],
       "release_windows": [],
-      "rating_count": 1304,
+      "rating_count": 1305,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 910850,
@@ -23511,7 +23771,7 @@
         "108分钟"
       ],
       "release_windows": [],
-      "rating_count": 23662,
+      "rating_count": 23680,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1290821,
@@ -24560,6 +24820,141 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1422562"
     },
     {
+      "id": 37559942,
+      "title": "利未记",
+      "original_title": "利未记",
+      "release_date": "2026-01-23",
+      "genres": [
+        {
+          "id": 1,
+          "name": "爱情"
+        },
+        {
+          "id": 2,
+          "name": "科幻"
+        },
+        {
+          "id": 3,
+          "name": "恐怖"
+        },
+        {
+          "id": 4,
+          "name": "同性"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "阿德里安·奇亚雷拉"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "史泰西·克劳森"
+        },
+        {
+          "id": 2,
+          "name": "乔·伯德"
+        },
+        {
+          "id": 3,
+          "name": "杰瑞米·布莱维特"
+        }
+      ],
+      "countries": [
+        "Australia",
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "Leviticus"
+      ],
+      "imdb_id": "tt39143902",
+      "poster_path": "posters/douban/movie_cn/37559942.jpg",
+      "douban_rating": "7.4",
+      "douban_link_google": "https://movie.douban.com/subject/37559942/",
+      "douban_link_verified": true,
+      "overview": "两个相爱却命运多舛的男孩，被一个暴力的存在所纠缠。这个存在会以他们最想要见到的人，也就是彼此的模样出现。",
+      "durations": [
+        "88分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 516,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1564614,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1564614"
+    },
+    {
+      "id": 36749573,
+      "title": "极限审判",
+      "original_title": "极限审判",
+      "release_date": "2026-01-23",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "科幻"
+        },
+        {
+          "id": 3,
+          "name": "悬疑"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "提莫·贝克曼贝托夫"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "克里斯·帕拉特"
+        },
+        {
+          "id": 2,
+          "name": "丽贝卡·弗格森"
+        },
+        {
+          "id": 3,
+          "name": "卡莉·瑞斯"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "关键公敌(台)",
+        "法无赦(港)",
+        "宽恕"
+      ],
+      "imdb_id": "tt31050594",
+      "poster_path": "posters/douban/movie_cn/36749573.jpg",
+      "douban_rating": "7.2",
+      "douban_link_google": "https://movie.douban.com/subject/36749573/",
+      "douban_link_verified": true,
+      "overview": "背景设定在不久的将来，死罪不断增加，一名侦探（克里斯·帕拉特 Chris Pratt 饰）被指控犯有暴力罪，他被迫证明自己无罪。",
+      "durations": [
+        "99分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 102394,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1236153,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1236153"
+    },
+    {
       "id": 37246591,
       "title": "伪术奇才",
       "original_title": "Il falsario",
@@ -24654,141 +25049,6 @@
       "type": "movie"
     },
     {
-      "id": 37559942,
-      "title": "利未记",
-      "original_title": "利未记",
-      "release_date": "2026-01-23",
-      "genres": [
-        {
-          "id": 1,
-          "name": "爱情"
-        },
-        {
-          "id": 2,
-          "name": "科幻"
-        },
-        {
-          "id": 3,
-          "name": "恐怖"
-        },
-        {
-          "id": 4,
-          "name": "同性"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "阿德里安·奇亚雷拉"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "史泰西·克劳森"
-        },
-        {
-          "id": 2,
-          "name": "乔·伯德"
-        },
-        {
-          "id": 3,
-          "name": "杰瑞米·布莱维特"
-        }
-      ],
-      "countries": [
-        "Australia",
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "Leviticus"
-      ],
-      "imdb_id": "tt39143902",
-      "poster_path": "posters/douban/movie_cn/37559942.jpg",
-      "douban_rating": "7.4",
-      "douban_link_google": "https://movie.douban.com/subject/37559942/",
-      "douban_link_verified": true,
-      "overview": "两个相爱却命运多舛的男孩，被一个暴力的存在所纠缠。这个存在会以他们最想要见到的人，也就是彼此的模样出现。",
-      "durations": [
-        "88分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 495,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1564614,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1564614"
-    },
-    {
-      "id": 36749573,
-      "title": "极限审判",
-      "original_title": "极限审判",
-      "release_date": "2026-01-23",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "科幻"
-        },
-        {
-          "id": 3,
-          "name": "悬疑"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "提莫·贝克曼贝托夫"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "克里斯·帕拉特"
-        },
-        {
-          "id": 2,
-          "name": "丽贝卡·弗格森"
-        },
-        {
-          "id": 3,
-          "name": "卡莉·瑞斯"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "关键公敌(台)",
-        "法无赦(港)",
-        "宽恕"
-      ],
-      "imdb_id": "tt31050594",
-      "poster_path": "posters/douban/movie_cn/36749573.jpg",
-      "douban_rating": "7.2",
-      "douban_link_google": "https://movie.douban.com/subject/36749573/",
-      "douban_link_verified": true,
-      "overview": "背景设定在不久的将来，死罪不断增加，一名侦探（克里斯·帕拉特 Chris Pratt 饰）被指控犯有暴力罪，他被迫证明自己无罪。",
-      "durations": [
-        "99分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 102316,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1236153,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1236153"
-    },
-    {
       "id": 37825206,
       "title": "超时空辉夜姬！",
       "original_title": "超时空辉夜姬！",
@@ -24858,7 +25118,7 @@
         "143分钟"
       ],
       "release_windows": [],
-      "rating_count": 25193,
+      "rating_count": 25221,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1575337,
@@ -24924,7 +25184,7 @@
         "113分钟"
       ],
       "release_windows": [],
-      "rating_count": 2513,
+      "rating_count": 2586,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1363387,
@@ -25024,7 +25284,7 @@
         "99分钟"
       ],
       "release_windows": [],
-      "rating_count": 641,
+      "rating_count": 650,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1145899,
@@ -25230,136 +25490,6 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1306368"
     },
     {
-      "id": 26967871,
-      "tmdb_id": 1168719,
-      "title": "寂静的朋友",
-      "original_title": "Silent Friend",
-      "release_date": "2026-01-15",
-      "genres": [
-        {
-          "id": 18,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "伊尔蒂科·茵叶蒂"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "梁朝伟"
-        },
-        {
-          "id": 2,
-          "name": "卢娜·韦德勒"
-        },
-        {
-          "id": 3,
-          "name": "恩佐·布鲁姆"
-        },
-        {
-          "id": 4,
-          "name": "蕾雅·赛杜"
-        },
-        {
-          "id": 5,
-          "name": "西尔维斯特·格罗特"
-        },
-        {
-          "id": 6,
-          "name": "黄云"
-        },
-        {
-          "id": 7,
-          "name": "卢卡·瓦伦蒂尼"
-        },
-        {
-          "id": 8,
-          "name": "菲利克斯·布罗斯"
-        },
-        {
-          "id": 9,
-          "name": "赖纳·博克"
-        },
-        {
-          "id": 10,
-          "name": "玛莱内·布罗"
-        },
-        {
-          "id": 11,
-          "name": "厄文·吉瑟"
-        },
-        {
-          "id": 12,
-          "name": "约翰内斯·赫格曼"
-        },
-        {
-          "id": 13,
-          "name": "斯凯·霍夫曼"
-        },
-        {
-          "id": 14,
-          "name": "约翰内斯·沙伊德魏勒"
-        },
-        {
-          "id": 15,
-          "name": "马丁·乌特克"
-        }
-      ],
-      "countries": [
-        "德国",
-        "匈牙利",
-        "法国",
-        "中国大陆"
-      ],
-      "languages": [
-        "英语",
-        "粤语",
-        "德语"
-      ],
-      "aka": [
-        "你是不会当树吗(台)",
-        "喑哑的友人",
-        "Csendes barát",
-        "A néma barát",
-        "Silent Friend",
-        "Stille Freundin"
-      ],
-      "imdb_id": "tt27811632",
-      "poster_path": "posters/douban/movie_cn/26967871.jpg",
-      "douban_rating": "7.9",
-      "douban_link_google": "https://movie.douban.com/subject/26967871/",
-      "douban_link_verified": true,
-      "overview": "影片以德国中世纪大学城马尔堡的植物园为背景，讲述100多年来与一棵银杏树有关的三个故事。2020年，来自香港的神经科学家Tony（梁朝伟 饰）因疫情被困在德国大学城，除了一颗银杏树与一个无法沟通的保安之外，他孤身一人。在一位同好（蕾雅·赛杜 饰）的鼓励下，开始了一段新实验。",
-      "durations": [
-        "147分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 36028,
-      "rating_star_count": 4,
-      "type": "movie",
-      "box_office": {
-        "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 45,
-        "maoyan_movie_id": 1503025,
-        "movie_name": "寂静的朋友",
-        "release_info": "上映74天",
-        "real_time_box_office": "0.04万",
-        "cumulative_box_office": "519.7万",
-        "split_cumulative_box_office": "473.6万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 5,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "2.7%",
-        "avg_show_view": "1.8"
-      }
-    },
-    {
       "id": 37457953,
       "title": "黑煞女2",
       "original_title": "黑煞女2",
@@ -25422,7 +25552,7 @@
         "125分钟"
       ],
       "release_windows": [],
-      "rating_count": 1660,
+      "rating_count": 1663,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1528021,
@@ -25477,7 +25607,7 @@
       ],
       "imdb_id": "tt39308490",
       "poster_path": "posters/douban/movie_cn/35474289.jpg",
-      "douban_rating": "5.8",
+      "douban_rating": "5.7",
       "douban_link_google": "https://movie.douban.com/subject/35474289/",
       "douban_link_verified": true,
       "overview": "影片翻拍自阿根廷电影《膝下无子》，讲述了高中时期遇见初恋的男人无意间将家庭史变成秘密而展开的一系列风波浪漫喜剧故事。",
@@ -25485,7 +25615,7 @@
         "100分钟"
       ],
       "release_windows": [],
-      "rating_count": 291,
+      "rating_count": 295,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 863149,
@@ -25703,7 +25833,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 63026,
+      "rating_count": 63076,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -25862,7 +25992,7 @@
         "117分钟"
       ],
       "release_windows": [],
-      "rating_count": 3903,
+      "rating_count": 3910,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1034716,
@@ -26062,7 +26192,7 @@
         "90分钟"
       ],
       "release_windows": [],
-      "rating_count": 4961,
+      "rating_count": 4966,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1609125,
@@ -26170,7 +26300,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 1181,
+      "rating_count": 1182,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1590873,
@@ -26390,7 +26520,7 @@
         "151分钟"
       ],
       "release_windows": [],
-      "rating_count": 535,
+      "rating_count": 536,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1557886,
@@ -26492,7 +26622,7 @@
         "132分钟(加长版)"
       ],
       "release_windows": [],
-      "rating_count": 89802,
+      "rating_count": 89823,
       "rating_star_count": 3,
       "type": "movie"
     },
@@ -26552,7 +26682,7 @@
         "115分钟"
       ],
       "release_windows": [],
-      "rating_count": 7566,
+      "rating_count": 7584,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1264805,
@@ -26613,7 +26743,7 @@
         "116分钟"
       ],
       "release_windows": [],
-      "rating_count": 76293,
+      "rating_count": 76305,
       "rating_star_count": 2.5,
       "type": "movie",
       "tmdb_id": 1530787,
@@ -26677,7 +26807,7 @@
         "131分钟"
       ],
       "release_windows": [],
-      "rating_count": 90180,
+      "rating_count": 90209,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1325866,
@@ -26800,7 +26930,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 720,
+      "rating_count": 721,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1437158,
@@ -26856,7 +26986,7 @@
         "91分钟"
       ],
       "release_windows": [],
-      "rating_count": 1018,
+      "rating_count": 1020,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1472638,
@@ -26929,7 +27059,7 @@
         "133分钟"
       ],
       "release_windows": [],
-      "rating_count": 1156,
+      "rating_count": 1160,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1371185,
@@ -26980,7 +27110,7 @@
         "60分钟"
       ],
       "release_windows": [],
-      "rating_count": 4376,
+      "rating_count": 4383,
       "rating_star_count": 4.5,
       "type": "movie"
     },
@@ -27103,7 +27233,7 @@
         "137分钟"
       ],
       "release_windows": [],
-      "rating_count": 18954,
+      "rating_count": 18968,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 967941,
@@ -27258,7 +27388,7 @@
         "122分钟"
       ],
       "release_windows": [],
-      "rating_count": 785,
+      "rating_count": 786,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1543138,
@@ -27335,7 +27465,7 @@
         "197分钟"
       ],
       "release_windows": [],
-      "rating_count": 281355,
+      "rating_count": 281450,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 83533,
@@ -27496,7 +27626,7 @@
         "89分钟"
       ],
       "release_windows": [],
-      "rating_count": 5587,
+      "rating_count": 5591,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -27551,7 +27681,7 @@
         "116分钟"
       ],
       "release_windows": [],
-      "rating_count": 1436,
+      "rating_count": 1437,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1435092,
@@ -27619,7 +27749,7 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 1614,
+      "rating_count": 1616,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1476740,
@@ -27683,7 +27813,7 @@
         "105分钟"
       ],
       "release_windows": [],
-      "rating_count": 312,
+      "rating_count": 313,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1503040,
@@ -27692,7 +27822,7 @@
     {
       "id": 36778124,
       "title": "爱犬莫福",
-      "original_title": "Merv",
+      "original_title": "爱犬莫福",
       "release_date": "2025-12-10",
       "genres": [
         {
@@ -27718,98 +27848,32 @@
         {
           "id": 3,
           "name": "埃莉·詹姆森"
-        },
-        {
-          "id": 4,
-          "name": "帕翠西亚·希顿"
-        },
-        {
-          "id": 5,
-          "name": "大卫·亨特"
-        },
-        {
-          "id": 6,
-          "name": "克里斯·里德"
-        },
-        {
-          "id": 7,
-          "name": "贾思敏·马修斯"
-        },
-        {
-          "id": 8,
-          "name": "维多利亚·布雷德"
-        },
-        {
-          "id": 9,
-          "name": "维恩·埃维雷特"
-        },
-        {
-          "id": 10,
-          "name": "杰森·伯基"
-        },
-        {
-          "id": 11,
-          "name": "杰克·伯恩"
-        },
-        {
-          "id": 12,
-          "name": "乔丹·考克斯"
-        },
-        {
-          "id": 13,
-          "name": "安德烈埃·莱恩"
-        },
-        {
-          "id": 14,
-          "name": "南茜·蒂科汀"
-        },
-        {
-          "id": 15,
-          "name": "凯莉·蒂彭斯"
-        },
-        {
-          "id": 16,
-          "name": "米歇尔·谢弗"
-        },
-        {
-          "id": 17,
-          "name": "凯文·帕特里克·墨菲"
-        },
-        {
-          "id": 18,
-          "name": "乔伊·斯洛特尼克"
-        },
-        {
-          "id": 19,
-          "name": "迈琪娅·迈尔斯"
-        },
-        {
-          "id": 20,
-          "name": "塞琳娜·阿塞维多"
         }
       ],
       "countries": [
-        "美国"
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "梅尔夫"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt31281659",
       "poster_path": "posters/douban/movie_cn/36778124.jpg",
       "douban_rating": "5.8",
       "douban_link_google": "https://movie.douban.com/subject/36778124/",
       "douban_link_verified": true,
-      "overview": "安娜（佐伊·丹斯切尔 饰）和拉斯（查理·考克斯 饰）分手后，他们的爱犬莫福变得无精打采，两人不得不开始了一段堪称世上最尴尬的共同养育生活。为了帮助莫福打起精神，拉斯决定带它去佛罗里达州来一场急需的度假，却意外遇到了突然出现的安娜。随着莫福逐渐恢复活力，修复爱犬破碎心灵的过程竟意外地重燃了两人之间久违的火花。",
+      "overview": "安娜和拉斯分手后，他们的爱犬莫福变得无精打采，两人不得不开始了一段堪称世上最尴尬的共同养育生活。为了帮助莫福打起精神，拉斯决定带它去佛罗里达州来一场急需的度假，却意外遇到了突然出现的安娜。随着莫福逐渐恢复活力，修复爱犬破碎心灵的过程竟意外地重燃了两人之间久违的火花。",
       "durations": [
         "106分钟"
       ],
       "release_windows": [],
-      "rating_count": 496,
+      "rating_count": 518,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1255775,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1255775"
     },
     {
       "id": 1356454,
@@ -27843,57 +27907,6 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie"
-    },
-    {
-      "id": 37901018,
-      "title": "丹尼尔·斯洛斯：做不到",
-      "original_title": "丹尼尔·斯洛斯：做不到",
-      "release_date": "2025-12-06",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "丹尼尔·斯洛斯"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "丹尼尔·斯洛斯"
-        }
-      ],
-      "countries": [
-        "United Kingdom"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [],
-      "imdb_id": "tt39115106",
-      "poster_path": "posters/douban/movie_cn/37901018.jpg",
-      "douban_rating": "8.0",
-      "douban_link_google": "https://movie.douban.com/subject/37901018/",
-      "douban_link_verified": true,
-      "overview": "The new comedy special from the star and creator of Netflix hit shows ‘DARK’ & ‘JIGSAW’ as well as ‘Daniel Sloss: X’ + ‘Daniel Sloss: SOCIO’ + ' ‘Daniel Sloss: HUBRiS'\nFilmed in Istanbul, Turkey at the TIM Theater Centre on 9 March 2024",
-      "durations": [
-        "94分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
-      "rating_count": 529,
-      "rating_star_count": 4,
-      "type": "movie",
-      "tmdb_id": 1595433,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1595433"
     },
     {
       "id": 30174089,
@@ -28056,6 +28069,57 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/991262"
     },
     {
+      "id": 37901018,
+      "title": "丹尼尔·斯洛斯：做不到",
+      "original_title": "丹尼尔·斯洛斯：做不到",
+      "release_date": "2025-12-06",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "丹尼尔·斯洛斯"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "丹尼尔·斯洛斯"
+        }
+      ],
+      "countries": [
+        "United Kingdom"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [],
+      "imdb_id": "tt39115106",
+      "poster_path": "posters/douban/movie_cn/37901018.jpg",
+      "douban_rating": "8.0",
+      "douban_link_google": "https://movie.douban.com/subject/37901018/",
+      "douban_link_verified": true,
+      "overview": "The new comedy special from the star and creator of Netflix hit shows ‘DARK’ & ‘JIGSAW’ as well as ‘Daniel Sloss: X’ + ‘Daniel Sloss: SOCIO’ + ' ‘Daniel Sloss: HUBRiS'\nFilmed in Istanbul, Turkey at the TIM Theater Centre on 9 March 2024",
+      "durations": [
+        "94分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": 529,
+      "rating_star_count": 4,
+      "type": "movie",
+      "tmdb_id": 1595433,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1595433"
+    },
+    {
       "id": 36553324,
       "title": "趣塔德庄园",
       "original_title": "趣塔德庄园",
@@ -28107,7 +28171,7 @@
         "97分钟"
       ],
       "release_windows": [],
-      "rating_count": 6112,
+      "rating_count": 6118,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1175174,
@@ -28173,7 +28237,7 @@
         "205分钟"
       ],
       "release_windows": [],
-      "rating_count": 739,
+      "rating_count": 740,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1291608,
@@ -28234,7 +28298,7 @@
         "106分钟"
       ],
       "release_windows": [],
-      "rating_count": 13769,
+      "rating_count": 13775,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1591287,
@@ -28293,7 +28357,7 @@
         "145分钟"
       ],
       "release_windows": [],
-      "rating_count": 937,
+      "rating_count": 942,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1306400,
@@ -28366,7 +28430,7 @@
         "133分钟"
       ],
       "release_windows": [],
-      "rating_count": 21287,
+      "rating_count": 21305,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 798645,
@@ -28423,7 +28487,7 @@
         "120分钟"
       ],
       "release_windows": [],
-      "rating_count": 786,
+      "rating_count": 791,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1477642,
@@ -28698,7 +28762,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt35219851",
       "poster_path": "posters/douban/movie_cn/37383596.jpg",
       "douban_rating": "5.6",
       "douban_link_google": "https://movie.douban.com/subject/37383596/",
@@ -28708,9 +28772,11 @@
         "90分钟"
       ],
       "release_windows": [],
-      "rating_count": 620,
+      "rating_count": 611,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1441563,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1441563"
     },
     {
       "id": 36680492,
@@ -28762,7 +28828,7 @@
         "134分钟"
       ],
       "release_windows": [],
-      "rating_count": 18524,
+      "rating_count": 18827,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1174334,
@@ -28822,7 +28888,7 @@
         "105分钟"
       ],
       "release_windows": [],
-      "rating_count": 7183,
+      "rating_count": 7192,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1245532,
@@ -28899,7 +28965,7 @@
         "108分钟"
       ],
       "release_windows": [],
-      "rating_count": 799910,
+      "rating_count": 800251,
       "rating_star_count": 4,
       "type": "movie"
     },
@@ -28995,7 +29061,7 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 735,
+      "rating_count": 739,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1551201,
@@ -29051,11 +29117,75 @@
         "92分钟"
       ],
       "release_windows": [],
-      "rating_count": 1925,
+      "rating_count": 1929,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1421071,
       "tmdbUrl": "https://www.themoviedb.org/movie/1421071"
+    },
+    {
+      "id": 36850049,
+      "title": "永生战士2",
+      "original_title": "永生战士2",
+      "release_date": "2025-11-21",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "战争"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "贾马里·赫兰德"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "乔玛·汤米拉"
+        },
+        {
+          "id": 2,
+          "name": "史蒂芬·朗"
+        },
+        {
+          "id": 3,
+          "name": "理查德·布雷克"
+        }
+      ],
+      "countries": [
+        "Finland",
+        "United Kingdom"
+      ],
+      "languages": [
+        "fi"
+      ],
+      "aka": [
+        "Immortal 2",
+        "Si2u",
+        "Sisu: Road to Revenge",
+        "永生战士：复仇之路"
+      ],
+      "imdb_id": "tt31844586",
+      "poster_path": "posters/douban/movie_cn/36850049.jpg",
+      "douban_rating": "6.6",
+      "douban_link_google": "https://movie.douban.com/subject/36850049/",
+      "douban_link_verified": true,
+      "overview": "一名男子回到故乡，准备拆除家人在战争中遇害的房屋，另寻他处重建。凶手是一名红军指挥官，他找到了他，一场残酷的跨国追捕由此展开。",
+      "durations": [
+        "89分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 6727,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1223601,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1223601"
     },
     {
       "id": 37149566,
@@ -29189,70 +29319,6 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1363123"
     },
     {
-      "id": 36850049,
-      "title": "永生战士2",
-      "original_title": "永生战士2",
-      "release_date": "2025-11-21",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "战争"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "贾马里·赫兰德"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "乔玛·汤米拉"
-        },
-        {
-          "id": 2,
-          "name": "史蒂芬·朗"
-        },
-        {
-          "id": 3,
-          "name": "理查德·布雷克"
-        }
-      ],
-      "countries": [
-        "Finland",
-        "United Kingdom"
-      ],
-      "languages": [
-        "fi"
-      ],
-      "aka": [
-        "Immortal 2",
-        "Si2u",
-        "Sisu: Road to Revenge",
-        "永生战士：复仇之路"
-      ],
-      "imdb_id": "tt31844586",
-      "poster_path": "posters/douban/movie_cn/36850049.jpg",
-      "douban_rating": "6.6",
-      "douban_link_google": "https://movie.douban.com/subject/36850049/",
-      "douban_link_verified": true,
-      "overview": "一名男子回到故乡，准备拆除家人在战争中遇害的房屋，另寻他处重建。凶手是一名红军指挥官，他找到了他，一场残酷的跨国追捕由此展开。",
-      "durations": [
-        "89分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 6722,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1223601,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1223601"
-    },
-    {
       "id": 37212415,
       "title": "香槟情缘",
       "original_title": "Champagne Problems",
@@ -29322,7 +29388,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt33053440",
       "poster_path": "posters/douban/movie_cn/37212415.jpg",
       "douban_rating": "5.7",
       "douban_link_google": "https://movie.douban.com/subject/37212415/",
@@ -29332,9 +29398,11 @@
         "99分钟"
       ],
       "release_windows": [],
-      "rating_count": 888,
+      "rating_count": 881,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1323475,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1323475"
     },
     {
       "id": 30286126,
@@ -29398,7 +29466,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 31128,
+      "rating_count": 31142,
       "rating_star_count": 3,
       "type": "movie"
     },
@@ -29513,20 +29581,20 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1570855",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-06T16:47:39.438Z",
-        "rank": 22,
+        "updated_at": "2026-07-07T16:17:55.720Z",
+        "rank": 23,
         "maoyan_movie_id": 1601324,
         "movie_name": "命抉",
         "release_info": "点映",
         "real_time_box_office": "0.63万",
-        "cumulative_box_office": "19.5万",
-        "split_cumulative_box_office": "19.2万",
-        "box_office_rate": "0.1%",
+        "cumulative_box_office": "20.1万",
+        "split_cumulative_box_office": "19.9万",
+        "box_office_rate": "<0.1%",
         "split_box_office_rate": "0.1%",
-        "show_count": 2,
+        "show_count": 3,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "100.0%",
-        "avg_show_view": "127.0"
+        "seat_occupancy": "86.1%",
+        "avg_show_view": "84.7"
       }
     },
     {
@@ -29592,7 +29660,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 27986,
+      "rating_count": 28000,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1406277,
@@ -29658,7 +29726,7 @@
         "112分钟"
       ],
       "release_windows": [],
-      "rating_count": 137722,
+      "rating_count": 137757,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 425274,
@@ -30154,7 +30222,7 @@
         "88分钟"
       ],
       "release_windows": [],
-      "rating_count": 1361,
+      "rating_count": 1364,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1539104,
@@ -30213,7 +30281,7 @@
         "97分钟"
       ],
       "release_windows": [],
-      "rating_count": 516,
+      "rating_count": 517,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -30283,7 +30351,7 @@
         "107分钟"
       ],
       "release_windows": [],
-      "rating_count": 92714,
+      "rating_count": 92741,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1242898,
@@ -30343,7 +30411,7 @@
         "84分钟"
       ],
       "release_windows": [],
-      "rating_count": 409,
+      "rating_count": 410,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1479945,
@@ -30401,7 +30469,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 383,
+      "rating_count": 385,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1507573,
@@ -30462,7 +30530,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 4053,
+      "rating_count": 4056,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1548740,
@@ -30589,7 +30657,7 @@
         "136分钟"
       ],
       "release_windows": [],
-      "rating_count": 9295,
+      "rating_count": 9317,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1464533,
@@ -30653,7 +30721,7 @@
         "224分钟"
       ],
       "release_windows": [],
-      "rating_count": 552,
+      "rating_count": 556,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1511417,
@@ -30715,7 +30783,7 @@
         "90分钟"
       ],
       "release_windows": [],
-      "rating_count": 1062,
+      "rating_count": 1064,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1266809,
@@ -30773,7 +30841,7 @@
         "117分钟"
       ],
       "release_windows": [],
-      "rating_count": 938,
+      "rating_count": 939,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1290183,
@@ -30832,7 +30900,7 @@
         "103分钟"
       ],
       "release_windows": [],
-      "rating_count": 22239,
+      "rating_count": 22302,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1422404,
@@ -31032,7 +31100,7 @@
         "126分钟"
       ],
       "release_windows": [],
-      "rating_count": 3684,
+      "rating_count": 3693,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1417790,
@@ -31090,7 +31158,7 @@
         "121分钟"
       ],
       "release_windows": [],
-      "rating_count": 830,
+      "rating_count": 834,
       "rating_star_count": 4.5,
       "type": "movie",
       "tmdb_id": 959646,
@@ -31150,7 +31218,7 @@
       "overview": "16 岁的塞巴斯蒂安在小镇享受着青春时光：他最喜欢和女友在湖边喝着啤酒、抽着大麻度过夏日黄昏。直到同龄的科利亚突然以父亲已故友人之子的名义闯入他的家庭。这个男孩瞬间俘获了所有人的心，尤其是塞巴斯蒂安。随之而来的情感过山车以最强烈的力量将塞巴斯蒂安抛离日常轨道。",
       "durations": [],
       "release_windows": [],
-      "rating_count": 1255,
+      "rating_count": 1295,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -31212,7 +31280,7 @@
         "125分钟"
       ],
       "release_windows": [],
-      "rating_count": 1070,
+      "rating_count": 1072,
       "rating_star_count": 2.5,
       "type": "movie",
       "tmdb_id": 1535290,
@@ -31311,7 +31379,7 @@
         "116分钟"
       ],
       "release_windows": [],
-      "rating_count": 1213,
+      "rating_count": 1215,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1327862,
@@ -31320,7 +31388,7 @@
     {
       "id": 36962864,
       "title": "正在缩小的男人",
-      "original_title": "L’homme qui rétrécit",
+      "original_title": "正在缩小的男人",
       "release_date": "2025-10-22",
       "genres": [
         {
@@ -31350,44 +31418,34 @@
         {
           "id": 3,
           "name": "达芙妮·理查德"
-        },
-        {
-          "id": 4,
-          "name": "Salim Talbi"
-        },
-        {
-          "id": 5,
-          "name": "Serge Swysen"
-        },
-        {
-          "id": 6,
-          "name": "斯蒂芬妮·凡·维"
         }
       ],
       "countries": [
-        "法国",
-        "比利时"
+        "France",
+        "Belgium"
       ],
       "languages": [
-        "法语"
+        "fr"
       ],
       "aka": [
         "The Shrinking Man",
         "The Man Who Shrinks"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32642156",
       "poster_path": "posters/douban/movie_cn/36962864.jpg",
       "douban_rating": "6.4",
       "douban_link_google": "https://movie.douban.com/subject/36962864/",
       "douban_link_verified": true,
-      "overview": "Remake français de L'homme qui rétrécit.",
+      "overview": "　　本片改编自理查德·马特森的经典小说，讲述了一个普通男人保罗的故事。他的生活围绕着造船公司、妻子爱丽丝和女儿米娅展开。一次出海时，保罗遭遇了无法解释的奇异天气现象。此后，他的身体开始不可逆转地缩小，科学既无法解释原因，也无法提供任何帮助。当他意外被困在地下室，身高只剩下几厘米时，这个原本平常的环境变成了危险的生存战场。",
       "durations": [
         "99分钟"
       ],
       "release_windows": [],
-      "rating_count": 781,
+      "rating_count": 909,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1233506,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1233506"
     },
     {
       "id": 35295232,
@@ -31581,7 +31639,7 @@
         "120分钟"
       ],
       "release_windows": [],
-      "rating_count": 1575,
+      "rating_count": 1580,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1502700,
@@ -31649,7 +31707,7 @@
         "144分钟"
       ],
       "release_windows": [],
-      "rating_count": 6528,
+      "rating_count": 6532,
       "rating_star_count": 4,
       "type": "movie"
     },
@@ -31707,7 +31765,7 @@
         "122分钟"
       ],
       "release_windows": [],
-      "rating_count": 756,
+      "rating_count": 757,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1469857,
@@ -31764,7 +31822,7 @@
         "114分钟"
       ],
       "release_windows": [],
-      "rating_count": 7365,
+      "rating_count": 7368,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1197137,
@@ -31891,7 +31949,7 @@
         "112分钟"
       ],
       "release_windows": [],
-      "rating_count": 3385,
+      "rating_count": 3391,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1156594,
@@ -31900,7 +31958,7 @@
     {
       "id": 36772307,
       "title": "冰湖行动",
-      "original_title": "Ice Fall",
+      "original_title": "冰湖行动",
       "release_date": "2025-10-16",
       "genres": [
         {
@@ -31930,70 +31988,32 @@
         {
           "id": 3,
           "name": "弗丽达·古斯塔夫松"
-        },
-        {
-          "id": 4,
-          "name": "丹尼·赫斯顿"
-        },
-        {
-          "id": 5,
-          "name": "格雷厄姆·格林"
-        },
-        {
-          "id": 6,
-          "name": "马丁·桑斯梅耶"
-        },
-        {
-          "id": 7,
-          "name": "奥利弗·特雷韦纳"
-        },
-        {
-          "id": 8,
-          "name": "德沃恩·尼克森"
-        },
-        {
-          "id": 9,
-          "name": "巴沙尔·拉海尔"
-        },
-        {
-          "id": 10,
-          "name": "杰米斯·巴特勒"
-        },
-        {
-          "id": 11,
-          "name": "尤安·迈克纳顿"
-        },
-        {
-          "id": 12,
-          "name": "乔伊丝·格雷-卡特"
-        },
-        {
-          "id": 13,
-          "name": "威尔·弗莱彻"
         }
       ],
       "countries": [
-        "美国"
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "冰原陷落"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29780866",
       "poster_path": "posters/douban/movie_cn/36772307.jpg",
       "douban_rating": "5.6",
       "douban_link_google": "https://movie.douban.com/subject/36772307/",
       "douban_link_verified": true,
-      "overview": "故事讲述了一位年轻的原住民猎场管理员逮捕了一名臭名昭著的偷猎者，却发现这名偷猎者知道一架载有数百万美元的飞机坠毁在冰湖中的位置。当一群罪犯和腐败警察得知偷猎者的下落后，管理员和偷猎者联手对抗，并试图在冰融化之前穿越危险的湖面逃生。",
+      "overview": "一个犯罪团伙抢劫了二千万美元，运钞飞机却因为风暴掉进了冰湖。来年冰雪融化了，盗猎者哈兰在冰面上看到了一只带着金戒指的手，捡到了一皮箱钱。他一打开皮箱就触发了信号，犯罪团伙立马跟了过来。浑然不知的哈兰在冰上悠然的走，却被原住民护林员安妮逮住了，他无法解释钱来源，也没时间解释，犯罪团伙与腐败警察闻风而至，护林员与盗猎者被迫亡命组队，必须在冰面消融前穿越险恶冰湖，开展生死大逃亡，为守护宝藏展开绝地反击。",
       "durations": [
-        "95分钟"
+        "99分钟"
       ],
       "release_windows": [],
-      "rating_count": 805,
+      "rating_count": 837,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1242501,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1242501"
     },
     {
       "id": 37337752,
@@ -32185,7 +32205,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 18380,
+      "rating_count": 18454,
       "rating_star_count": 4,
       "type": "movie"
     },
@@ -32307,7 +32327,7 @@
         "121分钟"
       ],
       "release_windows": [],
-      "rating_count": 578,
+      "rating_count": 581,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1140498,
@@ -40068,7 +40088,7 @@
         "93分钟"
       ],
       "release_windows": [],
-      "rating_count": 256,
+      "rating_count": 261,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1382056,
@@ -40344,7 +40364,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 11103,
+      "rating_count": 11256,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1570664,
@@ -40947,7 +40967,7 @@
           "label": "春节档"
         }
       ],
-      "rating_count": 1719,
+      "rating_count": 1733,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1367555,
@@ -41252,7 +41272,7 @@
         "124分钟"
       ],
       "release_windows": [],
-      "rating_count": 23033,
+      "rating_count": 23052,
       "rating_star_count": 3.5,
       "type": "movie"
     },
