@@ -1,10 +1,14 @@
 bin/
 .env
 .cache/
+.site/
 .gitignore
 .omx/
 .claude/
 .DS_Store
+*.conflict-backup-*
+__pycache__/
+*.pyc
 
 # Agent context dictionary (local-only, not pushed to remote)
 CONTEXT.md

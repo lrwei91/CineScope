@@ -4,11 +4,29 @@ export function createBuildReport({
     tmdbEnabled,
     doubanSubjectCacheTtlDays,
     doubanSearchCacheTtlDays,
-    doubanSearchQueryLimit
+    doubanSearchQueryLimit,
+    previousReport = null,
+    taskName = isPartial ? 'partial' : 'full',
+    now = new Date()
 }) {
+    const startedAt = now.toISOString();
+    const previous = previousReport && typeof previousReport === 'object' ? previousReport : {};
+    const previousCategories = Array.isArray(previous.categories) ? previous.categories : [];
+    const previousLastFullBuild =
+        previous.last_full_build ||
+        (previous.metadata?.mode === 'full'
+            ? {
+                  started_at: previous.metadata.started_at || null,
+                  completed_at: previous.completed_at || null,
+                  category_ids: previous.metadata.category_ids || []
+              }
+            : null);
+
     return {
+        ...previous,
+        schema_version: 2,
         metadata: {
-            started_at: new Date().toISOString(),
+            started_at: startedAt,
             mode: isPartial ? 'partial' : 'full',
             category_ids: activeCategorySpecs.map((spec) => spec.id),
             tmdb_enabled: tmdbEnabled,
@@ -16,12 +34,61 @@ export function createBuildReport({
             douban_search_cache_ttl_days: doubanSearchCacheTtlDays,
             douban_search_query_limit: doubanSearchQueryLimit
         },
-        categories: [],
-        douban_statuses: null,
+        latest_run: {
+            task: taskName,
+            status: 'running',
+            started_at: startedAt,
+            completed_at: null,
+            category_ids: activeCategorySpecs.map((spec) => spec.id),
+            tmdb_enabled: tmdbEnabled
+        },
+        last_full_build: previousLastFullBuild,
+        task_statuses: previous.task_statuses && typeof previous.task_statuses === 'object' ? previous.task_statuses : {},
+        categories: isPartial ? previousCategories : [],
+        douban_statuses: isPartial ? previous.douban_statuses || null : null,
         douban_subject_cache: null,
         douban_search_cache: null,
+        douban_top250: isPartial ? previous.douban_top250 || null : null,
         completed_at: null
     };
+}
+
+export function mergeCategoryReport(buildReport, categoryReport) {
+    const categories = Array.isArray(buildReport.categories) ? buildReport.categories : [];
+    const nextCategories = categories.filter((entry) => entry?.id !== categoryReport.id);
+    nextCategories.push(categoryReport);
+    nextCategories.sort((left, right) => String(left.id).localeCompare(String(right.id)));
+    buildReport.categories = nextCategories;
+    return buildReport;
+}
+
+export function finalizeBuildReport(buildReport, { status = 'success', now = new Date() } = {}) {
+    const completedAt = now.toISOString();
+    const taskName = buildReport.latest_run?.task || 'unknown';
+    buildReport.completed_at = completedAt;
+    buildReport.latest_run = {
+        ...(buildReport.latest_run || {}),
+        status,
+        completed_at: completedAt
+    };
+    buildReport.task_statuses = {
+        ...(buildReport.task_statuses || {}),
+        [taskName]: {
+            status,
+            last_run_at: completedAt,
+            ...(status === 'success' ? { last_success_at: completedAt } : {})
+        }
+    };
+
+    if (buildReport.metadata?.mode === 'full' && status === 'success') {
+        buildReport.last_full_build = {
+            started_at: buildReport.metadata.started_at,
+            completed_at: completedAt,
+            category_ids: buildReport.metadata.category_ids || []
+        };
+    }
+
+    return buildReport;
 }
 
 export function createCategoryReport(spec, summary) {
@@ -54,7 +121,7 @@ export function createCategoryReport(spec, summary) {
     };
 }
 
-function summarizeItemQuality(kind, items) {
+export function summarizeItemQuality(kind, items) {
     const missing = {
         date: 0,
         poster: 0,

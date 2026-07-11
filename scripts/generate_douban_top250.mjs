@@ -8,12 +8,13 @@
  * 参考: https://github.com/chenzihao981-wq/douban-spider-refactor-demo
  */
 
-import { mkdir, writeFile } from 'node:fs/promises';
+import { access, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
+const OUTPUT_ROOT = path.resolve(process.env.CINESCOPE_OUTPUT_ROOT || ROOT_DIR);
 
 const OUTPUT_PATH = 'json/douban_top250.json';
 const TOTAL_PAGES = 10;
@@ -253,6 +254,14 @@ async function downloadPoster(subjectId, remoteUrl) {
         return remoteUrl;
     }
 
+    const relativePath = `posters/douban/douban_top250/${subjectId}.jpg`;
+    try {
+        await access(path.resolve(ROOT_DIR, relativePath));
+        return relativePath;
+    } catch {
+        // Download into the current run's output root.
+    }
+
     try {
         const response = await fetch(remoteUrl, {
             headers: {
@@ -274,8 +283,7 @@ async function downloadPoster(subjectId, remoteUrl) {
             return remoteUrl;
         }
 
-        const relativePath = `posters/douban/douban_top250/${subjectId}.jpg`;
-        const targetPath = path.resolve(ROOT_DIR, relativePath);
+        const targetPath = path.resolve(OUTPUT_ROOT, relativePath);
         await mkdir(path.dirname(targetPath), { recursive: true });
         await writeFile(targetPath, buffer);
         return relativePath;
@@ -357,7 +365,7 @@ async function main(options = {}) {
         movies: allMovies
     };
 
-    const targetPath = path.resolve(ROOT_DIR, OUTPUT_PATH);
+    const targetPath = path.resolve(OUTPUT_ROOT, OUTPUT_PATH);
     await mkdir(path.dirname(targetPath), { recursive: true });
     await writeFile(targetPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
 

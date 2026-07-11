@@ -3,15 +3,16 @@
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createCategoryReport, createBuildReport } from './lib/build-report.mjs';
+import {
+    createCategoryReport,
+    createBuildReport,
+    finalizeBuildReport,
+    mergeCategoryReport
+} from './lib/build-report.mjs';
 import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
 import { createDoubanSearchCache } from './lib/douban-search-cache.mjs';
 import { mergeBoxOfficeIntoMovies } from './lib/box-office.mjs';
 import {
-    DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH,
-    DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH,
-    DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX,
-    DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
     dedupeTrailerCollections,
     loadBilibiliTrailerDataset,
     mergeTrailersIntoCatalogItems,
@@ -19,9 +20,13 @@ import {
     searchTrailerRowsForCatalogWithCache
 } from './lib/bilibili-trailers.mjs';
 import { buildMovieReleaseWindows } from './lib/release-windows.mjs';
+import { dedupeCatalogByStableId } from './lib/catalog-dedupe.mjs';
+import { createCategorySpecs } from './catalog/category-specs.mjs';
+import { createHttpClient } from './catalog/http-client.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
+const OUTPUT_ROOT = path.resolve(process.env.CINESCOPE_OUTPUT_ROOT || ROOT_DIR);
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
 const CATEGORY_IDS = String(process.env.CATEGORY_IDS || '')
@@ -33,6 +38,7 @@ const CURRENT_YEAR = new Date().getFullYear();
 const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
 const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
 const BUILD_REPORT_PATH = 'json/build_report.json';
+const UPDATE_TASK = String(process.env.UPDATE_TASK || (CATEGORY_IDS.length > 0 ? 'partial' : 'full')).trim();
 const BOX_OFFICE_PATH = 'json/maoyan_box_office.json';
 const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 14);
 const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 30);
@@ -66,182 +72,14 @@ const REQUEST_HEADERS = {
     Accept: 'application/json'
 };
 
-const CATEGORY_SPECS = [
-    {
-        id: 'tv_cn',
-        kind: 'tv',
-        latestCount: 18,
-        latestSelectionMode: 'current_quarter_all',
-        minDate: '2025-01-01',
-        latestPath: 'json/tv_cn_latest.json',
-        completePath: 'json/tv_cn_complete.json',
-        doubanSources: [
-            { slug: 'tv_domestic', includeItem: isMainlandChinaEntry },
-            { slug: 'tv_hot', includeItem: isMainlandChinaEntry }
-        ],
-        trailerSource: {
-            mid: DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
-            cacheRelativePath: DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH,
-            overridesRelativePath: DEFAULT_BILIBILI_TV_TRAILER_OVERRIDES_PATH,
-            searchSuffix: DEFAULT_BILIBILI_TV_TRAILER_SEARCH_SUFFIX,
-            sourceSlug: `bilibili_up_${DEFAULT_BILIBILI_TV_TRAILER_UP_MID}`,
-            // 2026-06-06: 按 catalog latest 列表逐部搜预告片, 并行补充 UP 主空间拉取
-            searchFromCatalog: true,
-            searchFromCatalogCacheRelativePath: '.cache/bilibili/tv-cn-search-from-catalog.json'
-        },
-        tmdb: {
-            discoverPath: '/discover/tv',
-            detailPath: '/tv',
-            params: {
-                language: 'zh-CN',
-                sort_by: 'first_air_date.desc',
-                'first_air_date.gte': '2025-01-01',
-                'first_air_date.lte': END_OF_CURRENT_YEAR,
-                with_origin_country: 'CN',
-                with_original_language: 'zh',
-                include_null_first_air_dates: 'false',
-                'vote_count.gte': '5'
-            }
-        }
-    },
-    {
-        id: 'tv_kr',
-        kind: 'tv',
-        latestCount: 18,
-        latestSelectionMode: 'current_quarter_all',
-        minDate: '2025-01-01',
-        latestPath: 'json/tv_kr_latest.json',
-        completePath: 'json/tv_kr_complete.json',
-        doubanSources: [
-            { slug: 'tv_korean', includeItem: isKoreanEntry }
-        ],
-        tmdb: {
-            discoverPath: '/discover/tv',
-            detailPath: '/tv',
-            params: {
-                language: 'zh-CN',
-                sort_by: 'first_air_date.desc',
-                'first_air_date.gte': '2025-01-01',
-                'first_air_date.lte': END_OF_CURRENT_YEAR,
-                with_origin_country: 'KR',
-                include_null_first_air_dates: 'false',
-                'vote_count.gte': '5'
-            }
-        }
-    },
-    {
-        id: 'tv_jp',
-        kind: 'tv',
-        latestCount: 18,
-        latestSelectionMode: 'current_quarter_all',
-        minDate: '2025-01-01',
-        latestPath: 'json/tv_jp_latest.json',
-        completePath: 'json/tv_jp_complete.json',
-        doubanSources: [
-            { slug: 'tv_japanese', includeItem: isJapaneseEntry }
-        ],
-        tmdb: {
-            discoverPath: '/discover/tv',
-            detailPath: '/tv',
-            params: {
-                language: 'zh-CN',
-                sort_by: 'first_air_date.desc',
-                'first_air_date.gte': '2025-01-01',
-                'first_air_date.lte': END_OF_CURRENT_YEAR,
-                with_origin_country: 'JP',
-                include_null_first_air_dates: 'false',
-                'vote_count.gte': '5'
-            }
-        }
-    },
-    {
-        id: 'movie_cn',
-        kind: 'movie',
-        latestCount: 24,
-        minDate: '2025-01-01',
-        latestPath: 'json/movie_cn_latest.json',
-        completePath: 'json/movie_cn_complete.json',
-        doubanSources: [
-            { slug: 'movie_showing' },
-            { slug: 'movie_soon' },
-            { slug: 'movie_latest', totalLimit: 200 }
-        ],
-        trailerSource: {
-            mid: '8465957',
-            cacheRelativePath: '.cache/bilibili/up-8465957-videos.json',
-            overridesRelativePath: 'scripts/data/movie_cn_trailer_overrides.json',
-            searchSuffix: '乌鸦预告片',
-            sourceSlug: 'bilibili_up_8465957'
-        },
-        tmdb: {
-            discoverPath: '/discover/movie',
-            detailPath: '/movie',
-            params: {
-                language: 'zh-CN',
-                sort_by: 'primary_release_date.desc',
-                'release_date.gte': '2025-01-01',
-                'release_date.lte': END_OF_CURRENT_YEAR,
-                region: 'CN',
-                with_release_type: '2|3',
-                include_adult: 'false',
-                include_video: 'false',
-                'vote_count.gte': '5'
-            }
-        }
-    },
-    {
-        id: 'tv_cn_variety',
-        kind: 'tv',
-        latestCount: 18,
-        latestSelectionMode: 'current_quarter_all',
-        minDate: '2025-01-01',
-        latestPath: 'json/tv_cn_variety_latest.json',
-        completePath: 'json/tv_cn_variety_complete.json',
-        doubanSources: [
-            { slug: 'tv_variety_show', includeItem: isMainlandChinaEntry }
-        ],
-        tmdb: {
-            discoverPath: '/discover/tv',
-            detailPath: '/tv',
-            params: {
-                language: 'zh-CN',
-                sort_by: 'first_air_date.desc',
-                'first_air_date.gte': '2025-01-01',
-                'first_air_date.lte': END_OF_CURRENT_YEAR,
-                with_origin_country: 'CN',
-                with_original_language: 'zh',
-                with_genres: '10764|10767',
-                include_null_first_air_dates: 'false',
-                'vote_count.gte': '5'
-            }
-        }
-    },
-    {
-        id: 'tv_us',
-        kind: 'tv',
-        latestCount: 18,
-        latestSelectionMode: 'current_quarter_all',
-        minDate: '2025-01-01',
-        latestPath: 'json/tv_us_latest.json',
-        completePath: 'json/tv_us_complete.json',
-        doubanSources: [
-            { slug: 'tv_american', includeItem: isAmericanEntry }
-        ],
-        tmdb: {
-            discoverPath: '/discover/tv',
-            detailPath: '/tv',
-            params: {
-                language: 'zh-CN',
-                sort_by: 'first_air_date.desc',
-                'first_air_date.gte': '2025-01-01',
-                'first_air_date.lte': END_OF_CURRENT_YEAR,
-                with_origin_country: 'US',
-                include_null_first_air_dates: 'false',
-                'vote_count.gte': '5'
-            }
-        }
-    }
-];
+const { fetchJson, fetchBinary, fetchHtml, fetchTmdbJson } = createHttpClient({
+    requestHeaders: REQUEST_HEADERS,
+    timeoutMs: HTTP_REQUEST_TIMEOUT_MS,
+    tmdbApiBase: TMDB_API_BASE,
+    tmdbApiKey: TMDB_API_KEY
+});
+
+const CATEGORY_SPECS = createCategorySpecs({ endOfCurrentYear: END_OF_CURRENT_YEAR });
 
 async function main() {
     const activeCategorySpecs =
@@ -253,13 +91,16 @@ async function main() {
         throw new Error(`No category spec matched CATEGORY_IDS=${CATEGORY_IDS.join(',')}`);
     }
 
+    const previousBuildReport = await readExistingPayload(BUILD_REPORT_PATH);
     const buildReport = createBuildReport({
         activeCategorySpecs,
         isPartial: CATEGORY_IDS.length > 0,
         tmdbEnabled: Boolean(TMDB_API_KEY),
         doubanSubjectCacheTtlDays: doubanSubjectCache.ttlDays,
         doubanSearchCacheTtlDays: doubanSearchCache.ttlDays,
-        doubanSearchQueryLimit: DOUBAN_SEARCH_QUERY_LIMIT
+        doubanSearchQueryLimit: DOUBAN_SEARCH_QUERY_LIMIT,
+        previousReport: previousBuildReport,
+        taskName: UPDATE_TASK
     });
 
     const shouldLoadBoxOffice = activeCategorySpecs.some((spec) => spec.id === 'movie_cn');
@@ -283,7 +124,7 @@ async function main() {
 
         await writeJson(spec.latestPath, latestPayloadToWrite);
         await writeJson(spec.completePath, completePayloadToWrite);
-        buildReport.categories.push(result.report);
+        mergeCategoryReport(buildReport, result.report);
         console.log(
             `[${spec.id}] latest=${getPayloadItemCount(spec.kind, latestPayloadToWrite)} complete=${getPayloadItemCount(spec.kind, completePayloadToWrite)} -> ${spec.latestPath}, ${spec.completePath}`
         );
@@ -339,15 +180,15 @@ async function main() {
         }
     }
 
-    buildReport.completed_at = new Date().toISOString();
     buildReport.douban_subject_cache = doubanSubjectCache.summarize();
     buildReport.douban_search_cache = doubanSearchCache.summarize();
+    finalizeBuildReport(buildReport);
     await writeJson(BUILD_REPORT_PATH, buildReport);
     console.log(`[build_report] -> ${BUILD_REPORT_PATH}`);
 }
 
 async function loadBoxOfficePayloadFromCache() {
-    const targetPath = path.resolve(ROOT_DIR, BOX_OFFICE_PATH);
+    const targetPath = path.resolve(OUTPUT_ROOT, BOX_OFFICE_PATH);
     try {
         const payload = JSON.parse(await readFile(targetPath, 'utf8'));
         if (!payload || typeof payload !== 'object' || !Array.isArray(payload.movies)) {
@@ -377,7 +218,7 @@ async function preferExistingNonEmptyPayload(spec, nextPayload, relativePath, le
 }
 
 async function readExistingPayload(relativePath) {
-    const targetPath = path.resolve(ROOT_DIR, relativePath);
+    const targetPath = path.resolve(OUTPUT_ROOT, relativePath);
     try {
         return JSON.parse(await readFile(targetPath, 'utf8'));
     } catch {
@@ -435,7 +276,10 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
     const existingItems = Array.isArray(existingCompletePayload?.[payloadKey]) ? existingCompletePayload[payloadKey] : [];
     
     // [NEW] Backfill Douban ratings, links, poster paths and metadata from existing complete items to prevent losing data
-    const backfilledItems = backfillFromExistingItems(spec.kind, boxOfficeMergedItems, existingItems);
+    const backfilledItems = dedupeCatalogByStableId(
+        spec.kind,
+        backfillFromExistingItems(spec.kind, boxOfficeMergedItems, existingItems)
+    );
 
     // 2026-06-06: latestItems 提前生成,供 searchFromCatalog 用
     // (原 line 485 才生成,但 trailer 任务需要 latest 列表作为搜索目标)
@@ -509,6 +353,7 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
         }
     }
 
+    finalItems = dedupeCatalogByStableId(spec.kind, finalItems);
     const latestItems = selectLatestItems(spec, finalItems);
     const sourceResults = [
         ...doubanSourceResults.map((sourceResult) => ({
@@ -1032,60 +877,17 @@ async function fetchDoubanSubjectDetail(kind, subjectId) {
     return doubanSubjectCache.fetchDetail({ kind, subjectId, endpoint, fetchJson });
 }
 
-async function fetchJson(url) {
-    const response = await fetch(url, {
-        headers: REQUEST_HEADERS,
-        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
-    });
-
-    if (!response.ok) {
-        throw new Error(`Request failed (${response.status}): ${url}`);
-    }
-
-    return response.json();
-}
-
-async function fetchBinary(url) {
-    const response = await fetch(url, {
-        headers: REQUEST_HEADERS,
-        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
-    });
-
-    if (!response.ok) {
-        throw new Error(`Request failed (${response.status}): ${url}`);
-    }
-
-    const arrayBuffer = await response.arrayBuffer();
-    return Buffer.from(arrayBuffer);
-}
-
-async function fetchHtml(url) {
-    const response = await fetch(url, {
-        headers: {
-            Referer: 'https://movie.douban.com/',
-            'User-Agent': REQUEST_HEADERS['User-Agent'],
-            Accept: 'text/html,application/xhtml+xml'
-        },
-        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
-    });
-
-    if (!response.ok) {
-        throw new Error(`Request failed (${response.status}): ${url}`);
-    }
-
-    return response.text();
-}
-
 async function materializePoster(categoryId, subjectId, remoteUrl) {
     if (!remoteUrl || !/^https?:\/\//i.test(remoteUrl)) {
         return remoteUrl;
     }
 
     const relativePath = `posters/douban/${categoryId}/${subjectId}.jpg`;
-    const targetPath = path.resolve(ROOT_DIR, relativePath);
+    const existingPath = path.resolve(ROOT_DIR, relativePath);
+    const targetPath = path.resolve(OUTPUT_ROOT, relativePath);
 
     try {
-        const existing = await stat(targetPath);
+        const existing = await stat(existingPath);
         if (existing.isFile() && existing.size > 0) {
             return relativePath;
         }
@@ -1237,35 +1039,6 @@ async function fetchTmdbDetail(detailPath, itemId) {
         language: 'zh-CN',
         append_to_response: 'external_ids'
     });
-}
-
-async function fetchTmdbJson(endpoint, params = {}) {
-    if (!TMDB_API_KEY) {
-        throw new Error('TMDB_API_KEY is not set');
-    }
-
-    const url = new URL(`${TMDB_API_BASE}${endpoint}`);
-    url.searchParams.set('api_key', TMDB_API_KEY);
-
-    Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== '') {
-            url.searchParams.set(key, String(value));
-        }
-    });
-
-    const response = await fetch(url, {
-        headers: {
-            Accept: 'application/json',
-            'User-Agent': REQUEST_HEADERS['User-Agent']
-        },
-        signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MS)
-    });
-
-    if (!response.ok) {
-        throw new Error(`TMDB request failed (${response.status}): ${endpoint}`);
-    }
-
-    return response.json();
 }
 
 function normalizeDoubanTvEntry(item, detail) {
@@ -1938,35 +1711,6 @@ function extractDoubanSubjectId(link) {
     return match ? match[1] : null;
 }
 
-function isMainlandChinaEntry(item) {
-    const subtitle = item?.card_subtitle || item?.info || '';
-    return subtitle.includes('中国大陆');
-}
-
-function isKoreanEntry(item) {
-    const subtitle = item?.card_subtitle || item?.info || '';
-    return subtitle.includes('韩国');
-}
-
-function isJapaneseEntry(item) {
-    const subtitle = item?.card_subtitle || item?.info || '';
-    return subtitle.includes('日本');
-}
-
-function isAnimationEntry(item) {
-    const subtitle = item?.card_subtitle || item?.info || '';
-    return subtitle.includes('动画');
-}
-
-function isJapaneseAnimationEntry(item) {
-    return isJapaneseEntry(item) && isAnimationEntry(item);
-}
-
-function isAmericanEntry(item) {
-    const subtitle = item?.card_subtitle || item?.info || '';
-    return subtitle.includes('美国');
-}
-
 /**
  * [新增] 基于名称和年份的兜底去重逻辑
  * 用于处理那些没有匹配上同一 ID（TMDB vs Douban）但实际是同一部作品的条目
@@ -2265,7 +2009,7 @@ function backfillFromExistingItems(kind, items, existingItems) {
 }
 
 async function writeJson(relativePath, payload) {
-    const targetPath = path.resolve(ROOT_DIR, relativePath);
+    const targetPath = path.resolve(OUTPUT_ROOT, relativePath);
     await mkdir(path.dirname(targetPath), { recursive: true });
     await writeFile(targetPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
 }
