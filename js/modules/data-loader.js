@@ -73,8 +73,8 @@ export function formatUpdateTimestamp(value) {
  * 加载分类数据
  *
  * 依赖由 options 显式传入（便于测试与解耦）：
- *   - getCurrentCategoryId: () => string         // 默认回退到 window.__appState
- *   - onSync: (categoryState) => void            // 默认回退到 window.syncCurrentCategoryData
+ *   - getCurrentCategoryId: () => string
+ *   - onSync: (categoryState) => void
  *   - isDesktop: boolean                         // 默认 false。决定 complete 加载完成时是否弹 toast
  */
 export async function loadCategoryData(categoryId, level, categoryState, options = {}) {
@@ -86,12 +86,8 @@ export async function loadCategoryData(categoryId, level, categoryState, options
     const {
         forceRefresh = false,
         silent = false,
-        getCurrentCategoryId = () => window.__appState?.currentCategoryId,
-        onSync = (categoryState) => {
-            if (typeof window.syncCurrentCategoryData === 'function') {
-                window.syncCurrentCategoryData(categoryState);
-            }
-        },
+        getCurrentCategoryId = () => categoryId,
+        onSync = () => {},
         isDesktop = false
     } = options;
 
@@ -226,12 +222,8 @@ export function ingestCategoryData(categoryId, data, level, categoryState, optio
     const state = categoryState[categoryId];
     const {
         sync = true,
-        getCurrentCategoryId = () => window.__appState?.currentCategoryId,
-        onSync = (categoryState) => {
-            if (typeof window.syncCurrentCategoryData === 'function') {
-                window.syncCurrentCategoryData(categoryState);
-            }
-        }
+        getCurrentCategoryId = () => categoryId,
+        onSync = () => {}
     } = options;
 
     if (level === 'latest' && state.completeLoaded) return;

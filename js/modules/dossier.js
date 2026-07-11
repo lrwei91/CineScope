@@ -424,8 +424,4 @@ export function initDossierEvents(onShare, onOpenTrailer) {
             closeIntelDossier();
         }
     });
-
-    // 导出到全局供 share.js 使用
-    window.openIntelDossier = openIntelDossier;
-    window.getCurrentDossierItem = getCurrentDossierItem;
 }

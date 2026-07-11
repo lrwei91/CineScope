@@ -9,16 +9,13 @@ import {
     DEFAULT_CATEGORY_ID,
     ITEMS_PER_PAGE,
     FUTURE_TAG,
-    DOUBAN_STATUS_LABELS,
-    HIDDEN_GENRES,
     createCategoryState
 } from './js/modules/config.js';
 
 import {
     loadCategoryData,
     ingestCategoryData,
-    formatUpdateTimestamp,
-    dedupeCatalogItems
+    formatUpdateTimestamp
 } from './js/modules/data-loader.js';
 
 import {
@@ -31,7 +28,6 @@ import {
 } from './js/modules/filters.js';
 
 import {
-    resolvePosterUrl,
     showSkeletonLoader,
     renderComingSoon,
     renderTimeline,
@@ -42,7 +38,7 @@ import {
 import {
     hydrateDoubanStatuses,
     syncAllItems,
-    attachDoubanStatus,
+    configureDoubanSync,
     updateUI as updateDoubanUI
 } from './js/modules/douban-sync.js';
 
@@ -56,7 +52,6 @@ import {
 
 import {
     openIntelDossier,
-    closeIntelDossier,
     initDossierEvents
 } from './js/modules/dossier.js';
 
@@ -67,11 +62,6 @@ import {
 
 import {
     isMobile,
-    openMobileFilterSheet,
-    closeMobileFilterSheet,
-    openMobileCategorySheet,
-    closeMobileCategorySheet,
-    buildMobileCategoryPills,
     syncMobileCategoryLabel,
     syncMobileSheetFilters,
     updateFabState,
@@ -79,6 +69,7 @@ import {
 } from './js/modules/mobile-sheet.js';
 
 import { getNextPageRange } from './js/modules/paging.js';
+import { ShareModule } from './share.js';
 
 // =====================================================
 // 全局状态
@@ -105,11 +96,6 @@ const state = {
     isSwitchingCategory: false
 };
 
-// 暴露状态供其他模块访问
-window.__appState = state;
-window.syncCurrentCategoryData = syncCurrentCategoryData;
-window.typeWriterEffect = typeWriterEffect;
-
 // 统一封装 loadCategoryData 的回调选项（避免每个调用点重复透传）
 function buildLoadOptions(extra = {}) {
     return {
@@ -119,14 +105,6 @@ function buildLoadOptions(extra = {}) {
         ...extra
     };
 }
-
-// 暴露 appContext 供 share.js 使用
-window.appContext = {
-    resolvePosterUrl,
-    getGenreDisplayName,
-    HIDDEN_GENRES,
-    showToast
-};
 
 // DOM 元素缓存
 const elements = {};
@@ -186,7 +164,7 @@ function setCurrentCategory(categoryId) {
         tag.classList.toggle('active', tag.dataset.category === categoryId);
     });
     syncMobileSheetFilters();
-    updateFabState();
+    updateFabState(state);
 }
 
 /**
@@ -404,7 +382,7 @@ function populateRatingFilters() {
     });
 
     syncMobileSheetFilters();
-    updateFabState();
+    updateFabState(state);
 }
 
 function populateGenreFilters(items) {
@@ -428,7 +406,7 @@ function populateGenreFilters(items) {
 
     requestAnimationFrame(() => updateGenreFilterCollapse());
     syncMobileSheetFilters();
-    updateFabState();
+    updateFabState(state);
 }
 
 function handleGenreClick(actualValue, tag) {
@@ -522,7 +500,7 @@ function filterAndRenderItems(options = {}) {
     }
 
     // 更新移动端状态
-    updateFabState();
+    updateFabState(state);
     syncMobileCategoryLabel();
 }
 
@@ -738,11 +716,14 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
     }
 
     try {
-        await hydrateDoubanStatuses();
+        const statusPromise = hydrateDoubanStatuses().catch((error) => {
+            console.error('Douban status hydration failed:', error);
+        });
         const loaded = await ensureCategoryLoaded(initialCategoryId);
         if (!loaded) {
             showLoadError();
         }
+        await statusPromise;
     } catch (error) {
         console.error('Initialize failed:', error);
         showLoadError();
@@ -845,10 +826,7 @@ async function shareDossier(item) {
     }
 
     try {
-        if (!window.ShareModule) {
-            throw new Error('分享模块未加载');
-        }
-        await window.ShareModule.shareItem(item);
+        await ShareModule.shareItem(item);
     } catch (error) {
         console.error('分享失败:', error);
         showToast('分享失败，已取消');
@@ -887,7 +865,12 @@ function bootstrapApp() {
     initTrailerModalEvents();
 
     // 初始化移动端 Action Sheet
-    initMobileSheetEvents();
+    initMobileSheetEvents(undefined, { getState: () => state });
+
+    configureDoubanSync({
+        onHydrated: syncCurrentCategoryData,
+        typeWriter: typeWriterEffect
+    });
 
     // 启动应用
     initialize(initialCategory);

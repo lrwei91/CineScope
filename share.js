@@ -3,6 +3,11 @@
  * 负责生成分享图片并处理系统分享
  */
 
+import { HIDDEN_GENRES } from './js/modules/config.js';
+import { getGenreDisplayName } from './js/modules/filters.js';
+import { resolvePosterUrl } from './js/modules/renderer.js';
+import { showToast } from './js/modules/ui-controls.js';
+
 const QR_CODE_SIZE = 132;
 const QR_CODE_API_BASE_URL = 'https://api.qrserver.com/v1/create-qr-code/';
 const BOTTOM_SECTION_GAP = 56;
@@ -150,8 +155,6 @@ function getCoverImageLayout(imageWidth, imageHeight, targetWidth, targetHeight)
 }
 
 function getVisibleGenresForShare(item) {
-    const HIDDEN_GENRES = window.appContext ? window.appContext.HIDDEN_GENRES : new Set();
-    const getGenreDisplayName = window.appContext ? window.appContext.getGenreDisplayName : (g => g);
     return (item.genres || []).filter((genreName) => {
         const displayName = getGenreDisplayName(genreName);
         return !HIDDEN_GENRES.has(displayName) && !HIDDEN_GENRES.has(genreName);
@@ -193,7 +196,6 @@ export function getShareRealtimeMetrics(item) {
 }
 
 function buildShareText(item) {
-    const getGenreDisplayName = window.appContext ? window.appContext.getGenreDisplayName : (g => g);
     const visibleGenres = getVisibleGenresForShare(item).map((genre) => getGenreDisplayName(genre));
     const realtimeMetrics = getShareRealtimeMetrics(item);
     const lines = [
@@ -282,14 +284,13 @@ async function createShareImageFile(item) {
     for (let attempt = 0; attempt < 2; attempt += 1) {
         if (includePoster && item.posterPath && !posterImage) {
             try {
-                const resolvePosterUrl = window.appContext ? window.appContext.resolvePosterUrl : (p => p);
                 posterImage = await loadImageForShare(resolvePosterUrl(item.posterPath));
             } catch (error) {
                 includePoster = false;
             }
         }
 
-        const typeStr = getVisibleGenresForShare(item).map(g => window.appContext && window.appContext.getGenreDisplayName ? window.appContext.getGenreDisplayName(g) : g).slice(0, 4).join(' · ');
+        const typeStr = getVisibleGenresForShare(item).map(getGenreDisplayName).slice(0, 4).join(' · ');
         
         let heroH = 480;
         const dctx = document.createElement('canvas').getContext('2d');
@@ -661,7 +662,6 @@ function showImageOverlay(dataUrl) {
 }
 
 async function shareItem(currentDossierItem) {
-    const showToast = window.appContext ? window.appContext.showToast : console.log;
     try {
         const result = await createShareImageFile(currentDossierItem);
         const { dataUrl, file } = result;
@@ -700,8 +700,3 @@ async function shareItem(currentDossierItem) {
 export const ShareModule = {
     shareItem
 };
-
-// 暴露到全局供 app.js 使用
-if (typeof window !== 'undefined') {
-    window.ShareModule = ShareModule;
-}

@@ -10,6 +10,8 @@
 
 import { syncBodyModalState } from './modal-state.js';
 
+let getAppState = () => ({});
+
 /**
  * 检查是否为移动端
  */
@@ -162,12 +164,12 @@ export function syncMobileSheetFilters() {
 /**
  * 更新 FAB 状态徽章
  */
-export function updateFabState() {
+export function updateFabState(appState = getAppState()) {
     const mobileFilterFab = document.getElementById('mobile-filter-fab');
     const fabActiveBadge = document.getElementById('fab-active-badge');
     if (!mobileFilterFab || !fabActiveBadge) return;
 
-    const state = window.__appState || {};
+    const state = appState || {};
     const hasRating = Boolean(state.selectedRating && state.selectedRating !== '全部') || Boolean(state.specialFilterMode);
     const hasGenre = (state.selectedGenres || []).length > 0;
     const hasSearch = (state.searchQuery || '').length > 0;
@@ -184,7 +186,8 @@ export function updateFabState() {
 /**
  * 初始化移动端 Action Sheet 事件
  */
-export function initMobileSheetEvents(onFilterOpen) {
+export function initMobileSheetEvents(onFilterOpen, options = {}) {
+    getAppState = typeof options.getState === 'function' ? options.getState : getAppState;
     const mobileFilterFab = document.getElementById('mobile-filter-fab');
     const closeFilterSheetBtn = document.getElementById('close-filter-sheet');
     const mobileSheetOverlay = document.getElementById('mobile-sheet-overlay');

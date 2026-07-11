@@ -10,6 +10,13 @@ let doubanStatuses = {};
 let doubanStatusesMetadata = null;
 let buildReportDoubanStatus = null;
 let isDoubanSyncing = false;
+let onHydratedCallback = () => {};
+let typeWriterCallback = null;
+
+export function configureDoubanSync({ onHydrated = () => {}, typeWriter = null } = {}) {
+    onHydratedCallback = onHydrated;
+    typeWriterCallback = typeWriter;
+}
 
 /**
  * 获取相对时间描述
@@ -117,10 +124,8 @@ export async function hydrateDoubanStatuses() {
         isDoubanSyncing = false;
         updateDoubanAuthUI();
         
-        // 3. 数据同步完毕后，由于首屏可能已提前渲染，主动触发大盘数据绑定和重绘
-        if (typeof window.syncCurrentCategoryData === 'function') {
-            window.syncCurrentCategoryData();
-        }
+        // 数据同步完毕后，由应用层决定是否重绘当前分类。
+        onHydratedCallback();
     }
 }
 
@@ -161,8 +166,8 @@ function updateDoubanAuthUI() {
     }
 
     // 使用 typewriter 效果更新文本
-    if (window.typeWriterEffect) {
-        window.typeWriterEffect(doubanAuthStatus, statusText);
+    if (typeWriterCallback) {
+        typeWriterCallback(doubanAuthStatus, statusText);
     } else {
         doubanAuthStatus.textContent = statusText;
     }
