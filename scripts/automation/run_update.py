@@ -127,12 +127,38 @@ def promote(staged_root: Path, changed_files: list[str]) -> None:
 
 def ensure_publish_branch_ready() -> None:
     subprocess.run(["git", "fetch", "origin", "main"], cwd=PROJECT_ROOT, check=True, timeout=60)
+
+    status = subprocess.run(
+        ["git", "status", "--porcelain"],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    if status.stdout.strip():
+        raise RuntimeError("--publish requires a clean worktree before syncing origin/main")
+
     remote_is_ancestor = subprocess.run(
         ["git", "merge-base", "--is-ancestor", "origin/main", "HEAD"],
         cwd=PROJECT_ROOT,
     )
-    if remote_is_ancestor.returncode != 0:
-        raise RuntimeError("origin/main is ahead or diverged; refusing publish while unrelated worktree changes exist")
+    if remote_is_ancestor.returncode == 0:
+        return
+
+    local_is_ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", "HEAD", "origin/main"],
+        cwd=PROJECT_ROOT,
+    )
+    if local_is_ancestor.returncode == 0:
+        subprocess.run(
+            ["git", "merge", "--ff-only", "origin/main"],
+            cwd=PROJECT_ROOT,
+            check=True,
+            timeout=60,
+        )
+        return
+
+    raise RuntimeError("local main diverged from origin/main; refusing publish")
 
 
 def ensure_clean_for_publish(changed_files: list[str]) -> None:

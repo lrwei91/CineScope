@@ -9,7 +9,12 @@ from pathlib import Path
 AUTOMATION_DIR = Path(__file__).resolve().parents[1] / "scripts" / "automation"
 os.sys.path.insert(0, str(AUTOMATION_DIR))
 
-from run_update import UpdateLock, collect_changed_files, ensure_clean_for_publish  # noqa: E402
+from run_update import (  # noqa: E402
+    UpdateLock,
+    collect_changed_files,
+    ensure_clean_for_publish,
+    ensure_publish_branch_ready,
+)
 from trailer_report import diff_trailers, snapshot  # noqa: E402
 
 
@@ -46,6 +51,50 @@ class UpdateLockTests(unittest.TestCase):
         run.return_value = type("Result", (), {"stdout": " M json/data.json\n"})()
         with self.assertRaisesRegex(RuntimeError, "output paths"):
             ensure_clean_for_publish(["json/data.json"])
+
+    @patch("run_update.subprocess.run")
+    def test_publish_branch_fast_forwards_when_remote_is_ahead(self, run):
+        result = type("Result", (), {})
+        run.side_effect = [
+            result(),
+            type("Status", (), {"stdout": ""})(),
+            type("Ancestor", (), {"returncode": 1})(),
+            type("Ancestor", (), {"returncode": 0})(),
+            result(),
+        ]
+
+        ensure_publish_branch_ready()
+
+        self.assertEqual(
+            run.call_args_list[-1].args[0],
+            ["git", "merge", "--ff-only", "origin/main"],
+        )
+
+    @patch("run_update.subprocess.run")
+    def test_publish_branch_rejects_dirty_worktree_before_sync(self, run):
+        result = type("Result", (), {})
+        run.side_effect = [
+            result(),
+            type("Status", (), {"stdout": " M scripts/local.py\n"})(),
+        ]
+
+        with self.assertRaisesRegex(RuntimeError, "clean worktree"):
+            ensure_publish_branch_ready()
+
+        self.assertEqual(len(run.call_args_list), 2)
+
+    @patch("run_update.subprocess.run")
+    def test_publish_branch_rejects_true_divergence(self, run):
+        result = type("Result", (), {})
+        run.side_effect = [
+            result(),
+            type("Status", (), {"stdout": ""})(),
+            type("Ancestor", (), {"returncode": 1})(),
+            type("Ancestor", (), {"returncode": 1})(),
+        ]
+
+        with self.assertRaisesRegex(RuntimeError, "diverged"):
+            ensure_publish_branch_ready()
 
 
 class TrailerReportTests(unittest.TestCase):
