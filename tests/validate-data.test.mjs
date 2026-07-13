@@ -59,3 +59,22 @@ test('data validator rejects duplicate ids and latest items missing from complet
     assert.ok(result.errors.some((message) => message.includes('duplicate id 2')));
     assert.ok(result.errors.some((message) => message.includes('latest id 2 is missing from complete')));
 });
+
+test('data validator rejects missing local posters and invalid verified Douban links, and warns on distant dates', async () => {
+    const rootDir = await createFixture();
+    await writeJson(rootDir, 'json/movie_cn_complete.json', {
+        movies: [{
+            id: 1,
+            title: 'Bad Movie',
+            release_date: '2030-01-01',
+            poster_path: 'posters/douban/movie_cn/missing.jpg',
+            douban_link_google: 'https://example.com/not-a-douban-subject',
+            douban_link_verified: true
+        }]
+    });
+
+    const result = await validateData({ rootDir, baselineRef: null, now: '2026-07-13T00:00:00Z' });
+    assert.ok(result.errors.some((message) => message.includes('missing local poster')));
+    assert.ok(result.errors.some((message) => message.includes('verified Douban link is invalid')));
+    assert.ok(result.warnings.some((message) => message.includes('unusually distant release date')));
+});

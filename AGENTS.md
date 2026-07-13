@@ -42,3 +42,5 @@ Keep CineScope reliable as a static site with generated JSON. Make the smallest 
 - Data gate: `scripts/validate-data.mjs`
 - Pages build: `scripts/build-site.mjs`
 - Operating details: `README.md`, `docs/DATA_UPDATE_GUIDE.md`, and `CONTEXT.md`
+
+Scheduled data updates invoke the reusable Pages workflow with the commit they just pushed; do not add a second `workflow_run` deployment trigger.

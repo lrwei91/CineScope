@@ -143,11 +143,11 @@ npm run check:data
 ## 6. CI 与部署
 
 - `ci.yml`：Pull Request 执行代码、数据和 Pages 产物检查
-- `daily-update.yml`：调用统一入口完成 full 更新和发布
-- `deploy-pages.yml`：main push 后验证并部署一次
+- `daily-update.yml`：调用统一入口完成 full 更新和发布，并调用 Pages 工作流部署推送后的提交
+- `deploy-pages.yml`：支持 main push、手动触发和每日更新复用；每次都先验证再部署
 - `.site/`：只包含 HTML、CSS、JS、JSON、海报和 favicon
 
-部署不再监听每日工作流的 `workflow_run`，避免同一提交重复部署。
+部署不再监听每日工作流的 `workflow_run`，避免同一提交重复部署；每日更新通过可复用工作流显式传入已推送的提交 SHA。
 
 ## 7. 故障处理
 

@@ -23,6 +23,8 @@ const REQUIRED_AUXILIARY_FILES = [
 ];
 const DROP_FAILURE_THRESHOLD = 0.2;
 const QUALITY_WARNING_THRESHOLD = 0.1;
+const FUTURE_DATE_WARNING_DAYS = 550;
+const DOUBAN_SUBJECT_URL_PATTERN = /^https:\/\/(?:movie\.douban\.com|m\.douban\.com\/movie)\/subject\/\d+\/?(?:[?#].*)?$/;
 
 function parseArguments(argv) {
     const options = {
@@ -88,6 +90,44 @@ function getDoubanLink(kind, item) {
         : item?.douban_link_google;
 }
 
+function getDoubanLinkVerified(kind, item) {
+    return kind === 'tv'
+        ? Boolean(item?.seasons?.[0]?.douban_link_verified || item?.douban_link_verified)
+        : Boolean(item?.douban_link_verified);
+}
+
+function getItemDate(kind, item) {
+    return kind === 'tv' ? item?.first_air_date || item?.seasons?.[0]?.air_date || '' : item?.release_date || '';
+}
+
+function formatItemReference(item) {
+    return `${getItemId(item)} (${item?.title || item?.name || 'untitled'})`;
+}
+
+function validateVerifiedDoubanLinks(spec, items, errors) {
+    for (const item of items) {
+        if (!getDoubanLinkVerified(spec.kind, item)) continue;
+        const link = String(getDoubanLink(spec.kind, item) || '').trim();
+        if (!DOUBAN_SUBJECT_URL_PATTERN.test(link)) {
+            errors.push(`${spec.id}: verified Douban link is invalid for ${formatItemReference(item)}`);
+        }
+    }
+}
+
+function validateFutureDates(spec, items, warnings, now) {
+    const todayUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    for (const item of items) {
+        const value = String(getItemDate(spec.kind, item) || '');
+        const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (!match) continue;
+        const releaseUtc = Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+        const daysAhead = Math.floor((releaseUtc - todayUtc) / 86_400_000);
+        if (daysAhead > FUTURE_DATE_WARNING_DAYS) {
+            warnings.push(`${spec.id}: unusually distant release date for ${formatItemReference(item)}: ${value} (${daysAhead} days ahead)`);
+        }
+    }
+}
+
 function computeQuality(kind, items) {
     const total = items.length || 1;
     const missingRating = items.filter((item) => !getRating(kind, item)).length;
@@ -144,6 +184,7 @@ export async function validateData(options = {}) {
     const posterRoot = options.posterRoot ? path.resolve(options.posterRoot) : null;
     const baselineRoot = options.baselineRoot ? path.resolve(options.baselineRoot) : posterRoot || rootDir;
     const allowLargeDrop = Boolean(options.allowLargeDrop);
+    const now = options.now ? new Date(options.now) : new Date();
     const errors = [];
     const warnings = [];
     const categories = [];
@@ -170,6 +211,8 @@ export async function validateData(options = {}) {
         }
 
         await validatePosterPaths(rootDir, posterRoot, spec, completeItems, errors);
+        validateVerifiedDoubanLinks(spec, completeItems, errors);
+        validateFutureDates(spec, completeItems, warnings, now);
 
         const baselinePayload = readBaselineJson(baselineRoot, baselineRef, completePath);
         const baselineItems = Array.isArray(baselinePayload?.[spec.key]) ? baselinePayload[spec.key] : null;

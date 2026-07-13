@@ -101,7 +101,7 @@ npm run check         # 全部检查
 npm run build:site    # 生成 .site/ Pages 白名单产物
 ```
 
-CI 会在 Pull Request、每日更新和 Pages 部署前执行这些检查。
+CI 会在 Pull Request、每日更新和 Pages 部署前执行这些检查。每日更新成功后会调用同一套 Pages 工作流，并部署其推送后的最新 `main` 提交。
 
 ## Build Report v2
 
