@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "last_updated": "2026-07-17T12:12:36.142Z",
+    "last_updated": "2026-07-17T15:08:43.178Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-17T12:12:36.142Z",
+        "time": "2026-07-17T15:08:43.178Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+maoyan+bilibili",
+    "source": "douban+tmdb+maoyan+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
@@ -29,16 +29,22 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 275,
+        "fetch_error": null
+      },
+      {
         "slug": "maoyan_box_office",
         "source": "maoyan",
-        "count": 86,
+        "count": 88,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 165,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
     "total_items": 24
@@ -124,7 +130,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1502135,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1502135"
     },
     {
       "id": 37659649,
@@ -241,6 +249,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1724637,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1724637",
       "trailers": [
         {
           "source": "bilibili",
@@ -441,7 +451,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1716541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1716541"
     },
     {
       "id": 37452950,
@@ -503,7 +515,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1609560,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1609560"
     },
     {
       "id": 36808876,
@@ -636,7 +650,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt33764258",
       "poster_path": "posters/douban/movie_cn/36808876.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36808876/",
@@ -654,6 +668,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1368337,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1368337",
       "trailers": [
         {
           "source": "bilibili",
@@ -827,7 +843,7 @@
         "Flowervale Street‎",
         "Flowervale St"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt27165187",
       "poster_path": "posters/douban/movie_cn/36318703.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36318703/",
@@ -845,6 +861,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1101383,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1101383",
       "trailers": [
         {
           "source": "bilibili",
@@ -951,6 +969,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1630030,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1630030",
       "trailers": [
         {
           "source": "bilibili",
@@ -1067,7 +1087,7 @@
         "汪汪队立大功大电影3",
         "Paw Patrol 3"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt29356163",
       "poster_path": "posters/douban/movie_cn/36791178.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36791178/",
@@ -1084,7 +1104,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1185806,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1185806"
     },
     {
       "id": 10756537,
@@ -1210,8 +1232,8 @@
       "douban_link_verified": true,
       "overview": "新娘（乌玛·瑟曼 Uma Thurman 饰）曾是暗杀组织中的一名成员，也是组织首脑比尔（大卫·卡拉丁 David Carradine 饰）的情人，金盆洗手后的她结识了一个单纯的小伙子并准备忘掉过去与之结婚。没想到，婚礼当天比尔突然出现，并带领手下大开杀戒，霎时间，圣洁的教堂变成人间地狱。新娘头部中弹昏迷4年，醒来后脑中首先想起的便是昏迷前的几张残酷的面孔，他们是曾经的同僚和爱人，是如今的敌人。满腔怒火的新娘要一一找到这些人，开启血色复仇……",
       "durations": [
-        "253分钟",
-        "275分钟(重映版)"
+        "276分钟(中国大陆)",
+        "253分钟"
       ],
       "release_windows": [
         {
@@ -1219,7 +1241,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 57601,
+      "rating_count": 58281,
       "rating_star_count": 4.5,
       "type": "movie",
       "trailers": [
@@ -1323,7 +1345,7 @@
         "年会不能停2",
         "Make Zhonghe Great Again"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38035813",
       "poster_path": "posters/douban/movie_cn/36850814.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36850814/",
@@ -1339,6 +1361,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1541125,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1541125",
       "trailers": [
         {
           "source": "bilibili",
@@ -1427,20 +1451,20 @@
       "type": "movie",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 75,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 18,
         "maoyan_movie_id": 1552828,
         "movie_name": "林家宅37号",
         "release_info": "点映",
-        "real_time_box_office": "0.01万",
-        "cumulative_box_office": "184",
-        "split_cumulative_box_office": "166",
+        "real_time_box_office": "5.10万",
+        "cumulative_box_office": "5.1万",
+        "split_cumulative_box_office": "4.5万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 6,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.9%",
-        "avg_show_view": "1.0"
+        "show_count": 1360,
+        "show_count_rate": "0.3%",
+        "seat_occupancy": "1.2%",
+        "avg_show_view": "1.2"
       }
     },
     {
@@ -1543,7 +1567,7 @@
       "aka": [
         "The Decisive Moment"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt32634286",
       "poster_path": "posters/douban/movie_cn/35875462.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35875462/",
@@ -1562,22 +1586,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1305665,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1305665",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 21,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 12,
         "maoyan_movie_id": 1466308,
         "movie_name": "群星闪耀时",
         "release_info": "点映",
-        "real_time_box_office": "2.78万",
-        "cumulative_box_office": "18.6万",
-        "split_cumulative_box_office": "18.4万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 6,
+        "real_time_box_office": "63.04万",
+        "cumulative_box_office": "81.6万",
+        "split_cumulative_box_office": "73.7万",
+        "box_office_rate": "0.3%",
+        "split_box_office_rate": "0.3%",
+        "show_count": 74,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "91.9%",
-        "avg_show_view": "103.3"
+        "seat_occupancy": "43.9%",
+        "avg_show_view": "149.0"
       },
       "trailers": [
         {
@@ -1689,14 +1715,14 @@
         "蜘蛛侠4",
         "Spider-Man 4"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt22084616",
       "poster_path": "posters/douban/movie_cn/36246195.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36246195/",
       "douban_link_verified": true,
       "overview": "彼得·帕克（汤姆·霍兰德 饰）自愿让全世界遗忘自己，转眼已是四年。失去挚友、挚爱与亲人的陪伴，他独自重返街头，以全职蜘蛛侠的身份坚守使命，守护整座城市。\n然而，日益沉重的责任与无尽压力，意外引发了一场骇人的身体异变，直接威胁到蜘蛛侠的生命，迫使他向“绿巨人”班纳博士寻求帮助。与此同时，多方邪恶势力趁虚而入，纽约再度陷入危机。面对前所未有的强敌，蜘蛛侠能否绝境破局，完成破茧重生？",
       "durations": [
-        "150分钟"
+        "145分钟"
       ],
       "release_windows": [
         {
@@ -1707,6 +1733,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 969681,
+      "tmdbUrl": "https://www.themoviedb.org/movie/969681",
       "trailers": [
         {
           "source": "bilibili",
@@ -1901,7 +1929,7 @@
         "Peng Hu",
         "The Belief"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35267312",
       "poster_path": "posters/douban/movie_cn/35558234.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35558234/",
@@ -1919,6 +1947,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1298718,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1298718",
       "trailers": [
         {
           "source": "bilibili",
@@ -2020,14 +2050,14 @@
         "爱你致死不渝(港/台)",
         "痴爱成魔"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt37287335",
       "poster_path": "posters/douban/movie_cn/37450627.jpg",
       "douban_rating": "7.7",
       "douban_link_google": "https://movie.douban.com/subject/37450627/",
       "douban_link_verified": true,
       "overview": "平凡却对爱情抱有执念的青年贝尔（迈克尔·约翰斯顿 饰）在偶然得知小镇传说后，折断了一截禁忌的“心愿柳”许愿，如愿俘获暗恋对象妮基（印达·纳瓦雷特 饰）的心。可随着恋情顺遂展开，他逐渐察觉——被召唤来的并非好运，而是一种依附于欲望本身、缓慢蚕食现实的古老存在。想要的爱越圆满，代价越狰狞。\n影片改编自民间禁忌传说“心愿柳”框架。",
       "durations": [
-        "108分钟"
+        "110分钟"
       ],
       "release_windows": [
         {
@@ -2035,9 +2065,11 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 80195,
+      "rating_count": 82618,
       "rating_star_count": 4,
       "type": "movie",
+      "tmdb_id": 1339713,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1339713",
       "trailers": [
         {
           "source": "bilibili",
@@ -2143,13 +2175,14 @@
         "英国国家剧院现场：哈姆雷特",
         "Hamlet"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt7798632",
       "poster_path": "posters/douban/movie_cn/26588017.jpg",
       "douban_rating": "8.3",
       "douban_link_google": "https://movie.douban.com/subject/26588017/",
       "douban_link_verified": true,
       "overview": "丹麦王子哈姆雷特（本尼迪克特·康伯巴奇 Benedict Cumberbatch 饰）被传召回家参加父亲的葬礼以及自己母亲和叔父克劳迪斯的婚礼。父亲的突然离世，加上母亲的改嫁，使哈姆雷特终日郁郁寡欢。一次哈姆雷特在半夜里来到城堡高台上，与父亲的鬼魂相会，得知父王被叔父克劳迪斯毒死。鬼魂要求哈姆雷特向那个篡夺王位、霸占王妃的凶手复仇。背负了复仇任务的哈姆雷特决定用假装发疯的办法来掩饰自己，以窥探克劳迪斯的一举一动。随后他安排了一场宫廷戏，将国王被害一幕以戏剧形式表演出来。叔父看后原形毕露，而哈姆雷特却误杀了恋人（珊·布鲁克 Sian Brooke 饰）的父亲，导致恋人发疯死去。随后哈姆雷特的母亲也饮毒酒死亡，最终哈姆雷特愤怒杀死叔父。",
       "durations": [
+        "175分钟(中国大陆)",
         "217分钟"
       ],
       "release_windows": [
@@ -2158,25 +2191,27 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 9216,
+      "rating_count": 9279,
       "rating_star_count": 4,
       "type": "movie",
+      "tmdb_id": 843342,
+      "tmdbUrl": "https://www.themoviedb.org/movie/843342",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 25,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 32,
         "maoyan_movie_id": 641862,
         "movie_name": "哈姆雷特",
         "release_info": "点映",
-        "real_time_box_office": "1.79万",
-        "cumulative_box_office": "1.7万",
-        "split_cumulative_box_office": "1.6万",
+        "real_time_box_office": "1.16万",
+        "cumulative_box_office": "2.9万",
+        "split_cumulative_box_office": "2.7万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
         "show_count": 1,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "100.0%",
-        "avg_show_view": "239.0"
+        "seat_occupancy": "55.0%",
+        "avg_show_view": "187.0"
       }
     },
     {
@@ -2211,11 +2246,11 @@
       "actors": [
         {
           "id": 1,
-          "name": "李绍哲"
+          "name": "陈浩"
         },
         {
           "id": 2,
-          "name": "陈浩"
+          "name": "李绍哲"
         },
         {
           "id": 3,
@@ -2243,23 +2278,35 @@
         },
         {
           "id": 9,
-          "name": "曹知善"
-        },
-        {
-          "id": 10,
           "name": "邓先森"
         },
         {
+          "id": 10,
+          "name": "曹知善"
+        },
+        {
           "id": 11,
-          "name": "零柒"
+          "name": "囧森瑟夫"
         },
         {
           "id": 12,
-          "name": "韩雨泽"
+          "name": "零柒"
         },
         {
           "id": 13,
+          "name": "韩雨泽"
+        },
+        {
+          "id": 14,
           "name": "张天宇"
+        },
+        {
+          "id": 15,
+          "name": "张稷"
+        },
+        {
+          "id": 16,
+          "name": "良生"
         }
       ],
       "countries": [
@@ -2272,7 +2319,7 @@
         "八仙之瞒天过海",
         "All Wishes Come True!"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt43515101",
       "poster_path": "posters/douban/movie_cn/36882191.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36882191/",
@@ -2290,22 +2337,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1633056,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1633056",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 2,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 3,
         "maoyan_movie_id": 1525868,
         "movie_name": "八仙！",
         "release_info": "点映",
-        "real_time_box_office": "1928.64万",
-        "cumulative_box_office": "6198.1万",
-        "split_cumulative_box_office": "5480.0万",
-        "box_office_rate": "13.7%",
-        "split_box_office_rate": "13.7%",
-        "show_count": 58473,
-        "show_count_rate": "13.4%",
-        "seat_occupancy": "7.8%",
-        "avg_show_view": "9.1"
+        "real_time_box_office": "2515.10万",
+        "cumulative_box_office": "8714.6万",
+        "split_cumulative_box_office": "7717.9万",
+        "box_office_rate": "12.2%",
+        "split_box_office_rate": "12.2%",
+        "show_count": 62665,
+        "show_count_rate": "14.0%",
+        "seat_occupancy": "8.9%",
+        "avg_show_view": "11.0"
       },
       "trailers": [
         {
@@ -2409,12 +2458,12 @@
         "迷失三角洲",
         "Ghost Ship"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt39462979",
       "poster_path": "posters/douban/movie_cn/3011051.jpg",
       "douban_rating": "8.5",
       "douban_link_google": "https://movie.douban.com/subject/3011051/",
       "douban_link_verified": true,
-      "overview": "单亲母亲杰西（梅利莎·乔治 饰）和一帮朋友乘游艇出海游玩，但她总有一种有不好的事情发生的感觉。不久，他们便在海上遭遇一场强烈的风暴。游艇翻船，众人落海，几经挣扎他们好不容易爬到游艇残骸上来。正当他们无计可施之时，一艘巨大的游轮向众人缓缓驶来。众人欣喜过望，未加思索便登上这艘名为“艾俄洛斯”的游轮，结果发现这竟是一艘1930年便告失踪的神秘之船，而船上更是空无一人。\n随处可见的鲜血、神秘的指示以及突如其来的凶杀事件，将这群男女带入万劫不复的恐怖轮回之中……",
+      "overview": "单亲母亲杰丝（梅利莎·乔治 饰）和一帮朋友乘游艇出海游玩，但她总有一种有不好的事情发生的感觉。不久，他们便在海上遭遇一场强烈的风暴。游艇翻船，众人落海，几经挣扎他们好不容易爬到游艇残骸上来。正当他们无计可施之时，一艘巨大的游轮向众人缓缓驶来。众人欣喜过望，未加思索便登上这艘名为“艾俄洛斯”的游轮，结果发现这竟是一艘1930年便告失踪的神秘之船，而船上更是空无一人。\n随处可见的鲜血、神秘的指示以及突如其来的凶杀事件，将这群男女带入万劫不复的恐怖轮回之中……",
       "durations": [
         "99分钟"
       ],
@@ -2424,25 +2473,27 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 1003817,
+      "rating_count": 1009746,
       "rating_star_count": 4.5,
       "type": "movie",
+      "tmdb_id": 1466662,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1466662",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 9,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 4,
         "maoyan_movie_id": 38270,
         "movie_name": "恐怖游轮",
-        "release_info": "点映",
-        "real_time_box_office": "103.34万",
-        "cumulative_box_office": "178.1万",
-        "split_cumulative_box_office": "156.4万",
-        "box_office_rate": "0.7%",
-        "split_box_office_rate": "0.7%",
-        "show_count": 2871,
-        "show_count_rate": "0.6%",
-        "seat_occupancy": "10.6%",
-        "avg_show_view": "9.5"
+        "release_info": "上映首日",
+        "real_time_box_office": "798.72万",
+        "cumulative_box_office": "976.8万",
+        "split_cumulative_box_office": "861.8万",
+        "box_office_rate": "3.8%",
+        "split_box_office_rate": "3.8%",
+        "show_count": 17320,
+        "show_count_rate": "3.8%",
+        "seat_occupancy": "12.8%",
+        "avg_show_view": "12.2"
       },
       "trailers": [
         {
@@ -2544,41 +2595,44 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1713529,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1713529",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 74,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 2,
         "maoyan_movie_id": 1531493,
         "movie_name": "想你了",
-        "release_info": "点映",
-        "real_time_box_office": "0.02万",
-        "cumulative_box_office": "7.2万",
-        "split_cumulative_box_office": "7.2万",
-        "box_office_rate": "<0.1%",
-        "split_box_office_rate": "<0.1%",
-        "show_count": 1,
-        "show_count_rate": "<0.1%",
-        "seat_occupancy": "12.5%",
-        "avg_show_view": "7.0"
+        "release_info": "上映首日",
+        "real_time_box_office": "3980.09万",
+        "cumulative_box_office": "3987.3万",
+        "split_cumulative_box_office": "3501.5万",
+        "box_office_rate": "19.3%",
+        "split_box_office_rate": "19.0%",
+        "show_count": 63930,
+        "show_count_rate": "14.3%",
+        "seat_occupancy": "18.6%",
+        "avg_show_view": "19.0"
       }
     },
     {
       "id": 36452545,
+      "tmdb_id": 1491920,
       "title": "功夫女足",
       "original_title": "功夫女足",
       "release_date": "2026-07-11",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
         },
         {
-          "id": 2,
+          "id": 35,
           "name": "喜剧"
         },
         {
-          "id": 3,
-          "name": "运动"
+          "id": 28,
+          "name": "动作"
         }
       ],
       "directors": [
@@ -2787,7 +2841,7 @@
         "Kung Fu Soccer",
         "Shaolin Women's Soccer"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt36103784",
       "poster_path": "posters/douban/movie_cn/36452545.jpg",
       "douban_rating": "6.6",
       "douban_link_google": "https://movie.douban.com/subject/36452545/",
@@ -2802,25 +2856,25 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 97526,
+      "rating_count": 105655,
       "rating_star_count": 3.5,
       "type": "movie",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
+        "updated_at": "2026-07-17T15:05:45.564Z",
         "rank": 1,
         "maoyan_movie_id": 1500469,
         "movie_name": "功夫女足",
-        "release_info": "上映6天",
-        "real_time_box_office": "9871.81万",
-        "cumulative_box_office": "9.55亿",
-        "split_cumulative_box_office": "8.45亿",
-        "box_office_rate": "70.3%",
-        "split_box_office_rate": "70.1%",
-        "show_count": 227881,
-        "show_count_rate": "52.3%",
-        "seat_occupancy": "8.7%",
-        "avg_show_view": "12.7"
+        "release_info": "上映7天",
+        "real_time_box_office": "11396.82万",
+        "cumulative_box_office": "10.70亿",
+        "split_cumulative_box_office": "9.48亿",
+        "box_office_rate": "55.4%",
+        "split_box_office_rate": "55.4%",
+        "show_count": 208613,
+        "show_count_rate": "46.9%",
+        "seat_occupancy": "10.8%",
+        "avg_show_view": "15.9"
       },
       "trailers": [
         {
@@ -2942,22 +2996,24 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1725228,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1725228",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 34,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 25,
         "maoyan_movie_id": 1664947,
         "movie_name": "全城追缉",
-        "release_info": "上映6天",
-        "real_time_box_office": "0.65万",
-        "cumulative_box_office": "26.0万",
-        "split_cumulative_box_office": "25.0万",
+        "release_info": "上映7天",
+        "real_time_box_office": "2.28万",
+        "cumulative_box_office": "28.3万",
+        "split_cumulative_box_office": "27.2万",
         "box_office_rate": "<0.1%",
         "split_box_office_rate": "<0.1%",
-        "show_count": 155,
+        "show_count": 68,
         "show_count_rate": "<0.1%",
-        "seat_occupancy": "1.3%",
-        "avg_show_view": "1.3"
+        "seat_occupancy": "9.0%",
+        "avg_show_view": "8.1"
       }
     },
     {
@@ -3100,7 +3156,7 @@
       "aka": [
         "Three Kingdoms: The Beginning"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt43515124",
       "poster_path": "posters/douban/movie_cn/36752981.jpg",
       "douban_rating": "8.0",
       "douban_link_google": "https://movie.douban.com/subject/36752981/",
@@ -3115,25 +3171,27 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 34224,
+      "rating_count": 28903,
       "rating_star_count": 4,
       "type": "movie",
+      "tmdb_id": 1671541,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1671541",
       "box_office": {
         "source": "maoyan",
-        "updated_at": "2026-07-16T15:26:17.439Z",
-        "rank": 6,
+        "updated_at": "2026-07-17T15:05:45.564Z",
+        "rank": 8,
         "maoyan_movie_id": 1519937,
         "movie_name": "三国第一部：争洛阳",
-        "release_info": "上映7天",
-        "real_time_box_office": "259.37万",
-        "cumulative_box_office": "5581.3万",
-        "split_cumulative_box_office": "4982.9万",
-        "box_office_rate": "1.8%",
-        "split_box_office_rate": "1.8%",
-        "show_count": 20018,
-        "show_count_rate": "4.6%",
-        "seat_occupancy": "3.7%",
-        "avg_show_view": "3.6"
+        "release_info": "上映8天",
+        "real_time_box_office": "212.71万",
+        "cumulative_box_office": "5794.0万",
+        "split_cumulative_box_office": "5174.2万",
+        "box_office_rate": "1.0%",
+        "split_box_office_rate": "1.0%",
+        "show_count": 12790,
+        "show_count_rate": "2.8%",
+        "seat_occupancy": "4.7%",
+        "avg_show_view": "4.5"
       },
       "trailers": [
         {
