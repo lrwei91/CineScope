@@ -1,23 +1,29 @@
 {
   "metadata": {
-    "last_updated": "2026-07-19T14:50:59.662Z",
+    "last_updated": "2026-07-20T15:48:18.656Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-19T14:50:59.662Z",
-        "summary": "已同步综艺数据（complete）：49 条"
+        "time": "2026-07-20T15:48:18.656Z",
+        "summary": "已同步综艺数据（complete）：50 条"
       }
     ],
-    "source": "douban",
+    "source": "douban+tmdb",
     "source_collections": [
       {
         "slug": "tv_variety_show",
         "source": "douban",
         "count": 32,
         "fetch_error": null
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 1,
+        "fetch_error": null
       }
     ],
-    "total_items": 49
+    "total_items": 50
   },
   "shows": [
     {
@@ -325,7 +331,7 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 3,
+      "number_of_episodes": 5,
       "first_air_date": "2026-06-28",
       "last_air_date": "2026-06-28",
       "in_production": false,
@@ -1262,13 +1268,13 @@
         },
         {
           "id": 3,
-          "name": "优酷视频",
-          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
+          "name": "哔哩哔哩",
+          "logo_path": "https://img9.doubanio.com/f/frodo/88a62f5e0cf9981c910e60f4421c3e66aac2c9bc/pics/vendors/bilibili.png"
         },
         {
           "id": 4,
-          "name": "哔哩哔哩",
-          "logo_path": "https://img9.doubanio.com/f/frodo/88a62f5e0cf9981c910e60f4421c3e66aac2c9bc/pics/vendors/bilibili.png"
+          "name": "优酷视频",
+          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
         }
       ],
       "directors": [],
@@ -1733,13 +1739,13 @@
         },
         {
           "id": 2,
-          "name": "优酷视频",
-          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
+          "name": "爱奇艺",
+          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
         },
         {
           "id": 3,
-          "name": "爱奇艺",
-          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+          "name": "优酷视频",
+          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
         }
       ],
       "directors": [],
@@ -2047,13 +2053,13 @@
       "networks": [
         {
           "id": 1,
-          "name": "咪咕视频",
-          "logo_path": "https://img2.doubanio.com/f/frodo/8e1b7f8b48804cf759fc411e75d62c5ffd4f8f42/pics/vendors/migu_video.png"
+          "name": "腾讯视频",
+          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
         },
         {
           "id": 2,
-          "name": "腾讯视频",
-          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+          "name": "咪咕视频",
+          "logo_path": "https://img2.doubanio.com/f/frodo/8e1b7f8b48804cf759fc411e75d62c5ffd4f8f42/pics/vendors/migu_video.png"
         },
         {
           "id": 3,
@@ -2062,13 +2068,13 @@
         },
         {
           "id": 4,
-          "name": "优酷视频",
-          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
+          "name": "哔哩哔哩",
+          "logo_path": "https://img9.doubanio.com/f/frodo/88a62f5e0cf9981c910e60f4421c3e66aac2c9bc/pics/vendors/bilibili.png"
         },
         {
           "id": 5,
-          "name": "哔哩哔哩",
-          "logo_path": "https://img9.doubanio.com/f/frodo/88a62f5e0cf9981c910e60f4421c3e66aac2c9bc/pics/vendors/bilibili.png"
+          "name": "优酷视频",
+          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
         }
       ],
       "directors": [],
@@ -2202,8 +2208,8 @@
     },
     {
       "id": 37816937,
-      "name": "歌手2026 · 马来西亚篇",
-      "original_name": "歌手2026 · 马来西亚篇",
+      "name": "2026",
+      "original_name": "2026",
       "imdb_id": null,
       "genres": [
         {
@@ -2215,26 +2221,7 @@
           "name": "真人秀"
         }
       ],
-      "networks": [
-        {
-          "id": 3589,
-          "logo_path": "/vkDvk02K9hTqgzJesrlcXBmCrQr.png",
-          "name": "Astro GO",
-          "origin_country": "MY"
-        },
-        {
-          "id": 4198,
-          "logo_path": "/7AvGS1q9vYjUs2GkVKnoypLC0nv.png",
-          "name": "Astro AEC",
-          "origin_country": "MY"
-        },
-        {
-          "id": 9132,
-          "logo_path": "/vwOgByjEprYCZ3O34Bm3kvIhxzJ.png",
-          "name": "MangoTV International",
-          "origin_country": ""
-        }
-      ],
+      "networks": [],
       "directors": [
         {
           "id": 1,
@@ -2338,7 +2325,7 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 6,
+      "number_of_episodes": 1,
       "first_air_date": "2026-05-22",
       "last_air_date": "2026-05-22",
       "in_production": false,
@@ -2346,7 +2333,7 @@
       "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn_variety/37816937.jpg",
-      "backdrop_path": "/cjquq8Fb1vJN0n4iv5Dxk2GYKUZ.jpg",
+      "backdrop_path": null,
       "overview": "《歌手2026》是一档音乐交流竞技节目。节目集结全球实力唱将，在每周的直播比拼中高能开唱，演绎各国音乐风情、展现各自文化底蕴，以超水准演唱实力打造听觉盛宴，以旋律为纽带联结世界文化，接收各国、各年龄段大众听审的真实反馈。",
       "rating_count": 4984,
       "rating_star_count": 2,
@@ -2365,8 +2352,8 @@
           "douban_link_verified": true
         }
       ],
-      "tmdb_id": 322193,
-      "tmdbUrl": "https://www.themoviedb.org/tv/322193",
+      "tmdb_id": 327781,
+      "tmdbUrl": "https://www.themoviedb.org/tv/327781",
       "vote_average": 0,
       "vote_count": 0
     },
@@ -5877,6 +5864,69 @@
       "tmdbUrl": "https://www.themoviedb.org/tv/312066",
       "vote_average": 6,
       "vote_count": 1
+    },
+    {
+      "id": 296202,
+      "tmdb_id": 296202,
+      "name": "地球超新鲜",
+      "original_name": "地球超新鲜",
+      "imdb_id": null,
+      "genres": [
+        {
+          "id": 10764,
+          "name": "真人秀"
+        }
+      ],
+      "type": "Reality",
+      "vote_average": 8.6,
+      "vote_count": 5,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "networks": [
+        {
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": null,
+      "popularity": 8.44,
+      "number_of_seasons": 2,
+      "number_of_episodes": 40,
+      "first_air_date": "2025-07-27",
+      "last_air_date": "2026-07-19",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/olnV8BefOFnj3U3qcvlYdylAzDq.jpg",
+      "backdrop_path": "/8KjVA97182D6RF1cDl6bE6o7zAz.jpg",
+      "overview": "会玩爱玩的明星朋友们组成地球体验团，将沿着地球的脉络，探索新鲜的地球切面。用新鲜有趣的旅行方式，探索全世界的同频快乐。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 296202,
+          "air_date": "2025-07-27",
+          "episode_count": 40,
+          "vote_average": 8.6,
+          "poster_path": "/olnV8BefOFnj3U3qcvlYdylAzDq.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "会玩爱玩的明星朋友们组成地球体验团，将沿着地球的脉络，探索新鲜的地球切面。用新鲜有趣的旅行方式，探索全世界的同频快乐。",
+          "douban_link_verified": false
+        }
+      ]
     }
   ]
 }

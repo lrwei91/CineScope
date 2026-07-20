@@ -1,19 +1,25 @@
 {
   "metadata": {
-    "last_updated": "2026-07-19T14:50:59.662Z",
+    "last_updated": "2026-07-20T15:48:18.656Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-19T14:50:59.662Z",
+        "time": "2026-07-20T15:48:18.656Z",
         "summary": "已同步综艺数据（latest）：3 条"
       }
     ],
-    "source": "douban",
+    "source": "douban+tmdb",
     "source_collections": [
       {
         "slug": "tv_variety_show",
         "source": "douban",
         "count": 32,
+        "fetch_error": null
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 1,
         "fetch_error": null
       }
     ],
