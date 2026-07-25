@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "last_updated": "2026-07-24T15:24:56.679Z",
+    "last_updated": "2026-07-25T14:58:08.268Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-07-24T15:24:56.679Z",
-        "summary": "已同步tv_us数据（latest）：12 条"
+        "time": "2026-07-25T14:58:08.268Z",
+        "summary": "已同步tv_us数据（latest）：13 条"
       }
     ],
     "source": "douban+tmdb",
@@ -13,34 +13,42 @@
       {
         "slug": "tv_american",
         "source": "douban",
-        "count": 0,
+        "count": 35,
         "fetch_error": null
       },
       {
         "slug": "discover/tv",
         "source": "tmdb",
-        "count": 414,
+        "count": 416,
         "fetch_error": null
       }
     ],
-    "total_items": 12
+    "total_items": 13
   },
   "shows": [
     {
       "id": 36358245,
-      "name": "Stuart Fails to Save the Universe",
+      "tmdb_id": 287620,
+      "name": "斯图尔特未能拯救宇宙",
       "original_name": "Stuart Fails to Save the Universe",
       "imdb_id": "tt27497393",
       "genres": [
         {
-          "id": 1,
-          "name": "剧情"
+          "id": 35,
+          "name": "喜剧"
         },
         {
-          "id": 2,
-          "name": "喜剧"
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 8.6,
+      "vote_count": 7,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
       "networks": [
         {
           "id": 8304,
@@ -124,13 +132,13 @@
         "史都华未能拯救宇宙(台)",
         "史釗域失救宇宙(港)"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.hbomax.com/shows/1130c5ba-e71f-43e0-8de3-487dfdb49c11",
+      "popularity": 63.969,
       "number_of_seasons": 1,
       "number_of_episodes": 10,
       "first_air_date": "2026-07-23",
       "last_air_date": "2026-07-23",
-      "in_production": false,
+      "in_production": true,
       "status": "Returning Series",
       "episodes_info": "Returning Series",
       "adult": false,
@@ -143,21 +151,84 @@
         {
           "name": "",
           "season_number": 1,
-          "id": 36358245,
+          "id": 287620,
           "air_date": "2026-07-23",
-          "episode_count": null,
-          "vote_average": 0,
+          "episode_count": 10,
+          "vote_average": 8.6,
           "poster_path": "posters/douban/tv_us/36358245.jpg",
           "douban_rating": null,
           "douban_link_google": "https://movie.douban.com/subject/36358245/",
           "overview": "故事聚焦《大爆炸》的漫画书老板斯图尔特·布鲁姆，他弄坏了一个谢尔顿和莱纳德制造的设备，意外导致了多元宇宙的世界末日，他必须与女友Denise、地质学家Bert和量子物理学家Barry一起去将现实复原。一路上，他们遇到了平行宇宙版本的各个《大爆炸》角色，事情进展并不顺利。",
           "douban_link_verified": true
         }
+      ]
+    },
+    {
+      "id": 277640,
+      "tmdb_id": 277640,
+      "name": "寻迹庞贝古城：与汤姆·希德勒斯顿同行",
+      "original_name": "Pompeii: Out of Time with Tom Hiddleston",
+      "imdb_id": "tt34688214",
+      "genres": [
+        {
+          "id": 99,
+          "name": "纪录"
+        },
+        {
+          "id": 18,
+          "name": "剧情"
+        }
       ],
-      "tmdb_id": 287620,
-      "tmdbUrl": "https://www.themoviedb.org/tv/287620",
-      "vote_average": 8,
-      "vote_count": 1
+      "type": "Miniseries",
+      "vote_average": 6,
+      "vote_count": 5,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "networks": [
+        {
+          "id": 43,
+          "logo_path": "/q9rPBG1rHbUjII1Qn98VG2v7cFa.png",
+          "name": "National Geographic",
+          "origin_country": "US"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.nationalgeographic.com/tv/show/fa4f7c0e-2bce-4ceb-846f-f956076ff950",
+      "popularity": 15.3904,
+      "number_of_seasons": 1,
+      "number_of_episodes": 3,
+      "first_air_date": "2026-07-22",
+      "last_air_date": "2026-07-22",
+      "in_production": false,
+      "status": "Ended",
+      "episodes_info": "Ended",
+      "adult": false,
+      "poster_path": "/qnOYQ6uqxj5HEuXtVf1vSZicok.jpg",
+      "backdrop_path": "/pSFJys8tIv7mll6Fv1LqMbrWxLt.jpg",
+      "overview": "火山吞噬庞贝的那天，是否有人躲过死神降临？跟着汤姆·希德勒斯顿重返灾难前的最后一天。结合尖端考古学与历史推演，层层揭开尘封千年的真相。见证人们在分秒必争之际，如何做出攸关生死的关键抉择。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 277640,
+          "air_date": "2026-07-22",
+          "episode_count": 3,
+          "vote_average": 6,
+          "poster_path": "/qnOYQ6uqxj5HEuXtVf1vSZicok.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "火山吞噬庞贝的那天，是否有人躲过死神降临？跟着汤姆·希德勒斯顿重返灾难前的最后一天。结合尖端考古学与历史推演，层层揭开尘封千年的真相。见证人们在分秒必争之际，如何做出攸关生死的关键抉择。",
+          "douban_link_verified": false
+        }
+      ]
     },
     {
       "id": 254528,
@@ -172,7 +243,7 @@
         }
       ],
       "type": "Scripted",
-      "vote_average": 5.034,
+      "vote_average": 5,
       "vote_count": 29,
       "origin_country": [
         "US"
@@ -192,7 +263,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.netflix.com/title/81695311",
-      "popularity": 40.0926,
+      "popularity": 36.2943,
       "number_of_seasons": 1,
       "number_of_episodes": 10,
       "first_air_date": "2026-07-16",
@@ -213,7 +284,7 @@
           "id": 254528,
           "air_date": "2026-07-16",
           "episode_count": 10,
-          "vote_average": 5.034,
+          "vote_average": 5,
           "poster_path": "/2CJ6aauutghqXMiQCPpH4ihmcUZ.jpg",
           "douban_rating": null,
           "douban_link_google": null,
@@ -235,8 +306,8 @@
         }
       ],
       "type": "Scripted",
-      "vote_average": 5.357,
-      "vote_count": 49,
+      "vote_average": 5.412,
+      "vote_count": 51,
       "origin_country": [
         "US"
       ],
@@ -351,7 +422,7 @@
         "赴汤蹈火"
       ],
       "homepage": "https://www.amazon.com/dp/B0H1MBNDTL",
-      "popularity": 55.4342,
+      "popularity": 58.0348,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-07-15",
@@ -363,8 +434,8 @@
       "poster_path": "posters/douban/tv_us/36680293.jpg",
       "backdrop_path": "/jwCXxvbLno5GrGDA9KvQ22uLziM.jpg",
       "overview": "黛比和闺蜜朱迪丝被迫展开逃亡，因为她发现朱迪丝根本不是什么法务会计师，而是国际杀手！在神秘人物的追杀下，加上黛比的丈夫涉入某个极度腐败的事件中，她们必须与时间赛跑，展开一场横跨欧洲的公路之旅以厘清真相、保住性命。",
-      "rating_count": null,
-      "rating_star_count": null,
+      "rating_count": 842,
+      "rating_star_count": 4,
       "seasons": [
         {
           "name": "",
@@ -372,7 +443,7 @@
           "id": 241882,
           "air_date": "2026-07-15",
           "episode_count": 8,
-          "vote_average": 5.357,
+          "vote_average": 5.412,
           "poster_path": "posters/douban/tv_us/36680293.jpg",
           "douban_rating": "7.9",
           "douban_link_google": "https://movie.douban.com/subject/36680293/",
@@ -383,27 +454,19 @@
     },
     {
       "id": 37139034,
-      "tmdb_id": 278624,
       "name": "幸运女神",
       "original_name": "Lucky",
       "imdb_id": "tt34866681",
       "genres": [
         {
-          "id": 18,
+          "id": 1,
           "name": "剧情"
         },
         {
-          "id": 80,
+          "id": 2,
           "name": "犯罪"
         }
       ],
-      "type": "Miniseries",
-      "vote_average": 7.064,
-      "vote_count": 78,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
       "networks": [
         {
           "id": 2552,
@@ -517,36 +580,40 @@
       "aka": [
         "幸运"
       ],
-      "homepage": "https://tv.apple.com/show/umc.cmc.5qo7t3nngb2vj0m9dxkwebw1o",
-      "popularity": 120.1684,
+      "homepage": null,
+      "popularity": null,
       "number_of_seasons": 1,
       "number_of_episodes": 7,
-      "first_air_date": "2026-07-14",
-      "last_air_date": "2026-07-21",
-      "in_production": true,
+      "first_air_date": "2026-07-15",
+      "last_air_date": "2026-07-15",
+      "in_production": false,
       "status": "Returning Series",
       "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_us/37139034.jpg",
       "backdrop_path": "/hKXMOOvQwXiL01hfYG5nrkH0tEP.jpg",
-      "overview": "一宗涉及数百万美元的劫案搞砸后，骗徒幸儿被迫亡命天涯。在联邦调查局与冷血黑帮大佬的夹击下，幸儿必须为生存而战，设法逃出生天。",
-      "rating_count": null,
-      "rating_star_count": null,
+      "overview": "改编自玛丽莎·斯塔普利的同名畅销小说，讲述专业骗子“幸运儿”露西（安雅·泰勒-乔伊 饰）在一次数百万美元的劫案发生意外后，被迫踏上逃亡之路的故事。她不仅要躲避 FBI 的跨州追捕，还要应对由安妮特·贝宁饰演的冷酷黑帮头目的猎杀，在绝境中寻找一线生机。",
+      "rating_count": 1098,
+      "rating_star_count": 3.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 278624,
-          "air_date": "2026-07-14",
-          "episode_count": 7,
-          "vote_average": 7.064,
+          "id": 37139034,
+          "air_date": "2026-07-15",
+          "episode_count": null,
+          "vote_average": 6.9,
           "poster_path": "posters/douban/tv_us/37139034.jpg",
           "douban_rating": "6.9",
           "douban_link_google": "https://movie.douban.com/subject/37139034/",
-          "overview": "一宗涉及数百万美元的劫案搞砸后，骗徒幸儿被迫亡命天涯。在联邦调查局与冷血黑帮大佬的夹击下，幸儿必须为生存而战，设法逃出生天。",
+          "overview": "改编自玛丽莎·斯塔普利的同名畅销小说，讲述专业骗子“幸运儿”露西（安雅·泰勒-乔伊 饰）在一次数百万美元的劫案发生意外后，被迫踏上逃亡之路的故事。她不仅要躲避 FBI 的跨州追捕，还要应对由安妮特·贝宁饰演的冷酷黑帮头目的猎杀，在绝境中寻找一线生机。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 278624,
+      "tmdbUrl": "https://www.themoviedb.org/tv/278624",
+      "vote_average": 7.1,
+      "vote_count": 81
     },
     {
       "id": 286709,
@@ -657,7 +724,7 @@
         "西区匪帮"
       ],
       "homepage": "https://www.mgmplus.com/series/the-westies",
-      "popularity": 29.6834,
+      "popularity": 29.1437,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-07-12",
@@ -683,216 +750,6 @@
           "douban_rating": null,
           "douban_link_google": "https://movie.douban.com/subject/36823303/",
           "overview": "西区帮派借雅各布・贾维茨会展中心的工程项目牟利，一边对抗意大利黑手党的施压，一边周旋于内部的权力倾轧。",
-          "douban_link_verified": true
-        }
-      ]
-    },
-    {
-      "id": 283304,
-      "tmdb_id": 283304,
-      "name": "草原上的小木屋",
-      "original_name": "Little House on the Prairie",
-      "imdb_id": "tt2431250",
-      "genres": [
-        {
-          "id": 18,
-          "name": "剧情"
-        },
-        {
-          "id": 37,
-          "name": "西部"
-        },
-        {
-          "id": 10751,
-          "name": "家庭"
-        }
-      ],
-      "type": "Scripted",
-      "vote_average": 6.254,
-      "vote_count": 57,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "directors": [],
-      "actors": [],
-      "countries": [],
-      "languages": [],
-      "aka": [],
-      "homepage": "https://www.netflix.com/title/81748089",
-      "popularity": 22.5734,
-      "number_of_seasons": 2,
-      "number_of_episodes": 8,
-      "first_air_date": "2026-07-09",
-      "last_air_date": "2026-07-09",
-      "in_production": true,
-      "status": "Returning Series",
-      "episodes_info": "Returning Series",
-      "adult": false,
-      "poster_path": "/e5NqtI6o8vzNN6GC8GJbuwDYP6U.jpg",
-      "backdrop_path": "/fBieUo3SdItUrXZE16YxbpjwXIe.jpg",
-      "overview": "英格斯一家离开原本的生活，来到美国西部草原展开拓荒之旅。面对大自然带来的喜悦与求生的艰辛，他们携手建立新的家园，也重新体会“家”真正的意义。",
-      "rating_count": null,
-      "rating_star_count": null,
-      "seasons": [
-        {
-          "name": "",
-          "season_number": 1,
-          "id": 283304,
-          "air_date": "2026-07-09",
-          "episode_count": 8,
-          "vote_average": 6.254,
-          "poster_path": "/e5NqtI6o8vzNN6GC8GJbuwDYP6U.jpg",
-          "douban_rating": null,
-          "douban_link_google": null,
-          "overview": "英格斯一家离开原本的生活，来到美国西部草原展开拓荒之旅。面对大自然带来的喜悦与求生的艰辛，他们携手建立新的家园，也重新体会“家”真正的意义。",
-          "douban_link_verified": false
-        }
-      ]
-    },
-    {
-      "id": 283151,
-      "tmdb_id": 283151,
-      "name": "五星周末",
-      "original_name": "The Five Star Weekend",
-      "imdb_id": "tt35587659",
-      "genres": [
-        {
-          "id": 18,
-          "name": "剧情"
-        }
-      ],
-      "type": "Scripted",
-      "vote_average": 5.3,
-      "vote_count": 6,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "networks": [
-        {
-          "id": 3353,
-          "logo_path": "/gIAcGTjKKr0KOHL5s4O36roJ8p7.png",
-          "name": "Peacock",
-          "origin_country": "US"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "詹妮弗·莫里森"
-        },
-        {
-          "id": 2,
-          "name": "明基·斯皮罗"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "詹妮弗·加纳"
-        },
-        {
-          "id": 2,
-          "name": "雷吉娜·赫尔"
-        },
-        {
-          "id": 3,
-          "name": "达茜·卡尔登"
-        },
-        {
-          "id": 4,
-          "name": "科洛·塞维尼"
-        },
-        {
-          "id": 5,
-          "name": "哈洛·简"
-        },
-        {
-          "id": 6,
-          "name": "嘉玛·陈"
-        },
-        {
-          "id": 7,
-          "name": "亨利·艾肯伯里"
-        },
-        {
-          "id": 8,
-          "name": "维拉.洛弗尔"
-        },
-        {
-          "id": 9,
-          "name": "罗伯塔·科林德雷斯"
-        },
-        {
-          "id": 10,
-          "name": "Morrison Keddie"
-        },
-        {
-          "id": 11,
-          "name": "切克·麦科勒姆"
-        },
-        {
-          "id": 12,
-          "name": "蒂莫西·奥利芬特"
-        },
-        {
-          "id": 13,
-          "name": "约什·汉密尔顿"
-        },
-        {
-          "id": 14,
-          "name": "大卫·丹曼"
-        },
-        {
-          "id": 15,
-          "name": "韦斯特·杜考夫尼"
-        }
-      ],
-      "countries": [
-        "美国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "五星级周末"
-      ],
-      "homepage": "https://www.peacocktv.com/stream-tv/the-five-star-weekend",
-      "popularity": 12.1116,
-      "number_of_seasons": 1,
-      "number_of_episodes": 8,
-      "first_air_date": "2026-07-09",
-      "last_air_date": "2026-07-09",
-      "in_production": true,
-      "status": "Returning Series",
-      "episodes_info": "Returning Series",
-      "adult": false,
-      "poster_path": "/dFh4oN3mOoPKsfBxorGLzNG4Gtq.jpg",
-      "backdrop_path": "/lq2aJdPlyOo11aBwojmLvGjlJS1.jpg",
-      "overview": "知名美食畅销书作家霍利斯突遭丧亲打击，完美生活的裂痕尽数暴露。为疗愈伤痛，她邀来不同人生阶段的三位好友，再加一位神秘来客，在南塔克特岛海滨宅邸共度周末。",
-      "rating_count": null,
-      "rating_star_count": null,
-      "seasons": [
-        {
-          "name": "",
-          "season_number": 1,
-          "id": 283151,
-          "air_date": "2026-07-09",
-          "episode_count": 8,
-          "vote_average": 5.3,
-          "poster_path": "/dFh4oN3mOoPKsfBxorGLzNG4Gtq.jpg",
-          "douban_rating": null,
-          "douban_link_google": "https://movie.douban.com/subject/36851144/",
-          "overview": "知名美食畅销书作家霍利斯突遭丧亲打击，完美生活的裂痕尽数暴露。为疗愈伤痛，她邀来不同人生阶段的三位好友，再加一位神秘来客，在南塔克特岛海滨宅邸共度周末。",
           "douban_link_verified": true
         }
       ]
@@ -1064,6 +921,216 @@
       ]
     },
     {
+      "id": 283151,
+      "tmdb_id": 283151,
+      "name": "五星周末",
+      "original_name": "The Five Star Weekend",
+      "imdb_id": "tt35587659",
+      "genres": [
+        {
+          "id": 18,
+          "name": "剧情"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 5.3,
+      "vote_count": 6,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "networks": [
+        {
+          "id": 3353,
+          "logo_path": "/gIAcGTjKKr0KOHL5s4O36roJ8p7.png",
+          "name": "Peacock",
+          "origin_country": "US"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "詹妮弗·莫里森"
+        },
+        {
+          "id": 2,
+          "name": "明基·斯皮罗"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "詹妮弗·加纳"
+        },
+        {
+          "id": 2,
+          "name": "雷吉娜·赫尔"
+        },
+        {
+          "id": 3,
+          "name": "达茜·卡尔登"
+        },
+        {
+          "id": 4,
+          "name": "科洛·塞维尼"
+        },
+        {
+          "id": 5,
+          "name": "哈洛·简"
+        },
+        {
+          "id": 6,
+          "name": "嘉玛·陈"
+        },
+        {
+          "id": 7,
+          "name": "亨利·艾肯伯里"
+        },
+        {
+          "id": 8,
+          "name": "维拉.洛弗尔"
+        },
+        {
+          "id": 9,
+          "name": "罗伯塔·科林德雷斯"
+        },
+        {
+          "id": 10,
+          "name": "Morrison Keddie"
+        },
+        {
+          "id": 11,
+          "name": "切克·麦科勒姆"
+        },
+        {
+          "id": 12,
+          "name": "蒂莫西·奥利芬特"
+        },
+        {
+          "id": 13,
+          "name": "约什·汉密尔顿"
+        },
+        {
+          "id": 14,
+          "name": "大卫·丹曼"
+        },
+        {
+          "id": 15,
+          "name": "韦斯特·杜考夫尼"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "五星级周末"
+      ],
+      "homepage": "https://www.peacocktv.com/stream-tv/the-five-star-weekend",
+      "popularity": 11.0905,
+      "number_of_seasons": 1,
+      "number_of_episodes": 8,
+      "first_air_date": "2026-07-09",
+      "last_air_date": "2026-07-09",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/dFh4oN3mOoPKsfBxorGLzNG4Gtq.jpg",
+      "backdrop_path": "/lq2aJdPlyOo11aBwojmLvGjlJS1.jpg",
+      "overview": "知名美食畅销书作家霍利斯突遭丧亲打击，完美生活的裂痕尽数暴露。为疗愈伤痛，她邀来不同人生阶段的三位好友，再加一位神秘来客，在南塔克特岛海滨宅邸共度周末。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 283151,
+          "air_date": "2026-07-09",
+          "episode_count": 8,
+          "vote_average": 5.3,
+          "poster_path": "/dFh4oN3mOoPKsfBxorGLzNG4Gtq.jpg",
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/36851144/",
+          "overview": "知名美食畅销书作家霍利斯突遭丧亲打击，完美生活的裂痕尽数暴露。为疗愈伤痛，她邀来不同人生阶段的三位好友，再加一位神秘来客，在南塔克特岛海滨宅邸共度周末。",
+          "douban_link_verified": true
+        }
+      ]
+    },
+    {
+      "id": 283304,
+      "tmdb_id": 283304,
+      "name": "草原上的小木屋",
+      "original_name": "Little House on the Prairie",
+      "imdb_id": "tt2431250",
+      "genres": [
+        {
+          "id": 18,
+          "name": "剧情"
+        },
+        {
+          "id": 37,
+          "name": "西部"
+        },
+        {
+          "id": 10751,
+          "name": "家庭"
+        }
+      ],
+      "type": "Scripted",
+      "vote_average": 6.254,
+      "vote_count": 57,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [],
+      "languages": [],
+      "aka": [],
+      "homepage": "https://www.netflix.com/title/81748089",
+      "popularity": 22.5734,
+      "number_of_seasons": 2,
+      "number_of_episodes": 8,
+      "first_air_date": "2026-07-09",
+      "last_air_date": "2026-07-09",
+      "in_production": true,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
+      "adult": false,
+      "poster_path": "/e5NqtI6o8vzNN6GC8GJbuwDYP6U.jpg",
+      "backdrop_path": "/fBieUo3SdItUrXZE16YxbpjwXIe.jpg",
+      "overview": "英格斯一家离开原本的生活，来到美国西部草原展开拓荒之旅。面对大自然带来的喜悦与求生的艰辛，他们携手建立新的家园，也重新体会“家”真正的意义。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 283304,
+          "air_date": "2026-07-09",
+          "episode_count": 8,
+          "vote_average": 6.254,
+          "poster_path": "/e5NqtI6o8vzNN6GC8GJbuwDYP6U.jpg",
+          "douban_rating": null,
+          "douban_link_google": null,
+          "overview": "英格斯一家离开原本的生活，来到美国西部草原展开拓荒之旅。面对大自然带来的喜悦与求生的艰辛，他们携手建立新的家园，也重新体会“家”真正的意义。",
+          "douban_link_verified": false
+        }
+      ]
+    },
+    {
       "id": 36857449,
       "name": "末日地堡 第三季",
       "original_name": "Silo Season 3",
@@ -1194,7 +1261,7 @@
       "poster_path": "posters/douban/tv_us/36857449.jpg",
       "backdrop_path": null,
       "overview": "当下，Juliette Nichols在被迫接受“净化”后幸存下来，但记忆却已丧失，而地堡正从叛乱中恢复，并面临着新的危险威胁。过去，记者Helen Drew（Jessica Henwick饰）和议员Daniel Keene（Ashley Zukerman饰）揭露了一场阴谋，这将他们卷入一系列具有灾难性且不可逆转后果的事件之中。",
-      "rating_count": 264,
+      "rating_count": 528,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -1261,7 +1328,7 @@
         "Worst Neighbor Ever"
       ],
       "homepage": "http://www.netflix.com/title/82016571",
-      "popularity": 4.8885,
+      "popularity": 4.3913,
       "number_of_seasons": 1,
       "number_of_episodes": 4,
       "first_air_date": "2026-07-01",
@@ -1287,6 +1354,143 @@
           "douban_rating": null,
           "douban_link_google": "https://movie.douban.com/subject/38520996/",
           "overview": "从令人发指的欺诈阴谋到毫无意义的暴力报复行为 — 这部情节紧张的纪录片剧集详细讲述了邻里关系恶化的真实故事。",
+          "douban_link_verified": true
+        }
+      ]
+    },
+    {
+      "id": 36841462,
+      "name": "艾丽 第一季",
+      "original_name": "Elle Season 1",
+      "imdb_id": null,
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "喜剧"
+        }
+      ],
+      "networks": [],
+      "directors": [
+        {
+          "id": 1,
+          "name": "杰森·摩尔"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "莱克西·米恩特里"
+        },
+        {
+          "id": 2,
+          "name": "艾米·皮特兹"
+        },
+        {
+          "id": 3,
+          "name": "钱德勒·金尼"
+        },
+        {
+          "id": 4,
+          "name": "艾米·古德默菲"
+        },
+        {
+          "id": 5,
+          "name": "杰西卡·贝尔金"
+        },
+        {
+          "id": 6,
+          "name": "洛根·施罗耶"
+        },
+        {
+          "id": 7,
+          "name": "雅各布·莫斯科维茨"
+        },
+        {
+          "id": 8,
+          "name": "加布里埃尔·波利卡诺"
+        },
+        {
+          "id": 9,
+          "name": "扎克·卢克"
+        },
+        {
+          "id": 10,
+          "name": "维克多·多尔海"
+        },
+        {
+          "id": 11,
+          "name": "凯莉-露丝·默西尔"
+        },
+        {
+          "id": 12,
+          "name": "琼·黛安·拉斐尔"
+        },
+        {
+          "id": 13,
+          "name": "汤姆·艾弗瑞特·斯科特"
+        },
+        {
+          "id": 14,
+          "name": "凯拉·梅索内"
+        },
+        {
+          "id": 15,
+          "name": "丽莎·山田"
+        },
+        {
+          "id": 16,
+          "name": "大卫·伯卡"
+        },
+        {
+          "id": 17,
+          "name": "克洛伊·韦珀"
+        },
+        {
+          "id": 18,
+          "name": "布拉德·哈德"
+        }
+      ],
+      "countries": [
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "律政俏佳人前传剧",
+        "Legally Blonde Prequel Series"
+      ],
+      "homepage": null,
+      "popularity": null,
+      "number_of_seasons": 1,
+      "number_of_episodes": null,
+      "first_air_date": "2026-07-01",
+      "last_air_date": "2026-07-01",
+      "in_production": false,
+      "status": "",
+      "episodes_info": null,
+      "adult": false,
+      "poster_path": "posters/douban/tv_us/36841462.jpg",
+      "backdrop_path": null,
+      "overview": "在艾丽·伍兹(莱克西·米恩特里 Lexi Minetree 饰)成为《律政俏佳人》里那个在哈佛格格不入的女生之前，我们先回到1995年，见见置身高中风浪之中的她。在这里，她经历了棘手的友情、禁忌的恋情，还有令人怀疑的时尚选择。正是在这段意想不到的青春篇章中，艾丽一步步成长为后来那个让我们熟悉又喜爱的标志性姑娘。",
+      "rating_count": 1501,
+      "rating_star_count": 3.5,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 36841462,
+          "air_date": "2026-07-01",
+          "episode_count": null,
+          "vote_average": 6.8,
+          "poster_path": "posters/douban/tv_us/36841462.jpg",
+          "douban_rating": "6.8",
+          "douban_link_google": "https://movie.douban.com/subject/36841462/",
+          "overview": "在艾丽·伍兹(莱克西·米恩特里 Lexi Minetree 饰)成为《律政俏佳人》里那个在哈佛格格不入的女生之前，我们先回到1995年，见见置身高中风浪之中的她。在这里，她经历了棘手的友情、禁忌的恋情，还有令人怀疑的时尚选择。正是在这段意想不到的青春篇章中，艾丽一步步成长为后来那个让我们熟悉又喜爱的标志性姑娘。",
           "douban_link_verified": true
         }
       ]
@@ -1356,143 +1560,6 @@
           "douban_link_google": null,
           "overview": "在艾丽·伍兹离开舒适圈入学哈佛前，我们回到 1995 年，看她在波涛汹涌的高中校园生活中，面对假面闺密、禁忌恋情，留下让人不敢直视的时尚黑历史。并看这段青涩岁月的意外插曲，如何把艾丽塑造成我们熟知并热爱的经典女主角。",
           "douban_link_verified": false
-        }
-      ]
-    },
-    {
-      "id": 36841462,
-      "name": "艾丽 第一季",
-      "original_name": "Elle Season 1",
-      "imdb_id": null,
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "喜剧"
-        }
-      ],
-      "networks": [],
-      "directors": [
-        {
-          "id": 1,
-          "name": "杰森·摩尔"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "莱克西·米恩特里"
-        },
-        {
-          "id": 2,
-          "name": "艾米·皮特兹"
-        },
-        {
-          "id": 3,
-          "name": "钱德勒·金尼"
-        },
-        {
-          "id": 4,
-          "name": "艾米·古德默菲"
-        },
-        {
-          "id": 5,
-          "name": "杰西卡·贝尔金"
-        },
-        {
-          "id": 6,
-          "name": "洛根·施罗耶"
-        },
-        {
-          "id": 7,
-          "name": "Jacob Moskovitz"
-        },
-        {
-          "id": 8,
-          "name": "加布里埃尔·波利卡诺"
-        },
-        {
-          "id": 9,
-          "name": "Zac Looker"
-        },
-        {
-          "id": 10,
-          "name": "Victor Dolhai"
-        },
-        {
-          "id": 11,
-          "name": "Kelly-Ruth Mercier"
-        },
-        {
-          "id": 12,
-          "name": "琼·黛安·拉斐尔"
-        },
-        {
-          "id": 13,
-          "name": "汤姆·艾弗瑞特·斯科特"
-        },
-        {
-          "id": 14,
-          "name": "Kayla Maisonet"
-        },
-        {
-          "id": 15,
-          "name": "丽莎·山田"
-        },
-        {
-          "id": 16,
-          "name": "大卫·伯卡"
-        },
-        {
-          "id": 17,
-          "name": "克洛伊·韦珀"
-        },
-        {
-          "id": 18,
-          "name": "布拉德·哈德"
-        }
-      ],
-      "countries": [
-        "美国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "律政俏佳人前传剧",
-        "Legally Blonde Prequel Series"
-      ],
-      "homepage": null,
-      "popularity": null,
-      "number_of_seasons": 1,
-      "number_of_episodes": null,
-      "first_air_date": "2026-07-01",
-      "last_air_date": "2026-07-01",
-      "in_production": false,
-      "status": "",
-      "episodes_info": null,
-      "adult": false,
-      "poster_path": "posters/douban/tv_us/36841462.jpg",
-      "backdrop_path": null,
-      "overview": "在艾丽·伍兹(莱克西·米恩特里 Lexi Minetree 饰)成为《律政俏佳人》里那个在哈佛格格不入的女生之前，我们先回到1995年，见见置身高中风浪之中的她。在这里，她经历了棘手的友情、禁忌的恋情，还有令人怀疑的时尚选择。正是在这段意想不到的青春篇章中，艾丽一步步成长为后来那个让我们熟悉又喜爱的标志性姑娘。",
-      "rating_count": 886,
-      "rating_star_count": 3.5,
-      "seasons": [
-        {
-          "name": "",
-          "season_number": 1,
-          "id": 36841462,
-          "air_date": "2026-07-01",
-          "episode_count": null,
-          "vote_average": 6.8,
-          "poster_path": "posters/douban/tv_us/36841462.jpg",
-          "douban_rating": "6.8",
-          "douban_link_google": "https://movie.douban.com/subject/36841462/",
-          "overview": "在艾丽·伍兹(莱克西·米恩特里 Lexi Minetree 饰)成为《律政俏佳人》里那个在哈佛格格不入的女生之前，我们先回到1995年，见见置身高中风浪之中的她。在这里，她经历了棘手的友情、禁忌的恋情，还有令人怀疑的时尚选择。正是在这段意想不到的青春篇章中，艾丽一步步成长为后来那个让我们熟悉又喜爱的标志性姑娘。",
-          "douban_link_verified": true
         }
       ]
     }
