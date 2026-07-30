@@ -219,6 +219,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
         img.src = POSTER_FALLBACK_URL;
     }, { once: true });
     posterContainer.appendChild(img);
+    if (trailerButtonEl) posterContainer.appendChild(trailerButtonEl);
 
     // 内容区
     const content = document.createElement('div');
@@ -279,7 +280,6 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
     }
 
     card.append(posterContainer, content, openButton);
-    if (trailerButtonEl) card.appendChild(trailerButtonEl);
 
     if (onCardClick) {
         openButton.addEventListener('click', () => {

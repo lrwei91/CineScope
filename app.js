@@ -32,7 +32,7 @@ import {
     renderComingSoon,
     renderTimeline,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20260730b';
+} from './js/modules/renderer.js?v=20260730c';
 
 
 import {
@@ -160,6 +160,9 @@ function setCurrentCategory(categoryId) {
     if (!CATEGORY_CONFIG[categoryId]) return;
 
     state.currentCategoryId = categoryId;
+    if (elements.resultsContainer) {
+        elements.resultsContainer.dataset.category = categoryId;
+    }
     elements.categoryFilterContainer.querySelectorAll('.genre-tag').forEach((tag) => {
         const isActive = tag.dataset.category === categoryId;
         tag.classList.toggle('active', isActive);

@@ -514,6 +514,13 @@ button.genre-tag:active {
     gap: clamp(14px, 1.8vw, 24px);
 }
 
+@media (min-width: 901px) {
+    #results-container[data-category="douban_top250"] .month-grid {
+        grid-template-columns: repeat(auto-fill, 272px);
+        justify-content: start;
+    }
+}
+
 .scroller-arrow {
     position: absolute;
     top: 42%;
