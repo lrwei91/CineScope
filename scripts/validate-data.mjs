@@ -21,10 +21,12 @@ const REQUIRED_AUXILIARY_FILES = [
     'json/maoyan_tv_heat.json',
     'json/build_report.json'
 ];
+const EDITORIAL_PATH = 'content/editorial.json';
 const DROP_FAILURE_THRESHOLD = 0.2;
 const QUALITY_WARNING_THRESHOLD = 0.1;
 const FUTURE_DATE_WARNING_DAYS = 550;
 const DOUBAN_SUBJECT_URL_PATTERN = /^https:\/\/(?:movie\.douban\.com|m\.douban\.com\/movie)\/subject\/\d+\/?(?:[?#].*)?$/;
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
 function parseArguments(argv) {
     const options = {
@@ -178,6 +180,132 @@ async function validatePosterPaths(rootDir, posterRoot, spec, items, errors) {
     }
 }
 
+function isValidDateString(value) {
+    if (!DATE_PATTERN.test(String(value || ''))) return false;
+    const date = new Date(`${value}T00:00:00Z`);
+    return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
+async function validateEditorialAsset(rootDir, relativePath, fieldName, errors) {
+    const value = String(relativePath || '').trim();
+    if (!value) {
+        errors.push(`${EDITORIAL_PATH}: ${fieldName} is required`);
+        return;
+    }
+    if (/^https?:\/\//i.test(value)) {
+        errors.push(`${EDITORIAL_PATH}: ${fieldName} must reference a local project asset`);
+        return;
+    }
+
+    const absolutePath = path.resolve(rootDir, value);
+    if (absolutePath !== rootDir && !absolutePath.startsWith(`${rootDir}${path.sep}`)) {
+        errors.push(`${EDITORIAL_PATH}: ${fieldName} escapes the project root`);
+        return;
+    }
+    try {
+        await access(absolutePath);
+    } catch {
+        errors.push(`${EDITORIAL_PATH}: missing ${fieldName} asset ${value}`);
+    }
+}
+
+function itemCollectionHasId(items, itemId) {
+    const normalizedId = String(itemId || '');
+    return items.some((item) => {
+        if (String(item?.id || '') === normalizedId) return true;
+        return Array.isArray(item?.seasons) &&
+            item.seasons.some((season) => String(season?.id || '') === normalizedId);
+    });
+}
+
+export async function validateEditorialContent(rootDir, categoryItems, errors) {
+    const editorial = await readJsonFile(rootDir, EDITORIAL_PATH);
+    const metadata = editorial?.metadata;
+    const hero = editorial?.hero;
+    const about = editorial?.about;
+    const subscription = editorial?.subscription;
+
+    if (!metadata || typeof metadata !== 'object') errors.push(`${EDITORIAL_PATH}: metadata is required`);
+    if (!Number.isInteger(metadata?.schemaVersion) || metadata.schemaVersion < 1) {
+        errors.push(`${EDITORIAL_PATH}: metadata.schemaVersion must be a positive integer`);
+    }
+    if (!String(metadata?.title || '').trim()) {
+        errors.push(`${EDITORIAL_PATH}: metadata.title is required`);
+    }
+    if (!isValidDateString(metadata?.updatedAt)) {
+        errors.push(`${EDITORIAL_PATH}: metadata.updatedAt must be a valid YYYY-MM-DD date`);
+    }
+
+    for (const field of ['eyebrow', 'title', 'accent', 'description', 'ctaLabel']) {
+        if (!String(hero?.[field] || '').trim()) errors.push(`${EDITORIAL_PATH}: hero.${field} is required`);
+    }
+    await validateEditorialAsset(rootDir, hero?.image, 'hero.image', errors);
+
+    for (const field of ['title', 'description', 'repositoryUrl', 'feedbackUrl']) {
+        if (!String(about?.[field] || '').trim()) errors.push(`${EDITORIAL_PATH}: about.${field} is required`);
+    }
+    for (const field of ['repositoryUrl', 'feedbackUrl']) {
+        const value = String(about?.[field] || '');
+        if (value && !value.startsWith('https://')) {
+            errors.push(`${EDITORIAL_PATH}: about.${field} must use HTTPS`);
+        }
+    }
+
+    if (!subscription || typeof subscription !== 'object') {
+        errors.push(`${EDITORIAL_PATH}: subscription is required`);
+    } else {
+        const formAction = String(subscription.formAction || '').trim();
+        if (formAction && !formAction.startsWith('https://')) {
+            errors.push(`${EDITORIAL_PATH}: subscription.formAction must use HTTPS`);
+        }
+        if (subscription.enabled === true && !formAction) {
+            errors.push(`${EDITORIAL_PATH}: enabled subscription requires an HTTPS formAction`);
+        }
+        if (typeof subscription.enabled !== 'boolean') {
+            errors.push(`${EDITORIAL_PATH}: subscription.enabled must be boolean`);
+        }
+        if (subscription.enabled === false && !String(subscription.disabledMessage || '').trim()) {
+            errors.push(`${EDITORIAL_PATH}: disabled subscription requires disabledMessage`);
+        }
+    }
+
+    const seenIds = new Set();
+    for (const collectionName of ['news', 'reviews']) {
+        const entries = editorial?.[collectionName];
+        if (!Array.isArray(entries)) {
+            errors.push(`${EDITORIAL_PATH}: ${collectionName} must be an array`);
+            continue;
+        }
+
+        for (const entry of entries) {
+            const id = String(entry?.id || '').trim();
+            if (!id) errors.push(`${EDITORIAL_PATH}: ${collectionName} entry id is required`);
+            else if (seenIds.has(id)) errors.push(`${EDITORIAL_PATH}: duplicate editorial id ${id}`);
+            else seenIds.add(id);
+
+            for (const field of ['label', 'title', 'summary', 'categoryId', 'itemId']) {
+                if (!String(entry?.[field] || '').trim()) {
+                    errors.push(`${EDITORIAL_PATH}: ${collectionName}.${id || 'unknown'}.${field} is required`);
+                }
+            }
+            if (!isValidDateString(entry?.publishedAt)) {
+                errors.push(`${EDITORIAL_PATH}: ${collectionName}.${id || 'unknown'}.publishedAt is invalid`);
+            }
+            if (collectionName === 'reviews' && !String(entry?.byline || '').trim()) {
+                errors.push(`${EDITORIAL_PATH}: reviews.${id || 'unknown'}.byline is required`);
+            }
+
+            await validateEditorialAsset(rootDir, entry?.image, `${collectionName}.${id || 'unknown'}.image`, errors);
+            const items = categoryItems.get(entry?.categoryId);
+            if (!items) {
+                errors.push(`${EDITORIAL_PATH}: ${collectionName}.${id || 'unknown'} references unknown category ${entry?.categoryId}`);
+            } else if (!itemCollectionHasId(items, entry?.itemId)) {
+                errors.push(`${EDITORIAL_PATH}: ${collectionName}.${id || 'unknown'} references missing item ${entry?.itemId}`);
+            }
+        }
+    }
+}
+
 export async function validateData(options = {}) {
     const rootDir = path.resolve(options.rootDir || DEFAULT_ROOT_DIR);
     const baselineRef = options.baselineRef === undefined ? 'HEAD' : options.baselineRef;
@@ -189,6 +317,7 @@ export async function validateData(options = {}) {
     const warnings = [];
     const categories = [];
     const categoryCounts = new Map();
+    const categoryItems = new Map();
 
     for (const spec of CATEGORY_SPECS) {
         const latestPath = `json/${spec.id}_latest.json`;
@@ -237,6 +366,7 @@ export async function validateData(options = {}) {
 
         categories.push({ id: spec.id, latest: latestItems.length, complete: completeItems.length });
         categoryCounts.set(spec.id, { latest: latestItems.length, complete: completeItems.length });
+        categoryItems.set(spec.id, completeItems);
     }
 
     for (const relativePath of REQUIRED_AUXILIARY_FILES) {
@@ -246,6 +376,12 @@ export async function validateData(options = {}) {
 
     const top250 = await readJsonFile(rootDir, 'json/douban_top250.json');
     if (!Array.isArray(top250.movies) || top250.movies.length === 0) errors.push('douban_top250: movies collection is empty');
+    if (Array.isArray(top250.movies)) categoryItems.set('douban_top250', top250.movies);
+
+    // Staged data runs only copy json/; their --poster-root points back to the project
+    // and therefore remains the source of truth for hand-maintained content and assets.
+    const editorialRoot = posterRoot || rootDir;
+    await validateEditorialContent(editorialRoot, categoryItems, errors);
 
     const statuses = await readJsonFile(rootDir, 'json/douban_statuses.json');
     if (!statuses.statuses || typeof statuses.statuses !== 'object') errors.push('douban_statuses: missing statuses object');

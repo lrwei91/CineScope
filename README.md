@@ -7,6 +7,7 @@
 ## 功能
 
 - 按分类、评分、类型和名称筛选影视内容
+- 纸墨编辑首页、真实作品影讯与片单札记
 - latest → complete 渐进加载，按分类缓存
 - 猫眼票房与剧集热度、B 站预告片、豆瓣收藏状态
 - 年月时间线、分页加载、移动端筛选面板和分享图
@@ -119,6 +120,8 @@ CI 会在 Pull Request、每日更新和 Pages 部署前执行这些检查。每
 ```text
 CineScope/
 ├── index.html / app.js / share.js
+├── assets/                     # 站点原创视觉资源
+├── content/                    # 手工维护的编辑内容
 ├── js/modules/                 # 前端 ES Modules
 ├── json/                       # 生成后的页面数据
 ├── posters/                    # 本地海报
