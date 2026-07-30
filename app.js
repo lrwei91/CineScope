@@ -32,7 +32,7 @@ import {
     renderComingSoon,
     renderTimeline,
     appendItemsToContainer
-} from './js/modules/renderer.js';
+} from './js/modules/renderer.js?v=20260730b';
 
 
 import {
@@ -53,7 +53,7 @@ import {
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js';
+} from './js/modules/dossier.js?v=20260730b';
 
 import {
     openTrailerModal,

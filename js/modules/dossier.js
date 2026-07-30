@@ -72,39 +72,19 @@ function setDossierField(rowId, valueId, values) {
     row.hidden = false;
 }
 
-function createExternalLink({ href, label, title, iconUrl, fallback }) {
+function createExternalLink({ href, label, title }) {
     const link = document.createElement('a');
     link.className = 'dossier-external-btn';
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.setAttribute('aria-label', title);
     link.title = title;
-    link.dataset.label = label;
     link.href = href;
 
-    const icon = document.createElement('img');
-    icon.className = 'dossier-external-icon';
-    icon.alt = '';
-    icon.loading = 'lazy';
-    icon.referrerPolicy = 'no-referrer';
-    icon.src = iconUrl;
-    icon.addEventListener('error', () => {
-        icon.hidden = true;
-        if (fallbackSpan) fallbackSpan.hidden = false;
-    }, { once: true });
-    link.appendChild(icon);
-
-    const fallbackSpan = document.createElement('span');
-    fallbackSpan.className = 'dossier-external-fallback';
-    fallbackSpan.hidden = true;
-    fallbackSpan.setAttribute('aria-hidden', 'true');
-    fallbackSpan.textContent = fallback;
-    link.appendChild(fallbackSpan);
-
-    const srOnly = document.createElement('span');
-    srOnly.className = 'sr-only';
-    srOnly.textContent = title;
-    link.appendChild(srOnly);
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'dossier-external-label';
+    labelSpan.textContent = label;
+    link.appendChild(labelSpan);
 
     return link;
 }
@@ -264,35 +244,27 @@ export function openIntelDossier(item) {
             linkBuilders.push(() => createExternalLink({
                 href: item.doubanLink,
                 label: '豆瓣',
-                title: '打开豆瓣详情',
-                iconUrl: 'https://www.douban.com/favicon.ico',
-                fallback: '豆'
+                title: '打开豆瓣详情'
             }));
         }
         if (item.tmdbUrl) {
             linkBuilders.push(() => createExternalLink({
                 href: item.tmdbUrl,
                 label: 'TMDB',
-                title: '打开 TMDB 详情',
-                iconUrl: 'https://www.themoviedb.org/favicon.ico',
-                fallback: 'T'
+                title: '打开 TMDB 详情'
             }));
         } else if (item.tmdbSearchUrl) {
             linkBuilders.push(() => createExternalLink({
                 href: item.tmdbSearchUrl,
                 label: '搜索',
-                title: '在 TMDB 搜索',
-                iconUrl: 'https://www.themoviedb.org/favicon.ico',
-                fallback: 'T'
+                title: '在 TMDB 搜索'
             }));
         }
         if (item.imdbUrl) {
             linkBuilders.push(() => createExternalLink({
                 href: item.imdbUrl,
                 label: 'IMDb',
-                title: '打开 IMDb 详情',
-                iconUrl: 'https://m.media-amazon.com/images/G/01/imdb/images/favicon-2165806970._CB470041851_.ico',
-                fallback: 'I'
+                title: '打开 IMDb 详情'
             }));
         }
         if (linkBuilders.length > 0) {
