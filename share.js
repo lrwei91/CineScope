@@ -224,26 +224,26 @@ function drawRealtimeMetrics(ctx, metrics, x, y, width) {
     metrics.forEach((metric, index) => {
         const cardX = x + index * (cardWidth + REALTIME_CARD_GAP);
         const accentGradient = ctx.createLinearGradient(cardX, y, cardX + cardWidth, y);
-        accentGradient.addColorStop(0, '#111318');
-        accentGradient.addColorStop(1, '#343844');
+        accentGradient.addColorStop(0, '#2a2722');
+        accentGradient.addColorStop(1, '#413b31');
 
         ctx.fillStyle = accentGradient;
         ctx.beginPath();
         ctx.roundRect(cardX, y, cardWidth, REALTIME_CARD_HEIGHT, 16);
         ctx.fill();
 
-        ctx.fillStyle = '#d9f7ff';
-        ctx.font = '800 18px "Fira Code", "Microsoft YaHei", monospace';
+        ctx.fillStyle = '#efc276';
+        ctx.font = '800 18px "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'left';
         ctx.fillText(metric.label, cardX + 22, y + 31);
 
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '900 30px "Nunito Sans", "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#f4efe6';
+        ctx.font = '900 30px "Microsoft YaHei", sans-serif';
         ctx.fillText(clampText(metric.value, 10), cardX + 22, y + 64);
 
         if (metric.detail) {
-            ctx.fillStyle = '#b7bcc8';
-            ctx.font = '600 16px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.fillStyle = '#cdc5b9';
+            ctx.font = '600 16px "Microsoft YaHei", sans-serif';
             ctx.textAlign = 'right';
             ctx.fillText(clampText(metric.detail, 24), cardX + cardWidth - 22, y + 64);
         }
@@ -260,7 +260,7 @@ async function createShareImageFile(item) {
     const metaX = ticketX + 40;
     const metaW = ticketW - 80;
 
-    const creamColor = '#f1f0ea';
+    const creamColor = '#f4efe6';
     let posterImage = null;
     let shareQrCodeImage = null;
     let doubanQrCodeImage = null;
@@ -347,7 +347,7 @@ async function createShareImageFile(item) {
         const ctx = canvas.getContext('2d');
         if (!ctx) throw new Error('无法创建分享画布');
 
-        ctx.fillStyle = '#05080f';
+        ctx.fillStyle = '#171615';
         ctx.fillRect(0, 0, width, height);
 
         ctx.fillStyle = creamColor;
@@ -374,7 +374,7 @@ async function createShareImageFile(item) {
                 ctx.filter = 'none';
             }
             
-            ctx.fillStyle = 'rgba(10, 12, 18, 0.4)';
+            ctx.fillStyle = 'rgba(32, 30, 27, 0.48)';
             ctx.fillRect(ticketX, ticketY, ticketW, heroH);
 
             const posterW = 240;
@@ -404,8 +404,8 @@ async function createShareImageFile(item) {
             ctx.restore();
         } else {
             const heroGradient = ctx.createLinearGradient(ticketX, ticketY, ticketX, punchY);
-            heroGradient.addColorStop(0, '#1a1d25');
-            heroGradient.addColorStop(1, '#10131a');
+            heroGradient.addColorStop(0, '#383128');
+            heroGradient.addColorStop(1, '#211f1b');
             ctx.fillStyle = heroGradient;
             ctx.fillRect(ticketX, ticketY, ticketW, heroH);
         }
@@ -421,7 +421,7 @@ async function createShareImageFile(item) {
 
         ctx.beginPath();
         ctx.setLineDash([8, 12]);
-        ctx.strokeStyle = '#c4c3bd';
+        ctx.strokeStyle = '#b7ad9f';
         ctx.lineWidth = 2;
         ctx.moveTo(ticketX + holeRadius + 10, punchY);
         ctx.lineTo(ticketX + ticketW - holeRadius - 10, punchY);
@@ -439,14 +439,14 @@ async function createShareImageFile(item) {
         }
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '800 46px "Nunito Sans", "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#f4efe6';
+        ctx.font = '800 46px "Microsoft YaHei", sans-serif';
         const titleLines = wrapShareText(ctx, item.title || '未命名', textX, heroCursorY, textW, 60, 3);
         heroCursorY += titleLines * 60 + 10;
 
         if (item.subtitle) {
             ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.font = '600 22px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.font = '600 22px "Microsoft YaHei", sans-serif';
             const subLines = wrapShareText(ctx, item.subtitle, textX, heroCursorY, textW, 34, 2);
             heroCursorY += subLines * 34 + 20;
         } else {
@@ -455,11 +455,11 @@ async function createShareImageFile(item) {
 
         const drawMetaLine = (label, value) => {
             ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-            ctx.font = '500 20px "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.font = '500 20px "Microsoft YaHei", sans-serif';
             ctx.fillText(label, textX, heroCursorY);
             
             ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-            ctx.font = '700 22px "Fira Code", "Nunito Sans", "Microsoft YaHei", sans-serif';
+            ctx.font = '700 22px "Microsoft YaHei", sans-serif';
             ctx.fillText(value, textX + 100, heroCursorY);
             
             heroCursorY += 40;
@@ -483,8 +483,8 @@ async function createShareImageFile(item) {
         }
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#333742';
-        ctx.font = '500 22px "Nunito Sans", "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#4b4439';
+        ctx.font = '500 22px "Microsoft YaHei", sans-serif';
         if (item.directors && item.directors.length > 0) {
             const dirStr = `导演：${item.directors.join(' / ')}`;
             const count = wrapShareText(ctx, dirStr, metaX, cursorY, metaW, 34, Infinity);
@@ -498,8 +498,8 @@ async function createShareImageFile(item) {
 
         if (hasCrew) cursorY += 24;
 
-        ctx.fillStyle = '#555964';
-        ctx.font = '400 22px "Nunito Sans", "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#746c60';
+        ctx.font = '400 22px "Microsoft YaHei", sans-serif';
         if (item.overview) {
             const overviewLineCount = wrapShareText(ctx, item.overview, metaX, cursorY + 10, metaW, 40, Infinity);
             cursorY += overviewLineCount * 40;
@@ -517,12 +517,12 @@ async function createShareImageFile(item) {
         const qrInnerY = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CONTENT_SHIFT_Y;
 
         const drawQrBlock = (image, x, headerLabel, fallbackText, accentColor) => {
-            ctx.fillStyle = '#ece9df';
+            ctx.fillStyle = '#eee8dc';
             ctx.beginPath();
             ctx.roundRect(x, qrY, qrCardWidth, qrBlockHeight, 14);
             ctx.fill();
 
-            ctx.strokeStyle = '#d7d5cf';
+            ctx.strokeStyle = '#c7bcae';
             ctx.lineWidth = 1;
             ctx.stroke();
 
@@ -531,8 +531,8 @@ async function createShareImageFile(item) {
             ctx.roundRect(x + 10, qrY + 10, qrCardWidth - 20, QR_CARD_HEADER_HEIGHT, 8);
             ctx.fill();
 
-            ctx.fillStyle = '#111318';
-            ctx.font = '700 14px "Fira Code", "Microsoft YaHei", monospace';
+            ctx.fillStyle = '#2a261f';
+            ctx.font = '700 14px "Microsoft YaHei", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(headerLabel, x + (qrCardWidth / 2), qrY + 29);
 
@@ -540,31 +540,31 @@ async function createShareImageFile(item) {
             const imageY = qrY + qrInnerY;
             if (image) {
                 ctx.drawImage(image, imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
-                ctx.strokeStyle = '#d7d5cf';
+                ctx.strokeStyle = '#c7bcae';
                 ctx.lineWidth = 1;
                 ctx.strokeRect(imageX - 1, imageY - 1, QR_CODE_SIZE + 2, QR_CODE_SIZE + 2);
             } else {
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
-                ctx.strokeStyle = '#d7d5cf';
+                ctx.strokeStyle = '#c7bcae';
                 ctx.lineWidth = 1;
                 ctx.strokeRect(imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
-                ctx.fillStyle = '#555964';
-                ctx.font = '600 14px "Nunito Sans", "Microsoft YaHei", sans-serif';
+                ctx.fillStyle = '#746c60';
+                ctx.font = '600 14px "Microsoft YaHei", sans-serif';
                 ctx.textAlign = 'center';
                 wrapShareText(ctx, fallbackText, imageX + (QR_CODE_SIZE / 2), imageY + 60, QR_CODE_SIZE - 20, 20, 3);
             }
         };
 
-        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', 'SCAN TO OPEN', '#d9f7ff');
+        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', '扫码查看', '#efc276');
         if (hasDoubanLink) {
-            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', 'OPEN DOUBAN', '#f7f1d9');
+            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', '扫码查看', '#e5d7ad');
         }
 
         ctx.textAlign = 'right';
-        ctx.fillStyle = '#c6211a';
-        ctx.font = '800 24px "Fira Code", "Microsoft YaHei", monospace';
-        ctx.fillText('CONFIDENTIAL', ticketX + ticketW - 40, qrY + qrBlockHeight);
+        ctx.fillStyle = '#b17835';
+        ctx.font = '800 24px "Microsoft YaHei", sans-serif';
+        ctx.fillText('CineScope', ticketX + ticketW - 40, qrY + qrBlockHeight);
 
         try {
             const dataUrl = canvas.toDataURL('image/jpeg', 0.92);

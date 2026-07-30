@@ -6,10 +6,11 @@
 import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { resolvePosterUrl } from './renderer.js';
 import { getGenreDisplayName } from './filters.js';
-import { syncBodyModalState } from './modal-state.js';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js';
 
 let currentDossierItem = null;
 let onOpenTrailerCallback = null;
+let dossierReturnFocus = null;
 
 /**
  * 从标题生成 ID
@@ -116,6 +117,10 @@ export function openIntelDossier(item) {
     const dossierDrawer = document.getElementById('intel-dossier');
     if (!dossierOverlay || !dossierDrawer) return;
 
+    if (!dossierDrawer.classList.contains('active')) {
+        dossierReturnFocus = document.activeElement;
+    }
+
     dossierDrawer.scrollTop = 0;
     dossierDrawer.classList.remove('swiping-close');
     dossierDrawer.style.removeProperty('--swipe-close-translate');
@@ -123,7 +128,14 @@ export function openIntelDossier(item) {
 
     // 填充数据
     const posterEl = document.getElementById('dossier-poster');
-    if (posterEl) posterEl.src = resolvePosterUrl(item.posterPath);
+    if (posterEl) {
+        posterEl.alt = item.title || '作品海报';
+        posterEl.onerror = () => {
+            posterEl.onerror = null;
+            posterEl.src = resolvePosterUrl(null);
+        };
+        posterEl.src = resolvePosterUrl(item.posterPath);
+    }
 
     // 状态徽章
     const statusBadgeHtml = item.doubanCollectionStatus && DOUBAN_STATUS_LABELS[item.doubanCollectionStatus]
@@ -294,9 +306,13 @@ export function openIntelDossier(item) {
     }
 
     // 打开动画
+    dossierOverlay.setAttribute('aria-hidden', 'false');
+    dossierDrawer.removeAttribute('inert');
+    dossierDrawer.setAttribute('aria-hidden', 'false');
     dossierOverlay.classList.add('active');
     dossierDrawer.classList.add('active');
     document.body.classList.add('modal-open');
+    focusModal(dossierDrawer, '#close-dossier-btn');
 }
 
 /**
@@ -307,12 +323,17 @@ export function closeIntelDossier() {
     const dossierDrawer = document.getElementById('intel-dossier');
     if (!dossierOverlay || !dossierDrawer) return;
 
+    dossierOverlay.setAttribute('aria-hidden', 'true');
+    dossierDrawer.setAttribute('aria-hidden', 'true');
+    dossierDrawer.setAttribute('inert', '');
     dossierOverlay.classList.remove('active');
     dossierDrawer.classList.remove('active');
     dossierDrawer.classList.remove('swiping-close');
     dossierDrawer.style.removeProperty('--swipe-close-translate');
     currentDossierItem = null;
     syncBodyModalState();
+    restoreModalFocus(dossierReturnFocus);
+    dossierReturnFocus = null;
 }
 
 /**
@@ -420,8 +441,11 @@ export function initDossierEvents(onShare, onOpenTrailer) {
     setupDossierSwipeClose();
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && dossierDrawer && dossierDrawer.classList.contains('active')) {
+        if (!dossierDrawer?.classList.contains('active')) return;
+        if (e.key === 'Escape') {
             closeIntelDossier();
+            return;
         }
+        trapFocus(e, dossierDrawer);
     });
 }

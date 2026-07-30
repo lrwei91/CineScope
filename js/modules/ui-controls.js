@@ -13,6 +13,8 @@ export function updateFilterCollapse(container, toggleButton, isExpanded, enable
     container.removeAttribute('data-visible-rows');
     container.style.removeProperty('--collapsed-height');
     toggleButton.hidden = true;
+    toggleButton.setAttribute('aria-expanded', 'false');
+    toggleButton.setAttribute('aria-controls', container.id);
 
     if (!enabled || window.innerWidth <= 900) return;
 
@@ -44,6 +46,14 @@ export function updateFilterCollapse(container, toggleButton, isExpanded, enable
     container.classList.toggle('collapsed', !isExpanded);
     toggleButton.hidden = false;
     toggleButton.textContent = isExpanded ? '收起' : '展开';
+    toggleButton.setAttribute('aria-expanded', String(isExpanded));
+}
+
+/**
+ * 减弱动效偏好下，滚动直接落到目标位置，避免动画成为完成任务的前置条件。
+ */
+export function getScrollBehavior() {
+    return globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 }
 
 /**
@@ -83,34 +93,6 @@ export function showToast(message) {
 }
 
 /**
- * 打字机效果
- * 动画过程中先把元素 aria-hidden（避免屏幕阅读器朗读乱码中间态），
- * 解密完成后清掉 aria-hidden，由屏幕阅读器自然读出最终结果。
- */
-export function typeWriterEffect(element, text, speed = 30) {
-    if (!element) return;
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#%&*+<>-=';
-    let iterations = 0;
-    clearInterval(element.dataset.typingInterval);
-
-    element.setAttribute('aria-hidden', 'true');
-    element.dataset.typingInterval = setInterval(() => {
-        element.textContent = text.split('').map((letter, index) => {
-            if (index < iterations) {
-                return text[index];
-            }
-            return chars[Math.floor(Math.random() * chars.length)];
-        }).join('');
-
-        if (iterations >= text.length) {
-            clearInterval(element.dataset.typingInterval);
-            element.removeAttribute('aria-hidden');
-        }
-        iterations += 1 / 2;
-    }, speed);
-}
-
-/**
  * 返回顶部按钮控制
  */
 export function setupBackToTop(button) {
@@ -131,6 +113,6 @@ export function setupBackToTop(button) {
     });
 
     button.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: getScrollBehavior() });
     });
 }

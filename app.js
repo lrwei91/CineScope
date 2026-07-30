@@ -43,7 +43,7 @@ import {
 } from './js/modules/douban-sync.js';
 
 import {
-    typeWriterEffect,
+    getScrollBehavior,
     updateFilterCollapse,
     setupScrollFade,
     showToast,
@@ -161,7 +161,9 @@ function setCurrentCategory(categoryId) {
 
     state.currentCategoryId = categoryId;
     elements.categoryFilterContainer.querySelectorAll('.genre-tag').forEach((tag) => {
-        tag.classList.toggle('active', tag.dataset.category === categoryId);
+        const isActive = tag.dataset.category === categoryId;
+        tag.classList.toggle('active', isActive);
+        tag.setAttribute('aria-pressed', String(isActive));
     });
     syncMobileSheetFilters();
     updateFabState(state);
@@ -174,6 +176,11 @@ function setCurrentCategory(categoryId) {
 function crossfadeMainContent(swapCallback) {
     const mainContent = document.getElementById('main-content');
     if (!mainContent) {
+        swapCallback();
+        return Promise.resolve();
+    }
+
+    if (getScrollBehavior() === 'auto') {
         swapCallback();
         return Promise.resolve();
     }
@@ -425,7 +432,7 @@ function handleGenreClick(actualValue, tag) {
     filterAndRenderItems();
 
     if (isMobile()) {
-        tag.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        tag.scrollIntoView({ behavior: getScrollBehavior(), block: 'nearest', inline: 'nearest' });
     }
 }
 
@@ -655,7 +662,7 @@ async function ensureYearIsLoadedAndScroll(year, preloadOnly = false) {
 
     if (targetElement && !preloadOnly) {
         setTimeout(() => {
-            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            targetElement.scrollIntoView({ behavior: getScrollBehavior(), block: 'start' });
         }, 50);
     }
 }
@@ -868,8 +875,7 @@ function bootstrapApp() {
     initMobileSheetEvents(undefined, { getState: () => state });
 
     configureDoubanSync({
-        onHydrated: syncCurrentCategoryData,
-        typeWriter: typeWriterEffect
+        onHydrated: syncCurrentCategoryData
     });
 
     // 启动应用

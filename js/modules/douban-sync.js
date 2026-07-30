@@ -11,11 +11,9 @@ let doubanStatusesMetadata = null;
 let buildReportDoubanStatus = null;
 let isDoubanSyncing = false;
 let onHydratedCallback = () => {};
-let typeWriterCallback = null;
 
-export function configureDoubanSync({ onHydrated = () => {}, typeWriter = null } = {}) {
+export function configureDoubanSync({ onHydrated = () => {} } = {}) {
     onHydratedCallback = onHydrated;
-    typeWriterCallback = typeWriter;
 }
 
 /**
@@ -139,38 +137,38 @@ function updateDoubanAuthUI() {
     const mobileDoubanStatus = document.getElementById('mobile-douban-status');
 
     let statusText = '';
+    let statusState = 'ready';
     if (isDoubanSyncing) {
-        statusText = '> 正在同步数据...';
+        statusText = '正在读取豆瓣收藏状态';
+        statusState = 'loading';
     } else {
         const lastUpdated = doubanStatusesMetadata?.last_updated;
         const isFailed = buildReportDoubanStatus?.status === 'failed';
         const isSkipped = buildReportDoubanStatus?.status === 'skipped';
 
         if (isFailed) {
+            statusState = 'warning';
             if (lastUpdated) {
-                statusText = `> 同步失败 (使用${getRelativeTimeDesc(lastUpdated)}前数据)`;
+                statusText = `同步失败，正在使用 ${getRelativeTimeDesc(lastUpdated)}的数据`;
             } else {
-                statusText = '> 同步失败 (暂无数据)';
+                statusText = '同步失败，暂无可用数据';
             }
         } else if (isSkipped) {
+            statusState = 'muted';
             if (lastUpdated) {
-                statusText = `> 同步跳过 (使用${getRelativeTimeDesc(lastUpdated)}前数据)`;
+                statusText = `本次同步跳过，使用 ${getRelativeTimeDesc(lastUpdated)}的数据`;
             } else {
-                statusText = '> 同步跳过 (暂无数据)';
+                statusText = '本次同步跳过，暂无可用数据';
             }
         } else if (lastUpdated) {
-            statusText = `> 已同步 ${formatUpdateTimestamp(lastUpdated)}`;
+            statusText = `最近同步：${formatUpdateTimestamp(lastUpdated)}`;
         } else {
-            statusText = '> 同步完成';
+            statusText = '同步状态已就绪';
         }
     }
 
-    // 使用 typewriter 效果更新文本
-    if (typeWriterCallback) {
-        typeWriterCallback(doubanAuthStatus, statusText);
-    } else {
-        doubanAuthStatus.textContent = statusText;
-    }
+    doubanAuthStatus.textContent = statusText;
+    doubanAuthStatus.dataset.state = statusState;
 
     if (mobileDoubanStatus) {
         mobileDoubanStatus.textContent = doubanAuthStatus.textContent;

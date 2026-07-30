@@ -8,9 +8,11 @@
  * 负责移动端筛选面板和分类选择面板
  */
 
-import { syncBodyModalState } from './modal-state.js';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js';
 
 let getAppState = () => ({});
+let filterReturnFocus = null;
+let categoryReturnFocus = null;
 
 /**
  * 检查是否为移动端
@@ -27,11 +29,19 @@ export function openMobileFilterSheet(onOpen) {
     const mobileSheetOverlay = document.getElementById('mobile-sheet-overlay');
     if (!mobileFilterSheet || !mobileSheetOverlay) return;
 
+    if (!mobileFilterSheet.classList.contains('active')) {
+        filterReturnFocus = document.activeElement === document.body
+            ? document.getElementById('mobile-filter-fab')
+            : document.activeElement;
+    }
     if (onOpen) onOpen();
 
+    mobileFilterSheet.removeAttribute('inert');
+    mobileFilterSheet.setAttribute('aria-hidden', 'false');
     mobileSheetOverlay.classList.add('active');
     mobileFilterSheet.classList.add('active');
     document.body.classList.add('modal-open');
+    focusModal(mobileFilterSheet, '#close-filter-sheet');
 }
 
 /**
@@ -42,9 +52,14 @@ export function closeMobileFilterSheet() {
     const mobileSheetOverlay = document.getElementById('mobile-sheet-overlay');
     if (!mobileFilterSheet || !mobileSheetOverlay) return;
 
+    const wasOpen = mobileFilterSheet.classList.contains('active');
+    mobileFilterSheet.setAttribute('aria-hidden', 'true');
+    mobileFilterSheet.setAttribute('inert', '');
     mobileSheetOverlay.classList.remove('active');
     mobileFilterSheet.classList.remove('active');
     syncBodyModalState();
+    if (wasOpen) restoreModalFocus(filterReturnFocus);
+    filterReturnFocus = null;
 }
 
 /**
@@ -55,13 +70,24 @@ export function openMobileCategorySheet(onBuild) {
     const mobileCategoryOverlay = document.getElementById('mobile-category-overlay');
     if (!mobileCategorySheet || !mobileCategoryOverlay) return;
 
+    if (!mobileCategorySheet.classList.contains('active')) {
+        categoryReturnFocus = document.activeElement === document.body
+            ? document.getElementById('mobile-category-trigger')
+            : document.activeElement;
+    }
     if (onBuild) onBuild();
 
+    mobileCategorySheet.removeAttribute('inert');
+    mobileCategorySheet.setAttribute('aria-hidden', 'false');
     mobileCategorySheet.classList.add('active');
     mobileCategoryOverlay.classList.add('active');
     document.body.classList.add('modal-open');
     const mobileCategoryTrigger = document.getElementById('mobile-category-trigger');
-    if (mobileCategoryTrigger) mobileCategoryTrigger.classList.add('open');
+    if (mobileCategoryTrigger) {
+        mobileCategoryTrigger.classList.add('open');
+        mobileCategoryTrigger.setAttribute('aria-expanded', 'true');
+    }
+    focusModal(mobileCategorySheet, '#close-category-sheet');
 }
 
 /**
@@ -72,11 +98,19 @@ export function closeMobileCategorySheet() {
     const mobileCategoryOverlay = document.getElementById('mobile-category-overlay');
     if (!mobileCategorySheet || !mobileCategoryOverlay) return;
 
+    const wasOpen = mobileCategorySheet.classList.contains('active');
+    mobileCategorySheet.setAttribute('aria-hidden', 'true');
+    mobileCategorySheet.setAttribute('inert', '');
     mobileCategorySheet.classList.remove('active');
     mobileCategoryOverlay.classList.remove('active');
     const mobileCategoryTrigger = document.getElementById('mobile-category-trigger');
-    if (mobileCategoryTrigger) mobileCategoryTrigger.classList.remove('open');
+    if (mobileCategoryTrigger) {
+        mobileCategoryTrigger.classList.remove('open');
+        mobileCategoryTrigger.setAttribute('aria-expanded', 'false');
+    }
     syncBodyModalState();
+    if (wasOpen) restoreModalFocus(categoryReturnFocus);
+    categoryReturnFocus = null;
 }
 
 /**
@@ -88,10 +122,12 @@ export function buildMobileCategoryPills(container) {
 
     const categoryTags = document.querySelectorAll('#category-filter-container .genre-tag');
     categoryTags.forEach((tag) => {
-        const pill = document.createElement('div');
+        const pill = document.createElement('button');
+        pill.type = 'button';
         pill.className = 'mobile-category-pill-item' + (tag.classList.contains('active') ? ' active' : '');
         pill.textContent = tag.textContent.trim();
         pill.dataset.category = tag.dataset.category;
+        pill.setAttribute('aria-pressed', String(tag.classList.contains('active')));
 
         pill.addEventListener('click', () => {
             tag.click();
@@ -200,6 +236,7 @@ export function initMobileSheetEvents(onFilterOpen, options = {}) {
     // 筛选面板事件
     if (mobileFilterFab) {
         mobileFilterFab.addEventListener('click', () => {
+            mobileFilterFab.focus();
             openMobileFilterSheet(() => {
                 syncMobileSheetFilters();
                 if (onFilterOpen) onFilterOpen();
@@ -211,6 +248,7 @@ export function initMobileSheetEvents(onFilterOpen, options = {}) {
 
     // 分类面板事件
     if (mobileCategoryTrigger) mobileCategoryTrigger.addEventListener('click', () => {
+        mobileCategoryTrigger.focus();
         openMobileCategorySheet(() => buildMobileCategoryPills(mobileCategoryPills));
     });
     if (closeCategorySheetBtn) closeCategorySheetBtn.addEventListener('click', closeMobileCategorySheet);
@@ -229,10 +267,18 @@ export function initMobileSheetEvents(onFilterOpen, options = {}) {
 
     // ESC 关闭
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
+        const filterSheet = document.getElementById('mobile-filter-sheet');
+        const categorySheet = document.getElementById('mobile-category-sheet');
+        if (e.key === 'Escape' && filterSheet?.classList.contains('active')) {
             closeMobileFilterSheet();
-            closeMobileCategorySheet();
+            return;
         }
+        if (e.key === 'Escape' && categorySheet?.classList.contains('active')) {
+            closeMobileCategorySheet();
+            return;
+        }
+        if (filterSheet?.classList.contains('active')) trapFocus(e, filterSheet);
+        if (categorySheet?.classList.contains('active')) trapFocus(e, categorySheet);
     });
 
     // 初始同步

@@ -15,10 +15,60 @@ const MODAL_IDS = [
     'mobile-category-overlay'
 ];
 
+const FOCUSABLE_SELECTOR = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+].join(',');
+
 export function isAnyModalOpen() {
     return MODAL_IDS.some((id) => document.getElementById(id)?.classList.contains('active'));
 }
 
 export function syncBodyModalState() {
     document.body.classList.toggle('modal-open', isAnyModalOpen());
+}
+
+export function focusModal(container, preferredSelector = 'button') {
+    if (!container) return;
+
+    const target = container.querySelector(preferredSelector) || container.querySelector(FOCUSABLE_SELECTOR);
+    target?.focus({ preventScroll: true });
+
+    requestAnimationFrame(() => {
+        target?.focus({ preventScroll: true });
+    });
+}
+
+export function restoreModalFocus(element) {
+    if (isAnyModalOpen()) return;
+    if (element instanceof HTMLElement && document.contains(element)) {
+        element.focus();
+    }
+}
+
+export function trapFocus(event, container) {
+    if (event.key !== 'Tab' || !container) return;
+
+    const focusable = [...container.querySelectorAll(FOCUSABLE_SELECTOR)]
+        .filter((element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true');
+
+    if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+    }
 }

@@ -9,11 +9,11 @@ import { parseDateStringAsLocalDate } from './date-utils.js';
 
 const POSTER_FALLBACK_SVG = encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750">
-  <rect width="500" height="750" fill="#111318"/>
-  <rect x="56" y="78" width="388" height="594" rx="18" fill="#191d25" stroke="#2f3642" stroke-width="2"/>
-  <path d="M156 330h188v28H156zM156 382h128v18H156z" fill="#5c6675"/>
-  <circle cx="250" cy="264" r="52" fill="#2f3642"/>
-  <text x="250" y="490" fill="#8792a3" font-family="Arial,sans-serif" font-size="28" font-weight="700" text-anchor="middle">NO POSTER</text>
+  <rect width="500" height="750" fill="#24211e"/>
+  <rect x="48" y="70" width="404" height="610" rx="12" fill="#302c27" stroke="#70685d" stroke-width="2"/>
+  <path d="M150 334h200v26H150zM150 386h138v16H150z" fill="#9b9286"/>
+  <circle cx="250" cy="266" r="50" fill="#70685d"/>
+  <text x="250" y="494" fill="#eee9e0" font-family="Arial,sans-serif" font-size="28" font-weight="700" text-anchor="middle">暂无海报</text>
 </svg>
 `);
 
@@ -87,13 +87,8 @@ function sortGenresByPriority(genres) {
     });
 }
 
-function getCardTitleFontSize(titleText) {
-    const length = String(titleText || '').trim().length;
-
-    if (length >= 18) return 12;
-    if (length >= 14) return 13;
-    if (length >= 11) return 14;
-    return 16;
+function getScrollBehavior() {
+    return globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 }
 
 function createBoxOfficeElement(item) {
@@ -183,13 +178,17 @@ function createTrailerButtonElement(item) {
 export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTrailerClick) {
     const posterUrl = resolvePosterUrl(item.posterPath);
     const titleText = item.title || '未命名';
-    const titleFontSize = getCardTitleFontSize(titleText);
     const chipLabels = getCardChipLabels(item);
 
-    // 卡片根
-    const card = document.createElement('div');
-    card.className = 'show-card matrix-enter clickable';
-    card.style.animationDelay = `${animationDelayIdx * 40}ms`;
+    // 卡片保留作品内容语义；覆盖按钮提供键盘入口，预告片保持独立操作。
+    const card = document.createElement('article');
+    card.className = 'show-card';
+    card.style.setProperty('--card-order', String(animationDelayIdx));
+
+    const openButton = document.createElement('button');
+    openButton.className = 'show-card__open';
+    openButton.type = 'button';
+    openButton.setAttribute('aria-label', `查看《${titleText}》详情`);
 
     // 海报容器
     const posterContainer = document.createElement('div');
@@ -208,9 +207,6 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
         posterContainer.appendChild(badge);
     }
     const trailerButtonEl = createTrailerButtonElement(item);
-    if (trailerButtonEl) {
-        posterContainer.appendChild(trailerButtonEl);
-    }
 
     const img = document.createElement('img');
     img.className = 'poster';
@@ -254,7 +250,6 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
     const titleEl = document.createElement('h3');
     titleEl.className = 'card-title';
     titleEl.title = titleText;
-    titleEl.style.fontSize = `${titleFontSize}px`;
     titleEl.textContent = titleText;
     content.appendChild(titleEl);
 
@@ -283,40 +278,26 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
         content.appendChild(chipRow);
     }
 
-    card.append(posterContainer, content);
+    card.append(posterContainer, content, openButton);
+    if (trailerButtonEl) card.appendChild(trailerButtonEl);
 
     if (onCardClick) {
-        card.addEventListener('click', () => onCardClick(item));
+        openButton.addEventListener('click', () => {
+            openButton.focus();
+            onCardClick(item);
+        });
+    } else {
+        openButton.disabled = true;
     }
 
-    const trailerButton = card.querySelector('.poster-trailer-btn');
-    if (trailerButton && onTrailerClick) {
-        trailerButton.addEventListener('click', (event) => {
+    if (trailerButtonEl && onTrailerClick) {
+        trailerButtonEl.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
+            trailerButtonEl.focus();
             onTrailerClick(item, 0);
         });
     }
-
-    // 3D 悬停效果
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale3d(1.02, 1.02, 1.02)`;
-        card.style.transition = 'transform 0.1s ease-out';
-        card.style.zIndex = '10';
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.transition = 'all 0.3s ease';
-        card.style.zIndex = '';
-    });
 
     return card;
 }
@@ -405,11 +386,11 @@ function setupHorizontalScroller(container) {
     }
 
     arrowLeft.addEventListener('click', () => {
-        scroller.scrollBy({ left: -scroller.clientWidth * 0.8, behavior: 'smooth' });
+        scroller.scrollBy({ left: -scroller.clientWidth * 0.8, behavior: getScrollBehavior() });
     });
 
     arrowRight.addEventListener('click', () => {
-        scroller.scrollBy({ left: scroller.clientWidth * 0.8, behavior: 'smooth' });
+        scroller.scrollBy({ left: scroller.clientWidth * 0.8, behavior: getScrollBehavior() });
     });
 
     scroller.addEventListener('scroll', updateArrowVisibility);
@@ -428,17 +409,33 @@ export function renderTimeline(years, activeYear, visibleYearCount, onYearClick)
 
     yearsToShow.forEach((year, index) => {
         const item = document.createElement('li');
-        item.className = 'year-item';
-        if (year === activeYear) item.classList.add('active');
-        item.dataset.year = year;
-        item.innerHTML = `<span class="dot"></span><span class="year-text">LOCK_ON: ${year}</span>`;
+        const button = document.createElement('button');
+        const isActive = year === activeYear;
+        const label = year === FUTURE_TAG ? '即将上映' : `${year} 年`;
 
-        item.addEventListener('click', (event) => {
-            event.stopPropagation();
+        button.type = 'button';
+        button.className = 'year-item';
+        button.dataset.year = year;
+        button.setAttribute('aria-label', `跳转至${label}片单`);
+        if (isActive) {
+            button.classList.add('active');
+            button.setAttribute('aria-current', 'true');
+        }
+
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        dot.setAttribute('aria-hidden', 'true');
+        const text = document.createElement('span');
+        text.className = 'year-text';
+        text.textContent = label;
+        button.append(dot, text);
+
+        button.addEventListener('click', () => {
             const isLastItem = index === yearsToShow.length - 1;
             if (onYearClick) onYearClick(year, isLastItem);
         });
 
+        item.appendChild(button);
         yearList.appendChild(item);
     });
 }

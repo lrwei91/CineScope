@@ -1,7 +1,8 @@
-import { syncBodyModalState } from './modal-state.js';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js';
 
 let currentTrailerItem = null;
 let currentTrailerIndex = 0;
+let trailerReturnFocus = null;
 
 function getTrailerState() {
     const trailers = Array.isArray(currentTrailerItem?.trailers) ? currentTrailerItem.trailers : [];
@@ -72,12 +73,20 @@ export function openTrailerModal(item, trailerIndex = 0) {
     const modal = document.getElementById('trailer-modal');
     if (!overlay || !modal) return;
 
+    if (!modal.classList.contains('active')) {
+        trailerReturnFocus = document.activeElement;
+    }
+
     currentTrailerItem = item;
     currentTrailerIndex = trailerIndex;
     renderTrailerModal();
+    overlay.setAttribute('aria-hidden', 'false');
+    modal.removeAttribute('inert');
+    modal.setAttribute('aria-hidden', 'false');
     overlay.classList.add('active');
     modal.classList.add('active');
     document.body.classList.add('modal-open');
+    focusModal(modal, '#close-trailer-modal-btn');
 }
 
 export function closeTrailerModal() {
@@ -86,6 +95,9 @@ export function closeTrailerModal() {
     const iframeElement = document.getElementById('trailer-modal-frame');
     if (!overlay || !modal) return;
 
+    overlay.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('inert', '');
     overlay.classList.remove('active');
     modal.classList.remove('active');
     if (iframeElement) {
@@ -94,6 +106,8 @@ export function closeTrailerModal() {
     currentTrailerItem = null;
     currentTrailerIndex = 0;
     syncBodyModalState();
+    restoreModalFocus(trailerReturnFocus);
+    trailerReturnFocus = null;
 }
 
 export function initTrailerModalEvents() {
@@ -109,8 +123,11 @@ export function initTrailerModalEvents() {
 
     document.addEventListener('keydown', (event) => {
         const modal = document.getElementById('trailer-modal');
-        if (event.key === 'Escape' && modal?.classList.contains('active')) {
+        if (!modal?.classList.contains('active')) return;
+        if (event.key === 'Escape') {
             closeTrailerModal();
+            return;
         }
+        trapFocus(event, modal);
     });
 }

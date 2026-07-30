@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全球剧集、综艺与院线新片追踪</title>
+    <title>CineScope｜全球影视片单</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="alternate icon" href="favicon.png" type="image/png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Inline style prevents FOUC by setting background immediately -->
+    <!-- Inline style prevents FOUC by setting the canvas immediately. -->
     <style>
-        html { background: #050505; }
+        html { background: #161616; }
         body { min-height: 100vh; }
     </style>
-    <link rel="stylesheet" href="style.css?v=20260531b">
-    <link rel="stylesheet" href="share.css?v=20260531b">
+    <link rel="stylesheet" href="style.css?v=20260730a">
+    <link rel="stylesheet" href="share.css?v=20260730a">
     <script type="module" src="app.js"></script>
 </head>
 <body>
@@ -28,18 +25,18 @@
         <div class="container">
             <!-- Mobile-only: Mini Navigation Bar -->
             <div class="mobile-nav-bar" id="mobile-nav-bar">
-                <span class="mobile-brand">STREAMING RADAR</span>
-                <button class="mobile-category-trigger" id="mobile-category-trigger">
+                <span class="mobile-brand">CINESCOPE</span>
+                <button class="mobile-category-trigger" id="mobile-category-trigger" type="button" aria-expanded="false" aria-controls="mobile-category-sheet">
                     <span id="mobile-category-label">分类</span>
-                    <span class="mobile-category-chevron" aria-hidden="true">v</span>
+                    <span class="mobile-category-chevron" aria-hidden="true">⌄</span>
                 </button>
             </div>
 
             <!-- Mobile-only: Category Sheet -->
             <div class="mobile-category-overlay" id="mobile-category-overlay"></div>
-            <div class="mobile-category-sheet" id="mobile-category-sheet">
+            <div class="mobile-category-sheet" id="mobile-category-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-category-sheet-title" aria-hidden="true" inert>
                 <div class="sheet-header">
-                    <span class="sheet-title">SELECT_CATEGORY</span>
+                    <span class="sheet-title" id="mobile-category-sheet-title">浏览分类</span>
                     <button class="sheet-close-btn" id="close-category-sheet" type="button" aria-label="关闭分类面板">&times;</button>
                 </div>
                 <div id="mobile-category-pills" class="mobile-category-pills">
@@ -49,22 +46,22 @@
 
             <header class="hero-header">
                 <div class="hero-copy">
-                    <p class="hero-eyebrow">Streaming Radar</p>
+                    <p class="hero-eyebrow">CineScope · 全球影视片单</p>
                     <h1>
                         <span id="page-title-text">鲤鱼·环球片单</span>
                         <small class="update-date skeleton"></small>
                     </h1>
-                    <p class="hero-description">聚合国产剧、院线电影、国内综艺、韩剧、日剧、美剧和豆瓣Top250，优先展示近期开播、上映与即将上线内容。</p>
+                    <p class="hero-description">聚合国产剧、院线电影、综艺、韩剧、日剧、美剧和豆瓣 Top250，按上映时间、评分与类型快速找到想看的内容。</p>
                 </div>
                 <div class="hero-auth" id="douban-sync-badge">
-                    <span class="hero-auth-icon">豆瓣</span>
-                    <span id="douban-auth-status" class="hero-auth-status">同步状态加载中...</span>
+                    <span class="hero-auth-icon">豆瓣同步</span>
+                    <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取状态…</span>
                 </div>
             </header>
 
             <nav class="filters-navigation" aria-label="影视筛选">
                 <div class="search-container">
-                    <input type="text" id="radar-search" placeholder="输入影视名称开启雷达扫描..." autocomplete="off">
+                    <input type="search" id="radar-search" placeholder="搜索片名、别名或关键词" autocomplete="off" aria-label="搜索片单">
                     <span class="search-icon" aria-hidden="true">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" focusable="false">
                             <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
@@ -76,24 +73,24 @@
                     <section class="filter-block">
                         <p class="filter-label">分类</p>
                         <div id="category-filter-container" class="network-filter-container filter-pill-row">
-                            <div class="genre-tag active" data-category="tv_cn">国产剧</div>
-                            <div class="genre-tag" data-category="movie_cn">院线电影</div>
-                            <div class="genre-tag" data-category="tv_cn_variety">综艺</div>
-                            <div class="genre-tag" data-category="tv_kr">韩剧</div>
-                            <div class="genre-tag" data-category="tv_jp">日剧</div>
-                            <div class="genre-tag" data-category="tv_us">美剧</div>
-                            <div class="genre-tag" data-category="douban_top250">豆瓣Top250</div>
+                            <button class="genre-tag active" type="button" data-category="tv_cn" aria-pressed="true">国产剧</button>
+                            <button class="genre-tag" type="button" data-category="movie_cn" aria-pressed="false">院线电影</button>
+                            <button class="genre-tag" type="button" data-category="tv_cn_variety" aria-pressed="false">综艺</button>
+                            <button class="genre-tag" type="button" data-category="tv_kr" aria-pressed="false">韩剧</button>
+                            <button class="genre-tag" type="button" data-category="tv_jp" aria-pressed="false">日剧</button>
+                            <button class="genre-tag" type="button" data-category="tv_us" aria-pressed="false">美剧</button>
+                            <button class="genre-tag" type="button" data-category="douban_top250" aria-pressed="false">豆瓣Top250</button>
                         </div>
                     </section>
 
                     <section class="filter-block">
                         <p class="filter-label">评分</p>
                         <div id="rating-filter-container" class="network-filter-container filter-pill-row">
-                            <div class="genre-tag skeleton">全部</div>
-                            <div class="genre-tag skeleton">&gt; 9分</div>
-                            <div class="genre-tag skeleton">&gt; 8分</div>
-                            <div class="genre-tag skeleton">&gt; 7分</div>
-                            <div class="genre-tag skeleton">近2年高分</div>
+                            <span class="genre-tag skeleton">全部</span>
+                            <span class="genre-tag skeleton">&gt; 9分</span>
+                            <span class="genre-tag skeleton">&gt; 8分</span>
+                            <span class="genre-tag skeleton">&gt; 7分</span>
+                            <span class="genre-tag skeleton">近2年高分</span>
                         </div>
                     </section>
                 </div>
@@ -107,12 +104,12 @@
                         <button id="genre-filter-toggle" class="filter-toggle" type="button" hidden>展开</button>
                     </div>
                     <div id="genre-filter-container" class="genre-filter-container filter-pill-row">
-                        <div class="genre-tag skeleton">全部</div>
-                        <div class="genre-tag skeleton">剧情</div>
-                        <div class="genre-tag skeleton">喜剧</div>
-                        <div class="genre-tag skeleton">悬疑</div>
-                        <div class="genre-tag skeleton">犯罪</div>
-                        <div class="genre-tag skeleton">科幻</div>
+                        <span class="genre-tag skeleton">全部</span>
+                        <span class="genre-tag skeleton">剧情</span>
+                        <span class="genre-tag skeleton">喜剧</span>
+                        <span class="genre-tag skeleton">悬疑</span>
+                        <span class="genre-tag skeleton">犯罪</span>
+                        <span class="genre-tag skeleton">科幻</span>
                     </div>
                 </div>
             </header>
@@ -191,8 +188,8 @@
 
     <!-- Mobile Bottom Filter FAB -->
     <button id="mobile-filter-fab" class="mobile-filter-fab" aria-label="打开筛选">
-        <span class="fab-icon" aria-hidden="true">|||</span>
-        <span class="fab-text">雷达筛选</span>
+        <span class="fab-icon" aria-hidden="true">☰</span>
+        <span class="fab-text">筛选片单</span>
         <span id="fab-active-badge" class="fab-badge" hidden></span>
     </button>
 
@@ -200,38 +197,38 @@
     <div class="mobile-sheet-overlay" id="mobile-sheet-overlay"></div>
 
     <!-- Mobile Filter Action Sheet -->
-    <div class="mobile-filter-sheet" id="mobile-filter-sheet">
+    <div class="mobile-filter-sheet" id="mobile-filter-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-filter-sheet-title" aria-hidden="true" inert>
         <div class="sheet-drag-handle"></div>
         <div class="sheet-header">
-            <span class="sheet-title">雷达筛选系统</span>
+            <span class="sheet-title" id="mobile-filter-sheet-title">筛选片单</span>
             <button class="sheet-close-btn" id="close-filter-sheet" type="button" aria-label="关闭筛选面板">&times;</button>
         </div>
         <div class="sheet-content">
             <!-- Search -->
             <div class="sheet-search-container">
-                <input type="text" id="mobile-sheet-search" placeholder="搜索影视名称..." autocomplete="off">
+                <input type="search" id="mobile-sheet-search" placeholder="搜索片名、别名或关键词" autocomplete="off" aria-label="搜索片单">
             </div>
             <!-- Rating -->
             <div class="sheet-section">
-                <p class="sheet-section-label">&gt; 评分筛选</p>
+                <p class="sheet-section-label">评分</p>
                 <div id="mobile-rating-mirror" class="sheet-pills-row"></div>
             </div>
             <!-- Genre -->
             <div class="sheet-section">
-                <p class="sheet-section-label">&gt; 类型分类</p>
+                <p class="sheet-section-label">类型</p>
                 <div id="mobile-genre-mirror" class="sheet-pills-row"></div>
             </div>
         </div>
         <!-- Douban sync status footer -->
         <div class="sheet-footer">
-            <span class="sheet-footer-label">豆瓣数据链路</span>
+            <span class="sheet-footer-label">豆瓣同步</span>
             <span id="mobile-douban-status" class="sheet-footer-status">加载中...</span>
         </div>
     </div>
 
     <!-- Intel Dossier Slide-out Modal -->
-    <div id="intel-dossier-overlay" class="dossier-overlay"></div>
-    <aside id="intel-dossier" class="dossier-drawer">
+    <div id="intel-dossier-overlay" class="dossier-overlay" aria-hidden="true"></div>
+    <aside id="intel-dossier" class="dossier-drawer" role="dialog" aria-modal="true" aria-labelledby="dossier-title" aria-hidden="true" inert>
         <button id="close-dossier-btn" class="close-btn" type="button" aria-label="关闭面板">&times;</button>
         <div class="dossier-content">
                 <div class="dossier-visual">
@@ -241,7 +238,7 @@
                     </div>
                 </div>
             <div class="dossier-data">
-                <p class="dossier-subtext">档案编号 // <span id="dossier-id"></span></p>
+                <p class="dossier-subtext">片单编号 <span id="dossier-id"></span></p>
                 <div class="dossier-header-main">
                     <h2 id="dossier-title"></h2>
                     <button id="share-dossier-btn" class="dossier-inline-share-btn" type="button" title="分享剧集档案">
@@ -266,7 +263,7 @@
                 </div>
 
                 <div class="dossier-facts-section">
-                    <p class="dossier-section-title">> 核心信息</p>
+                    <p class="dossier-section-title">核心信息</p>
                     <div class="dossier-facts-list">
                         <div id="dossier-directors-row" class="dossier-fact-row" hidden>
                             <span class="dossier-fact-label">导演</span>
@@ -280,27 +277,27 @@
                 </div>
 
                 <div id="dossier-overview-section" class="dossier-overview-section" hidden>
-                    <p class="dossier-section-title">> 剧情简介</p>
+                    <p class="dossier-section-title">剧情简介</p>
                     <p id="dossier-overview" class="dossier-overview-text"></p>
                 </div>
 
                 <div class="dossier-tags-section">
-                    <p class="dossier-section-title">> 分类标签</p>
+                    <p class="dossier-section-title">分类标签</p>
                     <div id="dossier-tags" class="dossier-tag-row"></div>
                 </div>
 
                 <div class="dossier-tags-section">
-                    <p class="dossier-section-title">> 播出平台</p>
+                    <p class="dossier-section-title">播出平台</p>
                     <div id="dossier-networks" class="dossier-tag-row"></div>
                 </div>
 
                 <div id="dossier-trailers-section" class="dossier-tags-section" hidden>
-                    <p class="dossier-section-title">> 预告片</p>
+                    <p class="dossier-section-title">预告片</p>
                     <div id="dossier-trailers" class="dossier-trailer-row"></div>
                 </div>
 
                 <div class="dossier-actions">
-                    <p class="dossier-section-title">> 外部跳转</p>
+                    <p class="dossier-section-title">外部链接</p>
                     <div class="dossier-share-row" style="display: none;"></div>
                     <div id="dossier-links-container" class="dossier-links-row">
                         <!-- Action links will be injected here -->
@@ -310,8 +307,8 @@
         </div>
     </aside>
 
-    <div id="trailer-modal-overlay" class="trailer-modal-overlay"></div>
-    <section id="trailer-modal" class="trailer-modal" aria-label="预告片播放器">
+    <div id="trailer-modal-overlay" class="trailer-modal-overlay" aria-hidden="true"></div>
+    <section id="trailer-modal" class="trailer-modal" role="dialog" aria-modal="true" aria-labelledby="trailer-modal-title" aria-hidden="true" inert>
         <button id="close-trailer-modal-btn" class="close-btn" type="button" aria-label="关闭预告片弹层">&times;</button>
         <div class="trailer-modal-content">
             <div class="trailer-player-shell">
@@ -326,7 +323,7 @@
                 ></iframe>
             </div>
             <div class="trailer-modal-meta">
-                <p class="dossier-subtext">TRAILER FEED // BILIBILI</p>
+                <p class="dossier-subtext">Bilibili 预告片</p>
                 <h2 id="trailer-modal-title" class="trailer-modal-title"></h2>
                 <p id="trailer-modal-subtitle" class="trailer-modal-subtitle"></p>
                 <div id="trailer-modal-list" class="trailer-list-row"></div>

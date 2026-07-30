@@ -166,10 +166,12 @@ export function applyFilters(allItems, filters, categoryId) {
  * 创建评分筛选标签
  */
 export function createRatingTag(label, value, isActive, onClick) {
-    const tag = document.createElement('div');
+    const tag = document.createElement('button');
+    tag.type = 'button';
     tag.className = 'genre-tag';
     tag.textContent = label;
     tag.dataset.rating = value;
+    tag.setAttribute('aria-pressed', String(isActive));
 
     if (isActive) tag.classList.add('active');
 
@@ -181,10 +183,12 @@ export function createRatingTag(label, value, isActive, onClick) {
  * 创建类型筛选标签
  */
 export function createGenreTag(displayName, actualValue, isSelected, onClick) {
-    const tag = document.createElement('div');
+    const tag = document.createElement('button');
+    tag.type = 'button';
     tag.className = 'genre-tag';
     tag.textContent = displayName;
     tag.dataset.genre = actualValue;
+    tag.setAttribute('aria-pressed', String(isSelected));
 
     if (isSelected) {
         tag.classList.add('active', 'multiselect-tick');
