@@ -9,6 +9,7 @@ import {
     DEFAULT_CATEGORY_ID,
     ITEMS_PER_PAGE,
     FUTURE_TAG,
+    GENRE_PRIORITY,
     createCategoryState
 } from './js/modules/config.js';
 
@@ -32,7 +33,15 @@ import {
     renderComingSoon,
     renderTimeline,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20260730c';
+} from './js/modules/renderer.js?v=20260731a';
+
+import {
+    buildYearGroups,
+    findReferencedItem,
+    getTopGenreStats,
+    loadEditorialContent,
+    selectFeaturedItems
+} from './js/modules/editorial.js?v=20260731a';
 
 
 import {
@@ -89,7 +98,9 @@ const state = {
     lastRenderedMonth: null,
     allAvailableYears: [],
     currentActiveYear: null,
-    visibleYearCount: 3,
+    visibleYearCount: 4,
+    currentFutureItems: [],
+    editorialContent: null,
     isScrollingProgrammatically: false,
     genreFiltersExpanded: false,
     lastAutoRefreshAt: 0,
@@ -111,7 +122,12 @@ const elements = {};
 
 function cacheElements() {
     elements.pageTitleText = document.getElementById('page-title-text');
-    elements.mainTitle = document.querySelector('h1');
+    elements.heroHeader = document.querySelector('.hero-header');
+    elements.heroEyebrow = document.getElementById('hero-eyebrow');
+    elements.heroTitleAccent = document.getElementById('hero-title-accent');
+    elements.heroDescription = document.getElementById('hero-description');
+    elements.heroCtaLabel = document.getElementById('hero-cta-label');
+    elements.updateDate = document.querySelector('.hero-actions .update-date');
     elements.categoryFilterContainer = document.getElementById('category-filter-container');
     elements.ratingFilterContainer = document.getElementById('rating-filter-container');
     elements.genreFilterContainer = document.getElementById('genre-filter-container');
@@ -127,6 +143,17 @@ function cacheElements() {
     elements.skeletonContainer = document.getElementById('skeleton-container');
     elements.radarSearchInput = document.getElementById('radar-search');
     elements.backToTopBtn = document.getElementById('back-to-top');
+    elements.editorialNews = document.getElementById('editorial-news');
+    elements.editorialReviews = document.getElementById('editorial-reviews');
+    elements.genreBrowserGrid = document.getElementById('genre-browser-grid');
+    elements.headerSearchButton = document.getElementById('header-search-btn');
+    elements.aboutDescription = document.getElementById('about-description');
+    elements.aboutRepositoryLink = document.getElementById('about-repository-link');
+    elements.aboutFeedbackLink = document.getElementById('about-feedback-link');
+    elements.subscriptionForm = document.getElementById('subscription-form');
+    elements.subscriptionEmail = document.getElementById('subscription-email');
+    elements.subscriptionSubmit = document.getElementById('subscription-submit');
+    elements.subscriptionStatus = document.getElementById('subscription-status');
 }
 
 // =====================================================
@@ -214,6 +241,13 @@ function crossfadeMainContent(swapCallback) {
     });
 }
 
+function scrollCatalogIntoView() {
+    document.getElementById('catalog')?.scrollIntoView({
+        behavior: getScrollBehavior(),
+        block: 'start'
+    });
+}
+
 async function switchCategory(categoryId) {
     if (categoryId === state.currentCategoryId || !CATEGORY_CONFIG[categoryId] || state.isSwitchingCategory) return;
 
@@ -228,8 +262,8 @@ async function switchCategory(categoryId) {
         // 已缓存的分类：淡出 → 换内容 → 淡入（跳过卡片级联动画）
         elements.resultsContainer.classList.add('no-cascade');
         await crossfadeMainContent(() => {
-            window.scrollTo({ top: 0 });
             syncCurrentCategoryData();
+            scrollCatalogIntoView();
         });
         // 淡入完成后恢复级联动画（供后续分页使用）
         requestAnimationFrame(() => {
@@ -244,7 +278,7 @@ async function switchCategory(categoryId) {
 
     // 未缓存的分类：淡出 → 显示骨架屏 → 淡入骨架屏 → 加载数据
     await crossfadeMainContent(() => {
-        window.scrollTo({ top: 0 });
+        scrollCatalogIntoView();
         populateGenreFilters([]);
         showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
     });
@@ -322,7 +356,7 @@ function scheduleCurrentCategoryRefresh() {
 }
 
 function updateSubtitleText() {
-    const updateDateElement = elements.mainTitle?.querySelector('.update-date');
+    const updateDateElement = elements.updateDate;
     if (!updateDateElement) return;
 
     const updateDate = getCurrentCategoryState().updateDate;
@@ -356,6 +390,194 @@ function showLoadError(message = '加载数据失败，请稍后重试或手动�
     elements.loader.style.display = 'none';
     document.getElementById('interactive-timeline')?.classList.remove('visible');
     document.body.style.visibility = 'visible';
+}
+
+// =====================================================
+// 编辑首页内容
+// =====================================================
+
+function formatEditorialDate(value) {
+    const [year, month, day] = String(value || '').split('-');
+    return year && month && day ? `${year}.${month}.${day}` : '';
+}
+
+async function openEditorialReference(entry) {
+    if (!entry || !CATEGORY_CONFIG[entry.categoryId]) {
+        showToast('该内容引用的片单分类不可用');
+        return;
+    }
+
+    try {
+        const loaded = await ensureCategoryLoaded(entry.categoryId);
+        if (!loaded) {
+            showToast('作品数据加载失败');
+            return;
+        }
+        const referencedItems = syncAllItems(state.categoryState[entry.categoryId].items);
+        const item = findReferencedItem(referencedItems, entry.itemId);
+        if (!item) {
+            showToast('暂未找到对应作品');
+            return;
+        }
+        openIntelDossier(item);
+    } catch (error) {
+        console.error('Failed to open editorial reference:', error);
+        showToast('作品数据加载失败');
+    }
+}
+
+function createEditorialMeta(entry) {
+    const meta = document.createElement('span');
+    meta.className = 'editorial-entry-meta';
+
+    const label = document.createElement('span');
+    label.className = 'editorial-entry-label';
+    label.textContent = entry.label;
+    const date = document.createElement('time');
+    date.dateTime = entry.publishedAt;
+    date.textContent = formatEditorialDate(entry.publishedAt);
+    meta.append(label, date);
+    return meta;
+}
+
+function createNewsEntry(entry) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'editorial-card-button';
+    button.setAttribute('aria-label', `查看《${entry.title}》关联作品`);
+
+    const image = document.createElement('img');
+    image.className = 'editorial-card-image';
+    image.src = entry.image;
+    image.alt = '';
+    image.loading = 'lazy';
+    image.referrerPolicy = 'no-referrer';
+
+    const copy = document.createElement('span');
+    copy.className = 'editorial-card-copy';
+    const title = document.createElement('h3');
+    title.textContent = entry.title;
+    const summary = document.createElement('p');
+    summary.textContent = entry.summary;
+    copy.append(createEditorialMeta(entry), title, summary);
+    button.append(image, copy);
+    button.addEventListener('click', () => void openEditorialReference(entry));
+    return button;
+}
+
+function createReviewEntry(entry) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'review-entry';
+    button.setAttribute('aria-label', `查看《${entry.title}》关联作品`);
+
+    const image = document.createElement('img');
+    image.src = entry.image;
+    image.alt = '';
+    image.loading = 'lazy';
+    image.referrerPolicy = 'no-referrer';
+
+    const copy = document.createElement('span');
+    copy.className = 'review-copy';
+    const title = document.createElement('h3');
+    title.textContent = entry.title;
+    const summary = document.createElement('p');
+    summary.textContent = entry.summary;
+    const byline = document.createElement('span');
+    byline.className = 'review-byline';
+    const author = document.createElement('span');
+    author.textContent = entry.byline;
+    const date = document.createElement('time');
+    date.dateTime = entry.publishedAt;
+    date.textContent = formatEditorialDate(entry.publishedAt);
+    byline.append(author, date);
+    copy.append(createEditorialMeta(entry), title, summary, byline);
+    button.append(image, copy);
+    button.addEventListener('click', () => void openEditorialReference(entry));
+    return button;
+}
+
+function configureSubscription(subscription = {}) {
+    const enabled = subscription.enabled === true && /^https:\/\//.test(subscription.formAction || '');
+    if (elements.subscriptionForm) {
+        elements.subscriptionForm.action = enabled ? subscription.formAction : '';
+        elements.subscriptionForm.dataset.enabled = String(enabled);
+    }
+    if (elements.subscriptionEmail) elements.subscriptionEmail.disabled = !enabled;
+    if (elements.subscriptionSubmit) elements.subscriptionSubmit.disabled = !enabled;
+    if (elements.subscriptionStatus) {
+        elements.subscriptionStatus.textContent = enabled
+            ? '提交后将由订阅服务处理你的邮箱'
+            : subscription.disabledMessage || '订阅暂未开放';
+    }
+}
+
+function renderEditorialContent(content) {
+    state.editorialContent = content;
+    const hero = content.hero || {};
+    if (elements.heroEyebrow) elements.heroEyebrow.textContent = hero.eyebrow || '';
+    if (elements.pageTitleText) elements.pageTitleText.textContent = hero.title || '';
+    if (elements.heroTitleAccent) elements.heroTitleAccent.textContent = hero.accent || '';
+    if (elements.heroDescription) elements.heroDescription.textContent = hero.description || '';
+    if (elements.heroCtaLabel) elements.heroCtaLabel.textContent = hero.ctaLabel || '';
+    if (elements.heroHeader && hero.image) {
+        const imageUrl = new URL(hero.image, document.baseURI).href.replaceAll('"', '%22');
+        elements.heroHeader.style.setProperty('--hero-image', `url("${imageUrl}")`);
+    }
+
+    if (elements.editorialNews) {
+        elements.editorialNews.replaceChildren(...(content.news || []).map(createNewsEntry));
+        document.querySelector('.news-section')?.toggleAttribute('hidden', !(content.news || []).length);
+    }
+    if (elements.editorialReviews) {
+        elements.editorialReviews.replaceChildren(...(content.reviews || []).map(createReviewEntry));
+        document.querySelector('.reviews-panel')?.toggleAttribute('hidden', !(content.reviews || []).length);
+    }
+
+    const about = content.about || {};
+    if (elements.aboutDescription) elements.aboutDescription.textContent = about.description || '';
+    if (elements.aboutRepositoryLink && about.repositoryUrl) elements.aboutRepositoryLink.href = about.repositoryUrl;
+    if (elements.aboutFeedbackLink && about.feedbackUrl) elements.aboutFeedbackLink.href = about.feedbackUrl;
+    configureSubscription(content.subscription);
+}
+
+function renderGenreBrowser() {
+    if (!elements.genreBrowserGrid) return;
+    const genreStats = getTopGenreStats(state.allItems, {
+        limit: 8,
+        priority: GENRE_PRIORITY,
+        getDisplayName: getGenreDisplayName
+    });
+    const fragment = document.createDocumentFragment();
+
+    genreStats.forEach((genre) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'genre-browser-card';
+        button.dataset.genre = genre.value;
+        button.classList.toggle('active', state.selectedGenres.includes(genre.value));
+        button.setAttribute('aria-pressed', String(state.selectedGenres.includes(genre.value)));
+
+        const monogram = document.createElement('span');
+        monogram.className = 'genre-monogram';
+        monogram.setAttribute('aria-hidden', 'true');
+        monogram.textContent = genre.name.slice(0, 1);
+        const name = document.createElement('strong');
+        name.textContent = genre.name;
+        const count = document.createElement('small');
+        count.textContent = `${genre.count} 部`;
+        button.append(monogram, name, count);
+        button.addEventListener('click', () => {
+            handleGenreClick(genre.value, button);
+            document.getElementById('catalog')?.scrollIntoView({
+                behavior: getScrollBehavior(),
+                block: 'start'
+            });
+        });
+        fragment.appendChild(button);
+    });
+
+    elements.genreBrowserGrid.replaceChildren(fragment);
 }
 
 // =====================================================
@@ -415,6 +637,7 @@ function populateGenreFilters(items) {
     });
 
     requestAnimationFrame(() => updateGenreFilterCollapse());
+    renderGenreBrowser();
     syncMobileSheetFilters();
     updateFabState(state);
 }
@@ -464,22 +687,38 @@ function getFilteredResults(items) {
     return applyFilters(items, getCurrentFilters(), state.currentCategoryId);
 }
 
+function getTimelineGroups() {
+    return buildYearGroups({
+        years: state.allAvailableYears,
+        items: state.filteredPastAndPresentItems,
+        futureItems: state.currentFutureItems,
+        futureTag: FUTURE_TAG,
+        previewLimit: 4
+    });
+}
+
 function updateTimelineMetadata() {
     state.allAvailableYears = [
         ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
     ];
-    if (elements.comingSoonContainer.style.display === 'block') {
+    if (state.currentFutureItems.length > 0) {
         state.allAvailableYears.unshift(FUTURE_TAG);
     }
     state.visibleYearCount = Math.min(
-        Math.max(state.visibleYearCount, 3),
+        Math.max(state.visibleYearCount, 4),
         Math.max(state.allAvailableYears.length, 0)
     );
     if (state.specialFilterMode !== 'recent_high_score') {
         const nextActiveYear = state.allAvailableYears.includes(state.currentActiveYear)
             ? state.currentActiveYear
             : null;
-        renderTimeline(state.allAvailableYears, nextActiveYear, state.visibleYearCount, handleYearClick);
+        renderTimeline(
+            state.allAvailableYears,
+            nextActiveYear,
+            state.visibleYearCount,
+            handleYearClick,
+            getTimelineGroups()
+        );
     }
 }
 
@@ -487,8 +726,14 @@ function filterAndRenderItems(options = {}) {
     const { preserveRenderedContent = false } = options;
     const nextResults = getFilteredResults(state.allItems);
     state.filteredPastAndPresentItems = nextResults.filteredPastAndPresentItems;
+    state.currentFutureItems = nextResults.futureItems;
 
-    renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
+    const featuredItems = selectFeaturedItems({
+        futureItems: nextResults.futureItems,
+        currentItems: nextResults.filteredPastAndPresentItems,
+        limit: 4
+    });
+    renderComingSoon(featuredItems, openIntelDossier, openTrailerModal);
 
     if (preserveRenderedContent && state.renderedItemCount > 0) {
         elements.resultsContainer.innerHTML = '';
@@ -542,21 +787,27 @@ function startRendering() {
     state.allAvailableYears = [
         ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
     ];
-    if (elements.comingSoonContainer.style.display === 'block') {
+    if (state.currentFutureItems.length > 0) {
         state.allAvailableYears.unshift(FUTURE_TAG);
     }
 
-    state.visibleYearCount = Math.min(3, state.allAvailableYears.length);
+    state.visibleYearCount = Math.min(4, state.allAvailableYears.length);
     state.currentActiveYear = null;
 
-    if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
+    if (state.filteredPastAndPresentItems.length === 0 && state.currentFutureItems.length === 0) {
         elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
         elements.noResultsMessage.style.display = 'block';
     }
 
     if (state.allAvailableYears.length > 0 || state.specialFilterMode === 'recent_high_score') {
         if (state.specialFilterMode !== 'recent_high_score') {
-            renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
+            renderTimeline(
+                state.allAvailableYears,
+                state.currentActiveYear,
+                state.visibleYearCount,
+                handleYearClick,
+                getTimelineGroups()
+            );
         }
         loadMoreItems();
     } else {
@@ -617,7 +868,13 @@ function handleYearClick(year, isLastItem) {
 
 async function scrollToYear(year) {
     state.isScrollingProgrammatically = true;
-    renderTimeline(state.allAvailableYears, year, state.visibleYearCount, handleYearClick);
+    renderTimeline(
+        state.allAvailableYears,
+        year,
+        state.visibleYearCount,
+        handleYearClick,
+        getTimelineGroups()
+    );
     state.currentActiveYear = year;
 
     const currentYearIndex = state.allAvailableYears.indexOf(year);
@@ -637,7 +894,7 @@ async function scrollToYear(year) {
 async function ensureYearIsLoadedAndScroll(year, preloadOnly = false) {
     let targetElement;
     if (year === FUTURE_TAG) {
-        targetElement = document.body;
+        targetElement = document.getElementById('discover');
     } else {
         targetElement = document.querySelector(`#results-container .month-group-header[id^="month-${year}"]`);
     }
@@ -677,6 +934,7 @@ function updateActiveTimeline() {
     const comingSoonRect = elements.comingSoonContainer.getBoundingClientRect();
 
     if (
+        state.currentFutureItems.length > 0 &&
         elements.comingSoonContainer.style.display === 'block' &&
         comingSoonRect.top >= 0 &&
         comingSoonRect.top < window.innerHeight * 0.4
@@ -704,13 +962,39 @@ function updateActiveTimeline() {
         if (currentIndex >= state.visibleYearCount - 1 && state.visibleYearCount < state.allAvailableYears.length) {
             state.visibleYearCount = Math.min(state.allAvailableYears.length, currentIndex + 2);
         }
-        renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
+        renderTimeline(
+            state.allAvailableYears,
+            state.currentActiveYear,
+            state.visibleYearCount,
+            handleYearClick,
+            getTimelineGroups()
+        );
     }
 }
 
 // =====================================================
 // 初始化
 // =====================================================
+
+function setupSectionNavigation() {
+    document.querySelectorAll('[data-scroll-target]').forEach((control) => {
+        control.addEventListener('click', () => {
+            const targetId = control.dataset.scrollTarget;
+            const target = document.getElementById(targetId);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: getScrollBehavior(), block: 'start' });
+            document.querySelectorAll('.site-nav-link').forEach((link) => {
+                link.classList.toggle('active', link.dataset.scrollTarget === targetId);
+            });
+        });
+    });
+
+    elements.headerSearchButton?.addEventListener('click', () => {
+        scrollCatalogIntoView();
+        window.setTimeout(() => elements.radarSearchInput?.focus({ preventScroll: true }), 300);
+    });
+}
 
 async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
     updateDoubanUI();
@@ -726,6 +1010,14 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
     }
 
     try {
+        const editorialPromise = loadEditorialContent()
+            .then(renderEditorialContent)
+            .catch((error) => {
+                console.error('Editorial content hydration failed:', error);
+                document.querySelector('.news-section')?.setAttribute('hidden', '');
+                document.querySelector('.reviews-panel')?.setAttribute('hidden', '');
+                configureSubscription();
+            });
         const statusPromise = hydrateDoubanStatuses().catch((error) => {
             console.error('Douban status hydration failed:', error);
         });
@@ -733,7 +1025,7 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
         if (!loaded) {
             showLoadError();
         }
-        await statusPromise;
+        await Promise.all([statusPromise, editorialPromise]);
     } catch (error) {
         console.error('Initialize failed:', error);
         showLoadError();
@@ -820,6 +1112,12 @@ function setupEventListeners() {
         });
     }
 
+    elements.subscriptionForm?.addEventListener('submit', (event) => {
+        if (elements.subscriptionForm.dataset.enabled !== 'true') {
+            event.preventDefault();
+        }
+    });
+
     // 页面可见性变化时刷新
     window.addEventListener('focus', scheduleCurrentCategoryRefresh);
     document.addEventListener('visibilitychange', () => {
@@ -852,9 +1150,6 @@ function bootstrapApp() {
 
     // 设置页面标题（直接赋值，避免打字机乱码动画造成闪烁）
     document.title = DEFAULT_TITLE;
-    if (elements.pageTitleText) {
-        elements.pageTitleText.textContent = DEFAULT_TITLE;
-    }
 
     // 解析初始 Hash 路由，默认为 DEFAULT_CATEGORY_ID
     let initialCategory = window.location.hash.replace('#', '');
@@ -867,6 +1162,7 @@ function bootstrapApp() {
 
     // 设置事件监听器
     setupEventListeners();
+    setupSectionNavigation();
     setupScrollFade(elements.ratingFilterContainer);
     setupScrollFade(elements.genreFilterContainer);
 

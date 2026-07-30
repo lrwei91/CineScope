@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { cp, mkdtemp, mkdir, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
@@ -38,12 +38,55 @@ async function createFixture() {
             quality: { total_items: 1 }
         }))
     });
+    await mkdir(path.join(rootDir, 'assets'), { recursive: true });
+    await writeFile(path.join(rootDir, 'assets/hero.webp'), 'fixture', 'utf8');
+    await writeJson(rootDir, 'content/editorial.json', {
+        metadata: {
+            schemaVersion: 1,
+            updatedAt: '2026-07-13',
+            title: 'Fixture'
+        },
+        hero: {
+            eyebrow: 'CineScope',
+            title: '光影',
+            accent: '片单',
+            description: 'Fixture description',
+            ctaLabel: 'Explore',
+            image: 'assets/hero.webp'
+        },
+        news: [],
+        reviews: [],
+        about: {
+            title: '关于本站',
+            description: 'Fixture description',
+            repositoryUrl: 'https://example.com/repository',
+            feedbackUrl: 'https://example.com/issues'
+        },
+        subscription: {
+            enabled: false,
+            formAction: '',
+            disabledMessage: '订阅暂未开放'
+        }
+    });
     return rootDir;
 }
 
 test('data validator accepts a structurally valid fixture', async () => {
     const rootDir = await createFixture();
     const result = await validateData({ rootDir, baselineRef: null });
+    assert.deepEqual(result.errors, []);
+});
+
+test('data validator combines staged JSON with project editorial assets', async () => {
+    const projectRoot = await createFixture();
+    const stagedRoot = await mkdtemp(path.join(os.tmpdir(), 'cinescope-staged-validation-'));
+    await cp(path.join(projectRoot, 'json'), path.join(stagedRoot, 'json'), { recursive: true });
+
+    const result = await validateData({
+        rootDir: stagedRoot,
+        posterRoot: projectRoot,
+        baselineRef: null
+    });
     assert.deepEqual(result.errors, []);
 });
 
@@ -77,4 +120,63 @@ test('data validator rejects missing local posters and invalid verified Douban l
     assert.ok(result.errors.some((message) => message.includes('missing local poster')));
     assert.ok(result.errors.some((message) => message.includes('verified Douban link is invalid')));
     assert.ok(result.warnings.some((message) => message.includes('unusually distant release date')));
+});
+
+test('data validator rejects invalid editorial dates, duplicate ids, unsafe subscription endpoints and missing references', async () => {
+    const rootDir = await createFixture();
+    await writeJson(rootDir, 'content/editorial.json', {
+        metadata: {
+            schemaVersion: 1,
+            updatedAt: '2026-02-30',
+            title: 'Fixture'
+        },
+        hero: {
+            eyebrow: 'CineScope',
+            title: '光影',
+            accent: '片单',
+            description: 'Fixture description',
+            ctaLabel: 'Explore',
+            image: 'assets/hero.webp'
+        },
+        news: [{
+            id: 'duplicate',
+            label: '影讯',
+            title: '不存在的条目',
+            summary: 'Fixture',
+            publishedAt: '2026-07-13',
+            categoryId: 'movie_cn',
+            itemId: '404',
+            image: 'posters/missing.jpg'
+        }],
+        reviews: [{
+            id: 'duplicate',
+            label: '片单札记',
+            title: '重复条目',
+            summary: 'Fixture',
+            publishedAt: 'not-a-date',
+            byline: 'CineScope 编辑部',
+            categoryId: 'unknown',
+            itemId: '1',
+            image: 'assets/hero.webp'
+        }],
+        about: {
+            title: '关于本站',
+            description: 'Fixture description',
+            repositoryUrl: 'https://example.com/repository',
+            feedbackUrl: 'https://example.com/issues'
+        },
+        subscription: {
+            enabled: true,
+            formAction: 'http://example.com/form',
+            disabledMessage: ''
+        }
+    });
+
+    const result = await validateData({ rootDir, baselineRef: null });
+    assert.ok(result.errors.some((message) => message.includes('metadata.updatedAt')));
+    assert.ok(result.errors.some((message) => message.includes('duplicate editorial id duplicate')));
+    assert.ok(result.errors.some((message) => message.includes('subscription.formAction must use HTTPS')));
+    assert.ok(result.errors.some((message) => message.includes('references missing item 404')));
+    assert.ok(result.errors.some((message) => message.includes('references unknown category unknown')));
+    assert.ok(result.errors.some((message) => message.includes('missing news.duplicate.image asset')));
 });
