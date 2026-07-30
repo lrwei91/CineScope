@@ -122,19 +122,12 @@ export function buildMobileCategoryPills(container) {
 
     const categoryTags = document.querySelectorAll('#category-filter-container .genre-tag');
     categoryTags.forEach((tag) => {
-        const pill = document.createElement('button');
-        pill.type = 'button';
+        const pill = document.createElement('a');
         pill.className = 'mobile-category-pill-item' + (tag.classList.contains('active') ? ' active' : '');
         pill.textContent = tag.textContent.trim();
         pill.dataset.category = tag.dataset.category;
-        pill.setAttribute('aria-pressed', String(tag.classList.contains('active')));
-
-        pill.addEventListener('click', () => {
-            tag.click();
-            const mobileCategoryLabel = document.getElementById('mobile-category-label');
-            if (mobileCategoryLabel) mobileCategoryLabel.textContent = tag.textContent.trim();
-            closeMobileCategorySheet();
-        });
+        pill.href = tag.href;
+        if (tag.classList.contains('active')) pill.setAttribute('aria-current', 'page');
 
         container.appendChild(pill);
     });

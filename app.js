@@ -5,11 +5,9 @@
 
 import {
     CATEGORY_CONFIG,
-    DEFAULT_TITLE,
     DEFAULT_CATEGORY_ID,
     ITEMS_PER_PAGE,
     FUTURE_TAG,
-    GENRE_PRIORITY,
     createCategoryState
 } from './js/modules/config.js';
 
@@ -37,9 +35,6 @@ import {
 
 import {
     buildYearGroups,
-    findReferencedItem,
-    getTopGenreStats,
-    loadEditorialContent,
     selectFeaturedItems
 } from './js/modules/editorial.js?v=20260731a';
 
@@ -78,6 +73,7 @@ import {
 } from './js/modules/mobile-sheet.js';
 
 import { getNextPageRange } from './js/modules/paging.js';
+import { ensureCatalogMobileControls, ensureMediaOverlays } from './js/modules/site-shell.js';
 import { ShareModule } from './share.js';
 
 // =====================================================
@@ -100,11 +96,11 @@ const state = {
     currentActiveYear: null,
     visibleYearCount: 4,
     currentFutureItems: [],
-    editorialContent: null,
     isScrollingProgrammatically: false,
     genreFiltersExpanded: false,
     lastAutoRefreshAt: 0,
-    isSwitchingCategory: false
+    requestedYear: null,
+    requestedYearApplied: false
 };
 
 // 统一封装 loadCategoryData 的回调选项（避免每个调用点重复透传）
@@ -121,13 +117,7 @@ function buildLoadOptions(extra = {}) {
 const elements = {};
 
 function cacheElements() {
-    elements.pageTitleText = document.getElementById('page-title-text');
-    elements.heroHeader = document.querySelector('.hero-header');
-    elements.heroEyebrow = document.getElementById('hero-eyebrow');
-    elements.heroTitleAccent = document.getElementById('hero-title-accent');
-    elements.heroDescription = document.getElementById('hero-description');
-    elements.heroCtaLabel = document.getElementById('hero-cta-label');
-    elements.updateDate = document.querySelector('.hero-actions .update-date');
+    elements.updateDate = document.querySelector('.update-date');
     elements.categoryFilterContainer = document.getElementById('category-filter-container');
     elements.ratingFilterContainer = document.getElementById('rating-filter-container');
     elements.genreFilterContainer = document.getElementById('genre-filter-container');
@@ -143,17 +133,7 @@ function cacheElements() {
     elements.skeletonContainer = document.getElementById('skeleton-container');
     elements.radarSearchInput = document.getElementById('radar-search');
     elements.backToTopBtn = document.getElementById('back-to-top');
-    elements.editorialNews = document.getElementById('editorial-news');
-    elements.editorialReviews = document.getElementById('editorial-reviews');
-    elements.genreBrowserGrid = document.getElementById('genre-browser-grid');
     elements.headerSearchButton = document.getElementById('header-search-btn');
-    elements.aboutDescription = document.getElementById('about-description');
-    elements.aboutRepositoryLink = document.getElementById('about-repository-link');
-    elements.aboutFeedbackLink = document.getElementById('about-feedback-link');
-    elements.subscriptionForm = document.getElementById('subscription-form');
-    elements.subscriptionEmail = document.getElementById('subscription-email');
-    elements.subscriptionSubmit = document.getElementById('subscription-submit');
-    elements.subscriptionStatus = document.getElementById('subscription-status');
 }
 
 // =====================================================
@@ -168,21 +148,6 @@ function getCurrentCategoryState() {
     return state.categoryState[state.currentCategoryId];
 }
 
-function resetFilterState() {
-    state.specialFilterMode = null;
-    state.selectedRating = '全部';
-    state.selectedGenres = [];
-    state.searchQuery = '';
-    if (elements.radarSearchInput) {
-        elements.radarSearchInput.value = '';
-    }
-    const mobileSheetSearch = document.getElementById('mobile-sheet-search');
-    if (mobileSheetSearch) {
-        mobileSheetSearch.value = '';
-    }
-    state.genreFiltersExpanded = false;
-}
-
 function setCurrentCategory(categoryId) {
     if (!CATEGORY_CONFIG[categoryId]) return;
 
@@ -193,101 +158,14 @@ function setCurrentCategory(categoryId) {
     elements.categoryFilterContainer.querySelectorAll('.genre-tag').forEach((tag) => {
         const isActive = tag.dataset.category === categoryId;
         tag.classList.toggle('active', isActive);
-        tag.setAttribute('aria-pressed', String(isActive));
+        if (isActive) {
+            tag.setAttribute('aria-current', 'page');
+        } else {
+            tag.removeAttribute('aria-current');
+        }
     });
     syncMobileSheetFilters();
     updateFabState(state);
-}
-
-/**
- * 淡出主内容区域，执行回调后淡入。
- * 用于分类切换时消除视觉闪烁。
- */
-function crossfadeMainContent(swapCallback) {
-    const mainContent = document.getElementById('main-content');
-    if (!mainContent) {
-        swapCallback();
-        return Promise.resolve();
-    }
-
-    if (getScrollBehavior() === 'auto') {
-        swapCallback();
-        return Promise.resolve();
-    }
-
-    return new Promise((resolve) => {
-        mainContent.classList.add('category-fade-out');
-
-        const afterFadeOut = () => {
-            mainContent.removeEventListener('transitionend', afterFadeOut);
-            swapCallback();
-
-            // 在下一帧移除 fade-out 让 transition 反向播放（淡入）
-            requestAnimationFrame(() => {
-                mainContent.classList.remove('category-fade-out');
-                resolve();
-            });
-        };
-
-        mainContent.addEventListener('transitionend', afterFadeOut, { once: true });
-
-        // 兜底：如果 transition 被跳过（例如 prefers-reduced-motion），150ms 后强制继续
-        setTimeout(() => {
-            if (mainContent.classList.contains('category-fade-out')) {
-                mainContent.removeEventListener('transitionend', afterFadeOut);
-                afterFadeOut();
-            }
-        }, 200);
-    });
-}
-
-function scrollCatalogIntoView() {
-    document.getElementById('catalog')?.scrollIntoView({
-        behavior: getScrollBehavior(),
-        block: 'start'
-    });
-}
-
-async function switchCategory(categoryId) {
-    if (categoryId === state.currentCategoryId || !CATEGORY_CONFIG[categoryId] || state.isSwitchingCategory) return;
-
-    state.isSwitchingCategory = true;
-
-    resetFilterState();
-    setCurrentCategory(categoryId);
-    populateRatingFilters();
-
-    const catState = state.categoryState[categoryId];
-    if (catState.latestLoaded || catState.completeLoaded) {
-        // 已缓存的分类：淡出 → 换内容 → 淡入（跳过卡片级联动画）
-        elements.resultsContainer.classList.add('no-cascade');
-        await crossfadeMainContent(() => {
-            syncCurrentCategoryData();
-            scrollCatalogIntoView();
-        });
-        // 淡入完成后恢复级联动画（供后续分页使用）
-        requestAnimationFrame(() => {
-            elements.resultsContainer.classList.remove('no-cascade');
-        });
-        if (!catState.completeLoaded) {
-            loadCategoryData(categoryId, 'complete', state.categoryState, buildLoadOptions({ silent: true }));
-        }
-        state.isSwitchingCategory = false;
-        return;
-    }
-
-    // 未缓存的分类：淡出 → 显示骨架屏 → 淡入骨架屏 → 加载数据
-    await crossfadeMainContent(() => {
-        scrollCatalogIntoView();
-        populateGenreFilters([]);
-        showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
-    });
-
-    const loaded = await ensureCategoryLoaded(categoryId);
-    if (!loaded) {
-        showLoadError();
-    }
-    state.isSwitchingCategory = false;
 }
 
 async function ensureCategoryLoaded(categoryId) {
@@ -330,6 +208,7 @@ function syncCurrentCategoryData() {
         preserveRenderedContent: true,
         previousItems
     });
+    applyRequestedYear();
 }
 
 async function refreshCurrentCategoryData() {
@@ -393,194 +272,6 @@ function showLoadError(message = '加载数据失败，请稍后重试或手动�
 }
 
 // =====================================================
-// 编辑首页内容
-// =====================================================
-
-function formatEditorialDate(value) {
-    const [year, month, day] = String(value || '').split('-');
-    return year && month && day ? `${year}.${month}.${day}` : '';
-}
-
-async function openEditorialReference(entry) {
-    if (!entry || !CATEGORY_CONFIG[entry.categoryId]) {
-        showToast('该内容引用的片单分类不可用');
-        return;
-    }
-
-    try {
-        const loaded = await ensureCategoryLoaded(entry.categoryId);
-        if (!loaded) {
-            showToast('作品数据加载失败');
-            return;
-        }
-        const referencedItems = syncAllItems(state.categoryState[entry.categoryId].items);
-        const item = findReferencedItem(referencedItems, entry.itemId);
-        if (!item) {
-            showToast('暂未找到对应作品');
-            return;
-        }
-        openIntelDossier(item);
-    } catch (error) {
-        console.error('Failed to open editorial reference:', error);
-        showToast('作品数据加载失败');
-    }
-}
-
-function createEditorialMeta(entry) {
-    const meta = document.createElement('span');
-    meta.className = 'editorial-entry-meta';
-
-    const label = document.createElement('span');
-    label.className = 'editorial-entry-label';
-    label.textContent = entry.label;
-    const date = document.createElement('time');
-    date.dateTime = entry.publishedAt;
-    date.textContent = formatEditorialDate(entry.publishedAt);
-    meta.append(label, date);
-    return meta;
-}
-
-function createNewsEntry(entry) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'editorial-card-button';
-    button.setAttribute('aria-label', `查看《${entry.title}》关联作品`);
-
-    const image = document.createElement('img');
-    image.className = 'editorial-card-image';
-    image.src = entry.image;
-    image.alt = '';
-    image.loading = 'lazy';
-    image.referrerPolicy = 'no-referrer';
-
-    const copy = document.createElement('span');
-    copy.className = 'editorial-card-copy';
-    const title = document.createElement('h3');
-    title.textContent = entry.title;
-    const summary = document.createElement('p');
-    summary.textContent = entry.summary;
-    copy.append(createEditorialMeta(entry), title, summary);
-    button.append(image, copy);
-    button.addEventListener('click', () => void openEditorialReference(entry));
-    return button;
-}
-
-function createReviewEntry(entry) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'review-entry';
-    button.setAttribute('aria-label', `查看《${entry.title}》关联作品`);
-
-    const image = document.createElement('img');
-    image.src = entry.image;
-    image.alt = '';
-    image.loading = 'lazy';
-    image.referrerPolicy = 'no-referrer';
-
-    const copy = document.createElement('span');
-    copy.className = 'review-copy';
-    const title = document.createElement('h3');
-    title.textContent = entry.title;
-    const summary = document.createElement('p');
-    summary.textContent = entry.summary;
-    const byline = document.createElement('span');
-    byline.className = 'review-byline';
-    const author = document.createElement('span');
-    author.textContent = entry.byline;
-    const date = document.createElement('time');
-    date.dateTime = entry.publishedAt;
-    date.textContent = formatEditorialDate(entry.publishedAt);
-    byline.append(author, date);
-    copy.append(createEditorialMeta(entry), title, summary, byline);
-    button.append(image, copy);
-    button.addEventListener('click', () => void openEditorialReference(entry));
-    return button;
-}
-
-function configureSubscription(subscription = {}) {
-    const enabled = subscription.enabled === true && /^https:\/\//.test(subscription.formAction || '');
-    if (elements.subscriptionForm) {
-        elements.subscriptionForm.action = enabled ? subscription.formAction : '';
-        elements.subscriptionForm.dataset.enabled = String(enabled);
-    }
-    if (elements.subscriptionEmail) elements.subscriptionEmail.disabled = !enabled;
-    if (elements.subscriptionSubmit) elements.subscriptionSubmit.disabled = !enabled;
-    if (elements.subscriptionStatus) {
-        elements.subscriptionStatus.textContent = enabled
-            ? '提交后将由订阅服务处理你的邮箱'
-            : subscription.disabledMessage || '订阅暂未开放';
-    }
-}
-
-function renderEditorialContent(content) {
-    state.editorialContent = content;
-    const hero = content.hero || {};
-    if (elements.heroEyebrow) elements.heroEyebrow.textContent = hero.eyebrow || '';
-    if (elements.pageTitleText) elements.pageTitleText.textContent = hero.title || '';
-    if (elements.heroTitleAccent) elements.heroTitleAccent.textContent = hero.accent || '';
-    if (elements.heroDescription) elements.heroDescription.textContent = hero.description || '';
-    if (elements.heroCtaLabel) elements.heroCtaLabel.textContent = hero.ctaLabel || '';
-    if (elements.heroHeader && hero.image) {
-        const imageUrl = new URL(hero.image, document.baseURI).href.replaceAll('"', '%22');
-        elements.heroHeader.style.setProperty('--hero-image', `url("${imageUrl}")`);
-    }
-
-    if (elements.editorialNews) {
-        elements.editorialNews.replaceChildren(...(content.news || []).map(createNewsEntry));
-        document.querySelector('.news-section')?.toggleAttribute('hidden', !(content.news || []).length);
-    }
-    if (elements.editorialReviews) {
-        elements.editorialReviews.replaceChildren(...(content.reviews || []).map(createReviewEntry));
-        document.querySelector('.reviews-panel')?.toggleAttribute('hidden', !(content.reviews || []).length);
-    }
-
-    const about = content.about || {};
-    if (elements.aboutDescription) elements.aboutDescription.textContent = about.description || '';
-    if (elements.aboutRepositoryLink && about.repositoryUrl) elements.aboutRepositoryLink.href = about.repositoryUrl;
-    if (elements.aboutFeedbackLink && about.feedbackUrl) elements.aboutFeedbackLink.href = about.feedbackUrl;
-    configureSubscription(content.subscription);
-}
-
-function renderGenreBrowser() {
-    if (!elements.genreBrowserGrid) return;
-    const genreStats = getTopGenreStats(state.allItems, {
-        limit: 8,
-        priority: GENRE_PRIORITY,
-        getDisplayName: getGenreDisplayName
-    });
-    const fragment = document.createDocumentFragment();
-
-    genreStats.forEach((genre) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'genre-browser-card';
-        button.dataset.genre = genre.value;
-        button.classList.toggle('active', state.selectedGenres.includes(genre.value));
-        button.setAttribute('aria-pressed', String(state.selectedGenres.includes(genre.value)));
-
-        const monogram = document.createElement('span');
-        monogram.className = 'genre-monogram';
-        monogram.setAttribute('aria-hidden', 'true');
-        monogram.textContent = genre.name.slice(0, 1);
-        const name = document.createElement('strong');
-        name.textContent = genre.name;
-        const count = document.createElement('small');
-        count.textContent = `${genre.count} 部`;
-        button.append(monogram, name, count);
-        button.addEventListener('click', () => {
-            handleGenreClick(genre.value, button);
-            document.getElementById('catalog')?.scrollIntoView({
-                behavior: getScrollBehavior(),
-                block: 'start'
-            });
-        });
-        fragment.appendChild(button);
-    });
-
-    elements.genreBrowserGrid.replaceChildren(fragment);
-}
-
-// =====================================================
 // 筛选器 UI
 // =====================================================
 
@@ -619,7 +310,9 @@ function populateRatingFilters() {
 
 function populateGenreFilters(items) {
     const availableGenres = getSortedGenres(items);
-    state.selectedGenres = state.selectedGenres.filter((genre) => availableGenres.includes(genre));
+    if (items.length > 0) {
+        state.selectedGenres = state.selectedGenres.filter((genre) => availableGenres.includes(genre));
+    }
 
     elements.genreFilterContainer.innerHTML = '';
 
@@ -637,7 +330,6 @@ function populateGenreFilters(items) {
     });
 
     requestAnimationFrame(() => updateGenreFilterCollapse());
-    renderGenreBrowser();
     syncMobileSheetFilters();
     updateFabState(state);
 }
@@ -976,24 +668,22 @@ function updateActiveTimeline() {
 // 初始化
 // =====================================================
 
-function setupSectionNavigation() {
-    document.querySelectorAll('[data-scroll-target]').forEach((control) => {
-        control.addEventListener('click', () => {
-            const targetId = control.dataset.scrollTarget;
-            const target = document.getElementById(targetId);
-            if (!target) return;
-
-            target.scrollIntoView({ behavior: getScrollBehavior(), block: 'start' });
-            document.querySelectorAll('.site-nav-link').forEach((link) => {
-                link.classList.toggle('active', link.dataset.scrollTarget === targetId);
-            });
-        });
-    });
-
+function setupCatalogNavigation() {
     elements.headerSearchButton?.addEventListener('click', () => {
-        scrollCatalogIntoView();
-        window.setTimeout(() => elements.radarSearchInput?.focus({ preventScroll: true }), 300);
+        elements.radarSearchInput?.focus();
     });
+}
+
+function applyRequestedYear() {
+    if (
+        state.requestedYearApplied ||
+        !state.requestedYear ||
+        !state.allAvailableYears.includes(state.requestedYear)
+    ) {
+        return;
+    }
+    state.requestedYearApplied = true;
+    window.requestAnimationFrame(() => void scrollToYear(state.requestedYear));
 }
 
 async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
@@ -1010,14 +700,6 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
     }
 
     try {
-        const editorialPromise = loadEditorialContent()
-            .then(renderEditorialContent)
-            .catch((error) => {
-                console.error('Editorial content hydration failed:', error);
-                document.querySelector('.news-section')?.setAttribute('hidden', '');
-                document.querySelector('.reviews-panel')?.setAttribute('hidden', '');
-                configureSubscription();
-            });
         const statusPromise = hydrateDoubanStatuses().catch((error) => {
             console.error('Douban status hydration failed:', error);
         });
@@ -1025,7 +707,8 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
         if (!loaded) {
             showLoadError();
         }
-        await Promise.all([statusPromise, editorialPromise]);
+        await statusPromise;
+        applyRequestedYear();
     } catch (error) {
         console.error('Initialize failed:', error);
         showLoadError();
@@ -1033,21 +716,6 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
 }
 
 function setupEventListeners() {
-    // 分类筛选 (通过 Hash 驱动独立路由)
-    elements.categoryFilterContainer.addEventListener('click', (event) => {
-        const target = event.target.closest('.genre-tag');
-        if (!target || !target.dataset.category) return;
-        window.location.hash = target.dataset.category;
-    });
-
-    // 监听 Hash 变化以实现独立路由切换
-    window.addEventListener('hashchange', () => {
-        const categoryId = window.location.hash.replace('#', '');
-        if (CATEGORY_CONFIG[categoryId]) {
-            void switchCategory(categoryId);
-        }
-    });
-
     // 文件上传
     elements.fileInput.addEventListener('change', (event) => {
         const file = event.target.files?.[0];
@@ -1112,12 +780,6 @@ function setupEventListeners() {
         });
     }
 
-    elements.subscriptionForm?.addEventListener('submit', (event) => {
-        if (elements.subscriptionForm.dataset.enabled !== 'true') {
-            event.preventDefault();
-        }
-    });
-
     // 页面可见性变化时刷新
     window.addEventListener('focus', scheduleCurrentCategoryRefresh);
     document.addEventListener('visibilitychange', () => {
@@ -1146,23 +808,26 @@ async function shareDossier(item) {
 // =====================================================
 
 function bootstrapApp() {
+    ensureMediaOverlays();
+    ensureCatalogMobileControls();
     cacheElements();
 
-    // 设置页面标题（直接赋值，避免打字机乱码动画造成闪烁）
-    document.title = DEFAULT_TITLE;
+    const routeCategory = document.body.dataset.category;
+    const initialCategory = CATEGORY_CONFIG[routeCategory] ? routeCategory : DEFAULT_CATEGORY_ID;
+    const routeParams = new URLSearchParams(window.location.search);
+    state.selectedGenres = routeParams.getAll('genre').filter(Boolean);
+    state.searchQuery = (routeParams.get('q') || '').trim();
+    state.requestedYear = routeParams.get('year');
+    if (elements.radarSearchInput) elements.radarSearchInput.value = state.searchQuery;
 
-    // 解析初始 Hash 路由，默认为 DEFAULT_CATEGORY_ID
-    let initialCategory = window.location.hash.replace('#', '');
-    if (!CATEGORY_CONFIG[initialCategory]) {
-        initialCategory = DEFAULT_CATEGORY_ID;
-        window.location.hash = DEFAULT_CATEGORY_ID;
-    }
+    const categoryLabel = CATEGORY_CONFIG[initialCategory].label;
+    document.title = `${categoryLabel}片单｜CineScope`;
 
     setCurrentCategory(initialCategory);
 
     // 设置事件监听器
     setupEventListeners();
-    setupSectionNavigation();
+    setupCatalogNavigation();
     setupScrollFade(elements.ratingFilterContainer);
     setupScrollFade(elements.genreFilterContainer);
 

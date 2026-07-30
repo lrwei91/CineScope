@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="{{BASE_PATH}}">
+    <meta name="description" content="{{META_DESCRIPTION}}">
+    <meta name="theme-color" content="#f4efe5">
+    <title>{{DOCUMENT_TITLE}}</title>
+    <link rel="icon" href="favicon.svg?v=20260731b" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.png?v=20260731b" type="image/png">
+    <link rel="stylesheet" href="style.css?v=20260731b">
+    <link rel="stylesheet" href="share.css?v=20260731b">
+    <script type="module" src="editorial-page.js?v=20260731b"></script>
+</head>
+<body data-page="{{PAGE_ID}}" class="route-page">
+    <div class="page-shell">
+        <div class="container">
+            <header class="site-header" aria-label="站点导航">
+                <a class="brand-lockup" href="" aria-label="CineScope 首页">
+                    <span class="brand-wordmark">CineScope</span>
+                    <span class="brand-dot" aria-hidden="true"></span>
+                </a>
+                <nav class="site-nav" aria-label="主要导航">
+                    <a class="site-nav-link {{HOME_ACTIVE}}" href="">首页</a>
+                    <a class="site-nav-link {{NEWS_ACTIVE}}" href="news/" {{NEWS_CURRENT}}>影讯</a>
+                    <a class="site-nav-link" href="catalog/">片单</a>
+                    <a class="site-nav-link {{REVIEWS_ACTIVE}}" href="reviews/" {{REVIEWS_CURRENT}}>影评</a>
+                    <a class="site-nav-link {{ABOUT_ACTIVE}}" href="about/" {{ABOUT_CURRENT}}>关于本站</a>
+                </nav>
+                <div class="site-header-actions">
+                    <a class="header-icon-button" href="catalog/" aria-label="前往片单搜索">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+                            <path d="m16 16 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                        </svg>
+                    </a>
+                    <div class="hero-auth" id="douban-sync-badge" title="豆瓣收藏状态">
+                        <span class="hero-auth-icon" aria-hidden="true">豆</span>
+                        <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取状态…</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="mobile-nav-bar">
+                <a class="mobile-brand" href="">CineScope<span aria-hidden="true">.</span></a>
+                <nav class="mobile-route-nav" aria-label="移动端导航">
+                    <a href="news/" class="{{NEWS_ACTIVE}}">影讯</a>
+                    <a href="catalog/">片单</a>
+                    <a href="reviews/" class="{{REVIEWS_ACTIVE}}">影评</a>
+                </nav>
+            </div>
+
+            <main id="main-content" class="route-main">
+                <nav class="route-breadcrumb" aria-label="面包屑">
+                    <a href="">首页</a>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">{{PAGE_TITLE}}</span>
+                </nav>
+                <header class="route-hero">
+                    <p class="section-kicker">{{PAGE_KICKER}}</p>
+                    <h1>{{PAGE_TITLE}}</h1>
+                    <p>{{PAGE_DESCRIPTION}}</p>
+                </header>
+                <section class="route-content" aria-label="{{PAGE_TITLE}}">
+                    {{PAGE_CONTENT}}
+                    <p id="route-error" class="route-error" hidden>内容暂时无法加载，请稍后重试。</p>
+                </section>
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <div class="site-footer-inner">
+                <section class="footer-brand-column">
+                    <div class="footer-brand">CineScope<span aria-hidden="true">.</span></div>
+                    <p id="about-description">影视内容聚合展示平台，追踪真实片单，按上映时间、评分与类型持续更新。</p>
+                    <div class="footer-link-row">
+                        <a id="about-repository-link" href="https://github.com/lrwei91/CineScope" target="_blank" rel="noopener noreferrer">项目仓库</a>
+                        <a id="about-feedback-link" href="https://github.com/lrwei91/CineScope/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+                    </div>
+                </section>
+                <nav class="footer-nav" aria-label="页脚导航">
+                    <p>站点</p>
+                    <a href="">首页</a>
+                    <a href="news/">影讯</a>
+                    <a href="catalog/">片单</a>
+                    <a href="reviews/">影评</a>
+                    <a href="about/">关于本站</a>
+                </nav>
+                <section class="footer-subscription" aria-labelledby="subscription-title">
+                    <p id="subscription-title">订阅更新</p>
+                    <span>获取最新片单与编辑推荐</span>
+                    <form id="subscription-form" action="" method="post">
+                        <label class="sr-only" for="subscription-email">邮箱</label>
+                        <input id="subscription-email" name="email" type="email" autocomplete="email" placeholder="输入你的邮箱" disabled>
+                        <button id="subscription-submit" type="submit" disabled>订阅</button>
+                    </form>
+                    <small id="subscription-status" aria-live="polite">订阅暂未开放</small>
+                </section>
+            </div>
+            <div class="site-footer-meta">
+                <span>© 2026 CineScope</span>
+                <span>静态站点 · 生成数据 · MIT License</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
