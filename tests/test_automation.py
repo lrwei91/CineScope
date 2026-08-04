@@ -16,6 +16,7 @@ from run_update import (  # noqa: E402
     ensure_publish_branch_ready,
 )
 from trailer_report import diff_trailers, snapshot  # noqa: E402
+from tv_status_sync import format_updated_line  # noqa: E402  # type: ignore[reportMissingImports]
 
 
 class UpdateLockTests(unittest.TestCase):
@@ -115,6 +116,18 @@ class TrailerReportTests(unittest.TestCase):
             report = diff_trailers(snapshot(before_root), after_root)
             self.assertEqual(report["new_items"], 1)
             self.assertEqual(len(report["items"]), 1)
+
+
+class TvStatusOutputTests(unittest.TestCase):
+    def test_format_updated_line_lists_changed_shows(self):
+        self.assertEqual(
+            format_updated_line([{"name": "剧甲"}, {"name": "剧乙"}]),
+            "📊 本次更新：剧甲、剧乙",
+        )
+
+    def test_format_updated_line_is_empty_without_names(self):
+        self.assertEqual(format_updated_line([]), "")
+        self.assertEqual(format_updated_line([{"name": "  "}]), "")
 
 
 if __name__ == "__main__":

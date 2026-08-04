@@ -95,6 +95,13 @@ def fetch_api(sid: str) -> dict | None:
         return None
 
 
+def format_updated_line(updated: list[dict]) -> str:
+    """将本次有状态变化的剧名整理成一行通知。"""
+    names = [str(item.get("name", "")).strip() for item in updated]
+    names = [name for name in names if name]
+    return f"📊 本次更新：{'、'.join(names)}" if names else ""
+
+
 def main():
     parser = argparse.ArgumentParser(description="国产剧豆瓣连载状态每日同步")
     parser.add_argument("--dry-run", action="store_true", help="只打印，不写入")
@@ -292,6 +299,9 @@ def main():
         if failed:
             parts.append(f"API 失败 {failed}")
         print("📊 " + " / ".join(parts))
+        updated_line = format_updated_line(updated)
+        if updated_line:
+            print(updated_line)
     else:
         print(f"\n📊 同步完成:")
         print(f"  更新: {len(updated)} 部")
