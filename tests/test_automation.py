@@ -16,7 +16,10 @@ from run_update import (  # noqa: E402
     ensure_publish_branch_ready,
 )
 from trailer_report import diff_trailers, snapshot  # noqa: E402
-from tv_status_sync import format_updated_line  # noqa: E402  # type: ignore[reportMissingImports]
+from tv_status_sync import (  # noqa: E402
+    format_updated_line,
+    is_finished,
+)  # type: ignore[reportMissingImports]
 
 
 class UpdateLockTests(unittest.TestCase):
@@ -119,15 +122,37 @@ class TrailerReportTests(unittest.TestCase):
 
 
 class TvStatusOutputTests(unittest.TestCase):
-    def test_format_updated_line_lists_changed_shows(self):
+    def test_format_updated_line_lists_changed_shows_one_per_line(self):
         self.assertEqual(
             format_updated_line([{"name": "剧甲"}, {"name": "剧乙"}]),
-            "📊 本次更新：剧甲、剧乙",
+            "📊 本次更新：\n📊 剧甲\n📊 剧乙",
         )
 
     def test_format_updated_line_is_empty_without_names(self):
         self.assertEqual(format_updated_line([]), "")
         self.assertEqual(format_updated_line([{"name": "  "}]), "")
+
+    def test_in_production_false_counts_as_finished_without_status_text(self):
+        self.assertTrue(
+            is_finished(
+                {
+                    "status": "",
+                    "episodes_info": "",
+                    "in_production": False,
+                }
+            )
+        )
+
+    def test_in_production_true_is_not_finished_without_status_text(self):
+        self.assertFalse(
+            is_finished(
+                {
+                    "status": "",
+                    "episodes_info": "",
+                    "in_production": True,
+                }
+            )
+        )
 
 
 if __name__ == "__main__":
