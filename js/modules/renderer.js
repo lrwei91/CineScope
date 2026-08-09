@@ -328,61 +328,95 @@ export function showSkeletonLoader(container, skeletonContainer) {
 }
 
 /**
- * 渲染首页推荐卡片。推荐来源由业务层决定，渲染层只负责展示真实作品。
+ * 渲染即将上映卡片
  */
-export function renderComingSoon(featuredItems, onCardClick, onTrailerClick) {
+export function renderComingSoon(futureItems, onCardClick, onTrailerClick) {
     const comingSoonContainer = document.getElementById('coming-soon-container');
     if (!comingSoonContainer) return;
 
     comingSoonContainer.innerHTML = '';
-    if (featuredItems.length === 0) {
+    if (futureItems.length === 0) {
         comingSoonContainer.style.display = 'none';
         return;
     }
 
     comingSoonContainer.innerHTML = `
+        <h2 class="month-group-header">即将上映</h2>
         <div class="scroller-wrapper">
+            <button class="scroller-arrow left" type="button" aria-label="向左滚动"></button>
             <div class="scroller-container">
                 <div class="horizontal-scroller"></div>
             </div>
+            <button class="scroller-arrow right" type="button" aria-label="向右滚动"></button>
         </div>
     `;
 
     const horizontalScroller = comingSoonContainer.querySelector('.horizontal-scroller');
     if (horizontalScroller) {
         const fragment = document.createDocumentFragment();
-        featuredItems.forEach((item, index) => {
+        futureItems.forEach((item, index) => {
             fragment.appendChild(createCatalogCard(item, index, onCardClick, onTrailerClick));
         });
         horizontalScroller.appendChild(fragment);
     }
 
     comingSoonContainer.style.display = 'block';
+    setupHorizontalScroller(comingSoonContainer);
+}
+
+/**
+ * 设置水平滚动器
+ */
+function setupHorizontalScroller(container) {
+    const scroller = container.querySelector('.scroller-container');
+    const arrowLeft = container.querySelector('.scroller-arrow.left');
+    const arrowRight = container.querySelector('.scroller-arrow.right');
+
+    if (!scroller || !arrowLeft || !arrowRight) return;
+
+    function updateArrowVisibility() {
+        const scrollLeft = scroller.scrollLeft;
+        const scrollWidth = scroller.scrollWidth;
+        const clientWidth = scroller.clientWidth;
+
+        arrowLeft.style.display = 'block';
+        arrowRight.style.display = 'block';
+        arrowLeft.disabled = scrollLeft < 10;
+        arrowRight.disabled = scrollWidth - scrollLeft - clientWidth < 10;
+    }
+
+    arrowLeft.addEventListener('click', () => {
+        scroller.scrollBy({ left: -scroller.clientWidth * 0.8, behavior: getScrollBehavior() });
+    });
+
+    arrowRight.addEventListener('click', () => {
+        scroller.scrollBy({ left: scroller.clientWidth * 0.8, behavior: getScrollBehavior() });
+    });
+
+    scroller.addEventListener('scroll', updateArrowVisibility);
+    setTimeout(updateArrowVisibility, 100);
 }
 
 /**
  * 渲染时间线
  */
-export function renderTimeline(years, activeYear, visibleYearCount, onYearClick, groups = []) {
+export function renderTimeline(years, activeYear, visibleYearCount, onYearClick) {
     const yearList = document.getElementById('year-list');
     if (!yearList) return;
 
     yearList.innerHTML = '';
     const yearsToShow = years.slice(0, visibleYearCount);
-    const groupByYear = new Map(groups.map((group) => [group.year, group]));
 
     yearsToShow.forEach((year, index) => {
         const item = document.createElement('li');
         const button = document.createElement('button');
         const isActive = year === activeYear;
         const label = year === FUTURE_TAG ? '即将上映' : `${year} 年`;
-        const group = groupByYear.get(year);
-        const count = group?.count || 0;
 
         button.type = 'button';
         button.className = 'year-item';
         button.dataset.year = year;
-        button.setAttribute('aria-label', `跳转至${label}片单，共 ${count} 部`);
+        button.setAttribute('aria-label', `跳转至${label}片单`);
         if (isActive) {
             button.classList.add('active');
             button.setAttribute('aria-current', 'true');
@@ -391,30 +425,10 @@ export function renderTimeline(years, activeYear, visibleYearCount, onYearClick,
         const dot = document.createElement('span');
         dot.className = 'dot';
         dot.setAttribute('aria-hidden', 'true');
-        const copy = document.createElement('span');
-        copy.className = 'year-copy';
         const text = document.createElement('span');
         text.className = 'year-text';
         text.textContent = label;
-        const countText = document.createElement('span');
-        countText.className = 'year-count';
-        countText.textContent = `${count} 部作品`;
-        copy.append(text, countText);
-
-        const previews = document.createElement('span');
-        previews.className = 'year-previews';
-        previews.setAttribute('aria-hidden', 'true');
-        (group?.previews || []).forEach((preview) => {
-            const image = document.createElement('img');
-            image.className = 'year-preview-poster';
-            image.src = resolvePosterUrl(preview.posterPath);
-            image.alt = '';
-            image.loading = 'lazy';
-            image.referrerPolicy = 'no-referrer';
-            previews.appendChild(image);
-        });
-
-        button.append(dot, copy, previews);
+        button.append(dot, text);
 
         button.addEventListener('click', () => {
             const isLastItem = index === yearsToShow.length - 1;

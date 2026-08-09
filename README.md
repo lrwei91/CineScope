@@ -7,8 +7,6 @@
 ## 功能
 
 - 按分类、评分、类型和名称筛选影视内容
-- 纸墨编辑首页、独立影讯/影评/关于页面
-- 片单独立路由与分类子路由，支持直接访问和刷新
 - latest → complete 渐进加载，按分类缓存
 - 猫眼票房与剧集热度、B 站预告片、豆瓣收藏状态
 - 年月时间线、分页加载、移动端筛选面板和分享图
@@ -43,29 +41,15 @@ GitHub Pages 白名单产物
 ## 数据加载
 
 ```text
-首页 → 默认分类预览
-片单分类路由 → 当前分类 latest.json
-                 ├─ 豆瓣收藏状态（并行，不阻塞首屏）
-                 └─ complete.json（后台补全）
+首页 → 当前分类 latest.json
+        ├─ 豆瓣收藏状态（并行，不阻塞首屏）
+        └─ complete.json（后台补全）
 ```
 
-- 首页只请求默认分类数据生成推荐、年份和类型预览
-- 片单分类使用 `/catalog/{category}/` 静态子路由并按需加载数据
+- 首屏只请求当前分类的 latest 数据
+- 切换分类时按需加载并缓存
 - 豆瓣状态失败不会阻塞卡片展示
 - 院线电影保留完整数据优先策略
-
-## 页面路由
-
-```text
-/                         编辑首页
-/news/                    影讯
-/reviews/                 影评
-/about/                   关于本站
-/catalog/                 默认片单入口（国产剧）
-/catalog/{category}/      分类片单
-```
-
-分类子路由包括 `tv_cn`、`movie_cn`、`tv_cn_variety`、`tv_kr`、`tv_jp`、`tv_us` 和 `douban_top250`。这些目录在 Pages 构建时生成，不依赖 Hash 或页面锚点模拟路由。
 
 ## 快速开始
 
@@ -81,8 +65,7 @@ git clone https://github.com/lrwei91/CineScope.git
 cd CineScope
 cp .env.example .env
 python3 -m pip install -r scripts/automation/requirements.txt
-npm run build:site
-python3 -m http.server 8000 --directory .site
+python3 -m http.server 8000
 ```
 
 访问 `http://localhost:8000`。
@@ -135,17 +118,14 @@ CI 会在 Pull Request、每日更新和 Pages 部署前执行这些检查。每
 
 ```text
 CineScope/
-├── index.html / home.js / app.js / editorial-page.js
-├── pages/                      # 多路由 HTML 模板
-├── assets/                     # 站点原创视觉资源
-├── content/                    # 手工维护的编辑内容
+├── index.html / app.js / share.js
 ├── js/modules/                 # 前端 ES Modules
 ├── json/                       # 生成后的页面数据
 ├── posters/                    # 本地海报
 ├── scripts/
 │   ├── automation/             # 统一任务、豆瓣本地任务、预告片报告
 │   ├── catalog/                # 分类配置
-│   ├── lib/                    # 数据源、转换与静态路由规划
+│   ├── lib/                    # 可测试的数据源与转换模块
 │   └── generate_*.mjs          # 数据生成入口
 ├── tests/                      # Node 与 Python 单测
 └── .github/workflows/          # CI、每日更新、Pages 部署

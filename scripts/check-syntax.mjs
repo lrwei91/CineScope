@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const ROOT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ROOT_FILES = ['app.js', 'editorial-page.js', 'home.js', 'share.js'];
+const ROOT_FILES = ['app.js', 'share.js'];
 const SOURCE_DIRS = ['js', 'scripts'];
 
 async function collectJavaScriptFiles(relativeDir) {

@@ -1,20 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <title>CineScope</title>
   <defs>
-    <linearGradient id="paper" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#fffaf0"/>
-      <stop offset="1" stop-color="#e9dfcf"/>
+    <linearGradient id="surface" x1="8" y1="6" x2="56" y2="59" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#302d27"/>
+      <stop offset="1" stop-color="#161615"/>
     </linearGradient>
-    <linearGradient id="gold" x1="19" y1="15" x2="47" y2="50" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#d8b467"/>
-      <stop offset="1" stop-color="#9a6e27"/>
+    <linearGradient id="amber" x1="18" y1="16" x2="48" y2="49" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#efc276"/>
+      <stop offset="1" stop-color="#d9953f"/>
     </linearGradient>
   </defs>
-  <rect x="2" y="2" width="60" height="60" rx="17" fill="url(#paper)"/>
-  <rect x="3" y="3" width="58" height="58" rx="16" fill="none" stroke="#2b251e" stroke-opacity=".18" stroke-width="2"/>
-  <circle cx="32" cy="32" r="19" fill="#211d17"/>
-  <circle cx="32" cy="32" r="11" fill="none" stroke="#f8f1e5" stroke-opacity=".88" stroke-width="3"/>
-  <path d="M43.9 18.4a18.8 18.8 0 1 0 0 27.2" fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-width="4"/>
-  <path d="M29.5 25.9a1.7 1.7 0 0 1 2.6-1.44l9.2 5.65a1.7 1.7 0 0 1 0 2.9l-9.2 5.65a1.7 1.7 0 0 1-2.6-1.45V25.9Z" fill="#d8b467"/>
-  <circle cx="46" cy="17" r="3" fill="#b88b3d" stroke="#fffaf0" stroke-width="1.4"/>
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#surface)"/>
+  <rect x="2.75" y="2.75" width="58.5" height="58.5" rx="17.25" fill="none" stroke="#5d574e" stroke-opacity=".72" stroke-width="1.5"/>
+  <path d="M43.2 19.8a18 18 0 1 0 0 24.4" fill="none" stroke="url(#amber)" stroke-linecap="round" stroke-width="4.5"/>
+  <circle cx="32" cy="32" r="11.5" fill="#201e1b" stroke="#746c60" stroke-opacity=".7"/>
+  <path d="M29.2 25.8a1.8 1.8 0 0 1 2.78-1.52l10.08 6.2a1.8 1.8 0 0 1 0 3.06l-10.08 6.2a1.8 1.8 0 0 1-2.78-1.53V25.8Z" fill="#f4efe6"/>
+  <circle cx="46.5" cy="18.3" r="2.6" fill="#efc276"/>
 </svg>

@@ -5,6 +5,7 @@
 
 import {
     CATEGORY_CONFIG,
+    DEFAULT_TITLE,
     DEFAULT_CATEGORY_ID,
     ITEMS_PER_PAGE,
     FUTURE_TAG,
@@ -31,12 +32,7 @@ import {
     renderComingSoon,
     renderTimeline,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20260731a';
-
-import {
-    buildYearGroups,
-    selectFeaturedItems
-} from './js/modules/editorial.js?v=20260731a';
+} from './js/modules/renderer.js?v=20260730c';
 
 
 import {
@@ -73,7 +69,6 @@ import {
 } from './js/modules/mobile-sheet.js';
 
 import { getNextPageRange } from './js/modules/paging.js';
-import { ensureCatalogMobileControls, ensureMediaOverlays } from './js/modules/site-shell.js';
 import { ShareModule } from './share.js';
 
 // =====================================================
@@ -94,13 +89,11 @@ const state = {
     lastRenderedMonth: null,
     allAvailableYears: [],
     currentActiveYear: null,
-    visibleYearCount: 4,
-    currentFutureItems: [],
+    visibleYearCount: 3,
     isScrollingProgrammatically: false,
     genreFiltersExpanded: false,
     lastAutoRefreshAt: 0,
-    requestedYear: null,
-    requestedYearApplied: false
+    isSwitchingCategory: false
 };
 
 // 统一封装 loadCategoryData 的回调选项（避免每个调用点重复透传）
@@ -117,7 +110,8 @@ function buildLoadOptions(extra = {}) {
 const elements = {};
 
 function cacheElements() {
-    elements.updateDate = document.querySelector('.update-date');
+    elements.pageTitleText = document.getElementById('page-title-text');
+    elements.mainTitle = document.querySelector('h1');
     elements.categoryFilterContainer = document.getElementById('category-filter-container');
     elements.ratingFilterContainer = document.getElementById('rating-filter-container');
     elements.genreFilterContainer = document.getElementById('genre-filter-container');
@@ -133,7 +127,6 @@ function cacheElements() {
     elements.skeletonContainer = document.getElementById('skeleton-container');
     elements.radarSearchInput = document.getElementById('radar-search');
     elements.backToTopBtn = document.getElementById('back-to-top');
-    elements.headerSearchButton = document.getElementById('header-search-btn');
 }
 
 // =====================================================
@@ -148,6 +141,21 @@ function getCurrentCategoryState() {
     return state.categoryState[state.currentCategoryId];
 }
 
+function resetFilterState() {
+    state.specialFilterMode = null;
+    state.selectedRating = '全部';
+    state.selectedGenres = [];
+    state.searchQuery = '';
+    if (elements.radarSearchInput) {
+        elements.radarSearchInput.value = '';
+    }
+    const mobileSheetSearch = document.getElementById('mobile-sheet-search');
+    if (mobileSheetSearch) {
+        mobileSheetSearch.value = '';
+    }
+    state.genreFiltersExpanded = false;
+}
+
 function setCurrentCategory(categoryId) {
     if (!CATEGORY_CONFIG[categoryId]) return;
 
@@ -158,14 +166,94 @@ function setCurrentCategory(categoryId) {
     elements.categoryFilterContainer.querySelectorAll('.genre-tag').forEach((tag) => {
         const isActive = tag.dataset.category === categoryId;
         tag.classList.toggle('active', isActive);
-        if (isActive) {
-            tag.setAttribute('aria-current', 'page');
-        } else {
-            tag.removeAttribute('aria-current');
-        }
+        tag.setAttribute('aria-pressed', String(isActive));
     });
     syncMobileSheetFilters();
     updateFabState(state);
+}
+
+/**
+ * 淡出主内容区域，执行回调后淡入。
+ * 用于分类切换时消除视觉闪烁。
+ */
+function crossfadeMainContent(swapCallback) {
+    const mainContent = document.getElementById('main-content');
+    if (!mainContent) {
+        swapCallback();
+        return Promise.resolve();
+    }
+
+    if (getScrollBehavior() === 'auto') {
+        swapCallback();
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+        mainContent.classList.add('category-fade-out');
+
+        const afterFadeOut = () => {
+            mainContent.removeEventListener('transitionend', afterFadeOut);
+            swapCallback();
+
+            // 在下一帧移除 fade-out 让 transition 反向播放（淡入）
+            requestAnimationFrame(() => {
+                mainContent.classList.remove('category-fade-out');
+                resolve();
+            });
+        };
+
+        mainContent.addEventListener('transitionend', afterFadeOut, { once: true });
+
+        // 兜底：如果 transition 被跳过（例如 prefers-reduced-motion），150ms 后强制继续
+        setTimeout(() => {
+            if (mainContent.classList.contains('category-fade-out')) {
+                mainContent.removeEventListener('transitionend', afterFadeOut);
+                afterFadeOut();
+            }
+        }, 200);
+    });
+}
+
+async function switchCategory(categoryId) {
+    if (categoryId === state.currentCategoryId || !CATEGORY_CONFIG[categoryId] || state.isSwitchingCategory) return;
+
+    state.isSwitchingCategory = true;
+
+    resetFilterState();
+    setCurrentCategory(categoryId);
+    populateRatingFilters();
+
+    const catState = state.categoryState[categoryId];
+    if (catState.latestLoaded || catState.completeLoaded) {
+        // 已缓存的分类：淡出 → 换内容 → 淡入（跳过卡片级联动画）
+        elements.resultsContainer.classList.add('no-cascade');
+        await crossfadeMainContent(() => {
+            window.scrollTo({ top: 0 });
+            syncCurrentCategoryData();
+        });
+        // 淡入完成后恢复级联动画（供后续分页使用）
+        requestAnimationFrame(() => {
+            elements.resultsContainer.classList.remove('no-cascade');
+        });
+        if (!catState.completeLoaded) {
+            loadCategoryData(categoryId, 'complete', state.categoryState, buildLoadOptions({ silent: true }));
+        }
+        state.isSwitchingCategory = false;
+        return;
+    }
+
+    // 未缓存的分类：淡出 → 显示骨架屏 → 淡入骨架屏 → 加载数据
+    await crossfadeMainContent(() => {
+        window.scrollTo({ top: 0 });
+        populateGenreFilters([]);
+        showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
+    });
+
+    const loaded = await ensureCategoryLoaded(categoryId);
+    if (!loaded) {
+        showLoadError();
+    }
+    state.isSwitchingCategory = false;
 }
 
 async function ensureCategoryLoaded(categoryId) {
@@ -208,7 +296,6 @@ function syncCurrentCategoryData() {
         preserveRenderedContent: true,
         previousItems
     });
-    applyRequestedYear();
 }
 
 async function refreshCurrentCategoryData() {
@@ -235,7 +322,7 @@ function scheduleCurrentCategoryRefresh() {
 }
 
 function updateSubtitleText() {
-    const updateDateElement = elements.updateDate;
+    const updateDateElement = elements.mainTitle?.querySelector('.update-date');
     if (!updateDateElement) return;
 
     const updateDate = getCurrentCategoryState().updateDate;
@@ -310,9 +397,7 @@ function populateRatingFilters() {
 
 function populateGenreFilters(items) {
     const availableGenres = getSortedGenres(items);
-    if (items.length > 0) {
-        state.selectedGenres = state.selectedGenres.filter((genre) => availableGenres.includes(genre));
-    }
+    state.selectedGenres = state.selectedGenres.filter((genre) => availableGenres.includes(genre));
 
     elements.genreFilterContainer.innerHTML = '';
 
@@ -379,38 +464,22 @@ function getFilteredResults(items) {
     return applyFilters(items, getCurrentFilters(), state.currentCategoryId);
 }
 
-function getTimelineGroups() {
-    return buildYearGroups({
-        years: state.allAvailableYears,
-        items: state.filteredPastAndPresentItems,
-        futureItems: state.currentFutureItems,
-        futureTag: FUTURE_TAG,
-        previewLimit: 4
-    });
-}
-
 function updateTimelineMetadata() {
     state.allAvailableYears = [
         ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
     ];
-    if (state.currentFutureItems.length > 0) {
+    if (elements.comingSoonContainer.style.display === 'block') {
         state.allAvailableYears.unshift(FUTURE_TAG);
     }
     state.visibleYearCount = Math.min(
-        Math.max(state.visibleYearCount, 4),
+        Math.max(state.visibleYearCount, 3),
         Math.max(state.allAvailableYears.length, 0)
     );
     if (state.specialFilterMode !== 'recent_high_score') {
         const nextActiveYear = state.allAvailableYears.includes(state.currentActiveYear)
             ? state.currentActiveYear
             : null;
-        renderTimeline(
-            state.allAvailableYears,
-            nextActiveYear,
-            state.visibleYearCount,
-            handleYearClick,
-            getTimelineGroups()
-        );
+        renderTimeline(state.allAvailableYears, nextActiveYear, state.visibleYearCount, handleYearClick);
     }
 }
 
@@ -418,14 +487,8 @@ function filterAndRenderItems(options = {}) {
     const { preserveRenderedContent = false } = options;
     const nextResults = getFilteredResults(state.allItems);
     state.filteredPastAndPresentItems = nextResults.filteredPastAndPresentItems;
-    state.currentFutureItems = nextResults.futureItems;
 
-    const featuredItems = selectFeaturedItems({
-        futureItems: nextResults.futureItems,
-        currentItems: nextResults.filteredPastAndPresentItems,
-        limit: 4
-    });
-    renderComingSoon(featuredItems, openIntelDossier, openTrailerModal);
+    renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
 
     if (preserveRenderedContent && state.renderedItemCount > 0) {
         elements.resultsContainer.innerHTML = '';
@@ -479,27 +542,21 @@ function startRendering() {
     state.allAvailableYears = [
         ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
     ];
-    if (state.currentFutureItems.length > 0) {
+    if (elements.comingSoonContainer.style.display === 'block') {
         state.allAvailableYears.unshift(FUTURE_TAG);
     }
 
-    state.visibleYearCount = Math.min(4, state.allAvailableYears.length);
+    state.visibleYearCount = Math.min(3, state.allAvailableYears.length);
     state.currentActiveYear = null;
 
-    if (state.filteredPastAndPresentItems.length === 0 && state.currentFutureItems.length === 0) {
+    if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
         elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
         elements.noResultsMessage.style.display = 'block';
     }
 
     if (state.allAvailableYears.length > 0 || state.specialFilterMode === 'recent_high_score') {
         if (state.specialFilterMode !== 'recent_high_score') {
-            renderTimeline(
-                state.allAvailableYears,
-                state.currentActiveYear,
-                state.visibleYearCount,
-                handleYearClick,
-                getTimelineGroups()
-            );
+            renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
         }
         loadMoreItems();
     } else {
@@ -560,13 +617,7 @@ function handleYearClick(year, isLastItem) {
 
 async function scrollToYear(year) {
     state.isScrollingProgrammatically = true;
-    renderTimeline(
-        state.allAvailableYears,
-        year,
-        state.visibleYearCount,
-        handleYearClick,
-        getTimelineGroups()
-    );
+    renderTimeline(state.allAvailableYears, year, state.visibleYearCount, handleYearClick);
     state.currentActiveYear = year;
 
     const currentYearIndex = state.allAvailableYears.indexOf(year);
@@ -586,7 +637,7 @@ async function scrollToYear(year) {
 async function ensureYearIsLoadedAndScroll(year, preloadOnly = false) {
     let targetElement;
     if (year === FUTURE_TAG) {
-        targetElement = document.getElementById('discover');
+        targetElement = document.body;
     } else {
         targetElement = document.querySelector(`#results-container .month-group-header[id^="month-${year}"]`);
     }
@@ -626,7 +677,6 @@ function updateActiveTimeline() {
     const comingSoonRect = elements.comingSoonContainer.getBoundingClientRect();
 
     if (
-        state.currentFutureItems.length > 0 &&
         elements.comingSoonContainer.style.display === 'block' &&
         comingSoonRect.top >= 0 &&
         comingSoonRect.top < window.innerHeight * 0.4
@@ -654,37 +704,13 @@ function updateActiveTimeline() {
         if (currentIndex >= state.visibleYearCount - 1 && state.visibleYearCount < state.allAvailableYears.length) {
             state.visibleYearCount = Math.min(state.allAvailableYears.length, currentIndex + 2);
         }
-        renderTimeline(
-            state.allAvailableYears,
-            state.currentActiveYear,
-            state.visibleYearCount,
-            handleYearClick,
-            getTimelineGroups()
-        );
+        renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
     }
 }
 
 // =====================================================
 // 初始化
 // =====================================================
-
-function setupCatalogNavigation() {
-    elements.headerSearchButton?.addEventListener('click', () => {
-        elements.radarSearchInput?.focus();
-    });
-}
-
-function applyRequestedYear() {
-    if (
-        state.requestedYearApplied ||
-        !state.requestedYear ||
-        !state.allAvailableYears.includes(state.requestedYear)
-    ) {
-        return;
-    }
-    state.requestedYearApplied = true;
-    window.requestAnimationFrame(() => void scrollToYear(state.requestedYear));
-}
 
 async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
     updateDoubanUI();
@@ -708,7 +734,6 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
             showLoadError();
         }
         await statusPromise;
-        applyRequestedYear();
     } catch (error) {
         console.error('Initialize failed:', error);
         showLoadError();
@@ -716,6 +741,21 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
 }
 
 function setupEventListeners() {
+    // 分类筛选 (通过 Hash 驱动独立路由)
+    elements.categoryFilterContainer.addEventListener('click', (event) => {
+        const target = event.target.closest('.genre-tag');
+        if (!target || !target.dataset.category) return;
+        window.location.hash = target.dataset.category;
+    });
+
+    // 监听 Hash 变化以实现独立路由切换
+    window.addEventListener('hashchange', () => {
+        const categoryId = window.location.hash.replace('#', '');
+        if (CATEGORY_CONFIG[categoryId]) {
+            void switchCategory(categoryId);
+        }
+    });
+
     // 文件上传
     elements.fileInput.addEventListener('change', (event) => {
         const file = event.target.files?.[0];
@@ -808,26 +848,25 @@ async function shareDossier(item) {
 // =====================================================
 
 function bootstrapApp() {
-    ensureMediaOverlays();
-    ensureCatalogMobileControls();
     cacheElements();
 
-    const routeCategory = document.body.dataset.category;
-    const initialCategory = CATEGORY_CONFIG[routeCategory] ? routeCategory : DEFAULT_CATEGORY_ID;
-    const routeParams = new URLSearchParams(window.location.search);
-    state.selectedGenres = routeParams.getAll('genre').filter(Boolean);
-    state.searchQuery = (routeParams.get('q') || '').trim();
-    state.requestedYear = routeParams.get('year');
-    if (elements.radarSearchInput) elements.radarSearchInput.value = state.searchQuery;
+    // 设置页面标题（直接赋值，避免打字机乱码动画造成闪烁）
+    document.title = DEFAULT_TITLE;
+    if (elements.pageTitleText) {
+        elements.pageTitleText.textContent = DEFAULT_TITLE;
+    }
 
-    const categoryLabel = CATEGORY_CONFIG[initialCategory].label;
-    document.title = `${categoryLabel}片单｜CineScope`;
+    // 解析初始 Hash 路由，默认为 DEFAULT_CATEGORY_ID
+    let initialCategory = window.location.hash.replace('#', '');
+    if (!CATEGORY_CONFIG[initialCategory]) {
+        initialCategory = DEFAULT_CATEGORY_ID;
+        window.location.hash = DEFAULT_CATEGORY_ID;
+    }
 
     setCurrentCategory(initialCategory);
 
     // 设置事件监听器
     setupEventListeners();
-    setupCatalogNavigation();
     setupScrollFade(elements.ratingFilterContainer);
     setupScrollFade(elements.genreFilterContainer);
 
