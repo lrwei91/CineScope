@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineScope｜全球影视片单</title>
-    <link rel="icon" href="favicon.svg?v=20260811a" type="image/svg+xml">
-    <link rel="alternate icon" href="favicon.png?v=20260811a" type="image/png">
+    <link rel="icon" href="favicon.svg?v=20260811b" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.png?v=20260811b" type="image/png">
     <!-- Inline style prevents FOUC by setting the canvas immediately. -->
     <style>
         html { background: #FFFFFF; color-scheme: light; }
         body { min-height: 100dvh; }
     </style>
-    <link rel="preload" href="assets/illustrations/cinescope-koi-film.png" as="image" type="image/png">
-    <link rel="stylesheet" href="style.css?v=20260811a">
-    <link rel="stylesheet" href="share.css?v=20260811a">
-    <script type="module" src="app.js?v=20260811a"></script>
+    <link rel="stylesheet" href="style.css?v=20260811b">
+    <link rel="stylesheet" href="share.css?v=20260811b">
+    <script type="module" src="app.js?v=20260811b"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -26,7 +25,7 @@
         <div class="container">
             <nav class="mobile-nav-bar" id="mobile-nav-bar" aria-label="站点导航">
                 <a class="mobile-brand" href="#page-top" aria-label="返回 CineScope 首页">CINESCOPE</a>
-                <span class="masthead-note">全球影视片单</span>
+                <span class="masthead-note">片单目录</span>
             </nav>
 
             <header class="hero-header" id="page-top">
@@ -36,23 +35,22 @@
                         <span class="hero-title-line hero-title-line-accent">环球</span>
                         <span class="hero-title-line">片单</span>
                     </h1>
-                    <p class="hero-description">聚合国产剧、院线电影、综艺、韩剧、日剧、美剧和豆瓣 Top250，按上映时间、评分与类型找到想看的内容。</p>
-                    <div class="hero-actions">
-                        <a class="hero-primary-action" href="#catalog-controls">浏览片单</a>
+                    <p class="hero-description">国产剧、院线电影、综艺与海外剧集，按上映时间、评分和类型浏览。</p>
+                    <div class="hero-meta">
                         <small class="update-date skeleton" aria-live="polite"></small>
+                        <div class="hero-auth" id="douban-sync-badge">
+                            <span class="hero-auth-icon">豆瓣同步</span>
+                            <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取状态...</span>
+                        </div>
                     </div>
                 </div>
                 <figure class="hero-art" aria-hidden="true">
-                    <img src="assets/illustrations/cinescope-koi-film.png" width="1254" height="1254" alt="" fetchpriority="high" decoding="async">
+                    <img src="assets/illustrations/cinescope-koi-film.png" width="1254" height="1254" alt="" loading="lazy" fetchpriority="low" decoding="async">
                 </figure>
-                <div class="hero-auth" id="douban-sync-badge">
-                    <span class="hero-auth-icon">豆瓣同步</span>
-                    <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取状态...</span>
-                </div>
             </header>
 
             <noscript>
-                <div class="no-script-notice">片单数据与筛选需要 JavaScript。请启用后刷新页面，品牌首屏仍可正常浏览。</div>
+                <div class="no-script-notice">片单数据与筛选需要 JavaScript。请启用后刷新页面，目录题头仍可正常浏览。</div>
             </noscript>
 
             <section id="catalog-controls" class="catalog-controls reveal-section" aria-label="片单分类与筛选">

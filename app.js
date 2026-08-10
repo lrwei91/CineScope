@@ -16,7 +16,7 @@ import {
     loadCategoryData,
     ingestCategoryData,
     formatUpdateTimestamp
-} from './js/modules/data-loader.js?v=20260811a';
+} from './js/modules/data-loader.js?v=20260811b';
 
 import {
     getCurrentRatingConfig,
@@ -32,7 +32,7 @@ import {
     renderComingSoon,
     renderTimeline,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20260811a';
+} from './js/modules/renderer.js?v=20260811b';
 
 
 import {
@@ -49,12 +49,12 @@ import {
     showToast,
     setupBackToTop,
     setupEditorialMotion
-} from './js/modules/ui-controls.js?v=20260811a';
+} from './js/modules/ui-controls.js?v=20260811b';
 
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20260811a';
+} from './js/modules/dossier.js?v=20260811b';
 
 import {
     openTrailerModal,
@@ -66,10 +66,10 @@ import {
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js?v=20260811a';
+} from './js/modules/mobile-sheet.js?v=20260811b';
 
 import { getNextPageRange } from './js/modules/paging.js';
-import { ShareModule } from './share.js?v=20260811a';
+import { ShareModule } from './share.js?v=20260811b';
 
 // =====================================================
 // 全局状态
@@ -784,7 +784,7 @@ function setupEventListeners() {
         reader.readAsText(file);
     });
 
-    // 单一 passive scroll 入口，在 RAF 中统一年份、分页、进度、Hero 与返回顶部状态。
+    // 单一 passive scroll 入口，在 RAF 中统一年份、分页、进度与返回顶部状态。
     const updateBackToTop = setupBackToTop(elements.backToTopBtn);
     let scrollFrame = 0;
     const updateScrollDrivenUI = () => {
@@ -793,13 +793,6 @@ function setupEventListeners() {
         const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
         const progress = Math.max(0, Math.min(1, scrollY / scrollRange));
         document.documentElement.style.setProperty('--page-progress', String(progress));
-
-        const hero = document.querySelector('.hero-header');
-        if (hero) {
-            const heroProgress = Math.max(0, Math.min(1, scrollY / Math.max(hero.offsetHeight, 1)));
-            hero.style.setProperty('--hero-scroll-y', `${(heroProgress * 10).toFixed(2)}px`);
-            hero.style.setProperty('--hero-scroll-tilt', `${(heroProgress * 1.2).toFixed(2)}deg`);
-        }
 
         updateBackToTop(scrollY);
         updateActiveTimeline();

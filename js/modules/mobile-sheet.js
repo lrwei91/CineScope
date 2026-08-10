@@ -3,7 +3,7 @@
  * 负责移动端筛选面板
  */
 
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20260811a';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20260811b';
 
 let getAppState = () => ({});
 let filterReturnFocus = null;

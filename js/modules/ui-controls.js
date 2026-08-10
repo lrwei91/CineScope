@@ -110,11 +110,10 @@ export function setupBackToTop(button) {
 }
 
 /**
- * 为首屏和章节增加一次性编排。HTML 默认完整可见，只有 JS 成功初始化后才启用入场状态。
+ * 为目录题头和章节增加一次性编排。HTML 默认完整可见，只有 JS 成功初始化后才启用入场状态。
  */
 export function setupEditorialMotion() {
     const body = document.body;
-    const hero = document.querySelector('.hero-header');
     const revealSections = [...document.querySelectorAll('.reveal-section')];
     const reducedMotion = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
@@ -133,7 +132,7 @@ export function setupEditorialMotion() {
                 entry.target.classList.add('is-visible');
                 observer.unobserve(entry.target);
             });
-        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0 })
         : null;
 
     revealSections.forEach((section) => {
@@ -141,54 +140,7 @@ export function setupEditorialMotion() {
         else section.classList.add('is-visible');
     });
 
-    const finePointer = globalThis.matchMedia?.('(hover: hover) and (pointer: fine)');
-    let heroIsVisible = true;
-    let pointerFrame = 0;
-    let pointerX = 0;
-    let pointerY = 0;
-
-    const resetPointer = () => {
-        if (!hero) return;
-        hero.style.setProperty('--hero-pointer-x', '0px');
-        hero.style.setProperty('--hero-pointer-y', '0px');
-    };
-
-    const paintPointer = () => {
-        pointerFrame = 0;
-        if (!hero || !finePointer?.matches || !heroIsVisible || document.hidden) {
-            resetPointer();
-            return;
-        }
-        hero.style.setProperty('--hero-pointer-x', `${pointerX.toFixed(2)}px`);
-        hero.style.setProperty('--hero-pointer-y', `${pointerY.toFixed(2)}px`);
-    };
-
-    const handlePointerMove = (event) => {
-        if (!hero || !finePointer?.matches || !heroIsVisible || document.hidden) return;
-        const rect = hero.getBoundingClientRect();
-        pointerX = Math.max(-8, Math.min(8, ((event.clientX - rect.left) / rect.width - 0.5) * 16));
-        pointerY = Math.max(-6, Math.min(6, ((event.clientY - rect.top) / rect.height - 0.5) * 12));
-        if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer);
-    };
-
-    const heroObserver = hero && 'IntersectionObserver' in window
-        ? new IntersectionObserver(([entry]) => {
-            heroIsVisible = Boolean(entry?.isIntersecting);
-            if (!heroIsVisible) resetPointer();
-        }, { threshold: 0.01 })
-        : null;
-
-    if (hero && heroObserver) heroObserver.observe(hero);
-    hero?.addEventListener('pointermove', handlePointerMove, { passive: true });
-    hero?.addEventListener('pointerleave', resetPointer, { passive: true });
-    document.addEventListener('visibilitychange', resetPointer);
-
     return () => {
         revealObserver?.disconnect();
-        heroObserver?.disconnect();
-        hero?.removeEventListener('pointermove', handlePointerMove);
-        hero?.removeEventListener('pointerleave', resetPointer);
-        document.removeEventListener('visibilitychange', resetPointer);
-        if (pointerFrame) cancelAnimationFrame(pointerFrame);
     };
 }

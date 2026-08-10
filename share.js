@@ -5,7 +5,7 @@
 
 import { HIDDEN_GENRES } from './js/modules/config.js';
 import { getGenreDisplayName } from './js/modules/filters.js';
-import { resolvePosterUrl } from './js/modules/renderer.js?v=20260811a';
+import { resolvePosterUrl } from './js/modules/renderer.js?v=20260811b';
 import { showToast } from './js/modules/ui-controls.js';
 
 const QR_CODE_SIZE = 132;
