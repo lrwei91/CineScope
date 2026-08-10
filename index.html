@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineScope｜全球影视片单</title>
-    <link rel="icon" href="favicon.svg?v=20260730c" type="image/svg+xml">
-    <link rel="alternate icon" href="favicon.png?v=20260730c" type="image/png">
+    <link rel="icon" href="favicon.svg?v=20260811a" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.png?v=20260811a" type="image/png">
     <!-- Inline style prevents FOUC by setting the canvas immediately. -->
     <style>
-        html { background: #161616; }
-        body { min-height: 100vh; }
+        html { background: #FFFFFF; color-scheme: light; }
+        body { min-height: 100dvh; }
     </style>
-    <link rel="stylesheet" href="style.css?v=20260730c">
-    <link rel="stylesheet" href="share.css?v=20260730a">
-    <script type="module" src="app.js?v=20260730d"></script>
+    <link rel="preload" href="assets/illustrations/cinescope-koi-film.png" as="image" type="image/png">
+    <link rel="stylesheet" href="style.css?v=20260811a">
+    <link rel="stylesheet" href="share.css?v=20260811a">
+    <script type="module" src="app.js?v=20260811a"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -23,43 +24,52 @@
         </div>
 
         <div class="container">
-            <!-- Mobile-only: Mini Navigation Bar -->
-            <div class="mobile-nav-bar" id="mobile-nav-bar">
-                <span class="mobile-brand">CINESCOPE</span>
-                <button class="mobile-category-trigger" id="mobile-category-trigger" type="button" aria-expanded="false" aria-controls="mobile-category-sheet">
-                    <span id="mobile-category-label">分类</span>
-                    <span class="mobile-category-chevron" aria-hidden="true">⌄</span>
-                </button>
-            </div>
+            <nav class="mobile-nav-bar" id="mobile-nav-bar" aria-label="站点导航">
+                <a class="mobile-brand" href="#page-top" aria-label="返回 CineScope 首页">CINESCOPE</a>
+                <span class="masthead-note">全球影视片单</span>
+            </nav>
 
-            <!-- Mobile-only: Category Sheet -->
-            <div class="mobile-category-overlay" id="mobile-category-overlay"></div>
-            <div class="mobile-category-sheet" id="mobile-category-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-category-sheet-title" aria-hidden="true" inert>
-                <div class="sheet-header">
-                    <span class="sheet-title" id="mobile-category-sheet-title">浏览分类</span>
-                    <button class="sheet-close-btn" id="close-category-sheet" type="button" aria-label="关闭分类面板">&times;</button>
-                </div>
-                <div id="mobile-category-pills" class="mobile-category-pills">
-                    <!-- Mirrors category pills -->
-                </div>
-            </div>
-
-            <header class="hero-header">
+            <header class="hero-header" id="page-top">
                 <div class="hero-copy">
-                    <p class="hero-eyebrow">CineScope · 全球影视片单</p>
-                    <h1>
-                        <span id="page-title-text">鲤鱼·环球片单</span>
-                        <small class="update-date skeleton"></small>
+                    <h1 id="page-title-text" aria-label="鲤鱼 环球 片单">
+                        <span class="hero-title-line">鲤鱼</span>
+                        <span class="hero-title-line hero-title-line-accent">环球</span>
+                        <span class="hero-title-line">片单</span>
                     </h1>
-                    <p class="hero-description">聚合国产剧、院线电影、综艺、韩剧、日剧、美剧和豆瓣 Top250，按上映时间、评分与类型快速找到想看的内容。</p>
+                    <p class="hero-description">聚合国产剧、院线电影、综艺、韩剧、日剧、美剧和豆瓣 Top250，按上映时间、评分与类型找到想看的内容。</p>
+                    <div class="hero-actions">
+                        <a class="hero-primary-action" href="#catalog-controls">浏览片单</a>
+                        <small class="update-date skeleton" aria-live="polite"></small>
+                    </div>
                 </div>
+                <figure class="hero-art" aria-hidden="true">
+                    <img src="assets/illustrations/cinescope-koi-film.png" width="1254" height="1254" alt="" fetchpriority="high" decoding="async">
+                </figure>
                 <div class="hero-auth" id="douban-sync-badge">
                     <span class="hero-auth-icon">豆瓣同步</span>
-                    <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取状态…</span>
+                    <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取状态...</span>
                 </div>
             </header>
 
-            <nav class="filters-navigation" aria-label="影视筛选">
+            <noscript>
+                <div class="no-script-notice">片单数据与筛选需要 JavaScript。请启用后刷新页面，品牌首屏仍可正常浏览。</div>
+            </noscript>
+
+            <section id="catalog-controls" class="catalog-controls reveal-section" aria-label="片单分类与筛选">
+                <nav class="category-navigation" aria-label="影视分类">
+                    <span class="category-navigation-label">分类</span>
+                    <div id="category-filter-container" class="network-filter-container category-tabs">
+                        <button class="genre-tag active" type="button" data-category="tv_cn" aria-pressed="true">国产剧</button>
+                        <button class="genre-tag" type="button" data-category="movie_cn" aria-pressed="false">院线电影</button>
+                        <button class="genre-tag" type="button" data-category="tv_cn_variety" aria-pressed="false">综艺</button>
+                        <button class="genre-tag" type="button" data-category="tv_kr" aria-pressed="false">韩剧</button>
+                        <button class="genre-tag" type="button" data-category="tv_jp" aria-pressed="false">日剧</button>
+                        <button class="genre-tag" type="button" data-category="tv_us" aria-pressed="false">美剧</button>
+                        <button class="genre-tag" type="button" data-category="douban_top250" aria-pressed="false">豆瓣Top250</button>
+                    </div>
+                </nav>
+
+                <nav class="filters-navigation" aria-label="影视筛选">
                 <div class="search-container">
                     <input type="search" id="radar-search" placeholder="搜索片名、别名或关键词" autocomplete="off" aria-label="搜索片单">
                     <span class="search-icon" aria-hidden="true">
@@ -71,19 +81,6 @@
                 </div>
                 <div class="filter-row filter-row-primary">
                     <section class="filter-block">
-                        <p class="filter-label">分类</p>
-                        <div id="category-filter-container" class="network-filter-container filter-pill-row">
-                            <button class="genre-tag active" type="button" data-category="tv_cn" aria-pressed="true">国产剧</button>
-                            <button class="genre-tag" type="button" data-category="movie_cn" aria-pressed="false">院线电影</button>
-                            <button class="genre-tag" type="button" data-category="tv_cn_variety" aria-pressed="false">综艺</button>
-                            <button class="genre-tag" type="button" data-category="tv_kr" aria-pressed="false">韩剧</button>
-                            <button class="genre-tag" type="button" data-category="tv_jp" aria-pressed="false">日剧</button>
-                            <button class="genre-tag" type="button" data-category="tv_us" aria-pressed="false">美剧</button>
-                            <button class="genre-tag" type="button" data-category="douban_top250" aria-pressed="false">豆瓣Top250</button>
-                        </div>
-                    </section>
-
-                    <section class="filter-block">
                         <p class="filter-label">评分</p>
                         <div id="rating-filter-container" class="network-filter-container filter-pill-row">
                             <span class="genre-tag skeleton">全部</span>
@@ -94,10 +91,9 @@
                         </div>
                     </section>
                 </div>
+                </nav>
 
-            </nav>
-
-            <header class="sticky-header">
+                <div class="sticky-header">
                 <div class="filter-block filter-block-genre">
                     <div class="filter-label-row">
                         <p class="filter-label">类型</p>
@@ -112,10 +108,11 @@
                         <span class="genre-tag skeleton">科幻</span>
                     </div>
                 </div>
-            </header>
+                </div>
+            </section>
 
             <div class="file-loader">
-                <p id="status-message">正在尝试加载默认数据文件...</p>
+                <p id="status-message" data-state="loading">正在尝试加载默认数据文件...</p>
                 <input type="file" id="file-input" accept=".json">
                 <label for="file-input" class="file-label">或手动选择一个JSON文件</label>
             </div>
@@ -127,7 +124,7 @@
                         <path d="M18 15l-6-6-6 6"/>
                     </svg>
                 </button>
-                <section id="coming-soon-section" class="content-section">
+                <section id="coming-soon-section" class="content-section reveal-section">
                     <div id="coming-soon-container" style="display: none;">
                         <h2 class="month-group-header skeleton">即将上映</h2>
                         <div class="scroller-wrapper">
@@ -144,7 +141,7 @@
                         </div>
                     </div>
                 </section>
-                <section id="results-section" class="content-section">
+                <section id="results-section" class="content-section reveal-section">
                     <div id="results-container">
                         <!-- Skeleton Loader -->
                         <div id="skeleton-container" style="display: none;">
@@ -168,7 +165,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="no-results" style="display: none;">没有找到符合条件的内容。</div>
+                    <div id="no-results" data-state="empty" style="display: none;">没有找到符合条件的内容。</div>
                     <div id="loader" class="loader" style="display: none;"></div>
                 </section>
             </main>
@@ -182,10 +179,6 @@
     <!-- Toast Notification -->
     <div id="toast-notification" class="toast-notification"></div>
     
-    <!-- CRT Overlay -->
-    <div id="crt-overlay"></div>
-
-
     <!-- Mobile Bottom Filter FAB -->
     <button id="mobile-filter-fab" class="mobile-filter-fab" aria-label="打开筛选">
         <span class="fab-icon" aria-hidden="true">☰</span>
@@ -238,7 +231,6 @@
                     </div>
                 </div>
             <div class="dossier-data">
-                <p class="dossier-subtext">片单编号 <span id="dossier-id"></span></p>
                 <div class="dossier-header-main">
                     <h2 id="dossier-title"></h2>
                     <button id="share-dossier-btn" class="dossier-inline-share-btn" type="button" title="分享剧集档案">

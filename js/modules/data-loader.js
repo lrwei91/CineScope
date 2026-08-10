@@ -126,7 +126,8 @@ export async function loadCategoryData(categoryId, level, categoryState, options
                 const statusMessage = document.getElementById('status-message');
                 if (statusMessage) {
                     statusMessage.textContent = '加载数据失败或文件格式无效。';
-                    statusMessage.style.color = '#F44336';
+                    statusMessage.dataset.state = 'error';
+                    statusMessage.closest('.file-loader')?.classList.add('visible');
                 }
                 const comingSoonContainer = document.getElementById('coming-soon-container');
                 const skeletonContainer = document.getElementById('skeleton-container');
@@ -639,7 +640,7 @@ export function normalizeTrailerList(list) {
 function normalizeSingleTrailer(item) {
     if (!item || typeof item !== 'object') return null;
 
-    const title = String(item.title || '').trim();
+    const title = String(item.title || '').replace(/<[^>]*>/g, '').trim();
     const bvid = String(item.bvid || '').trim();
     const url = String(item.url || '').trim();
     const embedUrl = normalizeTrailerEmbedUrl(item.embedUrl || item.embed_url || '', bvid);

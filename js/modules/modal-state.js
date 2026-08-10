@@ -10,9 +10,7 @@ const MODAL_IDS = [
     'trailer-modal',
     'trailer-modal-overlay',
     'mobile-filter-sheet',
-    'mobile-sheet-overlay',
-    'mobile-category-sheet',
-    'mobile-category-overlay'
+    'mobile-sheet-overlay'
 ];
 
 const FOCUSABLE_SELECTOR = [

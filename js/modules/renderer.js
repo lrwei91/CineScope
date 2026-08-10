@@ -9,11 +9,11 @@ import { parseDateStringAsLocalDate } from './date-utils.js';
 
 const POSTER_FALLBACK_SVG = encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" width="500" height="750" viewBox="0 0 500 750">
-  <rect width="500" height="750" fill="#24211e"/>
-  <rect x="48" y="70" width="404" height="610" rx="12" fill="#302c27" stroke="#70685d" stroke-width="2"/>
-  <path d="M150 334h200v26H150zM150 386h138v16H150z" fill="#9b9286"/>
-  <circle cx="250" cy="266" r="50" fill="#70685d"/>
-  <text x="250" y="494" fill="#eee9e0" font-family="Arial,sans-serif" font-size="28" font-weight="700" text-anchor="middle">暂无海报</text>
+  <rect width="500" height="750" fill="#ffffff"/>
+  <rect x="48" y="70" width="404" height="610" rx="20" fill="#fffaf0" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M150 334h200v26H150zM150 386h138v16H150z" fill="#1a1a1a"/>
+  <circle cx="250" cy="266" r="50" fill="#ffe28a" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="250" y="494" fill="#1a1a1a" font-family="Arial,sans-serif" font-size="28" font-weight="700" text-anchor="middle">暂无海报</text>
 </svg>
 `);
 
@@ -189,6 +189,7 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
     openButton.className = 'show-card__open';
     openButton.type = 'button';
     openButton.setAttribute('aria-label', `查看《${titleText}》详情`);
+    openButton.textContent = '查看详情';
 
     // 海报容器
     const posterContainer = document.createElement('div');
@@ -355,7 +356,7 @@ export function renderComingSoon(futureItems, onCardClick, onTrailerClick) {
     if (horizontalScroller) {
         const fragment = document.createDocumentFragment();
         futureItems.forEach((item, index) => {
-            fragment.appendChild(createCatalogCard(item, index, onCardClick, onTrailerClick));
+            fragment.appendChild(createCatalogCard(item, Math.min(index, 6), onCardClick, onTrailerClick));
         });
         horizontalScroller.appendChild(fragment);
     }
@@ -452,7 +453,7 @@ export function appendItemsToContainer(itemsToRender, container, specialFilterMo
         container.appendChild(currentGrid);
     }
 
-    itemsToRender.forEach((item) => {
+    itemsToRender.forEach((item, index) => {
         if (specialFilterMode !== 'recent_high_score') {
             const monthKey = item.date.substring(0, 7);
             const lastHeader = container.querySelector('.month-group-header:last-of-type');
@@ -471,7 +472,7 @@ export function appendItemsToContainer(itemsToRender, container, specialFilterMo
             }
         }
 
-        const card = createCatalogCard(item, 0, onCardClick, onTrailerClick);
+        const card = createCatalogCard(item, Math.min(index, 6), onCardClick, onTrailerClick);
         if (!currentGrid) {
             currentGrid = document.createElement('div');
             currentGrid.className = 'month-grid';

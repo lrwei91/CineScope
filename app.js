@@ -16,7 +16,7 @@ import {
     loadCategoryData,
     ingestCategoryData,
     formatUpdateTimestamp
-} from './js/modules/data-loader.js';
+} from './js/modules/data-loader.js?v=20260811a';
 
 import {
     getCurrentRatingConfig,
@@ -32,7 +32,7 @@ import {
     renderComingSoon,
     renderTimeline,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20260730c';
+} from './js/modules/renderer.js?v=20260811a';
 
 
 import {
@@ -47,13 +47,14 @@ import {
     updateFilterCollapse,
     setupScrollFade,
     showToast,
-    setupBackToTop
-} from './js/modules/ui-controls.js';
+    setupBackToTop,
+    setupEditorialMotion
+} from './js/modules/ui-controls.js?v=20260811a';
 
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20260730b';
+} from './js/modules/dossier.js?v=20260811a';
 
 import {
     openTrailerModal,
@@ -62,14 +63,13 @@ import {
 
 import {
     isMobile,
-    syncMobileCategoryLabel,
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js';
+} from './js/modules/mobile-sheet.js?v=20260811a';
 
 import { getNextPageRange } from './js/modules/paging.js';
-import { ShareModule } from './share.js';
+import { ShareModule } from './share.js?v=20260811a';
 
 // =====================================================
 // 全局状态
@@ -110,8 +110,7 @@ function buildLoadOptions(extra = {}) {
 const elements = {};
 
 function cacheElements() {
-    elements.pageTitleText = document.getElementById('page-title-text');
-    elements.mainTitle = document.querySelector('h1');
+    elements.updateDate = document.querySelector('.update-date');
     elements.categoryFilterContainer = document.getElementById('category-filter-container');
     elements.ratingFilterContainer = document.getElementById('rating-filter-container');
     elements.genreFilterContainer = document.getElementById('genre-filter-container');
@@ -322,7 +321,7 @@ function scheduleCurrentCategoryRefresh() {
 }
 
 function updateSubtitleText() {
-    const updateDateElement = elements.mainTitle?.querySelector('.update-date');
+    const updateDateElement = elements.updateDate;
     if (!updateDateElement) return;
 
     const updateDate = getCurrentCategoryState().updateDate;
@@ -338,7 +337,8 @@ function updateSubtitleText() {
 function showLoadError(message = '加载数据失败，请稍后重试或手动选择当前分类 JSON 文件。') {
     if (elements.statusMessage) {
         elements.statusMessage.textContent = message;
-        elements.statusMessage.style.color = '#ff6b8f';
+        elements.statusMessage.dataset.state = 'error';
+        elements.statusMessage.closest('.file-loader')?.classList.add('visible');
     }
     if (elements.skeletonContainer) {
         elements.skeletonContainer.style.display = 'none';
@@ -351,6 +351,7 @@ function showLoadError(message = '加载数据失败，请稍后重试或手动�
     }
     if (elements.noResultsMessage) {
         elements.noResultsMessage.textContent = message;
+        elements.noResultsMessage.dataset.state = 'error';
         elements.noResultsMessage.style.display = 'block';
     }
     elements.loader.style.display = 'none';
@@ -511,7 +512,6 @@ function filterAndRenderItems(options = {}) {
 
     // 更新移动端状态
     updateFabState(state);
-    syncMobileCategoryLabel();
 }
 
 function startRendering() {
@@ -521,6 +521,7 @@ function startRendering() {
 
     elements.resultsContainer.innerHTML = '';
     elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
+    elements.noResultsMessage.dataset.state = 'empty';
     elements.noResultsMessage.style.display = 'none';
 
     // 首次渲染内容时显示 body（如果还没显示）
@@ -773,30 +774,44 @@ function setupEventListeners() {
                 catState.latestLoaded = true;
                 catState.completeLoaded = true;
                 elements.statusMessage.textContent = `已加载文件：${file.name}`;
-                elements.statusMessage.style.color = 'green';
+                elements.statusMessage.dataset.state = 'success';
             } catch (error) {
                 elements.statusMessage.textContent = `文件 "${file.name}" 不是有效的当前分类 JSON 格式。`;
-                elements.statusMessage.style.color = 'red';
+                elements.statusMessage.dataset.state = 'error';
                 showLoadError(`文件 "${file.name}" 不是有效的当前分类 JSON 格式。`);
             }
         };
         reader.readAsText(file);
     });
 
-    // 滚动事件
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            updateActiveTimeline();
-            if (!state.isLoading && window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-                loadMoreItems();
-            }
-        }, 50);
-    });
+    // 单一 passive scroll 入口，在 RAF 中统一年份、分页、进度、Hero 与返回顶部状态。
+    const updateBackToTop = setupBackToTop(elements.backToTopBtn);
+    let scrollFrame = 0;
+    const updateScrollDrivenUI = () => {
+        scrollFrame = 0;
+        const scrollY = window.scrollY;
+        const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const progress = Math.max(0, Math.min(1, scrollY / scrollRange));
+        document.documentElement.style.setProperty('--page-progress', String(progress));
 
-    // 返回顶部
-    setupBackToTop(elements.backToTopBtn);
+        const hero = document.querySelector('.hero-header');
+        if (hero) {
+            const heroProgress = Math.max(0, Math.min(1, scrollY / Math.max(hero.offsetHeight, 1)));
+            hero.style.setProperty('--hero-scroll-y', `${(heroProgress * 10).toFixed(2)}px`);
+            hero.style.setProperty('--hero-scroll-tilt', `${(heroProgress * 1.2).toFixed(2)}deg`);
+        }
+
+        updateBackToTop(scrollY);
+        updateActiveTimeline();
+        if (!state.isLoading && window.innerHeight + scrollY >= document.body.offsetHeight - 500) {
+            loadMoreItems();
+        }
+    };
+    const scheduleScrollFrame = () => {
+        if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollDrivenUI);
+    };
+    window.addEventListener('scroll', scheduleScrollFrame, { passive: true });
+    scheduleScrollFrame();
 
     // 筛选器展开收起
     elements.genreFilterToggle?.addEventListener('click', () => {
@@ -806,6 +821,7 @@ function setupEventListeners() {
 
     window.addEventListener('resize', () => {
         requestAnimationFrame(updateGenreFilterCollapse);
+        scheduleScrollFrame();
     });
 
     // 搜索
@@ -852,10 +868,6 @@ function bootstrapApp() {
 
     // 设置页面标题（直接赋值，避免打字机乱码动画造成闪烁）
     document.title = DEFAULT_TITLE;
-    if (elements.pageTitleText) {
-        elements.pageTitleText.textContent = DEFAULT_TITLE;
-    }
-
     // 解析初始 Hash 路由，默认为 DEFAULT_CATEGORY_ID
     let initialCategory = window.location.hash.replace('#', '');
     if (!CATEGORY_CONFIG[initialCategory]) {
@@ -869,6 +881,7 @@ function bootstrapApp() {
     setupEventListeners();
     setupScrollFade(elements.ratingFilterContainer);
     setupScrollFade(elements.genreFilterContainer);
+    setupEditorialMotion();
 
     // 初始化详情面板
     initDossierEvents(shareDossier, openTrailerModal);

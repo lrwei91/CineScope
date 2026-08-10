@@ -4,24 +4,13 @@
  */
 
 import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
-import { resolvePosterUrl } from './renderer.js';
+import { resolvePosterUrl } from './renderer.js?v=20260811a';
 import { getGenreDisplayName } from './filters.js';
 import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js';
 
 let currentDossierItem = null;
 let onOpenTrailerCallback = null;
 let dossierReturnFocus = null;
-
-/**
- * 从标题生成 ID
- */
-function generateIdFromTitle(title) {
-    let hash = 0;
-    for (let i = 0; i < title.length; i++) {
-        hash = title.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
-}
 
 /**
  * 按优先级排序类型标签
@@ -126,10 +115,6 @@ export function openIntelDossier(item) {
         dossierStatusBadge.innerHTML = statusBadgeHtml;
         dossierStatusBadge.hidden = !statusBadgeHtml;
     }
-
-    // 报告 ID
-    const reportIdSpan = document.getElementById('dossier-id');
-    if (reportIdSpan) reportIdSpan.textContent = generateIdFromTitle(item.title || '未命名');
 
     // 标题
     const titleSpan = document.getElementById('dossier-title');

@@ -7,7 +7,7 @@ test('normalizeTrailerList keeps valid trailer payload rows and normalizes field
     const trailers = normalizeTrailerList([
         {
             source: 'bilibili',
-            title: '测试预告片',
+            title: '《<em class="keyword">测试</em>预告片》',
             bvid: 'BV1normalize7777',
             url: 'https://www.bilibili.com/video/BV1normalize7777',
             embed_url: 'https://player.bilibili.com/player.html?bvid=BV1normalize7777&page=1',
@@ -23,7 +23,7 @@ test('normalizeTrailerList keeps valid trailer payload rows and normalizes field
     assert.deepEqual(trailers, [
         {
             source: 'bilibili',
-            title: '测试预告片',
+            title: '《测试预告片》',
             bvid: 'BV1normalize7777',
             url: 'https://www.bilibili.com/video/BV1normalize7777',
             embedUrl: 'https://player.bilibili.com/player.html?bvid=BV1normalize7777&page=1&qn=64&high_quality=1',

@@ -16,7 +16,7 @@ export function updateFilterCollapse(container, toggleButton, isExpanded, enable
     toggleButton.setAttribute('aria-expanded', 'false');
     toggleButton.setAttribute('aria-controls', container.id);
 
-    if (!enabled || window.innerWidth <= 900) return;
+    if (!enabled || window.innerWidth <= 760) return;
 
     const tags = [...container.querySelectorAll('.genre-tag')];
     if (tags.length === 0) return;
@@ -96,23 +96,99 @@ export function showToast(message) {
  * 返回顶部按钮控制
  */
 export function setupBackToTop(button) {
-    if (!button) return;
-
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            if (window.scrollY > 600) {
-                button.classList.add('visible');
-                button.hidden = false;
-            } else {
-                button.classList.remove('visible');
-                button.hidden = true;
-            }
-        }, 50);
-    });
+    if (!button) return () => {};
 
     button.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: getScrollBehavior() });
     });
+
+    return (scrollY = window.scrollY) => {
+        const isVisible = scrollY > 600;
+        button.classList.toggle('visible', isVisible);
+        button.hidden = !isVisible;
+    };
+}
+
+/**
+ * 为首屏和章节增加一次性编排。HTML 默认完整可见，只有 JS 成功初始化后才启用入场状态。
+ */
+export function setupEditorialMotion() {
+    const body = document.body;
+    const hero = document.querySelector('.hero-header');
+    const revealSections = [...document.querySelectorAll('.reveal-section')];
+    const reducedMotion = globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+    if (reducedMotion) {
+        revealSections.forEach((section) => section.classList.add('is-visible'));
+        return () => {};
+    }
+
+    body.classList.add('motion-ready');
+    requestAnimationFrame(() => body.classList.add('motion-started'));
+
+    const revealObserver = 'IntersectionObserver' in window
+        ? new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
+        : null;
+
+    revealSections.forEach((section) => {
+        if (revealObserver) revealObserver.observe(section);
+        else section.classList.add('is-visible');
+    });
+
+    const finePointer = globalThis.matchMedia?.('(hover: hover) and (pointer: fine)');
+    let heroIsVisible = true;
+    let pointerFrame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const resetPointer = () => {
+        if (!hero) return;
+        hero.style.setProperty('--hero-pointer-x', '0px');
+        hero.style.setProperty('--hero-pointer-y', '0px');
+    };
+
+    const paintPointer = () => {
+        pointerFrame = 0;
+        if (!hero || !finePointer?.matches || !heroIsVisible || document.hidden) {
+            resetPointer();
+            return;
+        }
+        hero.style.setProperty('--hero-pointer-x', `${pointerX.toFixed(2)}px`);
+        hero.style.setProperty('--hero-pointer-y', `${pointerY.toFixed(2)}px`);
+    };
+
+    const handlePointerMove = (event) => {
+        if (!hero || !finePointer?.matches || !heroIsVisible || document.hidden) return;
+        const rect = hero.getBoundingClientRect();
+        pointerX = Math.max(-8, Math.min(8, ((event.clientX - rect.left) / rect.width - 0.5) * 16));
+        pointerY = Math.max(-6, Math.min(6, ((event.clientY - rect.top) / rect.height - 0.5) * 12));
+        if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer);
+    };
+
+    const heroObserver = hero && 'IntersectionObserver' in window
+        ? new IntersectionObserver(([entry]) => {
+            heroIsVisible = Boolean(entry?.isIntersecting);
+            if (!heroIsVisible) resetPointer();
+        }, { threshold: 0.01 })
+        : null;
+
+    if (hero && heroObserver) heroObserver.observe(hero);
+    hero?.addEventListener('pointermove', handlePointerMove, { passive: true });
+    hero?.addEventListener('pointerleave', resetPointer, { passive: true });
+    document.addEventListener('visibilitychange', resetPointer);
+
+    return () => {
+        revealObserver?.disconnect();
+        heroObserver?.disconnect();
+        hero?.removeEventListener('pointermove', handlePointerMove);
+        hero?.removeEventListener('pointerleave', resetPointer);
+        document.removeEventListener('visibilitychange', resetPointer);
+        if (pointerFrame) cancelAnimationFrame(pointerFrame);
+    };
 }

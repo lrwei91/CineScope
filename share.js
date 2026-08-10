@@ -5,7 +5,7 @@
 
 import { HIDDEN_GENRES } from './js/modules/config.js';
 import { getGenreDisplayName } from './js/modules/filters.js';
-import { resolvePosterUrl } from './js/modules/renderer.js';
+import { resolvePosterUrl } from './js/modules/renderer.js?v=20260811a';
 import { showToast } from './js/modules/ui-controls.js';
 
 const QR_CODE_SIZE = 132;
@@ -223,26 +223,25 @@ function drawRealtimeMetrics(ctx, metrics, x, y, width) {
 
     metrics.forEach((metric, index) => {
         const cardX = x + index * (cardWidth + REALTIME_CARD_GAP);
-        const accentGradient = ctx.createLinearGradient(cardX, y, cardX + cardWidth, y);
-        accentGradient.addColorStop(0, '#2a2722');
-        accentGradient.addColorStop(1, '#413b31');
-
-        ctx.fillStyle = accentGradient;
+        ctx.fillStyle = '#FFF4C8';
         ctx.beginPath();
-        ctx.roundRect(cardX, y, cardWidth, REALTIME_CARD_HEIGHT, 16);
+        ctx.roundRect(cardX, y, cardWidth, REALTIME_CARD_HEIGHT, 10);
         ctx.fill();
+        ctx.strokeStyle = '#1A1A1A';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
 
-        ctx.fillStyle = '#efc276';
+        ctx.fillStyle = '#1A1A1A';
         ctx.font = '800 18px "Microsoft YaHei", sans-serif';
         ctx.textAlign = 'left';
         ctx.fillText(metric.label, cardX + 22, y + 31);
 
-        ctx.fillStyle = '#f4efe6';
+        ctx.fillStyle = '#1A1A1A';
         ctx.font = '900 30px "Microsoft YaHei", sans-serif';
         ctx.fillText(clampText(metric.value, 10), cardX + 22, y + 64);
 
         if (metric.detail) {
-            ctx.fillStyle = '#cdc5b9';
+            ctx.fillStyle = '#626262';
             ctx.font = '600 16px "Microsoft YaHei", sans-serif';
             ctx.textAlign = 'right';
             ctx.fillText(clampText(metric.detail, 24), cardX + cardWidth - 22, y + 64);
@@ -260,7 +259,7 @@ async function createShareImageFile(item) {
     const metaX = ticketX + 40;
     const metaW = ticketW - 80;
 
-    const creamColor = '#f4efe6';
+    const creamColor = '#FFFFFF';
     let posterImage = null;
     let shareQrCodeImage = null;
     let doubanQrCodeImage = null;
@@ -290,7 +289,7 @@ async function createShareImageFile(item) {
             }
         }
 
-        const typeStr = getVisibleGenresForShare(item).map(getGenreDisplayName).slice(0, 4).join(' · ');
+        const typeStr = getVisibleGenresForShare(item).map(getGenreDisplayName).slice(0, 4).join(' / ');
         
         let heroH = 480;
         const dctx = document.createElement('canvas').getContext('2d');
@@ -347,13 +346,33 @@ async function createShareImageFile(item) {
         const ctx = canvas.getContext('2d');
         if (!ctx) throw new Error('无法创建分享画布');
 
-        ctx.fillStyle = '#171615';
+        ctx.fillStyle = '#FFFFFF';
         ctx.fillRect(0, 0, width, height);
+
+        ctx.save();
+        ctx.strokeStyle = 'rgba(26, 26, 26, 0.055)';
+        ctx.lineWidth = 1;
+        for (let gridX = 0.5; gridX < width; gridX += 32) {
+            ctx.beginPath();
+            ctx.moveTo(gridX, 0);
+            ctx.lineTo(gridX, height);
+            ctx.stroke();
+        }
+        for (let gridY = 0.5; gridY < height; gridY += 32) {
+            ctx.beginPath();
+            ctx.moveTo(0, gridY);
+            ctx.lineTo(width, gridY);
+            ctx.stroke();
+        }
+        ctx.restore();
 
         ctx.fillStyle = creamColor;
         ctx.beginPath();
         ctx.roundRect(ticketX, ticketY, ticketW, ticketH, 20);
         ctx.fill();
+        ctx.strokeStyle = '#1A1A1A';
+        ctx.lineWidth = 2;
+        ctx.stroke();
 
         ctx.save();
         ctx.beginPath();
@@ -361,20 +380,7 @@ async function createShareImageFile(item) {
         ctx.clip();
 
         if (posterImage) {
-            const bgLayout = getCoverImageLayout(posterImage.width, posterImage.height, ticketW, heroH);
-            if (bgLayout) {
-                ctx.filter = 'blur(30px) brightness(0.4)';
-                ctx.drawImage(
-                    posterImage,
-                    ticketX + bgLayout.offsetX - 40,
-                    ticketY + bgLayout.offsetY - 40,
-                    bgLayout.drawWidth + 80,
-                    bgLayout.drawHeight + 80
-                );
-                ctx.filter = 'none';
-            }
-            
-            ctx.fillStyle = 'rgba(32, 30, 27, 0.48)';
+            ctx.fillStyle = '#FFF4C8';
             ctx.fillRect(ticketX, ticketY, ticketW, heroH);
 
             const posterW = 240;
@@ -383,12 +389,8 @@ async function createShareImageFile(item) {
             const posterY = ticketY + (heroH - posterH) / 2;
             
             ctx.save();
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
-            ctx.shadowBlur = 24;
-            ctx.shadowOffsetY = 12;
             ctx.beginPath();
             ctx.roundRect(posterX, posterY, posterW, posterH, 12);
-            ctx.fill();
             ctx.clip();
             
             const fgLayout = getCoverImageLayout(posterImage.width, posterImage.height, posterW, posterH);
@@ -403,25 +405,21 @@ async function createShareImageFile(item) {
             }
             ctx.restore();
         } else {
-            const heroGradient = ctx.createLinearGradient(ticketX, ticketY, ticketX, punchY);
-            heroGradient.addColorStop(0, '#383128');
-            heroGradient.addColorStop(1, '#211f1b');
-            ctx.fillStyle = heroGradient;
+            ctx.fillStyle = '#FFF4C8';
             ctx.fillRect(ticketX, ticketY, ticketW, heroH);
         }
         ctx.restore();
 
         const holeRadius = 24;
-        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = '#FFFFFF';
         ctx.beginPath();
         ctx.arc(ticketX, punchY, holeRadius, 0, Math.PI * 2);
         ctx.arc(ticketX + ticketW, punchY, holeRadius, 0, Math.PI * 2);
         ctx.fill();
-        ctx.globalCompositeOperation = 'source-over';
 
         ctx.beginPath();
         ctx.setLineDash([8, 12]);
-        ctx.strokeStyle = '#b7ad9f';
+        ctx.strokeStyle = '#1A1A1A';
         ctx.lineWidth = 2;
         ctx.moveTo(ticketX + holeRadius + 10, punchY);
         ctx.lineTo(ticketX + ticketW - holeRadius - 10, punchY);
@@ -439,13 +437,13 @@ async function createShareImageFile(item) {
         }
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#f4efe6';
+        ctx.fillStyle = '#1A1A1A';
         ctx.font = '800 46px "Microsoft YaHei", sans-serif';
         const titleLines = wrapShareText(ctx, item.title || '未命名', textX, heroCursorY, textW, 60, 3);
         heroCursorY += titleLines * 60 + 10;
 
         if (item.subtitle) {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.fillStyle = '#626262';
             ctx.font = '600 22px "Microsoft YaHei", sans-serif';
             const subLines = wrapShareText(ctx, item.subtitle, textX, heroCursorY, textW, 34, 2);
             heroCursorY += subLines * 34 + 20;
@@ -454,11 +452,11 @@ async function createShareImageFile(item) {
         }
 
         const drawMetaLine = (label, value) => {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.fillStyle = '#626262';
             ctx.font = '500 20px "Microsoft YaHei", sans-serif';
             ctx.fillText(label, textX, heroCursorY);
             
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.fillStyle = '#1A1A1A';
             ctx.font = '700 22px "Microsoft YaHei", sans-serif';
             ctx.fillText(value, textX + 100, heroCursorY);
             
@@ -483,7 +481,7 @@ async function createShareImageFile(item) {
         }
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#4b4439';
+        ctx.fillStyle = '#1A1A1A';
         ctx.font = '500 22px "Microsoft YaHei", sans-serif';
         if (item.directors && item.directors.length > 0) {
             const dirStr = `导演：${item.directors.join(' / ')}`;
@@ -498,7 +496,7 @@ async function createShareImageFile(item) {
 
         if (hasCrew) cursorY += 24;
 
-        ctx.fillStyle = '#746c60';
+        ctx.fillStyle = '#626262';
         ctx.font = '400 22px "Microsoft YaHei", sans-serif';
         if (item.overview) {
             const overviewLineCount = wrapShareText(ctx, item.overview, metaX, cursorY + 10, metaW, 40, Infinity);
@@ -517,12 +515,12 @@ async function createShareImageFile(item) {
         const qrInnerY = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CONTENT_SHIFT_Y;
 
         const drawQrBlock = (image, x, headerLabel, fallbackText, accentColor) => {
-            ctx.fillStyle = '#eee8dc';
+            ctx.fillStyle = '#FFFFFF';
             ctx.beginPath();
             ctx.roundRect(x, qrY, qrCardWidth, qrBlockHeight, 14);
             ctx.fill();
 
-            ctx.strokeStyle = '#c7bcae';
+            ctx.strokeStyle = '#1A1A1A';
             ctx.lineWidth = 1;
             ctx.stroke();
 
@@ -531,7 +529,7 @@ async function createShareImageFile(item) {
             ctx.roundRect(x + 10, qrY + 10, qrCardWidth - 20, QR_CARD_HEADER_HEIGHT, 8);
             ctx.fill();
 
-            ctx.fillStyle = '#2a261f';
+            ctx.fillStyle = '#1A1A1A';
             ctx.font = '700 14px "Microsoft YaHei", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(headerLabel, x + (qrCardWidth / 2), qrY + 29);
@@ -540,29 +538,29 @@ async function createShareImageFile(item) {
             const imageY = qrY + qrInnerY;
             if (image) {
                 ctx.drawImage(image, imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
-                ctx.strokeStyle = '#c7bcae';
+                ctx.strokeStyle = '#1A1A1A';
                 ctx.lineWidth = 1;
                 ctx.strokeRect(imageX - 1, imageY - 1, QR_CODE_SIZE + 2, QR_CODE_SIZE + 2);
             } else {
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
-                ctx.strokeStyle = '#c7bcae';
+                ctx.strokeStyle = '#1A1A1A';
                 ctx.lineWidth = 1;
                 ctx.strokeRect(imageX, imageY, QR_CODE_SIZE, QR_CODE_SIZE);
-                ctx.fillStyle = '#746c60';
+                ctx.fillStyle = '#626262';
                 ctx.font = '600 14px "Microsoft YaHei", sans-serif';
                 ctx.textAlign = 'center';
                 wrapShareText(ctx, fallbackText, imageX + (QR_CODE_SIZE / 2), imageY + 60, QR_CODE_SIZE - 20, 20, 3);
             }
         };
 
-        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', '扫码查看', '#efc276');
+        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', '扫码查看', '#FFE28A');
         if (hasDoubanLink) {
-            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', '扫码查看', '#e5d7ad');
+            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', '扫码查看', '#FFE28A');
         }
 
         ctx.textAlign = 'right';
-        ctx.fillStyle = '#b17835';
+        ctx.fillStyle = '#1A1A1A';
         ctx.font = '800 24px "Microsoft YaHei", sans-serif';
         ctx.fillText('CineScope', ticketX + ticketW - 40, qrY + qrBlockHeight);
 
@@ -600,65 +598,44 @@ function triggerDownload(file) {
 }
 
 function showImageOverlay(dataUrl) {
+    const returnFocus = document.activeElement;
     const overlay = document.createElement('div');
-    overlay.style.cssText = `
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0, 0, 0, 0.9);
-        z-index: 999999;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        padding: 20px;
-        animation: fadeIn 0.3s ease;
-        -webkit-overflow-scrolling: touch;
-    `;
+    overlay.className = 'share-preview-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', '分享图片预览');
 
     const hint = document.createElement('div');
     hint.textContent = '↓ 长按图片，选择「存入手机」或「发送给朋友」';
-    hint.style.cssText = `
-        color: #ffffff; font-weight: 600; font-size: 15px; margin-bottom: 18px;
-        background: rgba(0,240,255,0.15); border: 1px solid rgba(0,240,255,0.3);
-        padding: 10px 18px; border-radius: 8px; letter-spacing: 0.5px;
-        text-align: center; line-height: 1.5;
-    `;
+    hint.className = 'share-preview-hint';
 
     const img = document.createElement('img');
     img.src = dataUrl;
-    img.style.cssText = `
-        max-width: 100%; max-height: 70vh;
-        border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-        object-fit: contain; display: block;
-        pointer-events: auto;
-        -webkit-touch-callout: default !important;
-        user-select: auto;
-    `;
+    img.className = 'share-preview-image';
+    img.alt = 'CineScope 分享图';
     img.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
 
     const closeBtn = document.createElement('button');
-    closeBtn.textContent = '✕ 关闭';
-    closeBtn.style.cssText = `
-        margin-top: 20px;
-        padding: 10px 32px; border-radius: 20px;
-        background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25);
-        color: rgba(255,255,255,0.8); font-size: 15px;
-        cursor: pointer; letter-spacing: 1px;
-    `;
+    closeBtn.textContent = '关闭';
+    closeBtn.className = 'share-preview-close';
 
     const cleanup = () => {
-        if (document.body.contains(overlay)) document.body.removeChild(overlay);
+        document.removeEventListener('keydown', handleKeydown);
+        overlay.remove();
+        if (returnFocus instanceof HTMLElement && document.contains(returnFocus)) returnFocus.focus();
+    };
+    const handleKeydown = (event) => {
+        if (event.key === 'Escape') cleanup();
     };
     closeBtn.onclick = cleanup;
     overlay.onclick = (e) => { if (e.target === overlay) cleanup(); };
-
-    if (!document.getElementById('share-overlay-keyframes')) {
-        const style = document.createElement('style');
-        style.id = 'share-overlay-keyframes';
-        style.textContent = '@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }';
-        document.head.appendChild(style);
-    }
+    document.addEventListener('keydown', handleKeydown);
 
     overlay.appendChild(hint);
     overlay.appendChild(img);
     overlay.appendChild(closeBtn);
     document.body.appendChild(overlay);
+    closeBtn.focus({ preventScroll: true });
 }
 
 async function shareItem(currentDossierItem) {
