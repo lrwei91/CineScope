@@ -30,7 +30,7 @@ import {
     showSkeletonLoader,
     renderComingSoon,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20260811b';
+} from './js/modules/renderer.js?v=20260813a';
 
 
 import {
