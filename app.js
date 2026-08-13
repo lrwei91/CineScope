@@ -52,7 +52,7 @@ import {
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20260811b';
+} from './js/modules/dossier.js?v=20260813b';
 
 import {
     openTrailerModal,

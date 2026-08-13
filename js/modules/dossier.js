@@ -269,7 +269,7 @@ export function openIntelDossier(item) {
     dossierOverlay.classList.add('active');
     dossierDrawer.classList.add('active');
     document.body.classList.add('modal-open');
-    focusModal(dossierDrawer, '#close-dossier-btn');
+    focusModal(dossierDrawer, '#share-dossier-btn');
 }
 
 /**
@@ -373,13 +373,11 @@ export function setupDossierSwipeClose() {
  * 初始化详情面板事件
  */
 export function initDossierEvents(onShare, onOpenTrailer) {
-    const closeDossierBtn = document.getElementById('close-dossier-btn');
     const shareDossierBtn = document.getElementById('share-dossier-btn');
     const dossierOverlay = document.getElementById('intel-dossier-overlay');
     const dossierDrawer = document.getElementById('intel-dossier');
     onOpenTrailerCallback = typeof onOpenTrailer === 'function' ? onOpenTrailer : null;
 
-    if (closeDossierBtn) closeDossierBtn.addEventListener('click', closeIntelDossier);
     if (dossierOverlay) dossierOverlay.addEventListener('click', closeIntelDossier);
 
     if (shareDossierBtn && onShare) {
