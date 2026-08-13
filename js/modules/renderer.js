@@ -1,9 +1,9 @@
 /**
  * 渲染系统模块
- * 负责卡片、时间线、列表等 UI 渲染
+ * 负责卡片、列表等 UI 渲染
  */
 
-import { TMDB_IMAGE_BASE_URL, FUTURE_TAG, DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
+import { TMDB_IMAGE_BASE_URL, DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { getGenreDisplayName } from './filters.js';
 import { parseDateStringAsLocalDate } from './date-utils.js';
 
@@ -396,49 +396,6 @@ function setupHorizontalScroller(container) {
 
     scroller.addEventListener('scroll', updateArrowVisibility);
     setTimeout(updateArrowVisibility, 100);
-}
-
-/**
- * 渲染时间线
- */
-export function renderTimeline(years, activeYear, visibleYearCount, onYearClick) {
-    const yearList = document.getElementById('year-list');
-    if (!yearList) return;
-
-    yearList.innerHTML = '';
-    const yearsToShow = years.slice(0, visibleYearCount);
-
-    yearsToShow.forEach((year, index) => {
-        const item = document.createElement('li');
-        const button = document.createElement('button');
-        const isActive = year === activeYear;
-        const label = year === FUTURE_TAG ? '即将上映' : `${year} 年`;
-
-        button.type = 'button';
-        button.className = 'year-item';
-        button.dataset.year = year;
-        button.setAttribute('aria-label', `跳转至${label}片单`);
-        if (isActive) {
-            button.classList.add('active');
-            button.setAttribute('aria-current', 'true');
-        }
-
-        const dot = document.createElement('span');
-        dot.className = 'dot';
-        dot.setAttribute('aria-hidden', 'true');
-        const text = document.createElement('span');
-        text.className = 'year-text';
-        text.textContent = label;
-        button.append(dot, text);
-
-        button.addEventListener('click', () => {
-            const isLastItem = index === yearsToShow.length - 1;
-            if (onYearClick) onYearClick(year, isLastItem);
-        });
-
-        item.appendChild(button);
-        yearList.appendChild(item);
-    });
 }
 
 /**

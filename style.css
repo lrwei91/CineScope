@@ -13,6 +13,7 @@
     --state-info: #315E78;
     --state-warning: #865A00;
     --state-danger: #A23A35;
+    --progress-accent: #FF4D00;
     --focus: #8A6500;
     --radius-card: 20px;
     --radius-media: 15px;
@@ -67,14 +68,15 @@ body::after {
     position: fixed;
     z-index: 120;
     top: 0;
-    right: 0;
+    bottom: 0;
     left: 0;
-    height: 3px;
-    background: var(--ink);
+    width: 4px;
+    background: var(--progress-accent);
+    box-shadow: 1px 0 8px rgb(255 77 0 / 0.45);
     content: "";
     pointer-events: none;
-    transform: scaleX(var(--page-progress));
-    transform-origin: left center;
+    transform: scaleY(var(--page-progress));
+    transform-origin: center top;
 }
 
 button,
@@ -1171,84 +1173,6 @@ h1 {
     background: var(--accent);
 }
 
-.interactive-timeline {
-    position: fixed;
-    z-index: 20;
-    top: 50%;
-    left: max(18px, calc((100vw - var(--content-track)) / 2 - 120px));
-    width: 104px;
-    padding: 8px;
-    border: 1px solid var(--ink);
-    border-radius: var(--radius-control);
-    background: rgb(255 255 255 / 0.96);
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-50%);
-    transition: opacity var(--motion-standard) var(--ease-editorial);
-}
-
-.interactive-timeline.visible {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-}
-
-#year-list {
-    display: grid;
-    gap: 3px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.year-item {
-    display: flex;
-    width: 100%;
-    min-height: 32px;
-    align-items: center;
-    gap: 8px;
-    padding: 6px;
-    border: 0;
-    border-radius: var(--radius-control);
-    background: transparent;
-    color: var(--ink-subtle);
-    cursor: pointer;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    text-align: left;
-}
-
-.year-item:hover {
-    background: var(--accent-soft);
-    color: var(--ink);
-}
-
-.year-item .dot {
-    width: 7px;
-    height: 7px;
-    flex: 0 0 auto;
-    border: 1px solid currentColor;
-    border-radius: 50%;
-}
-
-.year-item.active {
-    background: var(--accent);
-    color: var(--ink);
-    font-weight: 800;
-}
-
-.year-item.active .dot {
-    background: currentColor;
-}
-
-.year-text {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .skeleton {
     border-color: transparent !important;
     background: var(--accent-soft) !important;
@@ -1761,12 +1685,6 @@ body.motion-ready .reveal-section.is-visible {
 
     #results-container.no-cascade .show-card {
         animation: none;
-    }
-}
-
-@media (max-width: 1375px) {
-    .interactive-timeline {
-        display: none;
     }
 }
 

@@ -8,7 +8,6 @@ import {
     DEFAULT_TITLE,
     DEFAULT_CATEGORY_ID,
     ITEMS_PER_PAGE,
-    FUTURE_TAG,
     createCategoryState
 } from './js/modules/config.js';
 
@@ -30,7 +29,6 @@ import {
 import {
     showSkeletonLoader,
     renderComingSoon,
-    renderTimeline,
     appendItemsToContainer
 } from './js/modules/renderer.js?v=20260811b';
 
@@ -87,10 +85,6 @@ const state = {
     renderedItemCount: 0,
     isLoading: false,
     lastRenderedMonth: null,
-    allAvailableYears: [],
-    currentActiveYear: null,
-    visibleYearCount: 3,
-    isScrollingProgrammatically: false,
     genreFiltersExpanded: false,
     lastAutoRefreshAt: 0,
     isSwitchingCategory: false
@@ -117,7 +111,6 @@ function cacheElements() {
     elements.genreFilterToggle = document.getElementById('genre-filter-toggle');
     elements.loadingOverlay = document.getElementById('loading-overlay');
     elements.comingSoonContainer = document.getElementById('coming-soon-container');
-    elements.yearList = document.getElementById('year-list');
     elements.statusMessage = document.getElementById('status-message');
     elements.fileInput = document.getElementById('file-input');
     elements.resultsContainer = document.getElementById('results-container');
@@ -355,7 +348,6 @@ function showLoadError(message = '加载数据失败，请稍后重试或手动�
         elements.noResultsMessage.style.display = 'block';
     }
     elements.loader.style.display = 'none';
-    document.getElementById('interactive-timeline')?.classList.remove('visible');
     document.body.style.visibility = 'visible';
 }
 
@@ -465,25 +457,6 @@ function getFilteredResults(items) {
     return applyFilters(items, getCurrentFilters(), state.currentCategoryId);
 }
 
-function updateTimelineMetadata() {
-    state.allAvailableYears = [
-        ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
-    ];
-    if (elements.comingSoonContainer.style.display === 'block') {
-        state.allAvailableYears.unshift(FUTURE_TAG);
-    }
-    state.visibleYearCount = Math.min(
-        Math.max(state.visibleYearCount, 3),
-        Math.max(state.allAvailableYears.length, 0)
-    );
-    if (state.specialFilterMode !== 'recent_high_score') {
-        const nextActiveYear = state.allAvailableYears.includes(state.currentActiveYear)
-            ? state.currentActiveYear
-            : null;
-        renderTimeline(state.allAvailableYears, nextActiveYear, state.visibleYearCount, handleYearClick);
-    }
-}
-
 function filterAndRenderItems(options = {}) {
     const { preserveRenderedContent = false } = options;
     const nextResults = getFilteredResults(state.allItems);
@@ -505,7 +478,6 @@ function filterAndRenderItems(options = {}) {
         } else {
             elements.noResultsMessage.style.display = 'block';
         }
-        updateTimelineMetadata();
     } else {
         startRendering();
     }
@@ -530,40 +502,22 @@ function startRendering() {
     }
 
     if (state.specialFilterMode === 'recent_high_score') {
-        document.getElementById('interactive-timeline')?.classList.remove('visible');
         elements.comingSoonContainer.style.display = 'none';
-    } else {
-        document.getElementById('interactive-timeline')?.classList.add('visible');
     }
 
     state.currentPage = 1;
     state.renderedItemCount = 0;
     state.lastRenderedMonth = null;
 
-    state.allAvailableYears = [
-        ...new Set(state.filteredPastAndPresentItems.map((item) => item.date.substring(0, 4)))
-    ];
-    if (elements.comingSoonContainer.style.display === 'block') {
-        state.allAvailableYears.unshift(FUTURE_TAG);
-    }
-
-    state.visibleYearCount = Math.min(3, state.allAvailableYears.length);
-    state.currentActiveYear = null;
-
     if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
         elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
         elements.noResultsMessage.style.display = 'block';
     }
 
-    if (state.allAvailableYears.length > 0 || state.specialFilterMode === 'recent_high_score') {
-        if (state.specialFilterMode !== 'recent_high_score') {
-            renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
-        }
+    if (state.filteredPastAndPresentItems.length > 0) {
         loadMoreItems();
     } else {
-        elements.yearList.innerHTML = '';
         elements.loader.style.display = 'none';
-        document.getElementById('interactive-timeline')?.classList.remove('visible');
     }
 }
 
@@ -595,7 +549,7 @@ function loadMoreItems() {
 
     state.isLoading = true;
 
-    if (!elements.loadingOverlay?.classList.contains('visible') && !state.isScrollingProgrammatically) {
+    if (!elements.loadingOverlay?.classList.contains('visible')) {
         elements.loader.style.display = 'block';
     }
 
@@ -604,109 +558,6 @@ function loadMoreItems() {
     state.isLoading = false;
     elements.loader.style.display = 'none';
 
-    if (state.specialFilterMode !== 'recent_high_score') {
-        updateActiveTimeline();
-    }
-}
-
-function handleYearClick(year, isLastItem) {
-    if (isLastItem && state.visibleYearCount < state.allAvailableYears.length) {
-        state.visibleYearCount = Math.min(state.allAvailableYears.length, state.visibleYearCount + 2);
-    }
-    scrollToYear(year);
-}
-
-async function scrollToYear(year) {
-    state.isScrollingProgrammatically = true;
-    renderTimeline(state.allAvailableYears, year, state.visibleYearCount, handleYearClick);
-    state.currentActiveYear = year;
-
-    const currentYearIndex = state.allAvailableYears.indexOf(year);
-    const nextYearToPreload = state.allAvailableYears[currentYearIndex + 1];
-
-    const mainTask = ensureYearIsLoadedAndScroll(year, false);
-    if (nextYearToPreload) {
-        ensureYearIsLoadedAndScroll(nextYearToPreload, true);
-    }
-    await mainTask;
-
-    setTimeout(() => {
-        state.isScrollingProgrammatically = false;
-    }, 1000);
-}
-
-async function ensureYearIsLoadedAndScroll(year, preloadOnly = false) {
-    let targetElement;
-    if (year === FUTURE_TAG) {
-        targetElement = document.body;
-    } else {
-        targetElement = document.querySelector(`#results-container .month-group-header[id^="month-${year}"]`);
-    }
-
-    if (!targetElement && year !== FUTURE_TAG) {
-        if (!preloadOnly) {
-            elements.loadingOverlay?.classList.add('visible');
-        }
-
-        while (!targetElement && state.renderedItemCount < state.filteredPastAndPresentItems.length) {
-            if (!state.isLoading) {
-                state.isLoading = true;
-                appendNextItemsToResults();
-                state.isLoading = false;
-            }
-            // 等下一帧让浏览器渲染新卡片，再检查目标月份是否出现
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            targetElement = document.querySelector(`#results-container .month-group-header[id^="month-${year}"]`);
-        }
-
-        if (!preloadOnly) {
-            elements.loadingOverlay?.classList.remove('visible');
-        }
-    }
-
-    if (targetElement && !preloadOnly) {
-        setTimeout(() => {
-            targetElement.scrollIntoView({ behavior: getScrollBehavior(), block: 'start' });
-        }, 50);
-    }
-}
-
-function updateActiveTimeline() {
-    if (state.isScrollingProgrammatically) return;
-
-    let topVisibleYear = null;
-    const comingSoonRect = elements.comingSoonContainer.getBoundingClientRect();
-
-    if (
-        elements.comingSoonContainer.style.display === 'block' &&
-        comingSoonRect.top >= 0 &&
-        comingSoonRect.top < window.innerHeight * 0.4
-    ) {
-        topVisibleYear = FUTURE_TAG;
-    } else {
-        const headers = document.querySelectorAll('#results-container .month-group-header');
-        if (headers.length > 0) {
-            headers.forEach((header) => {
-                if (header.getBoundingClientRect().top < window.innerHeight * 0.4) {
-                    topVisibleYear = header.id.substring(6, 10);
-                }
-            });
-            if (!topVisibleYear) {
-                topVisibleYear = state.allAvailableYears.find((year) => year !== FUTURE_TAG) || null;
-            }
-        } else if (state.allAvailableYears.includes(FUTURE_TAG)) {
-            topVisibleYear = FUTURE_TAG;
-        }
-    }
-
-    if (topVisibleYear && topVisibleYear !== state.currentActiveYear) {
-        state.currentActiveYear = topVisibleYear;
-        const currentIndex = state.allAvailableYears.indexOf(state.currentActiveYear);
-        if (currentIndex >= state.visibleYearCount - 1 && state.visibleYearCount < state.allAvailableYears.length) {
-            state.visibleYearCount = Math.min(state.allAvailableYears.length, currentIndex + 2);
-        }
-        renderTimeline(state.allAvailableYears, state.currentActiveYear, state.visibleYearCount, handleYearClick);
-    }
 }
 
 // =====================================================
@@ -784,7 +635,7 @@ function setupEventListeners() {
         reader.readAsText(file);
     });
 
-    // 单一 passive scroll 入口，在 RAF 中统一年份、分页、进度与返回顶部状态。
+    // 单一 passive scroll 入口，在 RAF 中统一分页、进度与返回顶部状态。
     const updateBackToTop = setupBackToTop(elements.backToTopBtn);
     let scrollFrame = 0;
     const updateScrollDrivenUI = () => {
@@ -795,7 +646,6 @@ function setupEventListeners() {
         document.documentElement.style.setProperty('--page-progress', String(progress));
 
         updateBackToTop(scrollY);
-        updateActiveTimeline();
         if (!state.isLoading && window.innerHeight + scrollY >= document.body.offsetHeight - 500) {
             loadMoreItems();
         }
