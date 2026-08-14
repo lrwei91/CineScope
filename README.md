@@ -2,7 +2,7 @@
 
 影视内容聚合展示平台，追踪国产剧、院线电影、综艺、韩剧、日剧、美剧和豆瓣 Top250。
 
-[在线体验](https://lrwei91.github.io/CineScope/) · [反馈建议](https://github.com/lrwei91/CineScope/issues)
+[在线体验](https://movie.lrwei91.cn/) · [反馈建议](https://github.com/lrwei91/CineScope/issues)
 
 ## 功能
 
@@ -24,7 +24,7 @@ scripts/automation/run_update.py
           ↓
 json/ + posters/
           ↓
-GitHub Pages 白名单产物
+Vercel 静态部署产物
 ```
 
 数据任务分为：
@@ -98,10 +98,10 @@ npm test              # Node + Python 单测
 npm run check:syntax  # JS/MJS 语法检查
 npm run check:data    # 当前 JSON 数据门禁
 npm run check         # 全部检查
-npm run build:site    # 生成 .site/ Pages 白名单产物
+npm run build:site    # 生成 .site/ 静态部署产物
 ```
 
-CI 会在 Pull Request、每日更新和 Pages 部署前执行这些检查。每日更新成功后会调用同一套 Pages 工作流，并部署其推送后的最新 `main` 提交。
+CI 会在 Pull Request 和每日更新中执行这些检查。每日更新推送最新 `main` 提交后，Vercel 会自动构建 `.site/` 并发布到生产域名。
 
 ## Build Report v2
 
@@ -128,12 +128,12 @@ CineScope/
 │   ├── lib/                    # 可测试的数据源与转换模块
 │   └── generate_*.mjs          # 数据生成入口
 ├── tests/                      # Node 与 Python 单测
-└── .github/workflows/          # CI、每日更新、Pages 部署
+└── .github/workflows/          # CI 与每日更新
 ```
 
 ## 存储说明
 
-海报目前作为普通 Git 二进制文件跟踪，`.gitattributes` 仅关闭文本 diff/merge；当前没有启用 Git LFS。为避免破坏历史，本次改造不迁移海报、不重写 Git 历史。Pages 只上传运行所需的白名单文件，不再发布脚本、测试和文档。
+海报目前作为普通 Git 二进制文件跟踪，`.gitattributes` 仅关闭文本 diff/merge；当前没有启用 Git LFS。为避免破坏历史，本次改造不迁移海报、不重写 Git 历史。Vercel 只发布 `.site/` 中运行所需的白名单文件，不再发布脚本、测试和文档。
 
 ## 数据来源
 

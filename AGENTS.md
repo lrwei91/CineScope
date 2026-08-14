@@ -2,7 +2,7 @@
 
 ## 项目目标
 
-CineScope 是原生 ES Modules 驱动的静态影视片单，业务数据由脚本生成 JSON，并通过 GitHub Pages 发布。所有改动应优先保证数据可靠、静态构建可复现、核心浏览链路可用，同时只做完成当前需求所需的最小改动。
+CineScope 是原生 ES Modules 驱动的静态影视片单，业务数据由脚本生成 JSON，并通过 Vercel 发布。所有改动应优先保证数据可靠、静态构建可复现、核心浏览链路可用，同时只做完成当前需求所需的最小改动。
 
 ## 成功标准
 
@@ -13,10 +13,10 @@ CineScope 是原生 ES Modules 驱动的静态影视片单，业务数据由脚�
 
 ## 架构与边界
 
-- 保持静态前端、原生 JavaScript、生成 JSON 和 GitHub Pages 架构，不擅自引入框架、后端或运行时依赖。
+- 保持静态前端、原生 JavaScript、生成 JSON 和 Vercel 静态部署架构，不擅自引入框架、后端或运行时依赖。
 - 前端入口为 `index.html`、`app.js`、`style.css`、`share.js` 和 `share.css`；功能模块位于 `js/modules/`。
 - 页面数据位于 `json/`，海报位于 `posters/`，生成插画位于 `assets/`。
-- `.site/` 是 `scripts/build-site.mjs` 生成的 Pages 白名单产物，不直接编辑、不作为源文件修复目标。
+- `.site/` 是 `scripts/build-site.mjs` 生成的 Vercel 静态部署产物，不直接编辑、不作为源文件修复目标。
 - 保留分类切换、搜索、评分与类型筛选、渐进加载、年份定位、详情抽屉、预告片、分享、豆瓣状态和移动筛选能力。
 
 ## 视觉与交互基线
@@ -26,7 +26,7 @@ CineScope 是原生 ES Modules 驱动的静态影视片单，业务数据由脚�
 - 响应式卡片列数保持：小于 360px 单列、360px 至 760px 双列、大于 760px 三列。
 - HTML 默认内容可见，JavaScript 只增强动效；`prefers-reduced-motion` 下直接显示最终状态。
 - 触屏交互不能依赖 hover；键盘焦点、焦点恢复、Escape 关闭和弹层焦点循环必须保留。
-- 修改 CSS 或带查询参数的 ES Module 后，同步更新入口中的缓存版本，避免 Pages 使用旧资源。
+- 修改 CSS 或带查询参数的 ES Module 后，同步更新入口中的缓存版本，避免线上部署使用旧资源。
 
 ## 数据更新协议
 
@@ -45,10 +45,10 @@ CineScope 是原生 ES Modules 驱动的静态影视片单，业务数据由脚�
 | --- | --- | --- |
 | 页面布局、卡片、筛选区、详情与分享界面重构 | `design-taste-frontend` | 先读取 `docs/DESIGN_BRIEF.md`，保持片单优先和现有原生架构 |
 | 滚动、指针、入场和交互动效 | `oil-motion` | 仅在动效是明确需求时使用；必须保留减弱动效、触屏和性能降级 |
-| 生成或编辑插画、位图视觉资产 | `imagegen` | 复用现有资产优先；生成结果写入 `assets/` 并检查透明边缘、尺寸和 Pages 白名单 |
+| 生成或编辑插画、位图视觉资产 | `imagegen` | 复用现有资产优先；生成结果写入 `assets/` 并检查透明边缘、尺寸和 Vercel 发布白名单 |
 | 本地页面、响应式和交互回归 | `vercel:agent-browser`、`vercel:agent-browser-verify` | 启动本地静态服务后执行；检查控制台、关键流程和视口矩阵，完成后关闭浏览器与服务 |
 | 提交并推送已完成的本地改动 | `github:yeet` | 仅在用户明确要求提交或推送时使用；先确认范围和验证结果，不扩大发布范围 |
-| 排查 GitHub Actions 或 PR 检查失败 | `github:gh-fix-ci` | 先读取真实失败日志，区分 CI、每日更新和 Pages 部署，不凭本地通过推断远端已修复 |
+| 排查 GitHub Actions 或 PR 检查失败 | `github:gh-fix-ci` | 先读取真实失败日志，区分 CI、每日更新和 Vercel 部署，不凭本地通过推断远端已修复 |
 | 处理 PR 审查意见 | `github:gh-address-comments` | 仅处理用户指定或仍未解决的可执行意见，修改后按影响范围回归 |
 
 数据生成、状态同步、预告片和豆瓣缓存任务不依赖通用技能，始终以 `scripts/automation/run_update.py`、项目测试和数据门禁为权威入口。
@@ -59,7 +59,7 @@ CineScope 是原生 ES Modules 驱动的静态影视片单，业务数据由脚�
 - 工作区干净时，更新主分支使用 `git pull --ff-only origin main`。
 - 默认不提交、不推送、不部署、不触发工作流。用户明确要求后才执行，并只暂存本次范围内的文件。
 - 禁止 force push、重写历史和破坏性重置。远端阻止推送时先 fetch，检查分歧，再保留更新的规范数据。
-- Pages 链路保持单一：`daily-update.yml` 推送后调用可复用的 `deploy-pages.yml`；不要增加第二个 `workflow_run` 或重复部署触发器。
+- 部署链路保持单一：`daily-update.yml` 推送已验证的 `main` 提交，Vercel 通过仓库集成自动部署；不要增加第二个工作流部署触发器。
 - 不把密码、Token、Cookie、API Key 或可滥用凭据写入仓库、日志或文档。
 
 ## 验证规则
@@ -91,5 +91,5 @@ CineScope 是原生 ES Modules 驱动的静态影视片单，业务数据由脚�
 - 数据统一入口：`scripts/automation/run_update.py`
 - 目录生成器：`scripts/generate_douban_catalog.mjs`
 - 数据门禁：`scripts/validate-data.mjs`
-- Pages 构建：`scripts/build-site.mjs`
+- 静态构建：`scripts/build-site.mjs`
 - CI 与发布：`.github/workflows/`
