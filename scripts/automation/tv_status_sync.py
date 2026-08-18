@@ -63,6 +63,8 @@ def is_finished(show: dict) -> bool:
             return True
     if status == "Ended":
         return True
+    if show.get("in_production") is False:
+        return True
     return False
 
 
@@ -93,6 +95,17 @@ def fetch_api(sid: str) -> dict | None:
     except Exception as e:
         print(f"  ⚠ 解析异常: {type(e).__name__}: {e}")
         return None
+
+
+def format_updated_line(updated: list[dict]) -> str:
+    """将本次有状态变化的剧名整理成逐行通知。"""
+    names = [str(item.get("name", "")).strip() for item in updated]
+    names = [name for name in names if name]
+    if not names:
+        return ""
+    lines = ["📊 本次更新："]
+    lines.extend(f"📊 {name}" for name in names)
+    return "\n".join(lines)
 
 
 def main():
@@ -128,6 +141,7 @@ def main():
         return
 
     updated = []
+    metadata_updated = 0
     skipped = 0
     failed = 0
     auto_skipped = 0             # 达失败阈值自动跳过
@@ -197,7 +211,7 @@ def main():
                     show["seasons"] = [{}]
                 show["seasons"][0] = s0
                 changes.append(f"s0.episode_count: {old_s0_count} → {api_ep_count}")
-                updated.append({"name": name, "id": sid, "changes": changes})
+                metadata_updated += 1
                 if not quiet:
                     print(f"✅ (仅更新总集数) {', '.join(changes)}")
             else:
@@ -227,11 +241,13 @@ def main():
         old_ep_num = int(m_old.group(1)) if m_old else 0
 
         changes = []
+        content_changed = False
 
         # 比较 episodes_info
         if api_ep_info and api_ep_info != old_ep_info:
             changes.append(f"episodes_info: '{old_ep_info}' → '{api_ep_info}'")
             show["episodes_info"] = api_ep_info
+            content_changed = True
 
         # 比较 status
         # 如果 episodes_info 包含 "集全"，更新 status
@@ -245,6 +261,7 @@ def main():
         if new_status and new_status != old_status:
             changes.append(f"status: '{old_status}' → '{new_status}'")
             show["status"] = new_status
+            content_changed = True
 
             # 更新 in_production
             if "集全" in new_status or new_status == "Ended":
@@ -265,7 +282,10 @@ def main():
             show["seasons"][0] = s0
 
         if changes:
-            updated.append({"name": name, "id": sid, "changes": changes})
+            if content_changed:
+                updated.append({"name": name, "id": sid, "changes": changes})
+            else:
+                metadata_updated += 1
             if not quiet:
                 print(f"✅ {', '.join(changes)}")
         else:
@@ -287,26 +307,36 @@ def main():
         print()
         parts = [f"共 {len(shows)}", f"完结跳过 {finished_count}", f"待检查 {len(active_shows)}",
                  f"更新 {len(updated)}", f"无变化 {skipped}"]
+        if metadata_updated:
+            parts.append(f"补齐总集数 {metadata_updated}")
         if auto_skipped:
             parts.append(f"自动跳过 {auto_skipped}")
         if failed:
             parts.append(f"API 失败 {failed}")
         print("📊 " + " / ".join(parts))
+        updated_line = format_updated_line(updated)
+        if updated_line:
+            print(updated_line)
     else:
         print(f"\n📊 同步完成:")
         print(f"  更新: {len(updated)} 部")
         print(f"  无变化: {skipped} 部")
+        if metadata_updated:
+            print(f"  补齐总集数: {metadata_updated} 部")
         if auto_skipped:
             print(f"  自动跳过: {auto_skipped} 部")
         print(f"  API 失败: {failed} 部")
 
-    if not args.dry_run and (updated or fail_counts_changed):
+    if not args.dry_run and (updated or metadata_updated or fail_counts_changed):
         save_json(data)
         if not quiet:
             print(f"\n✅ 已写入 {JSON_PATH.name}（发布由统一任务入口处理）")
-    elif updated and args.dry_run:
+    elif (updated or metadata_updated) and args.dry_run:
         if not quiet:
-            print(f"\n[DRY RUN] 将更新 {len(updated)} 部剧（未写入）")
+            print(
+                f"\n[DRY RUN] 将更新 {len(updated)} 部剧，"
+                f"补齐总集数 {metadata_updated} 部（未写入）"
+            )
             for item in updated:
                 print(f"  - {item['name']}({item['id']}): {', '.join(item['changes'])}")
     elif not quiet:
