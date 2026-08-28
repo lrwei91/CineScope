@@ -37,6 +37,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: 安装 Python 依赖
+        run: python3 -m pip install --break-system-packages -r scripts/automation/requirements.txt
+
       - name: 运行代码测试
         run: npm run check:syntax && npm test
 
