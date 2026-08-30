@@ -1,9 +1,8 @@
 {
   "metadata": {
-    "started_at": "2026-08-29T12:10:27.847Z",
+    "started_at": "2026-08-30T00:00:24.063Z",
     "mode": "partial",
     "category_ids": [
-      "tv_cn",
       "movie_cn"
     ],
     "tmdb_enabled": false,
@@ -40,12 +39,12 @@
       ],
       "counts": {
         "douban_after_date_filter": 245,
-        "douban_after_signature_dedupe": 240,
+        "douban_after_signature_dedupe": 239,
         "tmdb": 0,
-        "merged_candidates": 240,
-        "merged_after_signature_dedupe": 240,
-        "merged_after_name_year_dedupe": 240,
-        "complete": 525,
+        "merged_candidates": 239,
+        "merged_after_signature_dedupe": 239,
+        "merged_after_name_year_dedupe": 239,
+        "complete": 531,
         "latest": 24
       },
       "fallback_summary": {
@@ -54,7 +53,7 @@
         "sampleIds": []
       },
       "quality": {
-        "total_items": 525,
+        "total_items": 531,
         "missing": {
           "date": 0,
           "poster": 0,
@@ -67,11 +66,11 @@
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.1829,
-          "douban_link": 0.0057,
+          "rating": 0.1808,
+          "douban_link": 0.0056,
           "overview": 0.0038,
-          "directors": 0.0171,
-          "actors": 0.0324
+          "directors": 0.0169,
+          "actors": 0.032
         }
       }
     },
@@ -343,15 +342,15 @@
     "last_updated": "2026-08-12T14:53:27.365Z"
   },
   "douban_subject_cache": {
-    "hits": 214,
-    "misses": 0,
-    "stale": 124,
+    "hits": 158,
+    "misses": 6,
+    "stale": 84,
     "invalid": 0,
-    "writes": 34,
-    "errors": 90,
-    "staleFallbacks": 90,
-    "total_reads": 338,
-    "hit_rate": 0.6331,
+    "writes": 20,
+    "errors": 70,
+    "staleFallbacks": 70,
+    "total_reads": 248,
+    "hit_rate": 0.6371,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -366,7 +365,7 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-08-29T12:11:51.331Z",
+  "completed_at": "2026-08-30T00:00:30.157Z",
   "box_office": {
     "last_updated": "2026-08-12T14:50:20.877Z",
     "source": "maoyan",
@@ -393,12 +392,12 @@
   },
   "schema_version": 2,
   "latest_run": {
-    "task": "tv-status",
+    "task": "douban-cache",
     "status": "success",
-    "started_at": "2026-08-29T22:00:44.324459+00:00",
-    "completed_at": "2026-08-29T22:00:44.324459+00:00",
+    "started_at": "2026-08-30T00:00:24.063Z",
+    "completed_at": "2026-08-30T00:00:30.157Z",
     "category_ids": [
-      "tv_cn"
+      "movie_cn"
     ],
     "tmdb_enabled": false
   },
@@ -432,8 +431,8 @@
     },
     "douban-cache": {
       "status": "success",
-      "last_run_at": "2026-08-23T00:00:47.303Z",
-      "last_success_at": "2026-08-23T00:00:47.303Z"
+      "last_run_at": "2026-08-30T00:00:30.157Z",
+      "last_success_at": "2026-08-30T00:00:30.157Z"
     }
   }
 }
