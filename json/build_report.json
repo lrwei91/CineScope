@@ -1,8 +1,9 @@
 {
   "metadata": {
-    "started_at": "2026-08-30T00:00:24.063Z",
+    "started_at": "2026-08-31T12:10:33.158Z",
     "mode": "partial",
     "category_ids": [
+      "tv_cn",
       "movie_cn"
     ],
     "tmdb_enabled": false,
@@ -39,11 +40,11 @@
       ],
       "counts": {
         "douban_after_date_filter": 245,
-        "douban_after_signature_dedupe": 239,
+        "douban_after_signature_dedupe": 241,
         "tmdb": 0,
-        "merged_candidates": 239,
-        "merged_after_signature_dedupe": 239,
-        "merged_after_name_year_dedupe": 239,
+        "merged_candidates": 241,
+        "merged_after_signature_dedupe": 241,
+        "merged_after_name_year_dedupe": 241,
         "complete": 531,
         "latest": 24
       },
@@ -84,25 +85,25 @@
         {
           "slug": "tv_domestic",
           "raw_count": 50,
-          "included_count": 43,
-          "normalized_count": 43
+          "included_count": 42,
+          "normalized_count": 42
         },
         {
           "slug": "tv_hot",
-          "raw_count": 189,
-          "included_count": 47,
-          "normalized_count": 47
+          "raw_count": 187,
+          "included_count": 48,
+          "normalized_count": 48
         }
       ],
       "counts": {
         "douban_after_date_filter": 90,
-        "douban_after_signature_dedupe": 47,
+        "douban_after_signature_dedupe": 48,
         "tmdb": 0,
-        "merged_candidates": 47,
-        "merged_after_signature_dedupe": 47,
-        "merged_after_name_year_dedupe": 47,
-        "complete": 291,
-        "latest": 55
+        "merged_candidates": 48,
+        "merged_after_signature_dedupe": 48,
+        "merged_after_name_year_dedupe": 48,
+        "complete": 294,
+        "latest": 58
       },
       "fallback_summary": {
         "total": 0,
@@ -110,11 +111,11 @@
         "sampleIds": []
       },
       "quality": {
-        "total_items": 291,
+        "total_items": 294,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 221,
+          "rating": 224,
           "douban_link": 158,
           "overview": 0,
           "directors": 164,
@@ -123,11 +124,11 @@
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.7595,
-          "douban_link": 0.543,
+          "rating": 0.7619,
+          "douban_link": 0.5374,
           "overview": 0,
-          "directors": 0.5636,
-          "actors": 0.5567
+          "directors": 0.5578,
+          "actors": 0.551
         }
       }
     },
@@ -342,15 +343,15 @@
     "last_updated": "2026-08-12T14:53:27.365Z"
   },
   "douban_subject_cache": {
-    "hits": 158,
-    "misses": 6,
-    "stale": 84,
+    "hits": 246,
+    "misses": 2,
+    "stale": 90,
     "invalid": 0,
-    "writes": 20,
+    "writes": 22,
     "errors": 70,
     "staleFallbacks": 70,
-    "total_reads": 248,
-    "hit_rate": 0.6371,
+    "total_reads": 338,
+    "hit_rate": 0.7278,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -365,7 +366,7 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-08-30T00:00:30.157Z",
+  "completed_at": "2026-08-31T12:12:01.250Z",
   "box_office": {
     "last_updated": "2026-08-12T14:50:20.877Z",
     "source": "maoyan",
@@ -392,12 +393,13 @@
   },
   "schema_version": 2,
   "latest_run": {
-    "task": "tv-status",
+    "task": "trailers",
     "status": "success",
-    "started_at": "2026-08-31T07:09:03.932380+00:00",
-    "completed_at": "2026-08-31T07:09:03.932380+00:00",
+    "started_at": "2026-08-31T12:10:33.158Z",
+    "completed_at": "2026-08-31T12:12:01.250Z",
     "category_ids": [
-      "tv_cn"
+      "tv_cn",
+      "movie_cn"
     ],
     "tmdb_enabled": false
   },
@@ -421,8 +423,8 @@
     },
     "trailers": {
       "status": "success",
-      "last_run_at": "2026-08-29T12:11:51.331Z",
-      "last_success_at": "2026-08-29T12:11:51.331Z"
+      "last_run_at": "2026-08-31T12:12:01.250Z",
+      "last_success_at": "2026-08-31T12:12:01.250Z"
     },
     "tv-status": {
       "status": "success",
