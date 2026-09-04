@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "started_at": "2026-09-03T12:10:44.550Z",
+    "started_at": "2026-09-04T12:10:07.635Z",
     "mode": "partial",
     "category_ids": [
       "tv_cn",
@@ -21,15 +21,15 @@
       "source_collections": [
         {
           "slug": "movie_showing",
-          "raw_count": 32,
-          "included_count": 32,
-          "normalized_count": 32
+          "raw_count": 37,
+          "included_count": 37,
+          "normalized_count": 37
         },
         {
           "slug": "movie_soon",
-          "raw_count": 20,
-          "included_count": 20,
-          "normalized_count": 20
+          "raw_count": 19,
+          "included_count": 19,
+          "normalized_count": 19
         },
         {
           "slug": "movie_latest",
@@ -39,55 +39,52 @@
         }
       ],
       "counts": {
-        "douban_after_date_filter": 247,
-        "douban_after_signature_dedupe": 241,
+        "douban_after_date_filter": 252,
+        "douban_after_signature_dedupe": 247,
         "tmdb": 0,
-        "merged_candidates": 241,
-        "merged_after_signature_dedupe": 241,
-        "merged_after_name_year_dedupe": 241,
-        "complete": 548,
+        "merged_candidates": 247,
+        "merged_after_signature_dedupe": 247,
+        "merged_after_name_year_dedupe": 247,
+        "complete": 551,
         "latest": 24
       },
       "fallback_summary": {
-        "total": 11,
+        "total": 7,
         "byStatus": [
           [
             "400",
-            11
+            7
           ]
         ],
         "sampleIds": [
-          "36192993",
-          "36828393",
-          "37227467",
-          "37291549",
-          "37342630",
           "37487816",
+          "37342630",
           "37332150",
           "37421915",
           "36877173",
-          "37843719"
+          "37843719",
+          "37030720"
         ]
       },
       "quality": {
-        "total_items": 548,
+        "total_items": 551,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 98,
+          "rating": 101,
           "douban_link": 3,
-          "overview": 13,
-          "directors": 10,
-          "actors": 18
+          "overview": 10,
+          "directors": 11,
+          "actors": 20
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.1788,
-          "douban_link": 0.0055,
-          "overview": 0.0237,
-          "directors": 0.0182,
-          "actors": 0.0328
+          "rating": 0.1833,
+          "douban_link": 0.0054,
+          "overview": 0.0181,
+          "directors": 0.02,
+          "actors": 0.0363
         }
       }
     },
@@ -101,25 +98,25 @@
         {
           "slug": "tv_domestic",
           "raw_count": 50,
-          "included_count": 44,
-          "normalized_count": 44
+          "included_count": 45,
+          "normalized_count": 45
         },
         {
           "slug": "tv_hot",
-          "raw_count": 187,
-          "included_count": 49,
-          "normalized_count": 49
+          "raw_count": 189,
+          "included_count": 50,
+          "normalized_count": 50
         }
       ],
       "counts": {
-        "douban_after_date_filter": 93,
-        "douban_after_signature_dedupe": 49,
+        "douban_after_date_filter": 95,
+        "douban_after_signature_dedupe": 50,
         "tmdb": 0,
-        "merged_candidates": 49,
-        "merged_after_signature_dedupe": 49,
-        "merged_after_name_year_dedupe": 49,
-        "complete": 298,
-        "latest": 62
+        "merged_candidates": 50,
+        "merged_after_signature_dedupe": 50,
+        "merged_after_name_year_dedupe": 50,
+        "complete": 300,
+        "latest": 64
       },
       "fallback_summary": {
         "total": 0,
@@ -127,11 +124,11 @@
         "sampleIds": []
       },
       "quality": {
-        "total_items": 298,
+        "total_items": 300,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 228,
+          "rating": 230,
           "douban_link": 158,
           "overview": 0,
           "directors": 165,
@@ -140,11 +137,11 @@
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.7651,
-          "douban_link": 0.5302,
+          "rating": 0.7667,
+          "douban_link": 0.5267,
           "overview": 0,
-          "directors": 0.5537,
-          "actors": 0.5503
+          "directors": 0.55,
+          "actors": 0.5467
         }
       }
     },
@@ -359,15 +356,15 @@
     "last_updated": "2026-08-12T14:53:27.365Z"
   },
   "douban_subject_cache": {
-    "hits": 225,
-    "misses": 13,
-    "stale": 107,
+    "hits": 262,
+    "misses": 16,
+    "stale": 73,
     "invalid": 0,
-    "writes": 38,
-    "errors": 82,
-    "staleFallbacks": 71,
-    "total_reads": 345,
-    "hit_rate": 0.6522,
+    "writes": 22,
+    "errors": 67,
+    "staleFallbacks": 60,
+    "total_reads": 351,
+    "hit_rate": 0.7464,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -382,7 +379,7 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-09-03T12:13:45.206Z",
+  "completed_at": "2026-09-04T12:10:56.739Z",
   "box_office": {
     "last_updated": "2026-08-12T14:50:20.877Z",
     "source": "maoyan",
@@ -409,12 +406,13 @@
   },
   "schema_version": 2,
   "latest_run": {
-    "task": "tv-status",
+    "task": "trailers",
     "status": "success",
-    "started_at": "2026-09-03T22:01:10.481163+00:00",
-    "completed_at": "2026-09-03T22:01:10.481163+00:00",
+    "started_at": "2026-09-04T12:10:07.635Z",
+    "completed_at": "2026-09-04T12:10:56.739Z",
     "category_ids": [
-      "tv_cn"
+      "tv_cn",
+      "movie_cn"
     ],
     "tmdb_enabled": false
   },
@@ -438,8 +436,8 @@
     },
     "trailers": {
       "status": "success",
-      "last_run_at": "2026-09-03T12:13:45.206Z",
-      "last_success_at": "2026-09-03T12:13:45.206Z"
+      "last_run_at": "2026-09-04T12:10:56.739Z",
+      "last_success_at": "2026-09-04T12:10:56.739Z"
     },
     "tv-status": {
       "status": "success",
