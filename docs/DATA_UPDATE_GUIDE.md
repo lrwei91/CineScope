@@ -20,7 +20,7 @@ python3 scripts/automation/run_update.py \
 
 - 默认：在 staging 生成并验证，成功后提升到工作区
 - `--dry-run`：丢弃 staging，不改正式 JSON
-- `--publish`：要求干净工作区；验证后提交、rebase 重试并推送
+- `--publish`：`tv-status`、`douban-cache`、`trailers` 任务只发布生成的 JSON/海报，可保留非发布路径编辑；发布路径必须干净，验证后提交、rebase 重试并推送；其他任务要求工作区干净
 - `--allow-large-drop`：仅用于已经确认的超过 20% 数据缩减
 - 同一时间只允许一个本地数据任务运行
 
@@ -92,7 +92,7 @@ python3 scripts/automation/run_update.py --task tv-status --dry-run
 python3 scripts/automation/run_update.py --task douban-cache --dry-run
 ```
 
-依赖 Kimi WebBridge 和真实 Chrome 豆瓣登录态：
+依赖 BrowserSkill 和真实 Chrome 豆瓣登录态：
 
 1. 统计 catalog 中缺失的 subject cache
 2. 探测已删除或 404 的条目
@@ -174,17 +174,17 @@ npm run check:data
 
 ## 6. CI 与部署
 
-- `ci.yml`：Pull Request 执行代码、数据和 Pages 产物检查
-- `daily-update.yml`：调用统一入口完成 full 更新和发布，并调用 Pages 工作流部署推送后的提交
-- `deploy-pages.yml`：支持 main push、手动触发和每日更新复用；每次都先验证再部署
+- `ci.yml`：Pull Request 和手动触发执行 `npm run check` 与 `npm run build:site`，验证代码、数据和 `.site/` 构建产物
+- `daily-update.yml`：定时（北京时间 22:00）或手动触发，调用统一入口完成 full 更新和发布，只推送已验证的 `main` 提交
+- `vercel.json`：Vercel 仓库集成监听 `main` push，执行 `npm run build:site` 并以 `.site/` 作为输出目录
 - `.site/`：只包含 HTML、CSS、JS、JSON、海报和 favicon
 
-部署不再监听每日工作流的 `workflow_run`，避免同一提交重复部署；每日更新通过可复用工作流显式传入已推送的提交 SHA。
+部署只有 Vercel 仓库集成一条链路：`deploy-pages.yml` 已在迁移到 Vercel 时移除，仓库内没有其他部署工作流，也不监听每日工作流的 `workflow_run`，避免同一提交重复部署。
 
 ## 7. 故障处理
 
 - 锁存在：先确认是否有任务仍在运行；仅失效 PID 会自动清锁
 - 数据下降门禁：先核对上游和 diff，不要直接使用 override
-- 豆瓣浏览器失败：检查 WebBridge daemon、扩展连接和登录态
+- 豆瓣浏览器失败：检查 BrowserSkill daemon、扩展连接和登录态
 - B 站 412/429：检查本地代理；保留旧缓存，不要删除正式 JSON
 - push 失败：统一入口最多重试 3 次，本地 commit 会保留供人工处理
