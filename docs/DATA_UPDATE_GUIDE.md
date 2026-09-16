@@ -26,6 +26,38 @@ python3 scripts/automation/run_update.py \
 
 每次命令最后一行输出结构化 JSON，Hermes 包装层只负责把结果转换成通知。
 
+### 环境变量
+
+| 变量 | 必需性 | 用途 | 缺失时的行为 |
+| --- | --- | --- | --- |
+| `TMDB_API_KEY` | 必需 | TMDB 发现与详情、语言与地区参数 | 不生成 TMDB 驱动条目，数据质量下降 |
+| `DOUBAN_API_KEY` | 可选 | 按 IMDB ID 反查豆瓣评分与链接，补齐剧集侧缺口 | 反查模块 `enabled=false` 静默跳过，不影响现有链路 |
+
+`DOUBAN_API_KEY` 用于 `POST https://api.douban.com/v2/movie/imdb/{imdbId}`。**该 key 没有申请入口**：
+豆瓣开放平台已于 2023 年 7 月正式下线（2017 年起已停止受理新 Key 申请），现在可用的豆瓣数据通道
+均为第三方非官方方案。这个 key 来自豆瓣微信小程序（appid `wx2f9b06c1de1ccfca`）的客户端凭证，
+在开源社区公开流通，`douban-bridge`、`jellyfin-plugin-douban` 等项目使用的即是同一套值。
+
+因此它属于非官方通道，**可能随时被限流或失效**。这也是反查模块必须优雅降级的原因：
+未配置或调用失败时只跳过补全，绝不阻断生成。该接口为 POST 且只校验 apikey，
+无需微信 Referer 伪装头（与 `frodo.douban.com` 通道不同）。
+
+本地配置（`.env` 已被 `.gitignore` 忽略）：
+
+```bash
+export DOUBAN_API_KEY=...
+```
+
+CI 配置：在仓库 Secrets 中添加 `DOUBAN_API_KEY`，并在 `daily-update.yml` 的更新步骤传入同名 env。
+未配置时每日更新照常运行，只是不会补全剧集侧豆瓣评分与链接。
+
+调参与观测：
+
+- `DOUBAN_IMDB_LOOKUP_TTL_DAYS`（默认 30）：有评分条目的缓存有效期
+- `DOUBAN_IMDB_LOOKUP_REQUEST_DELAY_MS`（默认 1500）：请求最小间隔，用于规避限流
+- 缓存目录：`.cache/douban/imdb-lookup/`（有评分 30 天、未开分 3 天、404 负缓存）
+- 运行统计：`json/build_report.json` 的 `douban_imdb_lookup` 字段
+
 ## 2. 任务职责
 
 ### full

@@ -59,12 +59,24 @@ jobs:
             echo "tmdb_available=true" >> "$GITHUB_ENV"
           fi
 
+      - name: 检查 Douban API Key
+        env:
+          DOUBAN_API_KEY: ${{ secrets.DOUBAN_API_KEY }}
+        run: |
+          if [ -z "$DOUBAN_API_KEY" ]; then
+            echo "::warning::DOUBAN_API_KEY is not configured. Douban rating backfill will be skipped."
+            echo "douban_available=false" >> "$GITHUB_ENV"
+          else
+            echo "douban_available=true" >> "$GITHUB_ENV"
+          fi
+
       - name: 恢复数据源缓存
         uses: actions/cache@v4
         with:
           path: |
             .cache/douban/subjects
             .cache/douban/search
+            .cache/douban/imdb-lookup
             .cache/bilibili
           key: cinescope-sources-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
@@ -73,6 +85,7 @@ jobs:
       - name: 生成、验证并发布数据
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          DOUBAN_API_KEY: ${{ secrets.DOUBAN_API_KEY }}
         run: python3 scripts/automation/run_update.py --task full --publish | tee /tmp/cinescope-update.log
 
       - name: 生成更新摘要
@@ -81,6 +94,7 @@ jobs:
           echo "## 每日更新摘要" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "**TMDB**: ${tmdb_available:-unknown}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Douban**: ${douban_available:-unknown}" >> "$GITHUB_STEP_SUMMARY"
           if [ -f json/build_report.json ]; then
             echo "" >> "$GITHUB_STEP_SUMMARY"
             echo "### 数据质量" >> "$GITHUB_STEP_SUMMARY"

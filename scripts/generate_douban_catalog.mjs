@@ -11,6 +11,7 @@ import {
 } from './lib/build-report.mjs';
 import { createDoubanSubjectCache } from './lib/douban-subject-cache.mjs';
 import { createDoubanSearchCache } from './lib/douban-search-cache.mjs';
+import { createDoubanImdbLookup } from './lib/douban-imdb-lookup.mjs';
 import { mergeBoxOfficeIntoMovies } from './lib/box-office.mjs';
 import {
     dedupeTrailerCollections,
@@ -43,6 +44,9 @@ const BOX_OFFICE_PATH = 'json/maoyan_box_office.json';
 const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 14);
 const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 30);
 const DOUBAN_SEARCH_QUERY_LIMIT = getNumberEnv('DOUBAN_SEARCH_QUERY_LIMIT', 1);
+const DOUBAN_API_KEY = String(process.env.DOUBAN_API_KEY || '').trim();
+const DOUBAN_IMDB_LOOKUP_TTL_DAYS = getNumberEnv('DOUBAN_IMDB_LOOKUP_TTL_DAYS', 30);
+const DOUBAN_IMDB_LOOKUP_REQUEST_DELAY_MS = getNumberEnv('DOUBAN_IMDB_LOOKUP_REQUEST_DELAY_MS', 1500);
 const HTTP_REQUEST_TIMEOUT_MS = getNumberEnv('HTTP_REQUEST_TIMEOUT_MS', 15000);
 const SKIP_POSTER_DOWNLOADS = getBooleanEnv('SKIP_POSTER_DOWNLOADS', false);
 const BILIBILI_TRAILER_FORCE_BOOTSTRAP = getBooleanEnv('BILIBILI_TRAILER_FORCE_BOOTSTRAP', false);
@@ -61,6 +65,12 @@ const doubanSubjectCache = createDoubanSubjectCache({
 const doubanSearchCache = createDoubanSearchCache({
     rootDir: ROOT_DIR,
     ttlDays: DOUBAN_SEARCH_CACHE_TTL_DAYS
+});
+const doubanImdbLookup = createDoubanImdbLookup({
+    rootDir: ROOT_DIR,
+    ttlDays: DOUBAN_IMDB_LOOKUP_TTL_DAYS,
+    apiKey: DOUBAN_API_KEY,
+    minIntervalMs: DOUBAN_IMDB_LOOKUP_REQUEST_DELAY_MS
 });
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -182,6 +192,7 @@ async function main() {
 
     buildReport.douban_subject_cache = doubanSubjectCache.summarize();
     buildReport.douban_search_cache = doubanSearchCache.summarize();
+    buildReport.douban_imdb_lookup = doubanImdbLookup.summarize();
     finalizeBuildReport(buildReport);
     await writeJson(BUILD_REPORT_PATH, buildReport);
     console.log(`[build_report] -> ${BUILD_REPORT_PATH}`);
@@ -555,7 +566,7 @@ async function buildTmdbItems(spec, doubanLookup) {
             return null;
         }
 
-        const doubanMatch = findDoubanMatch(spec.kind, doubanLookup, {
+        let doubanMatch = findDoubanMatch(spec.kind, doubanLookup, {
             title: detail.title || detail.name || item.title || item.name,
             originalTitle:
                 detail.original_title || detail.original_name || item.original_title || item.original_name || '',
@@ -568,12 +579,70 @@ async function buildTmdbItems(spec, doubanLookup) {
                 ''
         });
 
+        doubanMatch = await applyImdbLookupFallback(doubanMatch, detail.external_ids?.imdb_id);
+
         return spec.kind === 'tv'
             ? normalizeTmdbTvEntry(detail, doubanMatch)
             : normalizeTmdbMovieEntry(detail, doubanMatch);
     });
 
     return normalizedItems.filter(Boolean);
+}
+
+/**
+ * 豆瓣榜单匹配只覆盖近期热门，TMDB 驱动分类里大量条目匹配不到评分与链接。
+ * 这里用 IMDB ID 做精确反查补齐缺口；榜单已提供的字段一律保留。
+ */
+async function applyImdbLookupFallback(doubanMatch, imdbId) {
+    if (!doubanImdbLookup.enabled || !imdbId) {
+        return doubanMatch;
+    }
+
+    const needsRating = !getDoubanField(doubanMatch, 'rating');
+    const needsLink = !getDoubanField(doubanMatch, 'link');
+    if (!needsRating && !needsLink) {
+        return doubanMatch;
+    }
+
+    const fallback = await doubanImdbLookup.lookup(imdbId).catch((error) => {
+        console.warn(`Douban imdb lookup failed for ${imdbId}: ${error.message}`);
+        return null;
+    });
+
+    return fallback ? mergeDoubanImdbLookup(doubanMatch, fallback) : doubanMatch;
+}
+
+function mergeDoubanImdbLookup(doubanMatch, lookup) {
+    const rating = getRatingValue(lookup.rating);
+    const link = lookup.douban_id ? buildDoubanSubjectUrl(lookup.douban_id) : null;
+    const merged = { ...(doubanMatch || {}) };
+
+    if (!getDoubanField(doubanMatch, 'rating') && rating) {
+        merged.douban_rating = rating;
+    }
+    if (!getDoubanField(doubanMatch, 'link') && link) {
+        merged.douban_link_google = link;
+    }
+    if (!getRatingCount(merged.rating_count) && lookup.rating_count) {
+        merged.rating_count = lookup.rating_count;
+    }
+
+    const seasons = Array.isArray(merged.seasons) ? [...merged.seasons] : [];
+    if (seasons.length > 0) {
+        const season = { ...seasons[0] };
+        if (!season.douban_rating && rating) {
+            season.douban_rating = rating;
+        }
+        if (!season.douban_link_google && link) {
+            season.douban_link_google = link;
+        }
+        seasons[0] = season;
+    } else if (rating || link) {
+        seasons.push({ douban_rating: rating, douban_link_google: link });
+    }
+    merged.seasons = seasons;
+
+    return merged;
 }
 
 async function findDoubanMatchBySearch(spec, item, date) {
