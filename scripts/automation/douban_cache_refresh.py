@@ -8,8 +8,8 @@
 4. 返回抓取结果；构建、验证和发布由统一任务入口处理
 
 依赖：
-- Kimi WebBridge daemon 127.0.0.1:10086 存活 + Chrome 扩展连接
-- kimi scraper 通过 douban_kimi_scraper.py 调用
+- BrowserSkill daemon 与浏览器扩展正常连接（`bsk doctor` 全部为 ok/na）
+- BrowserSkill 抓取脚本 `douban_browser_scraper.py`
 """
 
 import argparse
@@ -24,7 +24,7 @@ OUTPUT_ROOT = Path(os.environ.get("CINESCOPE_OUTPUT_ROOT") or PROJECT_ROOT).reso
 CACHE_DIR = PROJECT_ROOT / ".cache" / "douban" / "subjects" / "movie"
 MOVIE_JSON = OUTPUT_ROOT / "json" / "movie_cn_complete.json"
 LATEST_JSON = OUTPUT_ROOT / "json" / "movie_cn_latest.json"
-SCRAPER = Path(__file__).resolve().parent / "douban_kimi_scraper.py"
+SCRAPER = Path(__file__).resolve().parent / "douban_browser_scraper.py"
 
 # 复用 probe 模块
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -96,7 +96,7 @@ def run_scraper(ids: list[str]) -> bool:
     cmd = [sys.executable, str(SCRAPER), "--kind", "movie", "--file", str(id_file), "--delay", "2"]
     print(f"\n=== 抓取阶段 ===")
     print(f"执行: {' '.join(cmd[:5])} ...")
-    # Kimi WebBridge 走真实 Chrome navigate + sleep 2s，每条 ID ~6-7s。
+    # BrowserSkill 走真实 Chrome navigate + sleep 2s，每条 ID ~6-7s。
     # 189 个 missing × ~7s ≈ 1300s，给 1800s (30 min) 上限；之前 600s 撞墙是 Playwright 串行。
     result = subprocess.run(cmd, capture_output=False, timeout=1800)
 

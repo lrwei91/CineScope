@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""豆瓣详情页缓存补充工具 — 通过 Kimi WebBridge（真实 Chrome 登录态）抓取页面。
+"""豆瓣详情页缓存补充工具 — 通过 BrowserSkill（真实 Chrome 登录态）抓取页面。
 
 替代原本的 Playwright headless 抓取方案：
 - 真实 Chrome 登录态：自动绕过 sec.douban.com 安全验证
-- m.douban.com 走 WebBridge HTTP API，不直接发请求
+- m.douban.com 通过 BrowserSkill Agent Window 访问，不直接发请求
 - delay 默认 2s（与原 Playwright 周更节奏一致）
 
 依赖（启动时检查，失败立即报错）：
-- Kimi WebBridge daemon 127.0.0.1:10086 存活
-- 浏览器扩展已连接（`~/.kimi-webbridge/bin/kimi-webbridge status`）
+- bsk CLI 与 BrowserSkill daemon 可用
+- 浏览器扩展已连接（`bsk doctor` 全部为 ok/na）
 
 用法：
-  python scripts/douban_kimi_scraper.py --kind movie --ids 36053104 37293378
-  python scripts/douban_kimi_scraper.py --kind tv --ids 123456 --all
-  python scripts/douban_kimi_scraper.py --report  # 从 build_report.json 提取失败 ID
+  python scripts/douban_browser_scraper.py --kind movie --ids 36053104 37293378
+  python scripts/douban_browser_scraper.py --kind tv --ids 123456 --all
+  python scripts/douban_browser_scraper.py --report  # 从 build_report.json 提取失败 ID
 """
 
 import argparse
@@ -22,73 +22,73 @@ import os
 import re
 import sys
 import time
-import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.error import URLError, HTTPError
 
-
-DAEMON = os.environ.get("KIMI_WB_DAEMON", "http://127.0.0.1:10086/command")
-SESSION = os.environ.get("DOUBAN_WB_SESSION", "douban_weekly_scrape")
-NAV_TIMEOUT = 60
-EVAL_TIMEOUT = 20
+sys.path.insert(0, str(Path.home() / ".hermes" / "scripts" / "lib"))
+from browser_skill_client import BrowserSkillClient, BrowserSkillError  # noqa: E402
 
 PROJECT_ROOT = Path(os.environ.get("CINESCOPE_PROJECT_ROOT") or Path(__file__).resolve().parents[2]).resolve()
 
 CACHE_DIR = PROJECT_ROOT / ".cache" / "douban" / "subjects"
 BUILD_REPORT = PROJECT_ROOT / "json" / "build_report.json"
 SCHEMA_VERSION = 2
+NAV_TIMEOUT = 60
+EVAL_TIMEOUT = 20
+
+_BSK: BrowserSkillClient | None = None
 
 
 def check_daemon() -> bool:
-    """预检：daemon 存活 + extension 已连接。
-
-    status 是 daemon 独立端点 (GET /status)，不是 action。
-    daemon 死 → Connection refused / 502 / -L 等连接层错。
-    """
-    status_url = DAEMON.rsplit("/", 1)[0] + "/status"
+    """预检 BrowserSkill daemon、扩展和浏览器协议。"""
     try:
-        with urllib.request.urlopen(status_url, timeout=5) as r:
-            res = json.loads(r.read().decode() or "{}")
-    except (URLError, HTTPError, TimeoutError, json.JSONDecodeError) as e:
-        print(f"❌ Kimi WebBridge daemon 未运行 ({status_url})", file=sys.stderr)
-        print(f"   {type(e).__name__}: {e}", file=sys.stderr)
-        print(f"   启动: ~/.kimi-webbridge/bin/kimi-webbridge start", file=sys.stderr)
+        rows = BrowserSkillClient.doctor(timeout=120)
+    except (BrowserSkillError, OSError, TimeoutError) as exc:
+        print(f"❌ BrowserSkill 预检失败: {exc}", file=sys.stderr)
+        print("   修复: bsk doctor", file=sys.stderr)
         return False
-    if not res.get("running"):
-        print(f"❌ Kimi WebBridge daemon running=false ({status_url})", file=sys.stderr)
-        print(f"   启动: ~/.kimi-webbridge/bin/kimi-webbridge start", file=sys.stderr)
-        return False
-    if not res.get("extension_connected"):
-        print(f"❌ 浏览器扩展未连接到 daemon", file=sys.stderr)
-        print(f"   检查 Chrome/Edge 扩展是否启用", file=sys.stderr)
+    failures = [
+        f"{row.get('name')}: {row.get('detail') or row.get('hint') or row.get('status')}"
+        for row in rows
+        if row.get("status") not in {"ok", "na"}
+    ]
+    if failures:
+        print("❌ BrowserSkill 未就绪", file=sys.stderr)
+        for failure in failures:
+            print(f"   {failure}", file=sys.stderr)
         return False
     return True
 
 
-def call(action, args=None, timeout=30):
-    """daemon HTTP 调用 + 响应 flatten（坑 7：嵌套结构展平）。"""
-    payload = {"action": action, "session": SESSION}
-    if args is not None:
-        payload["args"] = args
+def _client() -> BrowserSkillClient:
+    global _BSK
+    if _BSK is None:
+        client = BrowserSkillClient()
+        client.start()
+        _BSK = client
+    return _BSK
+
+
+def call(action: str, args: dict | None = None, timeout: float = 30) -> dict:
+    """通过共享 BrowserSkill CLI 客户端执行页面动作。"""
     try:
-        with urllib.request.urlopen(urllib.request.Request(
-            DAEMON,
-            data=json.dumps(payload).encode(),
-            headers={"Content-Type": "application/json"},
-        ), timeout=timeout) as r:
-            res = json.loads(r.read().decode() or '{"ok":true}')
-    except (URLError, HTTPError, TimeoutError, json.JSONDecodeError) as e:
-        return {"ok": False, "error": f"{type(e).__name__}: {e}"}
-    if not isinstance(res, dict):
-        return {"ok": False, "error": "unexpected response shape"}
-    data = res.get("data")
-    if isinstance(data, dict):
-        flat = {"ok": res.get("ok", True), **data}
-        if "error" in res:
-            flat["error"] = res["error"]
-        return flat
-    return res
+        result = _client().command(action, args, timeout=timeout)
+    except (BrowserSkillError, OSError, TimeoutError) as exc:
+        return {"ok": False, "error": str(exc)}
+    if isinstance(result, dict):
+        result.setdefault("ok", True)
+        return result
+    return {"ok": False, "error": "unexpected response shape"}
+
+
+def close_client() -> dict:
+    global _BSK
+    if _BSK is None:
+        return {"stopped": []}
+    try:
+        return _BSK.stop() or {"stopped": []}
+    finally:
+        _BSK = None
 
 
 def cache_path(kind: str, subject_id: str) -> Path:
@@ -404,11 +404,16 @@ def scrape_ids(ids: list[str], kind: str, delay: float = 2.0):
             except Exception:
                 pass
 
-        # navigate 同时探活（坑 6）
+        # navigate 同时确认 Agent Window 仍可用。
         nav = call("navigate", {"url": url}, timeout=NAV_TIMEOUT)
-        if not nav.get("success"):
-            err = nav.get('error', 'unknown')
+        final_url = str(nav.get("final_url") or "")
+        if nav.get("ok") is False or not final_url:
+            err = nav.get("error", "unknown")
             print(f"❌ navigate: {err}")
+            fail += 1
+            continue
+        if f"/subject/{sid}/" not in final_url:
+            print(f"❌ 页面重定向/拦截: {final_url}")
             fail += 1
             continue
 
@@ -417,8 +422,9 @@ def scrape_ids(ids: list[str], kind: str, delay: float = 2.0):
 
         # 提取数据
         eval_res = call("evaluate", {"code": EXTRACT_CODE}, timeout=EVAL_TIMEOUT)
-        if eval_res.get("type") != "string" or not eval_res.get("value"):
-            err = eval_res.get('error') or f"type={eval_res.get('type')}, value={eval_res.get('value')}"
+        value = eval_res.get("value")
+        if eval_res.get("ok") is False or not isinstance(value, str) or not value:
+            err = eval_res.get("error") or f"value={value}"
             print(f"❌ evaluate: {err}")
             fail += 1
             continue
@@ -446,9 +452,7 @@ def scrape_ids(ids: list[str], kind: str, delay: float = 2.0):
 
     print(f"\n完成: {ok} 成功, {fail} 失败")
 
-    # 清理 session
-    close = call("close_session")
-    print(f"close_session: {close.get('closed', 0)} tab(s) closed")
+    # 会话由 main 的 finally 统一收尾，异常路径也不会遗留 Agent Window。
 
 
 def get_failed_ids_from_report() -> dict[str, list[str]]:
@@ -476,7 +480,7 @@ def get_failed_ids_from_report() -> dict[str, list[str]]:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="豆瓣详情缓存补充工具 (Kimi WebBridge)")
+    ap = argparse.ArgumentParser(description="豆瓣详情缓存补充工具 (BrowserSkill)")
     ap.add_argument("--kind", choices=["movie", "tv"], default="movie")
     ap.add_argument("--ids", nargs="*", help="豆瓣 subject ID 列表")
     ap.add_argument("--file", help="从文件读取 ID（每行一个）")
@@ -488,26 +492,31 @@ def main():
     if not args.skip_daemon_check and not check_daemon():
         sys.exit(1)
 
-    if args.file:
-        ids = Path(args.file).read_text(encoding="utf-8").split()
-        ids = [x.strip() for x in ids if x.strip()]
-        print(f"从 {args.file} 读取 {len(ids)} 个 ID")
-        scrape_ids(ids, args.kind, args.delay)
-    elif args.report:
-        failed = get_failed_ids_from_report()
-        if not failed:
-            print("没有发现 403 失败记录")
-            return
-        all_ids = []
-        for ids in failed.values():
-            all_ids.extend(ids)
-        all_ids = list(dict.fromkeys(all_ids))
-        print(f"\n共 {len(all_ids)} 个失败 ID，开始抓取...")
-        scrape_ids(all_ids, "movie", args.delay)
-    elif args.ids:
-        scrape_ids(args.ids, args.kind, args.delay)
-    else:
-        ap.print_help()
+    try:
+        if args.file:
+            ids = Path(args.file).read_text(encoding="utf-8").split()
+            ids = [x.strip() for x in ids if x.strip()]
+            print(f"从 {args.file} 读取 {len(ids)} 个 ID")
+            scrape_ids(ids, args.kind, args.delay)
+        elif args.report:
+            failed = get_failed_ids_from_report()
+            if not failed:
+                print("没有发现 403 失败记录")
+                return
+            all_ids = []
+            for ids in failed.values():
+                all_ids.extend(ids)
+            all_ids = list(dict.fromkeys(all_ids))
+            print(f"\n共 {len(all_ids)} 个失败 ID，开始抓取...")
+            scrape_ids(all_ids, "movie", args.delay)
+        elif args.ids:
+            scrape_ids(args.ids, args.kind, args.delay)
+        else:
+            ap.print_help()
+    finally:
+        close = close_client()
+        if close.get("stopped"):
+            print(f"BrowserSkill session 已关闭: {', '.join(close['stopped'])}")
 
 
 if __name__ == "__main__":

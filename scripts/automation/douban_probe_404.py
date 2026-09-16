@@ -12,46 +12,58 @@ import json
 import os
 import sys
 import time
-import urllib.request
 from pathlib import Path
-from urllib.error import URLError, HTTPError
+
+sys.path.insert(0, str(Path.home() / ".hermes" / "scripts" / "lib"))
+from browser_skill_client import BrowserSkillClient, BrowserSkillError  # noqa: E402
 
 
-DAEMON = "http://127.0.0.1:10086/command"
-SESSION = "douban_404_probe"
+SESSION = "douban-404-probe"
 
 
-def make_caller(daemon: str = DAEMON, session: str = SESSION):
-    """返回一个 call(action, args, timeout) 函数，绑定到指定 daemon + session。
+def make_caller(daemon: str | None = None, session: str = SESSION):
+    """返回绑定到一个 BrowserSkill session 的 call(action, args, timeout) 函数。
 
-    weekly_update.py 用自己的 session 避免和 probe CLI 的 session 冲突。
+    ``daemon`` 仅为兼容旧调用方保留，不再作为 HTTP 地址使用。
     """
+    client = BrowserSkillClient()
+    try:
+        client.start()
+    except (BrowserSkillError, OSError, TimeoutError) as exc:
+        def failed_call(action, args=None, timeout=30):
+            return {"ok": False, "error": str(exc)}
+        setattr(failed_call, "close", lambda: None)
+        return failed_call
+
     def call(action, args=None, timeout=30):
-        payload = {"action": action, "session": session}
-        if args is not None:
-            payload["args"] = args
         try:
-            with urllib.request.urlopen(urllib.request.Request(
-                daemon, data=json.dumps(payload).encode(),
-                headers={"Content-Type": "application/json"},
-            ), timeout=timeout) as r:
-                res = json.loads(r.read().decode() or '{"ok":true}')
-        except (URLError, HTTPError, TimeoutError, json.JSONDecodeError) as e:
-            return {"ok": False, "error": f"{type(e).__name__}: {e}"}
-        if not isinstance(res, dict):
-            return {"ok": False, "error": "unexpected response shape"}
-        data = res.get("data")
-        if isinstance(data, dict):
-            flat = {"ok": res.get("ok", True), **data}
-            if "error" in res:
-                flat["error"] = res["error"]
-            return flat
-        return res
+            result = client.command(action, args, timeout=timeout)
+        except (BrowserSkillError, OSError, TimeoutError) as exc:
+            return {"ok": False, "error": str(exc)}
+        if isinstance(result, dict):
+            result.setdefault("ok", True)
+            return result
+        return {"ok": False, "error": "unexpected response shape"}
+
+    def close():
+        try:
+            client.stop()
+        except (BrowserSkillError, OSError, TimeoutError):
+            pass
+
+    setattr(call, "close", close)
     return call
 
 
-# 默认 call 走全局 SESSION（CLI 用）
-call = make_caller()
+# 默认 call 懒启动，导入模块不会创建 BrowserSkill session。
+_DEFAULT_CALLER = None
+
+
+def call(action, args=None, timeout=30):
+    global _DEFAULT_CALLER
+    if _DEFAULT_CALLER is None:
+        _DEFAULT_CALLER = make_caller()
+    return _DEFAULT_CALLER(action, args, timeout)
 
 
 PROJECT_ROOT = Path(os.environ.get("CINESCOPE_OUTPUT_ROOT") or Path(__file__).resolve().parents[2]).resolve()
@@ -91,7 +103,7 @@ def probe_missing_ids(ids: list[str], session: str | None = None, delay: float =
     - not_found_ids: 确认 404（豆瓣已删除/重组），从 movie_cn_complete.json 删除即可
     - errors: navigate/evaluate 失败（daemon 死 / Chrome 扩展断 / 网络抖），需保留重试
     """
-    caller = make_caller(session=session) if session else call
+    caller = make_caller(session=session) if session else make_caller()
     n = len(ids)
     if verbose:
         print(f"probe 总数: {n}", flush=True)
@@ -103,7 +115,7 @@ def probe_missing_ids(ids: list[str], session: str | None = None, delay: float =
     for i, sid in enumerate(ids):
         url = f"https://movie.douban.com/subject/{sid}/"
         nav = caller("navigate", {"url": url}, timeout=30)
-        if not nav.get("success"):
+        if nav.get("ok") is False or not nav.get("final_url"):
             errors.append((sid, nav.get("error", "navigate fail")))
             if verbose:
                 print(f"[{i+1}/{n}] {sid} ... ❌ navigate err", flush=True)
@@ -112,7 +124,7 @@ def probe_missing_ids(ids: list[str], session: str | None = None, delay: float =
         time.sleep(delay)
 
         ev = caller("evaluate", {"code": EVAL_CODE}, timeout=15)
-        if ev.get("type") != "string":
+        if ev.get("ok") is False or not isinstance(ev.get("value"), str):
             errors.append((sid, "evaluate fail"))
             if verbose:
                 print(f"[{i+1}/{n}] {sid} ... ❌ evaluate err", flush=True)
@@ -133,8 +145,8 @@ def probe_missing_ids(ids: list[str], session: str | None = None, delay: float =
             if verbose:
                 print(f"[{i+1}/{n}] {sid} ... ✅ {info.get('title')}", flush=True)
 
-    # 清理 session
-    caller("close_session")
+    # 清理本次 caller 绑定的 BrowserSkill session。
+    getattr(caller, "close", lambda: None)()
 
     if verbose:
         print(f"\n=== 汇总 ===", flush=True)
