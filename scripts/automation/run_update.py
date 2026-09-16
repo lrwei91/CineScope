@@ -27,6 +27,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CACHE_ROOT = PROJECT_ROOT / ".cache" / "automation"
 LOCK_PATH = CACHE_ROOT / "update.lock"
 PUBLISH_PATHS = ("json", "posters")
+ALLOW_UNRELATED_WORKTREE_CHANGES_TASKS = frozenset({"tv-status", "douban-cache", "trailers"})
 TASK_TIMEOUTS = {
     "full": 2400,
     "tv-status": 900,
@@ -115,6 +116,33 @@ def collect_changed_files(staged_root: Path) -> list[str]:
     return sorted(changed)
 
 
+def copy_tracked_json_baseline(staged_root: Path) -> None:
+    """Copy only Git-tracked JSON files into staging.
+
+    The worktree may contain editor/cloud-provider leftovers under ``json/``.
+    They are not part of the catalog baseline and can even be temporarily
+    unreadable, so copying the whole directory is unsafe.
+    """
+    result = subprocess.run(
+        ["git", "ls-files", "-z", "--", "json"],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        check=True,
+    )
+    for encoded_path in result.stdout.split(b"\0"):
+        if not encoded_path:
+            continue
+        relative = Path(os.fsdecode(encoded_path))
+        if relative.is_absolute() or ".." in relative.parts or not relative.parts or relative.parts[0] != "json":
+            raise RuntimeError(f"invalid tracked JSON path: {relative}")
+        source = PROJECT_ROOT / relative
+        if not source.is_file():
+            raise RuntimeError(f"tracked JSON file is missing: {relative}")
+        destination = staged_root / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+
+
 def promote(staged_root: Path, changed_files: list[str]) -> None:
     for relative_path in changed_files:
         source = staged_root / relative_path
@@ -125,17 +153,36 @@ def promote(staged_root: Path, changed_files: list[str]) -> None:
         os.replace(temporary, destination)
 
 
-def ensure_publish_branch_ready() -> None:
+def publish_allows_unrelated_worktree_changes(task: str) -> bool:
+    return task in ALLOW_UNRELATED_WORKTREE_CHANGES_TASKS
+
+
+def ensure_publish_branch_ready(*, allow_unrelated_worktree_changes: bool = False) -> None:
+    """Fetch ``origin/main`` and fast-forward without losing local edits.
+
+    Scheduled data updates publish only ``json/`` and ``posters/``, so those
+    tasks may retain edits elsewhere in the worktree. Untracked files are
+    ignored here because Git will still reject a fast-forward that would
+    overwrite one; the later changed-file guard protects actual outputs.
+    Other publish tasks keep the stricter whole-worktree guard. If a
+    fast-forward would overwrite a local change, Git itself rejects the merge
+    and the publish is aborted.
+    """
     subprocess.run(["git", "fetch", "origin", "main"], cwd=PROJECT_ROOT, check=True, timeout=60)
 
+    status_command = ["git", "status", "--porcelain"]
+    if allow_unrelated_worktree_changes:
+        status_command.extend(["--untracked-files=no", "--", *PUBLISH_PATHS])
     status = subprocess.run(
-        ["git", "status", "--porcelain"],
+        status_command,
         cwd=PROJECT_ROOT,
         capture_output=True,
         text=True,
         check=True,
     )
     if status.stdout.strip():
+        if allow_unrelated_worktree_changes:
+            raise RuntimeError("--publish output paths must be clean before syncing origin/main")
         raise RuntimeError("--publish requires a clean worktree before syncing origin/main")
 
     remote_is_ancestor = subprocess.run(
@@ -311,11 +358,13 @@ def main() -> int:
     try:
         with UpdateLock():
             if args.publish:
-                ensure_publish_branch_ready()
+                ensure_publish_branch_ready(
+                    allow_unrelated_worktree_changes=publish_allows_unrelated_worktree_changes(args.task)
+                )
             CACHE_ROOT.mkdir(parents=True, exist_ok=True)
             with tempfile.TemporaryDirectory(prefix=f"{args.task}-", dir=CACHE_ROOT) as temporary_dir:
                 staged_root = Path(temporary_dir)
-                shutil.copytree(PROJECT_ROOT / "json", staged_root / "json")
+                copy_tracked_json_baseline(staged_root)
                 metrics = execute_task(
                     args.task,
                     staged_root,

@@ -85,7 +85,7 @@ python3 scripts/automation/run_update.py --task trailers
 python3 scripts/automation/run_update.py --task full --publish
 ```
 
-`--publish` 要求任务开始前工作区干净。任务使用进程锁避免本地并发；输出必须通过结构、重复 ID、latest/complete 一致性、数量回退和海报路径检查后才会提升。
+`--publish` 默认要求任务开始前工作区干净；`tv-status` 和 `trailers` 任务可保留 `json/`、`posters/` 之外的本地编辑，但发布路径必须干净。任务使用进程锁避免本地并发，远端快进不得覆盖本地改动。输出还必须通过结构、重复 ID、latest/complete 一致性、数量回退和海报路径检查后才会提升。
 
 有意进行超过 20% 的数据缩减时，需显式传入 `--allow-large-drop`。
 

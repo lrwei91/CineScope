@@ -14,6 +14,7 @@ from run_update import (  # noqa: E402
     collect_changed_files,
     ensure_clean_for_publish,
     ensure_publish_branch_ready,
+    publish_allows_unrelated_worktree_changes,
 )
 from trailer_report import diff_trailers, snapshot  # noqa: E402
 from tv_status_sync import (  # noqa: E402
@@ -75,7 +76,7 @@ class UpdateLockTests(unittest.TestCase):
         )
 
     @patch("run_update.subprocess.run")
-    def test_publish_branch_rejects_dirty_worktree_before_sync(self, run):
+    def test_publish_branch_rejects_dirty_worktree_for_non_output_scoped_tasks(self, run):
         result = type("Result", (), {})
         run.side_effect = [
             result(),
@@ -84,6 +85,42 @@ class UpdateLockTests(unittest.TestCase):
 
         with self.assertRaisesRegex(RuntimeError, "clean worktree"):
             ensure_publish_branch_ready()
+
+        self.assertEqual(len(run.call_args_list), 2)
+
+    def test_only_output_scoped_tasks_allow_unrelated_worktree_changes(self):
+        self.assertTrue(publish_allows_unrelated_worktree_changes("tv-status"))
+        self.assertTrue(publish_allows_unrelated_worktree_changes("douban-cache"))
+        self.assertTrue(publish_allows_unrelated_worktree_changes("trailers"))
+        self.assertFalse(publish_allows_unrelated_worktree_changes("full"))
+
+    @patch("run_update.subprocess.run")
+    def test_publish_branch_allows_unrelated_worktree_changes_for_output_scoped_tasks(self, run):
+        result = type("Result", (), {})
+        run.side_effect = [
+            result(),
+            type("Status", (), {"stdout": ""})(),
+            type("Ancestor", (), {"returncode": 0})(),
+        ]
+
+        ensure_publish_branch_ready(allow_unrelated_worktree_changes=True)
+
+        self.assertEqual(len(run.call_args_list), 3)
+        self.assertEqual(
+            run.call_args_list[1].args[0],
+            ["git", "status", "--porcelain", "--untracked-files=no", "--", "json", "posters"],
+        )
+
+    @patch("run_update.subprocess.run")
+    def test_publish_branch_rejects_dirty_output_paths_before_sync(self, run):
+        result = type("Result", (), {})
+        run.side_effect = [
+            result(),
+            type("Status", (), {"stdout": " M json/data.json\n"})(),
+        ]
+
+        with self.assertRaisesRegex(RuntimeError, "output paths"):
+            ensure_publish_branch_ready(allow_unrelated_worktree_changes=True)
 
         self.assertEqual(len(run.call_args_list), 2)
 
