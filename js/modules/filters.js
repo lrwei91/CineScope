@@ -10,7 +10,7 @@ import {
     GENRE_PRIORITY,
     CATEGORY_CONFIG
 } from './config.js';
-import { isDateAfterToday, parseDateStringAsLocalDate } from './date-utils.js';
+import { parseDateStringAsLocalDate } from './date-utils.js';
 
 /**
  * 获取当前分类的评分配置
@@ -71,74 +71,42 @@ export function applyFilters(allItems, filters, categoryId) {
         selectedGenres
     } = filters;
 
-    let sourceItems = [...allItems];
+    const query = String(searchQuery || '').trim().toLowerCase();
+    const recentHighScore = specialFilterMode === 'recent_high_score';
+    const ratingConfig = getCurrentRatingConfig(categoryId);
+    const threshold = ratingConfig.thresholds.find(({ label }) => label === selectedRating)?.value || 0;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const sinceDate = new Date(today.getTime());
+    if (recentHighScore) sinceDate.setFullYear(sinceDate.getFullYear() - ratingConfig.special.years);
+    const futureItems = [];
+    const futureDates = new Map();
+    const pastAndPresentItems = [];
 
-    // 搜索筛选
-    if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        sourceItems = sourceItems.filter(item =>
-            (item.title && item.title.toLowerCase().includes(query)) ||
-            (item.subtitle && item.subtitle.toLowerCase().includes(query))
-        );
+    // 一次遍历完成搜索、评分、类型和日期分组，日期只解析一次。
+    for (const item of allItems) {
+        if (query && ![item.title, item.subtitle, ...(item.aka || []), item.overview]
+            .some((value) => String(value || '').toLowerCase().includes(query))) continue;
+
+        const rating = parseFloat(item.doubanRating) || 0;
+        if (!recentHighScore && selectedRating !== '全部' && rating < threshold) continue;
+        if (selectedGenres.length && !(item.genres || []).some((genre) => selectedGenres.includes(genre))) continue;
+        if (isAnimationItem(item) && !(Number(item.doubanRating) > 0)) continue;
+
+        const itemDate = parseDateStringAsLocalDate(item.date);
+        if (recentHighScore) {
+            if (!(itemDate >= sinceDate) || rating < ratingConfig.special.minRating) continue;
+            pastAndPresentItems.push(item);
+        } else if (itemDate > today) {
+            futureItems.push(item);
+            futureDates.set(item, itemDate.getTime());
+        } else {
+            pastAndPresentItems.push(item);
+        }
     }
 
-    // 近 2 年高分筛选
-    if (specialFilterMode === 'recent_high_score') {
-        const specialConfig = getCurrentRatingConfig(categoryId).special;
-        const sinceDate = new Date();
-        sinceDate.setFullYear(sinceDate.getFullYear() - specialConfig.years);
-        sinceDate.setHours(0, 0, 0, 0);
-
-        sourceItems = sourceItems.filter((item) => {
-            const itemDate = parseDateStringAsLocalDate(item.date);
-            const rating = parseFloat(item.doubanRating) || 0;
-            return itemDate >= sinceDate && rating >= specialConfig.minRating;
-        });
-    }
-
-    // 评分筛选
-    const ratingThresholdMap = Object.fromEntries(
-        getCurrentRatingConfig(categoryId).thresholds.map(({ label, value }) => [label, value])
-    );
-
-    const ratingFiltered =
-        selectedRating === '全部' || specialFilterMode === 'recent_high_score'
-            ? sourceItems
-            : sourceItems.filter((item) => {
-                  const rating = parseFloat(item.doubanRating) || 0;
-                  return rating >= (ratingThresholdMap[selectedRating] || 0);
-              });
-
-    // 类型筛选
-    const genreFiltered =
-        selectedGenres.length === 0
-            ? ratingFiltered
-            : ratingFiltered.filter((item) =>
-                  item.genres.some((genre) => selectedGenres.includes(genre))
-              );
-
-    // 过滤动画类型 + 无评分的项
-    const filteredNoRatingAnime = genreFiltered.filter((item) => {
-        const isAnimation = isAnimationItem(item);
-        const hasRating = item.doubanRating && Number(item.doubanRating) > 0;
-        return !(isAnimation && !hasRating);
-    });
-
-    // 分离即将上映和已上映
-    const futureItems =
-        specialFilterMode === 'recent_high_score'
-            ? []
-            : filteredNoRatingAnime
-                  .filter((item) => isDateAfterToday(item.date))
-                  .sort(
-                      (left, right) =>
-                          parseDateStringAsLocalDate(left.date) - parseDateStringAsLocalDate(right.date)
-                  );
-
-    const pastAndPresentItems =
-        specialFilterMode === 'recent_high_score'
-            ? filteredNoRatingAnime
-            : filteredNoRatingAnime.filter((item) => !isDateAfterToday(item.date));
+    // 复用解析结果，也兼容手动导入文件中的其他有效日期格式。
+    futureItems.sort((left, right) => futureDates.get(left) - futureDates.get(right));
 
     // 排序
     const sortedItems = pastAndPresentItems.sort((left, right) => {

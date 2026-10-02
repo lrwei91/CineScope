@@ -153,8 +153,14 @@ export function initMobileSheetEvents(onFilterOpen, options = {}) {
             const mainSearch = document.getElementById('radar-search');
             if (mainSearch) {
                 mainSearch.value = e.target.value;
-                mainSearch.dispatchEvent(new Event('input'));
+                mainSearch.dispatchEvent(new InputEvent('input', { isComposing: e.isComposing }));
             }
+        });
+    }
+
+    for (const type of ['compositionstart', 'compositionend']) {
+        mobileSheetSearch?.addEventListener(type, () => {
+            document.getElementById('radar-search')?.dispatchEvent(new CompositionEvent(type));
         });
     }
 

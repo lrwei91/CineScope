@@ -64,10 +64,10 @@ import {
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js?v=20260811b';
+} from './js/modules/mobile-sheet.js?v=20261002a';
 
 import { getNextPageRange } from './js/modules/paging.js';
-import { ShareModule } from './share.js?v=20260811b';
+import { sameCatalogItems } from './js/modules/catalog-view.js';
 
 // =====================================================
 // 全局状态
@@ -75,6 +75,8 @@ import { ShareModule } from './share.js?v=20260811b';
 const state = {
     categoryState: createCategoryState(),
     allItems: [],
+    renderedItems: [],
+    futureItems: [],
     filteredPastAndPresentItems: [],
     currentCategoryId: DEFAULT_CATEGORY_ID,
     specialFilterMode: null,
@@ -102,6 +104,7 @@ function buildLoadOptions(extra = {}) {
 
 // DOM 元素缓存
 const elements = {};
+let searchTimer = 0;
 
 function cacheElements() {
     elements.updateDate = document.querySelector('.update-date');
@@ -134,6 +137,7 @@ function getCurrentCategoryState() {
 }
 
 function resetFilterState() {
+    clearTimeout(searchTimer);
     state.specialFilterMode = null;
     state.selectedRating = '全部';
     state.selectedGenres = [];
@@ -238,6 +242,9 @@ async function switchCategory(categoryId) {
     await crossfadeMainContent(() => {
         window.scrollTo({ top: 0 });
         populateGenreFilters([]);
+        state.renderedItems = [];
+        state.renderedItemCount = 0;
+        state.futureItems = [];
         showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
     });
 
@@ -328,6 +335,9 @@ function updateSubtitleText() {
 }
 
 function showLoadError(message = '加载数据失败，请稍后重试或手动选择当前分类 JSON 文件。') {
+    state.renderedItems = [];
+    state.renderedItemCount = 0;
+    state.futureItems = [];
     if (elements.statusMessage) {
         elements.statusMessage.textContent = message;
         elements.statusMessage.dataset.state = 'error';
@@ -458,15 +468,26 @@ function getFilteredResults(items) {
 }
 
 function filterAndRenderItems(options = {}) {
+    clearTimeout(searchTimer);
     const { preserveRenderedContent = false } = options;
     const nextResults = getFilteredResults(state.allItems);
     state.filteredPastAndPresentItems = nextResults.filteredPastAndPresentItems;
 
-    renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
+    if (!sameCatalogItems(state.futureItems, nextResults.futureItems)) {
+        renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
+    }
+    state.futureItems = nextResults.futureItems;
 
     if (preserveRenderedContent && state.renderedItemCount > 0) {
-        elements.resultsContainer.innerHTML = '';
         const itemsToRender = state.filteredPastAndPresentItems.slice(0, state.renderedItemCount);
+        elements.noResultsMessage.style.display = itemsToRender.length === 0 && state.futureItems.length === 0 ? 'block' : 'none';
+        if (sameCatalogItems(state.renderedItems, itemsToRender)) {
+            updateFabState(state);
+            return;
+        }
+        elements.resultsContainer.innerHTML = '';
+        state.renderedItems = itemsToRender;
+        state.renderedItemCount = itemsToRender.length;
         if (itemsToRender.length > 0) {
             appendItemsToContainer(
                 itemsToRender,
@@ -475,8 +496,6 @@ function filterAndRenderItems(options = {}) {
                 openIntelDossier,
                 openTrailerModal
             );
-        } else {
-            elements.noResultsMessage.style.display = 'block';
         }
     } else {
         startRendering();
@@ -507,6 +526,7 @@ function startRendering() {
 
     state.currentPage = 1;
     state.renderedItemCount = 0;
+    state.renderedItems = [];
     state.lastRenderedMonth = null;
 
     if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
@@ -538,6 +558,7 @@ function appendNextItemsToResults() {
             openTrailerModal
         );
         state.renderedItemCount = endIndex;
+        state.renderedItems.push(...itemsToRender);
         state.currentPage += 1;
     }
 
@@ -574,6 +595,9 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
 
     // 只有在没有缓存数据时才显示骨架屏
     if (!hasCachedData) {
+        state.renderedItems = [];
+        state.renderedItemCount = 0;
+        state.futureItems = [];
         showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
     }
 
@@ -669,14 +693,21 @@ function setupEventListeners() {
 
     // 搜索
     if (elements.radarSearchInput) {
-        elements.radarSearchInput.addEventListener('input', (e) => {
-            state.searchQuery = e.target.value.trim();
+        const scheduleSearch = () => {
+            clearTimeout(searchTimer);
+            const value = elements.radarSearchInput.value;
+            state.searchQuery = value.trim();
             const mobileSheetSearch = document.getElementById('mobile-sheet-search');
-            if (mobileSheetSearch && mobileSheetSearch.value !== e.target.value) {
-                mobileSheetSearch.value = e.target.value;
-            }
-            filterAndRenderItems();
+            if (mobileSheetSearch && mobileSheetSearch.value !== value) mobileSheetSearch.value = value;
+            updateFabState(state);
+            if (!state.searchQuery) filterAndRenderItems();
+            else searchTimer = setTimeout(filterAndRenderItems, 150);
+        };
+        elements.radarSearchInput.addEventListener('input', (event) => {
+            if (!event.isComposing) scheduleSearch();
         });
+        elements.radarSearchInput.addEventListener('compositionstart', () => clearTimeout(searchTimer));
+        elements.radarSearchInput.addEventListener('compositionend', scheduleSearch);
     }
 
     // 页面可见性变化时刷新
@@ -695,6 +726,7 @@ async function shareDossier(item) {
     }
 
     try {
+        const { ShareModule } = await import('./share.js?v=20260811b');
         await ShareModule.shareItem(item);
     } catch (error) {
         console.error('分享失败:', error);
