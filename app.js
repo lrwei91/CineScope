@@ -52,22 +52,23 @@ import {
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20261002d';
+} from './js/modules/dossier.js?v=20261003b';
 
 import {
     openTrailerModal,
     initTrailerModalEvents
-} from './js/modules/trailer-modal.js?v=20261002d';
+} from './js/modules/trailer-modal.js?v=20261003b';
 
 import {
     isMobile,
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js?v=20261002a';
+} from './js/modules/mobile-sheet.js?v=20261003b';
 
 import { getNextPageRange } from './js/modules/paging.js';
 import { sameCatalogItems } from './js/modules/catalog-view.js';
+import { initMobileLayout } from './js/modules/mobile-layout.js?v=20261003b';
 
 // =====================================================
 // 全局状态
@@ -164,6 +165,8 @@ function setCurrentCategory(categoryId) {
         tag.classList.toggle('active', isActive);
         tag.setAttribute('aria-pressed', String(isActive));
     });
+    const mobileTitle = document.getElementById('mobile-current-category');
+    if (mobileTitle) mobileTitle.textContent = CATEGORY_CONFIG[categoryId].label || elements.categoryFilterContainer.querySelector('.active')?.textContent;
     syncMobileSheetFilters();
     updateFabState(state);
 }
@@ -404,7 +407,7 @@ function populateGenreFilters(items) {
 
     elements.genreFilterContainer.innerHTML = '';
 
-    const allTag = createGenreTag('全部', '全部', state.selectedGenres.length === 0, handleGenreClick);
+    const allTag = createGenreTag('全部', '全部', state.selectedGenres.length === 0, () => handleGenreClick('全部', allTag));
     elements.genreFilterContainer.appendChild(allTag);
 
     availableGenres.forEach((genreName) => {
@@ -726,7 +729,7 @@ async function shareDossier(item) {
     }
 
     try {
-        const { ShareModule } = await import('./share.js?v=20260811b');
+        const { ShareModule } = await import('./share.js?v=20261003b');
         await ShareModule.shareItem(item);
     } catch (error) {
         console.error('分享失败:', error);
@@ -754,6 +757,7 @@ function bootstrapApp() {
 
     // 设置事件监听器
     setupEventListeners();
+    initMobileLayout();
     setupScrollFade(elements.ratingFilterContainer);
     setupScrollFade(elements.genreFilterContainer);
     setupEditorialMotion();

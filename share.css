@@ -98,3 +98,15 @@
         animation: none;
     }
 }
+
+@media (max-width: 760px) {
+    .share-preview-overlay {
+        top: var(--viewport-top, 0px);
+        bottom: auto;
+        height: min(var(--visible-height, 100dvh), 100dvh);
+        justify-content: flex-start;
+        padding: calc(16px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));
+    }
+    .share-preview-hint, .share-preview-close { flex: 0 0 auto; font-size: .9375rem; }
+    .share-preview-image { flex: 0 0 auto; max-height: max(120px, calc(var(--visible-height, 100dvh) - 200px)); }
+}

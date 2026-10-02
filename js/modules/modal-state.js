@@ -10,7 +10,9 @@ const MODAL_IDS = [
     'trailer-modal',
     'trailer-modal-overlay',
     'mobile-filter-sheet',
-    'mobile-sheet-overlay'
+    'mobile-sheet-overlay',
+    'mobile-category-drawer',
+    'share-preview'
 ];
 
 const FOCUSABLE_SELECTOR = [
@@ -27,7 +29,14 @@ export function isAnyModalOpen() {
 }
 
 export function syncBodyModalState() {
-    document.body.classList.toggle('modal-open', isAnyModalOpen());
+    const open = isAnyModalOpen();
+    document.body.classList.toggle('modal-open', open);
+    const page = document.querySelector('.page-shell');
+    if (page) page.inert = open;
+    const dossier = document.getElementById('intel-dossier');
+    if (dossier?.classList.contains('active')) {
+        dossier.inert = Boolean(document.getElementById('trailer-modal')?.classList.contains('active') || document.getElementById('share-preview'));
+    }
 }
 
 export function focusModal(container, preferredSelector = 'button') {
@@ -44,7 +53,7 @@ export function focusModal(container, preferredSelector = 'button') {
 export function restoreModalFocus(element) {
     if (isAnyModalOpen()) return;
     if (element instanceof HTMLElement && document.contains(element)) {
-        element.focus();
+        element.focus({ preventScroll: true });
     }
 }
 
@@ -52,7 +61,7 @@ export function trapFocus(event, container) {
     if (event.key !== 'Tab' || !container) return;
 
     const focusable = [...container.querySelectorAll(FOCUSABLE_SELECTOR)]
-        .filter((element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true');
+        .filter((element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true' && element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden');
 
     if (focusable.length === 0) {
         event.preventDefault();

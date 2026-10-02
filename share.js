@@ -3,6 +3,9 @@
  * 负责生成分享图片并处理系统分享
  */
 
+import { focusModal, syncBodyModalState, trapFocus } from './js/modules/modal-state.js?v=20261003b';
+import { getModalHistory } from './js/modules/modal-history.js';
+
 import { HIDDEN_GENRES } from './js/modules/config.js';
 import { getGenreDisplayName } from './js/modules/filters.js';
 import { resolvePosterUrl } from './js/modules/renderer.js?v=20260811b';
@@ -598,9 +601,12 @@ function triggerDownload(file) {
 }
 
 function showImageOverlay(dataUrl) {
-    const returnFocus = document.activeElement;
+    const returnFocus = document.activeElement === document.body
+        ? document.getElementById('share-dossier-btn')
+        : document.activeElement;
     const overlay = document.createElement('div');
-    overlay.className = 'share-preview-overlay';
+    overlay.id = 'share-preview';
+    overlay.className = 'share-preview-overlay active';
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
     overlay.setAttribute('aria-label', '分享图片预览');
@@ -619,15 +625,18 @@ function showImageOverlay(dataUrl) {
     closeBtn.textContent = '关闭';
     closeBtn.className = 'share-preview-close';
 
-    const cleanup = () => {
+    const cleanup = (fromHistory = false) => {
+        if (!fromHistory && getModalHistory().close('share')) return;
         document.removeEventListener('keydown', handleKeydown);
         overlay.remove();
-        if (returnFocus instanceof HTMLElement && document.contains(returnFocus)) returnFocus.focus();
+        syncBodyModalState();
+        if (returnFocus instanceof HTMLElement && document.contains(returnFocus)) returnFocus.focus({ preventScroll: true });
     };
     const handleKeydown = (event) => {
         if (event.key === 'Escape') cleanup();
+        else trapFocus(event, overlay);
     };
-    closeBtn.onclick = cleanup;
+    closeBtn.onclick = () => cleanup();
     overlay.onclick = (e) => { if (e.target === overlay) cleanup(); };
     document.addEventListener('keydown', handleKeydown);
 
@@ -635,7 +644,9 @@ function showImageOverlay(dataUrl) {
     overlay.appendChild(img);
     overlay.appendChild(closeBtn);
     document.body.appendChild(overlay);
-    closeBtn.focus({ preventScroll: true });
+    syncBodyModalState();
+    getModalHistory().open('share', () => cleanup(true));
+    focusModal(overlay, '.share-preview-close');
 }
 
 async function shareItem(currentDossierItem) {

@@ -6,7 +6,7 @@
 import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { resolvePosterUrl } from './renderer.js?v=20261002c';
 import { getGenreDisplayName } from './filters.js';
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003b';
 import { getModalHistory } from './modal-history.js';
 import { resolveSwipeAxis } from './dossier-gesture.js';
 
@@ -270,9 +270,9 @@ export function openIntelDossier(item) {
     dossierDrawer.setAttribute('aria-hidden', 'false');
     dossierOverlay.classList.add('active');
     dossierDrawer.classList.add('active');
-    document.body.classList.add('modal-open');
+    syncBodyModalState();
     getModalHistory().open('dossier', () => closeIntelDossier({ fromHistory: true }));
-    focusModal(dossierDrawer, '#share-dossier-btn');
+    focusModal(dossierDrawer, window.innerWidth <= 760 ? '#close-dossier-btn' : '#share-dossier-btn');
 }
 
 /**
@@ -390,6 +390,7 @@ export function initDossierEvents(onShare, onOpenTrailer) {
     onOpenTrailerCallback = typeof onOpenTrailer === 'function' ? onOpenTrailer : null;
 
     if (dossierOverlay) dossierOverlay.addEventListener('click', closeIntelDossier);
+    document.getElementById('close-dossier-btn')?.addEventListener('click', () => closeIntelDossier());
 
     if (shareDossierBtn && onShare) {
         shareDossierBtn.addEventListener('click', async () => {
@@ -404,10 +405,10 @@ export function initDossierEvents(onShare, onOpenTrailer) {
         });
     }
 
-    setupDossierSwipeClose();
+    // Explicit return and browser history avoid conflicts with native edge gestures.
 
     document.addEventListener('keydown', (e) => {
-        if (!dossierDrawer?.classList.contains('active')) return;
+        if (!dossierDrawer?.classList.contains('active') || document.getElementById('share-preview')) return;
         if (document.getElementById('trailer-modal')?.classList.contains('active')) return;
         if (e.key === 'Escape') {
             closeIntelDossier();
