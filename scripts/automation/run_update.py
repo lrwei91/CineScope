@@ -289,7 +289,9 @@ def execute_task(task: str, staged_root: Path, *, dry_run: bool, allow_large_dro
     trailer_before = snapshot(PROJECT_ROOT) if task == "trailers" else None
 
     if task == "full":
-        run_command([*node, "scripts/generate_maoyan_cache.mjs"], env=env, timeout=timeout)
+        category_ids = {value.strip() for value in env.get("CATEGORY_IDS", "").split(",") if value.strip()}
+        if not category_ids or "movie_cn" in category_ids:
+            run_command([*node, "scripts/generate_maoyan_cache.mjs"], env=env, timeout=timeout)
         run_command([*node, "scripts/generate_douban_catalog.mjs"], env=env, timeout=timeout)
     elif task == "tv-status":
         run_command([sys.executable, "scripts/automation/tv_status_sync.py", "--quiet"], env=env, timeout=timeout)

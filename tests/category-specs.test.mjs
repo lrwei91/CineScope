@@ -15,7 +15,10 @@ test('category specs preserve catalog ids, source rules and TMDB windows', () =>
     ]);
 
     const tvCn = specs.find((spec) => spec.id === 'tv_cn');
-    assert.deepEqual(tvCn.doubanSources.map((source) => source.slug), ['tv_domestic', 'tv_hot']);
+    assert.deepEqual(tvCn.doubanSources.map((source) => source.slug), ['tv_domestic', 'tv_hot', 'tv_real_time_hotest']);
+    const realtimeSource = tvCn.doubanSources.find((source) => source.slug === 'tv_real_time_hotest');
+    assert.equal(realtimeSource.includeItem({ card_subtitle: '2026 / 中国大陆 / 剧情 悬疑' }), true);
+    assert.equal(realtimeSource.includeItem({ card_subtitle: '2026 / 韩国 / 剧情' }), false);
     assert.equal(tvCn.tmdb.params['first_air_date.lte'], '2026-12-31');
     assert.equal(tvCn.trailerSource.searchFromCatalog, true);
 

@@ -76,6 +76,9 @@ TMDB_API_KEY=... python3 scripts/automation/run_update.py --task full
 
 GitHub Actions 每日 22:00 运行并使用 `--publish`。
 
+仅重建国产剧目录时使用 `CATEGORY_IDS=tv_cn python3 scripts/automation/run_update.py --task full --dry-run`。
+确认试运行通过后去掉 `--dry-run`，将验证后的数据提升到工作区。指定分类不含 `movie_cn` 时跳过猫眼缓存刷新；不指定分类时保留完整更新流程。
+
 ### tv-status
 
 ```bash

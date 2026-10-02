@@ -14,6 +14,7 @@ from run_update import (  # noqa: E402
     collect_changed_files,
     ensure_clean_for_publish,
     ensure_publish_branch_ready,
+    execute_task,
     publish_allows_unrelated_worktree_changes,
 )
 from trailer_report import diff_trailers, snapshot  # noqa: E402
@@ -136,6 +137,27 @@ class UpdateLockTests(unittest.TestCase):
 
         with self.assertRaisesRegex(RuntimeError, "diverged"):
             ensure_publish_branch_ready()
+
+
+class ScopedFullUpdateTests(unittest.TestCase):
+    @patch("run_update.run_command")
+    def test_tv_only_update_skips_movie_cache_but_still_validates(self, run):
+        with patch.dict(os.environ, {"CATEGORY_IDS": "tv_cn"}):
+            execute_task("full", Path("/tmp/cinescope-test-staging"), dry_run=True, allow_large_drop=False)
+        commands = [call.args[0] for call in run.call_args_list]
+        self.assertEqual(len(commands), 2)
+        self.assertIn("scripts/generate_douban_catalog.mjs", commands[0])
+        self.assertIn("scripts/validate-data.mjs", commands[1])
+
+    @patch("run_update.run_command")
+    def test_movie_and_unscoped_updates_keep_movie_cache_refresh(self, run):
+        for category_ids in ("", "movie_cn,tv_cn"):
+            with self.subTest(category_ids=category_ids):
+                run.reset_mock()
+                with patch.dict(os.environ, {"CATEGORY_IDS": category_ids}):
+                    execute_task("full", Path("/tmp/cinescope-test-staging"), dry_run=True, allow_large_drop=False)
+                self.assertIn("scripts/generate_maoyan_cache.mjs", run.call_args_list[0].args[0])
+                self.assertEqual(run.call_count, 3)
 
 
 class TrailerReportTests(unittest.TestCase):

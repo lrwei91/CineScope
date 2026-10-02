@@ -44,6 +44,7 @@ export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }
         extraTmdbParams: { with_original_language: 'zh' }
     });
     tvCn.doubanSources.push({ slug: 'tv_hot', includeItem: (item) => hasRegion(item, '中国大陆') });
+    tvCn.doubanSources.push({ slug: 'tv_real_time_hotest', includeItem: (item) => hasRegion(item, '中国大陆') });
     tvCn.trailerSource = {
         mid: DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
         cacheRelativePath: DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH,
