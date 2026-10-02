@@ -11,16 +11,15 @@
         html { background: #FFFFFF; color-scheme: light; }
         body { min-height: 100dvh; }
     </style>
-    <link rel="stylesheet" href="style.css?v=20261003b">
-    <link rel="stylesheet" href="share.css?v=20261003b">
-    <script type="module" src="app.js?v=20261003b"></script>
+    <link rel="stylesheet" href="style.css?v=20261003c">
+    <link rel="stylesheet" href="share.css?v=20261003c">
+    <script type="module" src="app.js?v=20261003c"></script>
 </head>
 <body>
     <div class="page-shell">
         <div class="container">
             <nav class="mobile-nav-bar" id="mobile-nav-bar" aria-label="站点导航">
-                <button id="open-category-drawer" class="mobile-only mobile-toolbar-button" type="button" aria-label="打开分类" aria-controls="mobile-category-drawer" aria-expanded="false"><span aria-hidden="true">☰</span><span>分类</span></button>
-                <span id="mobile-current-category" aria-live="polite" class="mobile-only mobile-current-category">国产剧</span>
+                <span id="mobile-current-category" aria-live="polite" class="mobile-only mobile-current-category">剧集</span>
                 <span id="mobile-filter-slot" class="mobile-only"></span>
                 <a class="mobile-brand" href="#page-top" aria-label="返回 CineScope 首页">CINESCOPE</a>
             </nav>
@@ -45,6 +44,8 @@
                     <img src="assets/illustrations/cinescope-koi-film.png" width="1254" height="1254" alt="" loading="lazy" fetchpriority="low" decoding="async">
                 </figure>
             </header>
+
+            <section id="mobile-about" class="mobile-about" aria-label="关于 CineScope" hidden><div id="mobile-about-content"></div></section>
 
             <noscript>
                 <div class="no-script-notice">片单数据与筛选需要 JavaScript。请启用后刷新页面，目录题头仍可正常浏览。</div>
@@ -74,6 +75,7 @@
                         </svg>
                     </span>
                 </div>
+                <button id="close-mobile-search" class="mobile-only mobile-toolbar-button" type="button">取消</button>
                 <div class="filter-row filter-row-primary">
                     <section class="filter-block">
                         <p class="filter-label">评分</p>
@@ -165,6 +167,13 @@
                 </section>
             </main>
         </div>
+        <nav id="mobile-bottom-nav" class="mobile-bottom-nav" aria-label="主要导航">
+            <button type="button" data-mobile-section="series"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="m8 2 4 3 4-3M8 22h8"/></svg><span>剧集</span></button>
+            <button type="button" data-mobile-section="movies"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></svg><span>电影</span></button>
+            <button type="button" data-mobile-section="variety"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z"/></svg><span>综艺</span></button>
+            <button type="button" data-mobile-section="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/></svg><span>搜索</span></button>
+            <button type="button" data-mobile-section="about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg><span>关于</span></button>
+        </nav>
     </div>
 
     <div id="loading-overlay" class="loading-overlay">
@@ -175,17 +184,11 @@
     <div id="toast-notification" class="toast-notification"></div>
     
     <!-- Moved into the mobile toolbar at startup. -->
-    <button id="mobile-filter-fab" class="mobile-filter-fab" type="button" aria-label="打开类型筛选" aria-controls="mobile-filter-sheet" aria-expanded="false">
+    <button id="mobile-filter-fab" class="mobile-filter-fab" type="button" aria-label="打开评分与类型筛选" aria-controls="mobile-filter-sheet" aria-expanded="false">
         <span class="fab-icon" aria-hidden="true">≡</span>
         <span class="fab-text">筛选</span>
         <span id="fab-active-badge" class="fab-badge" hidden></span>
     </button>
-
-    <div id="mobile-category-overlay" class="mobile-category-overlay"></div>
-    <aside id="mobile-category-drawer" class="mobile-category-drawer" role="dialog" aria-modal="true" aria-labelledby="category-drawer-title" aria-hidden="true" inert>
-        <div class="category-drawer-toolbar"><h2 id="category-drawer-title">片单分类</h2><button id="close-category-drawer" class="mobile-toolbar-button" type="button" aria-label="关闭分类">关闭</button></div>
-        <div class="category-drawer-content"><div id="mobile-category-slot"></div><div id="mobile-about-slot"></div></div>
-    </aside>
 
     <!-- Mobile Filter Action Sheet Overlay -->
     <div class="mobile-sheet-overlay" id="mobile-sheet-overlay"></div>
@@ -194,7 +197,7 @@
     <div class="mobile-filter-sheet" id="mobile-filter-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-filter-sheet-title" aria-hidden="true" inert>
         <div class="sheet-drag-handle"></div>
         <div class="sheet-header">
-            <span class="sheet-title" id="mobile-filter-sheet-title">按类型筛选</span>
+            <span class="sheet-title" id="mobile-filter-sheet-title">筛选</span>
             <button class="sheet-close-btn" id="close-filter-sheet" type="button" aria-label="关闭筛选面板">&times;</button>
         </div>
         <div class="sheet-content">
@@ -205,7 +208,7 @@
             <!-- Rating -->
             <div class="sheet-section">
                 <p class="sheet-section-label">评分</p>
-                <div id="mobile-rating-mirror" class="sheet-pills-row"></div>
+                <div id="mobile-rating-mirror" role="group" aria-label="评分筛选" class="sheet-pills-row"></div>
             </div>
             <!-- Genre -->
             <div class="sheet-section">

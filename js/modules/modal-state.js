@@ -11,7 +11,6 @@ const MODAL_IDS = [
     'trailer-modal-overlay',
     'mobile-filter-sheet',
     'mobile-sheet-overlay',
-    'mobile-category-drawer',
     'share-preview'
 ];
 

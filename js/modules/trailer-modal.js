@@ -1,4 +1,4 @@
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003b';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003c';
 import { getModalHistory } from './modal-history.js';
 
 let currentTrailerItem = null;

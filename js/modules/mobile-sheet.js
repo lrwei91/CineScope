@@ -3,7 +3,9 @@
  * 负责移动端筛选面板
  */
 
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003b';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003c';
+
+import { getModalHistory } from './modal-history.js';
 
 let getAppState = () => ({});
 let filterReturnFocus = null;
@@ -36,18 +38,20 @@ export function openMobileFilterSheet(onOpen) {
     mobileFilterSheet.classList.add('active');
     syncBodyModalState();
     document.getElementById('mobile-filter-fab')?.setAttribute('aria-expanded', 'true');
+    getModalHistory().open('filter', () => closeMobileFilterSheet({ fromHistory: true }));
     focusModal(mobileFilterSheet, '#close-filter-sheet');
 }
 
 /**
  * 关闭筛选面板
  */
-export function closeMobileFilterSheet() {
+export function closeMobileFilterSheet(options = {}) {
     const mobileFilterSheet = document.getElementById('mobile-filter-sheet');
     const mobileSheetOverlay = document.getElementById('mobile-sheet-overlay');
     if (!mobileFilterSheet || !mobileSheetOverlay) return;
 
     const wasOpen = mobileFilterSheet.classList.contains('active');
+    if (wasOpen && !options.fromHistory && getModalHistory().close('filter')) return;
     mobileFilterSheet.setAttribute('aria-hidden', 'true');
     mobileFilterSheet.setAttribute('inert', '');
     mobileSheetOverlay.classList.remove('active');

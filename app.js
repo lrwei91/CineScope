@@ -52,23 +52,23 @@ import {
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20261003b';
+} from './js/modules/dossier.js?v=20261003c';
 
 import {
     openTrailerModal,
     initTrailerModalEvents
-} from './js/modules/trailer-modal.js?v=20261003b';
+} from './js/modules/trailer-modal.js?v=20261003c';
 
 import {
     isMobile,
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js?v=20261003b';
+} from './js/modules/mobile-sheet.js?v=20261003c';
 
 import { getNextPageRange } from './js/modules/paging.js';
 import { sameCatalogItems } from './js/modules/catalog-view.js';
-import { initMobileLayout } from './js/modules/mobile-layout.js?v=20261003b';
+import { initMobileLayout, syncMobileCategory } from './js/modules/mobile-layout.js?v=20261003c';
 
 // =====================================================
 // 全局状态
@@ -165,8 +165,7 @@ function setCurrentCategory(categoryId) {
         tag.classList.toggle('active', isActive);
         tag.setAttribute('aria-pressed', String(isActive));
     });
-    const mobileTitle = document.getElementById('mobile-current-category');
-    if (mobileTitle) mobileTitle.textContent = CATEGORY_CONFIG[categoryId].label || elements.categoryFilterContainer.querySelector('.active')?.textContent;
+    syncMobileCategory(categoryId);
     syncMobileSheetFilters();
     updateFabState(state);
 }
@@ -213,49 +212,56 @@ function crossfadeMainContent(swapCallback) {
     });
 }
 
+let pendingCategoryId;
 async function switchCategory(categoryId) {
-    if (categoryId === state.currentCategoryId || !CATEGORY_CONFIG[categoryId] || state.isSwitchingCategory) return;
+    if (!CATEGORY_CONFIG[categoryId]) return;
+    if (state.isSwitchingCategory) { pendingCategoryId = categoryId; return; }
+    if (categoryId === state.currentCategoryId) return;
 
     state.isSwitchingCategory = true;
+    try {
+        resetFilterState();
+        setCurrentCategory(categoryId);
+        populateRatingFilters();
 
-    resetFilterState();
-    setCurrentCategory(categoryId);
-    populateRatingFilters();
+        const catState = state.categoryState[categoryId];
+        if (catState.latestLoaded || catState.completeLoaded) {
+            // 已缓存的分类：淡出 → 换内容 → 淡入（跳过卡片级联动画）
+            elements.resultsContainer.classList.add('no-cascade');
+            await crossfadeMainContent(() => {
+                window.scrollTo({ top: 0 });
+                syncCurrentCategoryData();
+            });
+            // 淡入完成后恢复级联动画（供后续分页使用）
+            requestAnimationFrame(() => {
+                elements.resultsContainer.classList.remove('no-cascade');
+            });
+            if (!catState.completeLoaded) {
+                loadCategoryData(categoryId, 'complete', state.categoryState, buildLoadOptions({ silent: true }));
+            }
+            return;
+        }
 
-    const catState = state.categoryState[categoryId];
-    if (catState.latestLoaded || catState.completeLoaded) {
-        // 已缓存的分类：淡出 → 换内容 → 淡入（跳过卡片级联动画）
-        elements.resultsContainer.classList.add('no-cascade');
+        // 未缓存的分类：淡出 → 显示骨架屏 → 淡入骨架屏 → 加载数据
         await crossfadeMainContent(() => {
             window.scrollTo({ top: 0 });
-            syncCurrentCategoryData();
+            populateGenreFilters([]);
+            state.renderedItems = [];
+            state.renderedItemCount = 0;
+            state.futureItems = [];
+            showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
         });
-        // 淡入完成后恢复级联动画（供后续分页使用）
-        requestAnimationFrame(() => {
-            elements.resultsContainer.classList.remove('no-cascade');
-        });
-        if (!catState.completeLoaded) {
-            loadCategoryData(categoryId, 'complete', state.categoryState, buildLoadOptions({ silent: true }));
+
+        const loaded = await ensureCategoryLoaded(categoryId);
+        if (!loaded) {
+            showLoadError();
         }
+    } finally {
         state.isSwitchingCategory = false;
-        return;
+        const pending = pendingCategoryId;
+        pendingCategoryId = null;
+        if (pending) switchCategory(pending);
     }
-
-    // 未缓存的分类：淡出 → 显示骨架屏 → 淡入骨架屏 → 加载数据
-    await crossfadeMainContent(() => {
-        window.scrollTo({ top: 0 });
-        populateGenreFilters([]);
-        state.renderedItems = [];
-        state.renderedItemCount = 0;
-        state.futureItems = [];
-        showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
-    });
-
-    const loaded = await ensureCategoryLoaded(categoryId);
-    if (!loaded) {
-        showLoadError();
-    }
-    state.isSwitchingCategory = false;
 }
 
 async function ensureCategoryLoaded(categoryId) {
@@ -729,7 +735,7 @@ async function shareDossier(item) {
     }
 
     try {
-        const { ShareModule } = await import('./share.js?v=20261003b');
+        const { ShareModule } = await import('./share.js?v=20261003c');
         await ShareModule.shareItem(item);
     } catch (error) {
         console.error('分享失败:', error);
