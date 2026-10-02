@@ -1234,6 +1234,9 @@ h1 {
     width: min(740px, 100vw);
     height: 100dvh;
     overflow-y: auto;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
     flex-direction: column;
     border-left: 1px solid var(--ink);
     background-color: var(--paper);

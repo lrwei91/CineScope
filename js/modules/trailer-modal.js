@@ -1,4 +1,5 @@
 import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js';
+import { getModalHistory } from './modal-history.js';
 
 let currentTrailerItem = null;
 let currentTrailerIndex = 0;
@@ -86,14 +87,16 @@ export function openTrailerModal(item, trailerIndex = 0) {
     overlay.classList.add('active');
     modal.classList.add('active');
     document.body.classList.add('modal-open');
+    getModalHistory().open('trailer', () => closeTrailerModal({ fromHistory: true }));
     focusModal(modal, '#close-trailer-modal-btn');
 }
 
-export function closeTrailerModal() {
+export function closeTrailerModal(options = {}) {
     const overlay = document.getElementById('trailer-modal-overlay');
     const modal = document.getElementById('trailer-modal');
     const iframeElement = document.getElementById('trailer-modal-frame');
     if (!overlay || !modal) return;
+    if (!options.fromHistory && modal.classList.contains('active') && getModalHistory().close('trailer')) return;
 
     overlay.setAttribute('aria-hidden', 'true');
     modal.setAttribute('aria-hidden', 'true');

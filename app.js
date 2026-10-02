@@ -52,12 +52,12 @@ import {
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20260813b';
+} from './js/modules/dossier.js?v=20261002d';
 
 import {
     openTrailerModal,
     initTrailerModalEvents
-} from './js/modules/trailer-modal.js';
+} from './js/modules/trailer-modal.js?v=20261002d';
 
 import {
     isMobile,

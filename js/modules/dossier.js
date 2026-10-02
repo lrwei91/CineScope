@@ -7,6 +7,8 @@ import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { resolvePosterUrl } from './renderer.js?v=20261002c';
 import { getGenreDisplayName } from './filters.js';
 import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js';
+import { getModalHistory } from './modal-history.js';
+import { resolveSwipeAxis } from './dossier-gesture.js';
 
 let currentDossierItem = null;
 let onOpenTrailerCallback = null;
@@ -269,16 +271,18 @@ export function openIntelDossier(item) {
     dossierOverlay.classList.add('active');
     dossierDrawer.classList.add('active');
     document.body.classList.add('modal-open');
+    getModalHistory().open('dossier', () => closeIntelDossier({ fromHistory: true }));
     focusModal(dossierDrawer, '#share-dossier-btn');
 }
 
 /**
  * 关闭详情面板
  */
-export function closeIntelDossier() {
+export function closeIntelDossier(options = {}) {
     const dossierOverlay = document.getElementById('intel-dossier-overlay');
     const dossierDrawer = document.getElementById('intel-dossier');
     if (!dossierOverlay || !dossierDrawer) return;
+    if (!options.fromHistory && dossierDrawer.classList.contains('active') && getModalHistory().close('dossier')) return;
 
     dossierOverlay.setAttribute('aria-hidden', 'true');
     dossierDrawer.setAttribute('aria-hidden', 'true');
@@ -315,10 +319,12 @@ export function setupDossierSwipeClose() {
     let currentY = 0;
     let isTracking = false;
     let isSwiping = false;
+    let axis = 'pending';
 
     const resetSwipeState = () => {
         isTracking = false;
         isSwiping = false;
+        axis = 'pending';
         dossierDrawer.classList.remove('swiping-close');
         dossierDrawer.style.removeProperty('--swipe-close-translate');
     };
@@ -326,7 +332,10 @@ export function setupDossierSwipeClose() {
     dossierDrawer.addEventListener('touchstart', (event) => {
         if (!isMobile() || !dossierDrawer.classList.contains('active')) return;
         const touch = event.touches?.[0];
-        if (!touch) return;
+        if (!touch || event.touches.length !== 1 || touch.clientX < 24) {
+            resetSwipeState();
+            return;
+        }
 
         startX = touch.clientX;
         startY = touch.clientY;
@@ -334,6 +343,7 @@ export function setupDossierSwipeClose() {
         currentY = startY;
         isTracking = true;
         isSwiping = false;
+        axis = 'pending';
     }, { passive: true });
 
     dossierDrawer.addEventListener('touchmove', (event) => {
@@ -345,8 +355,9 @@ export function setupDossierSwipeClose() {
         currentY = touch.clientY;
         const deltaX = currentX - startX;
         const deltaY = currentY - startY;
+        axis = resolveSwipeAxis(axis, deltaX, deltaY);
 
-        if (deltaX > 12 && Math.abs(deltaY) < Math.abs(deltaX) * 0.8) {
+        if (axis === 'horizontal') {
             isSwiping = true;
             dossierDrawer.classList.add('swiping-close');
             dossierDrawer.style.setProperty('--swipe-close-translate', `${Math.max(0, deltaX)}px`);
@@ -397,6 +408,7 @@ export function initDossierEvents(onShare, onOpenTrailer) {
 
     document.addEventListener('keydown', (e) => {
         if (!dossierDrawer?.classList.contains('active')) return;
+        if (document.getElementById('trailer-modal')?.classList.contains('active')) return;
         if (e.key === 'Escape') {
             closeIntelDossier();
             return;
