@@ -30,7 +30,7 @@ import {
     showSkeletonLoader,
     renderComingSoon,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20260813a';
+} from './js/modules/renderer.js?v=20261002c';
 
 
 import {
@@ -38,7 +38,7 @@ import {
     syncAllItems,
     configureDoubanSync,
     updateUI as updateDoubanUI
-} from './js/modules/douban-sync.js';
+} from './js/modules/douban-sync.js?v=20261002c';
 
 import {
     getScrollBehavior,

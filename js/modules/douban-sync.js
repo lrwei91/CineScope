@@ -63,10 +63,8 @@ export function isSyncing() {
  * 为项目附加豆瓣状态
  */
 export function attachDoubanStatus(item) {
-    if (!item?.doubanSubjectId) {
-        return { ...item, doubanCollectionStatus: null };
-    }
-    const status = doubanStatuses[item.doubanSubjectId]?.status || null;
+    const status = item?.doubanSubjectId ? doubanStatuses[item.doubanSubjectId]?.status || null : null;
+    if (item?.doubanCollectionStatus === status) return item;
     return { ...item, doubanCollectionStatus: status };
 }
 

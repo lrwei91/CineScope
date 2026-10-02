@@ -2,9 +2,28 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { applyFilters } from '../js/modules/filters.js';
 import { sameCatalogItems } from '../js/modules/catalog-view.js';
+import { attachDoubanStatus, getDoubanStatuses } from '../js/modules/douban-sync.js';
 
 const filters = { searchQuery: '', selectedRating: '全部', selectedGenres: [], specialFilterMode: null };
 const movie = (overrides = {}) => ({ title: '作品', subtitle: '', date: '2020-01-01', genres: [], doubanRating: 8, ...overrides });
+
+test('collection sync preserves unchanged items and updates status without mutating input', () => {
+    const item = movie({ doubanSubjectId: '123', doubanCollectionStatus: null });
+    assert.equal(attachDoubanStatus(item), item);
+    const statuses = getDoubanStatuses();
+    try {
+        statuses['123'] = { status: 'watched' };
+        const updated = attachDoubanStatus(item);
+        assert.notEqual(updated, item);
+        assert.equal(updated.doubanCollectionStatus, 'watched');
+        assert.equal(item.doubanCollectionStatus, null);
+        assert.equal(attachDoubanStatus(updated), updated);
+        delete statuses['123'];
+        assert.equal(attachDoubanStatus(updated).doubanCollectionStatus, null);
+    } finally {
+        delete statuses['123'];
+    }
+});
 
 test('search includes aliases and synopsis, with case and whitespace normalization', () => {
     const items = [movie({ aka: ['Alternate Title'] }), movie({ title: '另一部', overview: '侦探寻找失踪线索' })];

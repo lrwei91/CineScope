@@ -788,6 +788,10 @@ h1 {
     object-fit: cover;
 }
 
+.card-poster-container--interactive {
+    cursor: pointer;
+}
+
 @media (hover: hover) and (pointer: fine) {
     .show-card:hover .card-poster-container {
         transform: translateY(-5px);
@@ -1381,7 +1385,7 @@ h1 {
 
 .dossier-metrics {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     gap: 1px;
     overflow: hidden;
     border: 1px solid var(--ink);
@@ -1408,6 +1412,11 @@ h1 {
     font-size: clamp(22px, 3vw, 30px);
     font-weight: 800;
     line-height: 1.15;
+}
+
+#dossier-date {
+    font-size: clamp(18px, 2.3vw, 24px);
+    white-space: nowrap;
 }
 
 .dossier-section-title {

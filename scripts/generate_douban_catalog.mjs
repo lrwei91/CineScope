@@ -364,7 +364,9 @@ async function buildCategoryData(spec, boxOfficePayload = null, existingComplete
         }
     }
 
-    finalItems = dedupeCatalogByStableId(spec.kind, finalItems);
+    finalItems = dedupeCatalogByStableId(spec.kind, finalItems).filter((item) =>
+        spec.includeCatalogItem ? spec.includeCatalogItem(item) : true
+    );
     const latestItems = selectLatestItems(spec, finalItems);
     const sourceResults = [
         ...doubanSourceResults.map((sourceResult) => ({

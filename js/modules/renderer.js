@@ -283,6 +283,8 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
     card.append(posterContainer, content, openButton);
 
     if (onCardClick) {
+        posterContainer.classList.add('card-poster-container--interactive');
+        posterContainer.addEventListener('click', () => openButton.click());
         openButton.addEventListener('click', () => {
             openButton.focus();
             onCardClick(item);
@@ -403,29 +405,36 @@ function setupHorizontalScroller(container) {
  */
 export function appendItemsToContainer(itemsToRender, container, specialFilterMode, onCardClick, onTrailerClick) {
     let currentGrid = container.querySelector('.month-grid:last-of-type');
+    let lastHeader = container.querySelector('.month-group-header:last-of-type');
+    const fragment = document.createDocumentFragment();
+    let cards = document.createDocumentFragment();
+    const flushCards = () => {
+        if (currentGrid) currentGrid.appendChild(cards);
+        cards = document.createDocumentFragment();
+    };
 
     if (specialFilterMode === 'recent_high_score' && !currentGrid) {
         currentGrid = document.createElement('div');
         currentGrid.className = 'month-grid';
-        container.appendChild(currentGrid);
+        fragment.appendChild(currentGrid);
     }
 
     itemsToRender.forEach((item, index) => {
         if (specialFilterMode !== 'recent_high_score') {
             const monthKey = item.date.substring(0, 7);
-            const lastHeader = container.querySelector('.month-group-header:last-of-type');
-
             if (!lastHeader || lastHeader.id !== `month-${monthKey}`) {
+                flushCards();
                 const header = document.createElement('h2');
                 header.className = 'month-group-header';
                 header.id = `month-${monthKey}`;
                 const date = parseDateStringAsLocalDate(`${monthKey}-01`);
                 header.textContent = `${date.getFullYear()}年 ${date.getMonth() + 1}月`;
-                container.appendChild(header);
+                fragment.appendChild(header);
+                lastHeader = header;
 
                 currentGrid = document.createElement('div');
                 currentGrid.className = 'month-grid';
-                container.appendChild(currentGrid);
+                fragment.appendChild(currentGrid);
             }
         }
 
@@ -433,8 +442,10 @@ export function appendItemsToContainer(itemsToRender, container, specialFilterMo
         if (!currentGrid) {
             currentGrid = document.createElement('div');
             currentGrid.className = 'month-grid';
-            container.appendChild(currentGrid);
+            fragment.appendChild(currentGrid);
         }
-        currentGrid.appendChild(card);
+        cards.appendChild(card);
     });
+    flushCards();
+    container.appendChild(fragment);
 }

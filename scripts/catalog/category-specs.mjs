@@ -10,6 +10,13 @@ function hasRegion(item, region) {
     return subtitle.includes(region);
 }
 
+export function isVarietyTv(item) {
+    const genres = Array.isArray(item?.genres) ? item.genres : [];
+    return genres.some((genre) => [10764, 10767].includes(Number(genre?.id)) ||
+        /综艺|真人秀|脱口秀/.test(typeof genre === 'string' ? genre : genre?.name || '')) ||
+        /综艺|真人秀|脱口秀/.test(item?.card_subtitle || item?.info || '');
+}
+
 export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }) {
     const createTvSpec = ({ id, doubanSlug, region, country, extraTmdbParams = {} }) => ({
         id,
@@ -45,6 +52,10 @@ export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }
     });
     tvCn.doubanSources.push({ slug: 'tv_hot', includeItem: (item) => hasRegion(item, '中国大陆') });
     tvCn.doubanSources.push({ slug: 'tv_real_time_hotest', includeItem: (item) => hasRegion(item, '中国大陆') });
+    tvCn.doubanSources.forEach((source) => {
+        source.includeItem = (item) => hasRegion(item, '中国大陆') && !isVarietyTv(item);
+    });
+    tvCn.includeCatalogItem = (item) => !isVarietyTv(item);
     tvCn.trailerSource = {
         mid: DEFAULT_BILIBILI_TV_TRAILER_UP_MID,
         cacheRelativePath: DEFAULT_BILIBILI_TV_TRAILER_CACHE_PATH,
@@ -101,6 +112,9 @@ export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }
             with_genres: '10764|10767'
         }
     });
+    for (const slug of ['tv_hot', 'tv_real_time_hotest']) {
+        varietyCn.doubanSources.push({ slug, includeItem: (item) => hasRegion(item, '中国大陆') && isVarietyTv(item) });
+    }
 
     return [
         tvCn,

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { cp, mkdir, rm } from 'node:fs/promises';
+import { cp, mkdir, rm, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -33,5 +33,18 @@ for (const relativePath of PUBLIC_PATHS) {
         force: true
     });
 }
+
+// 部署产物移除 JSON 的格式空白，源数据仍保留缩进以便审阅。
+async function compactJson(directory) {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+        const target = path.join(directory, entry.name);
+        if (entry.isDirectory()) await compactJson(target);
+        else if (entry.isFile() && entry.name.endsWith('.json')) {
+            const payload = JSON.parse(await readFile(target, 'utf8'));
+            await writeFile(target, JSON.stringify(payload), 'utf8');
+        }
+    }
+}
+await compactJson(path.join(OUTPUT_DIR, 'json'));
 
 console.log(`Static site prepared at ${path.relative(ROOT_DIR, OUTPUT_DIR)} (${PUBLIC_PATHS.length} paths).`);

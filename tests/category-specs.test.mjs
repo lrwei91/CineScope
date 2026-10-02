@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { createCategorySpecs } from '../scripts/catalog/category-specs.mjs';
+import { createCategorySpecs, isVarietyTv } from '../scripts/catalog/category-specs.mjs';
 
 test('category specs preserve catalog ids, source rules and TMDB windows', () => {
     const specs = createCategorySpecs({ endOfCurrentYear: '2026-12-31' });
@@ -28,4 +28,17 @@ test('category specs preserve catalog ids, source rules and TMDB windows', () =>
 
     const variety = specs.find((spec) => spec.id === 'tv_cn_variety');
     assert.equal(variety.tmdb.params.with_genres, '10764|10767');
+});
+
+test('domestic drama sources reject variety while variety sources collect it', () => {
+    const specs = createCategorySpecs({ endOfCurrentYear: '2026-12-31' });
+    const drama = specs.find((spec) => spec.id === 'tv_cn');
+    const variety = specs.find((spec) => spec.id === 'tv_cn_variety');
+    const item = { title: '花儿与少年 第八季', card_subtitle: '2026 / 中国大陆 / 真人秀' };
+    assert.equal(drama.doubanSources.every((source) => !source.includeItem(item)), true);
+    assert.equal(variety.doubanSources.find((source) => source.slug === 'tv_real_time_hotest').includeItem(item), true);
+    assert.equal(drama.includeCatalogItem({ genres: [{ id: 1, name: '真人秀' }] }), false);
+    assert.equal(drama.includeCatalogItem({ genres: [{ id: 10764, name: 'Reality' }] }), false);
+    assert.equal(drama.includeCatalogItem({ genres: [{ id: 18, name: '剧情' }] }), true);
+    assert.equal(isVarietyTv({ genres: ['脱口秀'] }), true);
 });
