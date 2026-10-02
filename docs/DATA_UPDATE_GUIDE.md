@@ -74,6 +74,8 @@ TMDB_API_KEY=... python3 scripts/automation/run_update.py --task full
 4. 生成 build report v2
 5. 执行数据门禁
 
+猫眼接口失败时，有有效缓存就保留原快照和更新时间，并标记 `stale_upstream`，继续生成其他分类；没有有效缓存时仍报错停止。每日工作流启用 `pipefail`，生成或数据门禁失败不会被日志管道掩盖为成功。
+
 GitHub Actions 每日 22:00 运行并使用 `--publish`。
 
 仅重建国产剧目录时使用 `CATEGORY_IDS=tv_cn python3 scripts/automation/run_update.py --task full --dry-run`。

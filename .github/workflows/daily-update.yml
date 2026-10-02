@@ -83,10 +83,13 @@ jobs:
             cinescope-sources-${{ runner.os }}-
 
       - name: 生成、验证并发布数据
+        shell: bash
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
           DOUBAN_API_KEY: ${{ secrets.DOUBAN_API_KEY }}
-        run: python3 scripts/automation/run_update.py --task full --publish | tee /tmp/cinescope-update.log
+        run: |
+          set -o pipefail
+          python3 scripts/automation/run_update.py --task full --publish | tee /tmp/cinescope-update.log
 
       - name: 生成更新摘要
         if: always()

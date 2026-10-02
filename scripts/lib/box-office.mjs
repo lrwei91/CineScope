@@ -94,6 +94,21 @@ export function createBoxOfficePayload(rows, options = {}) {
     };
 }
 
+export function createBoxOfficeFallbackPayload(cachedPayload, error, options = {}) {
+    if (!cachedPayload?.metadata || !Array.isArray(cachedPayload.movies) || cachedPayload.movies.length === 0) {
+        return null;
+    }
+    return {
+        ...cachedPayload,
+        metadata: {
+            ...cachedPayload.metadata,
+            source_url: options.sourceUrl || cachedPayload.metadata.source_url || DEFAULT_MAOYAN_API_URL,
+            status: 'stale_upstream',
+            message: `上游猫眼票房接口暂时不可用：${error?.message || 'unknown upstream error'}；继续保留 ${cachedPayload.metadata.last_updated || 'unknown'} 快照。`
+        }
+    };
+}
+
 export async function fetchMaoyanBoxOfficePayload({ apiUrl = DEFAULT_MAOYAN_API_URL, fetchImpl = fetch } = {}) {
     const response = await fetchImpl(apiUrl, {
         headers: {

@@ -1,7 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 
 import {
+    createBoxOfficeFallbackPayload,
     createTvHeatFallbackPayload,
     createBoxOfficePayload,
     mergeBoxOfficeIntoMovies,
@@ -12,6 +17,56 @@ import {
     mergeTvHeatIntoCatalogItems,
     normalizeTvHeatRows
 } from '../scripts/lib/box-office.mjs';
+
+test('box office upstream failure preserves snapshot time and explicitly marks stale data', () => {
+    const cached = createBoxOfficePayload([{ movieName: '电影', box_office_desc: '100万' }], {
+        updatedAt: '2026-08-12T00:00:00.000Z'
+    });
+    const fallback = createBoxOfficeFallbackPayload(cached, new Error('request failed (403)'));
+    assert.equal(fallback.metadata.status, 'stale_upstream');
+    assert.equal(fallback.metadata.last_updated, cached.metadata.last_updated);
+    assert.deepEqual(fallback.movies, cached.movies);
+    assert.match(fallback.metadata.message, /403/);
+    assert.equal(cached.metadata.status, 'ok');
+    for (const invalid of [null, {}, { metadata: {}, movies: [] }]) {
+        assert.equal(createBoxOfficeFallbackPayload(invalid, new Error('403')), null);
+    }
+});
+
+test('Maoyan generator succeeds with stale staged caches when both APIs return 403', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'cinescope-maoyan-'));
+    try {
+        await mkdir(path.join(root, 'json'));
+        const box = createBoxOfficePayload([{ movieName: '电影' }], { updatedAt: '2026-08-12T00:00:00.000Z' });
+        const heat = createTvHeatPayload([{ seriesName: '剧集' }]);
+        await writeFile(path.join(root, 'json/maoyan_box_office.json'), JSON.stringify(box));
+        await writeFile(path.join(root, 'json/maoyan_tv_heat.json'), JSON.stringify(heat));
+        const generatorUrl = new URL('../scripts/generate_maoyan_cache.mjs', import.meta.url).href;
+        const result = spawnSync(process.execPath, ['--input-type=module', '-e', `
+            globalThis.fetch = async () => ({ ok: false, status: 403 });
+            const { generateMaoyanCache } = await import(${JSON.stringify(generatorUrl)});
+            await generateMaoyanCache();
+        `], { env: { ...process.env, CINESCOPE_OUTPUT_ROOT: root }, encoding: 'utf8' });
+        assert.equal(result.status, 0, result.stderr);
+        const savedBox = JSON.parse(await readFile(path.join(root, 'json/maoyan_box_office.json'), 'utf8'));
+        const savedHeat = JSON.parse(await readFile(path.join(root, 'json/maoyan_tv_heat.json'), 'utf8'));
+        assert.equal(savedBox.metadata.status, 'stale_upstream');
+        assert.equal(savedHeat.metadata.status, 'stale_upstream');
+        assert.equal(savedBox.metadata.last_updated, box.metadata.last_updated);
+        assert.deepEqual(savedBox.movies, box.movies);
+        await writeFile(path.join(root, 'json/maoyan_box_office.json'), '{}');
+        const failed = spawnSync(process.execPath, ['--input-type=module', '-e', `
+            globalThis.fetch = async () => ({ ok: false, status: 403 });
+            const { generateMaoyanCache } = await import(${JSON.stringify(generatorUrl)});
+            await generateMaoyanCache();
+        `], { env: { ...process.env, CINESCOPE_OUTPUT_ROOT: root }, encoding: 'utf8' });
+        assert.notEqual(failed.status, 0);
+        assert.match(failed.stderr, /request failed \(403\)/);
+        assert.equal(await readFile(path.join(root, 'json/maoyan_box_office.json'), 'utf8'), '{}');
+    } finally {
+        await rm(root, { recursive: true, force: true });
+    }
+});
 
 test('normalizeBoxOfficeTitle removes punctuation used in Chinese movie titles', () => {
     assert.equal(normalizeBoxOfficeTitle('三国第一部：争洛阳'), '三国第一部争洛阳');

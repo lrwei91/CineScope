@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import {
+    createBoxOfficeFallbackPayload,
     createTvHeatFallbackPayload,
     fetchMaoyanBoxOfficePayload,
     fetchMaoyanTvHeatPayload
@@ -15,6 +16,19 @@ const MAOYAN_TV_HEAT_API_URL =
     process.env.MAOYAN_TV_HEAT_API_URL || 'https://60s.viki.moe/v2/maoyan/realtime/web';
 
 export async function generateMaoyanCache() {
+    const boxOfficePromise = (async () => {
+        try {
+            return await fetchMaoyanBoxOfficePayload({ apiUrl: MAOYAN_BOX_OFFICE_API_URL });
+        } catch (error) {
+            const cachedPayload = await readJson(BOX_OFFICE_PATH, null);
+            const fallbackPayload = createBoxOfficeFallbackPayload(cachedPayload, error, {
+                sourceUrl: MAOYAN_BOX_OFFICE_API_URL
+            });
+            if (!fallbackPayload) throw error;
+            console.warn(`[box_office] upstream unavailable, reusing cached snapshot: ${error.message}`);
+            return fallbackPayload;
+        }
+    })();
     const tvHeatPromise = (async () => {
         try {
             return await fetchMaoyanTvHeatPayload({
@@ -36,9 +50,7 @@ export async function generateMaoyanCache() {
     })();
 
     const [boxOfficePayload, tvHeatPayload] = await Promise.all([
-        fetchMaoyanBoxOfficePayload({
-            apiUrl: MAOYAN_BOX_OFFICE_API_URL
-        }),
+        boxOfficePromise,
         tvHeatPromise
     ]);
 
