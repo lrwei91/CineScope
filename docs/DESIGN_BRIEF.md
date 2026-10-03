@@ -29,6 +29,21 @@
 - 项目设计稿记录当前方案；导航位置、卡片列数与断点不是永久业务约束。再次要求按最新规范重构时，先读取通用正文并检查本稿是否滞后。
 - 参考 Atlas 的导航收纳与阅读结构，不复制其主题、底栏、模拟状态栏或样例内容。
 - 偏离记录：2026-10-03 采用通用规范「手机端可以全局隐藏滚动条」，本项目手机端滚动容器统一隐藏滚动条，保留滑动与键盘滚动；该规则此前为「不应全局隐藏」，已在通用规范中同步修订。
+- 平台图标与安装元数据采用日期：2026-10-03；真源：[资源与命名](../../project-standards/design/assets-and-naming.md#平台图标与安装元数据)。本项目采用完整安装能力，图标规格见下节。
+
+## 平台图标与安装元数据
+
+适用范围：CineScope 允许 iOS「添加到主屏」与浏览器安装为独立窗口应用，因此本节适用，不标记不适用。
+
+- 两条独立链路：浏览器标签页图标沿用既有 `favicon.svg` 与 `favicon.png`；安装图标为 `assets/icons/` 下的 PNG 位图。标签页显示正常不作为安装图标可用的证据。
+- 图标画布：满幅不透明正方形（PNG 颜色类型为 RGB，无 alpha 通道），不预烘焙圆角、阴影、外描边或留白，形状完全交由系统裁切决定。
+- 变体与安全区：`icon-any-*` 用于完整外框显示；`icon-maskable-*` 的关键内容内缩到中心 80% 圆内（实测图形半径 197px / 安全半径 205px @512），避免可遮罩平台裁掉主体。矢量源为 `app-icon.svg` 与 `app-icon-maskable.svg`，位图由同一几何生成。
+- 尺寸：`32`（小尺寸可辨识性验证）、`180`（apple-touch-icon）、`192` 与 `512`（安装清单）。图标在 32px 与 180px 实际显示尺寸下均已核对可辨识。
+- 名称：页面标题为 `CineScope｜全球影视片单`，安装名称独立声明，`short_name` 为 `CineScope`（9 字符，不触发平台截断），`name` 为 `CineScope 环球影视片单`。
+- 声明位置：图标与安装元数据全部在 `index.html` 的 `<head>` 内静态声明，不依赖客户端脚本注入。
+- 公开可达：站点为纯静态无鉴权架构，图标与清单以根相对路径发布，未登录请求直接返回文件本身（实测 200、`image/png` 与 `application/manifest+json`、零重定向）。`vercel.json` 为清单显式声明 `Content-Type`，避免平台解析失败。
+- 缓存：安装资源按项目约定走 `?v=20261003a` 版本参数，清单与首页同为 `must-revalidate`。
+- 门禁：`tests/app-icons.test.mjs` 固定资源齐备性、尺寸、不透明画布、首屏声明、名称长度、清单完整性与构建产物包含关系。
 
 ## 导航与内容布局
 
@@ -180,3 +195,18 @@
 - 评分筛选、重置、零结果清空恢复、收藏列表详情与返回、预告片、分享预览 Escape 关闭通过；Top250 250 项末项底部 756px，底栏顶部 772px（390×844）。桌面搜索进入/退出详情保留搜索词，验收页未记录应用错误。
 - 返回按钮实际尺寸 71×44px，200% 文本下 99×56px；辅助文字实际 `#626262`，白底对比度 6.10:1。无障碍树检查作品名称、筛选选中与底栏状态，键盘打开详情及关闭后的焦点恢复通过。
 - 证据仅为本地 Chrome；真机 Safari、软键盘、安全区、系统手势、真实读屏、系统高对比及减弱动效的运行态、第三方视频完整播放与生产部署未验证。尚未推送。
+
+
+### 2026-10-03 平台图标与安装元数据补充
+
+依据通用 `../project-standards/design/assets-and-naming.md` 的「平台图标与安装元数据」（采用日期 2026-10-03）。改动前本项目只有 `favicon.svg` 与 128px `favicon.png` 的标签页链路，没有安装图标与安装元数据；本轮补齐完整安装能力。
+
+- 新增 `assets/icons/`：满幅不透明 PNG（`icon-any-` 32/180/192/512、`icon-maskable-` 192/512）与对应矢量源 `app-icon.svg`、`app-icon-maskable.svg`。图形沿用既有 favicon 的 C 形环、黄色播放圆与右上圆点。
+- 设计判断：初版曾用满幅出血方框，经检视改为纯满幅白底 + 居中图形。原因是 iOS 对安装图标统一施加圆角遮罩，出血方框的四角会被完全裁掉、只剩四段断线；改为无边框后任何遮罩形状下都成立。maskable 变体内容内缩至中心安全区（实测 197px / 205px @512）。
+- 新增 `manifest.webmanifest`：`short_name` 为 `CineScope`（9 字符）、`display: standalone`、`start_url: /?source=pwa`、`scope: /`、主题与背景色均为固定浅色 `#FFFFFF`。
+- `index.html` 在 `<head>` 内静态声明 `apple-touch-icon`、`manifest`、`theme-color`、`color-scheme`、`apple-mobile-web-app-capable`、`apple-mobile-web-app-status-bar-style`、`apple-mobile-web-app-title`、`application-name`；标签页 favicon 路径同步改为根相对。`scripts/build-site.mjs` 加入 `manifest.webmanifest`；`vercel.json` 为清单显式声明 `application/manifest+json`。
+- 新增 `tests/app-icons.test.mjs`（6 项）：PNG 正方形与无 alpha 通道、各尺寸精确匹配、`<head>` 内首屏声明、名称长度上限、清单成员与图标逐个可解析、构建产物与响应头包含关系。
+- 验证：86 项 Node 测试通过（本轮新增 6 项），语法检查 37 个文件，数据门禁 0 警告，`npm run build:site` 通过并包含清单与图标。构建产物经本地静态服务实测：清单与全部图标返回 200、`image/png` / `application/manifest+json`、零重定向，未登录直接返回文件本身。
+- 图标可辨识性已按实际显示尺寸核对 32px 与 180px。栅格化工具链说明：系统 `sips` 转换本项目 SVG 时 path 失真（三角变形、C 形环错位），位图改由几何精确绘制生成，SVG 作为可追溯矢量源保留。
+- 未验证：真实 iOS / Android 设备执行完整安装流程与主屏图标显示、系统图标缓存导致的重新安装结果、standalone 独立窗口下的浏览器返回手势与地址栏行为、生产环境响应头，以及此改动对既有交互的运行时影响。真机证据需在设备侧补验。
+- 已知未做：未在真机确认 `display: standalone` 下浏览器返回手势表现，该行为变化需在设备上确认后再决定是否调整 `start_url` 或 `display`。

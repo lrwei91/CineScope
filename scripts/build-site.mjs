@@ -14,6 +14,7 @@ const PUBLIC_PATHS = [
     'share.css',
     'favicon.svg',
     'favicon.png',
+    'manifest.webmanifest',
     'assets',
     'js',
     'json',
