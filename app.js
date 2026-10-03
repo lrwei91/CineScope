@@ -64,11 +64,16 @@ import {
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js?v=20261003e';
+} from './js/modules/mobile-sheet.js?v=20261003f';
 
 import { getNextPageRange } from './js/modules/paging.js';
 import { sameCatalogItems } from './js/modules/catalog-view.js';
-import { initMobileLayout, syncMobileCategory } from './js/modules/mobile-layout.js?v=20261003e';
+import { initMobileLayout, syncMobileCategory, syncMobileShell } from './js/modules/mobile-layout.js?v=20261003f';
+import {
+    initMobileShell,
+    setMobileShellInert,
+    resetMobileMeCache
+} from './js/modules/mobile-shell.js?v=20261003f';
 
 // =====================================================
 // 全局状态
@@ -304,6 +309,35 @@ function syncCurrentCategoryData() {
         preserveRenderedContent: true,
         previousItems
     });
+}
+
+/**
+ * 「我的」页统计需要完整分类数据。
+ * ensureCategoryLoaded 在 latest 已加载时会提前返回且不等待 complete，
+ * 因此这里单独确保 complete 数据就绪。
+ */
+async function ensureCategoryComplete(categoryId) {
+    const catState = state.categoryState[categoryId];
+    if (!catState || catState.completeLoaded) {
+        return catState?.completeLoaded === true;
+    }
+    if (catState.completePromise) return catState.completePromise;
+    await loadCategoryData(categoryId, 'complete', state.categoryState, {
+        ...buildLoadOptions(),
+        silent: true
+    });
+    return catState.completeLoaded === true;
+}
+
+/**
+ * 「我的」页统计需要跨分类条目。
+ * 各分类数据存放在 state.categoryState，这里汇总已加载的条目并附加豆瓣状态。
+ */
+function collectAllLoadedItems() {
+    const buckets = Object.values(state.categoryState);
+    if (buckets.length === 1) return syncAllItems(buckets[0].items);
+    const merged = buckets.flatMap((catState) => catState.items || []);
+    return syncAllItems(merged);
 }
 
 async function refreshCurrentCategoryData() {
@@ -671,15 +705,38 @@ function setupEventListeners() {
     // 单一 passive scroll 入口，在 RAF 中统一分页、进度与返回顶部状态。
     const updateBackToTop = setupBackToTop(elements.backToTopBtn);
     let scrollFrame = 0;
+
+    // 手机端壳层接管滚动，目录滚动容器随之变化；这里统一取当前滚动宿主。
+    const getScrollHost = () => {
+        const discover = document.getElementById('mobile-view-discover');
+        if (discover && !discover.hidden) return document.getElementById('main-content');
+        return null;
+    };
+
+    const readScrollState = () => {
+        const host = getScrollHost();
+        if (host && host !== document.documentElement) {
+            const top = host.scrollTop;
+            const range = Math.max(1, host.scrollHeight - host.clientHeight);
+            return { scrollY: top, scrollRange: range, viewportEnd: host.clientHeight + top, scrollHeight: host.scrollHeight };
+        }
+        const top = window.scrollY;
+        return {
+            scrollY: top,
+            scrollRange: Math.max(1, document.documentElement.scrollHeight - window.innerHeight),
+            viewportEnd: window.innerHeight + top,
+            scrollHeight: document.body.offsetHeight
+        };
+    };
+
     const updateScrollDrivenUI = () => {
         scrollFrame = 0;
-        const scrollY = window.scrollY;
-        const scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const { scrollY, scrollRange, viewportEnd, scrollHeight } = readScrollState();
         const progress = Math.max(0, Math.min(1, scrollY / scrollRange));
         document.documentElement.style.setProperty('--page-progress', String(progress));
 
         updateBackToTop(scrollY);
-        if (!state.isLoading && window.innerHeight + scrollY >= document.body.offsetHeight - 500) {
+        if (!state.isLoading && viewportEnd >= scrollHeight - 500) {
             loadMoreItems();
         }
     };
@@ -687,6 +744,8 @@ function setupEventListeners() {
         if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollDrivenUI);
     };
     window.addEventListener('scroll', scheduleScrollFrame, { passive: true });
+    // 壳层内部滚动同样驱动分页与返回顶部
+    document.getElementById('mobile-shell')?.addEventListener('scroll', scheduleScrollFrame, { passive: true, capture: true });
     scheduleScrollFrame();
 
     // 筛选器展开收起
@@ -775,8 +834,32 @@ function bootstrapApp() {
     // 初始化移动端 Action Sheet
     initMobileSheetEvents(undefined, { getState: () => state });
 
+    // 初始化手机端壳层（底栏四模块 / 分类面板 / 我的页 / 搜索筛选）
+    initMobileShell({
+        getCategoryId: () => state.currentCategoryId,
+        getCategoryState: (categoryId) => state.categoryState[categoryId],
+        getAllItems: () => collectAllLoadedItems(),
+        ensureCategoryLoaded: (categoryId) => ensureCategoryComplete(categoryId),
+        onCategorySelect: (categoryId) => {
+            if (location.hash !== `#${categoryId}`) location.hash = categoryId;
+            else switchCategory(categoryId);
+        },
+        onItemOpen: (itemId) => {
+            const item = state.allItems.find((entry) => String(entry.id) === String(itemId));
+            if (item) openIntelDossier(item);
+        },
+        onViewChange: (view) => {
+            // 详情/预告片/分享打开时隔离底栏，关闭后由各组件自行恢复
+            if (view === 'search') syncMobileSheetFilters();
+        }
+    });
+
     configureDoubanSync({
-        onHydrated: syncCurrentCategoryData
+        onHydrated: () => {
+            syncCurrentCategoryData();
+            resetMobileMeCache();
+            syncMobileShell();
+        }
     });
 
     // 启动应用
