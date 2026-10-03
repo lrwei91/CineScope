@@ -47,33 +47,34 @@ import {
     showToast,
     setupBackToTop,
     setupEditorialMotion
-} from './js/modules/ui-controls.js?v=20260811b';
+} from './js/modules/ui-controls.js?v=20261003g';
 
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20261003e';
+} from './js/modules/dossier.js?v=20261003g';
 
 import {
     openTrailerModal,
     initTrailerModalEvents
-} from './js/modules/trailer-modal.js?v=20261003e';
+} from './js/modules/trailer-modal.js?v=20261003g';
 
 import {
     isMobile,
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js?v=20261003f';
+} from './js/modules/mobile-sheet.js?v=20261003g';
 
 import { getNextPageRange } from './js/modules/paging.js';
 import { sameCatalogItems } from './js/modules/catalog-view.js';
-import { initMobileLayout, syncMobileCategory, syncMobileShell } from './js/modules/mobile-layout.js?v=20261003f';
+import { initMobileLayout, syncMobileCategory } from './js/modules/mobile-layout.js?v=20261003g';
 import {
     initMobileShell,
+    syncMobileShell,
     setMobileShellInert,
     resetMobileMeCache
-} from './js/modules/mobile-shell.js?v=20261003f';
+} from './js/modules/mobile-shell.js?v=20261003g';
 
 // =====================================================
 // 全局状态
@@ -171,6 +172,7 @@ function setCurrentCategory(categoryId) {
         tag.setAttribute('aria-pressed', String(isActive));
     });
     syncMobileCategory(categoryId);
+    syncMobileShell();
     syncMobileSheetFilters();
     updateFabState(state);
 }
@@ -234,7 +236,7 @@ async function switchCategory(categoryId) {
             // 已缓存的分类：淡出 → 换内容 → 淡入（跳过卡片级联动画）
             elements.resultsContainer.classList.add('no-cascade');
             await crossfadeMainContent(() => {
-                window.scrollTo({ top: 0 });
+                getCatalogScrollHost().scrollTo({ top: 0, behavior: 'instant' });
                 syncCurrentCategoryData();
             });
             // 淡入完成后恢复级联动画（供后续分页使用）
@@ -249,7 +251,7 @@ async function switchCategory(categoryId) {
 
         // 未缓存的分类：淡出 → 显示骨架屏 → 淡入骨架屏 → 加载数据
         await crossfadeMainContent(() => {
-            window.scrollTo({ top: 0 });
+            getCatalogScrollHost().scrollTo({ top: 0, behavior: 'instant' });
             populateGenreFilters([]);
             state.renderedItems = [];
             state.renderedItemCount = 0;
@@ -304,6 +306,7 @@ function syncCurrentCategoryData() {
     const previousItems = state.allItems;
     state.allItems = syncAllItems(catState.items);
     updateSubtitleText();
+    syncMobileShell();
     populateGenreFilters(state.allItems);
     filterAndRenderItems({
         preserveRenderedContent: true,
@@ -548,6 +551,10 @@ function filterAndRenderItems(options = {}) {
     updateFabState(state);
 }
 
+function getCatalogScrollHost() {
+    return isMobile() ? document.getElementById('main-content') : window;
+}
+
 function startRendering() {
     if (elements.skeletonContainer) {
         elements.skeletonContainer.style.display = 'none';
@@ -621,6 +628,11 @@ function loadMoreItems() {
 
     state.isLoading = false;
     elements.loader.style.display = 'none';
+    requestAnimationFrame(() => {
+        const host = isMobile() && document.getElementById('main-content');
+        if (host && !host.closest('[hidden]') && host.scrollHeight <= host.clientHeight + 1
+            && state.renderedItemCount < state.filteredPastAndPresentItems.length) loadMoreItems();
+    });
 
 }
 
@@ -703,13 +715,13 @@ function setupEventListeners() {
     });
 
     // 单一 passive scroll 入口，在 RAF 中统一分页、进度与返回顶部状态。
-    const updateBackToTop = setupBackToTop(elements.backToTopBtn);
+    const updateBackToTop = setupBackToTop(elements.backToTopBtn, getCatalogScrollHost);
     let scrollFrame = 0;
 
     // 手机端壳层接管滚动，目录滚动容器随之变化；这里统一取当前滚动宿主。
     const getScrollHost = () => {
         const discover = document.getElementById('mobile-view-discover');
-        if (discover && !discover.hidden) return document.getElementById('main-content');
+        if (isMobile() && discover && !discover.hidden) return document.getElementById('main-content');
         return null;
     };
 
@@ -794,7 +806,7 @@ async function shareDossier(item, options) {
     }
 
     try {
-        const { ShareModule } = await import('./share.js?v=20261003e');
+        const { ShareModule } = await import('./share.js?v=20261003g');
         await ShareModule.shareItem(item, options);
     } catch (error) {
         console.error('分享失败:', error);

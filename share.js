@@ -3,8 +3,8 @@
  * 负责生成分享图片并处理系统分享
  */
 
-import { focusModal, syncBodyModalState, trapFocus } from './js/modules/modal-state.js?v=20261003e';
-import { getModalHistory } from './js/modules/modal-history.js?v=20261003e';
+import { focusModal, syncBodyModalState, trapFocus } from './js/modules/modal-state.js?v=20261003g';
+import { getModalHistory } from './js/modules/modal-history.js?v=20261003g';
 
 import { HIDDEN_GENRES } from './js/modules/config.js';
 import { getGenreDisplayName } from './js/modules/filters.js';

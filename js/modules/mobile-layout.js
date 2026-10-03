@@ -6,7 +6,7 @@
  * - 视图切换、分类面板、搜索筛选由 mobile-shell.js 负责，本模块不再重复实现。
  */
 
-import { closeMobileFilterSheet } from './mobile-sheet.js?v=20261003e';
+import { closeMobileFilterSheet } from './mobile-sheet.js?v=20261003g';
 
 let syncCategory = () => {};
 let syncShell = () => {};
@@ -24,6 +24,10 @@ export function initMobileLayout(options = {}) {
     const input = document.getElementById('radar-search');
     const nav = document.getElementById('mobile-bottom-nav');
     const catalog = [document.getElementById('catalog-controls'), document.getElementById('main-content'), document.querySelector('.file-loader')];
+    const main = document.getElementById('main-content');
+    const mainMarker = document.createComment('desktop catalog placement');
+    document.querySelector('.page-shell .container').append(mainMarker);
+    const discover = document.getElementById('mobile-view-discover');
     const aboutContent = document.getElementById('mobile-about-content');
 
     let categoryId = document.getElementById('results-container')?.dataset.category || 'tv_cn';
@@ -55,10 +59,12 @@ export function initMobileLayout(options = {}) {
 
     function layout() {
         if (media.matches) {
+            if (main) discover.append(main);
             // 题头进入「关于」视图；筛选按钮进入顶栏插槽
             if (aboutContent && hero) aboutContent.prepend(hero);
             document.getElementById('dossier-mobile-toolbar')?.append(back, share);
         } else {
+            if (main) mainMarker.after(main);
             closeMobileFilterSheet();
             for (const { node, marker } of movable) marker.after(node);
             if (filter) filter.hidden = false;

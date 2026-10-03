@@ -6,9 +6,9 @@
 import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { resolvePosterUrl } from './renderer.js?v=20261002c';
 import { getGenreDisplayName } from './filters.js';
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003e';
-import { getModalHistory } from './modal-history.js?v=20261003e';
-import { attachEdgeReturn } from './edge-return.js?v=20261003e';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003g';
+import { getModalHistory } from './modal-history.js?v=20261003g';
+import { attachEdgeReturn } from './edge-return.js?v=20261003g';
 
 let currentDossierItem = null;
 let dossierVisit = 0;

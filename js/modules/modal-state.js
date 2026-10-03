@@ -11,7 +11,8 @@ const MODAL_IDS = [
     'trailer-modal-overlay',
     'mobile-filter-sheet',
     'mobile-sheet-overlay',
-    'share-preview'
+    'share-preview',
+    'mobile-filter-menu'
 ];
 
 const FOCUSABLE_SELECTOR = [
@@ -46,6 +47,12 @@ export function syncBodyModalState() {
     document.body.classList.toggle('modal-open', open);
     const page = document.querySelector('.page-shell');
     if (page) page.inert = open;
+    const shell = document.getElementById('mobile-shell');
+    if (shell) {
+        const filterOpen = document.getElementById('mobile-filter-menu')?.classList.contains('active');
+        shell.inert = open && !filterOpen;
+        shell.querySelectorAll('.mobile-view').forEach(view => { view.inert = open; });
+    }
     const dossier = document.getElementById('intel-dossier');
     if (dossier?.classList.contains('active')) {
         dossier.inert = Boolean(document.getElementById('trailer-modal')?.classList.contains('active') || document.getElementById('share-preview'));

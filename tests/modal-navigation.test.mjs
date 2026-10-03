@@ -107,3 +107,31 @@ test('a modal opened after reload closes safely over a foreign history token', (
     history.close('dossier'); host.flush();
     assert.equal(closed, true);
 });
+
+
+test('mobile view visits preserve previous tab through nested filters and detail', () => {
+    const host = createHost(), history = createModalHistory(host);
+    let view = 'discover', filter = false, detail = false;
+    const visit = (id, next) => {
+        const previous = view;
+        history.open(id, () => { view = previous; }, () => { view = next; });
+        view = next;
+    };
+    visit('view:1', 'me');
+    visit('view:2', 'about');
+    history.close('view:2'); host.flush();
+    assert.equal(view, 'me');
+    host.history.forward();
+    assert.equal(view, 'about');
+    visit('view:3', 'search');
+    history.open('search-filter', () => { filter = false; }, () => { filter = true; });
+    filter = true;
+    history.close('search-filter'); host.flush();
+    assert.equal(view, 'search'); assert.equal(filter, false);
+    history.open('dossier', () => { detail = false; }, () => { detail = true; });
+    detail = true;
+    history.close('dossier'); host.flush();
+    assert.equal(view, 'search'); assert.equal(detail, false);
+    history.close('view:3'); host.flush();
+    assert.equal(view, 'about');
+});

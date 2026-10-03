@@ -13,9 +13,12 @@
 
 import { CATEGORY_CONFIG, DOUBAN_STATUS_URL, DOUBAN_STATUS_LABELS } from './config.js';
 import { formatUpdateTimestamp } from './data-loader.js?v=20260811b';
-import { getModalHistory } from './modal-history.js?v=20261003e';
+import { getModalHistory } from './modal-history.js?v=20261003g';
 import { getDoubanStatuses, getDoubanStatusesMetadata } from './douban-sync.js?v=20261002c';
 import { getGenreDisplayName } from './filters.js';
+
+import { focusModal, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003g';
+
 
 const VIEWS = ['discover', 'me', 'about', 'search'];
 
@@ -24,6 +27,10 @@ let activeView = 'discover';
 let catMenuOpen = false;
 let filterMenuOpen = false;
 let shellReady = false;
+let viewSequence = 0;
+let viewHistoryId = null;
+let filterCategory = null;
+let searchSignature = null;
 
 // 搜索页筛选状态：沿用现有筛选语义，仅承载入口
 const searchFilters = {
@@ -192,7 +199,9 @@ function updateDiscoverHeader() {
     const label = CATEGORY_CONFIG[categoryId]?.label || '片单';
     const title = $('#mobile-view-title');
     if (title) title.textContent = label;
-    $('#discScreen')?.setAttribute('aria-label', `${label}片单`);
+    $('#mobile-search-input')?.setAttribute('aria-label', `搜索${label}片单`);
+    if ($('#mobile-search-input')) $('#mobile-search-input').placeholder = `搜索${label}片名、别名或关键词`;
+    $('#mobile-view-discover')?.setAttribute('aria-label', `${label}片单`);
 }
 
 /* =====================================================
@@ -371,6 +380,11 @@ function buildFilterOptions() {
 }
 
 function renderFilterChips() {
+    const category = hooks.getCategoryId?.();
+    if (filterCategory !== category) {
+        for (const key of Object.keys(searchFilters)) searchFilters[key] = '不限';
+        filterCategory = category;
+    }
     const host = $('#mobile-filter-chips');
     if (!host) return;
     const labels = { genre: '类型', rating: '评分', year: '年份', kind: '形式' };
@@ -394,6 +408,13 @@ function setFilterMenu(open) {
     });
     if (open) renderFilterOptions();
     $('#mobile-filter-panel').hidden = !open;
+    syncBodyModalState();
+    if (open) {
+        $('#mobile-filter-panel').getBoundingClientRect();
+        focusModal($('#mobile-filter-panel'), '#mobile-filter-close');
+        // 等背景 inert 与面板可见性完成更新，再进入焦点。
+        setTimeout(() => { if (filterMenuOpen) $('#mobile-filter-close')?.focus({ preventScroll: true }); }, 240);
+    }
 }
 
 function renderFilterOptions() {
@@ -408,8 +429,9 @@ function renderFilterOptions() {
         data-value="${esc(value)}" aria-pressed="${searchFilters[key] === value}">${esc(value)}</button>`).join('');
 }
 
-function closeFilterMenu({ restoreFocus = false } = {}) {
+function closeFilterMenu({ restoreFocus = false, fromHistory = false } = {}) {
     if (!filterMenuOpen) return;
+    if (!fromHistory && getModalHistory().close('search-filter')) return;
     setFilterMenu(false);
     if (restoreFocus) {
         $(`#mobile-filter-chips [data-filter="${$('#mobile-filter-menu').dataset.filter}"]`)?.focus({ preventScroll: true });
@@ -455,6 +477,9 @@ function renderSearchResults() {
     const countLabel = $('#mobile-search-count');
     if (!host) return;
 
+    const signature = JSON.stringify([hooks.getCategoryId?.(), $('#mobile-search-input')?.value, searchFilters]);
+    if (signature !== searchSignature) $('#mobile-search-scroll')?.scrollTo({ top: 0, behavior: 'instant' });
+    searchSignature = signature;
     const results = applySearchFilters();
     const hasFilter = Object.values(searchFilters).some((value) => value !== '不限');
     const keyword = String($('#mobile-search-input')?.value || '').trim();
@@ -468,13 +493,13 @@ function renderSearchResults() {
     }
 
     const posterCell = (item) => (item.posterPath
-        ? `<img loading="lazy" decoding="async" src="${esc(item.posterPath)}" alt="" onerror="this.remove()">`
-        : '');
+        ? `<img loading="lazy" decoding="async" src="${esc(item.posterPath)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'poster-fallback',textContent:'暂无'}))">`
+        : '<span class="poster-fallback">暂无</span>');
 
-    host.innerHTML = results.slice(0, 200).map((item) => {
+    host.innerHTML = results.map((item) => {
         const rating = item.doubanRating ? ` · 豆瓣 ${Number(item.doubanRating).toFixed(1)}` : '';
         const genres = (item.genres || []).slice(0, 3).join(' ');
-        return `<article class="mobile-result-row" data-item-id="${esc(item.id)}">
+        return `<button type="button" class="mobile-result-row" data-item-id="${esc(item.id)}">
             <div class="mobile-result-poster">${posterCell(item)}</div>
             <div class="mobile-result-body">
                 <h3>${esc(item.title)}</h3>
@@ -486,7 +511,7 @@ function renderSearchResults() {
                 ${rating ? `<p class="mobile-result-score">${esc(rating.replace(/^ · /, ''))}</p>` : ''}
                 ${item.overview ? `<p class="mobile-result-overview">${esc(item.overview)}</p>` : ''}
             </div>
-        </article>`;
+        </button>`;
     }).join('');
 }
 
@@ -505,6 +530,7 @@ function switchView(name, options = {}) {
         if (name === 'search') $('#mobile-search-input')?.focus({ preventScroll: true });
         return;
     }
+    $('#mobile-search-input')?.blur();
     activeView = name;
     closeCategoryMenu();
     closeFilterMenu();
@@ -546,15 +572,24 @@ function bindEvents() {
         if (!button) return;
         const name = button.dataset.mobileView;
         if (name === activeView) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const host = name === 'discover' ? $('#main-content') : $(`#mobile-view-${name} .mobile-view-scroll`);
+            host?.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
             return;
         }
-        getModalHistory().open(`view:${name}`,
-            () => switchView('discover'),
-            () => switchView(name));
+        const previous = activeView;
+        const previousId = viewHistoryId;
+        const id = `view:${++viewSequence}`;
+        getModalHistory().open(id,
+            () => { viewHistoryId = previousId; switchView(previous); },
+            () => { viewHistoryId = id; switchView(name); });
+        viewHistoryId = id;
         switchView(name);
         window.scrollTo({ top: 0 });
     });
+
+    $$('.mobile-view-back').forEach(button => button.addEventListener('click', () => {
+        if (!viewHistoryId || !getModalHistory().close(viewHistoryId)) switchView('discover');
+    }));
 
     // 分类面板
     $('#mobile-cat-toggle')?.addEventListener('click', (event) => {
@@ -583,6 +618,9 @@ function bindEvents() {
             return;
         }
         if (menu) menu.dataset.filter = key;
+        getModalHistory().open('search-filter',
+            () => closeFilterMenu({ restoreFocus: true, fromHistory: true }),
+            () => setFilterMenu(true));
         setFilterMenu(true);
     });
     $('#mobile-filter-options')?.addEventListener('click', (event) => {
@@ -603,8 +641,12 @@ function bindEvents() {
     $('#mobile-filter-close')?.addEventListener('click', () => closeFilterMenu({ restoreFocus: true }));
 
     let searchTimer = 0;
+    let composing = false;
+    $('#mobile-search-input')?.addEventListener('compositionstart', () => { composing = true; clearTimeout(searchTimer); });
+    $('#mobile-search-input')?.addEventListener('compositionend', () => { composing = false; renderSearchResults(); });
     $('#mobile-search-input')?.addEventListener('input', () => {
         clearTimeout(searchTimer);
+        if (composing) return;
         searchTimer = window.setTimeout(renderSearchResults, 160);
     });
 
@@ -628,16 +670,10 @@ function bindEvents() {
         if (catMenuOpen) { closeCategoryMenu({ restoreFocus: true }); }
     });
 
-    // 浏览器返回：优先关闭浮层；详情/预告片由各自组件处理历史。
-    // 这里只在没有其他浮层占用历史时回退视图，避免与详情返回语义冲突。
-    window.addEventListener('popstate', () => {
-        if (filterMenuOpen) { closeFilterMenu(); return; }
-        if (catMenuOpen) { closeCategoryMenu(); return; }
-        const dossierOpen = document.getElementById('intel-dossier')?.classList.contains('active');
-        const trailerOpen = document.getElementById('trailer-modal')?.classList.contains('active');
-        if (dossierOpen || trailerOpen) return;
-        if (activeView !== 'discover') switchView('discover', { pushHistory: false });
+    $('#mobile-filter-menu')?.addEventListener('click', (event) => {
+        if (event.target.id === 'mobile-filter-menu') closeFilterMenu({ restoreFocus: true });
     });
+    $('#mobile-filter-panel')?.addEventListener('keydown', (event) => trapFocus(event, $('#mobile-filter-panel')));
 
     const media = window.matchMedia('(max-width: 760px)');
     const onModeChange = () => {
@@ -667,7 +703,7 @@ export function syncMobileShell() {
     if (!shellReady) return;
     updateDiscoverHeader();
     if (activeView === 'discover') renderCategoryPanel();
-    if (activeView === 'search') renderSearchResults();
+    if (activeView === 'search') { renderFilterChips(); renderSearchResults(); }
     if (activeView === 'me') {
         meCache = null;
         meLoading = false;

@@ -11,9 +11,9 @@
         html { background: #FFFFFF; color-scheme: light; }
         body { min-height: 100dvh; }
     </style>
-    <link rel="stylesheet" href="style.css?v=20261003f">
-    <link rel="stylesheet" href="share.css?v=20261003e">
-    <script type="module" src="app.js?v=20261003f"></script>
+    <link rel="stylesheet" href="style.css?v=20261003g">
+    <link rel="stylesheet" href="share.css?v=20261003g">
+    <script type="module" src="app.js?v=20261003g"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -133,7 +133,7 @@
                     <div class="mobile-cat-list" id="mobile-cat-list" role="listbox" aria-label="片单分类"></div>
                 </div>
             </header>
-            <main id="main-content">
+            <main tabindex="0" aria-label="发现片单" id="main-content">
             <!-- 返回顶部按钮 -->
             <button id="back-to-top" class="back-to-top-btn" type="button" aria-label="返回顶部" hidden>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -190,7 +190,7 @@
         <!-- 我的 -->
         <section class="mobile-view mobile-view-me" id="mobile-view-me" aria-label="我的" hidden>
             <header class="mobile-view-header">
-                <span class="mobile-view-header-brand">CINESCOPE</span>
+                <button class="mobile-view-back" type="button" aria-label="返回上一页">← 返回</button>
                 <h1 class="mobile-view-header-title">我的</h1>
                 <span class="mobile-view-header-meta" id="mobile-me-sync">—</span>
             </header>
@@ -236,7 +236,7 @@
         <!-- 关于：沿用既有站点说明与真实数据状态 -->
         <section class="mobile-view mobile-view-about" id="mobile-view-about" aria-label="关于" hidden>
             <header class="mobile-view-header">
-                <span class="mobile-view-header-brand">CINESCOPE</span>
+                <button class="mobile-view-back" type="button" aria-label="返回上一页">← 返回</button>
                 <h1 class="mobile-view-header-title">关于</h1>
                 <span class="mobile-view-header-meta"></span>
             </header>
@@ -250,9 +250,9 @@
         <!-- 搜索：筛选入口收在此页 -->
         <section class="mobile-view mobile-view-search" id="mobile-view-search" aria-label="搜索" hidden>
             <header class="mobile-view-header">
-                <span class="mobile-view-header-brand">CINESCOPE</span>
+                <button class="mobile-view-back" type="button" aria-label="返回上一页">← 返回</button>
                 <h1 class="mobile-view-header-title">搜索</h1>
-                <span class="mobile-view-header-meta" id="mobile-search-count"></span>
+                <span class="mobile-view-header-meta" id="mobile-search-count" role="status" aria-live="polite"></span>
             </header>
             <div class="mobile-filter-chips" id="mobile-filter-chips"></div>
             <div class="mobile-search-bar">

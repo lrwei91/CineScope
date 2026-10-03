@@ -95,11 +95,11 @@ export function showToast(message) {
 /**
  * 返回顶部按钮控制
  */
-export function setupBackToTop(button) {
+export function setupBackToTop(button, getScrollHost = () => window) {
     if (!button) return () => {};
 
     button.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: getScrollBehavior() });
+        getScrollHost().scrollTo({ top: 0, behavior: getScrollBehavior() });
     });
 
     return (scrollY = window.scrollY) => {
