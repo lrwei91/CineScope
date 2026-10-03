@@ -1,87 +1,136 @@
 ---
 name: cinescope
-description: 用于维护 CineScope 的静态影视片单、JSON 数据同步、豆瓣缓存、预告片任务或 Vercel 静态构建时
-version: 1.0.0
-author: lrwei91
-license: MIT
-metadata:
-  hermes:
-    tags: [cinescope, static-site, media-data, vercel]
+description: 维护 CineScope 豆瓣缓存、国产剧状态、预告片和本地查询。
+version: 3.0.4
+owner: cinescope
+tags:
+  - cinescope
+  - douban
+  - trailer
+  - entertainment
 ---
 
 # CineScope
 
-原生 ES Modules 静态影视片单与可复现数据更新工作流。
+## 架构边界
 
-## 边界
+CineScope 仓库是数据任务业务逻辑的唯一来源：
 
-- 业务源代码、生成 JSON、海报和静态部署产物必须保持可追溯。
-- 数据更新统一从 `scripts/automation/run_update.py` 进入，不绕过数据门禁。
-- 保持无后端、原生 JavaScript、生成 JSON 和 Vercel 静态部署架构。
-- `.site/` 是构建产物，只能通过 `scripts/build-site.mjs` 生成，不能直接修复。
-- 默认只做本地修改和验证；提交、推送、发布或带 `--publish` 的任务必须由用户明确授权。
-
-## 核心结构
-
-| 区域 | 真正入口 | 约束 |
-|---|---|---|
-| 前端 | `index.html`、`app.js`、`js/modules/`、`share.js` | 保留分类、Hash URL、搜索、筛选、详情、预告片和分享契约 |
-| 数据 | `json/`、`posters/`、`assets/` | 优先由生成器更新；检查 ID、结构、数量和资源路径 |
-| 自动化 | `scripts/automation/run_update.py` | `full`、`tv-status`、`douban-cache`、`trailers` 的唯一标准入口 |
-| 门禁 | `scripts/validate-data.mjs`、`npm run check` | 生成结果提升前必须通过 |
-| 发布构建 | `scripts/build-site.mjs`、`.github/workflows/` | Vercel 只发布白名单静态产物 |
-
-## 使用
-
-```bash
-# 开始前保护已有改动
-git status --short --branch
-
-# 评估数据变化，不提升正式 JSON
-python3 scripts/automation/run_update.py --task douban-cache --dry-run
-
-# 本地更新：按需求选择最小任务
-python3 scripts/automation/run_update.py --task trailers
-
-# 代码和数据门禁
-npm run check
-
-# 生成 Vercel 静态目录
-npm run build:site
+```text
+/Users/lrwei91/Documents/Project/CineScope/scripts/automation/
+├── run_update.py              # 统一任务、staging、验证、发布
+├── tv_status_sync.py          # 国产剧状态
+├── douban_cache_refresh.py    # 豆瓣缓存周更
+├── douban_browser_scraper.py  # BrowserSkill 抓取
+├── douban_probe_404.py        # 404 探测
+└── trailer_report.py          # 预告片差异
 ```
 
-`--publish` 会提交并推送，只有用户明确要求发布时才使用；预期数据缩减超过 20% 时，先确认上游和业务意图，再显式使用 `--allow-large-drop`。
+Hermes 只负责 cron、代理环境和通知格式。不要在 `~/.hermes` 重新实现数据转换、build report、Git 冲突合并或预告片 diff。
 
-## 当前 5 大坑
+## 统一命令
 
-### 1. 直接编辑 `.site/`
+```bash
+cd /Users/lrwei91/Documents/Project/CineScope
 
-**触发**：线上页面看起来不对，直接改 `.site/`。**表现**：下一次构建覆盖修复。**修法**：回到源代码、生成器或数据源，最后重新执行 `npm run build:site`。
+# 国产剧状态
+python3 scripts/automation/run_update.py --task tv-status --dry-run
+python3 scripts/automation/run_update.py --task tv-status --publish
 
-### 2. 手改生成 JSON
+# 豆瓣缓存
+python3 scripts/automation/run_update.py --task douban-cache --dry-run
+python3 scripts/automation/run_update.py --task douban-cache --publish
 
-**触发**：想快速修一条片目或状态。**表现**：build report、latest/complete 或数量门禁漂移。**修法**：先定位生成器；确需窄范围修复时同步报告字段并运行 `npm run check`。
+# 预告片
+CINESCOPE_NODE_USE_ENV_PROXY=1 \
+HTTP_PROXY=http://127.0.0.1:7890 \
+HTTPS_PROXY=http://127.0.0.1:7890 \
+python3 scripts/automation/run_update.py --task trailers --publish
+```
 
-### 3. 把局部任务当全量任务
+任务最后一行是结构化 JSON。失败、超时或数据门禁不通过时不会提升 staging，也不会提交正式 JSON。
 
-**触发**：只需状态或预告片更新却运行 `full`。**表现**：无关分类被重建，diff 和失败面扩大。**修法**：先用 `--dry-run`，只选完成需求所需的 task。
+## 当前 cron
 
-### 4. 资源缓存版本未同步
+| 时间 | 任务 | cron id | wrapper |
+|---|---|---|---|
+| 每日 06:00 | 豆瓣国产剧连载状态同步 | `55762d895c40` | `cron-no-agent/douban_cn_status_sync.py` |
+| 周日 08:00 | 豆瓣缓存周更新 | `365f53c7aeeb` | `cron-no-agent/douban_weekly_update.py` |
+| 每日 20:00 | CineScope 预告片更新 | `735de336fba5` | `cron-no-agent/cinescope_trailer_update.py` |
 
-**触发**：修改 CSS 或带查询参数的 ES Module。**表现**：本地正常、线上继续使用旧资源。**修法**：同步入口缓存版本，再构建并检查发布白名单。
+旧 07:30 `CineScope GitHub 同步` 已删除；每个任务验证后自行发布。
 
-### 5. 把本地通过当远端发布成功
+## 数据源约束
 
-**触发**：`npm run check` 通过就声称线上已更新。**表现**：没有远端 Actions/Vercel 证据。**修法**：分开报告本地门禁、GitHub Actions 和 Vercel 状态，未经发布授权不做外部写入。
+- GitHub Actions 云 IP 无法可靠访问豆瓣，完整 catalog 可读本地 cache 并保留旧数据。
+- 豆瓣详情补全必须走本地 BrowserSkill + 真实 Chrome 登录态。
+- Rexxar v2 对老 subject ID 和已删除的幽灵条目可能返回 404；状态脚本保留失败计数并自动跳过连续失败条目。
+- B 站在本地直连可能返回 412/429；Node 原生 fetch 需要 `--use-env-proxy`，由 wrapper 通过 `CINESCOPE_NODE_USE_ENV_PROXY=1` 开启。
+- 不要清空正式 JSON 作为重试手段；缓存失败应保留旧数据。
+- 剧集侧豆瓣评分与链接主要靠 IMDB ID 反查补齐（`scripts/lib/douban-imdb-lookup.mjs`，`POST api.douban.com/v2/movie/imdb/{id}`）。该通道需要 `DOUBAN_API_KEY`，未配置时模块自动降级为跳过，不报错也不阻断生成。豆瓣榜单的标题+年份匹配只覆盖几十条近期热门，数百条 TMDB 驱动条目本来就匹配不到，**不要把匹配失败误判成接口故障**。
+- 统计豆瓣评分/链接缺失率必须用 `seasons[0].douban_rating || 顶层 douban_rating` 口径（与 `validate-data.mjs`、`build-report.mjs` 一致）。剧集把这两个字段放在 `seasons[0]` 下，只读顶层会把缺口严重高估——曾因此把 59.8% 误读成 76.7%。
+- `DOUBAN_API_KEY` **没有官方申请入口**（豆瓣开放平台 2023-07 下线、2017 年起停止受理新 Key），现有值来自微信小程序客户端凭证、在开源社区公开流通，属非官方通道，可能被限流或失效。本地写 `.env`（已 gitignore）；CI 需在 Secrets 配置并在 `daily-update.yml` 传同名 env。详见 `docs/DATA_UPDATE_GUIDE.md` 的「环境变量」。
+- 重跑数据任务若报 `ModuleNotFoundError: No module named 'requests'`，是本地 Python 环境缺依赖，先 `python3 -m pip install -r scripts/automation/requirements.txt`，不要改业务代码。
 
-## 验证清单
+## 发布约束
 
-- [ ] `git status` 中原有改动未被覆盖或混入。
-- [ ] 数据任务使用 `--dry-run` 或最小 task，未泄露登录态和密钥。
-- [ ] `npm run check` 通过；涉及页面输出时 `npm run build:site` 通过。
-- [ ] `git diff --check` 通过，`.site/` 没有被手工编辑。
-- [ ] UI 改动至少检查片单首屏、分类切换、筛选、详情、分享和移动筛选。
+- 命令示例、历史排障案例和验证清单均不授予发布权限。`--publish`、手动触发工作流和其他外部写入需有对应用户授权；已有授权且目标、范围未变时不重复确认。
 
-## references/
+- `--publish` 默认要求工作区干净；`tv-status`、`douban-cache`、`trailers` 只发布 `json/` 和 `posters/`，允许保留这两条路径之外的本地编辑，但发布路径本身必须干净，远端快进若会覆盖本地改动则停止。白名单在 `run_update.py` 的 `ALLOW_UNRELATED_WORKTREE_CHANGES_TASKS`，`full` 仍要求全仓干净。
+- 暂存基线由 `copy_tracked_json_baseline()` 按 `git ls-files json` 逐个拷贝，不再整目录 `copytree`，`json/` 下的非跟踪残留不会进入 staging。
+- 部署只有 Vercel 仓库集成一条链路（`vercel.json`：`npm run build:site` → `.site/`）。`deploy-pages.yml` 已在 `aa422658`「迁移影视站点至 Vercel」删除，仓库内没有独立部署工作流。
+- 本地任务共用 `.cache/automation/update.lock`。
+- 只允许发布 `json/` 和 `posters/`。
+- 数量下降超过 20% 默认失败；确认是业务变更后才使用 `--allow-large-drop`。
+- push 最多重试 3 次，仍失败时保留本地 commit 供人工处理。
 
-本 skill 无 `references/` 目录；仓库内项目规则、`README.md` 和列出的脚本就是当前项目真源。
+## 通知包装
+
+no-agent wrapper 只能：
+
+1. 设置代理或环境变量
+2. 调用仓库 `run_update.py`
+3. 解析最后一行结构化 JSON
+4. 输出简短通知
+
+通知中的影视名称必须使用完整正式名称，不主动简写。若上游主标题是短名、`aka` 中存在以短名开头的完整名称（如主标题“小芳”、别名“小芳出嫁”），展示时优先完整别名。不要把上游短标题合理化为“目录短名”。预告片任务中的“新增”指新增预告片匹配，不是新增影视条目；通知应明确写成“新增预告片匹配”，并在来源不是官方预告时避免把杀青资讯、自媒体解说统称为正式预告片。
+
+## tv-status 更新口径
+
+- 完结判断包含 `in_production == false`；即使 `status` 和 `episodes_info` 为空，也视为已完结并跳过后续同步。
+- “本次更新”只统计内容状态变化：`episodes_info`、`status` 或连载/完结状态推进。仅补齐缺失的 `seasons[0].episode_count` 属于元数据修复，不计入“本次更新”。
+- 汇总单独显示“补齐总集数”，避免把历史完结剧包装成当天更新。
+- “本次更新”通知使用一行一部的格式，不把多部剧名压在同一行。
+- 统一入口仍使用 `python3 scripts/automation/run_update.py --task tv-status --dry-run` 先核对口径，再按需 `--publish`；相关修复已在 CineScope 仓库提交并推送。
+
+不要把完整 stderr 发送到 IM；失败只保留首行 hint，详细日志留本地。
+
+## 查询
+
+本地搜索脚本仍属于 Hermes 查询能力，不参与更新/发布：
+
+```bash
+~/.hermes/hermes-agent/venv/bin/python \
+  ~/.hermes/skills/cinescope/scripts/search_cinescope.py "隐秘的角落"
+```
+
+## 常见坑
+
+- **`json/` 内的非跟踪残留会进入本地构建产物，但不会上线上**：`scripts/build-site.mjs` 对 `json/` 是整目录 `cp`（只有顶层路径做白名单判定），所以躺在 `json/` 里的残留（云同步产生的 `xxx 2.json` 之类）都会进入 `.site/json/`。收窄到「本地影响」即可：Vercel 与 Pages 都从 git 树构建，未跟踪文件从不在远端（实测线上 `/json/build_report%202.json` 为 **404**）。真正会中招的只有本地 `python3 -m http.server` 直接伺服 `.site/`，或本地 `vercel` CLI 手工部署。注意这与 `run_update.py` 的 `copy_tracked_json_baseline` 是两套口径，不要混为一谈。
+- **探测线上对象必须走代理**：本机沙箱里 curl 加 `--noproxy '*'` 会被拦截，对**任意路径**（包括不存在的路径）一律返回 301，据此判断会得出完全错误的存在性结论。抽样比对时用默认（走代理）路径：真实存在的文件给 200、不存在的给 404，这才是源站响应；另外用 `curl -D -` 读头时，代理会先回一行 `HTTP/1.1 200 Connection Established`，那不是源站状态码。
+- **项目路径联动**：CineScope 当前路径是 `/Users/lrwei91/Documents/Project/CineScope/`。wrapper、cron workdir、SKILL.md、references 和 `scripts/search_cinescope.py` 都依赖同一根目录。出现 `No such file or directory` 时先确认该目录存在；项目再次迁移时必须同步更新这些位置。完整清单见 `references/project-path-migration.md`。
+- **wrapper 执行权限**：`~/.hermes/scripts/cron-no-agent/*.py` 可能没有执行权限，直接运行会报 `Permission denied`。手动重跑时使用 `/Users/lrwei91/.hermes/hermes-agent/venv/bin/python <wrapper>`，不要为临时重跑修改文件权限；wrapper 内部会设置代理并调用统一任务入口。
+- **远端领先不等于分叉**：发布前若 `origin/main` 单纯领先，`run_update.py` 应自动 `git merge --ff-only origin/main` 后继续；`trailers` 仅允许保留非发布路径编辑，发布路径有改动，或快进会覆盖其他本地改动时才停止。若通知出现 `origin/main is ahead or diverged`，先查 `git status --short --branch` 和 `git rev-list --left-right --count HEAD...origin/main`，不要把 `0 1` 误判成冲突。
+- **`--publish` 输出路径被脏改动拦截**：`trailers` 发布器允许保留 `json/`、`posters/` 之外的本地编辑；其他任务仍要求全仓干净。`ensure_clean_for_publish()` 会在生成后阻止待发布路径已有未提交改动。若出现 `--publish output paths already contain uncommitted changes`，只检查对应 `json/` / `posters/` 文件，避免回滚无关源代码；若远端快进阶段提示会覆盖本地改动，则先查看 `git status --short --branch` 和冲突路径，确认后再处理。
+- **豆瓣缓存 publish 不保证一次幂等**：抓取会增量补全本地缓存；手动 `--publish` 成功后立刻只为刷新 `last_status` 再跑 Cron，第二次仍可能补充字段并生成新 commit，即使条目总数不变。不要把第一次 commit 当终态；若确需立即重跑，必须以第二次后的最终 HEAD 重新执行 `npm run check`、`npm run build:site`、远端 SHA 和当前 Vercel 部署的线上对象读回（先核对实际部署地址与提交版本）。只想清除历史错误展示时，优先等待下一次正常调度，不手改 `jobs.json` 状态。
+- **历史 CI 案例：`ModuleNotFoundError: No module named 'requests'`**：先用 `gh run view <id> --log-failed` 读取目标运行的真实错误，再检查当前 `.github/workflows/ci.yml`、`.github/workflows/daily-update.yml`、Python 测试和依赖文件。历史原因是测试导入依赖而 runner 未安装，修复应按当前 runner 环境选择依赖安装方式，不机械照搬旧的安装参数或固定测试数量。运行项目要求的本地检查，并读取已有远端运行；本地通过不等于远端通过。只有用户已授权触发对应工作流及其数据更新、提交或发布副作用时，才可手动运行 `gh workflow run "每日数据更新"`，随后核对实际运行结果。没有触发授权时完成本地修复与验证，明确远端尚未验证，不为清除旧错误而自动触发。Node 弃用告警与实际失败分开判断，不因此顺手升级运行时。
+
+## 诊断顺序
+
+1. `git status --short --branch`
+2. `python3 scripts/automation/run_update.py --task <task> --dry-run`
+3. `npm run check:data`
+4. 检查 BrowserSkill、代理/登录态
+5. 检查结构化结果和 `json/build_report.json`
+
+历史问题详情继续保留在本目录 `references/`，但实现以仓库代码和 `docs/DATA_UPDATE_GUIDE.md` 为准。
