@@ -33,11 +33,15 @@ success, stdout, stderr = _run(["node", "--use-env-proxy", str(NODE_SCRIPT)], cw
 - `setdefault` 让用户自定义 env 优先（dev/prod 切换代理不用改脚本）
 - Node 22 的原生 fetch **默认不读 HTTP_PROXY**，必须显式 `--use-env-proxy` flag
 
-## 下次 20:00 cron 自检
+## 下次 cron 自检
+
+> 本文记录于 2026-06-30，当时的 cron id 为 `735de336fba5`、调度为 20:00。
+> 任务重建后 id 与调度均已变更，当前值以 `~/.hermes/cron/jobs.json` 为准（2026-10-04 核实为 `7aa26e8f968b` / `10 20 * * *`）。
 
 ```bash
-# 看产出是否成功
-tail -20 ~/.hermes/cron/output/735de336fba5/<昨天日期>_20-*.md
+# 看产出是否成功（jobs.json 顶层是 {jobs, updated_at}，需先取 .jobs）
+jid=$(jq -r '(.jobs // .)[] | select(.name=="CineScope 预告片更新") | .id' ~/.hermes/cron/jobs.json)
+tail -20 ~/.hermes/cron/output/$jid/<昨天日期>_20-*.md
 
 # 若仍 timeout, 检查 Clash 是否活着
 pgrep -lf clash-verge | head -3

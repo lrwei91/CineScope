@@ -54,9 +54,11 @@ python3 scripts/automation/run_update.py --task trailers --publish
 
 | 时间 | 任务 | cron id | wrapper |
 |---|---|---|---|
-| 每日 06:00 | 豆瓣国产剧连载状态同步 | `55762d895c40` | `cron-no-agent/douban_cn_status_sync.py` |
-| 周日 08:00 | 豆瓣缓存周更新 | `365f53c7aeeb` | `cron-no-agent/douban_weekly_update.py` |
-| 每日 20:00 | CineScope 预告片更新 | `735de336fba5` | `cron-no-agent/cinescope_trailer_update.py` |
+| 每日 06:00 | 豆瓣国产剧连载状态同步 | `ea423a45f252` | `cron-no-agent/douban_cn_status_sync.py` |
+| 周日 08:00 | 豆瓣缓存周更新 | `b86e739f876d` | `cron-no-agent/douban_weekly_update.py` |
+| 每日 20:10 | CineScope 预告片更新 | `7aa26e8f968b` | `cron-no-agent/cinescope_trailer_update.py` |
+
+cron id 以 `~/.hermes/cron/jobs.json` 为准；任务重建后 id 会变化，使用前先核对该文件。
 
 旧 07:30 `CineScope GitHub 同步` 已删除；每个任务验证后自行发布。
 
@@ -67,9 +69,8 @@ python3 scripts/automation/run_update.py --task trailers --publish
 - Rexxar v2 对老 subject ID 和已删除的幽灵条目可能返回 404；状态脚本保留失败计数并自动跳过连续失败条目。
 - B 站在本地直连可能返回 412/429；Node 原生 fetch 需要 `--use-env-proxy`，由 wrapper 通过 `CINESCOPE_NODE_USE_ENV_PROXY=1` 开启。
 - 不要清空正式 JSON 作为重试手段；缓存失败应保留旧数据。
-- 剧集侧豆瓣评分与链接主要靠 IMDB ID 反查补齐（`scripts/lib/douban-imdb-lookup.mjs`，`POST api.douban.com/v2/movie/imdb/{id}`）。该通道需要 `DOUBAN_API_KEY`，未配置时模块自动降级为跳过，不报错也不阻断生成。豆瓣榜单的标题+年份匹配只覆盖几十条近期热门，数百条 TMDB 驱动条目本来就匹配不到，**不要把匹配失败误判成接口故障**。
+- 豆瓣评分与链接只来自豆瓣榜单的标题+年份匹配，覆盖面天然有限——数百条 TMDB 驱动条目匹配不到是**正常状态**，不要误判成接口故障。2026-10-04 起原 IMDB ID 反查链路（`DOUBAN_API_KEY` + `scripts/lib/douban-imdb-lookup.mjs`）因该 key 无官方申请入口、且自 2026-09-16 引入以来 `writes` 恒为 0，从未产生过任何补全，已整体删除。
 - 统计豆瓣评分/链接缺失率必须用 `seasons[0].douban_rating || 顶层 douban_rating` 口径（与 `validate-data.mjs`、`build-report.mjs` 一致）。剧集把这两个字段放在 `seasons[0]` 下，只读顶层会把缺口严重高估——曾因此把 59.8% 误读成 76.7%。
-- `DOUBAN_API_KEY` **没有官方申请入口**（豆瓣开放平台 2023-07 下线、2017 年起停止受理新 Key），现有值来自微信小程序客户端凭证、在开源社区公开流通，属非官方通道，可能被限流或失效。本地写 `.env`（已 gitignore）；CI 需在 Secrets 配置并在 `daily-update.yml` 传同名 env。详见 `docs/DATA_UPDATE_GUIDE.md` 的「环境变量」。
 - 重跑数据任务若报 `ModuleNotFoundError: No module named 'requests'`，是本地 Python 环境缺依赖，先 `python3 -m pip install -r scripts/automation/requirements.txt`，不要改业务代码。
 
 ## 发布约束
@@ -119,7 +120,7 @@ no-agent wrapper 只能：
 - **`json/` 内的非跟踪残留会进入本地构建产物，但不会上线上**：`scripts/build-site.mjs` 对 `json/` 是整目录 `cp`（只有顶层路径做白名单判定），所以躺在 `json/` 里的残留（云同步产生的 `xxx 2.json` 之类）都会进入 `.site/json/`。收窄到「本地影响」即可：Vercel 与 Pages 都从 git 树构建，未跟踪文件从不在远端（实测线上 `/json/build_report%202.json` 为 **404**）。真正会中招的只有本地 `python3 -m http.server` 直接伺服 `.site/`，或本地 `vercel` CLI 手工部署。注意这与 `run_update.py` 的 `copy_tracked_json_baseline` 是两套口径，不要混为一谈。
 - **探测线上对象必须走代理**：本机沙箱里 curl 加 `--noproxy '*'` 会被拦截，对**任意路径**（包括不存在的路径）一律返回 301，据此判断会得出完全错误的存在性结论。抽样比对时用默认（走代理）路径：真实存在的文件给 200、不存在的给 404，这才是源站响应；另外用 `curl -D -` 读头时，代理会先回一行 `HTTP/1.1 200 Connection Established`，那不是源站状态码。
 - **项目路径联动**：CineScope 当前路径是 `/Users/lrwei91/Documents/Project/CineScope/`。wrapper、cron workdir、SKILL.md、references 和 `scripts/search_cinescope.py` 都依赖同一根目录。出现 `No such file or directory` 时先确认该目录存在；项目再次迁移时必须同步更新这些位置。完整清单见 `references/project-path-migration.md`。
-- **wrapper 执行权限**：`~/.hermes/scripts/cron-no-agent/*.py` 可能没有执行权限，直接运行会报 `Permission denied`。手动重跑时使用 `/Users/lrwei91/.hermes/hermes-agent/venv/bin/python <wrapper>`，不要为临时重跑修改文件权限；wrapper 内部会设置代理并调用统一任务入口。
+- **wrapper 执行权限**：`~/.hermes/scripts/cron-no-agent/` 下的 wrapper 当前为 `644`（无执行位），且各文件权限不一致（部分为 `711`）。Hermes 通过 `python <script>` 方式调用（cron 任务的 `script` 字段 + `no_agent: true`），因此权限不足不影响调度；但手动直接 `./wrapper.py` 会报 `Permission denied`。手动重跑时用 `~/.hermes/hermes-agent/venv/bin/python <wrapper>`，不要为临时重跑修改文件权限。
 - **远端领先不等于分叉**：发布前若 `origin/main` 单纯领先，`run_update.py` 应自动 `git merge --ff-only origin/main` 后继续；`trailers` 仅允许保留非发布路径编辑，发布路径有改动，或快进会覆盖其他本地改动时才停止。若通知出现 `origin/main is ahead or diverged`，先查 `git status --short --branch` 和 `git rev-list --left-right --count HEAD...origin/main`，不要把 `0 1` 误判成冲突。
 - **`--publish` 输出路径被脏改动拦截**：`trailers` 发布器允许保留 `json/`、`posters/` 之外的本地编辑；其他任务仍要求全仓干净。`ensure_clean_for_publish()` 会在生成后阻止待发布路径已有未提交改动。若出现 `--publish output paths already contain uncommitted changes`，只检查对应 `json/` / `posters/` 文件，避免回滚无关源代码；若远端快进阶段提示会覆盖本地改动，则先查看 `git status --short --branch` 和冲突路径，确认后再处理。
 - **豆瓣缓存 publish 不保证一次幂等**：抓取会增量补全本地缓存；手动 `--publish` 成功后立刻只为刷新 `last_status` 再跑 Cron，第二次仍可能补充字段并生成新 commit，即使条目总数不变。不要把第一次 commit 当终态；若确需立即重跑，必须以第二次后的最终 HEAD 重新执行 `npm run check`、`npm run build:site`、远端 SHA 和当前 Vercel 部署的线上对象读回（先核对实际部署地址与提交版本）。只想清除历史错误展示时，优先等待下一次正常调度，不手改 `jobs.json` 状态。

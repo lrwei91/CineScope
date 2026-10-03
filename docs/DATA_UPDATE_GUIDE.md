@@ -31,32 +31,45 @@ python3 scripts/automation/run_update.py \
 | 变量 | 必需性 | 用途 | 缺失时的行为 |
 | --- | --- | --- | --- |
 | `TMDB_API_KEY` | 必需 | TMDB 发现与详情、语言与地区参数 | 不生成 TMDB 驱动条目，数据质量下降 |
-| `DOUBAN_API_KEY` | 可选 | 按 IMDB ID 反查豆瓣评分与链接，补齐剧集侧缺口 | 反查模块 `enabled=false` 静默跳过，不影响现有链路 |
-
-`DOUBAN_API_KEY` 用于 `POST https://api.douban.com/v2/movie/imdb/{imdbId}`。**该 key 没有申请入口**：
-豆瓣开放平台已于 2023 年 7 月正式下线（2017 年起已停止受理新 Key 申请），现在可用的豆瓣数据通道
-均为第三方非官方方案。这个 key 来自豆瓣微信小程序（appid `wx2f9b06c1de1ccfca`）的客户端凭证，
-在开源社区公开流通，`douban-bridge`、`jellyfin-plugin-douban` 等项目使用的即是同一套值。
-
-因此它属于非官方通道，**可能随时被限流或失效**。这也是反查模块必须优雅降级的原因：
-未配置或调用失败时只跳过补全，绝不阻断生成。该接口为 POST 且只校验 apikey，
-无需微信 Referer 伪装头（与 `frodo.douban.com` 通道不同）。
 
 本地配置（`.env` 已被 `.gitignore` 忽略）：
 
 ```bash
-export DOUBAN_API_KEY=...
+export TMDB_API_KEY=...
 ```
 
-CI 配置：在仓库 Secrets 中添加 `DOUBAN_API_KEY`，并在 `daily-update.yml` 的更新步骤传入同名 env。
-未配置时每日更新照常运行，只是不会补全剧集侧豆瓣评分与链接。
+CI 配置：在仓库 Secrets 中添加 `TMDB_API_KEY`，并在 `daily-update.yml` 的更新步骤传入同名 env。
+未配置时每日更新照常运行，runner 会输出 `::warning::` 并跳过 TMDB 驱动条目。
 
-调参与观测：
+### 可调参数
 
-- `DOUBAN_IMDB_LOOKUP_TTL_DAYS`（默认 30）：有评分条目的缓存有效期
-- `DOUBAN_IMDB_LOOKUP_REQUEST_DELAY_MS`（默认 1500）：请求最小间隔，用于规避限流
-- 缓存目录：`.cache/douban/imdb-lookup/`（有评分 30 天、未开分 3 天、404 负缓存）
-- 运行统计：`json/build_report.json` 的 `douban_imdb_lookup` 字段
+以下均为可选，默认值已适合常规运行；仅在排查限流、缓存或超时问题时才需要调整。
+定义位置见 `scripts/generate_douban_catalog.mjs` 与 `scripts/generate_maoyan_cache.mjs`。
+
+| 变量 | 默认 | 用途 |
+| --- | --- | --- |
+| `DOUBAN_SUBJECT_CACHE_TTL_DAYS` | 14 | 豆瓣条目缓存有效期 |
+| `DOUBAN_SEARCH_CACHE_TTL_DAYS` | 30 | 豆瓣搜索缓存有效期 |
+| `DOUBAN_SEARCH_QUERY_LIMIT` | 1 | 单条目触发的搜索次数上限 |
+| `HTTP_REQUEST_TIMEOUT_MS` | 15000 | 通用 HTTP 超时 |
+| `SKIP_POSTER_DOWNLOADS` | false | 跳过海报下载 |
+| `BILIBILI_TRAILER_FORCE_BOOTSTRAP` | false | 强制全量抓取预告片 |
+| `BILIBILI_TRAILER_BOOTSTRAP_PAGE_LIMIT` | 8 | 全量抓取页数上限 |
+| `BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT` | 4 | 增量抓取页数上限 |
+| `BILIBILI_TRAILER_REQUEST_DELAY_MS` | 1200 | 请求最小间隔 |
+| `BILIBILI_TRAILER_REQUEST_JITTER_MS` | 400 | 请求间隔抖动 |
+| `BILIBILI_TRAILER_MAX_RETRIES` | 3 | 失败重试次数 |
+| `BILIBILI_TRAILER_RETRY_BASE_DELAY_MS` | 3000 | 重试退避基数 |
+| `BILIBILI_TRAILER_ENABLE_SEARCH_FALLBACK` | false | 启用搜索兜底 |
+| `BILIBILI_TRAILER_REQUEST_TIMEOUT_MS` | 15000 | B 站请求超时 |
+| `MAOYAN_BOX_OFFICE_API_URL` | 60s 公共实例 | 猫眼实时票房接口 |
+| `MAOYAN_TV_HEAT_API_URL` | 60s 公共实例 | 猫眼剧集热度接口 |
+| `CINESCOPE_OUTPUT_ROOT` | 仓库根目录 | 数据输出根目录，由 runner 注入 |
+| `CINESCOPE_PROJECT_ROOT` | 仓库根目录 | 项目根目录，由 runner 注入 |
+| `CATEGORY_IDS` | 空（全部） | 限定分类，逗号分隔 |
+| `UPDATE_TASK` | 由 task 推导 | 当前任务名，由 runner 注入 |
+
+运行统计见 `json/build_report.json` 的 `douban_subject_cache`、`douban_search_cache` 字段。
 
 ## 2. 任务职责
 
@@ -97,15 +110,17 @@ python3 scripts/automation/run_update.py --task tv-status --dry-run
 python3 scripts/automation/run_update.py --task douban-cache --dry-run
 ```
 
-依赖 BrowserSkill 和真实 Chrome 豆瓣登录态：
+依赖 BrowserSkill 和真实 Chrome 豆瓣登录态。`douban_cache_refresh.py` 内部三个阶段：
 
-1. 统计 catalog 中缺失的 subject cache
-2. 探测已删除或 404 的条目
-3. 通过真实浏览器补充缓存
-4. 重建 `movie_cn`
-5. 验证并立即发布
+1. 统计 `movie_cn_complete.json` 中缺失的 subject 缓存
+2. probe 探测已删除或 404 的条目，并从 latest / complete 中移除
+3. 通过真实浏览器抓取补齐缓存
 
-本地每周日 08:00 运行，不再等待单独的 Git 同步任务。
+`--dry-run` 只做检查与抓取，不写正式 JSON。**非 dry-run** 时，runner 在此之后额外用
+`CATEGORY_IDS=movie_cn` 重建 `movie_cn`，再统一执行数据门禁。是否提交推送由 `--publish` 决定，
+任务本身不会自动发布。
+
+本地每周日 08:00 运行。
 
 ### trailers
 
@@ -122,7 +137,7 @@ HTTPS_PROXY=http://127.0.0.1:7890 \
 python3 scripts/automation/run_update.py --task trailers
 ```
 
-本地每日 20:00 运行。
+本地每日 20:10 运行。
 
 ## 3. Staging 与发布
 
@@ -141,18 +156,26 @@ python3 scripts/automation/run_update.py --task trailers
 
 ## 4. 数据门禁
 
-硬失败：
+实现见 `scripts/validate-data.mjs`，以下为完整清单。
 
-- JSON 无法解析或 collection 为空
-- 条目缺少 ID 或存在重复 ID
-- latest 中的 ID 不在 complete
-- 本地海报路径越界或文件不存在
-- complete 数量相对 HEAD 无授权下降超过 20%
+硬失败（阻止提升）：
 
-警告：
+- 分类 JSON 缺少 `shows` / `movies` 数组，或 latest / complete 集合为空
+- 条目缺少 ID，或同一层级存在重复 ID
+- latest 中的 ID 不在 complete 中
+- 海报路径越出 `posters/`，或本地海报文件不存在
+- 条目标记为「已验证」的豆瓣链接不符合 subject URL 格式
+- complete 数量相对 `HEAD` 下降超过 20%（`--allow-large-drop` 可放行）
+- 辅助文件缺失或不是对象：`douban_top250.json`、`douban_statuses.json`、`maoyan_box_office.json`、`maoyan_tv_heat.json`、`build_report.json`
+- `douban_top250.movies` 为空，或 `douban_statuses.statuses` 不是对象
+- `build_report` 的 `schema_version` 不是 2、`categories` 不是数组、缺 `latest_run` 或 `task_statuses`
+- `build_report` 缺少任一分类条目，或其 `counts.latest` / `counts.complete` / `quality.total_items` 与实际 JSON 不一致
 
-- 评分缺失率相对 HEAD 恶化超过 10 个百分点
-- 豆瓣链接缺失率相对 HEAD 恶化超过 10 个百分点
+警告（不阻止提升，但需在摘要中核对）：
+
+- 评分缺失率相对 `HEAD` 恶化超过 10 个百分点
+- 豆瓣链接缺失率相对 `HEAD` 恶化超过 10 个百分点
+- 上映日期超出当前日期 550 天以上
 
 ```bash
 npm run check:data

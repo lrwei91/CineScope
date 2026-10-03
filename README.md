@@ -1,5 +1,7 @@
 # CineScope
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 影视内容聚合展示平台，追踪国产剧、院线电影、综艺、韩剧、日剧、美剧和豆瓣 Top250。
 
 [在线体验](https://movie.lrwei91.cn/) · [反馈建议](https://github.com/lrwei91/CineScope/issues)
@@ -35,7 +37,7 @@ Vercel 静态部署产物
 | `full` | 全分类、猫眼、豆瓣状态和 Top250 | GitHub Actions 每日 22:00 |
 | `tv-status` | 国产剧连载状态 | 本地每日 06:00 |
 | `douban-cache` | 登录态补充豆瓣详情缓存 | 本地每周日 08:00 |
-| `trailers` | 国产影视 B 站预告片 | 本地每日 20:00 |
+| `trailers` | 国产影视 B 站预告片 | 本地每日 20:10 |
 
 需要浏览器登录态或本地网络环境的任务由 Hermes 触发，但业务逻辑、验证和发布协议均在本仓库。Hermes 只保留调度、代理环境和通知包装。
 
@@ -56,9 +58,9 @@ Vercel 静态部署产物
 
 要求：
 
-- Node.js 20+
-- Python 3.11+
-- `requests`（仅 `tv-status` 任务）
+- Node.js 18+（CI 固定使用 22；`fs.cp` 需 16.7+，B 站模块对 `AbortSignal.timeout` 做了降级兼容）
+- Python 3.11+（CI 固定使用 3.11）
+- `requests` —— `tv-status` 任务与 `npm test` 的 Python 测试都需要
 - `TMDB_API_KEY`（完整数据更新）
 
 ```bash
@@ -158,4 +160,6 @@ CineScope/
 
 ## License
 
-MIT
+[MIT](LICENSE) © 2026 lrwei91
+
+许可覆盖本仓库的代码与配置。`json/` 与 `posters/` 中的影视元数据和图片素材来自第三方数据源，其版权与使用条件归各自权利人所有，使用时请遵守 [数据来源](#数据来源) 中各平台的规定。

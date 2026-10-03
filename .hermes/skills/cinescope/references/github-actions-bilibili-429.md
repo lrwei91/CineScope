@@ -15,7 +15,7 @@ GitHub Actions runner 共享 IP 池，B站对高频请求做了 IP 级限流（4
 ## 脚本位置
 - 执行脚本：`~/.hermes/scripts/cron-no-agent/cinescope_trailer_update.py`
 - Skill：`~/.hermes/skills/automation/cinescope-trailer-update/SKILL.md`
-- Cron：`735de336fba5`（`0 20 * * *`）
+- Cron：`7aa26e8f968b`（`10 20 * * *`）
 
 ## 原始 GitHub Workflow
 `.github/workflows/update-trailers.yml` — 已不再使用，建议禁用或删除。
