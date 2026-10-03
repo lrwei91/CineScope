@@ -239,8 +239,10 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
         const ratingValue = document.createElement('span');
         ratingValue.className = 'rating-value';
         ratingValue.textContent = String(item.doubanRating);
+        ratingValue.dataset.compact = Number(item.doubanRating).toFixed(1);
         ratingEl.append(ratingStar, ratingLabel, ratingValue);
     } else {
+        ratingEl.classList.add('is-unrated');
         const ratingEmpty = document.createElement('span');
         ratingEmpty.className = 'rating-empty';
         ratingEmpty.textContent = '暂无评分';
@@ -258,7 +260,10 @@ export function createCatalogCard(item, animationDelayIdx = 0, onCardClick, onTr
     if (item.date) {
         const airDate = document.createElement('p');
         airDate.className = 'card-meta-info';
-        airDate.textContent = `上映日期：${item.date}`;
+        const dateLabel = document.createElement('span');
+        dateLabel.className = 'card-date-label';
+        dateLabel.textContent = '上映日期：';
+        airDate.append(dateLabel, document.createTextNode(item.date));
         content.appendChild(airDate);
     }
 

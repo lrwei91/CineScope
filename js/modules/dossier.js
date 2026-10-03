@@ -4,7 +4,7 @@
  */
 
 import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
-import { resolvePosterUrl } from './renderer.js?v=20261002c';
+import { resolvePosterUrl } from './renderer.js?v=20261003h';
 import { getGenreDisplayName } from './filters.js';
 import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003g';
 import { getModalHistory } from './modal-history.js?v=20261003g';
