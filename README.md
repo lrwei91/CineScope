@@ -10,6 +10,7 @@
 - latest → complete 渐进加载，按分类缓存
 - 猫眼票房与剧集热度、B 站预告片、豆瓣收藏状态
 - 年月时间线、分页加载、移动端筛选面板和分享图
+- 可添加到主屏或安装为独立窗口应用（iOS / Android / 桌面）
 
 ## 架构
 
@@ -103,6 +104,17 @@ npm run build:site    # 生成 .site/ 静态部署产物
 
 CI 会在 Pull Request 和每日更新中执行这些检查。每日更新推送最新 `main` 提交后，Vercel 会自动构建 `.site/` 并发布到生产域名。
 
+## 安装能力
+
+站点支持 iOS「添加到主屏」与浏览器安装为独立窗口应用。浏览器标签页图标与安装图标是两条独立链路：前者沿用 `favicon.svg` / `favicon.png`，后者为 `assets/icons/` 下的 PNG 位图。
+
+- 图标为满幅不透明正方形，不预烘焙圆角，形状由系统裁切决定；`icon-maskable-*` 的关键内容内缩到中心安全区
+- 图标与安装元数据在 `index.html` 的 `<head>` 内静态声明，不依赖客户端脚本注入
+- 站点为纯静态无鉴权架构，图标与清单以根相对路径发布，未登录请求直接返回文件本身
+- `vercel.json` 为清单显式声明 `application/manifest+json`，避免安装流程解析失败
+
+修改图标后需清除系统已安装的旧图标并重新安装，才能观察到新结果。相关门禁见 `tests/app-icons.test.mjs`，设计约束见 [`docs/DESIGN_BRIEF.md`](docs/DESIGN_BRIEF.md)。
+
 ## Build Report v2
 
 `json/build_report.json` 保留原有 `metadata`、`categories`、`douban_statuses` 等字段，并增加：
@@ -119,6 +131,8 @@ CI 会在 Pull Request 和每日更新中执行这些检查。每日更新推送
 ```text
 CineScope/
 ├── index.html / app.js / share.js
+├── manifest.webmanifest        # 安装清单（图标、启动地址、显示模式）
+├── assets/icons/               # 平台安装图标（PNG）与矢量源
 ├── js/modules/                 # 前端 ES Modules
 ├── json/                       # 生成后的页面数据
 ├── posters/                    # 本地海报
