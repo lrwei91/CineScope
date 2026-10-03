@@ -633,13 +633,6 @@ h1 {
     margin-top: 56px;
 }
 
-#coming-soon-container {
-    padding: 22px;
-    border: 1px solid var(--ink);
-    border-radius: var(--radius-card);
-    background: linear-gradient(135deg, var(--accent-soft), var(--paper) 42%);
-}
-
 #results-container {
     min-height: 240px;
 }
@@ -663,96 +656,10 @@ h1 {
     margin-top: 0;
 }
 
-.scroller-wrapper {
-    position: relative;
-    isolation: isolate;
-}
-
-.scroller-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 4px 2px 14px;
-    scroll-behavior: smooth;
-    scrollbar-color: var(--ink) transparent;
-    scrollbar-width: thin;
-}
-
-.scroller-container::-webkit-scrollbar {
-    height: 6px;
-}
-
-.scroller-container::-webkit-scrollbar-thumb {
-    border-radius: var(--radius-pill);
-    background: var(--ink);
-}
-
-.horizontal-scroller {
-    display: flex;
-    width: max-content;
-    gap: 16px;
-}
-
-.horizontal-scroller .show-card {
-    width: min(250px, 72vw);
-    flex: 0 0 auto;
-}
-
 .month-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px 16px;
-}
-
-.scroller-arrow {
-    position: absolute;
-    z-index: 5;
-    top: 42%;
-    display: inline-flex;
-    width: 42px;
-    height: 42px;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--ink);
-    border-radius: 50%;
-    background: var(--paper);
-    color: var(--ink);
-    cursor: pointer;
-    transform: translateY(-50%);
-    transition: background-color var(--motion-fast) ease, transform var(--motion-fast) ease;
-}
-
-.scroller-arrow::before {
-    width: 8px;
-    height: 8px;
-    border-top: 2px solid currentColor;
-    border-left: 2px solid currentColor;
-    content: "";
-}
-
-.scroller-arrow.left {
-    left: -18px;
-}
-
-.scroller-arrow.right {
-    right: -18px;
-}
-
-.scroller-arrow.left::before {
-    transform: rotate(-45deg);
-}
-
-.scroller-arrow.right::before {
-    transform: rotate(135deg);
-}
-
-.scroller-arrow:hover {
-    background: var(--accent);
-    transform: translateY(-50%) scale(1.04);
-}
-
-.scroller-arrow:disabled {
-    opacity: 0.3;
-    pointer-events: none;
 }
 
 .show-card {
@@ -1200,8 +1107,7 @@ h1 {
     min-width: 62px;
 }
 
-.month-grid .show-card.skeleton,
-.horizontal-scroller .show-card.skeleton {
+.month-grid .show-card.skeleton {
     min-height: 390px;
 }
 
@@ -1681,8 +1587,7 @@ body.motion-ready .reveal-section.is-visible {
         animation: art-enter 560ms 80ms var(--ease-editorial) both;
     }
 
-    .month-grid .show-card,
-    .horizontal-scroller .show-card {
+    .month-grid .show-card {
         animation: card-enter 520ms var(--ease-editorial) both;
         animation-delay: calc(var(--card-order, 0) * 80ms);
     }
@@ -1829,11 +1734,6 @@ body.motion-ready .reveal-section.is-visible {
         margin-top: 44px;
     }
 
-    #coming-soon-container {
-        margin: 0 -4px;
-        padding: 18px 14px;
-    }
-
     .month-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px 12px;
@@ -1899,10 +1799,6 @@ body.motion-ready .reveal-section.is-visible {
         bottom: 8px;
         width: 44px;
         height: 44px;
-    }
-
-    .scroller-arrow {
-        display: none !important;
     }
 
     .back-to-top-btn {
@@ -2154,8 +2050,6 @@ body.motion-ready .reveal-section.is-visible {
     .dossier-links-row a, .dossier-trailer-btn { min-height: 44px; }
     #dossier-title, #dossier-subtitle, .dossier-fact-value { overflow-wrap: anywhere; }
     .toast-notification { bottom: calc(80px + env(safe-area-inset-bottom)); }
-    .scroller-container { scroll-snap-type: x proximity; }
-    .horizontal-scroller .show-card { width: min(68vw, 240px); scroll-snap-align: start; }
 }
 
 @media (max-width: 359px) {
@@ -2259,7 +2153,6 @@ body.motion-ready .reveal-section.is-visible {
         grid-template-columns: repeat(auto-fill, minmax(min(100%, max(9.5rem, calc((100% - 12px) / 2))), 1fr));
     }
     .month-grid .show-card { width: 100%; max-width: none; }
-    .horizontal-scroller .show-card { width: min(80vw, max(240px, 9.5rem)); }
     .card-content { min-height: 0; gap: 7px; }
     .card-title {
         display: block;

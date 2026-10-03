@@ -87,10 +87,6 @@ function sortGenresByPriority(genres) {
     });
 }
 
-function getScrollBehavior() {
-    return globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-}
-
 function createBoxOfficeElement(item) {
     const boxOffice = item.boxOffice;
     if (!boxOffice || item.kind !== 'movie') {
@@ -320,12 +316,6 @@ export function showSkeletonLoader(container, skeletonContainer) {
     const noResultsMessage = document.getElementById('no-results');
     if (noResultsMessage) noResultsMessage.style.display = 'none';
 
-    const comingSoonContainer = document.getElementById('coming-soon-container');
-    if (comingSoonContainer) {
-        comingSoonContainer.innerHTML = '';
-        comingSoonContainer.style.display = 'none';
-    }
-
     if (skeletonContainer) {
         skeletonContainer.style.display = 'block';
         container.appendChild(skeletonContainer);
@@ -333,76 +323,6 @@ export function showSkeletonLoader(container, skeletonContainer) {
 
     const loader = document.getElementById('loader');
     if (loader) loader.style.display = 'none';
-}
-
-/**
- * 渲染即将上映卡片
- */
-export function renderComingSoon(futureItems, onCardClick, onTrailerClick) {
-    const comingSoonContainer = document.getElementById('coming-soon-container');
-    if (!comingSoonContainer) return;
-
-    comingSoonContainer.innerHTML = '';
-    if (futureItems.length === 0) {
-        comingSoonContainer.style.display = 'none';
-        return;
-    }
-
-    comingSoonContainer.innerHTML = `
-        <h2 class="month-group-header">即将上映</h2>
-        <div class="scroller-wrapper">
-            <button class="scroller-arrow left" type="button" aria-label="向左滚动"></button>
-            <div class="scroller-container">
-                <div class="horizontal-scroller"></div>
-            </div>
-            <button class="scroller-arrow right" type="button" aria-label="向右滚动"></button>
-        </div>
-    `;
-
-    const horizontalScroller = comingSoonContainer.querySelector('.horizontal-scroller');
-    if (horizontalScroller) {
-        const fragment = document.createDocumentFragment();
-        futureItems.forEach((item, index) => {
-            fragment.appendChild(createCatalogCard(item, Math.min(index, 6), onCardClick, onTrailerClick));
-        });
-        horizontalScroller.appendChild(fragment);
-    }
-
-    comingSoonContainer.style.display = 'block';
-    setupHorizontalScroller(comingSoonContainer);
-}
-
-/**
- * 设置水平滚动器
- */
-function setupHorizontalScroller(container) {
-    const scroller = container.querySelector('.scroller-container');
-    const arrowLeft = container.querySelector('.scroller-arrow.left');
-    const arrowRight = container.querySelector('.scroller-arrow.right');
-
-    if (!scroller || !arrowLeft || !arrowRight) return;
-
-    function updateArrowVisibility() {
-        const scrollLeft = scroller.scrollLeft;
-        const scrollWidth = scroller.scrollWidth;
-        const clientWidth = scroller.clientWidth;
-
-        arrowLeft.style.display = 'block';
-        arrowRight.style.display = 'block';
-        arrowLeft.disabled = scrollLeft < 10;
-        arrowRight.disabled = scrollWidth - scrollLeft - clientWidth < 10;
-    }
-
-    arrowLeft.addEventListener('click', () => {
-        scroller.scrollBy({ left: -scroller.clientWidth * 0.8, behavior: getScrollBehavior() });
-    });
-
-    arrowRight.addEventListener('click', () => {
-        scroller.scrollBy({ left: scroller.clientWidth * 0.8, behavior: getScrollBehavior() });
-    });
-
-    scroller.addEventListener('scroll', updateArrowVisibility);
-    setTimeout(updateArrowVisibility, 100);
 }
 
 /**

@@ -15,7 +15,7 @@ import {
     loadCategoryData,
     ingestCategoryData,
     formatUpdateTimestamp
-} from './js/modules/data-loader.js?v=20260811b';
+} from './js/modules/data-loader.js?v=20261004a';
 
 import {
     getCurrentRatingConfig,
@@ -24,13 +24,12 @@ import {
     applyFilters,
     createRatingTag,
     createGenreTag
-} from './js/modules/filters.js';
+} from './js/modules/filters.js?v=20261004a';
 
 import {
     showSkeletonLoader,
-    renderComingSoon,
     appendItemsToContainer
-} from './js/modules/renderer.js?v=20261003h';
+} from './js/modules/renderer.js?v=20261004a';
 
 
 import {
@@ -83,7 +82,6 @@ const state = {
     categoryState: createCategoryState(),
     allItems: [],
     renderedItems: [],
-    futureItems: [],
     filteredPastAndPresentItems: [],
     currentCategoryId: DEFAULT_CATEGORY_ID,
     specialFilterMode: null,
@@ -120,7 +118,6 @@ function cacheElements() {
     elements.genreFilterContainer = document.getElementById('genre-filter-container');
     elements.genreFilterToggle = document.getElementById('genre-filter-toggle');
     elements.loadingOverlay = document.getElementById('loading-overlay');
-    elements.comingSoonContainer = document.getElementById('coming-soon-container');
     elements.statusMessage = document.getElementById('status-message');
     elements.fileInput = document.getElementById('file-input');
     elements.resultsContainer = document.getElementById('results-container');
@@ -255,7 +252,7 @@ async function switchCategory(categoryId) {
             populateGenreFilters([]);
             state.renderedItems = [];
             state.renderedItemCount = 0;
-            state.futureItems = [];
+
             showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
         });
 
@@ -383,7 +380,7 @@ function updateSubtitleText() {
 function showLoadError(message = '加载数据失败，请稍后重试或手动选择当前分类 JSON 文件。') {
     state.renderedItems = [];
     state.renderedItemCount = 0;
-    state.futureItems = [];
+
     if (elements.statusMessage) {
         elements.statusMessage.textContent = message;
         elements.statusMessage.dataset.state = 'error';
@@ -391,9 +388,6 @@ function showLoadError(message = '加载数据失败，请稍后重试或手动�
     }
     if (elements.skeletonContainer) {
         elements.skeletonContainer.style.display = 'none';
-    }
-    if (elements.comingSoonContainer) {
-        elements.comingSoonContainer.style.display = 'none';
     }
     if (elements.resultsContainer) {
         elements.resultsContainer.innerHTML = '';
@@ -519,18 +513,13 @@ function filterAndRenderItems(options = {}) {
     const nextResults = getFilteredResults(state.allItems);
     state.filteredPastAndPresentItems = nextResults.filteredPastAndPresentItems;
 
-    if (!sameCatalogItems(state.futureItems, nextResults.futureItems)) {
-        renderComingSoon(nextResults.futureItems, openIntelDossier, openTrailerModal);
-    }
-    state.futureItems = nextResults.futureItems;
-
     if (preserveRenderedContent && state.renderedItemCount > 0) {
         const refreshedEnd = getRefreshedPageEndIndex(
             state.filteredPastAndPresentItems, state.renderedItemCount, ITEMS_PER_PAGE,
             { keepMonthIntact: true }
         );
         const itemsToRender = state.filteredPastAndPresentItems.slice(0, refreshedEnd);
-        elements.noResultsMessage.style.display = itemsToRender.length === 0 && state.futureItems.length === 0 ? 'block' : 'none';
+        elements.noResultsMessage.style.display = itemsToRender.length === 0 ? 'block' : 'none';
         if (sameCatalogItems(state.renderedItems, itemsToRender)) {
             updateFabState(state);
             scheduleCatalogViewportFill();
@@ -576,16 +565,12 @@ function startRendering() {
         document.body.style.visibility = 'visible';
     }
 
-    if (state.specialFilterMode === 'recent_high_score') {
-        elements.comingSoonContainer.style.display = 'none';
-    }
-
     state.currentPage = 1;
     state.renderedItemCount = 0;
     state.renderedItems = [];
     state.lastRenderedMonth = null;
 
-    if (state.filteredPastAndPresentItems.length === 0 && elements.comingSoonContainer.style.display === 'none') {
+    if (state.filteredPastAndPresentItems.length === 0) {
         elements.noResultsMessage.textContent = '没有找到符合条件的内容。';
         elements.noResultsMessage.style.display = 'block';
     }
@@ -666,7 +651,7 @@ async function initialize(initialCategoryId = DEFAULT_CATEGORY_ID) {
     if (!hasCachedData) {
         state.renderedItems = [];
         state.renderedItemCount = 0;
-        state.futureItems = [];
+
         showSkeletonLoader(elements.resultsContainer, elements.skeletonContainer);
     }
 

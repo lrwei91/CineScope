@@ -45,7 +45,6 @@ test('recent high score excludes invalid dates and preserves rating-first order'
     const date = `${today.getFullYear()}-01-01`;
     const items = [movie({ date, doubanRating: 8 }), movie({ date, doubanRating: 9 }), movie({ date: 'invalid', doubanRating: 10 })];
     const result = applyFilters(items, { ...filters, specialFilterMode: 'recent_high_score' }, 'movie_cn');
-    assert.deepEqual(result.futureItems, []);
     assert.deepEqual(result.filteredPastAndPresentItems, [items[1], items[0]]);
 });
 

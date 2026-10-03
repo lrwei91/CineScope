@@ -79,11 +79,9 @@ export function applyFilters(allItems, filters, categoryId) {
     today.setHours(0, 0, 0, 0);
     const sinceDate = new Date(today.getTime());
     if (recentHighScore) sinceDate.setFullYear(sinceDate.getFullYear() - ratingConfig.special.years);
-    const futureItems = [];
-    const futureDates = new Map();
     const pastAndPresentItems = [];
 
-    // 一次遍历完成搜索、评分、类型和日期分组，日期只解析一次。
+    // 所有上映日期共用片单，未来上映作品也参与排序、筛选和分页。
     for (const item of allItems) {
         if (query && ![item.title, item.subtitle, ...(item.aka || []), item.overview]
             .some((value) => String(value || '').toLowerCase().includes(query))) continue;
@@ -96,17 +94,9 @@ export function applyFilters(allItems, filters, categoryId) {
         const itemDate = parseDateStringAsLocalDate(item.date);
         if (recentHighScore) {
             if (!(itemDate >= sinceDate) || rating < ratingConfig.special.minRating) continue;
-            pastAndPresentItems.push(item);
-        } else if (itemDate > today) {
-            futureItems.push(item);
-            futureDates.set(item, itemDate.getTime());
-        } else {
-            pastAndPresentItems.push(item);
         }
+        pastAndPresentItems.push(item);
     }
-
-    // 复用解析结果，也兼容手动导入文件中的其他有效日期格式。
-    futureItems.sort((left, right) => futureDates.get(left) - futureDates.get(right));
 
     // 排序
     const sortedItems = pastAndPresentItems.sort((left, right) => {
@@ -125,7 +115,6 @@ export function applyFilters(allItems, filters, categoryId) {
     });
 
     return {
-        futureItems,
         filteredPastAndPresentItems: sortedItems
     };
 }

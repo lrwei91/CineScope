@@ -129,9 +129,7 @@ export async function loadCategoryData(categoryId, level, categoryState, options
                     statusMessage.dataset.state = 'error';
                     statusMessage.closest('.file-loader')?.classList.add('visible');
                 }
-                const comingSoonContainer = document.getElementById('coming-soon-container');
                 const skeletonContainer = document.getElementById('skeleton-container');
-                if (comingSoonContainer) comingSoonContainer.style.display = 'none';
                 if (skeletonContainer) skeletonContainer.style.display = 'none';
             }
             return false;
