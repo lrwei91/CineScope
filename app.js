@@ -74,7 +74,7 @@ import {
     syncMobileShell,
     setMobileShellInert,
     resetMobileMeCache
-} from './js/modules/mobile-shell.js?v=20261003g';
+} from './js/modules/mobile-shell.js?v=20261003k';
 
 // =====================================================
 // 全局状态
@@ -874,6 +874,7 @@ function bootstrapApp() {
             const item = state.allItems.find((entry) => String(entry.id) === String(itemId));
             if (item) openIntelDossier(item);
         },
+        onCollectionItemOpen: (item) => openIntelDossier(item),
         onViewChange: (view) => {
             // 详情/预告片/分享打开时隔离底栏，关闭后由各组件自行恢复
             if (view === 'search') syncMobileSheetFilters();

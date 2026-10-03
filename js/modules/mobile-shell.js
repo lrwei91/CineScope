@@ -12,9 +12,8 @@
  */
 
 import { CATEGORY_CONFIG, DOUBAN_STATUS_URL, DOUBAN_STATUS_LABELS } from './config.js';
-import { formatUpdateTimestamp } from './data-loader.js?v=20260811b';
 import { getModalHistory } from './modal-history.js?v=20261003g';
-import { getDoubanStatuses, getDoubanStatusesMetadata } from './douban-sync.js?v=20261002c';
+import { getDoubanStatuses } from './douban-sync.js?v=20261002c';
 import { getGenreDisplayName } from './filters.js';
 
 import { focusModal, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003g';
@@ -43,6 +42,8 @@ const searchFilters = {
 // 我的页缓存，避免重复计算
 let meCache = null;
 let meLoading = false;
+let collectionStatus = null;
+let overviewScroll = 0;
 
 /**
  * 「我的」统计需要跨分类匹配豆瓣状态，因此要确保各分类数据已加载。
@@ -125,7 +126,8 @@ function collectCollectionItems() {
             markedAt: statuses[subjectId]?.updatedAt || '',
             genres: genres.slice(0, 3),
             primaryGenre: genres[0] || '未分类',
-            subjectId
+            subjectId,
+            sourceItem: item
         });
     }
 
@@ -213,33 +215,59 @@ function ticketMarkup(item) {
         ? `<img loading="lazy" decoding="async" src="${esc(item.posterPath)}" alt=""
              onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'poster-fallback',textContent:'暂无'}))">`
         : '<span class="poster-fallback">暂无</span>';
-    const meta = [
-        item.categoryLabel,
-        item.date ? `${item.date} 上映` : '',
-        item.genres.length ? item.genres.join(' ') : ''
-    ].filter(Boolean);
-    return `<div class="mobile-ticket">
-        <div class="mobile-ticket-poster">${poster}</div>
-        <div class="mobile-ticket-body">
-            <h3>${esc(item.title)}</h3>
-            <p class="mobile-ticket-meta">${esc(meta.join(' · '))}</p>
-            <p class="mobile-ticket-score">${item.rating ? `豆瓣 ${Number(item.rating).toFixed(1)}` : '暂无评分'}</p>
-        </div>
-        <div class="mobile-ticket-barcode" aria-hidden="true"></div>
-    </div>`;
+    return `<button type="button" class="mobile-ticket" data-collection-subject="${esc(item.subjectId)}" aria-label="查看${esc(item.title)}详情">
+        <span class="mobile-ticket-poster">${poster}</span>
+        <span class="mobile-ticket-body">
+            <span class="mobile-ticket-title">${esc(item.title)}</span>
+            <span class="mobile-ticket-meta">${esc(item.genres.join('、') || item.categoryLabel)}</span>
+            <span class="mobile-ticket-meta">${esc(item.date ? `${item.date} 上映` : '上映日期待定')}</span>
+            <span class="mobile-ticket-score">${item.rating ? `豆瓣 ★ ${Number(item.rating).toFixed(1)}` : '暂无评分'}</span>
+        </span>
+        <span class="mobile-ticket-stub" aria-hidden="true"><span class="mobile-ticket-barcode"></span></span>
+    </button>`;
 }
 
-function statMarkup(value, label, items) {
+function statMarkup(value, status, items) {
     const mini = items.slice(0, 3).map((item) => (item.posterPath
         ? `<img loading="lazy" decoding="async" src="${esc(item.posterPath)}" alt="" onerror="this.remove()">`
         : '')).join('');
-    return `<div class="mobile-stat">
-        <div>
-            <div class="mobile-stat-value">${value}</div>
-            <div class="mobile-stat-label">${esc(label)}</div>
-        </div>
-        <div class="mobile-stat-mini">${mini}</div>
-    </div>`;
+    return `<button type="button" class="mobile-stat" data-collection-status="${status}" aria-label="${DOUBAN_STATUS_LABELS[status]}，${value}部">
+        <span class="mobile-stat-value">${value}</span>
+        <span class="mobile-stat-label">${DOUBAN_STATUS_LABELS[status]} <span aria-hidden="true">→</span></span>
+        <span class="mobile-stat-mini" aria-hidden="true">${mini}</span>
+    </button>`;
+}
+
+function renderCollection() {
+    const status = collectionStatus;
+    $('#mobile-me-body').hidden = Boolean(status);
+    $('#mobile-collection-screen').hidden = !status;
+    $('#mobile-me-title').textContent = status ? DOUBAN_STATUS_LABELS[status] : '我的';
+    $('#mobile-me-scroll').setAttribute('aria-label', status ? `${DOUBAN_STATUS_LABELS[status]}列表` : '我的统计');
+    if (!status) return;
+    const items = meCache?.[status] || [];
+    $('#mobile-collection-count').textContent = `${items.length} 部`;
+    $('#mobile-collection-list').innerHTML = items.length ? items.map(item => `<button type="button" class="mobile-result-row" data-collection-subject="${esc(item.subjectId)}" aria-label="查看${esc(item.title)}详情">
+        <span class="mobile-result-poster">${item.posterPath ? `<img src="${esc(item.posterPath)}" loading="lazy" alt="" onerror="this.remove()">` : ''}</span>
+        <span class="mobile-result-body"><span class="mobile-collection-title">${esc(item.title)}</span>
+        <span class="mobile-result-meta">${esc([item.date, ...item.genres].filter(Boolean).join(' · '))}</span>
+        <span class="mobile-result-score">${item.rating ? `豆瓣 ${Number(item.rating).toFixed(1)}` : '暂无评分'}</span></span>
+    </button>`).join('') : `<p class="mobile-empty">还没有标记「${DOUBAN_STATUS_LABELS[status]}」的作品</p>`;
+}
+
+function showCollection(status) {
+    collectionStatus = status;
+    renderCollection();
+    $('#mobile-me-scroll').scrollTo({ top: 0 });
+    $('#mobile-me-title').focus({ preventScroll: true });
+}
+
+function restoreOverview() {
+    const previous = collectionStatus;
+    collectionStatus = null;
+    renderCollection();
+    $('#mobile-me-scroll').scrollTo({ top: overviewScroll });
+    $(`#mobile-me-body [data-collection-status="${previous}"]`)?.focus({ preventScroll: true });
 }
 
 function yearChartMarkup(watched) {
@@ -303,7 +331,7 @@ function renderMe() {
     const { wishlist, watching, watched } = buckets;
 
     loading.hidden = true;
-    body.hidden = false;
+    body.hidden = Boolean(collectionStatus);
 
     // 票根：1 张平铺，2 张以上堆叠
     const host = $('#mobile-wish-tickets');
@@ -311,26 +339,14 @@ function renderMe() {
         host.className = 'mobile-tickets';
         host.innerHTML = '<p class="mobile-empty">还没有标记「想看」的作品</p>';
     } else {
-        const shown = wishlist.slice(0, 3);
+        const shown = wishlist.slice(0, 1);
         host.className = wishlist.length > 1 ? 'mobile-tickets is-stacked' : 'mobile-tickets';
-        host.innerHTML = shown.map(ticketMarkup).join('')
-            + (wishlist.length > shown.length ? `<span class="mobile-ticket-more">+${wishlist.length - shown.length}</span>` : '');
-        if (wishlist.length > 1) {
-            // 票根高度随标题换行变化，按实际高度补足叠放空间，避免裁切
-            requestAnimationFrame(() => {
-                const first = host.querySelector('.mobile-ticket');
-                if (!first) return;
-                host.style.minHeight = `${Math.ceil(first.getBoundingClientRect().height) + 26}px`;
-            });
-        }
+        host.innerHTML = shown.map(ticketMarkup).join('');
     }
     $('#mobile-wish-count').textContent = String(wishlist.length);
-    $('#mobile-wish-total').textContent = wishlist.length > 3 ? `共 ${wishlist.length} 部` : '';
-
     $('#mobile-me-stats').innerHTML = [
-        statMarkup(wishlist.length, DOUBAN_STATUS_LABELS.wishlist, wishlist),
-        statMarkup(watching.length, DOUBAN_STATUS_LABELS.watching, watching),
-        statMarkup(watched.length, DOUBAN_STATUS_LABELS.watched, watched)
+        statMarkup(watching.length, 'watching', watching),
+        statMarkup(watched.length, 'watched', watched)
     ].join('');
 
     $('#mobile-year-total').textContent = `${watched.length} 部`;
@@ -338,17 +354,7 @@ function renderMe() {
     $('#mobile-genre-total').textContent = `${watched.length} 部`;
     $('#mobile-genre-chart').innerHTML = genreSectionMarkup(watched);
 
-    const meta = getDoubanStatusesMetadata();
-    const updatedAt = meta?.last_updated ? formatUpdateTimestamp(meta.last_updated) : '未知';
-    const total = hooks.getAllItems?.()?.length || 0;
-    const matched = wishlist.length + watching.length + watched.length;
-    $('#mobile-me-note').textContent =
-        `数据来源：豆瓣收藏状态（${meta?.user_id || '当前用户'}），最近同步 ${updatedAt}。`
-        + `统计口径为片单中能匹配到豆瓣条目 ID 的作品，共 ${matched} 部；`
-        + `片单总条目 ${total} 部，未标记状态的不计入。`;
-
-    const syncBadge = $('#mobile-me-sync');
-    if (syncBadge) syncBadge.textContent = meta?.last_updated ? `${updatedAt}` : '—';
+    renderCollection();
 }
 
 /* =====================================================
@@ -388,8 +394,9 @@ function renderFilterChips() {
     const host = $('#mobile-filter-chips');
     if (!host) return;
     const labels = { genre: '类型', rating: '评分', year: '年份', kind: '形式' };
-    host.innerHTML = Object.keys(labels).map((key) => `<button class="mobile-filter-chip" type="button"
-        data-filter="${key}" aria-haspopup="dialog" aria-expanded="false">
+    const options = buildFilterOptions();
+    host.innerHTML = Object.keys(labels).filter(key => options[key].length > 2 || key === 'rating').map((key) => `<button class="mobile-filter-chip" type="button"
+        data-filter="${key}" aria-haspopup="dialog" aria-expanded="false" data-active="${searchFilters[key] !== '不限'}">
         <span class="mobile-filter-chip-label">${labels[key]}:</span>
         <span class="mobile-filter-chip-value">${esc(searchFilters[key])}</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
@@ -484,10 +491,11 @@ function renderSearchResults() {
     const hasFilter = Object.values(searchFilters).some((value) => value !== '不限');
     const keyword = String($('#mobile-search-input')?.value || '').trim();
 
-    if (countLabel) countLabel.textContent = results.length ? `${results.length} 条` : '';
+    if (countLabel) countLabel.textContent = `${results.length} 条`;
     if (!results.length) {
         host.innerHTML = `<div class="mobile-empty">
-            <p>${keyword || hasFilter ? '没有符合条件的内容' : '输入关键词或选择筛选条件'}</p>
+            <p>${keyword || hasFilter ? '没有符合条件的内容' : '当前分类暂无内容'}</p>
+            ${keyword || hasFilter ? '<button type="button" class="mobile-empty-reset" data-search-reset>清空搜索与筛选</button>' : ''}
         </div>`;
         return;
     }
@@ -499,7 +507,7 @@ function renderSearchResults() {
     host.innerHTML = results.map((item) => {
         const rating = item.doubanRating ? ` · 豆瓣 ${Number(item.doubanRating).toFixed(1)}` : '';
         const genres = (item.genres || []).slice(0, 3).join(' ');
-        return `<button type="button" class="mobile-result-row" data-item-id="${esc(item.id)}">
+        return `<button type="button" class="mobile-result-row" data-item-id="${esc(item.id)}" aria-label="查看${esc(item.title)}详情">
             <div class="mobile-result-poster">${posterCell(item)}</div>
             <div class="mobile-result-body">
                 <h3>${esc(item.title)}</h3>
@@ -588,8 +596,36 @@ function bindEvents() {
     });
 
     $$('.mobile-view-back').forEach(button => button.addEventListener('click', () => {
+        if (activeView === 'me' && collectionStatus) {
+            if (!getModalHistory().close('collection')) restoreOverview();
+            return;
+        }
         if (!viewHistoryId || !getModalHistory().close(viewHistoryId)) switchView('discover');
     }));
+
+    $('#mobile-view-me')?.addEventListener('click', event => {
+        const statusButton = event.target.closest('[data-collection-status]');
+        if (statusButton) {
+            const status = statusButton.dataset.collectionStatus;
+            overviewScroll = $('#mobile-me-scroll').scrollTop;
+            getModalHistory().open('collection', restoreOverview, () => showCollection(status));
+            showCollection(status);
+            return;
+        }
+        const itemButton = event.target.closest('[data-collection-subject]');
+        if (!itemButton) return;
+        const item = Object.values(meCache || {}).flat().find(entry => entry.subjectId === itemButton.dataset.collectionSubject);
+        if (item) hooks.onCollectionItemOpen?.(item.sourceItem);
+    });
+
+    $('#mobile-search-results')?.addEventListener('click', event => {
+        if (!event.target.closest('[data-search-reset]')) return;
+        $('#mobile-search-input').value = '';
+        for (const key of Object.keys(searchFilters)) searchFilters[key] = '不限';
+        renderFilterChips();
+        renderSearchResults();
+        $('#mobile-search-input').focus({ preventScroll: true });
+    });
 
     // 分类面板
     $('#mobile-cat-toggle')?.addEventListener('click', (event) => {

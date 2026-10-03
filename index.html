@@ -11,9 +11,9 @@
         html { background: #FFFFFF; color-scheme: light; }
         body { min-height: 100dvh; }
     </style>
-    <link rel="stylesheet" href="style.css?v=20261003h">
+    <link rel="stylesheet" href="style.css?v=20261003k">
     <link rel="stylesheet" href="share.css?v=20261003g">
-    <script type="module" src="app.js?v=20261003i"></script>
+    <script type="module" src="app.js?v=20261003k"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -190,9 +190,9 @@
         <!-- 我的 -->
         <section class="mobile-view mobile-view-me" id="mobile-view-me" aria-label="我的" hidden>
             <header class="mobile-view-header">
-                <button class="mobile-view-back" type="button" aria-label="返回上一页">← 返回</button>
-                <h1 class="mobile-view-header-title">我的</h1>
-                <span class="mobile-view-header-meta" id="mobile-me-sync">—</span>
+                <button class="mobile-view-back" type="button" aria-label="返回上一页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg><span>返回</span></button>
+                <h1 class="mobile-view-header-title" id="mobile-me-title" tabindex="-1">我的</h1>
+                <span class="mobile-view-header-meta" aria-hidden="true"></span>
             </header>
             <div class="mobile-view-scroll" id="mobile-me-scroll" tabindex="0" role="region" aria-label="我的统计">
                 <div class="mobile-view-pad">
@@ -202,7 +202,7 @@
                             <div class="mobile-section-head">
                                 <h2>想看</h2>
                                 <span class="mobile-count-badge" id="mobile-wish-count">0</span>
-                                <span class="mobile-section-action" id="mobile-wish-total"></span>
+                                <button class="mobile-section-action" type="button" data-collection-status="wishlist">更多 →</button>
                             </div>
                             <div class="mobile-tickets" id="mobile-wish-tickets"></div>
                         </section>
@@ -227,8 +227,11 @@
                             <div id="mobile-genre-chart"></div>
                         </section>
 
-                        <p class="mobile-note" id="mobile-me-note"></p>
                     </div>
+                    <section id="mobile-collection-screen" hidden aria-label="收藏列表">
+                        <p class="mobile-section-meta" id="mobile-collection-count"></p>
+                        <div class="mobile-result-list" id="mobile-collection-list"></div>
+                    </section>
                 </div>
             </div>
         </section>
@@ -236,7 +239,7 @@
         <!-- 关于：沿用既有站点说明与真实数据状态 -->
         <section class="mobile-view mobile-view-about" id="mobile-view-about" aria-label="关于" hidden>
             <header class="mobile-view-header">
-                <button class="mobile-view-back" type="button" aria-label="返回上一页">← 返回</button>
+                <button class="mobile-view-back" type="button" aria-label="返回上一页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg><span>返回</span></button>
                 <h1 class="mobile-view-header-title">关于</h1>
                 <span class="mobile-view-header-meta"></span>
             </header>
@@ -250,11 +253,10 @@
         <!-- 搜索：筛选入口收在此页 -->
         <section class="mobile-view mobile-view-search" id="mobile-view-search" aria-label="搜索" hidden>
             <header class="mobile-view-header">
-                <button class="mobile-view-back" type="button" aria-label="返回上一页">← 返回</button>
+                <button class="mobile-view-back" type="button" aria-label="返回上一页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg><span>返回</span></button>
                 <h1 class="mobile-view-header-title">搜索</h1>
                 <span class="mobile-view-header-meta" id="mobile-search-count" role="status" aria-live="polite"></span>
             </header>
-            <div class="mobile-filter-chips" id="mobile-filter-chips"></div>
             <div class="mobile-search-bar">
                 <div class="mobile-search-field">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true">
@@ -264,6 +266,7 @@
                            autocomplete="off" aria-label="搜索当前分类片单">
                 </div>
             </div>
+            <div class="mobile-filter-chips" id="mobile-filter-chips"></div>
             <div class="mobile-view-scroll" id="mobile-search-scroll" tabindex="0" role="region" aria-label="搜索结果">
                 <div class="mobile-result-list" id="mobile-search-results"></div>
             </div>
@@ -354,7 +357,7 @@
     <!-- Intel Dossier Slide-out Modal -->
     <div id="intel-dossier-overlay" class="dossier-overlay" aria-hidden="true"></div>
     <aside id="intel-dossier" class="dossier-drawer" role="dialog" aria-modal="true" aria-labelledby="dossier-title" aria-hidden="true" inert>
-        <button id="close-dossier-btn" class="close-btn" type="button" aria-label="返回片单"><span class="desktop-only">&times;</span><span class="mobile-only">← 返回</span></button>
+        <button id="close-dossier-btn" class="close-btn" type="button" aria-label="返回片单"><span class="desktop-only">&times;</span><span class="mobile-only mobile-back-content"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg><span>返回</span></span></button>
         <div id="dossier-mobile-toolbar" class="mobile-only dossier-mobile-toolbar" aria-label="详情操作"></div>
         <div class="dossier-content">
                 <div class="dossier-visual">
