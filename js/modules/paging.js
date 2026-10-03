@@ -38,3 +38,11 @@ export function getNextPageRange(items, renderedItemCount, pageSize, options = {
         endIndex: getPageEndIndex(safeItems, startIndex, pageSize, options)
     };
 }
+
+
+// 后台补全不能把首次少量 latest 数据的可见数量永久锁住。
+export function getRefreshedPageEndIndex(items, renderedItemCount, pageSize, options = {}) {
+    const length = Array.isArray(items) ? items.length : 0;
+    const preserved = Math.max(0, Number(renderedItemCount) || 0);
+    return Math.min(length, Math.max(preserved, getPageEndIndex(items, 0, pageSize, options)));
+}

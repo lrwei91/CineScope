@@ -66,7 +66,7 @@ import {
     initMobileSheetEvents
 } from './js/modules/mobile-sheet.js?v=20261003g';
 
-import { getNextPageRange } from './js/modules/paging.js';
+import { getNextPageRange, getRefreshedPageEndIndex } from './js/modules/paging.js?v=20261003i';
 import { sameCatalogItems } from './js/modules/catalog-view.js';
 import { initMobileLayout, syncMobileCategory } from './js/modules/mobile-layout.js?v=20261003g';
 import {
@@ -525,10 +525,15 @@ function filterAndRenderItems(options = {}) {
     state.futureItems = nextResults.futureItems;
 
     if (preserveRenderedContent && state.renderedItemCount > 0) {
-        const itemsToRender = state.filteredPastAndPresentItems.slice(0, state.renderedItemCount);
+        const refreshedEnd = getRefreshedPageEndIndex(
+            state.filteredPastAndPresentItems, state.renderedItemCount, ITEMS_PER_PAGE,
+            { keepMonthIntact: true }
+        );
+        const itemsToRender = state.filteredPastAndPresentItems.slice(0, refreshedEnd);
         elements.noResultsMessage.style.display = itemsToRender.length === 0 && state.futureItems.length === 0 ? 'block' : 'none';
         if (sameCatalogItems(state.renderedItems, itemsToRender)) {
             updateFabState(state);
+            scheduleCatalogViewportFill();
             return;
         }
         elements.resultsContainer.innerHTML = '';
@@ -549,6 +554,7 @@ function filterAndRenderItems(options = {}) {
 
     // 更新移动端状态
     updateFabState(state);
+    scheduleCatalogViewportFill();
 }
 
 function getCatalogScrollHost() {
@@ -615,6 +621,18 @@ function appendNextItemsToResults() {
     return itemsToRender.length;
 }
 
+let catalogFillFrame = 0;
+function scheduleCatalogViewportFill() {
+    if (catalogFillFrame) return;
+    catalogFillFrame = requestAnimationFrame(() => {
+        catalogFillFrame = 0;
+        const host = isMobile() && document.getElementById('main-content');
+        if (host && host.clientHeight > 0 && !host.closest('[hidden]')
+            && host.scrollHeight <= host.clientHeight + 1
+            && state.renderedItemCount < state.filteredPastAndPresentItems.length) loadMoreItems();
+    });
+}
+
 function loadMoreItems() {
     if (state.isLoading) return;
 
@@ -628,11 +646,7 @@ function loadMoreItems() {
 
     state.isLoading = false;
     elements.loader.style.display = 'none';
-    requestAnimationFrame(() => {
-        const host = isMobile() && document.getElementById('main-content');
-        if (host && !host.closest('[hidden]') && host.scrollHeight <= host.clientHeight + 1
-            && state.renderedItemCount < state.filteredPastAndPresentItems.length) loadMoreItems();
-    });
+    scheduleCatalogViewportFill();
 
 }
 
@@ -863,6 +877,7 @@ function bootstrapApp() {
         onViewChange: (view) => {
             // 详情/预告片/分享打开时隔离底栏，关闭后由各组件自行恢复
             if (view === 'search') syncMobileSheetFilters();
+            if (view === 'discover') scheduleCatalogViewportFill();
         }
     });
 
