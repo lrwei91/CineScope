@@ -14,7 +14,8 @@ function createHost() {
         history: {
             get state() { return states[index]; },
             pushState(state) { states.splice(++index, states.length, state); },
-            back() { pending = true; host.backs++; }
+            back() { pending = true; host.backs++; },
+            forward() { index++; listeners.get('popstate')(); }
         },
         backs: 0,
         flush() {
@@ -79,4 +80,30 @@ test('vertical touch remains scrolling even if the finger drifts sideways', () =
     assert.equal(resolveSwipeAxis(axis, 110, -50), 'vertical');
     assert.equal(resolveSwipeAxis('pending', 40, 4), 'horizontal');
     assert.equal(resolveSwipeAxis('pending', -40, 4), 'vertical');
+});
+
+
+test('forward restores nested visits, and repeated content gets its own visit', () => {
+    const host = createHost(), history = createModalHistory(host), events = [];
+    history.open('dossier', () => events.push('close detail'), () => events.push('restore detail'));
+    history.open('trailer', () => events.push('close trailer'), () => events.push('restore trailer'));
+    host.history.back(); host.flush();
+    host.history.back(); host.flush();
+    host.history.forward(); host.history.forward();
+    assert.deepEqual(events, ['close trailer', 'close detail', 'restore detail', 'restore trailer']);
+    history.close('trailer'); host.flush();
+    history.close('dossier'); host.flush();
+    history.open('dossier', () => events.push('close new detail'), () => events.push('restore new detail'));
+    host.history.back(); host.flush(); host.history.forward();
+    assert.equal(events.at(-1), 'restore new detail');
+});
+
+test('a modal opened after reload closes safely over a foreign history token', () => {
+    const host = createHost();
+    createModalHistory(host).open('dossier', () => {});
+    const history = createModalHistory(host);
+    let closed = false;
+    history.open('dossier', () => { closed = true; });
+    history.close('dossier'); host.flush();
+    assert.equal(closed, true);
 });

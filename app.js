@@ -52,23 +52,23 @@ import {
 import {
     openIntelDossier,
     initDossierEvents
-} from './js/modules/dossier.js?v=20261003c';
+} from './js/modules/dossier.js?v=20261003e';
 
 import {
     openTrailerModal,
     initTrailerModalEvents
-} from './js/modules/trailer-modal.js?v=20261003c';
+} from './js/modules/trailer-modal.js?v=20261003e';
 
 import {
     isMobile,
     syncMobileSheetFilters,
     updateFabState,
     initMobileSheetEvents
-} from './js/modules/mobile-sheet.js?v=20261003c';
+} from './js/modules/mobile-sheet.js?v=20261003e';
 
 import { getNextPageRange } from './js/modules/paging.js';
 import { sameCatalogItems } from './js/modules/catalog-view.js';
-import { initMobileLayout, syncMobileCategory } from './js/modules/mobile-layout.js?v=20261003c';
+import { initMobileLayout, syncMobileCategory } from './js/modules/mobile-layout.js?v=20261003e';
 
 // =====================================================
 // 全局状态
@@ -728,15 +728,15 @@ function setupEventListeners() {
     });
 }
 
-async function shareDossier(item) {
+async function shareDossier(item, options) {
     if (!item) {
         showToast('当前没有可分享内容');
         return;
     }
 
     try {
-        const { ShareModule } = await import('./share.js?v=20261003c');
-        await ShareModule.shareItem(item);
+        const { ShareModule } = await import('./share.js?v=20261003e');
+        await ShareModule.shareItem(item, options);
     } catch (error) {
         console.error('分享失败:', error);
         showToast('分享失败，已取消');

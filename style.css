@@ -1257,10 +1257,7 @@ h1 {
     transform: translateX(0);
 }
 
-.dossier-drawer.active.swiping-close {
-    transition: none;
-    transform: translateX(var(--swipe-close-translate, 0));
-}
+
 
 .close-btn {
     position: absolute;
@@ -2338,7 +2335,7 @@ body.motion-ready .reveal-section.is-visible {
         position: fixed;
         z-index: 45;
         inset-inline: 0;
-        bottom: max(0px, calc(100dvh - var(--visible-height, 100dvh) - var(--viewport-top, 0px)));
+        bottom: 0;
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 4px;
@@ -2407,6 +2404,20 @@ body.motion-ready .reveal-section.is-visible {
     .mobile-about .hero-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); }
     .mobile-about .update-date, .mobile-about .hero-auth-icon, .mobile-about .hero-auth-status { font-size: .8125rem; white-space: normal; overflow-wrap: anywhere; }
     .mobile-about .hero-auth { flex-wrap: wrap; }
+}
+
+/* One scroll owner per mobile surface; no shrinking flex content or hidden controls. */
+.dossier-drawer:not(.active), .trailer-modal:not(.active) { visibility: hidden; }
+.dossier-content { flex: 0 0 auto; }
+.return-dragging.active { user-select: none; transition: none; transform: translate3d(var(--return-distance, 0px), 0, 0); }
+@media (max-width: 760px) {
+    .sticky-header, .filter-row-primary { display: none; }
+    .mobile-filter-sheet { touch-action: pan-y; }
+    .dossier-drawer { overflow-x: hidden; overscroll-behavior: none; }
+    .dossier-mobile-toolbar { flex-shrink: 0; }
+    .dossier-content { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+    body.mobile-keyboard-open .mobile-bottom-nav { display: none; }
+    .mobile-nav-bar { top: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

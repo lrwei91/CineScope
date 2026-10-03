@@ -3,8 +3,8 @@
  * 负责生成分享图片并处理系统分享
  */
 
-import { focusModal, syncBodyModalState, trapFocus } from './js/modules/modal-state.js?v=20261003c';
-import { getModalHistory } from './js/modules/modal-history.js';
+import { focusModal, syncBodyModalState, trapFocus } from './js/modules/modal-state.js?v=20261003e';
+import { getModalHistory } from './js/modules/modal-history.js?v=20261003e';
 
 import { HIDDEN_GENRES } from './js/modules/config.js';
 import { getGenreDisplayName } from './js/modules/filters.js';
@@ -48,26 +48,28 @@ export function getShareQrCodeUrl(locationLike = globalThis.location, size = QR_
     return getQrCodeUrl(getShareBaseUrl(locationLike), size);
 }
 
+function loadShareImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const finish = (error) => {
+            clearTimeout(timer);
+            img.onload = img.onerror = null;
+            if (error) { img.removeAttribute('src'); reject(error); }
+            else resolve(img);
+        };
+        const timer = setTimeout(() => finish(new Error('Image load timed out')), 2000);
+        img.crossOrigin = 'anonymous';
+        img.onload = () => finish();
+        img.onerror = () => finish(new Error('Image load failed'));
+        img.src = src;
+    });
+}
 async function loadImageForShare(src) {
-    const cacheBuster = `t=${Date.now()}`;
-    const urlWithBuster = src + (src.includes('?') ? '&' : '?') + cacheBuster;
-
-    try {
-        return await new Promise((resolve, reject) => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error('Direct load failed'));
-            img.src = urlWithBuster;
-        });
-    } catch (err) {
-        return await new Promise((resolve, reject) => {
-            const proxyImg = new Image();
-            proxyImg.crossOrigin = 'anonymous';
-            proxyImg.onload = () => resolve(proxyImg);
-            proxyImg.onerror = () => reject(new Error('Proxy load failed'));
-            proxyImg.src = `https://images.weserv.nl/?url=${encodeURIComponent(src)}`;
-        });
+    try { return await loadShareImage(src); }
+    catch (error) {
+        // Local assets use the local fallback; only remote assets need a proxy.
+        if (new URL(src, location.href).origin === location.origin) throw error;
+        return loadShareImage(`https://images.weserv.nl/?url=${encodeURIComponent(src)}`);
     }
 }
 
@@ -269,19 +271,15 @@ async function createShareImageFile(item) {
     const hasDoubanLink = Boolean(item.doubanLink);
     const qrBlockHeight = QR_CARD_HEADER_HEIGHT + QR_CARD_PADDING + QR_CODE_SIZE + QR_CONTENT_SHIFT_Y + QR_CARD_FOOTER_PADDING;
 
-    try {
-        shareQrCodeImage = await loadImageForShare(getShareQrCodeUrl());
-    } catch (error) {
-        console.warn('Share QR code load failed. Rendering share image without share QR code.', error);
-    }
-
-    if (hasDoubanLink) {
-        try {
-            doubanQrCodeImage = await loadImageForShare(getQrCodeUrl(item.doubanLink));
-        } catch (error) {
-            console.warn('Douban QR code load failed. Rendering share image without Douban QR code.', error);
-        }
-    }
+    const images = await Promise.allSettled([
+        loadImageForShare(getShareQrCodeUrl()),
+        hasDoubanLink ? loadImageForShare(getQrCodeUrl(item.doubanLink)) : Promise.resolve(null),
+        includePoster ? loadImageForShare(resolvePosterUrl(item.posterPath)) : Promise.resolve(null)
+    ]);
+    shareQrCodeImage = images[0].status === 'fulfilled' ? images[0].value : null;
+    doubanQrCodeImage = images[1].status === 'fulfilled' ? images[1].value : null;
+    posterImage = images[2].status === 'fulfilled' ? images[2].value : null;
+    includePoster = Boolean(posterImage);
 
     for (let attempt = 0; attempt < 2; attempt += 1) {
         if (includePoster && item.posterPath && !posterImage) {
@@ -557,9 +555,9 @@ async function createShareImageFile(item) {
             }
         };
 
-        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', '扫码查看', '#FFE28A');
+        drawQrBlock(shareQrCodeImage, primaryQrX, '最新片单', '请访问片单查看', '#FFE28A');
         if (hasDoubanLink) {
-            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', '扫码查看', '#FFE28A');
+            drawQrBlock(doubanQrCodeImage, secondaryQrX, '豆瓣详情', '请访问片单查看', '#FFE28A');
         }
 
         ctx.textAlign = 'right';
@@ -645,17 +643,20 @@ function showImageOverlay(dataUrl) {
     overlay.appendChild(closeBtn);
     document.body.appendChild(overlay);
     syncBodyModalState();
-    getModalHistory().open('share', () => cleanup(true));
+    getModalHistory().open('share', () => cleanup(true), () => showImageOverlay(dataUrl));
     focusModal(overlay, '.share-preview-close');
 }
 
-async function shareItem(currentDossierItem) {
+async function shareItem(currentDossierItem, options = {}) {
+    showToast('正在生成分享图…');
     try {
         const result = await createShareImageFile(currentDossierItem);
+        if (options.isCurrent && !options.isCurrent()) return;
         const { dataUrl, file } = result;
 
         const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
-        const isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const isMobile = window.innerWidth <= 760 || isMobileDevice;
 
         if (isWeChat) {
             showImageOverlay(dataUrl);
@@ -664,7 +665,7 @@ async function shareItem(currentDossierItem) {
         }
 
         const canShareFiles = typeof navigator.canShare === 'function' ? navigator.canShare({ files: [file] }) : false;
-        if (navigator.share && canShareFiles) {
+        if (navigator.share && canShareFiles && (!isMobile || isMobileDevice)) {
             const shareText = buildShareText(currentDossierItem);
             await navigator.share({ title: currentDossierItem.title || 'CineScope', text: shareText, files: [file] });
             showToast('已打开系统分享');

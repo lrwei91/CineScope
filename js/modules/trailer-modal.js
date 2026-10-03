@@ -1,5 +1,5 @@
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003c';
-import { getModalHistory } from './modal-history.js';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003e';
+import { getModalHistory } from './modal-history.js?v=20261003e';
 
 let currentTrailerItem = null;
 let currentTrailerIndex = 0;
@@ -31,8 +31,10 @@ function renderTrailerModal() {
         subtitleElement.textContent = trailer?.title || '';
     }
     if (iframeElement) {
-        iframeElement.src = trailer?.embedUrl || '';
-        iframeElement.title = trailer?.title || item?.title || '预告片';
+        const frame = iframeElement.cloneNode(false);
+        frame.src = trailer?.embedUrl || 'about:blank';
+        frame.title = trailer?.title || item?.title || '预告片';
+        iframeElement.replaceWith(frame);
     }
     if (externalLink) {
         if (trailer?.url) {
@@ -87,7 +89,7 @@ export function openTrailerModal(item, trailerIndex = 0) {
     overlay.classList.add('active');
     modal.classList.add('active');
     syncBodyModalState();
-    getModalHistory().open('trailer', () => closeTrailerModal({ fromHistory: true }));
+    getModalHistory().open('trailer', () => closeTrailerModal({ fromHistory: true }), () => openTrailerModal(item, trailerIndex));
     focusModal(modal, '#close-trailer-modal-btn');
 }
 
@@ -104,7 +106,9 @@ export function closeTrailerModal(options = {}) {
     overlay.classList.remove('active');
     modal.classList.remove('active');
     if (iframeElement) {
-        iframeElement.src = '';
+        const emptyFrame = iframeElement.cloneNode(false);
+        emptyFrame.removeAttribute('src');
+        iframeElement.replaceWith(emptyFrame);
     }
     currentTrailerItem = null;
     currentTrailerIndex = 0;

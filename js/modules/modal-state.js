@@ -27,8 +27,22 @@ export function isAnyModalOpen() {
     return MODAL_IDS.some((id) => document.getElementById(id)?.classList.contains('active'));
 }
 
+let lockedScrollY = null;
 export function syncBodyModalState() {
     const open = isAnyModalOpen();
+    if (open && lockedScrollY === null) {
+        lockedScrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${lockedScrollY}px`;
+        document.body.style.width = '100%';
+    } else if (!open && lockedScrollY !== null) {
+        const position = lockedScrollY;
+        lockedScrollY = null;
+        for (const property of ['position', 'top', 'width']) document.body.style.removeProperty(property);
+        window.scrollTo({ top: position, behavior: 'instant' });
+    }
+    const bottomNav = document.getElementById('mobile-bottom-nav');
+    if (bottomNav) { bottomNav.inert = open; bottomNav.hidden = open; }
     document.body.classList.toggle('modal-open', open);
     const page = document.querySelector('.page-shell');
     if (page) page.inert = open;
@@ -50,7 +64,7 @@ export function focusModal(container, preferredSelector = 'button') {
 }
 
 export function restoreModalFocus(element) {
-    if (isAnyModalOpen()) return;
+    if (isAnyModalOpen() && (!(element instanceof HTMLElement) || !element.closest('[role="dialog"].active') || element.closest('[inert]'))) return;
     if (element instanceof HTMLElement && document.contains(element)) {
         element.focus({ preventScroll: true });
     }

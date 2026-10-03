@@ -1,4 +1,4 @@
-import { closeMobileFilterSheet } from './mobile-sheet.js?v=20261003c';
+import { closeMobileFilterSheet } from './mobile-sheet.js?v=20261003e';
 
 const sections = {
     series: { label: '剧集', categories: ['tv_cn', 'tv_kr', 'tv_jp', 'tv_us'] },
@@ -25,6 +25,7 @@ export function initMobileLayout() {
     const catalog = [document.getElementById('catalog-controls'), document.getElementById('main-content'), document.querySelector('.file-loader')];
     let categoryId = document.getElementById('results-container').dataset.category || 'tv_cn';
     let view = history.state?.mobileView || 'catalog';
+    const viewOwner = `mobile-${Date.now()}`;
     const sectionFor = id => Object.keys(sections).find(key => sections[key].categories.includes(id)) || 'series';
     const movable = [hero, brand, filter, share, back].map(node => {
         const marker = document.createComment('desktop placement');
@@ -53,9 +54,10 @@ export function initMobileLayout() {
         });
     }
     function changeView(next, push = true) {
-        if (next === view) return;
+        if (next === view) { if (next === 'search') input.focus(); return; }
+        if (push) history.replaceState({ ...history.state, mobileScroll: window.scrollY }, '', location.href);
         view = next;
-        if (push) history.pushState({ ...history.state, mobileView: next }, '', location.href);
+        if (push) history.pushState({ ...history.state, mobileView: next, mobileViewOwner: viewOwner }, '', location.href);
         render();
         window.scrollTo({ top: 0 });
         if (next === 'search') input.focus({ preventScroll: true });
@@ -71,6 +73,7 @@ export function initMobileLayout() {
         if (!button) return;
         const next = button.dataset.mobileSection;
         if (sections[next]) {
+            if (view === 'catalog' && sectionFor(categoryId) === next) { window.scrollTo({ top: 0 }); return; }
             clearSearch();
             view = 'catalog';
             const target = sections[next].categories[0];
@@ -83,13 +86,16 @@ export function initMobileLayout() {
     });
     document.getElementById('close-mobile-search').addEventListener('click', () => {
         clearSearch();
-        changeView('catalog');
+        if (history.state?.mobileViewOwner === viewOwner && history.state?.mobileView === 'search') history.back();
+        else { changeView('catalog', false); history.replaceState({ ...history.state, mobileView: 'catalog' }, '', location.href); }
         nav.querySelector(`[data-mobile-section="${sectionFor(categoryId)}"]`).focus({ preventScroll: true });
     });
     window.addEventListener('popstate', () => {
+        const previousView = view;
         view = history.state?.mobileView || 'catalog';
         if (media.matches && view !== 'search') clearSearch();
         render();
+        if (media.matches && previousView !== view && view === 'catalog') requestAnimationFrame(() => window.scrollTo({ top: history.state?.mobileScroll || 0, behavior: 'instant' }));
     });
     window.addEventListener('hashchange', () => {
         view = 'catalog';
@@ -113,13 +119,20 @@ export function initMobileLayout() {
     }
     media.addEventListener('change', layout);
     layout();
-    const updateNavHeight = () => document.documentElement.style.setProperty('--mobile-bottom-height', `${nav.getBoundingClientRect().height}px`);
+    const updateNavHeight = () => {
+        const height = nav.getBoundingClientRect().height;
+        if (height) document.documentElement.style.setProperty('--mobile-bottom-height', `${height}px`);
+    };
     new ResizeObserver(updateNavHeight).observe(nav);
     const viewport = window.visualViewport;
     const resizeViewport = () => {
+        const editing = document.activeElement?.matches('input,textarea,[contenteditable="true"]');
+        document.body.classList.toggle('mobile-keyboard-open', media.matches && editing && (viewport?.scale || 1) === 1 && innerHeight - (viewport?.height || innerHeight) > 100);
         document.documentElement.style.setProperty('--visible-height', `${viewport?.height || innerHeight}px`);
         document.documentElement.style.setProperty('--viewport-top', `${viewport?.offsetTop || 0}px`);
     };
+    document.addEventListener('focusin', resizeViewport);
+    document.addEventListener('focusout', resizeViewport);
     viewport?.addEventListener('resize', resizeViewport, { passive: true });
     viewport?.addEventListener('scroll', resizeViewport, { passive: true });
     window.addEventListener('resize', resizeViewport, { passive: true });

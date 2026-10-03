@@ -6,11 +6,12 @@
 import { DOUBAN_STATUS_LABELS, GENRE_PRIORITY } from './config.js';
 import { resolvePosterUrl } from './renderer.js?v=20261002c';
 import { getGenreDisplayName } from './filters.js';
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003c';
-import { getModalHistory } from './modal-history.js';
-import { resolveSwipeAxis } from './dossier-gesture.js';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003e';
+import { getModalHistory } from './modal-history.js?v=20261003e';
+import { attachEdgeReturn } from './edge-return.js?v=20261003e';
 
 let currentDossierItem = null;
+let dossierVisit = 0;
 let onOpenTrailerCallback = null;
 let dossierReturnFocus = null;
 
@@ -93,9 +94,8 @@ export function openIntelDossier(item) {
     }
 
     dossierDrawer.scrollTop = 0;
-    dossierDrawer.classList.remove('swiping-close');
-    dossierDrawer.style.removeProperty('--swipe-close-translate');
     currentDossierItem = item;
+    dossierVisit++;
 
     // 填充数据
     const posterEl = document.getElementById('dossier-poster');
@@ -271,7 +271,7 @@ export function openIntelDossier(item) {
     dossierOverlay.classList.add('active');
     dossierDrawer.classList.add('active');
     syncBodyModalState();
-    getModalHistory().open('dossier', () => closeIntelDossier({ fromHistory: true }));
+    getModalHistory().open('dossier', () => closeIntelDossier({ fromHistory: true }), () => openIntelDossier(item));
     focusModal(dossierDrawer, window.innerWidth <= 760 ? '#close-dossier-btn' : '#share-dossier-btn');
 }
 
@@ -289,8 +289,6 @@ export function closeIntelDossier(options = {}) {
     dossierDrawer.setAttribute('inert', '');
     dossierOverlay.classList.remove('active');
     dossierDrawer.classList.remove('active');
-    dossierDrawer.classList.remove('swiping-close');
-    dossierDrawer.style.removeProperty('--swipe-close-translate');
     currentDossierItem = null;
     syncBodyModalState();
     restoreModalFocus(dossierReturnFocus);
@@ -302,82 +300,6 @@ export function closeIntelDossier(options = {}) {
  */
 export function getCurrentDossierItem() {
     return currentDossierItem;
-}
-
-/**
- * 设置滑动手势关闭
- */
-export function setupDossierSwipeClose() {
-    const dossierDrawer = document.getElementById('intel-dossier');
-    if (!dossierDrawer) return;
-
-    const isMobile = () => window.innerWidth <= 900;
-
-    let startX = 0;
-    let startY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let isTracking = false;
-    let isSwiping = false;
-    let axis = 'pending';
-
-    const resetSwipeState = () => {
-        isTracking = false;
-        isSwiping = false;
-        axis = 'pending';
-        dossierDrawer.classList.remove('swiping-close');
-        dossierDrawer.style.removeProperty('--swipe-close-translate');
-    };
-
-    dossierDrawer.addEventListener('touchstart', (event) => {
-        if (!isMobile() || !dossierDrawer.classList.contains('active')) return;
-        const touch = event.touches?.[0];
-        if (!touch || event.touches.length !== 1 || touch.clientX < 24) {
-            resetSwipeState();
-            return;
-        }
-
-        startX = touch.clientX;
-        startY = touch.clientY;
-        currentX = startX;
-        currentY = startY;
-        isTracking = true;
-        isSwiping = false;
-        axis = 'pending';
-    }, { passive: true });
-
-    dossierDrawer.addEventListener('touchmove', (event) => {
-        if (!isTracking) return;
-        const touch = event.touches?.[0];
-        if (!touch) return;
-
-        currentX = touch.clientX;
-        currentY = touch.clientY;
-        const deltaX = currentX - startX;
-        const deltaY = currentY - startY;
-        axis = resolveSwipeAxis(axis, deltaX, deltaY);
-
-        if (axis === 'horizontal') {
-            isSwiping = true;
-            dossierDrawer.classList.add('swiping-close');
-            dossierDrawer.style.setProperty('--swipe-close-translate', `${Math.max(0, deltaX)}px`);
-        }
-
-        if (isSwiping) {
-            event.preventDefault();
-        }
-    }, { passive: false });
-
-    dossierDrawer.addEventListener('touchend', () => {
-        if (!isTracking) return;
-        const deltaX = currentX - startX;
-        const deltaY = Math.abs(currentY - startY);
-        const shouldClose = isSwiping && deltaX > 80 && deltaX > deltaY * 1.25;
-        resetSwipeState();
-        if (shouldClose) closeIntelDossier();
-    }, { passive: true });
-
-    dossierDrawer.addEventListener('touchcancel', resetSwipeState, { passive: true });
 }
 
 /**
@@ -395,17 +317,20 @@ export function initDossierEvents(onShare, onOpenTrailer) {
     if (shareDossierBtn && onShare) {
         shareDossierBtn.addEventListener('click', async () => {
             shareDossierBtn.disabled = true;
+            shareDossierBtn.setAttribute('aria-busy', 'true');
+            const item = currentDossierItem, visit = dossierVisit;
             try {
-                await onShare(currentDossierItem);
+                await onShare(item, { isCurrent: () => currentDossierItem === item && dossierVisit === visit });
             } catch (error) {
                 console.error('Share failed:', error);
             } finally {
                 shareDossierBtn.disabled = false;
+                shareDossierBtn.removeAttribute('aria-busy');
             }
         });
     }
 
-    // Explicit return and browser history avoid conflicts with native edge gestures.
+    attachEdgeReturn(dossierDrawer, () => closeIntelDossier());
 
     document.addEventListener('keydown', (e) => {
         if (!dossierDrawer?.classList.contains('active') || document.getElementById('share-preview')) return;

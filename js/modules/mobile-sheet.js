@@ -3,9 +3,10 @@
  * 负责移动端筛选面板
  */
 
-import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003c';
+import { focusModal, restoreModalFocus, syncBodyModalState, trapFocus } from './modal-state.js?v=20261003e';
 
-import { getModalHistory } from './modal-history.js';
+import { attachEdgeReturn } from './edge-return.js?v=20261003e';
+import { getModalHistory } from './modal-history.js?v=20261003e';
 
 let getAppState = () => ({});
 let filterReturnFocus = null;
@@ -38,7 +39,7 @@ export function openMobileFilterSheet(onOpen) {
     mobileFilterSheet.classList.add('active');
     syncBodyModalState();
     document.getElementById('mobile-filter-fab')?.setAttribute('aria-expanded', 'true');
-    getModalHistory().open('filter', () => closeMobileFilterSheet({ fromHistory: true }));
+    getModalHistory().open('filter', () => closeMobileFilterSheet({ fromHistory: true }), () => openMobileFilterSheet(syncMobileSheetFilters));
     focusModal(mobileFilterSheet, '#close-filter-sheet');
 }
 
@@ -180,6 +181,8 @@ export function initMobileSheetEvents(onFilterOpen, options = {}) {
         }
         if (filterSheet?.classList.contains('active')) trapFocus(e, filterSheet);
     });
+
+    attachEdgeReturn(document.getElementById('mobile-filter-sheet'), () => closeMobileFilterSheet());
 
     // 初始同步
     updateFabState();
