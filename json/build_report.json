@@ -1,12 +1,16 @@
 {
   "metadata": {
-    "started_at": "2026-10-04T12:10:35.636Z",
-    "mode": "partial",
+    "started_at": "2026-10-04T17:55:04.923Z",
+    "mode": "full",
     "category_ids": [
       "tv_cn",
-      "movie_cn"
+      "tv_kr",
+      "tv_jp",
+      "movie_cn",
+      "tv_cn_variety",
+      "tv_us"
     ],
-    "tmdb_enabled": false,
+    "tmdb_enabled": true,
     "douban_subject_cache_ttl_days": 14,
     "douban_search_cache_ttl_days": 30,
     "douban_search_query_limit": 1
@@ -21,15 +25,15 @@
       "source_collections": [
         {
           "slug": "movie_showing",
-          "raw_count": 29,
-          "included_count": 29,
-          "normalized_count": 29
+          "raw_count": 46,
+          "included_count": 46,
+          "normalized_count": 46
         },
         {
           "slug": "movie_soon",
-          "raw_count": 8,
-          "included_count": 8,
-          "normalized_count": 8
+          "raw_count": 7,
+          "included_count": 7,
+          "normalized_count": 7
         },
         {
           "slug": "movie_latest",
@@ -39,39 +43,55 @@
         }
       ],
       "counts": {
-        "douban_after_date_filter": 236,
-        "douban_after_signature_dedupe": 228,
-        "tmdb": 0,
-        "merged_candidates": 228,
-        "merged_after_signature_dedupe": 228,
-        "merged_after_name_year_dedupe": 228,
-        "complete": 641,
+        "douban_after_date_filter": 242,
+        "douban_after_signature_dedupe": 231,
+        "tmdb": 301,
+        "merged_candidates": 438,
+        "merged_after_signature_dedupe": 390,
+        "merged_after_name_year_dedupe": 390,
+        "complete": 774,
         "latest": 24
       },
       "fallback_summary": {
-        "total": 0,
-        "byStatus": [],
-        "sampleIds": []
+        "total": 233,
+        "byStatus": [
+          [
+            "400",
+            233
+          ]
+        ],
+        "sampleIds": [
+          "38902940",
+          "37380650",
+          "35464353",
+          "36882191",
+          "26100958",
+          "37450627",
+          "36889088",
+          "37667170",
+          "36318704",
+          "2131459"
+        ]
       },
       "quality": {
-        "total_items": 641,
+        "total_items": 774,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 114,
-          "douban_link": 5,
-          "overview": 9,
-          "directors": 14,
-          "actors": 26
+          "rating": 247,
+          "douban_link": 138,
+          "overview": 10,
+          "directors": 147,
+          "actors": 159
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.1778,
-          "douban_link": 0.0078,
-          "overview": 0.014,
-          "directors": 0.0218,
-          "actors": 0.0406
+          "rating": 0.3191,
+          "douban_link": 0.1783,
+          "overview": 0.0129,
+          "directors": 0.1899,
+          "actors": 0.2054
         }
       }
     },
@@ -104,12 +124,12 @@
       "counts": {
         "douban_after_date_filter": 99,
         "douban_after_signature_dedupe": 53,
-        "tmdb": 0,
-        "merged_candidates": 53,
-        "merged_after_signature_dedupe": 53,
-        "merged_after_name_year_dedupe": 53,
+        "tmdb": 203,
+        "merged_candidates": 256,
+        "merged_after_signature_dedupe": 239,
+        "merged_after_name_year_dedupe": 239,
         "complete": 328,
-        "latest": 1
+        "latest": 2
       },
       "fallback_summary": {
         "total": 0,
@@ -218,8 +238,8 @@
       "counts": {
         "douban_after_date_filter": 25,
         "douban_after_signature_dedupe": 25,
-        "tmdb": 408,
-        "merged_candidates": 433,
+        "tmdb": 409,
+        "merged_candidates": 434,
         "merged_after_signature_dedupe": 426,
         "merged_after_name_year_dedupe": 426,
         "complete": 469,
@@ -320,11 +340,11 @@
       "counts": {
         "douban_after_date_filter": 31,
         "douban_after_signature_dedupe": 31,
-        "tmdb": 470,
-        "merged_candidates": 501,
-        "merged_after_signature_dedupe": 491,
-        "merged_after_name_year_dedupe": 485,
-        "complete": 527,
+        "tmdb": 471,
+        "merged_candidates": 502,
+        "merged_after_signature_dedupe": 492,
+        "merged_after_name_year_dedupe": 486,
+        "complete": 528,
         "latest": 2
       },
       "fallback_summary": {
@@ -333,24 +353,24 @@
         "sampleIds": []
       },
       "quality": {
-        "total_items": 527,
+        "total_items": 528,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 368,
-          "douban_link": 336,
+          "rating": 369,
+          "douban_link": 337,
           "overview": 115,
-          "directors": 449,
-          "actors": 443
+          "directors": 450,
+          "actors": 444
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.6983,
-          "douban_link": 0.6376,
-          "overview": 0.2182,
-          "directors": 0.852,
-          "actors": 0.8406
+          "rating": 0.6989,
+          "douban_link": 0.6383,
+          "overview": 0.2178,
+          "directors": 0.8523,
+          "actors": 0.8409
         }
       }
     }
@@ -358,18 +378,18 @@
   "douban_statuses": {
     "user_id": "lrwei91",
     "total_items": 277,
-    "last_updated": "2026-10-03T17:44:28.504Z"
+    "last_updated": "2026-10-04T17:58:00.985Z"
   },
   "douban_subject_cache": {
-    "hits": 210,
-    "misses": 0,
-    "stale": 126,
+    "hits": 185,
+    "misses": 244,
+    "stale": 31,
     "invalid": 0,
-    "writes": 24,
-    "errors": 102,
-    "staleFallbacks": 102,
-    "total_reads": 336,
-    "hit_rate": 0.625,
+    "writes": 41,
+    "errors": 234,
+    "staleFallbacks": 1,
+    "total_reads": 460,
+    "hit_rate": 0.4022,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -384,7 +404,7 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-10-04T12:11:22.776Z",
+  "completed_at": "2026-10-04T17:59:38.337Z",
   "box_office": {
     "last_updated": "2026-08-12T14:50:20.877Z",
     "source": "maoyan",
@@ -407,23 +427,27 @@
   },
   "douban_top250": {
     "total_items": 250,
-    "last_updated": "2026-10-03T17:46:04.318Z"
+    "last_updated": "2026-10-04T17:59:38.333Z"
   },
   "schema_version": 2,
   "latest_run": {
-    "task": "trailers",
+    "task": "full",
     "status": "success",
-    "started_at": "2026-10-04T12:10:35.636Z",
-    "completed_at": "2026-10-04T12:11:22.776Z",
+    "started_at": "2026-10-04T17:55:04.923Z",
+    "completed_at": "2026-10-04T17:59:38.337Z",
     "category_ids": [
       "tv_cn",
-      "movie_cn"
+      "tv_kr",
+      "tv_jp",
+      "movie_cn",
+      "tv_cn_variety",
+      "tv_us"
     ],
-    "tmdb_enabled": false
+    "tmdb_enabled": true
   },
   "last_full_build": {
-    "started_at": "2026-10-03T17:41:21.547Z",
-    "completed_at": "2026-10-03T17:46:04.321Z",
+    "started_at": "2026-10-04T17:55:04.923Z",
+    "completed_at": "2026-10-04T17:59:38.337Z",
     "category_ids": [
       "tv_cn",
       "tv_kr",
@@ -436,8 +460,8 @@
   "task_statuses": {
     "full": {
       "status": "success",
-      "last_run_at": "2026-10-03T17:46:04.321Z",
-      "last_success_at": "2026-10-03T17:46:04.321Z"
+      "last_run_at": "2026-10-04T17:59:38.337Z",
+      "last_success_at": "2026-10-04T17:59:38.337Z"
     },
     "trailers": {
       "status": "success",
