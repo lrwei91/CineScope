@@ -1,16 +1,11 @@
 {
   "metadata": {
-    "started_at": "2026-10-03T17:41:21.547Z",
-    "mode": "full",
+    "started_at": "2026-10-04T00:06:02.424Z",
+    "mode": "partial",
     "category_ids": [
-      "tv_cn",
-      "tv_kr",
-      "tv_jp",
-      "movie_cn",
-      "tv_cn_variety",
-      "tv_us"
+      "movie_cn"
     ],
-    "tmdb_enabled": true,
+    "tmdb_enabled": false,
     "douban_subject_cache_ttl_days": 14,
     "douban_search_cache_ttl_days": 30,
     "douban_search_query_limit": 1
@@ -25,9 +20,9 @@
       "source_collections": [
         {
           "slug": "movie_showing",
-          "raw_count": 47,
-          "included_count": 47,
-          "normalized_count": 47
+          "raw_count": 29,
+          "included_count": 29,
+          "normalized_count": 29
         },
         {
           "slug": "movie_soon",
@@ -43,55 +38,39 @@
         }
       ],
       "counts": {
-        "douban_after_date_filter": 244,
-        "douban_after_signature_dedupe": 233,
-        "tmdb": 301,
-        "merged_candidates": 440,
-        "merged_after_signature_dedupe": 390,
-        "merged_after_name_year_dedupe": 390,
-        "complete": 756,
+        "douban_after_date_filter": 236,
+        "douban_after_signature_dedupe": 226,
+        "tmdb": 0,
+        "merged_candidates": 226,
+        "merged_after_signature_dedupe": 226,
+        "merged_after_name_year_dedupe": 226,
+        "complete": 641,
         "latest": 24
       },
       "fallback_summary": {
-        "total": 243,
-        "byStatus": [
-          [
-            "400",
-            243
-          ]
-        ],
-        "sampleIds": [
-          "35811064",
-          "36964833",
-          "36808876",
-          "37508847",
-          "37380650",
-          "1292052",
-          "38902940",
-          "35464353",
-          "36318704",
-          "36882191"
-        ]
+        "total": 0,
+        "byStatus": [],
+        "sampleIds": []
       },
       "quality": {
-        "total_items": 756,
+        "total_items": 641,
         "missing": {
           "date": 0,
           "poster": 0,
-          "rating": 247,
-          "douban_link": 138,
-          "overview": 10,
-          "directors": 147,
-          "actors": 159
+          "rating": 114,
+          "douban_link": 5,
+          "overview": 9,
+          "directors": 14,
+          "actors": 26
         },
         "missing_rate": {
           "date": 0,
           "poster": 0,
-          "rating": 0.3267,
-          "douban_link": 0.1825,
-          "overview": 0.0132,
-          "directors": 0.1944,
-          "actors": 0.2103
+          "rating": 0.1778,
+          "douban_link": 0.0078,
+          "overview": 0.014,
+          "directors": 0.0218,
+          "actors": 0.0406
         }
       }
     },
@@ -381,15 +360,15 @@
     "last_updated": "2026-10-03T17:44:28.504Z"
   },
   "douban_subject_cache": {
-    "hits": 46,
-    "misses": 408,
-    "stale": 0,
+    "hits": 109,
+    "misses": 18,
+    "stale": 110,
     "invalid": 0,
-    "writes": 165,
-    "errors": 243,
-    "staleFallbacks": 0,
-    "total_reads": 454,
-    "hit_rate": 0.1013,
+    "writes": 20,
+    "errors": 108,
+    "staleFallbacks": 108,
+    "total_reads": 237,
+    "hit_rate": 0.4599,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -404,7 +383,7 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-10-03T17:46:04.321Z",
+  "completed_at": "2026-10-04T00:06:26.198Z",
   "box_office": {
     "last_updated": "2026-08-12T14:50:20.877Z",
     "source": "maoyan",
@@ -431,12 +410,12 @@
   },
   "schema_version": 2,
   "latest_run": {
-    "task": "tv-status",
+    "task": "douban-cache",
     "status": "success",
-    "started_at": "2026-10-03T22:01:06.042635+00:00",
-    "completed_at": "2026-10-03T22:01:06.042635+00:00",
+    "started_at": "2026-10-04T00:06:02.424Z",
+    "completed_at": "2026-10-04T00:06:26.198Z",
     "category_ids": [
-      "tv_cn"
+      "movie_cn"
     ],
     "tmdb_enabled": false
   },
@@ -470,8 +449,8 @@
     },
     "douban-cache": {
       "status": "success",
-      "last_run_at": "2026-09-27T00:02:47.916Z",
-      "last_success_at": "2026-09-27T00:02:47.916Z"
+      "last_run_at": "2026-10-04T00:06:26.198Z",
+      "last_success_at": "2026-10-04T00:06:26.198Z"
     }
   },
   "douban_imdb_lookup": {
