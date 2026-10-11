@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "last_updated": "2026-10-11T12:10:55.952Z",
+    "last_updated": "2026-10-11T18:32:23.441Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-11T12:10:55.952Z",
+        "time": "2026-10-11T18:32:23.441Z",
         "summary": "已同步国产剧数据（latest）：6 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "tv_domestic",
@@ -25,7 +25,13 @@
       {
         "slug": "tv_real_time_hotest",
         "source": "douban",
-        "count": 6,
+        "count": 8,
+        "fetch_error": null
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 207,
         "fetch_error": null
       },
       {
@@ -48,7 +54,7 @@
       "id": 37070518,
       "name": "玉簟秋",
       "original_name": "玉簟秋",
-      "imdb_id": null,
+      "imdb_id": "tt37109705",
       "genres": [
         {
           "id": 1,
@@ -106,15 +112,15 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": null,
+      "number_of_episodes": 40,
       "first_air_date": "2026-10-12",
       "last_air_date": "2026-10-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37070518.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/vD84yLJVVd7cC2lKF8sEukQG2A3.jpg",
       "overview": "根据灵希的同名小说改编。\n民国时期军阀割据，女学生叶平君（徐若晗 饰）为筹措母亲的医药费，在湘西会馆谋职。上班第一天，就卷入一场刺杀虞家五少的风波中，被诬陷为疑犯的叶平君为了自保，只能同混世魔王虞昶轩（丞磊 饰）打赌十天内抓出真凶。虞昶轩趁机利用叶平君，对其展开追求，实则以此为幌，掩盖自己真正的谋略部署。叶平君不愿与虞昶轩交往过甚，而虞昶轩逐渐对叶平君动了真心。从小与叶平君一起长大的江学廷归国后在军中任职，虞昶轩识破江学廷不择手段的灰暗人性，为保护心爱之人，也为了虞家军的命运，他与叶平君迫于形势完婚。婚后两人历经磨难，了解彼此。但叶母的惨死让两人再生嫌隙，叶平君绝望之下设法逃离。虞昶轩化悲痛为力量，致力救国救民，和身处敌对阵营的江学廷较量。数年后，战火纷飞中，虞、叶两人重逢，在彼此的身上都看到了信仰的力量，并肩迎向革命的洪流，携手保卫家园。",
       "rating_count": null,
       "rating_star_count": null,
@@ -132,13 +138,17 @@
           "overview": "根据灵希的同名小说改编。\n民国时期军阀割据，女学生叶平君（徐若晗 饰）为筹措母亲的医药费，在湘西会馆谋职。上班第一天，就卷入一场刺杀虞家五少的风波中，被诬陷为疑犯的叶平君为了自保，只能同混世魔王虞昶轩（丞磊 饰）打赌十天内抓出真凶。虞昶轩趁机利用叶平君，对其展开追求，实则以此为幌，掩盖自己真正的谋略部署。叶平君不愿与虞昶轩交往过甚，而虞昶轩逐渐对叶平君动了真心。从小与叶平君一起长大的江学廷归国后在军中任职，虞昶轩识破江学廷不择手段的灰暗人性，为保护心爱之人，也为了虞家军的命运，他与叶平君迫于形势完婚。婚后两人历经磨难，了解彼此。但叶母的惨死让两人再生嫌隙，叶平君绝望之下设法逃离。虞昶轩化悲痛为力量，致力救国救民，和身处敌对阵营的江学廷较量。数年后，战火纷飞中，虞、叶两人重逢，在彼此的身上都看到了信仰的力量，并肩迎向革命的洪流，携手保卫家园。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 304452,
+      "tmdbUrl": "https://www.themoviedb.org/tv/304452",
+      "vote_average": 9,
+      "vote_count": 1
     },
     {
       "id": 36962068,
       "name": "美人余",
       "original_name": "美人余",
-      "imdb_id": null,
+      "imdb_id": "tt37421560",
       "genres": [
         {
           "id": 1,
@@ -234,7 +244,7 @@
       "episodes_info": "更新至8集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36962068.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/6Iha7gx0lTdrv6x7dECtjB8YnLA.jpg",
       "overview": "根据伊北同名小说改编，以当代都市为背景，两性关系作为切口，直戳现代社会“有性无爱，有爱无性”等真实情感和婚姻现状。",
       "rating_count": null,
       "rating_star_count": null,
@@ -253,6 +263,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 294446,
+      "tmdbUrl": "https://www.themoviedb.org/tv/294446",
+      "vote_average": 8,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -390,12 +404,12 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 4,
+      "number_of_episodes": 8,
       "first_air_date": "2026-10-09",
       "last_air_date": "2026-10-09",
       "in_production": true,
-      "status": "更新至6集",
-      "episodes_info": "更新至6集",
+      "status": "更新至8集",
+      "episodes_info": "更新至8集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36155236.jpg",
       "backdrop_path": "/8G0SQhC1zwKIRbgaxx4HTRakVpO.jpg",
@@ -408,7 +422,7 @@
           "season_number": 1,
           "id": 36155236,
           "air_date": "2026-10-09",
-          "episode_count": 4,
+          "episode_count": 8,
           "vote_average": 0,
           "poster_path": "posters/douban/tv_cn/36155236.jpg",
           "douban_rating": null,
