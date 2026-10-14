@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "last_updated": "2026-10-14T12:11:10.948Z",
+    "last_updated": "2026-10-14T18:15:54.619Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-14T12:11:10.948Z",
+        "time": "2026-10-14T18:15:54.619Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 29,
+        "count": 51,
         "fetch_error": null
       },
       {
@@ -29,10 +29,16 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 304,
+        "fetch_error": null
+      },
+      {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 255,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
     "total_items": 24
@@ -41,7 +47,7 @@
     {
       "id": 36011202,
       "title": "复仇者联盟5",
-      "original_title": "Avengers: Doomsday",
+      "original_title": "复仇者联盟5",
       "release_date": "2026-12-16",
       "genres": [
         {
@@ -61,10 +67,6 @@
         {
           "id": 1,
           "name": "安东尼·罗素"
-        },
-        {
-          "id": 2,
-          "name": "乔·罗素"
         }
       ],
       "actors": [
@@ -79,161 +81,13 @@
         {
           "id": 3,
           "name": "克里斯·海姆斯沃斯"
-        },
-        {
-          "id": 4,
-          "name": "佩德罗·帕斯卡"
-        },
-        {
-          "id": 5,
-          "name": "凡妮莎·柯比"
-        },
-        {
-          "id": 6,
-          "name": "汤姆·希德勒斯顿"
-        },
-        {
-          "id": 7,
-          "name": "安东尼·麦凯"
-        },
-        {
-          "id": 8,
-          "name": "塞巴斯蒂安·斯坦"
-        },
-        {
-          "id": 9,
-          "name": "保罗·路德"
-        },
-        {
-          "id": 10,
-          "name": "约瑟夫·奎恩"
-        },
-        {
-          "id": 11,
-          "name": "艾邦·摩斯-巴克拉赫"
-        },
-        {
-          "id": 12,
-          "name": "萨迪·辛克"
-        },
-        {
-          "id": 13,
-          "name": "帕特里克·斯图尔特"
-        },
-        {
-          "id": 14,
-          "name": "伊恩·麦克莱恩"
-        },
-        {
-          "id": 15,
-          "name": "詹姆斯·麦斯登"
-        },
-        {
-          "id": 16,
-          "name": "凯尔塞·格拉玛"
-        },
-        {
-          "id": 17,
-          "name": "艾伦·卡明"
-        },
-        {
-          "id": 18,
-          "name": "丽贝卡·罗梅恩"
-        },
-        {
-          "id": 19,
-          "name": "查宁·塔图姆"
-        },
-        {
-          "id": 20,
-          "name": "弗洛伦丝·皮尤"
-        },
-        {
-          "id": 21,
-          "name": "本尼迪克特·康伯巴奇"
-        },
-        {
-          "id": 22,
-          "name": "查理兹·塞隆"
-        },
-        {
-          "id": 23,
-          "name": "伊丽莎白·奥尔森"
-        },
-        {
-          "id": 24,
-          "name": "索菲娅·迪·马蒂诺"
-        },
-        {
-          "id": 25,
-          "name": "大卫·哈伯"
-        },
-        {
-          "id": 26,
-          "name": "怀亚特·罗素"
-        },
-        {
-          "id": 27,
-          "name": "汉娜·乔恩-卡门"
-        },
-        {
-          "id": 28,
-          "name": "刘易斯·普尔曼"
-        },
-        {
-          "id": 29,
-          "name": "刘思慕"
-        },
-        {
-          "id": 30,
-          "name": "莱蒂希娅·赖特"
-        },
-        {
-          "id": 31,
-          "name": "温斯顿·杜克"
-        },
-        {
-          "id": 32,
-          "name": "泰诺克·乌尔塔"
-        },
-        {
-          "id": 33,
-          "name": "梅布尔·卡德纳"
-        },
-        {
-          "id": 34,
-          "name": "丹尼·拉米雷斯"
-        },
-        {
-          "id": 35,
-          "name": "海莉·阿特维尔"
-        },
-        {
-          "id": 36,
-          "name": "泰柔娜·派丽丝"
-        },
-        {
-          "id": 37,
-          "name": "尹迪亚·萝丝·海姆斯沃斯"
-        },
-        {
-          "id": 38,
-          "name": "凯瑟琳·纽顿"
-        },
-        {
-          "id": 39,
-          "name": "休·杰克曼"
-        },
-        {
-          "id": 40,
-          "name": "托比·马奎尔"
         }
       ],
       "countries": [
-        "美国"
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "复仇者联盟5：毁灭之日",
@@ -246,19 +100,21 @@
         "Avengers: The Kang Dynasty‎",
         "Avengers 5‎"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt21357150",
       "poster_path": "posters/douban/movie_cn/36011202.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36011202/",
       "douban_link_verified": true,
-      "overview": "影片讲述了来自三个不同宇宙的英雄面对前所未有的生存威胁，跨宇宙集结再掀对决的传奇故事。",
+      "overview": "来自三个截然不同宇宙的传奇英雄们，将被推向一场生死对决，并最终直面一股前所未见、足以撼动万物存亡的终极威胁。",
       "durations": [
-        "166分钟"
+        "165分钟"
       ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1003596,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1003596",
       "trailers": [
         {
           "source": "bilibili",
@@ -353,22 +209,6 @@
         {
           "id": 3,
           "name": "李梦"
-        },
-        {
-          "id": 4,
-          "name": "郭月"
-        },
-        {
-          "id": 5,
-          "name": "车晓"
-        },
-        {
-          "id": 6,
-          "name": "周野芒"
-        },
-        {
-          "id": 7,
-          "name": "杨轶"
         }
       ],
       "countries": [
@@ -397,7 +237,7 @@
     {
       "id": 23774856,
       "title": "戴帽子的猫",
-      "original_title": "The Cat in the Hat",
+      "original_title": "戴帽子的猫",
       "release_date": "2026-11-06",
       "genres": [
         {
@@ -421,10 +261,6 @@
         {
           "id": 1,
           "name": "亚历山德罗·卡罗尼"
-        },
-        {
-          "id": 2,
-          "name": "埃丽卡·里维诺亚"
         }
       ],
       "actors": [
@@ -439,80 +275,31 @@
         {
           "id": 3,
           "name": "迪亚戈·马丁内斯"
-        },
-        {
-          "id": 4,
-          "name": "马特·贝里"
-        },
-        {
-          "id": 5,
-          "name": "昆塔·布伦森"
-        },
-        {
-          "id": 6,
-          "name": "保拉·佩尔"
-        },
-        {
-          "id": 7,
-          "name": "吉安卡罗·埃斯波西托"
-        },
-        {
-          "id": 8,
-          "name": "亚美莉卡·费雷拉"
-        },
-        {
-          "id": 9,
-          "name": "杨伯文"
-        },
-        {
-          "id": 10,
-          "name": "泰塔斯·伯吉斯"
-        },
-        {
-          "id": 11,
-          "name": "罗宾·奥克斯特兰德"
-        },
-        {
-          "id": 12,
-          "name": "拉尔夫·加曼"
-        },
-        {
-          "id": 13,
-          "name": "托马斯·米德蒂奇"
-        },
-        {
-          "id": 14,
-          "name": "丹尼尔·米德尔顿"
-        },
-        {
-          "id": 15,
-          "name": "萝珊娜·奥德嘉"
-        },
-        {
-          "id": 16,
-          "name": "杰·费罗尔"
         }
       ],
       "countries": [
-        "美国"
+        "United Kingdom",
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt2321555",
       "poster_path": "posters/douban/movie_cn/23774856.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/23774856/",
       "douban_link_verified": true,
-      "overview": "戴帽子的猫（比尔·哈德尔 配音）接下了想像力与灵感研究所有限责任公司迄今最艰巨的任务：为盖比和塞巴斯蒂安这对姐弟加油打气，他们正为搬到新城镇而苦恼。对这位过去以行事过激而闻名的闯祸精来说，这可能是他证明自己的最后机会……否则他就会失去他的魔法帽。",
+      "overview": "　　戴帽子的“猫”一角由比尔·哈德尔配音——展现他那招牌的幽默、独特方式为孩子带来欢乐，带领观众踏上一段奇幻的旅程，进入一个前所未见的世界。\r 　　在本片中，我们的英雄接下了想像力与灵感研究所有限责任公司迄今最艰钜的任务：为盖比和赛巴斯汀这对姐弟加油打气，他们正为搬到新城镇而苦恼。对这位过去以行事过激而闻名的闯祸精来说，这可能是他证明自己的最后机会……否则他就会失去他的魔法帽！",
       "durations": [
         "114分钟"
       ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1117898,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1117898"
     },
     {
       "id": 37047880,
@@ -522,7 +309,15 @@
       "genres": [
         {
           "id": 1,
+          "name": "悬疑"
+        },
+        {
+          "id": 2,
           "name": "惊悚"
+        },
+        {
+          "id": 3,
+          "name": "恐怖"
         }
       ],
       "directors": [
@@ -549,7 +344,7 @@
         "中国大陆"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "脱困",
@@ -560,7 +355,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37047880/",
       "douban_link_verified": true,
-      "overview": "孤岛荒宿，情侣旅行撞上民宿阴宅，一桩桩离奇事件接踵而至：镜子里的鬼脸、暗室里密布的红绳、突然扭动的门把手、泳池里惊现的鬼影……夜晚怪事连连，一觉惊魂醒来，所有诡异痕迹却全部消失不见……是凶宅幻视？无尽梦魇？还是有人布下猎杀圈套？",
+      "overview": "　　孤岛荒宿，情侣旅行撞上民宿阴宅，一桩桩离奇事件接踵而至：镜子里的鬼脸、暗室里密布的红绳、突然扭动的门把手、泳池里惊现的鬼影……夜晚怪事连连，一觉惊魂醒来，所有诡异痕迹却全部消失不见……是凶宅幻视？无尽梦魇？还是有人布下猎杀圈套？",
       "durations": [],
       "release_windows": [
         {
@@ -570,7 +365,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1796001,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1796001"
     },
     {
       "id": 25798131,
@@ -715,7 +512,7 @@
         "101分钟"
       ],
       "release_windows": [],
-      "rating_count": 259574,
+      "rating_count": 260269,
       "rating_star_count": 4,
       "type": "movie"
     },
@@ -761,7 +558,7 @@
     {
       "id": 37344902,
       "title": "小羊肖恩3：怪兽来袭",
-      "original_title": "Shaun the Sheep: The Beast of Mossy Bottom",
+      "original_title": "小羊肖恩3：怪兽来袭",
       "release_date": "2026-10-24",
       "genres": [
         {
@@ -777,10 +574,6 @@
         {
           "id": 1,
           "name": "史蒂夫·考克斯"
-        },
-        {
-          "id": 2,
-          "name": "马修·沃克"
         }
       ],
       "actors": [
@@ -795,73 +588,26 @@
         {
           "id": 3,
           "name": "尼娜·索珊娅"
-        },
-        {
-          "id": 4,
-          "name": "凯特·哈伯"
-        },
-        {
-          "id": 5,
-          "name": "理查德·韦伯"
-        },
-        {
-          "id": 6,
-          "name": "艾玛·泰特"
-        },
-        {
-          "id": 7,
-          "name": "西蒙·格林诺"
-        },
-        {
-          "id": 8,
-          "name": "安迪·尼曼"
-        },
-        {
-          "id": 9,
-          "name": "克里斯·莫雷尔"
-        },
-        {
-          "id": 10,
-          "name": "保罗·怀特豪斯"
-        },
-        {
-          "id": 11,
-          "name": "丹妮·戴尔"
-        },
-        {
-          "id": 12,
-          "name": "罗曼·坎普"
-        },
-        {
-          "id": 13,
-          "name": "阿伊莎·安托万"
-        },
-        {
-          "id": 14,
-          "name": "贝基·约翰逊"
-        },
-        {
-          "id": 15,
-          "name": "汤姆·道格亚特"
         }
       ],
       "countries": [
-        "英国"
+        "United Kingdom",
+        "France"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
       "aka": [
         "小羊肖恩3：青苔农场的怪兽",
         "小羊肖恩：苔藓谷的野兽",
         "超级无敌羊咩咩大电影之怪兽农场(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt36841161",
       "poster_path": "posters/douban/movie_cn/37344902.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37344902/",
       "douban_link_verified": true,
-      "overview": "青苔农场的居民正翘首以盼万圣节的到来，而笨手笨脚的农夫意外毁了羊群心爱的南瓜地。为了解决问题，肖恩化身疯狂科学家，结果事情失控，森林中一只神秘怪兽横空出世。",
+      "overview": "　　青苔农场的居民正翘首以盼万圣节的到来，而笨手笨脚的农夫意外毁了羊群心爱的南瓜地。为了解决问题，肖恩化身疯狂科学家，结果事情失控，森林中一只神秘怪兽横空出世。",
       "durations": [
         "81分钟"
       ],
@@ -873,7 +619,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1477104,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1477104"
     },
     {
       "id": 37322586,
@@ -989,7 +737,7 @@
         "92分钟"
       ],
       "release_windows": [],
-      "rating_count": 4561,
+      "rating_count": 5476,
       "rating_star_count": 4.5,
       "type": "movie"
     },
@@ -1035,6 +783,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1782347,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1782347",
       "trailers": [
         {
           "source": "bilibili",
@@ -1175,7 +925,7 @@
         "鲸狱逃生(港)",
         "逃出鲸吞(台)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt28535715",
       "poster_path": "posters/douban/movie_cn/36806762.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36806762/",
@@ -1188,6 +938,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1255833,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1255833",
       "trailers": [
         {
           "source": "bilibili",
@@ -1199,6 +951,53 @@
           "publishedAt": "2026-07-07T13:20:23.000Z"
         }
       ]
+    },
+    {
+      "id": 37388212,
+      "title": "喂喂喂，足球队",
+      "original_title": "喂喂喂，足球队",
+      "release_date": "2026-10-15",
+      "genres": [
+        {
+          "id": 1,
+          "name": "纪录片"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "李志伟"
+        },
+        {
+          "id": 2,
+          "name": "刘翛然"
+        }
+      ],
+      "actors": [],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "Voy Boys"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/37388212.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/37388212/",
+      "douban_link_verified": true,
+      "overview": "2024年，全国盲人足球锦标赛上，出现了中国有史以来最年轻的一支队伍——新疆盲人足球队，平均年龄15岁。\n两年前，他们还是新疆莎车县一所特殊学校里喜欢足球却踢不到的视障孩子。上海盲人足球队教练张健驱车千里来选拔，四个孩子第一次离开家乡。从上海回来后，他们萌生了一个念头：新疆，也可以有自己的盲人足球队。没有经费，没有场地，没有教练——这支草根队伍几度面临散掉。是孩子们一遍遍踢下去，让更多人最终看见了他们。\n磕磕绊绊之中，新疆第一支盲人足球队仓促成立，这群几乎没经历过系统性训练的娃娃，就这样被推上了全国赛场。",
+      "durations": [
+        "90分钟"
+      ],
+      "release_windows": [],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1770952,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1770952"
     },
     {
       "id": 36449264,
@@ -1251,7 +1050,7 @@
         "Short Summer in Lhasa",
         "Linka Linka"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38574217",
       "poster_path": "posters/douban/movie_cn/36449264.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36449264/",
@@ -1263,7 +1062,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1308545,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1308545"
     },
     {
       "id": 37068446,
@@ -1383,7 +1184,7 @@
         "Resident Evil 0",
         "Resident Evil: The Umbrella Chronicles‎"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35538033",
       "poster_path": "posters/douban/movie_cn/37068446.jpg",
       "douban_rating": "7.3",
       "douban_link_google": "https://movie.douban.com/subject/37068446/",
@@ -1398,9 +1199,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 93620,
+      "rating_count": 82898,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1423191,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1423191",
       "trailers": [
         {
           "source": "bilibili",
@@ -1519,7 +1322,7 @@
       "aka": [
         "Go for Broke 2"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt41558341",
       "poster_path": "posters/douban/movie_cn/37403222.jpg",
       "douban_rating": "6.7",
       "douban_link_google": "https://movie.douban.com/subject/37403222/",
@@ -1534,9 +1337,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 13275,
+      "rating_count": 13616,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1503023,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1503023",
       "trailers": [
         {
           "source": "bilibili",
@@ -1657,7 +1462,7 @@
         "Sherlock of China",
         "Traces of Justice"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38188218",
       "poster_path": "posters/douban/movie_cn/37247814.jpg",
       "douban_rating": "6.8",
       "douban_link_google": "https://movie.douban.com/subject/37247814/",
@@ -1672,9 +1477,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 29265,
+      "rating_count": 32596,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1439171,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1439171",
       "trailers": [
         {
           "source": "bilibili",
@@ -1824,9 +1631,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 10827,
+      "rating_count": 10060,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1766670,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1766670",
       "trailers": [
         {
           "source": "bilibili",
@@ -1990,9 +1799,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 15872,
+      "rating_count": 13203,
       "rating_star_count": 3,
       "type": "movie",
+      "tmdb_id": 1563608,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1563608",
       "trailers": [
         {
           "source": "bilibili",
@@ -2058,9 +1869,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 1194,
+      "rating_count": 1228,
       "rating_star_count": 3,
       "type": "movie",
+      "tmdb_id": 1650896,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1650896",
       "trailers": [
         {
           "source": "bilibili",
@@ -2072,63 +1885,6 @@
           "publishedAt": "2026-09-16T14:39:33.000Z"
         }
       ]
-    },
-    {
-      "id": 38902940,
-      "title": "新大头儿子和小头爸爸之天眼系列：失控的第七天",
-      "original_title": "新大头儿子和小头爸爸之天眼系列：失控的第七天",
-      "release_date": "2026-10-01",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动画"
-        },
-        {
-          "id": 2,
-          "name": "奇幻"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "陆禹"
-        },
-        {
-          "id": 2,
-          "name": "王星峰"
-        }
-      ],
-      "actors": [],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "新大头儿子和小头爸爸7",
-        "大头儿子和天眼之定制未来",
-        "大头儿子和天眼：定制未来",
-        "Big Head & Magic Eye: Journeying into the Future Together"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/38902940.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/38902940/",
-      "douban_link_verified": true,
-      "overview": "为了替小头爸爸出气整顿职场，大头儿子借助天眼的魔法瞬间长大，但是到失控的第七天，情况越发难以控制，大头儿子与天眼还会碰撞出怎样的火花？七天魔法将尽，他们又该如何收场？\n影片是《大头儿子和小头爸爸》与《天眼》两大国民级卡通联动。",
-      "durations": [
-        "85分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "national_day",
-          "label": "国庆档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
     },
     {
       "id": 36912789,
@@ -2230,6 +1986,65 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1387772"
     },
     {
+      "id": 38902940,
+      "title": "新大头儿子和小头爸爸之天眼系列：失控的第七天",
+      "original_title": "新大头儿子和小头爸爸之天眼系列：失控的第七天",
+      "release_date": "2026-10-01",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动画"
+        },
+        {
+          "id": 2,
+          "name": "奇幻"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "陆禹"
+        },
+        {
+          "id": 2,
+          "name": "王星峰"
+        }
+      ],
+      "actors": [],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "新大头儿子和小头爸爸7",
+        "大头儿子和天眼之定制未来",
+        "大头儿子和天眼：定制未来",
+        "Big Head & Magic Eye: Journeying into the Future Together"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/38902940.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/38902940/",
+      "douban_link_verified": true,
+      "overview": "为了替小头爸爸出气整顿职场，大头儿子借助天眼的魔法瞬间长大，但是到失控的第七天，情况越发难以控制，大头儿子与天眼还会碰撞出怎样的火花？七天魔法将尽，他们又该如何收场？\n影片是《大头儿子和小头爸爸》与《天眼》两大国民级卡通联动。",
+      "durations": [
+        "85分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "national_day",
+          "label": "国庆档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1778310,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1778310"
+    },
+    {
       "id": 36828393,
       "title": "野兽之心",
       "original_title": "Heart of the Beast",
@@ -2281,7 +2096,7 @@
       "aka": [
         "狂野雄心(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt7526136",
       "poster_path": "posters/douban/movie_cn/36828393.jpg",
       "douban_rating": "7.2",
       "douban_link_google": "https://movie.douban.com/subject/36828393/",
@@ -2291,9 +2106,11 @@
         "102分钟"
       ],
       "release_windows": [],
-      "rating_count": 9178,
+      "rating_count": 11520,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1263337,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1263337",
       "trailers": [
         {
           "source": "bilibili",
@@ -2460,186 +2277,6 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UqRxBsEnD&page=1&qn=64&high_quality=1",
           "cover": "http://i2.hdslb.com/bfs/archive/3778935996c001444562c12a970f4102e8f3b175.jpg",
           "publishedAt": "2026-05-06T13:01:49.000Z"
-        }
-      ]
-    },
-    {
-      "id": 35244246,
-      "title": "敦煌英雄",
-      "original_title": "敦煌英雄",
-      "release_date": "2026-09-25",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "古装"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "曹盾"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "章宇"
-        },
-        {
-          "id": 2,
-          "name": "窦骁"
-        },
-        {
-          "id": 3,
-          "name": "吕凉"
-        },
-        {
-          "id": 4,
-          "name": "蔡鹭"
-        },
-        {
-          "id": 5,
-          "name": "赵蕴卓"
-        },
-        {
-          "id": 6,
-          "name": "公磊"
-        },
-        {
-          "id": 7,
-          "name": "杨溢"
-        },
-        {
-          "id": 8,
-          "name": "赵魏"
-        },
-        {
-          "id": 9,
-          "name": "高至霆"
-        },
-        {
-          "id": 10,
-          "name": "余皑磊"
-        },
-        {
-          "id": 11,
-          "name": "韩昊霖"
-        },
-        {
-          "id": 12,
-          "name": "张艺凡"
-        },
-        {
-          "id": 13,
-          "name": "雷佳音"
-        },
-        {
-          "id": 14,
-          "name": "朱亚文"
-        },
-        {
-          "id": 15,
-          "name": "周一围"
-        },
-        {
-          "id": 16,
-          "name": "李光洁"
-        },
-        {
-          "id": 17,
-          "name": "石兆琪"
-        },
-        {
-          "id": 18,
-          "name": "冯嘉怡"
-        },
-        {
-          "id": 19,
-          "name": "俞灏明"
-        },
-        {
-          "id": 20,
-          "name": "芦芳生"
-        },
-        {
-          "id": 21,
-          "name": "刘佳"
-        },
-        {
-          "id": 22,
-          "name": "钱泳辰"
-        },
-        {
-          "id": 23,
-          "name": "周德华"
-        },
-        {
-          "id": 24,
-          "name": "寒青"
-        },
-        {
-          "id": 25,
-          "name": "韩秋池"
-        },
-        {
-          "id": 26,
-          "name": "李思博"
-        },
-        {
-          "id": 27,
-          "name": "董文军"
-        },
-        {
-          "id": 28,
-          "name": "曲高位"
-        },
-        {
-          "id": 29,
-          "name": "王沛禄"
-        },
-        {
-          "id": 30,
-          "name": "何超莲"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "敦煌之战",
-        "敦煌英雄传",
-        "敦煌：归义英雄",
-        "Dunhuang Warriors"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/35244246.jpg",
-      "douban_rating": "6.0",
-      "douban_link_google": "https://movie.douban.com/subject/35244246/",
-      "douban_link_verified": true,
-      "overview": "大唐敦煌，重镇漠州。安史之乱后，漠州陷于河西匪军之手，大唐守军全数殉国。此后六十载，丝路断绝，生灵涂炭。匪军首领任光热凶残暴虐，倒行逆施，妄图“还民为奴”。\n“狮子吼，唐军归。”这句流传了六十年的传说，是漠州人最后的念想。可铜狮沉默，唐旗无踪，传说能否应验？\n名门望族张佑承隐忍多年，终于举事，归义火种在绝望中点燃。然而敌众我寡，漠州命悬一线，最后的希望落在仓皇出城的小队身上——狼鹞子、诺次、张月牙、曹光宗。\n黄沙之下，埋着六十年前的唐军；壁画深处，藏着无人知晓的秘密。孤勇的旗手、神秘的张都尉、苦守石窟的廖黑云……那些被风沙掩埋的名字将逐一登场，一同回答那个问题：唐旗，还能不能重新飘扬在漠州城头？",
-      "durations": [
-        "123分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 12198,
-      "rating_star_count": 3,
-      "type": "movie",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "终于来了！2026战争动作大片《敦煌英雄》定档预告，空降09.25",
-          "bvid": "BV1gnhJ6JEAA",
-          "url": "https://www.bilibili.com/video/BV1gnhJ6JEAA",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1gnhJ6JEAA&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/3a8bdd014bda2134e71197b2263855c316b1c295.jpg",
-          "publishedAt": "2026-09-22T10:53:11.000Z"
         }
       ]
     }
