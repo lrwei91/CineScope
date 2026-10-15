@@ -1,38 +1,44 @@
 {
   "metadata": {
-    "last_updated": "2026-10-15T12:10:26.263Z",
+    "last_updated": "2026-10-15T17:58:57.875Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-15T12:10:26.263Z",
+        "time": "2026-10-15T17:58:57.875Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 0,
+        "count": 50,
         "fetch_error": null
       },
       {
         "slug": "movie_soon",
         "source": "douban",
-        "count": 0,
+        "count": 10,
         "fetch_error": null
       },
       {
         "slug": "movie_latest",
         "source": "douban",
-        "count": 0,
+        "count": 200,
+        "fetch_error": null
+      },
+      {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 306,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 255,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "请求过于频繁，请稍后再试"
       }
     ],
     "total_items": 24
@@ -231,7 +237,7 @@
     {
       "id": 23774856,
       "title": "戴帽子的猫",
-      "original_title": "戴帽子的猫",
+      "original_title": "The Cat in the Hat",
       "release_date": "2026-11-06",
       "genres": [
         {
@@ -255,6 +261,10 @@
         {
           "id": 1,
           "name": "亚历山德罗·卡罗尼"
+        },
+        {
+          "id": 2,
+          "name": "埃丽卡·里维诺亚"
         }
       ],
       "actors": [
@@ -269,14 +279,65 @@
         {
           "id": 3,
           "name": "迪亚戈·马丁内斯"
+        },
+        {
+          "id": 4,
+          "name": "马特·贝里"
+        },
+        {
+          "id": 5,
+          "name": "昆塔·布伦森"
+        },
+        {
+          "id": 6,
+          "name": "保拉·佩尔"
+        },
+        {
+          "id": 7,
+          "name": "吉安卡罗·埃斯波西托"
+        },
+        {
+          "id": 8,
+          "name": "亚美莉卡·费雷拉"
+        },
+        {
+          "id": 9,
+          "name": "杨伯文"
+        },
+        {
+          "id": 10,
+          "name": "泰塔斯·伯吉斯"
+        },
+        {
+          "id": 11,
+          "name": "罗宾·奥克斯特兰德"
+        },
+        {
+          "id": 12,
+          "name": "拉尔夫·加曼"
+        },
+        {
+          "id": 13,
+          "name": "托马斯·米德蒂奇"
+        },
+        {
+          "id": 14,
+          "name": "丹尼尔·米德尔顿"
+        },
+        {
+          "id": 15,
+          "name": "萝珊娜·奥德嘉"
+        },
+        {
+          "id": 16,
+          "name": "杰·费罗尔"
         }
       ],
       "countries": [
-        "United Kingdom",
-        "United States of America"
+        "美国"
       ],
       "languages": [
-        "en"
+        "英语"
       ],
       "aka": [],
       "imdb_id": "tt2321555",
@@ -284,7 +345,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/23774856/",
       "douban_link_verified": true,
-      "overview": "　　戴帽子的“猫”一角由比尔·哈德尔配音——展现他那招牌的幽默、独特方式为孩子带来欢乐，带领观众踏上一段奇幻的旅程，进入一个前所未见的世界。\r 　　在本片中，我们的英雄接下了想像力与灵感研究所有限责任公司迄今最艰钜的任务：为盖比和赛巴斯汀这对姐弟加油打气，他们正为搬到新城镇而苦恼。对这位过去以行事过激而闻名的闯祸精来说，这可能是他证明自己的最后机会……否则他就会失去他的魔法帽！",
+      "overview": "戴帽子的猫（比尔·哈德尔 配音）接下了想像力与灵感研究所有限责任公司迄今最艰巨的任务：为盖比和塞巴斯蒂安这对姐弟加油打气，他们正为搬到新城镇而苦恼。对这位过去以行事过激而闻名的闯祸精来说，这可能是他证明自己的最后机会……否则他就会失去他的魔法帽。",
       "durations": [
         "114分钟"
       ],
@@ -1059,6 +1120,130 @@
       "type": "movie",
       "tmdb_id": 1308545,
       "tmdbUrl": "https://www.themoviedb.org/movie/1308545"
+    },
+    {
+      "id": 36885557,
+      "title": "火柴盒大电影",
+      "original_title": "火柴盒大电影",
+      "release_date": "2026-10-09",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "冒险"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "山姆·哈格雷夫"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "约翰·塞纳"
+        },
+        {
+          "id": 2,
+          "name": "杰西卡·贝尔"
+        },
+        {
+          "id": 3,
+          "name": "山姆·理查森"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [],
+      "imdb_id": "tt28498219",
+      "poster_path": "posters/douban/movie_cn/36885557.jpg",
+      "douban_rating": "6.1",
+      "douban_link_google": "https://movie.douban.com/subject/36885557/",
+      "douban_link_verified": true,
+      "overview": "一群儿时好友重聚后，生活发生巨变。曾离开家乡的前领袖、中央情报局卧底特工肖恩突然归来，意外将众人卷入一场紧张的国际追逐行动，必须合力拯救世界。",
+      "durations": [
+        "127分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 1388,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1148365,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1148365"
+    },
+    {
+      "id": 36749187,
+      "title": "人性本兽",
+      "original_title": "人性本兽",
+      "release_date": "2026-10-09",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "动作"
+        },
+        {
+          "id": 3,
+          "name": "惊悚"
+        },
+        {
+          "id": 4,
+          "name": "犯罪"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "本·阿弗莱克"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "本·阿弗莱克"
+        },
+        {
+          "id": 2,
+          "name": "凯丽·华盛顿"
+        },
+        {
+          "id": 3,
+          "name": "史蒂文·元"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [],
+      "imdb_id": "tt31049299",
+      "poster_path": "posters/douban/movie_cn/36749187.jpg",
+      "douban_rating": "5.9",
+      "douban_link_google": "https://movie.douban.com/subject/36749187/",
+      "douban_link_verified": true,
+      "overview": "在儿子被人绑架后，一位洛杉矶市长候选人和妻子一边急忙筹赎金，一边做出选择，而这些选择可能彻底改变他们的生活。",
+      "durations": [
+        "106分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 2330,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1236045,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1236045"
     },
     {
       "id": 37068446,
@@ -2114,163 +2299,6 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1wyEi69Eo3&page=1&qn=64&high_quality=1",
           "cover": "http://i2.hdslb.com/bfs/archive/b23bcf9d46de9a5eed3f4a979dd790414943c3e1.jpg",
           "publishedAt": "2026-06-11T13:32:24.000Z"
-        }
-      ]
-    },
-    {
-      "id": 36783248,
-      "title": "挖掘者",
-      "original_title": "挖掘者",
-      "release_date": "2026-09-30",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "喜剧"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "亚历杭德罗·冈萨雷斯·伊尼亚里图"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "汤姆·克鲁斯"
-        },
-        {
-          "id": 2,
-          "name": "里兹·阿迈德"
-        },
-        {
-          "id": 3,
-          "name": "约翰·古德曼"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "掘世者",
-        "朱迪",
-        "Judy‎"
-      ],
-      "imdb_id": "tt31450459",
-      "poster_path": "posters/douban/movie_cn/36783248.jpg",
-      "douban_rating": "6.7",
-      "douban_link_google": "https://movie.douban.com/subject/36783248/",
-      "douban_link_verified": true,
-      "overview": "世界上最有权势的男子极力证明自己其实是人类的救世主，结果等来了他酝酿的灾难要摧毁万物。",
-      "durations": [
-        "129分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 588,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1248832,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1248832",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "汤姆克鲁斯颠覆造型！2026灾难喜剧《挖掘者》正式预告，\"荒野猎人\"导演新作",
-          "bvid": "BV1UyN264EwV",
-          "url": "https://www.bilibili.com/video/BV1UyN264EwV",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UyN264EwV&page=1&qn=64&high_quality=1",
-          "cover": "http://i1.hdslb.com/bfs/archive/10a5d0cefddf3e4b6335b302c6bb67b5e6592628.jpg",
-          "publishedAt": "2026-07-13T14:02:55.000Z"
-        }
-      ]
-    },
-    {
-      "id": 37124892,
-      "title": "不存在的罪人",
-      "original_title": "不存在的罪人",
-      "release_date": "2026-09-30",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
-        },
-        {
-          "id": 3,
-          "name": "悬疑"
-        },
-        {
-          "id": 4,
-          "name": "惊悚"
-        },
-        {
-          "id": 5,
-          "name": "犯罪"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "迈克尔·肖沃特"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "安妮·海瑟薇"
-        },
-        {
-          "id": 2,
-          "name": "达科塔·约翰逊"
-        },
-        {
-          "id": 3,
-          "name": "乔什·哈奈特"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "维瑞蒂",
-        "维丽蒂"
-      ],
-      "imdb_id": "tt32261958",
-      "poster_path": "posters/douban/movie_cn/37124892.jpg",
-      "douban_rating": "6.1",
-      "douban_link_google": "https://movie.douban.com/subject/37124892/",
-      "douban_link_verified": true,
-      "overview": "影片改编自柯琳·胡佛的同名畅销小说。知名作家维莉蒂因故无法完成新作，潦倒作家洛温受邀前往其偏远庄园代笔，却意外发现维莉蒂诡异的自传手稿。面对其中关于丈夫杰里米的扭曲告白，洛温逐渐难辨虚实、操控与诱惑。",
-      "durations": [
-        "114分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 550,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1283515,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1283515",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "两大女神咬嘴唇！2026悬疑惊悚片《不存在的罪人》预告，安妮海瑟薇vs达科塔约翰逊",
-          "bvid": "BV1UqRxBsEnD",
-          "url": "https://www.bilibili.com/video/BV1UqRxBsEnD",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UqRxBsEnD&page=1&qn=64&high_quality=1",
-          "cover": "http://i2.hdslb.com/bfs/archive/3778935996c001444562c12a970f4102e8f3b175.jpg",
-          "publishedAt": "2026-05-06T13:01:49.000Z"
         }
       ]
     }

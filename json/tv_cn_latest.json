@@ -1,47 +1,53 @@
 {
   "metadata": {
-    "last_updated": "2026-10-15T12:10:25.118Z",
+    "last_updated": "2026-10-15T17:57:20.766Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-15T12:10:25.118Z",
-        "summary": "已同步国产剧数据（latest）：16 条"
+        "time": "2026-10-15T17:57:20.766Z",
+        "summary": "已同步国产剧数据（latest）：19 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "tv_domestic",
         "source": "douban",
-        "count": 0,
+        "count": 45,
         "fetch_error": null
       },
       {
         "slug": "tv_hot",
         "source": "douban",
-        "count": 0,
+        "count": 55,
         "fetch_error": null
       },
       {
         "slug": "tv_real_time_hotest",
         "source": "douban",
-        "count": 0,
+        "count": 10,
+        "fetch_error": null
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 208,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_229864363",
         "source": "bilibili",
         "count": 0,
-        "fetch_error": "fetch failed"
+        "fetch_error": "Bilibili trailer request failed (412)"
       },
       {
         "slug": "bilibili_search_from_catalog",
         "source": "bilibili",
-        "count": 5,
+        "count": 7,
         "fetch_error": null
       }
     ],
-    "total_items": 16
+    "total_items": 19
   },
   "shows": [
     {
@@ -247,6 +253,15 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1tFp96pEKb&page=1&qn=64&high_quality=1",
           "cover": "https://i0.hdslb.com/bfs/archive/975476d10cf387b7349db917a3d81aacdd1c27ce.jpg",
           "publishedAt": "2026-10-12T02:42:18.000Z"
+        },
+        {
+          "source": "bilibili",
+          "title": "新剧《<em class=\"keyword\">嫁金钗</em>》新预告，田曦薇/闫桉 等主演，暂未公布播出时间，敬请期待",
+          "bvid": "BV1ches6ZEbH",
+          "url": "https://www.bilibili.com/video/BV1ches6ZEbH",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ches6ZEbH&page=1&qn=64&high_quality=1",
+          "cover": "https://i1.hdslb.com/bfs/archive/8bca39fbdfaa6971bc59035a9677a26cb34a63d5.jpg",
+          "publishedAt": "2026-09-16T02:30:30.000Z"
         }
       ]
     },
@@ -425,6 +440,343 @@
       ]
     },
     {
+      "id": 37307385,
+      "name": "把黑夜点燃",
+      "original_name": "把黑夜点燃",
+      "imdb_id": "tt36747190",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "悬疑"
+        },
+        {
+          "id": 3,
+          "name": "犯罪"
+        }
+      ],
+      "networks": [
+        {
+          "id": 1,
+          "name": "爱奇艺",
+          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "刘新"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "蒋欣"
+        },
+        {
+          "id": 2,
+          "name": "陈哲远"
+        },
+        {
+          "id": 3,
+          "name": "任重"
+        },
+        {
+          "id": 4,
+          "name": "张国强"
+        },
+        {
+          "id": 5,
+          "name": "郭丞"
+        },
+        {
+          "id": 6,
+          "name": "陈楚翰"
+        },
+        {
+          "id": 7,
+          "name": "彭博"
+        },
+        {
+          "id": 8,
+          "name": "孙大川"
+        },
+        {
+          "id": 9,
+          "name": "姜宏波"
+        },
+        {
+          "id": 10,
+          "name": "巫刚"
+        },
+        {
+          "id": 11,
+          "name": "王同辉"
+        },
+        {
+          "id": 12,
+          "name": "韩青"
+        },
+        {
+          "id": 13,
+          "name": "李博"
+        },
+        {
+          "id": 14,
+          "name": "康可人"
+        },
+        {
+          "id": 15,
+          "name": "张宇柠"
+        },
+        {
+          "id": 16,
+          "name": "刘艺"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "陈家往事"
+      ],
+      "homepage": null,
+      "popularity": null,
+      "number_of_seasons": 1,
+      "number_of_episodes": 3,
+      "first_air_date": "2026-10-15",
+      "last_air_date": "2026-10-15",
+      "in_production": true,
+      "status": "更新至3集",
+      "episodes_info": "更新至3集",
+      "adult": false,
+      "poster_path": "posters/douban/tv_cn/37307385.jpg",
+      "backdrop_path": "/q48icceyDIuAZC9wL66ZEQF03oj.jpg",
+      "overview": "1997年，在西南地区小城雾港，陈善一家生活在西南石油单位分配的单身楼里。父亲陈福是石油管道施工项目一把手，母亲张文英是石油设计院的设计骨干，还有一个在供应站档案室工作的姐姐陈英，一家人其乐融融，陈善也将沿着父辈的道路回归石油系统。可一场意外的管道燃气爆炸事故改变了所有人的轨迹，父亲陈福死在了这场事故中，母亲张文英在石油系统内部的斗争中成为牺牲品，陈善承受不了打击只身离家，去抢修队工作维持生计。\n2001年，西南石油系统乘上经济发展的高速列车，家家户户都过上了中产的日子。陈善成为施工队的一把手“善哥”，像行尸走肉般把自己困在了当年。而他遇到了同样一场意外爆炸案，当年派系斗争里落败的设计院院长耿剑也卷入其中，陈善决定沿着现在的线索，重新挖掘当年意外事故的隐情，没想到越来越多的人浮现出来。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 37307385,
+          "air_date": "2026-10-15",
+          "episode_count": 3,
+          "vote_average": 0,
+          "poster_path": "posters/douban/tv_cn/37307385.jpg",
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/37307385/",
+          "overview": "1997年，在西南地区小城雾港，陈善一家生活在西南石油单位分配的单身楼里。父亲陈福是石油管道施工项目一把手，母亲张文英是石油设计院的设计骨干，还有一个在供应站档案室工作的姐姐陈英，一家人其乐融融，陈善也将沿着父辈的道路回归石油系统。可一场意外的管道燃气爆炸事故改变了所有人的轨迹，父亲陈福死在了这场事故中，母亲张文英在石油系统内部的斗争中成为牺牲品，陈善承受不了打击只身离家，去抢修队工作维持生计。\n2001年，西南石油系统乘上经济发展的高速列车，家家户户都过上了中产的日子。陈善成为施工队的一把手“善哥”，像行尸走肉般把自己困在了当年。而他遇到了同样一场意外爆炸案，当年派系斗争里落败的设计院院长耿剑也卷入其中，陈善决定沿着现在的线索，重新挖掘当年意外事故的隐情，没想到越来越多的人浮现出来。",
+          "douban_link_verified": true
+        }
+      ],
+      "tmdb_id": 288328,
+      "tmdbUrl": "https://www.themoviedb.org/tv/288328",
+      "vote_average": 9,
+      "vote_count": 1,
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "新剧《<em class=\"keyword\">把黑夜点燃</em>》定档，蒋欣/陈哲远/任重/张国强 等主演，将于10月15日播出",
+          "bvid": "BV191JC6FEnc",
+          "url": "https://www.bilibili.com/video/BV191JC6FEnc",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV191JC6FEnc&page=1&qn=64&high_quality=1",
+          "cover": "https://i2.hdslb.com/bfs/archive/aec3653fd3b06f2921d84200110be20fceea8531.jpg",
+          "publishedAt": "2026-10-15T03:35:08.000Z"
+        }
+      ]
+    },
+    {
+      "id": 36514822,
+      "name": "大理寺日志3",
+      "original_name": "大理寺日志3",
+      "imdb_id": null,
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "动画"
+        },
+        {
+          "id": 3,
+          "name": "悬疑"
+        },
+        {
+          "id": 4,
+          "name": "古装"
+        }
+      ],
+      "networks": [
+        {
+          "id": 1,
+          "name": "腾讯视频",
+          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "槐佳佳"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "郭盛"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "大理寺日志叁‎",
+        "大理寺日志 第三季",
+        "White Cat Legend 3"
+      ],
+      "homepage": null,
+      "popularity": null,
+      "number_of_seasons": 1,
+      "number_of_episodes": 3,
+      "first_air_date": "2026-10-15",
+      "last_air_date": "2026-10-15",
+      "in_production": true,
+      "status": "更新至3集",
+      "episodes_info": "更新至3集",
+      "adult": false,
+      "poster_path": "posters/douban/tv_cn/36514822.jpg",
+      "backdrop_path": null,
+      "overview": "女皇下旨全城筹办崇圣会，迎奉佛舍利为万民祈福。李唐旧势计划在盛会期间勾结外敌散播舆论，挑起事端，企图造反。并伪造“天罚妖后”的假象。为确保崇圣会顺利进行，女皇委派大理寺少卿李饼彻查旧党党羽，揪出幕后黑手。与此同时，李饼发现，自己喝的药药效逐渐失效，猫的兽性越来越难以控制 。随着案件的调查，关于药的秘密，自己的身世也逐渐浮出水面……",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 36514822,
+          "air_date": "2026-10-15",
+          "episode_count": 3,
+          "vote_average": 0,
+          "poster_path": "posters/douban/tv_cn/36514822.jpg",
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/36514822/",
+          "overview": "女皇下旨全城筹办崇圣会，迎奉佛舍利为万民祈福。李唐旧势计划在盛会期间勾结外敌散播舆论，挑起事端，企图造反。并伪造“天罚妖后”的假象。为确保崇圣会顺利进行，女皇委派大理寺少卿李饼彻查旧党党羽，揪出幕后黑手。与此同时，李饼发现，自己喝的药药效逐渐失效，猫的兽性越来越难以控制 。随着案件的调查，关于药的秘密，自己的身世也逐渐浮出水面……",
+          "douban_link_verified": true
+        }
+      ]
+    },
+    {
+      "id": 37090664,
+      "name": "我的美食向导 第二季",
+      "original_name": "我的美食向导 第二季",
+      "imdb_id": null,
+      "genres": [
+        {
+          "id": 1,
+          "name": "纪录片"
+        }
+      ],
+      "networks": [
+        {
+          "id": 1,
+          "name": "腾讯视频",
+          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "陈晓卿"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "陈晓卿"
+        },
+        {
+          "id": 2,
+          "name": "李诞"
+        },
+        {
+          "id": 3,
+          "name": "呼兰"
+        },
+        {
+          "id": 4,
+          "name": "徐志胜"
+        },
+        {
+          "id": 5,
+          "name": "沈宏非"
+        },
+        {
+          "id": 6,
+          "name": "王笛"
+        },
+        {
+          "id": 7,
+          "name": "曹雨"
+        },
+        {
+          "id": 8,
+          "name": "高文麒"
+        },
+        {
+          "id": 9,
+          "name": "黑明"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [],
+      "homepage": null,
+      "popularity": null,
+      "number_of_seasons": 1,
+      "number_of_episodes": 3,
+      "first_air_date": "2026-10-15",
+      "last_air_date": "2026-10-15",
+      "in_production": true,
+      "status": "更新至3集",
+      "episodes_info": "更新至3集",
+      "adult": false,
+      "poster_path": "posters/douban/tv_cn/37090664.jpg",
+      "backdrop_path": null,
+      "overview": "第二季延续第一季陈晓卿个性化的“吃货”视角，记录他和老友新朋的城市美食探索。节目挣脱被算法展示的城市和美食，带领观众看到算法之外，不同城市日常烟火的滋味。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 37090664,
+          "air_date": "2026-10-15",
+          "episode_count": 3,
+          "vote_average": 0,
+          "poster_path": "posters/douban/tv_cn/37090664.jpg",
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/37090664/",
+          "overview": "第二季延续第一季陈晓卿个性化的“吃货”视角，记录他和老友新朋的城市美食探索。节目挣脱被算法展示的城市和美食，带领观众看到算法之外，不同城市日常烟火的滋味。",
+          "douban_link_verified": true
+        }
+      ]
+    },
+    {
       "id": 37070518,
       "name": "玉簟秋",
       "original_name": "玉簟秋",
@@ -451,12 +803,6 @@
           "logo_path": "/iE3rtBcUfWGiJosaZv2TroBxEZz.png",
           "name": "Mango TV",
           "origin_country": "CN"
-        },
-        {
-          "id": 6316,
-          "logo_path": "/ewwmht0dJZVia8gvmmf3rKSZynF.png",
-          "name": "iQIYI International",
-          "origin_country": ""
         }
       ],
       "directors": [
@@ -775,12 +1121,12 @@
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
-      "number_of_episodes": 8,
+      "number_of_episodes": 12,
       "first_air_date": "2026-10-12",
       "last_air_date": "2026-10-12",
       "in_production": true,
-      "status": "更新至10集",
-      "episodes_info": "更新至10集",
+      "status": "更新至12集",
+      "episodes_info": "更新至12集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37855113.jpg",
       "backdrop_path": "/cSXtj5CH4TR1At7Ce5NSqeSGiZO.jpg",
@@ -793,7 +1139,7 @@
           "season_number": 1,
           "id": 37855113,
           "air_date": "2026-10-12",
-          "episode_count": 8,
+          "episode_count": 12,
           "vote_average": 0,
           "poster_path": "posters/douban/tv_cn/37855113.jpg",
           "douban_rating": null,
@@ -1624,7 +1970,7 @@
       "episodes_info": "24集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36868927.jpg",
-      "backdrop_path": "/2BDRTkcFpFCPe9Sedpkazd76687.jpg",
+      "backdrop_path": "/9BhaeMG3jNvRC9FrdpHAeDtboPN.jpg",
       "overview": "该剧根据1999年周星驰同名电影《喜剧之王》改编。喜人团建，开启新生代喜剧与经典的碰撞。“冷饭热炒“，上演笑中有泪的“乡村商战”。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1872,8 +2218,8 @@
       ],
       "tmdb_id": 326382,
       "tmdbUrl": "https://www.themoviedb.org/tv/326382",
-      "vote_average": 0,
-      "vote_count": 0,
+      "vote_average": 6,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
