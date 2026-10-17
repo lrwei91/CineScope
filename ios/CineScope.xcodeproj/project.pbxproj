@@ -1,0 +1,486 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B200000000000000000000E1 /* CineScopeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C1 /* CineScopeApp.swift */; };
+		B200000000000000000000E2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C2 /* RootView.swift */; };
+		B200000000000000000000E3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C3 /* Models.swift */; };
+		B200000000000000000000E4 /* CategoryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C4 /* CategoryConfig.swift */; };
+		B200000000000000000000E5 /* CatalogNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C5 /* CatalogNormalizer.swift */; };
+		B200000000000000000000E6 /* CatalogFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C6 /* CatalogFilter.swift */; };
+		B200000000000000000000E7 /* RemoteCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C7 /* RemoteCatalog.swift */; };
+		B200000000000000000000E8 /* CatalogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C8 /* CatalogStore.swift */; };
+		B200000000000000000000E9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000C9 /* Theme.swift */; };
+		B200000000000000000000EA /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000CA /* DiscoverView.swift */; };
+		B200000000000000000000EB /* PosterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000CB /* PosterCard.swift */; };
+		B200000000000000000000EC /* CategorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000CC /* CategorySheet.swift */; };
+		B200000000000000000000ED /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000CD /* DetailView.swift */; };
+		B200000000000000000000EE /* TrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000CE /* TrailerView.swift */; };
+		B200000000000000000000EF /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000CF /* CollectionView.swift */; };
+		B200000000000000000000F0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000D0 /* SearchView.swift */; };
+		B200000000000000000000F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000D2 /* Assets.xcassets */; };
+		B200000000000000000000FA /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000D1 /* Components.swift */; };
+		B200000000000000000000FB /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000D4 /* ShareCardView.swift */; };
+		B200000000000000000000FC /* ShareCardRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000D5 /* ShareCardRenderer.swift */; };
+		B200000000000000000000FD /* SharePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000D6 /* SharePreviewView.swift */; };
+		B200000000000000000000FE /* DoubanLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200000000000000000000D7 /* DoubanLink.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B200000000000000000000A5 /* CineScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CineScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B200000000000000000000C1 /* CineScopeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineScopeApp.swift; sourceTree = "<group>"; };
+		B200000000000000000000C2 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		B200000000000000000000C3 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		B200000000000000000000C4 /* CategoryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryConfig.swift; sourceTree = "<group>"; };
+		B200000000000000000000C5 /* CatalogNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogNormalizer.swift; sourceTree = "<group>"; };
+		B200000000000000000000C6 /* CatalogFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogFilter.swift; sourceTree = "<group>"; };
+		B200000000000000000000C7 /* RemoteCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCatalog.swift; sourceTree = "<group>"; };
+		B200000000000000000000C8 /* CatalogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogStore.swift; sourceTree = "<group>"; };
+		B200000000000000000000C9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B200000000000000000000CA /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		B200000000000000000000CB /* PosterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCard.swift; sourceTree = "<group>"; };
+		B200000000000000000000CC /* CategorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySheet.swift; sourceTree = "<group>"; };
+		B200000000000000000000CD /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		B200000000000000000000CE /* TrailerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerView.swift; sourceTree = "<group>"; };
+		B200000000000000000000CF /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		B200000000000000000000D0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B200000000000000000000D1 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		B200000000000000000000D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B200000000000000000000D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B200000000000000000000D4 /* ShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
+		B200000000000000000000D5 /* ShareCardRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardRenderer.swift; sourceTree = "<group>"; };
+		B200000000000000000000D6 /* SharePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePreviewView.swift; sourceTree = "<group>"; };
+		B200000000000000000000D7 /* DoubanLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubanLink.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B200000000000000000000F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B200000000000000000000A2 = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000B1 /* CineScope */,
+				B200000000000000000000A3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B200000000000000000000A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000A5 /* CineScope.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B1 /* CineScope */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000B2 /* App */,
+				B200000000000000000000B3 /* Core */,
+				B200000000000000000000B4 /* Design */,
+				B200000000000000000000B5 /* Features */,
+				B200000000000000000000D2 /* Assets.xcassets */,
+				B200000000000000000000D3 /* Info.plist */,
+			);
+			path = CineScope;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B2 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000C1 /* CineScopeApp.swift */,
+				B200000000000000000000C2 /* RootView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B3 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000C4 /* CategoryConfig.swift */,
+				B200000000000000000000C6 /* CatalogFilter.swift */,
+				B200000000000000000000C5 /* CatalogNormalizer.swift */,
+				B200000000000000000000C8 /* CatalogStore.swift */,
+				B200000000000000000000D7 /* DoubanLink.swift */,
+				B200000000000000000000C3 /* Models.swift */,
+				B200000000000000000000C7 /* RemoteCatalog.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B4 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000C9 /* Theme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B5 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000B8 /* Collection */,
+				B200000000000000000000B7 /* Detail */,
+				B200000000000000000000B6 /* Discover */,
+				B200000000000000000000B9 /* Search */,
+				B200000000000000000000BB /* Share */,
+				B200000000000000000000BA /* Shared */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000BB /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000D5 /* ShareCardRenderer.swift */,
+				B200000000000000000000D4 /* ShareCardView.swift */,
+				B200000000000000000000D6 /* SharePreviewView.swift */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B6 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000CC /* CategorySheet.swift */,
+				B200000000000000000000CA /* DiscoverView.swift */,
+				B200000000000000000000CB /* PosterCard.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B7 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000CD /* DetailView.swift */,
+				B200000000000000000000CE /* TrailerView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B8 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000CF /* CollectionView.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000B9 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000D0 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		B200000000000000000000BA /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B200000000000000000000D1 /* Components.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B200000000000000000000A4 /* CineScope */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B20000000000000000000106 /* Build configuration list for PBXNativeTarget "CineScope" */;
+			buildPhases = (
+				B200000000000000000000F1 /* Sources */,
+				B200000000000000000000F2 /* Frameworks */,
+				B200000000000000000000F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CineScope;
+			productName = CineScope;
+			productReference = B200000000000000000000A5 /* CineScope.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B200000000000000000000A1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B200000000000000000000A4 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = B20000000000000000000105 /* Build configuration list for PBXProject "CineScope" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				"zh-Hans",
+				en,
+				Base,
+			);
+			mainGroup = B200000000000000000000A2;
+			productRefGroup = B200000000000000000000A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B200000000000000000000A4 /* CineScope */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B200000000000000000000F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B200000000000000000000F9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B200000000000000000000F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B200000000000000000000E1 /* CineScopeApp.swift in Sources */,
+				B200000000000000000000E2 /* RootView.swift in Sources */,
+				B200000000000000000000E3 /* Models.swift in Sources */,
+				B200000000000000000000E4 /* CategoryConfig.swift in Sources */,
+				B200000000000000000000E5 /* CatalogNormalizer.swift in Sources */,
+				B200000000000000000000E6 /* CatalogFilter.swift in Sources */,
+				B200000000000000000000E7 /* RemoteCatalog.swift in Sources */,
+				B200000000000000000000E8 /* CatalogStore.swift in Sources */,
+				B200000000000000000000E9 /* Theme.swift in Sources */,
+				B200000000000000000000EA /* DiscoverView.swift in Sources */,
+				B200000000000000000000EB /* PosterCard.swift in Sources */,
+				B200000000000000000000EC /* CategorySheet.swift in Sources */,
+				B200000000000000000000ED /* DetailView.swift in Sources */,
+				B200000000000000000000EE /* TrailerView.swift in Sources */,
+				B200000000000000000000EF /* CollectionView.swift in Sources */,
+				B200000000000000000000F0 /* SearchView.swift in Sources */,
+				B200000000000000000000FA /* Components.swift in Sources */,
+				B200000000000000000000FB /* ShareCardView.swift in Sources */,
+				B200000000000000000000FC /* ShareCardRenderer.swift in Sources */,
+				B200000000000000000000FD /* SharePreviewView.swift in Sources */,
+				B200000000000000000000FE /* DoubanLink.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B20000000000000000000101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B20000000000000000000102 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B20000000000000000000103 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RWWGW4S7G6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CineScope/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.lrwei91.cinescope.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B20000000000000000000104 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RWWGW4S7G6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CineScope/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.lrwei91.cinescope.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B20000000000000000000105 /* Build configuration list for PBXProject "CineScope" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B20000000000000000000101 /* Debug */,
+				B20000000000000000000102 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B20000000000000000000106 /* Build configuration list for PBXNativeTarget "CineScope" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B20000000000000000000103 /* Debug */,
+				B20000000000000000000104 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B200000000000000000000A1 /* Project object */;
+}
