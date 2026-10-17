@@ -155,7 +155,7 @@ def parse_info_text(info_text: str, is_tv: bool = False) -> dict:
     """从 #info 文本解析导演/主演/国家/语言/上映/又名/集数等。"""
     directors, actors, countries, languages = [], [], [], []
     aka, pubdate = [], []
-    episodes_info = ''
+    total_episodes = 0
 
     for line in info_text.split('\n'):
         line = line.strip()
@@ -183,10 +183,13 @@ def parse_info_text(info_text: str, is_tv: bool = False) -> dict:
             key = '首播:' if is_tv else '上映日期:'
             dates = line.replace(key, '').strip()
             pubdate = [x.strip() for x in dates.split('/') if x.strip()]
-        elif (line.startswith('集数:') or line.startswith('单集片长:')) and is_tv:
+        elif line.startswith('集数:') and is_tv:
+            # 「集数: 30」是总集数，不是「更新至 30 集」。
             num = re.search(r'\d+', line)
-            if num and line.startswith('集数'):
-                episodes_info = f"更新至 {num.group()}"
+            if num:
+                total_episodes = int(num.group())
+        elif line.startswith('单集片长:'):
+            pass
         elif line.startswith('又名:'):
             aka = [x.strip() for x in line.replace('又名:', '').strip().split('/') if x.strip()]
         elif line.startswith('片长:'):
@@ -201,7 +204,8 @@ def parse_info_text(info_text: str, is_tv: bool = False) -> dict:
         'languages': languages,
         'aka': aka,
         'pubdate': pubdate,
-        'episodes_info': episodes_info,
+        'episodes_info': '',
+        'total_episodes': total_episodes,
     }
 
 
@@ -314,6 +318,7 @@ def build_tv_payload(subject_id: str, raw: dict) -> dict:
     aka = parsed['aka']
     pubdate = parsed['pubdate']
     episodes_info = parsed['episodes_info']
+    total_episodes = parsed.get('total_episodes', 0)
 
     if not directors and ld.get('director'):
         ds = ld['director'] if isinstance(ld['director'], list) else [ld['director']]
@@ -373,7 +378,7 @@ def build_tv_payload(subject_id: str, raw: dict) -> dict:
         "intro": intro,
         "pubdate": pubdate if pubdate else [first_air],
         "episodes_info": episodes_info,
-        "episodes_count": 0,
+        "episodes_count": total_episodes,
         "vendors": [],
         "vendor_icons": [],
         "linewatches": [],

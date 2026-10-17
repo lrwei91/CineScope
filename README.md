@@ -110,16 +110,28 @@ PR 检查执行代码、数据与构建验证；每日更新验证后推送 `mai
 - `share.js`、`share.css`：作品分享图。
 - `json/`、`posters/`：生成数据与本地海报。
 - `assets/`、`manifest.webmanifest`：插画、安装图标与安装清单。
+- `ios/`：原生 iOS 客户端（SwiftUI + 预告片 WebView）。
 - `scripts/automation/`：统一更新入口与本地数据任务。
 - `scripts/catalog/`、`scripts/lib/`：分类配置、数据源与转换逻辑。
 - `tests/`、`.github/workflows/`：回归测试与 CI。
 
 海报目前以普通 Git 二进制文件跟踪，未启用 Git LFS。安装图标与标签页 favicon 分开维护；替换图标后可能需要移除旧安装并重新添加，详见 [项目设计说明](docs/DESIGN_BRIEF.md#平台图标与安装元数据)。
 
+## iOS 客户端
+
+`ios/` 是原生 SwiftUI 客户端：发现、筛选、详情、我的与搜索全部原生实现，只有 Bilibili 预告片交给 WKWebView。数据直接读取线上 `json/`，断网回退到最近一次成功副本。
+
+```sh
+open ios/CineScope.xcodeproj   # 选择签名团队后 ⌘R
+```
+
+首次真机安装需开启开发者模式并信任证书；免费签名 7 天有效。构建命令、深链与验证状态见 [iOS 说明](ios/README.md)。
+
 ## 维护文档
 
 - [数据更新指南](docs/DATA_UPDATE_GUIDE.md)：环境变量、任务职责、发布与故障处理。
 - [设计与验收说明](docs/DESIGN_BRIEF.md)：视觉、手机交互、图标与验收边界。
+- [iOS 客户端](ios/README.md)：构建、签名、架构与验证状态。
 - [项目上下文](CONTEXT.md)：架构速记与维护入口。
 
 ## 数据来源与许可

@@ -1063,6 +1063,11 @@ function normalizeDoubanTvEntry(item, detail) {
     const languages = extractStringList(detail?.languages);
     const aka = extractStringList(detail?.aka);
     const episodesInfo = detail?.episodes_info || item?.episodes_info || '';
+    // 豆瓣 `episodes_count` 才是总集数；`episodes_info` 里的「更新至 N 集」是进度，
+    // 不能拿来当总集数，否则详情页会出现「共 N 集」等于已更新集数。
+    const totalEpisodes =
+        toPositiveInt(detail?.episodes_count) ??
+        extractTotalEpisodes(episodesInfo);
     const vendorList = Array.isArray(detail?.vendors)
         ? detail.vendors
               .filter((vendor) => vendor && vendor.title)
@@ -1088,7 +1093,7 @@ function normalizeDoubanTvEntry(item, detail) {
         homepage: null,
         popularity: null,
         number_of_seasons: 1,
-        number_of_episodes: extractEpisodeCount(episodesInfo),
+        number_of_episodes: totalEpisodes,
         first_air_date: airDate,
         last_air_date: airDate,
         in_production: Boolean(episodesInfo && /更新/.test(episodesInfo)),
@@ -1106,7 +1111,7 @@ function normalizeDoubanTvEntry(item, detail) {
                 season_number: 1,
                 id: normalizeNumericId(item.id),
                 air_date: airDate,
-                episode_count: extractEpisodeCount(episodesInfo),
+                episode_count: totalEpisodes,
                 vote_average: ratingValue ? Number(ratingValue) : 0,
                 poster_path: posterUrl,
                 douban_rating: ratingValue,
@@ -1547,9 +1552,19 @@ function extractSeasonNumber(...candidates) {
     return 1;
 }
 
-function extractEpisodeCount(episodesInfo) {
-    const match = String(episodesInfo || '').match(/(\d+)\s*集/);
-    return match ? Number(match[1]) : null;
+function extractTotalEpisodes(episodesInfo) {
+    const text = String(episodesInfo || '');
+    // 只有「N 集全」能直接代表总集数；「更新至 N 集」是进度，不能当总数。
+    const finished = text.match(/(\d+)\s*集全/);
+    if (finished) {
+        return Number(finished[1]);
+    }
+    return null;
+}
+
+function toPositiveInt(value) {
+    const numeric = Number(value);
+    return Number.isFinite(numeric) && numeric > 0 ? Math.trunc(numeric) : null;
 }
 
 function buildDoubanSubjectUrl(subjectId) {

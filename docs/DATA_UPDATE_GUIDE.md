@@ -20,7 +20,7 @@ python3 scripts/automation/run_update.py \
 
 - 默认：在 staging 生成并验证，成功后提升到工作区
 - `--dry-run`：丢弃 staging，不改正式 JSON
-- `--publish`：`tv-status`、`douban-cache`、`trailers` 任务只发布生成的 JSON/海报，可保留非发布路径编辑；发布路径必须干净，验证后提交、rebase 重试并推送；其他任务要求工作区干净
+- `--publish`：`tv-status`、`douban-cache`、`trailers` 任务只发布生成的 JSON/海报，可保留非发布路径编辑；发布路径必须干净，验证后提交并推送（生成完成后、提交前会再次同步 `origin/main` 以吸收 Actions 竞态；推送走本机共享重试策略，无该环境的 CI 自动退化为内置重试）；其他任务要求工作区干净
 - `--allow-large-drop`：仅用于已经确认的超过 20% 数据缩减
 - 同一时间只允许一个本地数据任务运行
 
@@ -102,6 +102,8 @@ python3 scripts/automation/run_update.py --task tv-status --dry-run
 
 使用豆瓣 Rexxar API更新国产剧集数和连载状态。业务脚本只改 staging 中的 `tv_cn_complete.json`；Git 操作由统一入口处理。
 
+`episodes_info`（如「更新至6集」）是**进度**，`episodes_count`（Rexxar API）与 `number_of_episodes` 才是**总集数**；两者不要互相推导，否则详情页的「共 N 集」会等于已更新集数。同步时总集数一律以 API 为准，同时写回 `number_of_episodes` 与 `seasons[0].episode_count`。
+
 本地每日 06:00 运行。
 
 ### douban-cache
@@ -128,12 +130,11 @@ python3 scripts/automation/run_update.py --task douban-cache --dry-run
 python3 scripts/automation/run_update.py --task trailers --dry-run
 ```
 
-只重建 `movie_cn,tv_cn`，并以 bvid/url 为稳定键生成去重后的新增/补充报告。本地包装层可设置：
+只重建 `movie_cn,tv_cn`，并以 bvid/url 为稳定键生成去重后的新增/补充报告。Hermes wrapper 仅在
+本机代理端口（127.0.0.1:7890）真实可连时才注入代理环境并开启 `CINESCOPE_NODE_USE_ENV_PROXY=1`；
+2026-10-15 起本机 7890 已退役，默认直连（B 站取数失败时 fetch 层回退本地缓存）：
 
 ```bash
-CINESCOPE_NODE_USE_ENV_PROXY=1 \
-HTTP_PROXY=http://127.0.0.1:7890 \
-HTTPS_PROXY=http://127.0.0.1:7890 \
 python3 scripts/automation/run_update.py --task trailers
 ```
 
@@ -214,5 +215,5 @@ npm run check:data
 - 锁存在：先确认是否有任务仍在运行；仅失效 PID 会自动清锁
 - 数据下降门禁：先核对上游和 diff，不要直接使用 override
 - 豆瓣浏览器失败：检查 BrowserSkill daemon、扩展连接和登录态
-- B 站 412/429：检查本地代理；保留旧缓存，不要删除正式 JSON
-- push 失败：统一入口最多重试 3 次，本地 commit 会保留供人工处理
+- B 站 412/429：保留旧缓存，不要删除正式 JSON；本机 7890 代理已于 2026-10-15 退役，无需检查代理（直连取数失败时 fetch 层回退缓存）
+- push 失败：按本机共享重试策略重试；远端已推进（Actions 竞态）时自动重新对齐、下次运行重发；网络类失败保留本地 commit 供下次运行接续

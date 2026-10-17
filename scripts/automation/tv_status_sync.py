@@ -108,6 +108,34 @@ def format_updated_line(updated: list[dict]) -> str:
     return "\n".join(lines)
 
 
+def apply_total_episodes(show: dict, season0: dict, total: int, changes: list[str]) -> bool:
+    """把豆瓣 episodes_count 写进 number_of_episodes 与 season0.episode_count。
+
+    episodes_count 才是总集数；episodes_info 里的「更新至 N 集」是进度。
+    旧逻辑只在 episode_count 为空时才写总数，连载剧的总集数会一直等于已更新集数。
+    """
+    if not total or total <= 0:
+        return False
+
+    changed = False
+    if show.get("number_of_episodes") != total:
+        changes.append(f"number_of_episodes: {show.get('number_of_episodes')} → {total}")
+        show["number_of_episodes"] = total
+        changed = True
+
+    if season0.get("episode_count") != total:
+        changes.append(f"s0.episode_count: {season0.get('episode_count')} → {total}")
+        season0["episode_count"] = total
+        seasons = show.get("seasons")
+        if not isinstance(seasons, list) or not seasons:
+            seasons = [season0]
+            show["seasons"] = seasons
+        seasons[0] = season0
+        changed = True
+
+    return changed
+
+
 def main():
     parser = argparse.ArgumentParser(description="国产剧豆瓣连载状态每日同步")
     parser.add_argument("--dry-run", action="store_true", help="只打印，不写入")
@@ -204,16 +232,16 @@ def main():
             old_s0_count = s0.get("episode_count", 0)
 
             if old_s0_count is None or old_s0_count == 0:
-                # 总集数缺失时补充
+                # 总集数缺失时补充（同时同步 number_of_episodes）
                 changes = []
-                s0["episode_count"] = api_ep_count
-                if not show.get("seasons"):
-                    show["seasons"] = [{}]
-                show["seasons"][0] = s0
-                changes.append(f"s0.episode_count: {old_s0_count} → {api_ep_count}")
-                metadata_updated += 1
-                if not quiet:
-                    print(f"✅ (仅更新总集数) {', '.join(changes)}")
+                if apply_total_episodes(show, s0, api_ep_count, changes):
+                    metadata_updated += 1
+                    if not quiet:
+                        print(f"✅ (补齐总集数) {', '.join(changes)}")
+                else:
+                    skipped += 1
+                    if not quiet:
+                        print("无变化")
             else:
                 skipped += 1
                 if not quiet:
@@ -273,13 +301,10 @@ def main():
                     changes.append(f"in_production: False → True")
                     show["in_production"] = True
 
-        # 更新 season0.episode_count（仅在没有值或为 None 时设置）
-        if api_ep_count > 0 and (old_s0_count is None or old_s0_count == 0):
-            changes.append(f"s0.episode_count: {old_s0_count} → {api_ep_count}")
-            s0["episode_count"] = api_ep_count
-            if not show.get("seasons"):
-                show["seasons"] = [{}]
-            show["seasons"][0] = s0
+        # 更新 season0.episode_count 与 number_of_episodes：
+        # episodes_count 是总集数，与「更新至 N 集」无关，始终以 API 为准。
+        if apply_total_episodes(show, s0, api_ep_count, changes):
+            metadata_updated += 1
 
         if changes:
             if content_changed:
