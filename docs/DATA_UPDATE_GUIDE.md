@@ -100,7 +100,7 @@ GitHub Actions 每日 22:00 运行并使用 `--publish`。
 python3 scripts/automation/run_update.py --task tv-status --dry-run
 ```
 
-使用豆瓣 Rexxar API更新国产剧集数和连载状态。业务脚本只改 staging 中的 `tv_cn_complete.json`；Git 操作由统一入口处理。
+使用豆瓣 Rexxar API 更新国产剧集数和连载状态。业务脚本只改 staging 中的 `tv_cn_complete.json`；Git 操作由统一入口处理。
 
 `episodes_info`（如「更新至6集」）是**进度**，`episodes_count`（Rexxar API）与 `number_of_episodes` 才是**总集数**；两者不要互相推导，否则详情页的「共 N 集」会等于已更新集数。同步时总集数一律以 API 为准，同时写回 `number_of_episodes` 与 `seasons[0].episode_count`。
 

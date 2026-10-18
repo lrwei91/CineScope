@@ -37,12 +37,12 @@
                         <span class="hero-title-line hero-title-line-accent">环球</span>
                         <span class="hero-title-line">片单</span>
                     </h1>
-                    <p class="hero-description">国产剧、院线电影、综艺与海外剧集，按上映时间、评分和类型浏览。</p>
+                    <p class="hero-description">国产剧、院线电影、综艺和海外剧集，按上映时间、评分和类型浏览。</p>
                     <div class="hero-meta">
                         <small class="update-date skeleton" aria-live="polite"></small>
                         <div class="hero-auth" id="douban-sync-badge">
                             <span class="hero-auth-icon">豆瓣同步</span>
-                            <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取状态...</span>
+                            <span id="douban-auth-status" class="hero-auth-status" aria-live="polite">正在读取豆瓣状态…</span>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
             </header>
 
             <noscript>
-                <div class="no-script-notice">片单数据与筛选需要 JavaScript。请启用后刷新页面，目录题头仍可正常浏览。</div>
+                <div class="no-script-notice">片单数据和筛选功能需要 JavaScript，启用后刷新页面即可。上面的标题和简介不需要脚本就能看到。</div>
             </noscript>
 
             <section id="catalog-controls" class="catalog-controls reveal-section" aria-label="片单分类与筛选">
@@ -85,10 +85,10 @@
                         <p class="filter-label">评分</p>
                         <div id="rating-filter-container" role="group" aria-label="评分筛选" tabindex="0" class="network-filter-container filter-pill-row">
                             <span class="genre-tag skeleton">全部</span>
-                            <span class="genre-tag skeleton">&gt; 9分</span>
-                            <span class="genre-tag skeleton">&gt; 8分</span>
-                            <span class="genre-tag skeleton">&gt; 7分</span>
-                            <span class="genre-tag skeleton">近2年高分</span>
+                            <span class="genre-tag skeleton">&gt; 9 分</span>
+                            <span class="genre-tag skeleton">&gt; 8 分</span>
+                            <span class="genre-tag skeleton">&gt; 7 分</span>
+                            <span class="genre-tag skeleton">近 2 年高分</span>
                         </div>
                     </section>
                 </div>
@@ -113,9 +113,9 @@
             </section>
 
             <div class="file-loader">
-                <p id="status-message" data-state="loading">正在尝试加载默认数据文件...</p>
+                <p id="status-message" data-state="loading">正在加载片单数据…</p>
                 <input type="file" id="file-input" accept=".json">
-                <label for="file-input" class="file-label">或手动选择一个JSON文件</label>
+                <label for="file-input" class="file-label">或手动选择 JSON 文件</label>
             </div>
         </div>
 
@@ -343,7 +343,7 @@
         <div class="sheet-footer">
             <button id="done-mobile-filter" class="mobile-only sheet-done-button" type="button">查看片单</button>
             <span class="sheet-footer-label">豆瓣同步</span>
-            <span id="mobile-douban-status" class="sheet-footer-status">加载中...</span>
+            <span id="mobile-douban-status" class="sheet-footer-status">加载中…</span>
         </div>
     </div>
 
@@ -362,7 +362,7 @@
             <div class="dossier-data">
                 <div class="dossier-header-main">
                     <h2 id="dossier-title"></h2>
-                    <button id="share-dossier-btn" class="dossier-inline-share-btn" type="button" title="分享剧集档案" aria-label="分享作品">
+                    <button id="share-dossier-btn" class="dossier-inline-share-btn" type="button" title="生成分享图" aria-label="分享作品">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                             <polyline points="16 6 12 2 8 6"></polyline>
@@ -384,7 +384,7 @@
                 </div>
 
                 <div class="dossier-facts-section">
-                    <p class="dossier-section-title">核心信息</p>
+                    <p class="dossier-section-title">主创</p>
                     <div class="dossier-facts-list">
                         <div id="dossier-directors-row" class="dossier-fact-row" hidden>
                             <span class="dossier-fact-label">导演</span>
@@ -444,7 +444,7 @@
                 ></iframe>
             </div>
             <div class="trailer-modal-meta">
-                <p class="dossier-subtext">Bilibili 预告片</p>
+                <p class="dossier-subtext">B 站预告片</p>
                 <h2 id="trailer-modal-title" class="trailer-modal-title"></h2>
                 <p id="trailer-modal-subtitle" class="trailer-modal-subtitle"></p>
                 <div id="trailer-modal-list" class="trailer-list-row"></div>

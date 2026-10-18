@@ -207,7 +207,7 @@ function buildShareText(item) {
         item.title || '未命名',
         item.subtitle ? item.subtitle : '',
         item.doubanVerified && item.doubanRating ? `评分：${item.doubanRating}` : '评分：暂无',
-        item.date ? `上映：${item.date}` : '上映：UNKNOWN',
+        item.date ? `上映：${item.date}` : '上映：待定',
         visibleGenres.length > 0 ? `类型：${visibleGenres.join(' / ')}` : '',
         ...realtimeMetrics.map((metric) =>
             `${metric.label}：${metric.value}${metric.detail ? `（${metric.detail}）` : ''}`
@@ -610,7 +610,7 @@ function showImageOverlay(dataUrl) {
     overlay.setAttribute('aria-label', '分享图片预览');
 
     const hint = document.createElement('div');
-    hint.textContent = '↓ 长按图片，选择「存入手机」或「发送给朋友」';
+    hint.textContent = '↓ 长按图片，选择「保存图片」或「发送给朋友」';
     hint.className = 'share-preview-hint';
 
     const img = document.createElement('img');
@@ -682,7 +682,7 @@ async function shareItem(currentDossierItem, options = {}) {
         showToast('大图已开始下载');
     } catch (error) {
         console.error('分享失败:', error);
-        showToast('分享失败，已取消');
+        showToast('分享未完成');
     }
 }
 

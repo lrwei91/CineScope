@@ -369,7 +369,7 @@ function updateSubtitleText() {
 
     const updateDate = getCurrentCategoryState().updateDate;
     if (updateDate) {
-        updateDateElement.textContent = `数据更新于：${formatUpdateTimestamp(updateDate)}`;
+        updateDateElement.textContent = `数据更新于 ${formatUpdateTimestamp(updateDate)}`;
         updateDateElement.classList.remove('skeleton');
     } else {
         updateDateElement.textContent = '';
@@ -377,7 +377,7 @@ function updateSubtitleText() {
     }
 }
 
-function showLoadError(message = '加载数据失败，请稍后重试或手动选择当前分类 JSON 文件。') {
+function showLoadError(message = '加载数据失败。请稍后重试，或选择本地的分类 JSON 文件。') {
     state.renderedItems = [];
     state.renderedItemCount = 0;
 
@@ -705,9 +705,9 @@ function setupEventListeners() {
                 elements.statusMessage.textContent = `已加载文件：${file.name}`;
                 elements.statusMessage.dataset.state = 'success';
             } catch (error) {
-                elements.statusMessage.textContent = `文件 "${file.name}" 不是有效的当前分类 JSON 格式。`;
+                elements.statusMessage.textContent = `文件「${file.name}」不是有效的当前分类 JSON 文件。`;
                 elements.statusMessage.dataset.state = 'error';
-                showLoadError(`文件 "${file.name}" 不是有效的当前分类 JSON 格式。`);
+                showLoadError(`文件「${file.name}」不是有效的当前分类 JSON 文件。`);
             }
         };
         reader.readAsText(file);
@@ -809,7 +809,7 @@ async function shareDossier(item, options) {
         await ShareModule.shareItem(item, options);
     } catch (error) {
         console.error('分享失败:', error);
-        showToast('分享失败，已取消');
+        showToast('分享未完成');
     }
 }
 

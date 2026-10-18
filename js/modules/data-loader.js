@@ -116,7 +116,7 @@ export async function loadCategoryData(categoryId, level, categoryState, options
             }
 
             if (!silent && level === 'complete' && categoryId === getCurrentCategoryId() && isDesktop) {
-                showToast('已加载全部内容');
+                showToast('已加载全部片单');
             }
 
             return true;
