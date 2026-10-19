@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "last_updated": "2026-10-19T12:12:27.969Z",
+    "last_updated": "2026-10-19T19:36:22.919Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-19T12:12:27.969Z",
+        "time": "2026-10-19T19:36:22.919Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 26,
+        "count": 48,
         "fetch_error": null
       },
       {
@@ -29,10 +29,16 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 307,
+        "fetch_error": null
+      },
+      {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 255,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "请求过于频繁，请稍后再试"
       }
     ],
     "total_items": 24
@@ -246,7 +252,7 @@
         "Avengers: The Kang Dynasty‎",
         "Avengers 5‎"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt21357150",
       "poster_path": "posters/douban/movie_cn/36011202.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36011202/",
@@ -259,6 +265,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1003596,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1003596",
       "trailers": [
         {
           "source": "bilibili",
@@ -395,65 +403,6 @@
       "type": "movie"
     },
     {
-      "id": 36083358,
-      "title": "乡归",
-      "original_title": "乡归",
-      "release_date": "2026-11-07",
-      "genres": [
-        {
-          "id": 1,
-          "name": "纪录片"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "徐晓晖"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "刘休"
-        },
-        {
-          "id": 2,
-          "name": "周燕"
-        },
-        {
-          "id": 3,
-          "name": "钟欣怡"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "Go Back to the South"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36083358.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/36083358/",
-      "douban_link_verified": true,
-      "overview": "影片讲述了湘南山村里一群归乡者的故事——北漂多年后决意“带艺术回家”的中年夫妻刘休、周燕，在理想与现实之间重新寻找生活的方向；在广东出生长大、需要重新融入故土的欣怡姐妹，面对着另一种意义上的返乡；向往“南方生活”的少女曦曦，渴望像父辈一样探索自己的未来。与此同时，还有因无工可打而从岭南回来的村民，以及一辈子留守大山的老人。有人主动归来，有人迫于现实，有人从未离开。归去来兮，每个人都在时代洪流里，反复叩寻自己的归属。乡归何处？吾心安处便是吾乡。",
-      "durations": [
-        "98分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
-    },
-    {
       "id": 35299923,
       "title": "白衣逆行者",
       "original_title": "白衣逆行者",
@@ -519,19 +468,21 @@
         "战疫天使",
         "Angel in White"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt37788268",
       "poster_path": "posters/douban/movie_cn/35299923.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35299923/",
       "douban_link_verified": true,
-      "overview": "2020 年初，未知传染病暴发。大学教授沈君（刘德华 饰）与医生袁楚楚（杨子姗 饰）夫妇和护士长田璐（秦海璐 饰）、医生钟凌云（余皑磊 饰）等本地医护人员一同救治病患。灾难降临，城市陷入危机。病毒肆虐、物资告急，困境加剧，有人义无反顾奔赴前线，回看那惊心动魄的 76 个日夜，才更懂得此刻的生活值得珍惜，才更有勇气和希望奔赴未来。\n影片取材自真实事件。",
+      "overview": "2020年初，未知传染病在武汉暴发，灾难降临，城市陷入危机。病毒肆虐、物资告急，困境加剧，有人义无反顾奔赴前线，有人于困厄之中奋力求生。那惊心动魄的 76 个日夜，偶尔想起，不会忘记。在回首中铭记，在挥手中向前，幸存之后，走向明天。\n影片取材自真实事件。",
       "durations": [
         "106分钟"
       ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1531919,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1531919"
     },
     {
       "id": 23774856,
@@ -639,7 +590,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt2321555",
       "poster_path": "posters/douban/movie_cn/23774856.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/23774856/",
@@ -651,7 +602,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1117898,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1117898"
     },
     {
       "id": 37047880,
@@ -717,7 +670,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1796001,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1796001"
     },
     {
       "id": 25798131,
@@ -862,7 +817,7 @@
         "101分钟"
       ],
       "release_windows": [],
-      "rating_count": 260349,
+      "rating_count": 260269,
       "rating_star_count": 4,
       "type": "movie"
     },
@@ -958,7 +913,7 @@
         "107分钟"
       ],
       "release_windows": [],
-      "rating_count": 241459,
+      "rating_count": 241497,
       "rating_star_count": 4.5,
       "type": "movie"
     },
@@ -1092,14 +1047,14 @@
         "英国"
       ],
       "languages": [
-        "无对白"
+        "英语"
       ],
       "aka": [
         "小羊肖恩3：青苔农场的怪兽",
         "小羊肖恩：苔藓谷的野兽",
         "超级无敌羊咩咩大电影之怪兽农场(港)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt36841161",
       "poster_path": "posters/douban/movie_cn/37344902.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37344902/",
@@ -1116,7 +1071,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1477104,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1477104"
     },
     {
       "id": 37322586,
@@ -1232,7 +1189,7 @@
         "92分钟"
       ],
       "release_windows": [],
-      "rating_count": 5511,
+      "rating_count": 5476,
       "rating_star_count": 4.5,
       "type": "movie"
     },
@@ -1284,31 +1241,31 @@
         },
         {
           "id": 6,
-          "name": "祖峰"
-        },
-        {
-          "id": 7,
-          "name": "汪海林"
-        },
-        {
-          "id": 8,
           "name": "薛元清"
         },
         {
-          "id": 9,
+          "id": 7,
           "name": "王学东"
         },
         {
-          "id": 10,
+          "id": 8,
           "name": "李允傲"
         },
         {
-          "id": 11,
+          "id": 9,
           "name": "王一舟"
         },
         {
+          "id": 10,
+          "name": "祖峰"
+        },
+        {
+          "id": 11,
+          "name": "汪海林"
+        },
+        {
           "id": 12,
-          "name": "马可"
+          "name": "师悦玲"
         },
         {
           "id": 13,
@@ -1316,23 +1273,23 @@
         },
         {
           "id": 14,
-          "name": "向元"
+          "name": "白翊汝"
         },
         {
           "id": 15,
-          "name": "谭凯"
-        },
-        {
-          "id": 16,
-          "name": "李煜"
-        },
-        {
-          "id": 17,
           "name": "耿一正"
         },
         {
+          "id": 16,
+          "name": "马可"
+        },
+        {
+          "id": 17,
+          "name": "谭凯"
+        },
+        {
           "id": 18,
-          "name": "师悦玲"
+          "name": "李煜"
         },
         {
           "id": 19,
@@ -1341,42 +1298,6 @@
         {
           "id": 20,
           "name": "张倩如"
-        },
-        {
-          "id": 21,
-          "name": "白翊汝"
-        },
-        {
-          "id": 22,
-          "name": "周宁嘉"
-        },
-        {
-          "id": 23,
-          "name": "刘子铭"
-        },
-        {
-          "id": 24,
-          "name": "生港帅"
-        },
-        {
-          "id": 25,
-          "name": "马印民"
-        },
-        {
-          "id": 26,
-          "name": "吴金鑫"
-        },
-        {
-          "id": 27,
-          "name": "李玲"
-        },
-        {
-          "id": 28,
-          "name": "叶祥德"
-        },
-        {
-          "id": 29,
-          "name": "周漾"
         }
       ],
       "countries": [
@@ -1400,7 +1321,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1726805,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1726805"
     },
     {
       "id": 37509917,
@@ -1436,7 +1359,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37509917/",
       "douban_link_verified": true,
-      "overview": "三星堆青铜器中，暗藏着不属于那个时代的二进制密码。三千年后，超级AI席卷世界，人类心甘情愿把每一个决定交给算法，把每一个未来交给算力，引发了全球性灾难。一个潦倒的考古学者发现，三星堆青铜器上的铭文，正是破解未来危机的密钥。那个密钥的内容只有七个三星堆字符，古蜀人用文明的消失换来了未来启示录。 三千年后的人类，还来得及听吗？",
+      "overview": "三星堆青铜器中，暗藏着不属于那个时代的二进制密码。三千年后，超级AI席卷世界,人类心甘情感把每一个决定交给算法，把每一个未来交给算力，引发了全球性灾雄。一个潦倒的考古学者发现，三星堆青铜器上的铭文，正是破解未来危机的密钥。那个密钥的内容只有七个三星堆字符，古蜀人用文明的消失换来了未来启示录。三千年后的人类，还来得及听吗？",
       "durations": [
         "100分钟"
       ],
@@ -1444,6 +1367,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1782347,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1782347",
       "trailers": [
         {
           "source": "bilibili",
@@ -1499,6 +1424,64 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1732799"
     },
     {
+      "id": 37474012,
+      "title": "勇敢女孩合唱团",
+      "original_title": "勇敢女孩合唱团",
+      "release_date": "2026-10-20",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "儿童"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "邵兵"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "王砚辉"
+        },
+        {
+          "id": 2,
+          "name": "李浩菲"
+        },
+        {
+          "id": 3,
+          "name": "徐越"
+        }
+      ],
+      "countries": [
+        "China"
+      ],
+      "languages": [
+        "zh"
+      ],
+      "aka": [],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/37474012.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/37474012/",
+      "douban_link_verified": true,
+      "overview": "　　本片以贵州黔东南苗侗村寨为背景，讲述驻村书记周勤知与支教老师冯吉成立助学联盟，周勤知负责修路架桥，冯吉成立合唱团来激发女孩们的自信心和勇气，双管齐下解决孩子们上学难的问题。然而，修路工程因须砍伐苗寨“生命树林”而遭寨民抵制，合唱团参赛之路亦受阻。冯吉组织线上家长会，告诉众人孩子们才是真正的生命延续。最终勇敢女孩合唱团登上省城舞台，两年后，大桥贯通杜柳江，少女们飞奔过桥奔向未来。",
+      "durations": [
+        "92分钟"
+      ],
+      "release_windows": [],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1740363,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1740363"
+    },
+    {
       "id": 37497419,
       "title": "武汉任务",
       "original_title": "武汉任务",
@@ -1539,25 +1522,13 @@
         {
           "id": 3,
           "name": "吕晨"
-        },
-        {
-          "id": 4,
-          "name": "邵峰"
-        },
-        {
-          "id": 5,
-          "name": "张春年"
-        },
-        {
-          "id": 6,
-          "name": "唐意然"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "武汉1938",
@@ -1575,7 +1546,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1801310,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1801310"
     },
     {
       "id": 36806762,
@@ -1663,7 +1636,7 @@
         "鲸狱逃生(港)",
         "逃出鲸吞(台)"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt28535715",
       "poster_path": "posters/douban/movie_cn/36806762.jpg",
       "douban_rating": "6.2",
       "douban_link_google": "https://movie.douban.com/subject/36806762/",
@@ -1673,9 +1646,11 @@
         "106分钟"
       ],
       "release_windows": [],
-      "rating_count": 4759,
+      "rating_count": 5030,
       "rating_star_count": 3,
       "type": "movie",
+      "tmdb_id": 1255833,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1255833",
       "trailers": [
         {
           "source": "bilibili",
@@ -1687,6 +1662,68 @@
           "publishedAt": "2026-07-07T13:20:23.000Z"
         }
       ]
+    },
+    {
+      "id": 37516455,
+      "title": "杯雪·一战成名",
+      "original_title": "杯雪·一战成名",
+      "release_date": "2026-10-16",
+      "genres": [
+        {
+          "id": 1,
+          "name": "犯罪"
+        },
+        {
+          "id": 2,
+          "name": "武侠"
+        },
+        {
+          "id": 3,
+          "name": "古装"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "刘文普"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "潘斌龙"
+        },
+        {
+          "id": 2,
+          "name": "安志杰"
+        },
+        {
+          "id": 3,
+          "name": "奚望"
+        }
+      ],
+      "countries": [
+        "China"
+      ],
+      "languages": [
+        "zh"
+      ],
+      "aka": [],
+      "imdb_id": "tt39602636",
+      "poster_path": "posters/douban/movie_cn/37516455.jpg",
+      "douban_rating": "7.4",
+      "douban_link_google": "https://movie.douban.com/subject/37516455/",
+      "douban_link_verified": true,
+      "overview": "时秦桧把持朝堂，操控麾下缇骑四处镇压抗金义军。数月前，金使等四十一人命丧七里铺，江湖传言，痛下杀手者正是唯一幸存的文官沈放。二统领袁寒亭、“耕耘四郎”等缇骑精锐奉命缉凶，下落不明的二十八万两涉案白银也引来不少江湖人士。谁料各路人马齐聚驿站，竟无一人拿下沈放，更有不少高手接连横死。沈放却哭诉自己手无缚鸡之力，命案全系一名少年剑客所为。江湖人士与缇骑因而互相猜忌陷入厮杀，方才警觉一切似有人刻意设局……",
+      "durations": [
+        "97分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 5627,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1563627,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1563627"
     },
     {
       "id": 37388212,
@@ -1786,7 +1823,7 @@
         "Short Summer in Lhasa",
         "Linka Linka"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38574217",
       "poster_path": "posters/douban/movie_cn/36449264.jpg",
       "douban_rating": "7.2",
       "douban_link_google": "https://movie.douban.com/subject/36449264/",
@@ -1796,9 +1833,11 @@
         "100分钟"
       ],
       "release_windows": [],
-      "rating_count": 2562,
+      "rating_count": 2706,
       "rating_star_count": 3.5,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1308545,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1308545"
     },
     {
       "id": 36885557,
@@ -1913,9 +1952,9 @@
         "火柴盒",
         "Matchbox‎"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt28498219",
       "poster_path": "posters/douban/movie_cn/36885557.jpg",
-      "douban_rating": "6.2",
+      "douban_rating": "6.1",
       "douban_link_google": "https://movie.douban.com/subject/36885557/",
       "douban_link_verified": true,
       "overview": "影片讲述了一群从小一起长大的朋友，在他们多年未见的昔日领袖——中情局卧底特工肖恩（约翰·塞纳 饰）回到他们的小镇后，他们的生活发生了翻天覆地的变化，肖恩无意中将他们卷入了一场拯救世界的疯狂国际追逐之中。",
@@ -1923,9 +1962,11 @@
         "126分钟"
       ],
       "release_windows": [],
-      "rating_count": 1358,
+      "rating_count": 1711,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1148365,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1148365"
     },
     {
       "id": 36749187,
@@ -2029,7 +2070,7 @@
         "动物",
         "兽"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt31049299",
       "poster_path": "posters/douban/movie_cn/36749187.jpg",
       "douban_rating": "5.9",
       "douban_link_google": "https://movie.douban.com/subject/36749187/",
@@ -2039,9 +2080,11 @@
         "106分钟"
       ],
       "release_windows": [],
-      "rating_count": 2285,
+      "rating_count": 2793,
       "rating_star_count": 3,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1236045,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1236045"
     },
     {
       "id": 37068446,
@@ -2161,7 +2204,7 @@
         "Resident Evil 0",
         "Resident Evil: The Umbrella Chronicles‎"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt35538033",
       "poster_path": "posters/douban/movie_cn/37068446.jpg",
       "douban_rating": "7.3",
       "douban_link_google": "https://movie.douban.com/subject/37068446/",
@@ -2176,9 +2219,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 93620,
+      "rating_count": 82898,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1423191,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1423191",
       "trailers": [
         {
           "source": "bilibili",
@@ -2297,7 +2342,7 @@
       "aka": [
         "Go for Broke 2"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt41558341",
       "poster_path": "posters/douban/movie_cn/37403222.jpg",
       "douban_rating": "6.7",
       "douban_link_google": "https://movie.douban.com/subject/37403222/",
@@ -2312,9 +2357,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 13275,
+      "rating_count": 13616,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1503023,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1503023",
       "trailers": [
         {
           "source": "bilibili",
@@ -2499,7 +2546,7 @@
         "Sherlock of China",
         "Traces of Justice"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38188218",
       "poster_path": "posters/douban/movie_cn/37247814.jpg",
       "douban_rating": "6.8",
       "douban_link_google": "https://movie.douban.com/subject/37247814/",
@@ -2514,9 +2561,11 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 74761,
+      "rating_count": 77506,
       "rating_star_count": 3.5,
       "type": "movie",
+      "tmdb_id": 1439171,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1439171",
       "trailers": [
         {
           "source": "bilibili",
@@ -2535,172 +2584,6 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1HKec6oE19&page=1&qn=64&high_quality=1",
           "cover": "http://i0.hdslb.com/bfs/archive/7851d82cd5cfb20ee84c5e8ba1ecf95de8ae82c9.jpg",
           "publishedAt": "2026-09-16T02:49:57.000Z"
-        }
-      ]
-    },
-    {
-      "id": 37667015,
-      "title": "什么意思夫妇",
-      "original_title": "什么意思夫妇",
-      "release_date": "2026-10-01",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        },
-        {
-          "id": 2,
-          "name": "家庭"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "沈春阳"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "小沈阳"
-        },
-        {
-          "id": 2,
-          "name": "沈春阳"
-        },
-        {
-          "id": 3,
-          "name": "贾冰"
-        },
-        {
-          "id": 4,
-          "name": "于洋"
-        },
-        {
-          "id": 5,
-          "name": "魏翔"
-        },
-        {
-          "id": 6,
-          "name": "梁龙"
-        },
-        {
-          "id": 7,
-          "name": "许君聪"
-        },
-        {
-          "id": 8,
-          "name": "王丽云"
-        },
-        {
-          "id": 9,
-          "name": "句号"
-        },
-        {
-          "id": 10,
-          "name": "刘流"
-        },
-        {
-          "id": 11,
-          "name": "金玫玫"
-        },
-        {
-          "id": 12,
-          "name": "李晨"
-        },
-        {
-          "id": 13,
-          "name": "艾丽娅"
-        },
-        {
-          "id": 14,
-          "name": "胡明"
-        },
-        {
-          "id": 15,
-          "name": "韩云云"
-        },
-        {
-          "id": 16,
-          "name": "蒋诗萌"
-        },
-        {
-          "id": 17,
-          "name": "张小婉"
-        },
-        {
-          "id": 18,
-          "name": "徐志胜"
-        },
-        {
-          "id": 19,
-          "name": "詹鑫"
-        },
-        {
-          "id": 20,
-          "name": "大兵"
-        },
-        {
-          "id": 21,
-          "name": "李飞"
-        },
-        {
-          "id": 22,
-          "name": "田野"
-        },
-        {
-          "id": 23,
-          "name": "徐艺真"
-        },
-        {
-          "id": 24,
-          "name": "柯达"
-        },
-        {
-          "id": 25,
-          "name": "曹瑞"
-        },
-        {
-          "id": 26,
-          "name": "王子铭"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "Mr. & Mrs. Pardon"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/37667015.jpg",
-      "douban_rating": "6.4",
-      "douban_link_google": "https://movie.douban.com/subject/37667015/",
-      "douban_link_verified": true,
-      "overview": "同在一个屋檐下，日子却过得没滋没味。沈默（小沈阳 饰）和尤天意（沈春阳 饰）这对老夫老妻，究竟是怎么硬生生把N年婚姻，熬成了“对抗路”上的极限拉扯？！！！\n章盖了！表填了！离婚申请递交了！曾经的感情耗成了寡淡的白开水，沟通基本靠吼，相处不得不苟，一把同花顺眼看要打成稀巴烂，不如痛痛快快各自清闲。\n前脚刚要潇洒转头，谁料后脚一场奇葩意外猝不及防地兜头砸下，硬生生把两人又给原地“焊死”！\n乏善可陈的日子突然脱了轨，啼笑皆非的状况接踵而来，两人被迫在这场荒诞闹剧中重新审视彼此，也再次爆发出那句经典的灵魂拷问：“你到底什么意思？”“我没什么意思！”——这场离谱的遭遇，究竟能不能让这段婚姻焕发出点儿新“意思”……",
-      "durations": [
-        "106分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "national_day",
-          "label": "国庆档"
-        }
-      ],
-      "rating_count": 15872,
-      "rating_star_count": 3,
-      "type": "movie",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "小沈阳夫妻自导自演！2026喜剧片《什么意思夫妇》首曝预告，定档10.01",
-          "bvid": "BV1pZeT6jEri",
-          "url": "https://www.bilibili.com/video/BV1pZeT6jEri",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1pZeT6jEri&page=1&qn=64&high_quality=1",
-          "cover": "http://i2.hdslb.com/bfs/archive/dad9b16abcd35ce3ccd7b5588117a31048981298.jpg",
-          "publishedAt": "2026-09-17T05:17:10.000Z"
         }
       ]
     }
