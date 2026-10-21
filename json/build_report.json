@@ -1,16 +1,12 @@
 {
   "metadata": {
-    "started_at": "2026-10-20T18:11:23.534Z",
-    "mode": "full",
+    "started_at": "2026-10-21T12:10:47.507Z",
+    "mode": "partial",
     "category_ids": [
       "tv_cn",
-      "tv_kr",
-      "tv_jp",
-      "movie_cn",
-      "tv_cn_variety",
-      "tv_us"
+      "movie_cn"
     ],
-    "tmdb_enabled": true,
+    "tmdb_enabled": false,
     "douban_subject_cache_ttl_days": 14,
     "douban_search_cache_ttl_days": 30,
     "douban_search_query_limit": 1
@@ -25,9 +21,9 @@
       "source_collections": [
         {
           "slug": "movie_showing",
-          "raw_count": 50,
-          "included_count": 50,
-          "normalized_count": 50
+          "raw_count": 27,
+          "included_count": 27,
+          "normalized_count": 27
         },
         {
           "slug": "movie_soon",
@@ -43,35 +39,19 @@
         }
       ],
       "counts": {
-        "douban_after_date_filter": 254,
-        "douban_after_signature_dedupe": 248,
-        "tmdb": 308,
-        "merged_candidates": 459,
-        "merged_after_signature_dedupe": 413,
-        "merged_after_name_year_dedupe": 413,
+        "douban_after_date_filter": 239,
+        "douban_after_signature_dedupe": 234,
+        "tmdb": 0,
+        "merged_candidates": 234,
+        "merged_after_signature_dedupe": 234,
+        "merged_after_name_year_dedupe": 234,
         "complete": 825,
         "latest": 24
       },
       "fallback_summary": {
-        "total": 189,
-        "byStatus": [
-          [
-            "400",
-            189
-          ]
-        ],
-        "sampleIds": [
-          "36083358",
-          "36424371",
-          "38184963",
-          "36953638",
-          "37516455",
-          "37014492",
-          "37315516",
-          "36473007",
-          "37365064",
-          "37316918"
-        ]
+        "total": 0,
+        "byStatus": [],
+        "sampleIds": []
       },
       "quality": {
         "total_items": 825,
@@ -117,17 +97,17 @@
         {
           "slug": "tv_real_time_hotest",
           "raw_count": 10,
-          "included_count": 9,
-          "normalized_count": 9
+          "included_count": 8,
+          "normalized_count": 8
         }
       ],
       "counts": {
-        "douban_after_date_filter": 106,
+        "douban_after_date_filter": 105,
         "douban_after_signature_dedupe": 57,
-        "tmdb": 211,
-        "merged_candidates": 268,
-        "merged_after_signature_dedupe": 256,
-        "merged_after_name_year_dedupe": 256,
+        "tmdb": 0,
+        "merged_candidates": 57,
+        "merged_after_signature_dedupe": 57,
+        "merged_after_name_year_dedupe": 57,
         "complete": 364,
         "latest": 24
       },
@@ -381,15 +361,15 @@
     "last_updated": "2026-10-20T18:14:57.360Z"
   },
   "douban_subject_cache": {
-    "hits": 268,
-    "misses": 194,
-    "stale": 28,
+    "hits": 269,
+    "misses": 0,
+    "stale": 77,
     "invalid": 0,
-    "writes": 13,
-    "errors": 209,
-    "staleFallbacks": 20,
-    "total_reads": 490,
-    "hit_rate": 0.5469,
+    "writes": 41,
+    "errors": 36,
+    "staleFallbacks": 36,
+    "total_reads": 346,
+    "hit_rate": 0.7775,
     "cache_dir": ".cache/douban/subjects"
   },
   "douban_search_cache": {
@@ -404,7 +384,7 @@
     "hit_rate": 0,
     "cache_dir": ".cache/douban/search"
   },
-  "completed_at": "2026-10-20T18:16:19.746Z",
+  "completed_at": "2026-10-21T12:11:29.943Z",
   "box_office": {
     "last_updated": "2026-08-12T14:50:20.877Z",
     "source": "maoyan",
@@ -431,12 +411,13 @@
   },
   "schema_version": 2,
   "latest_run": {
-    "task": "tv-status",
+    "task": "trailers",
     "status": "success",
-    "started_at": "2026-10-20T22:01:28.873511+00:00",
-    "completed_at": "2026-10-20T22:01:28.873511+00:00",
+    "started_at": "2026-10-21T12:10:47.507Z",
+    "completed_at": "2026-10-21T12:11:29.943Z",
     "category_ids": [
-      "tv_cn"
+      "tv_cn",
+      "movie_cn"
     ],
     "tmdb_enabled": false
   },
@@ -460,8 +441,8 @@
     },
     "trailers": {
       "status": "success",
-      "last_run_at": "2026-10-20T12:11:41.112Z",
-      "last_success_at": "2026-10-20T12:11:41.112Z"
+      "last_run_at": "2026-10-21T12:11:29.943Z",
+      "last_success_at": "2026-10-21T12:11:29.943Z"
     },
     "tv-status": {
       "status": "success",
