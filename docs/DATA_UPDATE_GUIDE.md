@@ -208,7 +208,7 @@ npm run check:data
 - `vercel.json`：Vercel 仓库集成监听 `main` push，执行 `npm run build:site` 并以 `.site/` 作为输出目录
 - `.site/`：只包含 HTML、CSS、JS、JSON、海报和 favicon
 
-部署只有 Vercel 仓库集成一条链路：`deploy-pages.yml` 已在迁移到 Vercel 时移除，仓库内没有其他部署工作流，也不监听每日工作流的 `workflow_run`，避免同一提交重复部署。
+部署由 Vercel 仓库集成单独完成：仓库内没有其他部署工作流（`deploy-pages.yml` 不存在），也不监听每日工作流的 `workflow_run`，避免同一提交重复部署。
 
 ## 7. 故障处理
 
@@ -216,4 +216,4 @@ npm run check:data
 - 数据下降门禁：先核对上游和 diff，不要直接使用 override
 - 豆瓣浏览器失败：检查 BrowserSkill daemon、扩展连接和登录态
 - B 站 412/429：保留旧缓存，不要删除正式 JSON；本机 7890 代理已于 2026-10-15 退役，无需检查代理（直连取数失败时 fetch 层回退缓存）
-- push 失败：按本机共享重试策略重试；远端已推进（Actions 竞态）时自动重新对齐、下次运行重发；网络类失败保留本地 commit 供下次运行接续
+- push 失败：按本机共享重试策略重试；远端已推进（Actions 竞态）时自动与远端保持一致，下次运行重发；网络类失败保留本地 commit 供下次运行接续

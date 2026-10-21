@@ -53,16 +53,14 @@ python3 -m pip install -r scripts/automation/requirements.txt
 
 项目用原生 ES Modules，没有后端，也没有运行时 npm 依赖。数据先生成、验证，再由静态页面读取：
 
-```text
-TMDB / 豆瓣 / 猫眼 / Bilibili
-            ↓
-scripts/automation/run_update.py
-            ↓
-临时目录生成 → 数据门禁 → 原子提升
-            ↓
-       json/ + posters/
-            ↓
-       静态页面 / Vercel
+```mermaid
+flowchart TB
+  SRC["TMDB / 豆瓣 / 猫眼 / Bilibili"]
+  RUN["scripts/automation/run_update.py"]
+  PIPE["临时目录生成 → 数据门禁 → 原子提升"]
+  DATA["json/ + posters/"]
+  PAGE["静态页面 / Vercel"]
+  SRC --> RUN --> PIPE --> DATA --> PAGE
 ```
 
 首屏先加载当前分类的 `latest.json`，后台再用 `complete.json` 补全；切换分类时按需加载并缓存。豆瓣收藏状态并行请求，失败不会阻塞片单。院线电影优先使用完整数据。
