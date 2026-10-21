@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "last_updated": "2026-10-21T12:11:24.363Z",
+    "last_updated": "2026-10-21T18:20:27.720Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-21T12:11:24.363Z",
-        "summary": "已同步国产剧数据（latest）：24 条"
+        "time": "2026-10-21T18:20:27.720Z",
+        "summary": "已同步国产剧数据（latest）：25 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "tv_domestic",
@@ -19,36 +19,42 @@
       {
         "slug": "tv_hot",
         "source": "douban",
-        "count": 55,
+        "count": 57,
         "fetch_error": null
       },
       {
         "slug": "tv_real_time_hotest",
         "source": "douban",
-        "count": 8,
+        "count": 7,
+        "fetch_error": null
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 212,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_229864363",
         "source": "bilibili",
         "count": 0,
-        "fetch_error": "请求过于频繁，请稍后再试"
+        "fetch_error": "Bilibili trailer request failed (412)"
       },
       {
         "slug": "bilibili_search_from_catalog",
         "source": "bilibili",
-        "count": 5,
+        "count": 6,
         "fetch_error": null
       }
     ],
-    "total_items": 24
+    "total_items": 25
   },
   "shows": [
     {
       "id": 35861007,
       "name": "尚公主",
       "original_name": "尚公主",
-      "imdb_id": null,
+      "imdb_id": "tt35324004",
       "genres": [
         {
           "id": 1,
@@ -63,7 +69,14 @@
           "name": "古装"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -206,11 +219,11 @@
       "first_air_date": "2026-10-23",
       "last_air_date": "2026-10-23",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35861007.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/ccG6WAuf2XBC808HFaeIjvk2hXW.jpg",
       "overview": "该剧改编自伊人睽睽的同名小说。讲述了不甘命运的天家嫡女暮晚摇与智谋无双的寒门才俊言尚携手共筑清平天下的故事，在层层爽点中打造极致人设，看乱世惊涛中少年人们搅动风云，奔赴理想。",
       "rating_count": null,
       "rating_star_count": null,
@@ -229,6 +242,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 286171,
+      "tmdbUrl": "https://www.themoviedb.org/tv/286171",
+      "vote_average": 0,
+      "vote_count": 0,
       "trailers": [
         {
           "source": "bilibili",
@@ -245,14 +262,20 @@
       "id": 36675942,
       "name": "小城良方",
       "original_name": "小城良方",
-      "imdb_id": null,
+      "imdb_id": "tt38715296",
       "genres": [
         {
           "id": 1,
           "name": "剧情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 1,
+          "name": "爱奇艺",
+          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -315,6 +338,18 @@
         {
           "id": 14,
           "name": "陈永胜"
+        },
+        {
+          "id": 15,
+          "name": "马凡丁"
+        },
+        {
+          "id": 16,
+          "name": "曲哲明"
+        },
+        {
+          "id": 17,
+          "name": "张百乔"
         }
       ],
       "countries": [
@@ -333,12 +368,12 @@
       "number_of_episodes": 29,
       "first_air_date": "2026-10-21",
       "last_air_date": "2026-10-21",
-      "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "in_production": true,
+      "status": "更新至4集",
+      "episodes_info": "更新至4集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36675942.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/nhQKKALP3SOi1Ft5MZU6KU05VcY.jpg",
       "overview": "该剧讲述了当天才医生刘铮亮（肖战饰）遭遇人生滑铁卢，被迫返回家乡从零开始的故事。他就地集结一群“不靠谱”的人，热血操刀着“最靠谱”的事，在烟火气中以人情暖意编织市井日常，开出一剂剂疗愈心灵的人生处方。\n该剧改编自刘三叔所著小说《飞刀》。",
       "rating_count": null,
       "rating_star_count": null,
@@ -357,6 +392,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 285625,
+      "tmdbUrl": "https://www.themoviedb.org/tv/285625",
+      "vote_average": 9,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -377,6 +416,104 @@
           "publishedAt": "2026-09-23T05:18:31.000Z"
         }
       ]
+    },
+    {
+      "id": 26985954,
+      "name": "莫语者",
+      "original_name": "莫语者",
+      "imdb_id": null,
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "悬疑"
+        },
+        {
+          "id": 3,
+          "name": "战争"
+        }
+      ],
+      "networks": [
+        {
+          "id": 1,
+          "name": "腾讯视频",
+          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "林峰"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "黎明"
+        },
+        {
+          "id": 2,
+          "name": "张丰毅"
+        },
+        {
+          "id": 3,
+          "name": "杨玏"
+        },
+        {
+          "id": 4,
+          "name": "李凯馨"
+        },
+        {
+          "id": 5,
+          "name": "郑罗茜"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "非常营救"
+      ],
+      "homepage": null,
+      "popularity": null,
+      "number_of_seasons": 1,
+      "number_of_episodes": 32,
+      "first_air_date": "2026-10-21",
+      "last_air_date": "2026-10-21",
+      "in_production": true,
+      "status": "更新至6集",
+      "episodes_info": "更新至6集",
+      "adult": false,
+      "poster_path": "posters/douban/tv_cn/26985954.jpg",
+      "backdrop_path": "/jTTMA5mv5weV3LJfY1gg14gLdJA.jpg",
+      "overview": "如果说《战狼2》中的冷锋是打不倒的孤胆英雄，那《莫语者》则是真实存在的守护者。\n为了查明妻女身亡的幕后真相，拥有顶级警护能力的卫天放弃了身份，在事发地安提洛卡里斯创立了面向一带一路经济区企业和民众提供安保服务的「莫语者事务所」。卫天与中安集团总裁项平生有过命交情，却与其子项来性格相冲。中安集团和莫语者各自为战，却都有着强烈的人类命运共同体意识，在一带一路经济区以各自的方式捍卫着华人的海外安全。莫语者与中安集团多次联手，粉碎黑心制药公司的阴谋、为中国支非的高铁项目提供安全保障、多次解决恐怖分子在一带一路经济区制造的安全危机。\n卫天在一次行动中救下柏拉图国际酒店的副经理安达，两人在保护与被保护中走到一起。莫语者团队的沙兰、曲胜利、叶婉也在一次次任务中与各自的过往经历和解。最终，莫语者在卫天的带领下加入中安，成功保卫了一带一路经济区上的企业和民众安全。",
+      "rating_count": null,
+      "rating_star_count": null,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 26985954,
+          "air_date": "2026-10-21",
+          "episode_count": 32,
+          "vote_average": 0,
+          "poster_path": "posters/douban/tv_cn/26985954.jpg",
+          "douban_rating": null,
+          "douban_link_google": "https://movie.douban.com/subject/26985954/",
+          "overview": "如果说《战狼2》中的冷锋是打不倒的孤胆英雄，那《莫语者》则是真实存在的守护者。\n为了查明妻女身亡的幕后真相，拥有顶级警护能力的卫天放弃了身份，在事发地安提洛卡里斯创立了面向一带一路经济区企业和民众提供安保服务的「莫语者事务所」。卫天与中安集团总裁项平生有过命交情，却与其子项来性格相冲。中安集团和莫语者各自为战，却都有着强烈的人类命运共同体意识，在一带一路经济区以各自的方式捍卫着华人的海外安全。莫语者与中安集团多次联手，粉碎黑心制药公司的阴谋、为中国支非的高铁项目提供安全保障、多次解决恐怖分子在一带一路经济区制造的安全危机。\n卫天在一次行动中救下柏拉图国际酒店的副经理安达，两人在保护与被保护中走到一起。莫语者团队的沙兰、曲胜利、叶婉也在一次次任务中与各自的过往经历和解。最终，莫语者在卫天的带领下加入中安，成功保卫了一带一路经济区上的企业和民众安全。",
+          "douban_link_verified": true
+        }
+      ],
+      "tmdb_id": 339342,
+      "tmdbUrl": "https://www.themoviedb.org/tv/339342",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 37463721,
@@ -454,7 +591,7 @@
       "id": 37042229,
       "name": "醉梦",
       "original_name": "醉梦",
-      "imdb_id": null,
+      "imdb_id": "tt35288698",
       "genres": [
         {
           "id": 1,
@@ -584,11 +721,11 @@
       "first_air_date": "2026-10-16",
       "last_air_date": "2026-10-16",
       "in_production": true,
-      "status": "更新至12集",
-      "episodes_info": "更新至12集",
+      "status": "更新至13集",
+      "episodes_info": "更新至13集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37042229.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/trLfT9JbejqH6eQYbDwzcIVYUFG.jpg",
       "overview": "多年前，记者沈乐水用摄像机记录了老松江啤酒厂的厂工生活，这里的故事，像一杯久藏的啤酒, 酝酿着复杂的情感，也氤氲着一个名叫刘雪梅的女人的死亡之谜。啤酒厂曾是这座城市的骄傲，没落多年后，却成为众多命案的舞台。刘雪梅的生与死，紧密缠绕在一个被野心和贪婪驱使的阴谋之中。每一个人都如同棋子，被无情地操纵和牺牲。真相总是隐藏在最不起眼的角落。一个潜伏多年的幽灵，策划着一场血色的复仇 。他的怒火和绝望，化作连环杀人案的阴影，笼罩着松江。命运的轮回终于在一起突如其来又似乎源自宿命的意外中到达终点。沈乐水也再次扛起摄像机，记录下这其中跨越了时间的人性挣扎。",
       "rating_count": null,
       "rating_star_count": null,
@@ -607,6 +744,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 279923,
+      "tmdbUrl": "https://www.themoviedb.org/tv/279923",
+      "vote_average": 6,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -623,7 +764,7 @@
       "id": 37191789,
       "name": "嫁金钗",
       "original_name": "嫁金钗",
-      "imdb_id": null,
+      "imdb_id": "tt42576855",
       "genres": [
         {
           "id": 1,
@@ -779,11 +920,11 @@
       "first_air_date": "2026-10-16",
       "last_air_date": "2026-10-16",
       "in_production": true,
-      "status": "更新至12集",
-      "episodes_info": "更新至12集",
+      "status": "更新至14集",
+      "episodes_info": "更新至14集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37191789.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/YndvGwqwroUDVltBWmnOuTvJke.jpg",
       "overview": "阿丑原是街上倒夜香的低贱少女，人人皆可践踏欺凌，只因一张酷似侯府千金魏娆的面容，意外成为国公府世子陆濯的冲喜新娘。阿丑野心勃勃，一心借机上位，然而濒死的新婚丈夫忽然苏醒，鸠占鹊巢引来连绵灾祸。魏娆（君黛）恨她鸠占鹊巢，急欲除之后快；陆濯以她为蛇蝎妇人，百般提防谋算。国公府明面一团和气，实则陷阱重重、步步杀机。阿丑稳扎稳打精心谋划，手段百出获得丈夫痴爱，更查出了自己身世的秘密，与至亲最终团圆，从底层夜香妇一路逆袭上位，过出光芒万丈的锦绣人生。",
       "rating_count": null,
       "rating_star_count": null,
@@ -802,6 +943,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 300146,
+      "tmdbUrl": "https://www.themoviedb.org/tv/300146",
+      "vote_average": 9,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -901,7 +1046,7 @@
       "id": 37307385,
       "name": "把黑夜点燃",
       "original_name": "把黑夜点燃",
-      "imdb_id": null,
+      "imdb_id": "tt36747190",
       "genres": [
         {
           "id": 1,
@@ -1015,7 +1160,7 @@
       "episodes_info": "12集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37307385.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/q48icceyDIuAZC9wL66ZEQF03oj.jpg",
       "overview": "1997年，在西南地区小城雾港，陈善一家生活在西南石油单位分配的单身楼里。父亲陈福是石油管道施工项目一把手，母亲张文英是石油设计院的设计骨干，还有一个在供应站档案室工作的姐姐陈英，一家人其乐融融，陈善也将沿着父辈的道路回归石油系统。可一场意外的管道燃气爆炸事故改变了所有人的轨迹，父亲陈福死在了这场事故中，母亲张文英在石油系统内部的斗争中成为牺牲品，陈善承受不了打击只身离家，去抢修队工作维持生计。\n2001年，西南石油系统乘上经济发展的高速列车，家家户户都过上了中产的日子。陈善成为施工队的一把手“善哥”，像行尸走肉般把自己困在了当年。而他遇到了同样一场意外爆炸案，当年派系斗争里落败的设计院院长耿剑也卷入其中，陈善决定沿着现在的线索，重新挖掘当年意外事故的隐情，没想到越来越多的人浮现出来。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1034,6 +1179,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 288328,
+      "tmdbUrl": "https://www.themoviedb.org/tv/288328",
+      "vote_average": 8.5,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -1235,7 +1384,9 @@
       "languages": [
         "汉语普通话"
       ],
-      "aka": [],
+      "aka": [
+        "好想大声说爱你"
+      ],
       "homepage": null,
       "popularity": null,
       "number_of_seasons": 1,
@@ -1243,11 +1394,11 @@
       "first_air_date": "2026-10-15",
       "last_air_date": "2026-10-15",
       "in_production": true,
-      "status": "更新至18集",
-      "episodes_info": "更新至18集",
+      "status": "更新至20集",
+      "episodes_info": "更新至20集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35512196.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/gjcNOvasUmYQfzx3iDY5GnKF5vh.jpg",
       "overview": "以元气励志少女“周想想”和禁欲系篮球大神“顾晗”浪漫专一的爱情故事为主线，辅以青春、热血、梦想等多重元素，讲述了周想想和顾晗由欢喜冤家进阶成为恋爱教材的高甜故事。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1265,7 +1416,11 @@
           "overview": "以元气励志少女“周想想”和禁欲系篮球大神“顾晗”浪漫专一的爱情故事为主线，辅以青春、热血、梦想等多重元素，讲述了周想想和顾晗由欢喜冤家进阶成为恋爱教材的高甜故事。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 283012,
+      "tmdbUrl": "https://www.themoviedb.org/tv/283012",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 36514822,
@@ -1371,8 +1526,8 @@
       "first_air_date": "2026-10-15",
       "last_air_date": "2026-10-15",
       "in_production": true,
-      "status": "更新至4集",
-      "episodes_info": "更新至4集",
+      "status": "更新至5集",
+      "episodes_info": "更新至5集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36514822.jpg",
       "backdrop_path": null,
@@ -1399,7 +1554,7 @@
       "id": 37070518,
       "name": "玉簟秋",
       "original_name": "玉簟秋",
-      "imdb_id": null,
+      "imdb_id": "tt37109705",
       "genres": [
         {
           "id": 1,
@@ -1410,7 +1565,20 @@
           "name": "爱情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 952,
+          "logo_path": "/zJQHSCwHcIGNQlHptJRZpUX88Ro.png",
+          "name": "Hunan Television",
+          "origin_country": "CN"
+        },
+        {
+          "id": 1631,
+          "logo_path": "/iE3rtBcUfWGiJosaZv2TroBxEZz.png",
+          "name": "Mango TV",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1491,11 +1659,11 @@
       "first_air_date": "2026-10-12",
       "last_air_date": "2026-10-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37070518.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/vD84yLJVVd7cC2lKF8sEukQG2A3.jpg",
       "overview": "该剧改编自灵希同名小说。民国乱世中，少帅虞昶轩（丞磊 饰）与女学生叶平君（徐若晗 饰）因一场邂逅深陷爱恨漩涡，彻底改写二人的人生轨迹。纵然身份悬殊、前路艰险，人仍毅然冲破一切阻隔，在战火与命运的洪流中坚定携手，沙场硝烟与儿女情长交织，将热血、信仰与挚爱，共同谱写成一段荡气回肠的传奇。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1513,20 +1681,31 @@
           "overview": "该剧改编自灵希同名小说。民国乱世中，少帅虞昶轩（丞磊 饰）与女学生叶平君（徐若晗 饰）因一场邂逅深陷爱恨漩涡，彻底改写二人的人生轨迹。纵然身份悬殊、前路艰险，人仍毅然冲破一切阻隔，在战火与命运的洪流中坚定携手，沙场硝烟与儿女情长交织，将热血、信仰与挚爱，共同谱写成一段荡气回肠的传奇。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 304452,
+      "tmdbUrl": "https://www.themoviedb.org/tv/304452",
+      "vote_average": 9,
+      "vote_count": 1
     },
     {
       "id": 37105547,
       "name": "璀璨之城",
       "original_name": "璀璨之城",
-      "imdb_id": null,
+      "imdb_id": "tt39443161",
       "genres": [
         {
           "id": 1,
           "name": "剧情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 48,
+          "logo_path": "/v78f4q6DYdRB8dLj4rQBpqQG8pW.png",
+          "name": "TVB Jade",
+          "origin_country": "HK"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -2057,11 +2236,11 @@
       "first_air_date": "2026-10-12",
       "last_air_date": "2026-10-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37105547.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/gDBjAOIfbcwZ8CvEB0LHf3fZDei.jpg",
       "overview": "尚利鋒集團主席官志琛在澳門雄霸一方，這商界巨人安排兩子官孝賢、官孝君，出任集團聯席行政總裁，平起平坐。孝賢一直視孝君為眼中釘，為瓦解孝君和其夫人王雪瑩的強大團夥，孝賢宣佈與香港檢控官洪海允成婚。海允與雪瑩本是閨密，出身於十月初五街，但雪瑩為嫁入豪門，奪去海允的情人孝君。孝賢就是要利用海允心中的仇恨，化成攻擊孝君夫婦的利器。在家族各人看似充滿機心的環境中，孝君卻堅守正義，奮力抵抗着孝賢的步步進逼……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2079,7 +2258,11 @@
           "overview": "尚利鋒集團主席官志琛在澳門雄霸一方，這商界巨人安排兩子官孝賢、官孝君，出任集團聯席行政總裁，平起平坐。孝賢一直視孝君為眼中釘，為瓦解孝君和其夫人王雪瑩的強大團夥，孝賢宣佈與香港檢控官洪海允成婚。海允與雪瑩本是閨密，出身於十月初五街，但雪瑩為嫁入豪門，奪去海允的情人孝君。孝賢就是要利用海允心中的仇恨，化成攻擊孝君夫婦的利器。在家族各人看似充滿機心的環境中，孝君卻堅守正義，奮力抵抗着孝賢的步步進逼……",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 295002,
+      "tmdbUrl": "https://www.themoviedb.org/tv/295002",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 37855113,
@@ -2161,7 +2344,7 @@
       "episodes_info": "更新至18集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37855113.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/cSXtj5CH4TR1At7Ce5NSqeSGiZO.jpg",
       "overview": "被养在深闺中备受伯父全家折磨的鹿家二小姐鹿鸣于（徐梦洁 饰）设计逃离了鹿家，却在逃跑过程中意外邂逅了来自香江的段家继承人段休冥（任世豪 饰）。鹿鸣于的聪明、智慧与美丽，深深吸引着段休冥，而从段休冥身上鹿鸣于也敏锐地感受到了自己反击伯父一家并完成复仇的机会。\n于是她临时改变计划，回到那个她一心想逃离的家，并将他一步步拉入自己的复仇计划中。然而在这过程中她逐渐发现，自己原本冰冷，只剩下仇恨的内心，却在慢慢相处中逐渐融化……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2179,13 +2362,17 @@
           "overview": "被养在深闺中备受伯父全家折磨的鹿家二小姐鹿鸣于（徐梦洁 饰）设计逃离了鹿家，却在逃跑过程中意外邂逅了来自香江的段家继承人段休冥（任世豪 饰）。鹿鸣于的聪明、智慧与美丽，深深吸引着段休冥，而从段休冥身上鹿鸣于也敏锐地感受到了自己反击伯父一家并完成复仇的机会。\n于是她临时改变计划，回到那个她一心想逃离的家，并将他一步步拉入自己的复仇计划中。然而在这过程中她逐渐发现，自己原本冰冷，只剩下仇恨的内心，却在慢慢相处中逐渐融化……",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 338103,
+      "tmdbUrl": "https://www.themoviedb.org/tv/338103",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 37296949,
       "name": "蒸蒸日上",
       "original_name": "蒸蒸日上",
-      "imdb_id": null,
+      "imdb_id": "tt37265860",
       "genres": [
         {
           "id": 1,
@@ -2470,7 +2657,7 @@
       "episodes_info": "22集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37296949.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/5tt435rcKQ32qtJpug4qrfG0rn.jpg",
       "overview": "烟火气十足的东北某城律师街上，为人侠气、幽默的女律师萧龙女在大众浴池楼上开了一家律师事务所。她曾在当地最高端的泓湖律所里工作，却因一起案件中的正义之举而离职，更与同事兼竹马的李信律师决裂。有着不同法律观的两人，一个扶摇直上成为泓湖最年轻的高伙，另一个则失去所有案源、沦落为律师街上的“笑话”。萧龙女身处低谷却坚韧乐观，与自愿跟随她的行政古苗苗、不打不相识的董北虎和法考钉子户罗智组成了一伙蒸蒸日上的“草台班子”，在大大小小的案件中与精英律师代表李信狭路相逢、展开较量，在法律和生活中都不断碰撞出激烈火花，各自的人生也因此迎来了新的成长和变化……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2489,6 +2676,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 289080,
+      "tmdbUrl": "https://www.themoviedb.org/tv/289080",
+      "vote_average": 7.8,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -2505,7 +2696,7 @@
       "id": 36962068,
       "name": "美人余",
       "original_name": "美人余",
-      "imdb_id": null,
+      "imdb_id": "tt37421560",
       "genres": [
         {
           "id": 1,
@@ -2601,7 +2792,7 @@
       "episodes_info": "28集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36962068.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/6Iha7gx0lTdrv6x7dECtjB8YnLA.jpg",
       "overview": "根据伊北同名小说改编，以当代都市为背景，两性关系作为切口，直戳现代社会“有性无爱，有爱无性”等真实情感和婚姻现状。",
       "rating_count": null,
       "rating_star_count": null,
@@ -2620,6 +2811,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 294446,
+      "tmdbUrl": "https://www.themoviedb.org/tv/294446",
+      "vote_average": 8,
+      "vote_count": 3,
       "trailers": [
         {
           "source": "bilibili",
@@ -2761,11 +2956,11 @@
       "first_air_date": "2026-10-09",
       "last_air_date": "2026-10-09",
       "in_production": true,
-      "status": "更新至20集",
-      "episodes_info": "更新至20集",
+      "status": "更新至22集",
+      "episodes_info": "更新至22集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36155236.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/8G0SQhC1zwKIRbgaxx4HTRakVpO.jpg",
       "overview": "该剧以全景式展现红军长征这一波澜壮阔的历史画卷，呈现一个个有血有肉有温度的革命故事，弘扬伟大的长征精神。\n1934年，日本帝国主义加紧了对中国的侵略，而蒋介石不顾民族危亡，坚持“攘外必先安内”的政策，发动了规模最大的第五次“围剿”。生死存亡之际，中国工农红军主力被迫实行战略性转移，撤离长江南北各苏区。平均年龄不到30岁的红军队伍犹如一条条红色铁流，经过11个省，翻越18座大 山，跨过24条大河，走过荒草地，翻过雪山，行程二万五千里。直到1936年10月红军三大主力会师，红军长征胜利结束。",
       "rating_count": null,
       "rating_star_count": null,
@@ -2783,13 +2978,17 @@
           "overview": "该剧以全景式展现红军长征这一波澜壮阔的历史画卷，呈现一个个有血有肉有温度的革命故事，弘扬伟大的长征精神。\n1934年，日本帝国主义加紧了对中国的侵略，而蒋介石不顾民族危亡，坚持“攘外必先安内”的政策，发动了规模最大的第五次“围剿”。生死存亡之际，中国工农红军主力被迫实行战略性转移，撤离长江南北各苏区。平均年龄不到30岁的红军队伍犹如一条条红色铁流，经过11个省，翻越18座大 山，跨过24条大河，走过荒草地，翻过雪山，行程二万五千里。直到1936年10月红军三大主力会师，红军长征胜利结束。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 297253,
+      "tmdbUrl": "https://www.themoviedb.org/tv/297253",
+      "vote_average": 9,
+      "vote_count": 1
     },
     {
       "id": 36466147,
       "name": "此处通往繁星",
       "original_name": "此处通往繁星",
-      "imdb_id": null,
+      "imdb_id": "tt37698065",
       "genres": [
         {
           "id": 1,
@@ -2861,7 +3060,7 @@
       "episodes_info": "10集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36466147.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/XcDzrrdVPJ59am4qgKMutHxU0g.jpg",
       "overview": "讲述了“殡二代”王灿大学毕业后在北京的“繁星”酒馆工作，在突逢朋友变故后，下定决心重回清凉山殡仪馆装殓班，与发小陈和煦、宋天爽、毛尔哲重逢成为同事。在逐渐融入团队参与殡葬工作和见证一次次告别，王灿逐渐理解职业价值，最终选择留守清凉山成为入殓师。",
       "rating_count": null,
       "rating_star_count": null,
@@ -2880,6 +3079,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 296203,
+      "tmdbUrl": "https://www.themoviedb.org/tv/296203",
+      "vote_average": 8,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -2896,7 +3099,7 @@
       "id": 36868927,
       "name": "喜剧之王",
       "original_name": "喜剧之王",
-      "imdb_id": null,
+      "imdb_id": "tt34923573",
       "genres": [
         {
           "id": 1,
@@ -2994,7 +3197,7 @@
       "episodes_info": "24集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36868927.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/9BhaeMG3jNvRC9FrdpHAeDtboPN.jpg",
       "overview": "该剧根据1999年周星驰同名电影《喜剧之王》改编。喜人团建，开启新生代喜剧与经典的碰撞。“冷饭热炒“，上演笑中有泪的“乡村商战”。",
       "rating_count": null,
       "rating_star_count": null,
@@ -3013,6 +3216,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 277910,
+      "tmdbUrl": "https://www.themoviedb.org/tv/277910",
+      "vote_average": 9,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -3217,7 +3424,7 @@
       "episodes_info": "27集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38521051.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/22RvOA9s4BFL0iStTZM0dfMvF13.jpg",
       "overview": "年轻律师付庭（苏小玎 饰）为追随业界权威大律师严同（王志飞 饰），需一个月内完成十三宗死刑案心理分析。在封闭房间中，他竟“穿越”进入案卷世界，亲历“犯罪现场”。最后一案指向严同母亲被害真相，付庭必须在现实与虚幻的交界处做出终极审判。",
       "rating_count": null,
       "rating_star_count": null,
@@ -3236,6 +3443,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 326382,
+      "tmdbUrl": "https://www.themoviedb.org/tv/326382",
+      "vote_average": 6,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -3388,7 +3599,7 @@
       "id": 36481657,
       "name": "魅影神捕",
       "original_name": "魅影神捕",
-      "imdb_id": null,
+      "imdb_id": "tt37357034",
       "genres": [
         {
           "id": 1,
@@ -3472,7 +3683,7 @@
       "episodes_info": "30集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36481657.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/Amn1fw4akG9jOZNTP1J4Xadry4T.jpg",
       "overview": "鸿运三十七年的大世王朝，即将迎来一场蓄谋已久的血雨腥风，傀儡秘术、长生魔罗、翅莹毒虫、镜花水月、形人之师相继现世，亡国离罗携此“五绝诡术”死灰复燃，制造出一桩桩惊骇迷案。幸皇权直属神捕司内以黎斯为首的一众神捕，为保山河无恙，民生安康，毅然拉开了与离罗余孽殊死斗争的大幕。",
       "rating_count": null,
       "rating_star_count": null,
@@ -3490,7 +3701,11 @@
           "overview": "鸿运三十七年的大世王朝，即将迎来一场蓄谋已久的血雨腥风，傀儡秘术、长生魔罗、翅莹毒虫、镜花水月、形人之师相继现世，亡国离罗携此“五绝诡术”死灰复燃，制造出一桩桩惊骇迷案。幸皇权直属神捕司内以黎斯为首的一众神捕，为保山河无恙，民生安康，毅然拉开了与离罗余孽殊死斗争的大幕。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 290699,
+      "tmdbUrl": "https://www.themoviedb.org/tv/290699",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 38535156,
@@ -3694,8 +3909,8 @@
       "first_air_date": "2026-10-01",
       "last_air_date": "2026-10-01",
       "in_production": true,
-      "status": "更新至44集",
-      "episodes_info": "更新至44集",
+      "status": "更新至46集",
+      "episodes_info": "更新至46集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38455948.jpg",
       "backdrop_path": null,
