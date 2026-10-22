@@ -1,14 +1,14 @@
 {
   "metadata": {
-    "last_updated": "2026-10-22T12:11:41.015Z",
+    "last_updated": "2026-10-22T18:13:58.020Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-22T12:11:41.015Z",
+        "time": "2026-10-22T18:13:58.020Z",
         "summary": "已同步国产剧数据（complete）：366 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "tv_domestic",
@@ -25,19 +25,25 @@
       {
         "slug": "tv_real_time_hotest",
         "source": "douban",
-        "count": 9,
+        "count": 8,
+        "fetch_error": null
+      },
+      {
+        "slug": "discover/tv",
+        "source": "tmdb",
+        "count": 212,
         "fetch_error": null
       },
       {
         "slug": "bilibili_up_229864363",
         "source": "bilibili",
         "count": 0,
-        "fetch_error": "Bilibili trailer request failed (412)"
+        "fetch_error": "请求过于频繁，请稍后再试"
       },
       {
         "slug": "bilibili_search_from_catalog",
         "source": "bilibili",
-        "count": 7,
+        "count": 6,
         "fetch_error": null
       }
     ],
@@ -48,7 +54,7 @@
       "id": 35861007,
       "name": "尚公主",
       "original_name": "尚公主",
-      "imdb_id": null,
+      "imdb_id": "tt35324004",
       "genres": [
         {
           "id": 1,
@@ -63,7 +69,14 @@
           "name": "古装"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -206,12 +219,12 @@
       "first_air_date": "2026-10-23",
       "last_air_date": "2026-10-23",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35861007.jpg",
-      "backdrop_path": null,
-      "overview": "不甘命运的天家嫡女暮晚摇与智谋无双的寒门才俊言尚在岭南相逢、于盛安入局，携手步步破局，共筑清平天下的故事。一群少年各怀心事、各有所求，在乱世惊涛中搅动风云，奔赴理想。\n该剧改编自伊人睽睽的同名小说。",
+      "backdrop_path": "/ccG6WAuf2XBC808HFaeIjvk2hXW.jpg",
+      "overview": "该剧改编自伊人睽睽的同名小说。讲述了不甘命运的天家嫡女暮晚摇与智谋无双的寒门才俊言尚携手共筑清平天下的故事，在层层爽点中打造极致人设，看乱世惊涛中少年人们搅动风云，奔赴理想。",
       "rating_count": null,
       "rating_star_count": null,
       "seasons": [
@@ -225,10 +238,14 @@
           "poster_path": "posters/douban/tv_cn/35861007.jpg",
           "douban_rating": null,
           "douban_link_google": "https://movie.douban.com/subject/35861007/",
-          "overview": "不甘命运的天家嫡女暮晚摇与智谋无双的寒门才俊言尚在岭南相逢、于盛安入局，携手步步破局，共筑清平天下的故事。一群少年各怀心事、各有所求，在乱世惊涛中搅动风云，奔赴理想。\n该剧改编自伊人睽睽的同名小说。",
+          "overview": "该剧改编自伊人睽睽的同名小说。讲述了不甘命运的天家嫡女暮晚摇与智谋无双的寒门才俊言尚携手共筑清平天下的故事，在层层爽点中打造极致人设，看乱世惊涛中少年人们搅动风云，奔赴理想。",
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 286171,
+      "tmdbUrl": "https://www.themoviedb.org/tv/286171",
+      "vote_average": 0,
+      "vote_count": 0,
       "trailers": [
         {
           "source": "bilibili",
@@ -245,7 +262,7 @@
       "id": 36675942,
       "name": "小城良方",
       "original_name": "小城良方",
-      "imdb_id": null,
+      "imdb_id": "tt38715296",
       "genres": [
         {
           "id": 1,
@@ -352,11 +369,11 @@
       "first_air_date": "2026-10-21",
       "last_air_date": "2026-10-21",
       "in_production": true,
-      "status": "更新至6集",
-      "episodes_info": "更新至6集",
+      "status": "更新至4集",
+      "episodes_info": "更新至4集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36675942.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/nhQKKALP3SOi1Ft5MZU6KU05VcY.jpg",
       "overview": "该剧讲述了当天才医生刘铮亮（肖战饰）遭遇人生滑铁卢，被迫返回家乡从零开始的故事。他就地集结一群“不靠谱”的人，热血操刀着“最靠谱”的事，在烟火气中以人情暖意编织市井日常，开出一剂剂疗愈心灵的人生处方。\n该剧改编自刘三叔所著小说《飞刀》。",
       "rating_count": null,
       "rating_star_count": null,
@@ -375,6 +392,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 285625,
+      "tmdbUrl": "https://www.themoviedb.org/tv/285625",
+      "vote_average": 9,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -466,11 +487,11 @@
       "first_air_date": "2026-10-21",
       "last_air_date": "2026-10-21",
       "in_production": true,
-      "status": "更新至8集",
-      "episodes_info": "更新至8集",
+      "status": "更新至6集",
+      "episodes_info": "更新至6集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/26985954.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/jTTMA5mv5weV3LJfY1gg14gLdJA.jpg",
       "overview": "如果说《战狼2》中的冷锋是打不倒的孤胆英雄，那《莫语者》则是真实存在的守护者。\n为了查明妻女身亡的幕后真相，拥有顶级警护能力的卫天放弃了身份，在事发地安提洛卡里斯创立了面向一带一路经济区企业和民众提供安保服务的「莫语者事务所」。卫天与中安集团总裁项平生有过命交情，却与其子项来性格相冲。中安集团和莫语者各自为战，却都有着强烈的人类命运共同体意识，在一带一路经济区以各自的方式捍卫着华人的海外安全。莫语者与中安集团多次联手，粉碎黑心制药公司的阴谋、为中国支非的高铁项目提供安全保障、多次解决恐怖分子在一带一路经济区制造的安全危机。\n卫天在一次行动中救下柏拉图国际酒店的副经理安达，两人在保护与被保护中走到一起。莫语者团队的沙兰、曲胜利、叶婉也在一次次任务中与各自的过往经历和解。最终，莫语者在卫天的带领下加入中安，成功保卫了一带一路经济区上的企业和民众安全。",
       "rating_count": null,
       "rating_star_count": null,
@@ -488,7 +509,11 @@
           "overview": "如果说《战狼2》中的冷锋是打不倒的孤胆英雄，那《莫语者》则是真实存在的守护者。\n为了查明妻女身亡的幕后真相，拥有顶级警护能力的卫天放弃了身份，在事发地安提洛卡里斯创立了面向一带一路经济区企业和民众提供安保服务的「莫语者事务所」。卫天与中安集团总裁项平生有过命交情，却与其子项来性格相冲。中安集团和莫语者各自为战，却都有着强烈的人类命运共同体意识，在一带一路经济区以各自的方式捍卫着华人的海外安全。莫语者与中安集团多次联手，粉碎黑心制药公司的阴谋、为中国支非的高铁项目提供安全保障、多次解决恐怖分子在一带一路经济区制造的安全危机。\n卫天在一次行动中救下柏拉图国际酒店的副经理安达，两人在保护与被保护中走到一起。莫语者团队的沙兰、曲胜利、叶婉也在一次次任务中与各自的过往经历和解。最终，莫语者在卫天的带领下加入中安，成功保卫了一带一路经济区上的企业和民众安全。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 339342,
+      "tmdbUrl": "https://www.themoviedb.org/tv/339342",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 37463721,
@@ -566,7 +591,7 @@
       "id": 37042229,
       "name": "醉梦",
       "original_name": "醉梦",
-      "imdb_id": null,
+      "imdb_id": "tt35288698",
       "genres": [
         {
           "id": 1,
@@ -695,12 +720,12 @@
       "number_of_episodes": 18,
       "first_air_date": "2026-10-16",
       "last_air_date": "2026-10-16",
-      "in_production": false,
-      "status": "18集全",
-      "episodes_info": "18集全",
+      "in_production": true,
+      "status": "更新至13集",
+      "episodes_info": "更新至13集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37042229.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/trLfT9JbejqH6eQYbDwzcIVYUFG.jpg",
       "overview": "多年前，记者沈乐水用摄像机记录了老松江啤酒厂的厂工生活，这里的故事，像一杯久藏的啤酒, 酝酿着复杂的情感，也氤氲着一个名叫刘雪梅的女人的死亡之谜。啤酒厂曾是这座城市的骄傲，没落多年后，却成为众多命案的舞台。刘雪梅的生与死，紧密缠绕在一个被野心和贪婪驱使的阴谋之中。每一个人都如同棋子，被无情地操纵和牺牲。真相总是隐藏在最不起眼的角落。一个潜伏多年的幽灵，策划着一场血色的复仇 。他的怒火和绝望，化作连环杀人案的阴影，笼罩着松江。命运的轮回终于在一起突如其来又似乎源自宿命的意外中到达终点。沈乐水也再次扛起摄像机，记录下这其中跨越了时间的人性挣扎。",
       "rating_count": null,
       "rating_star_count": null,
@@ -719,6 +744,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 279923,
+      "tmdbUrl": "https://www.themoviedb.org/tv/279923",
+      "vote_average": 6,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -735,7 +764,7 @@
       "id": 37191789,
       "name": "嫁金钗",
       "original_name": "嫁金钗",
-      "imdb_id": null,
+      "imdb_id": "tt42576855",
       "genres": [
         {
           "id": 1,
@@ -891,11 +920,11 @@
       "first_air_date": "2026-10-16",
       "last_air_date": "2026-10-16",
       "in_production": true,
-      "status": "更新至15集",
-      "episodes_info": "更新至15集",
+      "status": "更新至14集",
+      "episodes_info": "更新至14集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37191789.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/YndvGwqwroUDVltBWmnOuTvJke.jpg",
       "overview": "阿丑原是街上倒夜香的低贱少女，人人皆可践踏欺凌，只因一张酷似侯府千金魏娆的面容，意外成为国公府世子陆濯的冲喜新娘。阿丑野心勃勃，一心借机上位，然而濒死的新婚丈夫忽然苏醒，鸠占鹊巢引来连绵灾祸。魏娆（君黛）恨她鸠占鹊巢，急欲除之后快；陆濯以她为蛇蝎妇人，百般提防谋算。国公府明面一团和气，实则陷阱重重、步步杀机。阿丑稳扎稳打精心谋划，手段百出获得丈夫痴爱，更查出了自己身世的秘密，与至亲最终团圆，从底层夜香妇一路逆袭上位，过出光芒万丈的锦绣人生。",
       "rating_count": null,
       "rating_star_count": null,
@@ -914,6 +943,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 300146,
+      "tmdbUrl": "https://www.themoviedb.org/tv/300146",
+      "vote_average": 7.2,
+      "vote_count": 4,
       "trailers": [
         {
           "source": "bilibili",
@@ -923,15 +956,6 @@
           "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1tFp96pEKb&page=1&qn=64&high_quality=1",
           "cover": "https://i0.hdslb.com/bfs/archive/975476d10cf387b7349db917a3d81aacdd1c27ce.jpg",
           "publishedAt": "2026-10-12T02:42:18.000Z"
-        },
-        {
-          "source": "bilibili",
-          "title": "新剧《<em class=\"keyword\">嫁金钗</em>》新预告，田曦薇/闫桉 等主演，暂未公布播出时间，敬请期待",
-          "bvid": "BV1ches6ZEbH",
-          "url": "https://www.bilibili.com/video/BV1ches6ZEbH",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1ches6ZEbH&page=1&qn=64&high_quality=1",
-          "cover": "https://i1.hdslb.com/bfs/archive/8bca39fbdfaa6971bc59035a9677a26cb34a63d5.jpg",
-          "publishedAt": "2026-09-16T02:30:30.000Z"
         }
       ]
     },
@@ -1022,7 +1046,7 @@
       "id": 37307385,
       "name": "把黑夜点燃",
       "original_name": "把黑夜点燃",
-      "imdb_id": null,
+      "imdb_id": "tt36747190",
       "genres": [
         {
           "id": 1,
@@ -1136,7 +1160,7 @@
       "episodes_info": "12集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37307385.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/q48icceyDIuAZC9wL66ZEQF03oj.jpg",
       "overview": "1997年，在西南地区小城雾港，陈善一家生活在西南石油单位分配的单身楼里。父亲陈福是石油管道施工项目一把手，母亲张文英是石油设计院的设计骨干，还有一个在供应站档案室工作的姐姐陈英，一家人其乐融融，陈善也将沿着父辈的道路回归石油系统。可一场意外的管道燃气爆炸事故改变了所有人的轨迹，父亲陈福死在了这场事故中，母亲张文英在石油系统内部的斗争中成为牺牲品，陈善承受不了打击只身离家，去抢修队工作维持生计。\n2001年，西南石油系统乘上经济发展的高速列车，家家户户都过上了中产的日子。陈善成为施工队的一把手“善哥”，像行尸走肉般把自己困在了当年。而他遇到了同样一场意外爆炸案，当年派系斗争里落败的设计院院长耿剑也卷入其中，陈善决定沿着现在的线索，重新挖掘当年意外事故的隐情，没想到越来越多的人浮现出来。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1155,6 +1179,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 288328,
+      "tmdbUrl": "https://www.themoviedb.org/tv/288328",
+      "vote_average": 8.5,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -1243,8 +1271,8 @@
       "first_air_date": "2026-10-15",
       "last_air_date": "2026-10-15",
       "in_production": true,
-      "status": "更新至7集",
-      "episodes_info": "更新至7集",
+      "status": "更新至5集",
+      "episodes_info": "更新至5集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37090664.jpg",
       "backdrop_path": null,
@@ -1434,11 +1462,11 @@
       "first_air_date": "2026-10-15",
       "last_air_date": "2026-10-15",
       "in_production": true,
-      "status": "更新至22集",
-      "episodes_info": "更新至22集",
+      "status": "更新至20集",
+      "episodes_info": "更新至20集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35512196.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/gjcNOvasUmYQfzx3iDY5GnKF5vh.jpg",
       "overview": "以元气励志少女“周想想”和禁欲系篮球大神“顾晗”浪漫专一的爱情故事为主线，辅以青春、热血、梦想等多重元素，讲述了周想想和顾晗由欢喜冤家进阶成为恋爱教材的高甜故事。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1456,7 +1484,11 @@
           "overview": "以元气励志少女“周想想”和禁欲系篮球大神“顾晗”浪漫专一的爱情故事为主线，辅以青春、热血、梦想等多重元素，讲述了周想想和顾晗由欢喜冤家进阶成为恋爱教材的高甜故事。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 283012,
+      "tmdbUrl": "https://www.themoviedb.org/tv/283012",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 36514822,
@@ -1590,7 +1622,7 @@
       "id": 37070518,
       "name": "玉簟秋",
       "original_name": "玉簟秋",
-      "imdb_id": null,
+      "imdb_id": "tt37109705",
       "genres": [
         {
           "id": 1,
@@ -1601,7 +1633,20 @@
           "name": "爱情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 952,
+          "logo_path": "/zJQHSCwHcIGNQlHptJRZpUX88Ro.png",
+          "name": "Hunan Television",
+          "origin_country": "CN"
+        },
+        {
+          "id": 1631,
+          "logo_path": "/iE3rtBcUfWGiJosaZv2TroBxEZz.png",
+          "name": "Mango TV",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -1682,11 +1727,11 @@
       "first_air_date": "2026-10-12",
       "last_air_date": "2026-10-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37070518.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/vD84yLJVVd7cC2lKF8sEukQG2A3.jpg",
       "overview": "该剧改编自灵希同名小说。民国乱世中，少帅虞昶轩（丞磊 饰）与女学生叶平君（徐若晗 饰）因一场邂逅深陷爱恨漩涡，彻底改写二人的人生轨迹。纵然身份悬殊、前路艰险，人仍毅然冲破一切阻隔，在战火与命运的洪流中坚定携手，沙场硝烟与儿女情长交织，将热血、信仰与挚爱，共同谱写成一段荡气回肠的传奇。",
       "rating_count": null,
       "rating_star_count": null,
@@ -1704,20 +1749,31 @@
           "overview": "该剧改编自灵希同名小说。民国乱世中，少帅虞昶轩（丞磊 饰）与女学生叶平君（徐若晗 饰）因一场邂逅深陷爱恨漩涡，彻底改写二人的人生轨迹。纵然身份悬殊、前路艰险，人仍毅然冲破一切阻隔，在战火与命运的洪流中坚定携手，沙场硝烟与儿女情长交织，将热血、信仰与挚爱，共同谱写成一段荡气回肠的传奇。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 304452,
+      "tmdbUrl": "https://www.themoviedb.org/tv/304452",
+      "vote_average": 8,
+      "vote_count": 2
     },
     {
       "id": 37105547,
       "name": "璀璨之城",
       "original_name": "璀璨之城",
-      "imdb_id": null,
+      "imdb_id": "tt39443161",
       "genres": [
         {
           "id": 1,
           "name": "剧情"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 48,
+          "logo_path": "/v78f4q6DYdRB8dLj4rQBpqQG8pW.png",
+          "name": "TVB Jade",
+          "origin_country": "HK"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -2248,11 +2304,11 @@
       "first_air_date": "2026-10-12",
       "last_air_date": "2026-10-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Returning Series",
+      "episodes_info": "Returning Series",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37105547.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/gDBjAOIfbcwZ8CvEB0LHf3fZDei.jpg",
       "overview": "尚利鋒集團主席官志琛在澳門雄霸一方，這商界巨人安排兩子官孝賢、官孝君，出任集團聯席行政總裁，平起平坐。孝賢一直視孝君為眼中釘，為瓦解孝君和其夫人王雪瑩的強大團夥，孝賢宣佈與香港檢控官洪海允成婚。海允與雪瑩本是閨密，出身於十月初五街，但雪瑩為嫁入豪門，奪去海允的情人孝君。孝賢就是要利用海允心中的仇恨，化成攻擊孝君夫婦的利器。在家族各人看似充滿機心的環境中，孝君卻堅守正義，奮力抵抗着孝賢的步步進逼……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2270,7 +2326,11 @@
           "overview": "尚利鋒集團主席官志琛在澳門雄霸一方，這商界巨人安排兩子官孝賢、官孝君，出任集團聯席行政總裁，平起平坐。孝賢一直視孝君為眼中釘，為瓦解孝君和其夫人王雪瑩的強大團夥，孝賢宣佈與香港檢控官洪海允成婚。海允與雪瑩本是閨密，出身於十月初五街，但雪瑩為嫁入豪門，奪去海允的情人孝君。孝賢就是要利用海允心中的仇恨，化成攻擊孝君夫婦的利器。在家族各人看似充滿機心的環境中，孝君卻堅守正義，奮力抵抗着孝賢的步步進逼……",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 295002,
+      "tmdbUrl": "https://www.themoviedb.org/tv/295002",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 37855113,
@@ -2352,7 +2412,7 @@
       "episodes_info": "更新至18集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37855113.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/cSXtj5CH4TR1At7Ce5NSqeSGiZO.jpg",
       "overview": "被养在深闺中备受伯父全家折磨的鹿家二小姐鹿鸣于（徐梦洁 饰）设计逃离了鹿家，却在逃跑过程中意外邂逅了来自香江的段家继承人段休冥（任世豪 饰）。鹿鸣于的聪明、智慧与美丽，深深吸引着段休冥，而从段休冥身上鹿鸣于也敏锐地感受到了自己反击伯父一家并完成复仇的机会。\n于是她临时改变计划，回到那个她一心想逃离的家，并将他一步步拉入自己的复仇计划中。然而在这过程中她逐渐发现，自己原本冰冷，只剩下仇恨的内心，却在慢慢相处中逐渐融化……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2370,13 +2430,17 @@
           "overview": "被养在深闺中备受伯父全家折磨的鹿家二小姐鹿鸣于（徐梦洁 饰）设计逃离了鹿家，却在逃跑过程中意外邂逅了来自香江的段家继承人段休冥（任世豪 饰）。鹿鸣于的聪明、智慧与美丽，深深吸引着段休冥，而从段休冥身上鹿鸣于也敏锐地感受到了自己反击伯父一家并完成复仇的机会。\n于是她临时改变计划，回到那个她一心想逃离的家，并将他一步步拉入自己的复仇计划中。然而在这过程中她逐渐发现，自己原本冰冷，只剩下仇恨的内心，却在慢慢相处中逐渐融化……",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 338103,
+      "tmdbUrl": "https://www.themoviedb.org/tv/338103",
+      "vote_average": 7,
+      "vote_count": 1
     },
     {
       "id": 37296949,
       "name": "蒸蒸日上",
       "original_name": "蒸蒸日上",
-      "imdb_id": null,
+      "imdb_id": "tt37265860",
       "genres": [
         {
           "id": 1,
@@ -2661,7 +2725,7 @@
       "episodes_info": "22集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37296949.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/5tt435rcKQ32qtJpug4qrfG0rn.jpg",
       "overview": "烟火气十足的东北某城律师街上，为人侠气、幽默的女律师萧龙女在大众浴池楼上开了一家律师事务所。她曾在当地最高端的泓湖律所里工作，却因一起案件中的正义之举而离职，更与同事兼竹马的李信律师决裂。有着不同法律观的两人，一个扶摇直上成为泓湖最年轻的高伙，另一个则失去所有案源、沦落为律师街上的“笑话”。萧龙女身处低谷却坚韧乐观，与自愿跟随她的行政古苗苗、不打不相识的董北虎和法考钉子户罗智组成了一伙蒸蒸日上的“草台班子”，在大大小小的案件中与精英律师代表李信狭路相逢、展开较量，在法律和生活中都不断碰撞出激烈火花，各自的人生也因此迎来了新的成长和变化……",
       "rating_count": null,
       "rating_star_count": null,
@@ -2680,6 +2744,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 289080,
+      "tmdbUrl": "https://www.themoviedb.org/tv/289080",
+      "vote_average": 7.8,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -2696,7 +2764,7 @@
       "id": 36962068,
       "name": "美人余",
       "original_name": "美人余",
-      "imdb_id": null,
+      "imdb_id": "tt37421560",
       "genres": [
         {
           "id": 1,
@@ -2792,7 +2860,7 @@
       "episodes_info": "28集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36962068.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/6Iha7gx0lTdrv6x7dECtjB8YnLA.jpg",
       "overview": "根据伊北同名小说改编，以当代都市为背景，两性关系作为切口，直戳现代社会“有性无爱，有爱无性”等真实情感和婚姻现状。",
       "rating_count": null,
       "rating_star_count": null,
@@ -2811,6 +2879,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 294446,
+      "tmdbUrl": "https://www.themoviedb.org/tv/294446",
+      "vote_average": 7.5,
+      "vote_count": 4,
       "trailers": [
         {
           "source": "bilibili",
@@ -2956,7 +3028,7 @@
       "episodes_info": "更新至22集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36155236.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/8G0SQhC1zwKIRbgaxx4HTRakVpO.jpg",
       "overview": "该剧以全景式展现红军长征这一波澜壮阔的历史画卷，呈现一个个有血有肉有温度的革命故事，弘扬伟大的长征精神。\n1934年，日本帝国主义加紧了对中国的侵略，而蒋介石不顾民族危亡，坚持“攘外必先安内”的政策，发动了规模最大的第五次“围剿”。生死存亡之际，中国工农红军主力被迫实行战略性转移，撤离长江南北各苏区。平均年龄不到30岁的红军队伍犹如一条条红色铁流，经过11个省，翻越18座大 山，跨过24条大河，走过荒草地，翻过雪山，行程二万五千里。直到1936年10月红军三大主力会师，红军长征胜利结束。",
       "rating_count": null,
       "rating_star_count": null,
@@ -2974,13 +3046,17 @@
           "overview": "该剧以全景式展现红军长征这一波澜壮阔的历史画卷，呈现一个个有血有肉有温度的革命故事，弘扬伟大的长征精神。\n1934年，日本帝国主义加紧了对中国的侵略，而蒋介石不顾民族危亡，坚持“攘外必先安内”的政策，发动了规模最大的第五次“围剿”。生死存亡之际，中国工农红军主力被迫实行战略性转移，撤离长江南北各苏区。平均年龄不到30岁的红军队伍犹如一条条红色铁流，经过11个省，翻越18座大 山，跨过24条大河，走过荒草地，翻过雪山，行程二万五千里。直到1936年10月红军三大主力会师，红军长征胜利结束。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 297253,
+      "tmdbUrl": "https://www.themoviedb.org/tv/297253",
+      "vote_average": 9,
+      "vote_count": 1
     },
     {
       "id": 36466147,
       "name": "此处通往繁星",
       "original_name": "此处通往繁星",
-      "imdb_id": null,
+      "imdb_id": "tt37698065",
       "genres": [
         {
           "id": 1,
@@ -3052,7 +3128,7 @@
       "episodes_info": "10集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36466147.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/XcDzrrdVPJ59am4qgKMutHxU0g.jpg",
       "overview": "讲述了“殡二代”王灿大学毕业后在北京的“繁星”酒馆工作，在突逢朋友变故后，下定决心重回清凉山殡仪馆装殓班，与发小陈和煦、宋天爽、毛尔哲重逢成为同事。在逐渐融入团队参与殡葬工作和见证一次次告别，王灿逐渐理解职业价值，最终选择留守清凉山成为入殓师。",
       "rating_count": null,
       "rating_star_count": null,
@@ -3071,6 +3147,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 296203,
+      "tmdbUrl": "https://www.themoviedb.org/tv/296203",
+      "vote_average": 8,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -3087,7 +3167,7 @@
       "id": 36868927,
       "name": "喜剧之王",
       "original_name": "喜剧之王",
-      "imdb_id": null,
+      "imdb_id": "tt34923573",
       "genres": [
         {
           "id": 1,
@@ -3185,7 +3265,7 @@
       "episodes_info": "24集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36868927.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/9BhaeMG3jNvRC9FrdpHAeDtboPN.jpg",
       "overview": "该剧根据1999年周星驰同名电影《喜剧之王》改编。喜人团建，开启新生代喜剧与经典的碰撞。“冷饭热炒“，上演笑中有泪的“乡村商战”。",
       "rating_count": null,
       "rating_star_count": null,
@@ -3204,6 +3284,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 277910,
+      "tmdbUrl": "https://www.themoviedb.org/tv/277910",
+      "vote_average": 9,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -3408,7 +3492,7 @@
       "episodes_info": "27集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38521051.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/22RvOA9s4BFL0iStTZM0dfMvF13.jpg",
       "overview": "年轻律师付庭（苏小玎 饰）为追随业界权威大律师严同（王志飞 饰），需一个月内完成十三宗死刑案心理分析。在封闭房间中，他竟“穿越”进入案卷世界，亲历“犯罪现场”。最后一案指向严同母亲被害真相，付庭必须在现实与虚幻的交界处做出终极审判。",
       "rating_count": null,
       "rating_star_count": null,
@@ -3427,6 +3511,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 326382,
+      "tmdbUrl": "https://www.themoviedb.org/tv/326382",
+      "vote_average": 6,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -3579,7 +3667,7 @@
       "id": 36481657,
       "name": "魅影神捕",
       "original_name": "魅影神捕",
-      "imdb_id": null,
+      "imdb_id": "tt37357034",
       "genres": [
         {
           "id": 1,
@@ -3663,7 +3751,7 @@
       "episodes_info": "30集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36481657.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/Amn1fw4akG9jOZNTP1J4Xadry4T.jpg",
       "overview": "鸿运三十七年的大世王朝，即将迎来一场蓄谋已久的血雨腥风，傀儡秘术、长生魔罗、翅莹毒虫、镜花水月、形人之师相继现世，亡国离罗携此“五绝诡术”死灰复燃，制造出一桩桩惊骇迷案。幸皇权直属神捕司内以黎斯为首的一众神捕，为保山河无恙，民生安康，毅然拉开了与离罗余孽殊死斗争的大幕。",
       "rating_count": null,
       "rating_star_count": null,
@@ -3681,7 +3769,11 @@
           "overview": "鸿运三十七年的大世王朝，即将迎来一场蓄谋已久的血雨腥风，傀儡秘术、长生魔罗、翅莹毒虫、镜花水月、形人之师相继现世，亡国离罗携此“五绝诡术”死灰复燃，制造出一桩桩惊骇迷案。幸皇权直属神捕司内以黎斯为首的一众神捕，为保山河无恙，民生安康，毅然拉开了与离罗余孽殊死斗争的大幕。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 290699,
+      "tmdbUrl": "https://www.themoviedb.org/tv/290699",
+      "vote_average": 6.75,
+      "vote_count": 2
     },
     {
       "id": 38535156,
@@ -3885,8 +3977,8 @@
       "first_air_date": "2026-10-01",
       "last_air_date": "2026-10-01",
       "in_production": true,
-      "status": "更新至48集",
-      "episodes_info": "更新至48集",
+      "status": "更新至46集",
+      "episodes_info": "更新至46集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38455948.jpg",
       "backdrop_path": null,
@@ -3913,7 +4005,7 @@
       "id": 37560173,
       "name": "余红旧事",
       "original_name": "余红旧事",
-      "imdb_id": null,
+      "imdb_id": "tt47742716",
       "genres": [
         {
           "id": 1,
@@ -4033,9 +4125,9 @@
       "episodes_info": "34集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37560173.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/6RKO6EX15uF0locEPHzvm4Za43n.jpg",
       "overview": "当代东北文学代表人物、《漫长的季节》文学策划班宇原著，携手白玉兰最佳编剧李潇、于淼，将生活悬疑类型叙事推至高潮，兼具东北式的幽默与苍凉，着眼时代洪流中与命运较劲的普通小人物，和他们华彩的生命瞬息。\n故事讲述20世纪90年代东北一座没落的工业小城，一连串荒诞离奇的命案——冻成冰雕的酒鬼，惨被断肢的壮汉，人间蒸发的地头蛇……看似毫无关联，实则命运环环相扣，情感彼此纠葛，连锁“意外死亡”背后，抽丝剥茧出复杂人性中的温暖，残酷生存法则下的希望。",
-      "rating_count": 22843,
+      "rating_count": 24146,
       "rating_star_count": 4,
       "seasons": [
         {
@@ -4051,7 +4143,11 @@
           "overview": "当代东北文学代表人物、《漫长的季节》文学策划班宇原著，携手白玉兰最佳编剧李潇、于淼，将生活悬疑类型叙事推至高潮，兼具东北式的幽默与苍凉，着眼时代洪流中与命运较劲的普通小人物，和他们华彩的生命瞬息。\n故事讲述20世纪90年代东北一座没落的工业小城，一连串荒诞离奇的命案——冻成冰雕的酒鬼，惨被断肢的壮汉，人间蒸发的地头蛇……看似毫无关联，实则命运环环相扣，情感彼此纠葛，连锁“意外死亡”背后，抽丝剥茧出复杂人性中的温暖，残酷生存法则下的希望。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 301494,
+      "tmdbUrl": "https://www.themoviedb.org/tv/301494",
+      "vote_average": 7.2,
+      "vote_count": 4
     },
     {
       "id": 34913628,
@@ -4213,7 +4309,7 @@
       "episodes_info": "34集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/34913628.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/p5W91U1P4aQY9tp7qPQlXafFiSA.jpg",
       "overview": "西北某省卫城市，西部五省的交通要道，同时也成为了西部毒品交易的最大集散地。毒品自金三角入境后，从云南出发，运抵卫城，再由卫城运往各处。在这过程中，一些唯利是图的黑势力，铤而走险，令无数人深陷毒品的迫害，更令无数家庭家破人亡。缉毒大队女队长白桦整日疲于应对各种案件，期待着上级早日能为自己增加新鲜的血液和干将。正在此时，庄严、李潇、魏凯等三名年轻帅气的警察，通过层层严格筛选，最终进入缉毒大队。在女队长白桦及副队长陆伟等人的领导之下，通过不懈的努力和净化丝绸之路的坚定信念，一路出生入死、涉险擒敌。最终终于将大毒枭龙致远和皮牙子等人绳之以法，并铲除了其幕后的黑保护伞，为一带一路作出巨大贡献。",
       "rating_count": null,
       "rating_star_count": null,
@@ -4231,13 +4327,17 @@
           "overview": "西北某省卫城市，西部五省的交通要道，同时也成为了西部毒品交易的最大集散地。毒品自金三角入境后，从云南出发，运抵卫城，再由卫城运往各处。在这过程中，一些唯利是图的黑势力，铤而走险，令无数人深陷毒品的迫害，更令无数家庭家破人亡。缉毒大队女队长白桦整日疲于应对各种案件，期待着上级早日能为自己增加新鲜的血液和干将。正在此时，庄严、李潇、魏凯等三名年轻帅气的警察，通过层层严格筛选，最终进入缉毒大队。在女队长白桦及副队长陆伟等人的领导之下，通过不懈的努力和净化丝绸之路的坚定信念，一路出生入死、涉险擒敌。最终终于将大毒枭龙致远和皮牙子等人绳之以法，并铲除了其幕后的黑保护伞，为一带一路作出巨大贡献。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 336706,
+      "tmdbUrl": "https://www.themoviedb.org/tv/336706",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 36117379,
       "name": "无可替代",
       "original_name": "无可替代",
-      "imdb_id": null,
+      "imdb_id": "tt37819415",
       "genres": [
         {
           "id": 1,
@@ -4353,7 +4453,7 @@
       "episodes_info": "20集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36117379.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/o91jmFILQk1UAqPbpEjT3D3OxoO.jpg",
       "overview": "讲述禀承“这一生绝对不能被别人替代”理念的女白领徐迟，在职场上过关斩将，与公司合伙人叶信之一路携手厮杀，最终成为无可替代之人的故事。 “黑莲花”徐迟与“精狐狸”叶信之互相扶持又相爱相杀！金牌编剧张巍全新都市力作，快节奏爽情节短剧模式，直击当下年轻人痛点，带你职场打怪升级通关！",
       "rating_count": null,
       "rating_star_count": null,
@@ -4371,7 +4471,11 @@
           "overview": "讲述禀承“这一生绝对不能被别人替代”理念的女白领徐迟，在职场上过关斩将，与公司合伙人叶信之一路携手厮杀，最终成为无可替代之人的故事。 “黑莲花”徐迟与“精狐狸”叶信之互相扶持又相爱相杀！金牌编剧张巍全新都市力作，快节奏爽情节短剧模式，直击当下年轻人痛点，带你职场打怪升级通关！",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 297982,
+      "tmdbUrl": "https://www.themoviedb.org/tv/297982",
+      "vote_average": 8.4,
+      "vote_count": 4
     },
     {
       "id": 38192991,
@@ -4541,7 +4645,7 @@
       "episodes_info": "28集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38192991.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/eb3db3jCfQKCbAjuiWhCai2aMg7.jpg",
       "overview": "1935年6月，川西高原的雪山脚下，红一、红四方面军历经千难万险在懋功胜利会师。会师之后，张国焘公然分裂中央，提出违背革命潮流的“南下”主张，将红军推向生死存亡的边缘。在这危急关头，毛泽东以非凡的政治智慧与战略眼光，毅然率领右路红军继续北上，旨在联合一切抗日力量，推动抗日民族统一战线的建立。左路军中，朱德、刘伯承等同志以钢铁般的意志，以大局为重，团结广大指战员和少数民族群众，让各民族团结的火焰在革命最艰难的时刻愈发炽烈。红军在复杂的历史环境下与少数民族群众团结抗敌、和睦共处，在长征中展现了民族团结的伟大力量。",
       "rating_count": null,
       "rating_star_count": null,
@@ -4559,33 +4663,47 @@
           "overview": "1935年6月，川西高原的雪山脚下，红一、红四方面军历经千难万险在懋功胜利会师。会师之后，张国焘公然分裂中央，提出违背革命潮流的“南下”主张，将红军推向生死存亡的边缘。在这危急关头，毛泽东以非凡的政治智慧与战略眼光，毅然率领右路红军继续北上，旨在联合一切抗日力量，推动抗日民族统一战线的建立。左路军中，朱德、刘伯承等同志以钢铁般的意志，以大局为重，团结广大指战员和少数民族群众，让各民族团结的火焰在革命最艰难的时刻愈发炽烈。红军在复杂的历史环境下与少数民族群众团结抗敌、和睦共处，在长征中展现了民族团结的伟大力量。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 336207,
+      "tmdbUrl": "https://www.themoviedb.org/tv/336207",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 37297001,
+      "tmdb_id": 289078,
       "name": "我不是大师",
       "original_name": "我不是大师",
-      "imdb_id": null,
+      "imdb_id": "tt36758489",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
         },
         {
-          "id": 2,
+          "id": 9648,
           "name": "悬疑"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 6.8,
+      "vote_count": 5,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "腾讯视频",
-          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+          "id": 1330,
+          "logo_path": "/fNxBFqWr7eWEgNeBDvvCxsSItXx.png",
+          "name": "iQiyi",
+          "origin_country": "CN"
         },
         {
-          "id": 2,
-          "name": "爱奇艺",
-          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -4680,33 +4798,33 @@
         "江相",
         "我是个算命先生"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://v.qq.com/x/cover/mzc00200j47k5l3.html",
+      "popularity": 11.0525,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-09-24",
-      "last_air_date": "2026-09-24",
+      "last_air_date": "2026-10-04",
       "in_production": false,
-      "status": "24集全",
+      "status": "Ended",
       "episodes_info": "24集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37297001.jpg",
-      "backdrop_path": null,
-      "overview": "上官诚明全家惨遭天相派设局灭门，他化名潜伏，以牙还牙，以眼还眼，联手身陷泥淖却势要逆天改命的江飞燕，用连环骗局反噬仇敌，一路揭露骗术黑幕，最终瓦解天相派，解救受控者，惩恶扬善终彰善念。\n改编自易之小说《我是个算命先生》。",
-      "rating_count": 28542,
+      "backdrop_path": "/eTlMy2amueTqJBFZm5x14GGhZxH.jpg",
+      "overview": "上官诚明全家惨遭天相派设局灭门，他化名潜伏，以牙还牙，以眼还眼，用连环骗局反噬仇敌，一路揭露骗术黑幕，最终瓦解天相派，解救受控者，惩恶扬善终彰善念。",
+      "rating_count": 29606,
       "rating_star_count": 3.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 37297001,
+          "id": 289078,
           "air_date": "2026-09-24",
           "episode_count": 24,
-          "vote_average": 7.3,
+          "vote_average": 6.8,
           "poster_path": "posters/douban/tv_cn/37297001.jpg",
           "douban_rating": "7.3",
           "douban_link_google": "https://movie.douban.com/subject/37297001/",
-          "overview": "上官诚明全家惨遭天相派设局灭门，他化名潜伏，以牙还牙，以眼还眼，联手身陷泥淖却势要逆天改命的江飞燕，用连环骗局反噬仇敌，一路揭露骗术黑幕，最终瓦解天相派，解救受控者，惩恶扬善终彰善念。\n改编自易之小说《我是个算命先生》。",
+          "overview": "上官诚明全家惨遭天相派设局灭门，他化名潜伏，以牙还牙，以眼还眼，用连环骗局反噬仇敌，一路揭露骗术黑幕，最终瓦解天相派，解救受控者，惩恶扬善终彰善念。",
           "douban_link_verified": true
         }
       ]
@@ -4799,7 +4917,7 @@
       "episodes_info": "更新至1集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38446307.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/cwqpuiHs6ysM0YFKwof2WNNX5XE.jpg",
       "overview": "台风前夜众人登上“白术岛”，当连环杀人犯的闹钟响起，当陈年旧账找上门来，当绝症患者捡到救命钱，命运的齿轮开始疯狂转动，这场关于暴力、贪婪与人性的黑色寓言，无人能够幸免。孤岛玩命局，不死就算赢，一场残酷的生死博弈即将开启。",
       "rating_count": null,
       "rating_star_count": null,
@@ -4817,13 +4935,17 @@
           "overview": "台风前夜众人登上“白术岛”，当连环杀人犯的闹钟响起，当陈年旧账找上门来，当绝症患者捡到救命钱，命运的齿轮开始疯狂转动，这场关于暴力、贪婪与人性的黑色寓言，无人能够幸免。孤岛玩命局，不死就算赢，一场残酷的生死博弈即将开启。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 336341,
+      "tmdbUrl": "https://www.themoviedb.org/tv/336341",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 38223345,
       "name": "长生契",
       "original_name": "长生契",
-      "imdb_id": null,
+      "imdb_id": "tt41522393",
       "genres": [
         {
           "id": 1,
@@ -4897,7 +5019,7 @@
       "episodes_info": "20集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38223345.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/4ipPELpw6fwBclwFjWYdNXN6kJw.jpg",
       "overview": "《长生契》讲述了宁长樾与宋亦秋跨越三千年的深沉羁绊。他们在无尽时光中相守，遍历人间烟火，成为彼此唯一的坐标。步入现代，他们开始重新审视永恒的意义，在追寻内心归宿时，一段被漫长岁月尘封的过往与复杂的未解之缘逐渐浮现。面对历史的涟漪与当下的波澜，他们必须做出关于爱与归宿的最终抉择，完成一场与时间和自我的对话。",
       "rating_count": null,
       "rating_star_count": null,
@@ -4915,7 +5037,11 @@
           "overview": "《长生契》讲述了宁长樾与宋亦秋跨越三千年的深沉羁绊。他们在无尽时光中相守，遍历人间烟火，成为彼此唯一的坐标。步入现代，他们开始重新审视永恒的意义，在追寻内心归宿时，一段被漫长岁月尘封的过往与复杂的未解之缘逐渐浮现。面对历史的涟漪与当下的波澜，他们必须做出关于爱与归宿的最终抉择，完成一场与时间和自我的对话。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 318884,
+      "tmdbUrl": "https://www.themoviedb.org/tv/318884",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 36516638,
@@ -4944,13 +5070,13 @@
         },
         {
           "id": 2,
-          "name": "爱奇艺",
-          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+          "name": "哔哩哔哩",
+          "logo_path": "https://img9.doubanio.com/f/frodo/88a62f5e0cf9981c910e60f4421c3e66aac2c9bc/pics/vendors/bilibili.png"
         },
         {
           "id": 3,
-          "name": "哔哩哔哩",
-          "logo_path": "https://img9.doubanio.com/f/frodo/88a62f5e0cf9981c910e60f4421c3e66aac2c9bc/pics/vendors/bilibili.png"
+          "name": "爱奇艺",
+          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
         }
       ],
       "directors": [
@@ -5029,7 +5155,7 @@
       "episodes_info": "16集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36516638.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/5C7EmWyoEmsnYmUHqaa5TrHaz6B.jpg",
       "overview": "凌东国刑警廉明为了破获边境人口失踪案，也前往黑岛监狱卧底查案。南岭国退役特种兵文傍为了营救和自己相依为命的雅醇母女，被迫进入黑岛监狱服刑。狱中二人从互相敌对到彼此扶持，互助协作，勇敢对抗黑帮势力的同时，还要机智化解特殊身份给他们带来的重重危机。就在二人逐步揭开监狱犯罪真相的同时，一场更大的危险正在渐渐靠近……",
       "rating_count": null,
       "rating_star_count": null,
@@ -5047,7 +5173,11 @@
           "overview": "凌东国刑警廉明为了破获边境人口失踪案，也前往黑岛监狱卧底查案。南岭国退役特种兵文傍为了营救和自己相依为命的雅醇母女，被迫进入黑岛监狱服刑。狱中二人从互相敌对到彼此扶持，互助协作，勇敢对抗黑帮势力的同时，还要机智化解特殊身份给他们带来的重重危机。就在二人逐步揭开监狱犯罪真相的同时，一场更大的危险正在渐渐靠近……",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 335024,
+      "tmdbUrl": "https://www.themoviedb.org/tv/335024",
+      "vote_average": 0,
+      "vote_count": 0
     },
     {
       "id": 36640239,
@@ -5068,7 +5198,14 @@
           "name": "犯罪"
         }
       ],
-      "networks": [],
+      "networks": [
+        {
+          "id": 1631,
+          "logo_path": "/iE3rtBcUfWGiJosaZv2TroBxEZz.png",
+          "name": "Mango TV",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -5159,11 +5296,11 @@
       "first_air_date": "2026-09-22",
       "last_air_date": "2026-09-22",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36640239.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/8GW3Gw2QNluHkZs65JQZbWExmgJ.jpg",
       "overview": "故事发生在九十年代的北方石油小城龙番市。六十年代这里发现了石油，大量石油工人从全国各地汇聚而来。原本贫困的村庄逐渐变成了一座新兴的资源型城市，高楼大厦拔地而起。表面的繁华背后，油田和当地的关系却矛盾不断。石油带来了富足的生活，也让人心变得欲壑难填……\n作品改编自秦明小说《天谴者》。",
       "rating_count": null,
       "rating_star_count": null,
@@ -5181,7 +5318,11 @@
           "overview": "故事发生在九十年代的北方石油小城龙番市。六十年代这里发现了石油，大量石油工人从全国各地汇聚而来。原本贫困的村庄逐渐变成了一座新兴的资源型城市，高楼大厦拔地而起。表面的繁华背后，油田和当地的关系却矛盾不断。石油带来了富足的生活，也让人心变得欲壑难填……\n作品改编自秦明小说《天谴者》。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 287994,
+      "tmdbUrl": "https://www.themoviedb.org/tv/287994",
+      "vote_average": 8,
+      "vote_count": 1
     },
     {
       "id": 38445105,
@@ -5260,29 +5401,35 @@
     },
     {
       "id": 35644140,
+      "tmdb_id": 294990,
       "name": "一瓯春",
       "original_name": "一瓯春",
-      "imdb_id": null,
+      "imdb_id": "tt45956347",
       "genres": [
         {
-          "id": 1,
-          "name": "爱情"
-        },
-        {
-          "id": 2,
-          "name": "古装"
+          "id": 18,
+          "name": "剧情"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 8.333,
+      "vote_count": 6,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "爱奇艺",
-          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+          "id": 1330,
+          "logo_path": "/fNxBFqWr7eWEgNeBDvvCxsSItXx.png",
+          "name": "iQiyi",
+          "origin_country": "CN"
         },
         {
-          "id": 2,
-          "name": "优酷视频",
-          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
+          "id": 1419,
+          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
+          "name": "Youku",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -5436,33 +5583,33 @@
         "汉语普通话"
       ],
       "aka": [],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.iqiyi.com/a_2b9ocx2qugh.html",
+      "popularity": 11.0367,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2026-09-17",
-      "last_air_date": "2026-09-17",
+      "last_air_date": "2026-09-30",
       "in_production": false,
-      "status": "30集全",
+      "status": "Ended",
       "episodes_info": "30集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35644140.jpg",
-      "backdrop_path": null,
-      "overview": "“杀伐千面腹黑男”沈润与“人间清醒黑莲花”谢清圆互为刀刃交错，在理智与情感中携手复仇，于朝堂官场上搅弄风云，于高门大户里明争暗斗。最终他们走出暗流深渊，奔赴璀璨新生。\n该剧改编自尤四姐的同名小说。",
-      "rating_count": 17360,
+      "backdrop_path": "/k3aKIWf48yCKnbCjk2b2Tea32Vk.jpg",
+      "overview": "“杀伐千面腹黑男”沈润与“人间清醒黑莲花”谢清圆互为刀刃交错，在理智与情感中携手复仇，于高门大户里明争暗斗，立朝堂官场上搅弄风云。最终他们走出暗流深渊，奔赴璀璨新生。",
+      "rating_count": 18166,
       "rating_star_count": 2.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 35644140,
+          "id": 294990,
           "air_date": "2026-09-17",
           "episode_count": 30,
-          "vote_average": 5.4,
+          "vote_average": 8.333,
           "poster_path": "posters/douban/tv_cn/35644140.jpg",
           "douban_rating": "5.4",
           "douban_link_google": "https://movie.douban.com/subject/35644140/",
-          "overview": "“杀伐千面腹黑男”沈润与“人间清醒黑莲花”谢清圆互为刀刃交错，在理智与情感中携手复仇，于朝堂官场上搅弄风云，于高门大户里明争暗斗。最终他们走出暗流深渊，奔赴璀璨新生。\n该剧改编自尤四姐的同名小说。",
+          "overview": "“杀伐千面腹黑男”沈润与“人间清醒黑莲花”谢清圆互为刀刃交错，在理智与情感中携手复仇，于高门大户里明争暗斗，立朝堂官场上搅弄风云。最终他们走出暗流深渊，奔赴璀璨新生。",
           "douban_link_verified": true
         }
       ],
@@ -5861,28 +6008,33 @@
     },
     {
       "id": 36449295,
+      "tmdb_id": 282326,
       "name": "兰香如故",
       "original_name": "兰香如故",
-      "imdb_id": null,
+      "imdb_id": "tt32500958",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
         },
         {
-          "id": 2,
-          "name": "爱情"
-        },
-        {
-          "id": 3,
-          "name": "古装"
+          "id": 10751,
+          "name": "家庭"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 7.9,
+      "vote_count": 12,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "腾讯视频",
-          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -6107,33 +6259,33 @@
         "兰香缘",
         "Against The Current"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://v.qq.com/x/cover/mzc00200803dr6b.html",
+      "popularity": 24.2093,
       "number_of_seasons": 1,
       "number_of_episodes": 47,
       "first_air_date": "2026-09-11",
-      "last_air_date": "2026-09-11",
+      "last_air_date": "2026-10-05",
       "in_production": false,
-      "status": "47集全",
+      "status": "Ended",
       "episodes_info": "47集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36449295.jpg",
-      "backdrop_path": null,
-      "overview": "该剧根据禾晏山小说《兰香缘》改编。\n大学士府长孙女沈嘉兰与吏部尚书林家的长孙林锦岐订下婚约，然而朝堂风云突变，祖父沈大学士被判谋逆之罪，沈家惨遭灭门。林家为了自保，与沈家退婚，另与御前新贵赵家结亲。沈嘉兰母亲崔氏曾接济过的林家家奴许万全夫妇用刚病亡的女儿许兰香替下嘉兰。嘉兰从此顶着许兰香的身份：成为林府的一名三等丫鬟。在艰难的境遇中，兰香没有向命运低头，始终为自己和家人的幸福生活努力着，反抗一切不公与压迫。最终，兰香凭借自己的善良与聪慧，突破阶级身份的束缚，赢得林锦岐倾心的同时也获得了林家上下的信服与尊重，成为林家的当家人，将命运牢牢掌控在自己的手中，为沈家洗刷冤屈讨回公道。",
-      "rating_count": 107470,
+      "backdrop_path": "/mZSewqVlY4F2F2Axm7hiG6KBOBp.jpg",
+      "overview": "大学士府长孙女沈嘉兰（谭松韵饰）与吏部尚书林昭祥（侯长荣饰）的长孙林锦岐（刘学义饰）订下婚约，然而朝堂风云突变，祖父沈大学士沈其翰（章申饰）被判谋逆之罪，沈家惨遭灭门。林家为自保与沈家退婚，另与御前新贵赵家结亲。沈嘉兰母亲崔氏（柯蓝饰）曾接济过的林家家奴许万全（陈创饰）、薛桂花（郭柯宇饰）夫妇用刚病亡的女儿许兰香替下嘉兰。嘉兰从此顶着许兰香的身份，成为林府的一名三等丫鬟。在艰难的境遇中，兰香没有向命运低头，始终为自己和家人的幸福生活努力着，反抗一切不公与压迫。最终，兰香凭借自己的善良与聪慧，突破阶级身份的束缚，赢得林锦岐倾心的同时也获得了林家上下的信服与尊重，成为林家的当家人，将命运牢牢掌控在自己的手中，为沈家洗刷冤屈、讨回公道。",
+      "rating_count": 121448,
       "rating_star_count": 4,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 36449295,
+          "id": 282326,
           "air_date": "2026-09-11",
           "episode_count": 47,
-          "vote_average": 7.5,
+          "vote_average": 7.9,
           "poster_path": "posters/douban/tv_cn/36449295.jpg",
           "douban_rating": "7.5",
           "douban_link_google": "https://movie.douban.com/subject/36449295/",
-          "overview": "该剧根据禾晏山小说《兰香缘》改编。\n大学士府长孙女沈嘉兰与吏部尚书林家的长孙林锦岐订下婚约，然而朝堂风云突变，祖父沈大学士被判谋逆之罪，沈家惨遭灭门。林家为了自保，与沈家退婚，另与御前新贵赵家结亲。沈嘉兰母亲崔氏曾接济过的林家家奴许万全夫妇用刚病亡的女儿许兰香替下嘉兰。嘉兰从此顶着许兰香的身份：成为林府的一名三等丫鬟。在艰难的境遇中，兰香没有向命运低头，始终为自己和家人的幸福生活努力着，反抗一切不公与压迫。最终，兰香凭借自己的善良与聪慧，突破阶级身份的束缚，赢得林锦岐倾心的同时也获得了林家上下的信服与尊重，成为林家的当家人，将命运牢牢掌控在自己的手中，为沈家洗刷冤屈讨回公道。",
+          "overview": "大学士府长孙女沈嘉兰（谭松韵饰）与吏部尚书林昭祥（侯长荣饰）的长孙林锦岐（刘学义饰）订下婚约，然而朝堂风云突变，祖父沈大学士沈其翰（章申饰）被判谋逆之罪，沈家惨遭灭门。林家为自保与沈家退婚，另与御前新贵赵家结亲。沈嘉兰母亲崔氏（柯蓝饰）曾接济过的林家家奴许万全（陈创饰）、薛桂花（郭柯宇饰）夫妇用刚病亡的女儿许兰香替下嘉兰。嘉兰从此顶着许兰香的身份，成为林府的一名三等丫鬟。在艰难的境遇中，兰香没有向命运低头，始终为自己和家人的幸福生活努力着，反抗一切不公与压迫。最终，兰香凭借自己的善良与聪慧，突破阶级身份的束缚，赢得林锦岐倾心的同时也获得了林家上下的信服与尊重，成为林家的当家人，将命运牢牢掌控在自己的手中，为沈家洗刷冤屈、讨回公道。",
           "douban_link_verified": true
         }
       ],
@@ -6257,24 +6409,29 @@
     },
     {
       "id": 37264799,
+      "tmdb_id": 290863,
       "name": "冬城猎凶",
       "original_name": "冬城猎凶",
-      "imdb_id": null,
+      "imdb_id": "tt36597769",
       "genres": [
         {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
+          "id": 80,
           "name": "犯罪"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 7.4,
+      "vote_count": 5,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "优酷视频",
-          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
+          "id": 1419,
+          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
+          "name": "Youku",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -6352,33 +6509,33 @@
         "汉语普通话"
       ],
       "aka": [],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://v.youku.com/video?s=fbce5730cdd944c08536",
+      "popularity": 7.8208,
       "number_of_seasons": 1,
       "number_of_episodes": 18,
       "first_air_date": "2026-09-10",
-      "last_air_date": "2026-09-10",
+      "last_air_date": "2026-09-19",
       "in_production": false,
-      "status": "18集全",
+      "status": "Ended",
       "episodes_info": "18集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37264799.jpg",
-      "backdrop_path": null,
-      "overview": "刑警李豫京（王阳 饰）被借调协助女警岳晴川（万茜 饰）侦办一宗系列儿童拐卖案，竟意外在探查过程中发现了自己13年前经手的一起持械抢劫案的线索，两人携手跨越13年的时间间隔，上演了一段双时间线的硬核追凶故事。",
-      "rating_count": 18122,
+      "backdrop_path": "/28u4q3fPzXmbyf3BoiWweUOuuzj.jpg",
+      "overview": "刑警李豫京被借调协助女警岳晴川侦办系列儿童拐卖案，调查中意外发现与自己13年前经手的持械抢劫案有关的线索。两人携手跨越13年，展开双时间线追凶。",
+      "rating_count": 20561,
       "rating_star_count": 3.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 37264799,
+          "id": 290863,
           "air_date": "2026-09-10",
           "episode_count": 18,
-          "vote_average": 7,
+          "vote_average": 7.4,
           "poster_path": "posters/douban/tv_cn/37264799.jpg",
           "douban_rating": "7.0",
           "douban_link_google": "https://movie.douban.com/subject/37264799/",
-          "overview": "刑警李豫京（王阳 饰）被借调协助女警岳晴川（万茜 饰）侦办一宗系列儿童拐卖案，竟意外在探查过程中发现了自己13年前经手的一起持械抢劫案的线索，两人携手跨越13年的时间间隔，上演了一段双时间线的硬核追凶故事。",
+          "overview": "刑警李豫京被借调协助女警岳晴川侦办系列儿童拐卖案，调查中意外发现与自己13年前经手的持械抢劫案有关的线索。两人携手跨越13年，展开双时间线追凶。",
           "douban_link_verified": true
         }
       ],
@@ -6487,7 +6644,7 @@
       "id": 36576514,
       "name": "深渊无间",
       "original_name": "深渊无间",
-      "imdb_id": null,
+      "imdb_id": "tt38582061",
       "genres": [
         {
           "id": 1,
@@ -6570,13 +6727,13 @@
       "first_air_date": "2026-09-09",
       "last_air_date": "2026-09-09",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36576514.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/s9YSQAJtXjimsjBVsqLtJNnIjEs.jpg",
       "overview": "根据深蓝的同名小说改编。 一篇名为《深渊》的推理网文悄然上线，打破了保守小城多年来的平静，文中诸多情节与警方未曾公布的多年前悬案案情有着惊人的相似。热血正义的新警李成，与多方嫌疑人，一次次上演高智对弈。最终李成拨开迷雾，侦查出掩藏在令人扼腕的亲情和友情之下的真相.……一念之差，有的人走向了绿洲，有的人永远被困在了深渊。",
-      "rating_count": 54390,
+      "rating_count": 55140,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -6593,6 +6750,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 301489,
+      "tmdbUrl": "https://www.themoviedb.org/tv/301489",
+      "vote_average": 8.7,
+      "vote_count": 3,
       "trailers": [
         {
           "source": "bilibili",
@@ -6771,7 +6932,7 @@
       "id": 36314809,
       "name": "交锋",
       "original_name": "交锋",
-      "imdb_id": null,
+      "imdb_id": "tt34987156",
       "genres": [
         {
           "id": 1,
@@ -7035,13 +7196,13 @@
       "first_air_date": "2026-09-06",
       "last_air_date": "2026-09-06",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "40集全",
+      "episodes_info": "40集全",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36314809.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/lYDwHYOR8PROQfSJGZ8LqvwUVcW.jpg",
       "overview": "故事由一宗世纪之交的泄密大案而起，扣动两岸局势脉搏的同时，还掩藏着一场境外势力与我方在隐蔽战线上的针锋较量。上世纪九十年代末，闵中市国家安全局一对性格迥异的师徒，因机缘巧合的命运安排，为了共同的使命与信仰并肩作战。他们联手挫败了各种阴谋，也与敌手在横跨二十年的命运长河里 不断纠缠。当时间流转，新世纪的潮流剧变席卷而来，国家安全局势攻防易势，隐蔽战线上的较量却不止不休。在一次次关乎人性的考验中，这三人的命运关系因不同抉择，在岁月洗礼中悄然改变着……",
-      "rating_count": 37932,
+      "rating_count": 37054,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -7050,14 +7211,18 @@
           "id": 36314809,
           "air_date": "2026-09-06",
           "episode_count": 40,
-          "vote_average": 7.2,
+          "vote_average": 7.3,
           "poster_path": "posters/douban/tv_cn/36314809.jpg",
-          "douban_rating": "7.2",
+          "douban_rating": "7.3",
           "douban_link_google": "https://movie.douban.com/subject/36314809/",
           "overview": "故事由一宗世纪之交的泄密大案而起，扣动两岸局势脉搏的同时，还掩藏着一场境外势力与我方在隐蔽战线上的针锋较量。上世纪九十年代末，闵中市国家安全局一对性格迥异的师徒，因机缘巧合的命运安排，为了共同的使命与信仰并肩作战。他们联手挫败了各种阴谋，也与敌手在横跨二十年的命运长河里 不断纠缠。当时间流转，新世纪的潮流剧变席卷而来，国家安全局势攻防易势，隐蔽战线上的较量却不止不休。在一次次关乎人性的考验中，这三人的命运关系因不同抉择，在岁月洗礼中悄然改变着……",
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 294486,
+      "tmdbUrl": "https://www.themoviedb.org/tv/294486",
+      "vote_average": 7.5,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -7074,7 +7239,7 @@
       "id": 37233336,
       "name": "生逢其时",
       "original_name": "生逢其时",
-      "imdb_id": null,
+      "imdb_id": "tt36218252",
       "genres": [
         {
           "id": 1,
@@ -7146,13 +7311,13 @@
       "first_air_date": "2026-09-03",
       "last_air_date": "2026-09-03",
       "in_production": false,
-      "status": "26集全",
-      "episodes_info": "26集全",
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37233336.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/7HXIhc3aRr1v7KmOrCulszXf3YP.jpg",
       "overview": "青梧小镇住着家庭模式完全不同的齐家和曹家。某天两家同时诞下曹信、齐时。曹信，一路走来都是家长口中\"别人家的孩子\"，然而光环之下却始终伴随着父亲的严苛要求。而身患白化病的齐时，自小就意识到了自己的\"与众不同\"，于是她喝酱油、戴假发，试图通过这样的方式，成为和普通人一样的存在。当乖巧听话、优秀自律的少年曹信，遇上特立独行、勇敢倔强的少女齐时，两个家庭也在邻里间日积月累的相处中越发像一家人。孩子们经历着关于亲情、友情、爱情的考验，大人们也在面对关于事业、婚姻、家庭的难题。在时代洪流中，纵使生活跌跌撞撞，他们亦携手修炼人生，共同找寻属于自己的人生和幸福。",
-      "rating_count": 11197,
+      "rating_count": 11428,
       "rating_star_count": 3,
       "seasons": [
         {
@@ -7169,6 +7334,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 286686,
+      "tmdbUrl": "https://www.themoviedb.org/tv/286686",
+      "vote_average": 8.3,
+      "vote_count": 3,
       "trailers": [
         {
           "source": "bilibili",
@@ -7588,20 +7757,41 @@
     },
     {
       "id": 37172262,
+      "tmdb_id": 286988,
       "name": "飞到我心上",
       "original_name": "飞到我心上",
-      "imdb_id": null,
+      "imdb_id": "tt36982718",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
         },
         {
-          "id": 2,
-          "name": "爱情"
+          "id": 35,
+          "name": "喜剧"
         }
       ],
-      "networks": [],
+      "type": "Scripted",
+      "vote_average": 7.643,
+      "vote_count": 7,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "networks": [
+        {
+          "id": 952,
+          "logo_path": "/zJQHSCwHcIGNQlHptJRZpUX88Ro.png",
+          "name": "Hunan Television",
+          "origin_country": "CN"
+        },
+        {
+          "id": 1631,
+          "logo_path": "/iE3rtBcUfWGiJosaZv2TroBxEZz.png",
+          "name": "Mango TV",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -7715,33 +7905,33 @@
       "aka": [
         "降落我心上"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.mgtv.com/h/778406.html",
+      "popularity": 6.5299,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-08-31",
-      "last_air_date": "2026-08-31",
-      "in_production": true,
-      "status": "更新至14集",
+      "last_air_date": "2026-09-11",
+      "in_production": false,
+      "status": "Ended",
       "episodes_info": "更新至14集",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37172262.jpg",
-      "backdrop_path": null,
-      "overview": "根据翘摇小说《降落我心上》改编。阮思娴本是一名怀揣着飞行员梦想的空乘，却因恒世航空取消飞行员培训计划而受挫，更因与世航副总裁傅明予的误会毅然辞职，转去学飞。三年后，阮思娴以第一名成绩从飞行学院毕业，成为众大航司争夺的对象。傅明予在公司改革中面临多重阻碍，阮思娴也在追求机长梦想的路上遭遇了各种考验。两人在梦想与现实碰撞中，情感逐渐升温，却又因各种误会与挑战而渐行渐远。最终，两人在相互支持与理解中，终于飞到彼此的心上。",
-      "rating_count": 7537,
+      "backdrop_path": "/aYtWVJ5mUkPRFghrCHbc3I2v4WE.jpg",
+      "overview": "阮思娴因航空公司取消飞行员培训计划而辞职学飞，三年后以优异成绩毕业并踏上机长之路。与此同时，傅明予面临公司改革的重重阻碍，两人在梦想与现实的碰撞中经历误会与挑战，逐渐走向彼此理解。",
+      "rating_count": 7739,
       "rating_star_count": 3,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 37172262,
+          "id": 286988,
           "air_date": "2026-08-31",
           "episode_count": 24,
-          "vote_average": 6,
+          "vote_average": 7.643,
           "poster_path": "posters/douban/tv_cn/37172262.jpg",
           "douban_rating": "6.0",
           "douban_link_google": "https://movie.douban.com/subject/37172262/",
-          "overview": "根据翘摇小说《降落我心上》改编。阮思娴本是一名怀揣着飞行员梦想的空乘，却因恒世航空取消飞行员培训计划而受挫，更因与世航副总裁傅明予的误会毅然辞职，转去学飞。三年后，阮思娴以第一名成绩从飞行学院毕业，成为众大航司争夺的对象。傅明予在公司改革中面临多重阻碍，阮思娴也在追求机长梦想的路上遭遇了各种考验。两人在梦想与现实碰撞中，情感逐渐升温，却又因各种误会与挑战而渐行渐远。最终，两人在相互支持与理解中，终于飞到彼此的心上。",
+          "overview": "阮思娴因航空公司取消飞行员培训计划而辞职学飞，三年后以优异成绩毕业并踏上机长之路。与此同时，傅明予面临公司改革的重重阻碍，两人在梦想与现实的碰撞中经历误会与挑战，逐渐走向彼此理解。",
           "douban_link_verified": true
         }
       ],
@@ -7925,13 +8115,13 @@
       "first_air_date": "2026-08-31",
       "last_air_date": "2026-08-31",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38407616.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/nr1uqvJs4kqtGcBTwIAew5OiSXI.jpg",
       "overview": "九十年代初，东安市，重案六组成立前夕。省厅刑警曾克强因专案调入地方重案组，接手牺牲的战友刘华生前未竟的调查。大曾背负误解，一面融入新团队，一面暗中追查真相。东安市的犯罪势力暗流涌动，赵氏集团少东家赵彬以采砂船走私起家，贿赂官员，暴力垄断，为掩盖罪行接连杀害知情人。大曾以卧底姿态周旋，季洁以正面突破反制对方挑衅。在与赵氏集团周旋的过程中，六组成员接连并肩破获了连环爆炸复仇案，河道碎尸烹煮案，矿难骗保诈尸案，仙人跳杀人案，幽灵船惨案，神秘美女公路劫车案等奇案。",
-      "rating_count": 6011,
+      "rating_count": 6278,
       "rating_star_count": 2,
       "seasons": [
         {
@@ -7948,6 +8138,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 319659,
+      "tmdbUrl": "https://www.themoviedb.org/tv/319659",
+      "vote_average": 8,
+      "vote_count": 1,
       "trailers": [
         {
           "source": "bilibili",
@@ -8157,24 +8351,29 @@
     },
     {
       "id": 36660844,
+      "tmdb_id": 299952,
       "name": "早春晴朗",
       "original_name": "早春晴朗",
-      "imdb_id": null,
+      "imdb_id": "tt37884717",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 8.1,
+      "vote_count": 30,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "优酷视频",
-          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
+          "id": 1419,
+          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
+          "name": "Youku",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -8238,33 +8437,33 @@
       "aka": [
         "The Early Spring"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://v.youku.com/video?s=ffefaad54c434973b4d6",
+      "popularity": 25.772,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-08-26",
-      "last_air_date": "2026-08-26",
+      "last_air_date": "2026-09-09",
       "in_production": false,
-      "status": "24集全",
-      "episodes_info": "24集全",
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36660844.jpg",
-      "backdrop_path": null,
-      "overview": "这是一段敬于才华，合于性格、久于平等的禁忌之恋。极具天盛的“鬼才”栾念与北漂伊始的尚之桃狭路相逢。热烈勇敢的尚之桃亦步亦趋地蜕变成长，撬碎了栾念世故坚硬的心防，互相吸引的二人在都市丛林中极限拉扯、分分合合。爱情，就是用光所有勇气，再无遗憾。爱，则是互相修复，共同成长。在情和爱之间，他逐渐收敛锋芒，她开始独当一面，势均力敌的他们将会为彼此写下新的结局……\n该剧根据姑娘别哭同名小说改编。",
-      "rating_count": 86126,
+      "backdrop_path": "/oUFUvEMCBP80e4eYsfVfxC8n7ih.jpg",
+      "overview": "这是一段十年交锋，敬于才华，合于性格、久于平等的禁忌之恋。北漂伊始的尚之桃与极具天赋的“鬼才”栾念狭路相逢。热烈勇敢的尚之桃亦步亦趋地蜕变成长，撬碎了栾念世故坚硬的心防，互相吸引的二人在都市丛林中极限拉扯、分分合合。爱情，就是用光所有勇气，再无遗憾。爱，则是互相修复，共同成长。但情和爱之间，她选择生存。当她独当一面，他收敛锋芒，势均力敌的他们将会为彼此写下了新的结局……",
+      "rating_count": 90342,
       "rating_star_count": 3.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 36660844,
+          "id": 299952,
           "air_date": "2026-08-26",
           "episode_count": 24,
-          "vote_average": 6.6,
+          "vote_average": 8.1,
           "poster_path": "posters/douban/tv_cn/36660844.jpg",
           "douban_rating": "6.6",
           "douban_link_google": "https://movie.douban.com/subject/36660844/",
-          "overview": "这是一段敬于才华，合于性格、久于平等的禁忌之恋。极具天盛的“鬼才”栾念与北漂伊始的尚之桃狭路相逢。热烈勇敢的尚之桃亦步亦趋地蜕变成长，撬碎了栾念世故坚硬的心防，互相吸引的二人在都市丛林中极限拉扯、分分合合。爱情，就是用光所有勇气，再无遗憾。爱，则是互相修复，共同成长。在情和爱之间，他逐渐收敛锋芒，她开始独当一面，势均力敌的他们将会为彼此写下新的结局……\n该剧根据姑娘别哭同名小说改编。",
+          "overview": "这是一段十年交锋，敬于才华，合于性格、久于平等的禁忌之恋。北漂伊始的尚之桃与极具天赋的“鬼才”栾念狭路相逢。热烈勇敢的尚之桃亦步亦趋地蜕变成长，撬碎了栾念世故坚硬的心防，互相吸引的二人在都市丛林中极限拉扯、分分合合。爱情，就是用光所有勇气，再无遗憾。爱，则是互相修复，共同成长。但情和爱之间，她选择生存。当她独当一面，他收敛锋芒，势均力敌的他们将会为彼此写下了新的结局……",
           "douban_link_verified": true
         }
       ]
@@ -8273,7 +8472,7 @@
       "id": 36126289,
       "name": "醒来",
       "original_name": "醒来",
-      "imdb_id": null,
+      "imdb_id": "tt36758826",
       "genres": [
         {
           "id": 1,
@@ -8377,13 +8576,13 @@
       "first_air_date": "2026-08-26",
       "last_air_date": "2026-08-26",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36126289.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/jY5xb5HLoVWkXlKCTbXqh3g7GQL.jpg",
       "overview": "1941年冬，照相师陈开来在师父牺牲后，代其赴上海与地下党接头，路遇表面是舞厅头牌、实为军统特工的金宝，在其帮助下以照相馆为掩护开展潜伏。期间他结识身份各异的女子——汪伪特派员苏门、我党谍报人员沈克希。陈开来在多方势力间周旋斡旋，逐步成长为杰出的地下工作者，最终联合众人挫败日军“沉睡计划”。",
-      "rating_count": 10781,
+      "rating_count": 11038,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -8400,6 +8599,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 289761,
+      "tmdbUrl": "https://www.themoviedb.org/tv/289761",
+      "vote_average": 7,
+      "vote_count": 3,
       "trailers": [
         {
           "source": "bilibili",
@@ -8425,7 +8628,7 @@
       "id": 37325370,
       "name": "金色",
       "original_name": "金色",
-      "imdb_id": null,
+      "imdb_id": "tt37437772",
       "genres": [
         {
           "id": 1,
@@ -8531,13 +8734,13 @@
       "first_air_date": "2026-08-25",
       "last_air_date": "2026-08-25",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37325370.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/xirWeEiatY915u837oq1l2t4oPP.jpg",
       "overview": "三十万两黄金突现大漠，传言寻金之人皆成厉鬼，相互厮杀。横遭灭门的女子孤闯大漠，决心复仇！权欲之争暗涌，一群江湖侠客纷纷卷入这场恩怨情仇，共谱一段新武侠故事。",
-      "rating_count": 14662,
+      "rating_count": 14947,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -8554,6 +8757,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 294487,
+      "tmdbUrl": "https://www.themoviedb.org/tv/294487",
+      "vote_average": 7.667,
+      "vote_count": 3,
       "trailers": [
         {
           "source": "bilibili",
@@ -9068,10 +9275,152 @@
       ]
     },
     {
+      "id": 38245102,
+      "name": "邻人可疑",
+      "original_name": "邻人可疑",
+      "imdb_id": null,
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "悬疑"
+        },
+        {
+          "id": 3,
+          "name": "惊悚"
+        }
+      ],
+      "networks": [
+        {
+          "id": 1,
+          "name": "腾讯视频",
+          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "廉欣"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "张本煜"
+        },
+        {
+          "id": 2,
+          "name": "刘思维"
+        },
+        {
+          "id": 3,
+          "name": "孙艺燃"
+        },
+        {
+          "id": 4,
+          "name": "孙梦纯"
+        },
+        {
+          "id": 5,
+          "name": "宋木子"
+        },
+        {
+          "id": 6,
+          "name": "王艺荻"
+        },
+        {
+          "id": 7,
+          "name": "万国鹏"
+        },
+        {
+          "id": 8,
+          "name": "任洛敏"
+        },
+        {
+          "id": 9,
+          "name": "周波"
+        },
+        {
+          "id": 10,
+          "name": "王茂蕾"
+        },
+        {
+          "id": 11,
+          "name": "刘杰毅"
+        },
+        {
+          "id": 12,
+          "name": "于白水"
+        },
+        {
+          "id": 13,
+          "name": "李宏磊"
+        },
+        {
+          "id": 14,
+          "name": "杜帅"
+        },
+        {
+          "id": 15,
+          "name": "吴佟"
+        },
+        {
+          "id": 16,
+          "name": "郑清文"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "Suspicious Neighbor"
+      ],
+      "homepage": null,
+      "popularity": null,
+      "number_of_seasons": 1,
+      "number_of_episodes": 3,
+      "first_air_date": "2026-08-20",
+      "last_air_date": "2026-08-20",
+      "in_production": true,
+      "status": "更新至1集",
+      "episodes_info": "更新至1集",
+      "adult": false,
+      "poster_path": "posters/douban/tv_cn/38245102.jpg",
+      "backdrop_path": "/afJUPDQm4ZegjxGwNNGertKs2wo.jpg",
+      "overview": "搬进新房，本以为是幸福的起点，却发现对门男邻居日渐诡谲。晾衣架上衣物微不可察的变化，深夜门外窸窣诡异的响动，还有贴在窗口一闪而过的人脸……究竟是过度敏感的无端臆想？还是，确有其事？直到那布满灰尘的门把手被悄然拧动，所有关于幸福的假象，才在一瞬间轰然崩塌。那些蛰伏在平淡日子里的谎言，远比想象中更加致命。",
+      "rating_count": 7752,
+      "rating_star_count": 3.5,
+      "seasons": [
+        {
+          "name": "",
+          "season_number": 1,
+          "id": 38245102,
+          "air_date": "2026-08-20",
+          "episode_count": 3,
+          "vote_average": 6.7,
+          "poster_path": "posters/douban/tv_cn/38245102.jpg",
+          "douban_rating": "6.7",
+          "douban_link_google": "https://movie.douban.com/subject/38245102/",
+          "overview": "搬进新房，本以为是幸福的起点，却发现对门男邻居日渐诡谲。晾衣架上衣物微不可察的变化，深夜门外窸窣诡异的响动，还有贴在窗口一闪而过的人脸……究竟是过度敏感的无端臆想？还是，确有其事？直到那布满灰尘的门把手被悄然拧动，所有关于幸福的假象，才在一瞬间轰然崩塌。那些蛰伏在平淡日子里的谎言，远比想象中更加致命。",
+          "douban_link_verified": true
+        }
+      ],
+      "tmdb_id": 317331,
+      "tmdbUrl": "https://www.themoviedb.org/tv/317331",
+      "vote_average": 8.2,
+      "vote_count": 2
+    },
+    {
       "id": 37252177,
       "name": "蝉",
       "original_name": "蝉",
-      "imdb_id": null,
+      "imdb_id": "tt35964684",
       "genres": [
         {
           "id": 1,
@@ -9214,13 +9563,13 @@
       "first_air_date": "2026-08-20",
       "last_air_date": "2026-08-20",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37252177.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/32quYTPi9s0SUITI6xUVkYR1bwf.jpg",
       "overview": "生父是绑架犯，继父是刑警的刑辩律师（钟楚曦 饰），多年前遭人报复痛失妻儿的大法官（吴镇宇 饰），善用人心，游走灰色地带的邪魅律政精英（郑云龙 饰），三个孤独的陌生人在硬核案件的刑事辩护中互相博弈，却越发惺惺相惜，是对手也似亲人，螳螂捕蝉，黄雀在后，三人间，互为猎物，亦互为猎手，究竟谁才是黄雀，谁又是那只蛰伏十二年，只为自由鸣叫，收获一季响亮夏天的蝉？",
-      "rating_count": 17376,
+      "rating_count": 17463,
       "rating_star_count": 3,
       "seasons": [
         {
@@ -9237,6 +9586,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 285250,
+      "tmdbUrl": "https://www.themoviedb.org/tv/285250",
+      "vote_average": 7.667,
+      "vote_count": 3,
       "trailers": [
         {
           "source": "bilibili",
@@ -9250,172 +9603,44 @@
       ]
     },
     {
-      "id": 38245102,
-      "name": "邻人可疑",
-      "original_name": "邻人可疑",
-      "imdb_id": null,
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "悬疑"
-        },
-        {
-          "id": 3,
-          "name": "惊悚"
-        }
-      ],
-      "networks": [
-        {
-          "id": 1,
-          "name": "腾讯视频",
-          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "廉欣"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "张本煜"
-        },
-        {
-          "id": 2,
-          "name": "刘思维"
-        },
-        {
-          "id": 3,
-          "name": "孙艺燃"
-        },
-        {
-          "id": 4,
-          "name": "孙梦纯"
-        },
-        {
-          "id": 5,
-          "name": "宋木子"
-        },
-        {
-          "id": 6,
-          "name": "王艺荻"
-        },
-        {
-          "id": 7,
-          "name": "万国鹏"
-        },
-        {
-          "id": 8,
-          "name": "任洛敏"
-        },
-        {
-          "id": 9,
-          "name": "周波"
-        },
-        {
-          "id": 10,
-          "name": "王茂蕾"
-        },
-        {
-          "id": 11,
-          "name": "刘杰毅"
-        },
-        {
-          "id": 12,
-          "name": "于白水"
-        },
-        {
-          "id": 13,
-          "name": "李宏磊"
-        },
-        {
-          "id": 14,
-          "name": "杜帅"
-        },
-        {
-          "id": 15,
-          "name": "吴佟"
-        },
-        {
-          "id": 16,
-          "name": "郑清文"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "Suspicious Neighbor"
-      ],
-      "homepage": null,
-      "popularity": null,
-      "number_of_seasons": 1,
-      "number_of_episodes": 3,
-      "first_air_date": "2026-08-20",
-      "last_air_date": "2026-08-20",
-      "in_production": true,
-      "status": "更新至1集",
-      "episodes_info": "更新至1集",
-      "adult": false,
-      "poster_path": "posters/douban/tv_cn/38245102.jpg",
-      "backdrop_path": null,
-      "overview": "搬进新房，本以为是幸福的起点，却发现对门男邻居日渐诡谲。晾衣架上衣物微不可察的变化，深夜门外窸窣诡异的响动，还有贴在窗口一闪而过的人脸……究竟是过度敏感的无端臆想？还是，确有其事？直到那布满灰尘的门把手被悄然拧动，所有关于幸福的假象，才在一瞬间轰然崩塌。那些蛰伏在平淡日子里的谎言，远比想象中更加致命。",
-      "rating_count": 7735,
-      "rating_star_count": 3.5,
-      "seasons": [
-        {
-          "name": "",
-          "season_number": 1,
-          "id": 38245102,
-          "air_date": "2026-08-20",
-          "episode_count": 3,
-          "vote_average": 6.7,
-          "poster_path": "posters/douban/tv_cn/38245102.jpg",
-          "douban_rating": "6.7",
-          "douban_link_google": "https://movie.douban.com/subject/38245102/",
-          "overview": "搬进新房，本以为是幸福的起点，却发现对门男邻居日渐诡谲。晾衣架上衣物微不可察的变化，深夜门外窸窣诡异的响动，还有贴在窗口一闪而过的人脸……究竟是过度敏感的无端臆想？还是，确有其事？直到那布满灰尘的门把手被悄然拧动，所有关于幸福的假象，才在一瞬间轰然崩塌。那些蛰伏在平淡日子里的谎言，远比想象中更加致命。",
-          "douban_link_verified": true
-        }
-      ]
-    },
-    {
       "id": 36406417,
+      "tmdb_id": 272938,
       "name": "师兄太稳健",
       "original_name": "师兄太稳健",
-      "imdb_id": null,
+      "imdb_id": "tt37231342",
       "genres": [
         {
-          "id": 1,
-          "name": "剧情"
+          "id": 35,
+          "name": "喜剧"
         },
         {
-          "id": 2,
-          "name": "奇幻"
+          "id": 10759,
+          "name": "动作冒险"
         },
         {
-          "id": 3,
-          "name": "古装"
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 6.333,
+      "vote_count": 9,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "爱奇艺",
-          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+          "id": 1330,
+          "logo_path": "/fNxBFqWr7eWEgNeBDvvCxsSItXx.png",
+          "name": "iQiyi",
+          "origin_country": "CN"
         },
         {
-          "id": 2,
-          "name": "优酷视频",
-          "logo_path": "https://img3.doubanio.com/f/frodo/6fa5caade3ca480ccd95f455ee4d195ee342eb90/pics/vendors/youku.png"
+          "id": 1419,
+          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
+          "name": "Youku",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -9467,33 +9692,33 @@
       "aka": [
         "我师兄实在太稳健了"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://v.youku.com/v_show/id_XNjQ1Nzk0NzI5Ng==.html",
+      "popularity": 8.4487,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2026-08-19",
-      "last_air_date": "2026-08-19",
+      "last_air_date": "2026-09-03",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36406417.jpg",
-      "backdrop_path": null,
-      "overview": "前世是重症患者的李长寿意外重生到洪荒世界，化身为一名珍视生命、不沾因果的小小炼气士，为躲避天道预言中的天下大劫，奉行“稳健”之道，一心想上天庭苟活，为此，他稳健操作，不动稳如老狗、一动“石破天惊”，他坚信打打杀杀的时代已经过去，能坑人绝不杀人，能单身绝不恋爱，奈何敌人和美人如潮水般涌来，他一不小心成了运筹帷幄的幕后大佬，卷入多方博弈之中，运作“龙族上天”，甚至那天下大劫也加速到来……\n该剧改编自言归正传的同名小说。",
-      "rating_count": 17370,
+      "backdrop_path": "/8zsKL8gDjv7NI7HHk4POIBMl2jE.jpg",
+      "overview": "前世是重症患者的李长寿意外重生到洪荒世界，化身为一名珍视生命、不沾因果的小小炼气士，为躲避天道预言中的天下大劫，奉行“稳健”之道，一心想上天庭苟活，为此，他稳健操作，不动稳如老狗、一动“石破天惊”，他坚信打打杀杀的时代已经过去，能坑人绝不杀人，能单身绝不恋爱，奈何敌人和美人如潮水般涌来，他一不小心成了运筹帷幄的幕后大佬，卷入多方博弈之中，运作“龙族上天”，甚至那天下大劫也加速到来…",
+      "rating_count": 17652,
       "rating_star_count": 3,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 36406417,
+          "id": 272938,
           "air_date": "2026-08-19",
           "episode_count": 30,
-          "vote_average": 5.8,
+          "vote_average": 6.333,
           "poster_path": "posters/douban/tv_cn/36406417.jpg",
           "douban_rating": "5.8",
           "douban_link_google": "https://movie.douban.com/subject/36406417/",
-          "overview": "前世是重症患者的李长寿意外重生到洪荒世界，化身为一名珍视生命、不沾因果的小小炼气士，为躲避天道预言中的天下大劫，奉行“稳健”之道，一心想上天庭苟活，为此，他稳健操作，不动稳如老狗、一动“石破天惊”，他坚信打打杀杀的时代已经过去，能坑人绝不杀人，能单身绝不恋爱，奈何敌人和美人如潮水般涌来，他一不小心成了运筹帷幄的幕后大佬，卷入多方博弈之中，运作“龙族上天”，甚至那天下大劫也加速到来……\n该剧改编自言归正传的同名小说。",
+          "overview": "前世是重症患者的李长寿意外重生到洪荒世界，化身为一名珍视生命、不沾因果的小小炼气士，为躲避天道预言中的天下大劫，奉行“稳健”之道，一心想上天庭苟活，为此，他稳健操作，不动稳如老狗、一动“石破天惊”，他坚信打打杀杀的时代已经过去，能坑人绝不杀人，能单身绝不恋爱，奈何敌人和美人如潮水般涌来，他一不小心成了运筹帷幄的幕后大佬，卷入多方博弈之中，运作“龙族上天”，甚至那天下大劫也加速到来…",
           "douban_link_verified": true
         }
       ],
@@ -9531,7 +9756,7 @@
       "id": 35653123,
       "name": "藏锋",
       "original_name": "藏锋",
-      "imdb_id": null,
+      "imdb_id": "tt36277135",
       "genres": [
         {
           "id": 1,
@@ -9631,13 +9856,13 @@
       "first_air_date": "2026-08-17",
       "last_air_date": "2026-08-17",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35653123.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/iHShzy0Fa1WDbjFMJqxZV5nLwOQ.jpg",
       "overview": "故事以红叶市公安局宣传处副处长谭彦的“职场危机”为切入点，从宣传民警转战特警支队担任政委，一直拿笔杆子的谭彦从宣传岗位投身实战前线，一时间陷入秀才遇到兵有理说不清的处境，与深扎一线浑身荷尔蒙爆棚的特警支队长廖不凡从矛盾、磨合到融合，在协助专案组破获大案的过程里重拾职业理想。\n该剧改编自吕铮的同名小说。",
-      "rating_count": 10638,
+      "rating_count": 10811,
       "rating_star_count": 3,
       "seasons": [
         {
@@ -9654,6 +9879,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 280133,
+      "tmdbUrl": "https://www.themoviedb.org/tv/280133",
+      "vote_average": 8,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -10203,7 +10432,7 @@
       "id": 36554071,
       "name": "重器",
       "original_name": "重器",
-      "imdb_id": null,
+      "imdb_id": "tt36984839",
       "genres": [
         {
           "id": 1,
@@ -10355,13 +10584,13 @@
       "first_air_date": "2026-08-10",
       "last_air_date": "2026-08-10",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36554071.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/sUTK5UjUNud0d5hcEbhOk4RTqII.jpg",
       "overview": "该剧讲述了改革开放初期1979年到1997年，陈一众、余高远、张丽慧、夏英杰、陆则铭五个法学院学生毕业后进入了司法领域不同的部门，在如火如荼的司法实践中见证历史、参与历史、与时俱进、不断成长的故事。",
-      "rating_count": 44085,
+      "rating_count": 43804,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -10377,28 +10606,37 @@
           "overview": "该剧讲述了改革开放初期1979年到1997年，陈一众、余高远、张丽慧、夏英杰、陆则铭五个法学院学生毕业后进入了司法领域不同的部门，在如火如荼的司法实践中见证历史、参与历史、与时俱进、不断成长的故事。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 291856,
+      "tmdbUrl": "https://www.themoviedb.org/tv/291856",
+      "vote_average": 8,
+      "vote_count": 3
     },
     {
       "id": 36810153,
+      "tmdb_id": 287496,
       "name": "花开锦绣",
       "original_name": "花开锦绣",
-      "imdb_id": null,
+      "imdb_id": "tt31886947",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "古装"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 7.444,
+      "vote_count": 9,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "腾讯视频",
-          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -10467,33 +10705,33 @@
         "The Road to Splendor",
         "Escape to Your Heart"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://v.qq.com/x/cover/mzc00200seo6p1w.html",
+      "popularity": 14.5633,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2026-08-09",
-      "last_air_date": "2026-08-09",
+      "last_air_date": "2026-08-26",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36810153.jpg",
-      "backdrop_path": null,
-      "overview": "豪爽重情、出身草莽却心怀壮志的私盐贩子赵凌，与被诬陷私通而被迫逃亡的世家名媛小姐傅庭芸相识相爱，两人历经家族权谋、朝廷纷争与生死考验，赵凌从江湖草莽成长为朝廷命官，傅庭芸则在逆境中坚守初心。面对家族恩怨、盐政改革危机，他们携手共进，成就一段跨越身份与命运的传奇良缘。\n剧集改编自吱吱同名言情小说《花开锦绣》。",
-      "rating_count": 104045,
+      "backdrop_path": "/zyAFGC97834c2Ld4xPY02uacdQk.jpg",
+      "overview": "豪爽重情的私盐贩子赵凌虽出身草莽，却心怀壮志，他结识了遭人诬陷私通的世家名媛小姐傅庭芸，被迫一起逃亡，二人历经家族与朝廷的重重考验，与命运抗争，终成传奇良缘。",
+      "rating_count": 103753,
       "rating_star_count": 3.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 36810153,
+          "id": 287496,
           "air_date": "2026-08-09",
           "episode_count": 36,
-          "vote_average": 7.2,
+          "vote_average": 7.444,
           "poster_path": "posters/douban/tv_cn/36810153.jpg",
           "douban_rating": "7.2",
           "douban_link_google": "https://movie.douban.com/subject/36810153/",
-          "overview": "豪爽重情、出身草莽却心怀壮志的私盐贩子赵凌，与被诬陷私通而被迫逃亡的世家名媛小姐傅庭芸相识相爱，两人历经家族权谋、朝廷纷争与生死考验，赵凌从江湖草莽成长为朝廷命官，傅庭芸则在逆境中坚守初心。面对家族恩怨、盐政改革危机，他们携手共进，成就一段跨越身份与命运的传奇良缘。\n剧集改编自吱吱同名言情小说《花开锦绣》。",
+          "overview": "豪爽重情的私盐贩子赵凌虽出身草莽，却心怀壮志，他结识了遭人诬陷私通的世家名媛小姐傅庭芸，被迫一起逃亡，二人历经家族与朝廷的重重考验，与命运抗争，终成传奇良缘。",
           "douban_link_verified": true
         }
       ],
@@ -10693,7 +10931,7 @@
       "id": 38194327,
       "name": "凛冬下的罪恶",
       "original_name": "凛冬下的罪恶",
-      "imdb_id": null,
+      "imdb_id": "tt43659035",
       "genres": [
         {
           "id": 1,
@@ -10813,13 +11051,13 @@
       "first_air_date": "2026-08-04",
       "last_air_date": "2026-08-04",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/38194327.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/gN3vSMrarrirco31Af8bUsSHBYZ.jpg",
       "overview": "本剧讲述了90年代末，怒河市刑侦支队在无普及监控、无DNA鉴定技术的支持下，通过摸排、勘查等传统刑侦手段，接连破获数起重案要案的艰难过程。案件设计采用 “积案牵现案” 模式，以粗粝的90年代质感为基调，既深挖人性幽暗，又展现刑警的牺牲与担当，传递“立法为公，执法为民”的永恒主题。",
-      "rating_count": 9426,
+      "rating_count": 9563,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -10835,13 +11073,17 @@
           "overview": "本剧讲述了90年代末，怒河市刑侦支队在无普及监控、无DNA鉴定技术的支持下，通过摸排、勘查等传统刑侦手段，接连破获数起重案要案的艰难过程。案件设计采用 “积案牵现案” 模式，以粗粝的90年代质感为基调，既深挖人性幽暗，又展现刑警的牺牲与担当，传递“立法为公，执法为民”的永恒主题。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 327916,
+      "tmdbUrl": "https://www.themoviedb.org/tv/327916",
+      "vote_average": 7.5,
+      "vote_count": 2
     },
     {
       "id": 36721173,
       "name": "人鱼",
       "original_name": "人鱼",
-      "imdb_id": null,
+      "imdb_id": "tt32247369",
       "genres": [
         {
           "id": 1,
@@ -10949,13 +11191,13 @@
       "first_air_date": "2026-08-04",
       "last_air_date": "2026-08-04",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36721173.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/5sRWeNwujN5d7Zm6pv8PShcwoND.jpg",
       "overview": "就读于职业中学培训部的花季女生苏琳（黄杨钿甜 饰），虽自小被父母忽视，在艰苦环境中长大，但她始终刻苦学习，憧憬未来。为此，苏琳苦练口语并争取到了英文朗诵剧中小美人鱼的角色，却不想遭到同学马娜（段钰 饰）的嫉妒。一次激烈冲突中，她意外掉入地下管道，生死不明。\n而此时，与地下管道有关的卫红渠案也曝露在公众视野中，霎时，案件的侦查与苏琳的命运紧紧交织在一起。\n地下管道中的苏琳恐惧无助，但从未放弃希望。与此同时，邻居民警顾浩、萍水相逢的同校女孩姜庭（何思甜 饰），也始终心系她。\n当苏琳终于在流浪汉文森特（赵健 饰）的帮助下重返地面时，却撞见了案件的真相。善良的苏琳无法袖手旁观，她尽全力协助警方抓捕罪犯。最终，苏琳冲破牢笼，不屈不挠地奔向属于她的天地。",
-      "rating_count": 9601,
+      "rating_count": 9573,
       "rating_star_count": 3,
       "seasons": [
         {
@@ -10972,6 +11214,10 @@
           "douban_link_verified": true
         }
       ],
+      "tmdb_id": 273119,
+      "tmdbUrl": "https://www.themoviedb.org/tv/273119",
+      "vote_average": 9,
+      "vote_count": 2,
       "trailers": [
         {
           "source": "bilibili",
@@ -11089,24 +11335,29 @@
     },
     {
       "id": 36403345,
+      "tmdb_id": 289116,
       "name": "天才，女友",
       "original_name": "天才，女友",
-      "imdb_id": null,
+      "imdb_id": "tt37831535",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 7.313,
+      "vote_count": 8,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "爱奇艺",
-          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+          "id": 1330,
+          "logo_path": "/fNxBFqWr7eWEgNeBDvvCxsSItXx.png",
+          "name": "iQiyi",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -11164,33 +11415,33 @@
         "去有你的夏天",
         "当你耀眼时"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.iqiyi.com/a_1ljopeqm0kd.html",
+      "popularity": 15.0317,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2026-08-02",
-      "last_air_date": "2026-08-02",
+      "last_air_date": "2026-08-13",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/36403345.jpg",
-      "backdrop_path": null,
-      "overview": "根据素光同同名小说改编。江逾白长大以后，林知夏忽然对他说：“江逾白，我喜欢你，哲学和生物学意义上的喜欢。”那个夜晚，他脸颊微热，还听见自己加速的心跳声……",
-      "rating_count": 26831,
+      "backdrop_path": "/ZiVWUV475nFPZSGO8BbIWxEVGq.jpg",
+      "overview": "天才少女林知夏性格直接、不善交际，从小没有好友。考入省一中后，她因解题比拼与性格阳光的学霸江逾白相识并成为同桌。作为社交达人的江逾白帮林知夏融入集体交到汤婷婷、段启言、沈负暄、金百慧等朋友，林知夏为表达感谢帮他补习功课，两人渐渐从竞争走向互助，最终成为最好的朋友。俩人还一同解决同学被骗、一起参加社团活动与省数学竞赛，在这个过程中，江逾白对林知夏感情渐生，但只把爱意埋在心里。林知夏被保送复旦后，江逾白准备在毕业之旅对她告白，却因母亲卷入诈骗案而遗憾离开，俩人最终能否冲破阻碍走到一起？",
+      "rating_count": 26989,
       "rating_star_count": 2.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 36403345,
+          "id": 289116,
           "air_date": "2026-08-02",
           "episode_count": 28,
-          "vote_average": 5.3,
+          "vote_average": 7.313,
           "poster_path": "posters/douban/tv_cn/36403345.jpg",
           "douban_rating": "5.3",
           "douban_link_google": "https://movie.douban.com/subject/36403345/",
-          "overview": "根据素光同同名小说改编。江逾白长大以后，林知夏忽然对他说：“江逾白，我喜欢你，哲学和生物学意义上的喜欢。”那个夜晚，他脸颊微热，还听见自己加速的心跳声……",
+          "overview": "天才少女林知夏性格直接、不善交际，从小没有好友。考入省一中后，她因解题比拼与性格阳光的学霸江逾白相识并成为同桌。作为社交达人的江逾白帮林知夏融入集体交到汤婷婷、段启言、沈负暄、金百慧等朋友，林知夏为表达感谢帮他补习功课，两人渐渐从竞争走向互助，最终成为最好的朋友。俩人还一同解决同学被骗、一起参加社团活动与省数学竞赛，在这个过程中，江逾白对林知夏感情渐生，但只把爱意埋在心里。林知夏被保送复旦后，江逾白准备在毕业之旅对她告白，却因母亲卷入诈骗案而遗憾离开，俩人最终能否冲破阻碍走到一起？",
           "douban_link_verified": true
         }
       ],
@@ -11252,7 +11503,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.bilibili.com/bangumi/media/md23774118",
-      "popularity": 7.888,
+      "popularity": 8.4929,
       "number_of_seasons": 1,
       "number_of_episodes": 7,
       "first_air_date": "2026-08-02",
@@ -11508,24 +11759,35 @@
     },
     {
       "id": 26811535,
+      "tmdb_id": 271016,
       "name": "九门",
       "original_name": "九门",
-      "imdb_id": null,
+      "imdb_id": "tt37118307",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
         },
         {
-          "id": 2,
-          "name": "奇幻"
-        },
-        {
-          "id": 3,
-          "name": "冒险"
+          "id": 10759,
+          "name": "动作冒险"
         }
       ],
-      "networks": [],
+      "type": "Scripted",
+      "vote_average": 7.2,
+      "vote_count": 10,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "networks": [
+        {
+          "id": 1419,
+          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
+          "name": "Youku",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -11628,33 +11890,33 @@
         "老九门2",
         "老九门贰"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://v.youku.com/v_show/id_XNTE5ODA2NTMwMA==.html",
+      "popularity": 9.1477,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2026-07-30",
-      "last_air_date": "2026-07-30",
+      "last_air_date": "2026-08-15",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/26811535.jpg",
-      "backdrop_path": null,
-      "overview": "长沙风云再起之时，张启山（陈伟霆 饰）与吴老狗（曾舜晞 饰）强强联手，携手霍仙姑（陈瑶 饰）与九门诸人共赴冒险奇局。一桩401部队的神秘失踪事件，牵出百年尘封的惊天秘辛。生死抉择、兄弟之情、门派担当与家国大义相互交织。九门众人用热血和牺牲，守护家园，共渡难关。",
-      "rating_count": 49954,
+      "backdrop_path": "/paF9IoqXN3inVb5eR9rxElbpYyb.jpg",
+      "overview": "故事发生在1935年的长沙。抗日背景下，张启山（陈伟霆 饰）麾下的401部队在长沙军备医院离奇失踪，整支部队凭空消失，现场仅留下一名受惊的小护士。为调查部队消失的真相，长沙分区布防军官张启山与九门吴老狗（曾舜晞 饰）、霍仙姑（陈瑶 饰）强强联手，一同进入唯一的线索古墓“隔世楼”。三人穿越毒气林，在隔世楼深处发现了堆积如山的401部队尸体与记录着名字的营地文件。原来，这并非灵异事件，而是日军策划的阴谋——401部队全员被秘密囚禁于地下生化实验基地，沦为残酷“捕全计划”的牺牲品。随着调查深入，隔世楼中隐藏的东方方士阴长生修炼地、八门金锁阵等秘密逐一浮现，百年尘封的惊天秘辛被层层揭开。生死抉择、兄弟之情、门派担当与家国大义相互交织，九门众人用热血和牺牲，守护家园，共渡难关。",
+      "rating_count": 49749,
       "rating_star_count": 3.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 26811535,
+          "id": 271016,
           "air_date": "2026-07-30",
           "episode_count": 30,
-          "vote_average": 6.6,
+          "vote_average": 7.2,
           "poster_path": "posters/douban/tv_cn/26811535.jpg",
           "douban_rating": "6.6",
           "douban_link_google": "https://movie.douban.com/subject/26811535/",
-          "overview": "长沙风云再起之时，张启山（陈伟霆 饰）与吴老狗（曾舜晞 饰）强强联手，携手霍仙姑（陈瑶 饰）与九门诸人共赴冒险奇局。一桩401部队的神秘失踪事件，牵出百年尘封的惊天秘辛。生死抉择、兄弟之情、门派担当与家国大义相互交织。九门众人用热血和牺牲，守护家园，共渡难关。",
+          "overview": "故事发生在1935年的长沙。抗日背景下，张启山（陈伟霆 饰）麾下的401部队在长沙军备医院离奇失踪，整支部队凭空消失，现场仅留下一名受惊的小护士。为调查部队消失的真相，长沙分区布防军官张启山与九门吴老狗（曾舜晞 饰）、霍仙姑（陈瑶 饰）强强联手，一同进入唯一的线索古墓“隔世楼”。三人穿越毒气林，在隔世楼深处发现了堆积如山的401部队尸体与记录着名字的营地文件。原来，这并非灵异事件，而是日军策划的阴谋——401部队全员被秘密囚禁于地下生化实验基地，沦为残酷“捕全计划”的牺牲品。随着调查深入，隔世楼中隐藏的东方方士阴长生修炼地、八门金锁阵等秘密逐一浮现，百年尘封的惊天秘辛被层层揭开。生死抉择、兄弟之情、门派担当与家国大义相互交织，九门众人用热血和牺牲，守护家园，共渡难关。",
           "douban_link_verified": true
         }
       ],
@@ -11840,20 +12102,37 @@
     },
     {
       "id": 35691844,
+      "tmdb_id": 295599,
       "name": "御廷谣",
       "original_name": "御廷谣",
-      "imdb_id": null,
+      "imdb_id": "tt37937929",
       "genres": [
         {
-          "id": 1,
-          "name": "爱情"
-        },
-        {
-          "id": 2,
-          "name": "古装"
+          "id": 18,
+          "name": "剧情"
         }
       ],
-      "networks": [],
+      "type": "Scripted",
+      "vote_average": 8.682,
+      "vote_count": 11,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "networks": [
+        {
+          "id": 952,
+          "logo_path": "/zJQHSCwHcIGNQlHptJRZpUX88Ro.png",
+          "name": "Hunan Television",
+          "origin_country": "CN"
+        },
+        {
+          "id": 1631,
+          "logo_path": "/iE3rtBcUfWGiJosaZv2TroBxEZz.png",
+          "name": "Mango TV",
+          "origin_country": "CN"
+        }
+      ],
       "directors": [
         {
           "id": 1,
@@ -11907,33 +12186,33 @@
       "aka": [
         "江山为聘"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.mgtv.com/h/781917.html",
+      "popularity": 8.4946,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2026-07-28",
-      "last_air_date": "2026-07-28",
+      "last_air_date": "2026-08-12",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35691844.jpg",
-      "backdrop_path": null,
-      "overview": "孤女孟廷辉（吴谨言 饰）立志科考入仕，意外结识新帝英寡（陈哲远 饰），二人联手平定沙州官匪。孟廷辉入京赶考遭构陷，凭智谋洗清冤屈，受英寡提拔进入察闻院，接连清查各方阴谋，揭开血月会秘密与朝堂纷争。二人相知生情，冲破重重阻碍，平定叛乱、整肃朝纲，携手守护江山万民的故事。\n该剧改编自行烟烟的同名小说。",
-      "rating_count": 14078,
+      "backdrop_path": "/qKGSZaLLbfCaoTbE88oOwdAsTm8.jpg",
+      "overview": "立志凭科举入仕、改写底层命运的孤女孟廷辉因意外结识微服私访的少年新帝英寡，二人联手铲除沙州官匪，英寡赏识其胆识智谋，暗中助力她赴京赶考。孟廷辉入京后遭科举舞弊构陷，凭智勇自证清白，被英寡破格任命为察闻院主事，清查虎啸帮、晚香阁等黑恶势力，逐步牵出血月会复国阴谋与朝堂权斗。二人从君臣知己渐生情愫，历经身世谜团、朝堂阻力与边境战乱，最终平定叛乱、整肃朝纲，携手共护江山万民。",
+      "rating_count": 14105,
       "rating_star_count": 2.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 35691844,
+          "id": 295599,
           "air_date": "2026-07-28",
           "episode_count": 32,
-          "vote_average": 4.8,
+          "vote_average": 8.682,
           "poster_path": "posters/douban/tv_cn/35691844.jpg",
           "douban_rating": "4.8",
           "douban_link_google": "https://movie.douban.com/subject/35691844/",
-          "overview": "孤女孟廷辉（吴谨言 饰）立志科考入仕，意外结识新帝英寡（陈哲远 饰），二人联手平定沙州官匪。孟廷辉入京赶考遭构陷，凭智谋洗清冤屈，受英寡提拔进入察闻院，接连清查各方阴谋，揭开血月会秘密与朝堂纷争。二人相知生情，冲破重重阻碍，平定叛乱、整肃朝纲，携手守护江山万民的故事。\n该剧改编自行烟烟的同名小说。",
+          "overview": "立志凭科举入仕、改写底层命运的孤女孟廷辉因意外结识微服私访的少年新帝英寡，二人联手铲除沙州官匪，英寡赏识其胆识智谋，暗中助力她赴京赶考。孟廷辉入京后遭科举舞弊构陷，凭智勇自证清白，被英寡破格任命为察闻院主事，清查虎啸帮、晚香阁等黑恶势力，逐步牵出血月会复国阴谋与朝堂权斗。二人从君臣知己渐生情愫，历经身世谜团、朝堂阻力与边境战乱，最终平定叛乱、整肃朝纲，携手共护江山万民。",
           "douban_link_verified": true
         }
       ],
@@ -12397,7 +12676,7 @@
       "id": 35528958,
       "name": "兵自风中来",
       "original_name": "兵自风中来",
-      "imdb_id": null,
+      "imdb_id": "tt35046956",
       "genres": [
         {
           "id": 1,
@@ -12538,13 +12817,13 @@
       "first_air_date": "2026-07-23",
       "last_air_date": "2026-07-23",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/35528958.jpg",
-      "backdrop_path": null,
+      "backdrop_path": "/sgC8hgeZl1ZEjn2xAXGyFC86U6N.jpg",
       "overview": "该剧讲述了在396旅与陆军步兵学院联合举办的小型军事演习中，郭子剑因不满演习流于形式，假传指令要求真打实抗，虽引发哗然，却获赏识调任396旅一营营长。他激发官兵血性，赢得信任，但在一次对抗中由于失误，导致战友受伤及上级被俘。在经历处分、转业申请等波折后，他重归部队，转型创新，最终带领新质合成部队在实战化检验中大放异彩，逆风翻盘，打了一场令人耳目一新的新时代战争。",
-      "rating_count": 4778,
+      "rating_count": 4795,
       "rating_star_count": 3.5,
       "seasons": [
         {
@@ -12560,7 +12839,11 @@
           "overview": "该剧讲述了在396旅与陆军步兵学院联合举办的小型军事演习中，郭子剑因不满演习流于形式，假传指令要求真打实抗，虽引发哗然，却获赏识调任396旅一营营长。他激发官兵血性，赢得信任，但在一次对抗中由于失误，导致战友受伤及上级被俘。在经历处分、转业申请等波折后，他重归部队，转型创新，最终带领新质合成部队在实战化检验中大放异彩，逆风翻盘，打了一场令人耳目一新的新时代战争。",
           "douban_link_verified": true
         }
-      ]
+      ],
+      "tmdb_id": 283780,
+      "tmdbUrl": "https://www.themoviedb.org/tv/283780",
+      "vote_average": 7,
+      "vote_count": 1
     },
     {
       "id": 37463060,
@@ -13239,29 +13522,35 @@
     },
     {
       "id": 37096230,
+      "tmdb_id": 289139,
       "name": "这一秒过火",
       "original_name": "这一秒过火",
-      "imdb_id": null,
+      "imdb_id": "tt37443650",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "爱情"
         }
       ],
+      "type": "Scripted",
+      "vote_average": 8.3,
+      "vote_count": 12,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
       "networks": [
         {
-          "id": 1,
-          "name": "腾讯视频",
-          "logo_path": "https://img9.doubanio.com/f/frodo/fbc90f355fc45d5d2056e0d88c697f9414b56b44/pics/vendors/tencent.png"
+          "id": 1330,
+          "logo_path": "/fNxBFqWr7eWEgNeBDvvCxsSItXx.png",
+          "name": "iQiyi",
+          "origin_country": "CN"
         },
         {
-          "id": 2,
-          "name": "爱奇艺",
-          "logo_path": "https://img9.doubanio.com/f/frodo/6c7b857e6b2255201e73bf83732d95d572f3f9f7/pics/vendors/iqiyi.png"
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
         }
       ],
       "directors": [
@@ -13362,33 +13651,33 @@
         "这一秒",
         "如果这一秒，我没遇见你"
       ],
-      "homepage": null,
-      "popularity": null,
+      "homepage": "https://www.iqiyi.com/a_ng9j9rno7x.html",
+      "popularity": 13.4778,
       "number_of_seasons": 1,
       "number_of_episodes": 33,
       "first_air_date": "2026-07-19",
-      "last_air_date": "2026-07-19",
+      "last_air_date": "2026-08-05",
       "in_production": false,
-      "status": "",
-      "episodes_info": null,
+      "status": "Ended",
+      "episodes_info": "Ended",
       "adult": false,
       "poster_path": "posters/douban/tv_cn/37096230.jpg",
-      "backdrop_path": null,
-      "overview": "民国南城，慕容世家幼子慕容清峄（张凌赫 饰）因被抱错而受尽养父虐待，少年出逃时被任素素（王楚然 饰）所救，却累及其家族遭灭顶之灾。经年重逢，二人暗生情愫，但任素素为复仇，选择假死遁逃，留慕容清峄沉沦于失爱之痛。三年后任素素回归，却成了慕容清峄大哥的未婚妻。如今的二人，身份错位，在克制与拉扯间爱恨交织。当误会渐解、深情重燃，南城陷入乱世危难。慕容清峄、任素素与众人怀揣必死决心对抗强敌，他们的命运将走向何方？\n剧集根据匪我思存小说《如果这一秒，我没有遇见你》改编。",
-      "rating_count": 72131,
+      "backdrop_path": "/mmXea9UCZ83TMhHaSkDAJCHKr0S.jpg",
+      "overview": "民国乱世，备受冷眼的世家少爷慕容清峄与饱受苦难的复仇孤女任素素阴差阳错结缘相识，却因误会含恨而别。两人再重逢，却身份错位，陷入爱恨交织的极限拉扯中。二人历经世事波折与生离死别，最后携手直面乱世危局。",
+      "rating_count": 71980,
       "rating_star_count": 2.5,
       "seasons": [
         {
           "name": "",
           "season_number": 1,
-          "id": 37096230,
+          "id": 289139,
           "air_date": "2026-07-19",
           "episode_count": 33,
-          "vote_average": 5,
+          "vote_average": 8.3,
           "poster_path": "posters/douban/tv_cn/37096230.jpg",
           "douban_rating": "5.0",
           "douban_link_google": "https://movie.douban.com/subject/37096230/",
-          "overview": "民国南城，慕容世家幼子慕容清峄（张凌赫 饰）因被抱错而受尽养父虐待，少年出逃时被任素素（王楚然 饰）所救，却累及其家族遭灭顶之灾。经年重逢，二人暗生情愫，但任素素为复仇，选择假死遁逃，留慕容清峄沉沦于失爱之痛。三年后任素素回归，却成了慕容清峄大哥的未婚妻。如今的二人，身份错位，在克制与拉扯间爱恨交织。当误会渐解、深情重燃，南城陷入乱世危难。慕容清峄、任素素与众人怀揣必死决心对抗强敌，他们的命运将走向何方？\n剧集根据匪我思存小说《如果这一秒，我没有遇见你》改编。",
+          "overview": "民国乱世，备受冷眼的世家少爷慕容清峄与饱受苦难的复仇孤女任素素阴差阳错结缘相识，却因误会含恨而别。两人再重逢，却身份错位，陷入爱恨交织的极限拉扯中。二人历经世事波折与生离死别，最后携手直面乱世危局。",
           "douban_link_verified": true
         }
       ],
@@ -13678,7 +13967,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/show_page/id_eabedc9465724a09b03d.html",
-      "popularity": 7.3683,
+      "popularity": 7.0688,
       "number_of_seasons": 1,
       "number_of_episodes": 25,
       "first_air_date": "2026-07-16",
@@ -14237,7 +14526,7 @@
       ],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_xkt6z4c7kt.html",
-      "popularity": 11.2625,
+      "popularity": 12.442,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2026-07-11",
@@ -14843,7 +15132,7 @@
         "东风信"
       ],
       "homepage": "https://v.qq.com/x/cover/mzc00200nfe7al6.html",
-      "popularity": 12.9833,
+      "popularity": 13.9805,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2026-07-09",
@@ -14917,7 +15206,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/8161/blue-lips-2026",
-      "popularity": 2.9197,
+      "popularity": 3.1731,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2026-07-08",
@@ -15196,7 +15485,7 @@
         "莫道桑榆晚"
       ],
       "homepage": "https://www.mgtv.com/h/756916.html",
-      "popularity": 15.663,
+      "popularity": 17.6735,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2026-07-05",
@@ -15298,7 +15587,7 @@
         "狭路"
       ],
       "homepage": "https://www.iqiyi.com/a_1irz8csar91.html",
-      "popularity": 8.2934,
+      "popularity": 8.9307,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2026-07-05",
@@ -15520,7 +15809,7 @@
       ],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/8037/bittersweet-love-2026",
-      "popularity": 8.878,
+      "popularity": 9.5648,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-07-03",
@@ -15685,7 +15974,7 @@
         "Unsettled Case"
       ],
       "homepage": "https://v.youku.com/v_show/id_XNjUxODE2NjYyNA==.html",
-      "popularity": 3.8345,
+      "popularity": 4.0746,
       "number_of_seasons": 1,
       "number_of_episodes": 17,
       "first_air_date": "2026-07-03",
@@ -15921,7 +16210,7 @@
         "千香百媚"
       ],
       "homepage": "https://v.youku.com/v_show/id_XNjQ4NzIwOTg1Ng==.html",
-      "popularity": 11.0147,
+      "popularity": 9.7698,
       "number_of_seasons": 1,
       "number_of_episodes": 33,
       "first_air_date": "2026-06-27",
@@ -16019,7 +16308,7 @@
       ],
       "aka": [],
       "homepage": null,
-      "popularity": 7.7106,
+      "popularity": 7.3941,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-06-26",
@@ -16262,7 +16551,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.youtube.com/playlist?list=PLGhgHW5zMDP9SFi2t7RbI-ItEK57Q5-o2",
-      "popularity": 1.6686,
+      "popularity": 1.7215,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-06-24",
@@ -17650,7 +17939,7 @@
         "Never-Ending Summer"
       ],
       "homepage": "https://www.mgtv.com/h/783747.html",
-      "popularity": 11.9383,
+      "popularity": 12.1601,
       "number_of_seasons": 1,
       "number_of_episodes": 29,
       "first_air_date": "2026-06-16",
@@ -17783,7 +18072,7 @@
         "闪耀的品格"
       ],
       "homepage": "https://www.iqiyi.com/a_1cmw2xzkyct.html",
-      "popularity": 10.3766,
+      "popularity": 11.1435,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2026-06-15",
@@ -18126,7 +18415,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/7814/a-winter-sun-wakes-the-wind-in-spring-hills-dream-2026",
-      "popularity": 14.8028,
+      "popularity": 12.582,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2026-06-12",
@@ -18285,7 +18574,7 @@
         "南部·档案"
       ],
       "homepage": "https://www.iqiyi.com/v_29nhzkwwa48.html",
-      "popularity": 9.5384,
+      "popularity": 9.7103,
       "number_of_seasons": 1,
       "number_of_episodes": 33,
       "first_air_date": "2026-06-11",
@@ -18634,7 +18923,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200mxo428o.html",
-      "popularity": 20.0451,
+      "popularity": 25.1571,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-06-09",
@@ -19353,7 +19642,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/video?s=ffefdd76a5b344e0a48b",
-      "popularity": 10.4885,
+      "popularity": 9.6606,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-06-02",
@@ -19431,7 +19720,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1x7qmc799fx.html",
-      "popularity": 8.1795,
+      "popularity": 7.5554,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-06-02",
@@ -19751,7 +20040,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/763701.html",
-      "popularity": 6.418,
+      "popularity": 6.4529,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2026-05-27",
@@ -20774,7 +21063,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/7177/lost-to-you-2026",
-      "popularity": 5.1473,
+      "popularity": 5.6418,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-05-15",
@@ -20937,7 +21226,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjUzNDA5NDEwNA==.html",
-      "popularity": 8.9656,
+      "popularity": 9.9173,
       "number_of_seasons": 1,
       "number_of_episodes": 37,
       "first_air_date": "2026-05-13",
@@ -21275,7 +21564,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002009g0nh88.html",
-      "popularity": 9.5042,
+      "popularity": 9.4024,
       "number_of_seasons": 1,
       "number_of_episodes": 48,
       "first_air_date": "2026-05-10",
@@ -21682,7 +21971,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/7093/journey-with-you-2026",
-      "popularity": 3.8151,
+      "popularity": 3.1912,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-05-08",
@@ -21746,7 +22035,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/tc/videos/7094/double-helix-2026",
-      "popularity": 7.6813,
+      "popularity": 6.3268,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-05-08",
@@ -21809,7 +22098,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 2.4451,
+      "popularity": 2.5353,
       "number_of_seasons": 1,
       "number_of_episodes": 10,
       "first_air_date": "2026-05-07",
@@ -22259,7 +22548,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_25vgx15887l.html",
-      "popularity": 8.7616,
+      "popularity": 8.7588,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-05-04",
@@ -22660,7 +22949,7 @@
         "A Splendid Match"
       ],
       "homepage": "https://www.mgtv.com/h/749276.html",
-      "popularity": 9.9789,
+      "popularity": 10.3546,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-05-03",
@@ -23251,7 +23540,7 @@
         "追影者"
       ],
       "homepage": "https://v.youku.com/v_show/id_XNjUyMzYwNDk2MA==.html",
-      "popularity": 7.0174,
+      "popularity": 7.2565,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2026-04-26",
@@ -23467,7 +23756,7 @@
         "Fate Chooses You"
       ],
       "homepage": "https://www.iqiyi.com/a_243zixmfjjd.html",
-      "popularity": 9.291,
+      "popularity": 9.8438,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-04-25",
@@ -23660,7 +23949,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://youtube.com/@secretofusofficial?si=6Pbue75QVKSK7XeNhttps://youtube.com/@secretofusofficial?si=6Pbue75QVKSK7XeN",
-      "popularity": 2.0384,
+      "popularity": 1.5651,
       "number_of_seasons": 1,
       "number_of_episodes": 4,
       "first_air_date": "2026-04-23",
@@ -23731,7 +24020,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.bilibili.com/bangumi/play/ep3409878",
-      "popularity": 5.1848,
+      "popularity": 4.6708,
       "number_of_seasons": 1,
       "number_of_episodes": 20,
       "first_air_date": "2026-04-23",
@@ -23973,7 +24262,7 @@
       ],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002007tp60ap.html",
-      "popularity": 5.5324,
+      "popularity": 5.2046,
       "number_of_seasons": 1,
       "number_of_episodes": 20,
       "first_air_date": "2026-04-17",
@@ -24781,7 +25070,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/6540/feel-what-you-feel-2026",
-      "popularity": 2.7667,
+      "popularity": 2.8372,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-04-03",
@@ -24878,7 +25167,7 @@
       ],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1ycxztfjcgd.html",
-      "popularity": 8.9972,
+      "popularity": 8.6604,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2026-04-03",
@@ -25062,7 +25351,7 @@
         "Veil of Shadows"
       ],
       "homepage": "https://v.youku.com/v_show/id_XNjUxMjU4MzYyOA==.html",
-      "popularity": 18.2113,
+      "popularity": 19.6667,
       "number_of_seasons": 1,
       "number_of_episodes": 29,
       "first_air_date": "2026-04-01",
@@ -25314,7 +25603,7 @@
         "The Dark Romance"
       ],
       "homepage": "https://www.iqiyi.com/a_1y3341f8vj5.html",
-      "popularity": 5.134,
+      "popularity": 4.421,
       "number_of_seasons": 1,
       "number_of_episodes": 22,
       "first_air_date": "2026-03-31",
@@ -25706,7 +25995,7 @@
         "Love Beyond the Grave"
       ],
       "homepage": "https://v.qq.com/x/cover/mzc00200wm1zlyh.html",
-      "popularity": 17.4371,
+      "popularity": 18.4171,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-03-28",
@@ -25825,7 +26114,7 @@
         "You Are My Fateful Love"
       ],
       "homepage": "https://www.mgtv.com/h/731684.html",
-      "popularity": 7.8564,
+      "popularity": 8.0569,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2026-03-26",
@@ -25982,7 +26271,7 @@
         "开庭现场"
       ],
       "homepage": "https://v.qq.com/x/cover/mzc00200kswafkb.html",
-      "popularity": 5.3317,
+      "popularity": 5.3553,
       "number_of_seasons": 1,
       "number_of_episodes": 26,
       "first_air_date": "2026-03-25",
@@ -27178,7 +27467,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_km3isv5eh1.html",
-      "popularity": 38.8403,
+      "popularity": 40.5306,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-03-06",
@@ -27510,7 +27799,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 9.1272,
+      "popularity": 9.8087,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2026-03-03",
@@ -27806,7 +28095,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_vaev7mj17p.html",
-      "popularity": 6.2175,
+      "popularity": 6.4237,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2026-02-23",
@@ -28321,7 +28610,7 @@
       ],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200ypk8a08.html",
-      "popularity": 12.6046,
+      "popularity": 14.8752,
       "number_of_seasons": 1,
       "number_of_episodes": 37,
       "first_air_date": "2026-02-22",
@@ -28459,7 +28748,7 @@
         "Love Story in the 1970s"
       ],
       "homepage": "https://v.qq.com/x/cover/mzc00200tl6pclq.html",
-      "popularity": 10.2183,
+      "popularity": 10.4347,
       "number_of_seasons": 1,
       "number_of_episodes": 29,
       "first_air_date": "2026-02-21",
@@ -28779,7 +29068,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/6235/love-after-addiction-2026",
-      "popularity": 2.8433,
+      "popularity": 2.4153,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2026-02-06",
@@ -28850,7 +29139,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_16ucpowk17h.html",
-      "popularity": 17.2468,
+      "popularity": 18.4727,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2026-02-06",
@@ -28928,7 +29217,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQyOTQ1ODQ3Ng==.html",
-      "popularity": 13.6649,
+      "popularity": 12.723,
       "number_of_seasons": 1,
       "number_of_episodes": 34,
       "first_air_date": "2026-02-05",
@@ -29030,7 +29319,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200sua41ze.html",
-      "popularity": 5.4599,
+      "popularity": 5.349,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2026-02-03",
@@ -29101,7 +29390,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200pn9oay5.html",
-      "popularity": 7.4354,
+      "popularity": 7.6913,
       "number_of_seasons": 1,
       "number_of_episodes": 26,
       "first_air_date": "2026-01-31",
@@ -29174,7 +29463,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_22oj3vdhw4x.html",
-      "popularity": 8.101,
+      "popularity": 7.8104,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-01-30",
@@ -29255,7 +29544,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_16rpoa9tnuk.html",
-      "popularity": 21.0774,
+      "popularity": 28.123,
       "number_of_seasons": 1,
       "number_of_episodes": 48,
       "first_air_date": "2026-01-23",
@@ -29322,7 +29611,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjUxNzE3NzU4NA==.html",
-      "popularity": 5.6985,
+      "popularity": 5.8144,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-01-22",
@@ -29389,7 +29678,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002003yv87zv.html",
-      "popularity": 6.0569,
+      "popularity": 6.3138,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2026-01-22",
@@ -29460,7 +29749,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.bilibili.com/bangumi/media/md23775236",
-      "popularity": 4.9542,
+      "popularity": 4.9472,
       "number_of_seasons": 1,
       "number_of_episodes": 26,
       "first_air_date": "2026-01-16",
@@ -29529,7 +29818,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200o3jp0vf.html",
-      "popularity": 11.508,
+      "popularity": 11.3528,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2026-01-10",
@@ -29592,7 +29881,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNTk2MjY4NTY5Mg==.html",
-      "popularity": 6.8196,
+      "popularity": 10.5328,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2026-01-10",
@@ -29659,7 +29948,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1rlurot9bg5.html",
-      "popularity": 13.5109,
+      "popularity": 14.1213,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2026-01-09",
@@ -29722,7 +30011,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/6214/awakening-the-steppe-2025",
-      "popularity": 1.7072,
+      "popularity": 1.6915,
       "number_of_seasons": 1,
       "number_of_episodes": 6,
       "first_air_date": "2026-01-01",
@@ -29789,7 +30078,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/705834.html",
-      "popularity": 11.2822,
+      "popularity": 10.4459,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-12-29",
@@ -29860,7 +30149,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQzMzUyNTgxMg==.html",
-      "popularity": 4.457,
+      "popularity": 4.4451,
       "number_of_seasons": 1,
       "number_of_episodes": 21,
       "first_air_date": "2025-12-29",
@@ -29931,7 +30220,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjUxNjk2MTUwNA==.html",
-      "popularity": 19.1862,
+      "popularity": 17.429,
       "number_of_seasons": 1,
       "number_of_episodes": 52,
       "first_air_date": "2025-12-28",
@@ -30006,7 +30295,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_lwlhv2suud.html",
-      "popularity": 13.0965,
+      "popularity": 12.0786,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-12-27",
@@ -30073,7 +30362,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002002yfzpaf.html",
-      "popularity": 6.973,
+      "popularity": 5.4352,
       "number_of_seasons": 1,
       "number_of_episodes": 18,
       "first_air_date": "2025-12-27",
@@ -30136,7 +30425,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1vgjcs0wvrp.html",
-      "popularity": 3.9976,
+      "popularity": 3.8714,
       "number_of_seasons": 1,
       "number_of_episodes": 63,
       "first_air_date": "2025-12-26",
@@ -30199,7 +30488,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_11hmrgvte3d.html",
-      "popularity": 6.8414,
+      "popularity": 6.7658,
       "number_of_seasons": 2,
       "number_of_episodes": 40,
       "first_air_date": "2025-12-25",
@@ -30262,7 +30551,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200xntoaip.html",
-      "popularity": 23.6057,
+      "popularity": 23.9683,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-12-22",
@@ -30329,7 +30618,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1py5cf6v4md.html",
-      "popularity": 3.6323,
+      "popularity": 4.9865,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-12-19",
@@ -30400,7 +30689,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 5.2021,
+      "popularity": 4.8648,
       "number_of_seasons": 1,
       "number_of_episodes": 21,
       "first_air_date": "2025-12-17",
@@ -30467,7 +30756,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200ilimmaa.html",
-      "popularity": 5.2778,
+      "popularity": 4.6022,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-12-17",
@@ -30542,7 +30831,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002009xkvw78.html",
-      "popularity": 4.4459,
+      "popularity": 4.4907,
       "number_of_seasons": 1,
       "number_of_episodes": 27,
       "first_air_date": "2025-12-15",
@@ -30611,7 +30900,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjUxNDk3NDMwNA==.html",
-      "popularity": 3.0845,
+      "popularity": 3.3435,
       "number_of_seasons": 1,
       "number_of_episodes": 20,
       "first_air_date": "2025-12-13",
@@ -30678,7 +30967,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_1kmqtdohtn8.html",
-      "popularity": 17.3603,
+      "popularity": 17.6526,
       "number_of_seasons": 1,
       "number_of_episodes": 29,
       "first_air_date": "2025-12-12",
@@ -30749,7 +31038,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjM5MDgwMDI1Ng==.html",
-      "popularity": 9.1049,
+      "popularity": 9.0363,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2025-12-12",
@@ -30812,7 +31101,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200djd8qu9.html",
-      "popularity": 8.8658,
+      "popularity": 8.7464,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-12-04",
@@ -30883,7 +31172,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_2b9iiqfyq41.html",
-      "popularity": 4.3815,
+      "popularity": 4.136,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-12-02",
@@ -30952,7 +31241,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200ehxx2hp.html",
-      "popularity": 5.6378,
+      "popularity": 5.2251,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-11-29",
@@ -31015,7 +31304,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_14nwgc8fiq1.html",
-      "popularity": 6.5526,
+      "popularity": 6.6734,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-11-25",
@@ -31082,7 +31371,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200d70bilg.html",
-      "popularity": 7.1954,
+      "popularity": 6.7512,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-11-22",
@@ -31145,7 +31434,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200wncukwg.html",
-      "popularity": 1.932,
+      "popularity": 1.9143,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-11-17",
@@ -31208,7 +31497,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200c1keuqc.html",
-      "popularity": 5.0469,
+      "popularity": 6.6352,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2025-11-16",
@@ -31281,7 +31570,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.viki.com/tv/41277c-to-my-shore",
-      "popularity": 7.7194,
+      "popularity": 10.4525,
       "number_of_seasons": 1,
       "number_of_episodes": 15,
       "first_air_date": "2025-11-15",
@@ -31344,7 +31633,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjM3MzAyMzc2MA==.html",
-      "popularity": 8.9174,
+      "popularity": 10.2518,
       "number_of_seasons": 1,
       "number_of_episodes": 35,
       "first_air_date": "2025-11-14",
@@ -31425,7 +31714,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 2.0043,
+      "popularity": 1.8325,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-10-31",
@@ -31488,7 +31777,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200ado86os.html",
-      "popularity": 8.0197,
+      "popularity": 8.0628,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-10-30",
@@ -31555,7 +31844,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002007rwdiz4.html",
-      "popularity": 3.4637,
+      "popularity": 3.0043,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-10-26",
@@ -31618,7 +31907,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_25ki16459u9.html",
-      "popularity": 11.7493,
+      "popularity": 11.7123,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-10-25",
@@ -31701,7 +31990,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/613743.html",
-      "popularity": 12.2948,
+      "popularity": 11.2921,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-10-24",
@@ -31772,7 +32061,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQwNDM0NDg2NA==.html",
-      "popularity": 32.9407,
+      "popularity": 30.0141,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-10-20",
@@ -31841,7 +32130,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200of24km2.html",
-      "popularity": 6.277,
+      "popularity": 5.8944,
       "number_of_seasons": 1,
       "number_of_episodes": 18,
       "first_air_date": "2025-10-16",
@@ -31908,7 +32197,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_178mnfxxhhp.html",
-      "popularity": 5.8308,
+      "popularity": 5.5935,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2025-10-11",
@@ -31971,7 +32260,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200hacbjao.html",
-      "popularity": 7.1138,
+      "popularity": 7.0705,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-10-09",
@@ -32042,7 +32331,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjM5NjM5Njc0MA==.html",
-      "popularity": 19.8388,
+      "popularity": 22.4933,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-10-08",
@@ -32109,7 +32398,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_22bfiy0ai8l.html",
-      "popularity": 13.943,
+      "popularity": 14.4299,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-10-02",
@@ -32184,7 +32473,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_2gh7n3tgnyp.html",
-      "popularity": 7.8797,
+      "popularity": 7.5859,
       "number_of_seasons": 1,
       "number_of_episodes": 39,
       "first_air_date": "2025-09-30",
@@ -32255,7 +32544,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1m47mcr8vyh.html",
-      "popularity": 9.4241,
+      "popularity": 9.7404,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2025-09-28",
@@ -32318,7 +32607,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.bilibili.com/bangumi/media/md27323602",
-      "popularity": 3.4436,
+      "popularity": 3.8902,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2025-09-26",
@@ -32381,7 +32670,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200f19q8q5.html",
-      "popularity": 11.7859,
+      "popularity": 14.0612,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-09-26",
@@ -32448,7 +32737,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200aei6d12.html",
-      "popularity": 12.7795,
+      "popularity": 10.7624,
       "number_of_seasons": 1,
       "number_of_episodes": 18,
       "first_air_date": "2025-09-20",
@@ -32523,7 +32812,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1cobn8ftdj1.html",
-      "popularity": 6.4129,
+      "popularity": 6.3882,
       "number_of_seasons": 1,
       "number_of_episodes": 16,
       "first_air_date": "2025-09-17",
@@ -32586,7 +32875,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_21xrp4mwhgp.html",
-      "popularity": 4.9657,
+      "popularity": 4.6384,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-09-16",
@@ -32655,7 +32944,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1myubxject9.html",
-      "popularity": 18.8653,
+      "popularity": 16.6563,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-09-11",
@@ -32726,7 +33015,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200fboxu3c.html",
-      "popularity": 6.9783,
+      "popularity": 5.8853,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-08-29",
@@ -32798,7 +33087,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/5679/kill-to-love-2025",
-      "popularity": 3.5732,
+      "popularity": 3.7465,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-08-25",
@@ -32865,7 +33154,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200ohhry3d.html",
-      "popularity": 7.1597,
+      "popularity": 6.9935,
       "number_of_seasons": 1,
       "number_of_episodes": 34,
       "first_air_date": "2025-08-25",
@@ -32928,7 +33217,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_279vot5goap.html",
-      "popularity": 12.8783,
+      "popularity": 13.6391,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-08-24",
@@ -32995,7 +33284,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002009y0nzq8.html",
-      "popularity": 25.218,
+      "popularity": 24.7242,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-08-18",
@@ -33058,7 +33347,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/video?s=adffc358fe204c07b2d2",
-      "popularity": 16.9679,
+      "popularity": 18.2002,
       "number_of_seasons": 1,
       "number_of_episodes": 33,
       "first_air_date": "2025-08-16",
@@ -33127,7 +33416,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_22vgsxoyxfl.html",
-      "popularity": 11.6965,
+      "popularity": 10.9177,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-08-13",
@@ -33190,7 +33479,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200rcnshdb.html",
-      "popularity": 2.8009,
+      "popularity": 2.5799,
       "number_of_seasons": 1,
       "number_of_episodes": 26,
       "first_air_date": "2025-08-08",
@@ -33253,7 +33542,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQwNDY3OTcyOA==.html",
-      "popularity": 7.7886,
+      "popularity": 7.2058,
       "number_of_seasons": 1,
       "number_of_episodes": 23,
       "first_air_date": "2025-08-07",
@@ -33322,7 +33611,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002006ndl83t.html",
-      "popularity": 13.8259,
+      "popularity": 13.0569,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-08-06",
@@ -33393,7 +33682,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_qxqbfpiyak.html",
-      "popularity": 8.1603,
+      "popularity": 10.273,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-08-01",
@@ -33466,7 +33755,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200qc847lo.html",
-      "popularity": 5.5561,
+      "popularity": 5.0127,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-07-28",
@@ -33533,7 +33822,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjI5MDAwNzkxMg==.html",
-      "popularity": 16.0033,
+      "popularity": 14.9645,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-07-27",
@@ -33600,7 +33889,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 9.9788,
+      "popularity": 10.4445,
       "number_of_seasons": 4,
       "number_of_episodes": 30,
       "first_air_date": "2025-07-26",
@@ -33663,7 +33952,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200e9772rv.html",
-      "popularity": 2.0573,
+      "popularity": 1.7887,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2025-07-22",
@@ -33730,7 +34019,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/730633/.html",
-      "popularity": 7.9058,
+      "popularity": 7.6049,
       "number_of_seasons": 1,
       "number_of_episodes": 26,
       "first_air_date": "2025-07-21",
@@ -33797,7 +34086,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_xu7nb4qqyl.html",
-      "popularity": 4.058,
+      "popularity": 3.9474,
       "number_of_seasons": 1,
       "number_of_episodes": 27,
       "first_air_date": "2025-07-15",
@@ -33860,7 +34149,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQ4ODc4MDUwOA==.html",
-      "popularity": 13.23,
+      "popularity": 12.8258,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-07-14",
@@ -33927,7 +34216,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_13xlephbdso.html",
-      "popularity": 15.0598,
+      "popularity": 13.4588,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-07-13",
@@ -33994,7 +34283,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002008n7xsn3.html",
-      "popularity": 8.9716,
+      "popularity": 8.0248,
       "number_of_seasons": 1,
       "number_of_episodes": 33,
       "first_air_date": "2025-07-12",
@@ -34061,7 +34350,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/video?s=cfbd5ff48e464bbdb631",
-      "popularity": 6.5856,
+      "popularity": 8.4099,
       "number_of_seasons": 1,
       "number_of_episodes": 26,
       "first_air_date": "2025-07-05",
@@ -34124,7 +34413,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_sr0lzls5bp.html",
-      "popularity": 3.6968,
+      "popularity": 3.768,
       "number_of_seasons": 1,
       "number_of_episodes": 89,
       "first_air_date": "2025-06-28",
@@ -34210,7 +34499,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.crunchyroll.com/series/GEXH3W2EZ/lord-of-mysteries",
-      "popularity": 21.2994,
+      "popularity": 22.4008,
       "number_of_seasons": 1,
       "number_of_episodes": 13,
       "first_air_date": "2025-06-28",
@@ -34273,7 +34562,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://m.youtube.com/@SecretOfUsOfficial",
-      "popularity": 1.4819,
+      "popularity": 1.7045,
       "number_of_seasons": 1,
       "number_of_episodes": 5,
       "first_air_date": "2025-06-26",
@@ -34336,7 +34625,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_16xvy4vfx8h.html",
-      "popularity": 14.4601,
+      "popularity": 13.7054,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-06-26",
@@ -34399,7 +34688,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc0020087cqggc.html",
-      "popularity": 12.5669,
+      "popularity": 12.4213,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-06-25",
@@ -34470,7 +34759,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQwMjQ1MzE4NA==.html",
-      "popularity": 5.9121,
+      "popularity": 5.0931,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-06-24",
@@ -34537,7 +34826,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002000k9f3ox.html",
-      "popularity": 9.2594,
+      "popularity": 8.9287,
       "number_of_seasons": 1,
       "number_of_episodes": 23,
       "first_air_date": "2025-06-19",
@@ -34604,7 +34893,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.viki.com/tv/41152c-revenged-love",
-      "popularity": 14.7608,
+      "popularity": 13.9897,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-06-16",
@@ -34671,7 +34960,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1q3sp53b765.html",
-      "popularity": 5.8041,
+      "popularity": 5.5766,
       "number_of_seasons": 2,
       "number_of_episodes": 18,
       "first_air_date": "2025-06-14",
@@ -34738,7 +35027,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002002o8gv9o.html",
-      "popularity": 3.2231,
+      "popularity": 2.9406,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-06-11",
@@ -34807,7 +35096,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200jsazh06.html",
-      "popularity": 5.921,
+      "popularity": 5.1279,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-06-09",
@@ -34874,7 +35163,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/video?s=bdfb0949ae4c4ac39168",
-      "popularity": 9.3397,
+      "popularity": 8.2369,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-06-08",
@@ -34937,7 +35226,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200iyue5he.html",
-      "popularity": 10.3096,
+      "popularity": 10.4836,
       "number_of_seasons": 1,
       "number_of_episodes": 35,
       "first_air_date": "2025-06-07",
@@ -35000,7 +35289,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_q11rpybjlg.html",
-      "popularity": 15.4849,
+      "popularity": 14.9749,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-06-06",
@@ -35069,7 +35358,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_ulduw8d520.html",
-      "popularity": 11.3664,
+      "popularity": 10.4525,
       "number_of_seasons": 4,
       "number_of_episodes": 368,
       "first_air_date": "2025-06-05",
@@ -35142,7 +35431,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200ttwfcbk.html",
-      "popularity": 6.1528,
+      "popularity": 6.0653,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-06-05",
@@ -35205,7 +35494,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 1.5543,
+      "popularity": 1.3787,
       "number_of_seasons": 1,
       "number_of_episodes": 4,
       "first_air_date": "2025-05-29",
@@ -35272,7 +35561,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002006il1d4p.html",
-      "popularity": 4.5038,
+      "popularity": 3.9236,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-05-29",
@@ -35339,7 +35628,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200vvr86iv.html",
-      "popularity": 9.5341,
+      "popularity": 8.4909,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-05-28",
@@ -35410,7 +35699,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_2c0520gxopd.html",
-      "popularity": 3.7905,
+      "popularity": 3.494,
       "number_of_seasons": 1,
       "number_of_episodes": 8,
       "first_air_date": "2025-05-28",
@@ -35474,7 +35763,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/5365/the-sparkle-in-your-eye-2025",
-      "popularity": 3.3675,
+      "popularity": 3.3538,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-05-24",
@@ -35537,7 +35826,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 1.6647,
+      "popularity": 1.4402,
       "number_of_seasons": 2,
       "number_of_episodes": 7,
       "first_air_date": "2025-05-23",
@@ -35614,7 +35903,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_gwj1n061rs.html",
-      "popularity": 9.2994,
+      "popularity": 9.5718,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-05-20",
@@ -35677,7 +35966,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/648984.html",
-      "popularity": 12.6326,
+      "popularity": 10.9153,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-05-19",
@@ -35746,7 +36035,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjI4Njg5ODgzNg==.html",
-      "popularity": 13.9496,
+      "popularity": 12.7284,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-05-18",
@@ -35809,7 +36098,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200kqpbtfg.html",
-      "popularity": 17.6903,
+      "popularity": 16.621,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-05-13",
@@ -35878,7 +36167,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_1meaw5kn44s.html",
-      "popularity": 7.8448,
+      "popularity": 7.3601,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-05-13",
@@ -35959,7 +36248,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.youtube.com/channel/UCJ23mB3adyqQk5WT6Sb1Jmg",
-      "popularity": 1.8873,
+      "popularity": 1.6081,
       "number_of_seasons": 1,
       "number_of_episodes": 4,
       "first_air_date": "2025-05-01",
@@ -36034,7 +36323,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.bilibili.com/bangumi/media/md21082583",
-      "popularity": 9.6678,
+      "popularity": 11.2343,
       "number_of_seasons": 1,
       "number_of_episodes": 13,
       "first_air_date": "2025-05-01",
@@ -36101,7 +36390,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1pghngu6ulh.html",
-      "popularity": 3.7469,
+      "popularity": 3.3838,
       "number_of_seasons": 1,
       "number_of_episodes": 22,
       "first_air_date": "2025-04-30",
@@ -36178,7 +36467,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_11zz0jvveiw.html",
-      "popularity": 6.3525,
+      "popularity": 10.7378,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2025-04-28",
@@ -36249,7 +36538,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1ilewrtx265.html",
-      "popularity": 12.882,
+      "popularity": 14.9204,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-04-28",
@@ -36316,7 +36605,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200wcmszla.html",
-      "popularity": 7.0998,
+      "popularity": 5.8036,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-04-24",
@@ -36383,7 +36672,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_i6up5mrp0s.html",
-      "popularity": 5.0649,
+      "popularity": 4.4034,
       "number_of_seasons": 1,
       "number_of_episodes": 13,
       "first_air_date": "2025-04-18",
@@ -36452,7 +36741,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/video?s=acfe239151fe48b9b38e",
-      "popularity": 7.4807,
+      "popularity": 6.3195,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-04-17",
@@ -36519,7 +36808,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_x7wr6rnfbk.html",
-      "popularity": 11.3384,
+      "popularity": 10.1852,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-04-12",
@@ -36582,7 +36871,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjM5ODI4NDU2MA==.html",
-      "popularity": 7.2983,
+      "popularity": 6.2942,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2025-04-08",
@@ -36653,7 +36942,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.bilibili.com/tbhx",
-      "popularity": 17.1514,
+      "popularity": 17.053,
       "number_of_seasons": 2,
       "number_of_episodes": 24,
       "first_air_date": "2025-04-06",
@@ -36724,7 +37013,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1trfen0qxxp.html",
-      "popularity": 4.1809,
+      "popularity": 5.3021,
       "number_of_seasons": 1,
       "number_of_episodes": 17,
       "first_air_date": "2025-04-03",
@@ -36787,7 +37076,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200tu9gr35/y30836gmit4.html",
-      "popularity": 3.1244,
+      "popularity": 3.2059,
       "number_of_seasons": 1,
       "number_of_episodes": 31,
       "first_air_date": "2025-04-02",
@@ -36868,7 +37157,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjA0MTMyNTk1Mg==.html",
-      "popularity": 6.203,
+      "popularity": 5.3117,
       "number_of_seasons": 1,
       "number_of_episodes": 29,
       "first_air_date": "2025-03-30",
@@ -36941,7 +37230,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200rb0xufo.html",
-      "popularity": 8.7268,
+      "popularity": 7.7466,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-03-30",
@@ -37008,7 +37297,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQyODk5NzY4NA==.html",
-      "popularity": 3.8594,
+      "popularity": 3.2507,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-03-28",
@@ -37081,7 +37370,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_1skxs55e36l.html",
-      "popularity": 12.5509,
+      "popularity": 11.6039,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-03-27",
@@ -37148,7 +37437,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200htmlstu.html",
-      "popularity": 6.2155,
+      "popularity": 6.0051,
       "number_of_seasons": 1,
       "number_of_episodes": 22,
       "first_air_date": "2025-03-25",
@@ -37219,7 +37508,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://iqiyi.com/a_1cgy1ao7255.html",
-      "popularity": 11.5863,
+      "popularity": 13.7321,
       "number_of_seasons": 1,
       "number_of_episodes": 12,
       "first_air_date": "2025-03-21",
@@ -37282,7 +37571,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200m92miea.html",
-      "popularity": 9.9604,
+      "popularity": 9.04,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-03-18",
@@ -37355,7 +37644,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_ywe4xqrw4t.html",
-      "popularity": 6.8762,
+      "popularity": 6.2862,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-03-18",
@@ -37422,7 +37711,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_215yr6mivpl.html",
-      "popularity": 6.6093,
+      "popularity": 5.4824,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-03-13",
@@ -37485,7 +37774,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQ2MDc3Mjc2MA==.html",
-      "popularity": 8.3931,
+      "popularity": 8.1831,
       "number_of_seasons": 1,
       "number_of_episodes": 23,
       "first_air_date": "2025-03-11",
@@ -37548,7 +37837,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.gagaoolala.com/en/videos/5990/secrets-happened-on-the-litchi-island-2025",
-      "popularity": 2.9129,
+      "popularity": 3.1118,
       "number_of_seasons": 1,
       "number_of_episodes": 7,
       "first_air_date": "2025-03-03",
@@ -37617,7 +37906,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/v_21bivc1c9tc.html",
-      "popularity": 10.5591,
+      "popularity": 10.1035,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-03-03",
@@ -37686,7 +37975,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/631449.html",
-      "popularity": 7.9049,
+      "popularity": 6.7288,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-03-02",
@@ -37749,7 +38038,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200fbyr29e/g4100cwv27h.html",
-      "popularity": 12.2942,
+      "popularity": 11.4133,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-03-01",
@@ -37804,8 +38093,8 @@
         }
       ],
       "type": "Scripted",
-      "vote_average": 7.731,
-      "vote_count": 26,
+      "vote_average": 7.815,
+      "vote_count": 27,
       "origin_country": [
         "CN"
       ],
@@ -37830,7 +38119,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200qon7vo3.html",
-      "popularity": 17.4971,
+      "popularity": 16.1159,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-02-26",
@@ -37851,7 +38140,7 @@
           "id": 233912,
           "air_date": "2025-02-26",
           "episode_count": 40,
-          "vote_average": 7.731,
+          "vote_average": 7.815,
           "poster_path": "/8IfVtQYR7tkRkcvShh2djT3gOy9.jpg",
           "douban_rating": null,
           "douban_link_google": null,
@@ -37899,7 +38188,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_lad58gyvs1.html",
-      "popularity": 14.7878,
+      "popularity": 14.2158,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2025-02-25",
@@ -37966,7 +38255,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200i5j3efb/a41001u7fwx.html",
-      "popularity": 11.8931,
+      "popularity": 11.601,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-02-24",
@@ -38029,7 +38318,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200qy1t94h.html",
-      "popularity": 2.9903,
+      "popularity": 3.9394,
       "number_of_seasons": 1,
       "number_of_episodes": 24,
       "first_air_date": "2025-02-21",
@@ -38092,7 +38381,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQwNzgzNjExMg==.html",
-      "popularity": 26.4912,
+      "popularity": 24.2103,
       "number_of_seasons": 1,
       "number_of_episodes": 32,
       "first_air_date": "2025-02-18",
@@ -38155,7 +38444,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc0020050e1d6i/i35751e1vq5.html",
-      "popularity": 5.0495,
+      "popularity": 4.7168,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-02-15",
@@ -38218,7 +38507,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200n3cpif8/g41005wa9u1.html",
-      "popularity": 8.3768,
+      "popularity": 7.514,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-02-15",
@@ -38281,7 +38570,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_24zjlygp7st.html",
-      "popularity": 6.5803,
+      "popularity": 5.7068,
       "number_of_seasons": 1,
       "number_of_episodes": 22,
       "first_air_date": "2025-02-14",
@@ -38352,7 +38641,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002008bjl4bf/x3576pgsozw.html",
-      "popularity": 4.6987,
+      "popularity": 4.2546,
       "number_of_seasons": 1,
       "number_of_episodes": 28,
       "first_air_date": "2025-02-08",
@@ -38419,7 +38708,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjM3Mzg1ODExMg==.html",
-      "popularity": 8.7642,
+      "popularity": 7.6967,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-02-07",
@@ -38486,7 +38775,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_no9xm9m315.html",
-      "popularity": 16.5627,
+      "popularity": 19.746,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-02-07",
@@ -38559,7 +38848,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200vfspynw/m3567uo83t8.html",
-      "popularity": 8.1661,
+      "popularity": 7.7354,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-02-03",
@@ -38626,7 +38915,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iq.com/album/the-white-olive-tree-2024-vqdotbl9yl",
-      "popularity": 10.1569,
+      "popularity": 10.6261,
       "number_of_seasons": 1,
       "number_of_episodes": 38,
       "first_air_date": "2025-02-01",
@@ -38689,7 +38978,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/617394.html",
-      "popularity": 26.0038,
+      "popularity": 27.786,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-01-25",
@@ -38752,7 +39041,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc00200a2bblny.html",
-      "popularity": 9.9576,
+      "popularity": 9.8575,
       "number_of_seasons": 1,
       "number_of_episodes": 30,
       "first_air_date": "2025-01-20",
@@ -38819,7 +39108,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iqiyi.com/a_wbxpcd0dcx.html",
-      "popularity": 5.8252,
+      "popularity": 5.7951,
       "number_of_seasons": 1,
       "number_of_episodes": 14,
       "first_air_date": "2025-01-17",
@@ -38892,7 +39181,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQ1NDM3OTAyOA==.html",
-      "popularity": 7.4177,
+      "popularity": 7.5057,
       "number_of_seasons": 1,
       "number_of_episodes": 36,
       "first_air_date": "2025-01-14",
@@ -38959,7 +39248,7 @@
       "languages": [],
       "aka": [],
       "homepage": null,
-      "popularity": 2.8979,
+      "popularity": 2.6738,
       "number_of_seasons": 1,
       "number_of_episodes": 6,
       "first_air_date": "2025-01-11",
@@ -39022,7 +39311,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.qq.com/x/cover/mzc002001hn6kyf/v3572a6k29y.html",
-      "popularity": 4.6532,
+      "popularity": 4.8496,
       "number_of_seasons": 1,
       "number_of_episodes": 31,
       "first_air_date": "2025-01-09",
@@ -39091,7 +39380,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.mgtv.com/h/615428.html",
-      "popularity": 16.2108,
+      "popularity": 17.2084,
       "number_of_seasons": 2,
       "number_of_episodes": 56,
       "first_air_date": "2025-01-07",
@@ -39158,7 +39447,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://www.iq.com/album/%E7%99%BD%E6%9C%88%E6%A2%B5%E6%98%9F-2024-21g2e4jxdmp?",
-      "popularity": 12.0847,
+      "popularity": 12.1352,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-01-07",
@@ -39225,7 +39514,7 @@
       "languages": [],
       "aka": [],
       "homepage": "https://v.youku.com/v_show/id_XNjQ0NjE1ODkzNg==.html",
-      "popularity": 10.9688,
+      "popularity": 10.1279,
       "number_of_seasons": 1,
       "number_of_episodes": 40,
       "first_air_date": "2025-01-02",
