@@ -117,20 +117,22 @@ def main():
             if args.source:
                 source = args.source.resolve()
             else:
-                archive = work / 'source.tar.gz'
-                run('curl', '-fsSL', '--retry', '2', '--max-time', '300', '-o', str(archive),
-                    'https://codeload.github.com/' + repository + '/tar.gz/' + revision)
-                extracted = work / 'source'
-                extracted.mkdir()
-                unpack(archive, extracted)
-                directories = list(extracted.iterdir())
-                if len(directories) != 1 or not directories[0].is_dir():
-                    raise RuntimeError('Unexpected source archive structure')
-                source = directories[0]
+                # A shallow Git cache transfers changed objects instead of downloading
+                # hundreds of MB of unchanged posters with every data update.
+                source = state / 'source'
+                source.mkdir(exist_ok=True)
+                if not (source / '.git').exists():
+                    run('git', 'init', str(source))
+                run('git', '-c', 'http.version=HTTP/1.1', '-c', 'gc.auto=0', 'fetch',
+                    '--no-tags', '--depth=1', 'https://github.com/' + repository + '.git', revision, cwd=source)
+                run('git', 'checkout', '--force', '--detach', revision, cwd=source)
             environment = dict(os.environ, SITE_OUTPUT_DIR='.site')
             run('npm', 'run', 'check', cwd=source, env=environment)
             run('npm', 'run', 'build:site', cwd=source, env=environment)
             publish(source / '.site', revision, root, base_url)
+            if not args.source:
+                run('git', 'reflog', 'expire', '--expire=now', '--all', cwd=source)
+                run('git', 'gc', '--prune=now', cwd=source)
 
 
 if __name__ == '__main__':

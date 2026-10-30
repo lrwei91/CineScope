@@ -5,11 +5,11 @@
 ## 发布与容量
 
 - Nginx 读取 `/srv/cinescope/current`，它指向 `releases/<完整提交 SHA>`。
-- `cinescope-update.timer` 每 5 分钟运行 `/opt/cinescope-ops/deploy.py`，只从公开 GitHub 仓库下载 `main` 的确定提交。
+- `cinescope-update.timer` 每 5 分钟运行 `/opt/cinescope-ops/deploy.py`，只从公开 GitHub 仓库拉取 `main` 的确定提交。`/var/lib/cinescope/source` 为独立 shallow Git 构建缓存，更新只传输变化的对象，不反复下载全部海报；成功后清理 Git 旧对象。
 - 独立的 `cinescope` 用户运行检查与构建，没有 root 权限，不保存 GitHub token 或 SSH 私钥。
 - 发布前执行 `npm run check` 和 `npm run build:site`；通过后原子切换，再核对本机 HTTP 的页面、脚本、所有标准 JSON 与抽样海报的 SHA-256。
 - 切换后验证失败自动恢复旧目录；验证成功才删除旧发布目录，正常状态只保留一版。更新期间临时存在源码、新旧两版，磁盘必须预留空间。
-- 下载与构建临时目录自动清理。锁阻止并行发布；相同 SHA 静默跳过，失败由 systemd/journal 记录，下次定时检查会重试。
+- 临时目录自动清理；源码与 Git 缓存另占一份固定工作空间，不作为历史发布。锁阻止并行发布；相同 SHA 静默跳过，失败由 systemd/journal 记录，下次定时检查会重试。
 - 构建仅包含 17 份标准 JSON 和当前数据引用的本地海报；源海报、历史副本不会被删除。随数据变化，容量与引用数量会变化。
 - Vercel `git.deploymentEnabled=false` 禁止新 Git 部署。不要再建立第二条自动部署链路。
 

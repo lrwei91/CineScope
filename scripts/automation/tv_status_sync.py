@@ -13,6 +13,8 @@
   python3 scripts/douban_cn_status_sync.py --dry-run # 只打印，不写入
 """
 
+from __future__ import annotations
+
 import argparse
 import json
 import os
