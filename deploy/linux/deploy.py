@@ -123,8 +123,12 @@ def main():
                 source.mkdir(exist_ok=True)
                 if not (source / '.git').exists():
                     run('git', 'init', str(source))
+                has_head = subprocess.run(['git', 'rev-parse', '--verify', 'HEAD'], cwd=source,
+                                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+                negotiation = ['--negotiation-tip=HEAD'] if has_head else []
                 run('git', '-c', 'http.version=HTTP/1.1', '-c', 'gc.auto=0', 'fetch',
-                    '--no-tags', '--depth=1', 'https://github.com/' + repository + '.git', revision, cwd=source)
+                    '--no-tags', '--depth=1', *negotiation,
+                    'https://github.com/' + repository + '.git', revision, cwd=source)
                 run('git', 'checkout', '--force', '--detach', revision, cwd=source)
             environment = dict(os.environ, SITE_OUTPUT_DIR='.site')
             run('npm', 'run', 'check', cwd=source, env=environment)
