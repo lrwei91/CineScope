@@ -207,10 +207,11 @@ npm run check:data
 
 - `ci.yml`：Pull Request 和手动触发执行 `npm run check` 与 `npm run build:site`，验证代码、数据和 `.site/` 构建产物
 - `daily-update.yml`：定时（北京时间 22:00）或手动触发，调用统一入口完成 full 更新和发布，只推送已验证的 `main` 提交
-- `vercel.json`：Vercel 仓库集成监听 `main` push，执行 `npm run build:site` 并以 `.site/` 作为输出目录
+- `deploy/linux/`：火山云 Nginx 配置、发布脚本和 systemd timer；每 5 分钟检查 GitHub `main`，执行验证与静态构建后发布
+- `vercel.json`：关闭 Vercel Git 自动部署，旧配置只保留作迁移回退参考
 - `.site/`：只包含 HTML、CSS、JS、JSON、海报和 favicon
 
-部署由 Vercel 仓库集成单独完成：仓库内没有其他部署工作流（`deploy-pages.yml` 不存在），也不监听每日工作流的 `workflow_run`，避免同一提交重复部署。
+部署由火山云 `cinescope-update.timer` 单独完成，不增加 GitHub 部署工作流，也不监听每日工作流的 `workflow_run`。验证成功后原子切换当前目录，HTTP 内容校验失败自动回退；成功后只保留当前版本。服务器不运行数据生成、不写 GitHub，也不需要保存 GitHub 凭据。详见 [火山云部署说明](VOLCENGINE_DEPLOYMENT.md)。
 
 ## 7. 故障处理
 

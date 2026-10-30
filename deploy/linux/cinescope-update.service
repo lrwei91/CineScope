@@ -1,0 +1,20 @@
+[Unit]
+Description=Validate and publish CineScope from GitHub main
+After=network-online.target nginx.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=cinescope
+Group=cinescope
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 /opt/cinescope-ops/deploy.py
+TimeoutStartSec=900
+UMask=0022
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/cinescope /var/lib/cinescope
+

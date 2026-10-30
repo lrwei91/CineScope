@@ -59,7 +59,7 @@ flowchart TB
   RUN["scripts/automation/run_update.py"]
   PIPE["临时目录生成 → 数据门禁 → 原子提升"]
   DATA["json/ + posters/"]
-  PAGE["静态页面 / Vercel"]
+  PAGE["静态页面 / 火山云 Nginx"]
   SRC --> RUN --> PIPE --> DATA --> PAGE
 ```
 
@@ -102,7 +102,7 @@ npm run check         # 全部检查
 npm run build:site    # 生成 .site/ 静态部署产物
 ```
 
-PR 检查会执行代码、数据和构建验证；每日更新验证后推送 `main`，Vercel 通过仓库集成构建并发布 `.site/`。部署只包含运行所需的白名单文件，不发布脚本、测试和文档；不要直接编辑 `.site/`。
+PR 检查会执行代码、数据和构建验证；每日更新验证后推送 `main`，火山云服务器每 5 分钟检查新提交，验证、构建后原子切换 `.site/`。新版通过 HTTP 内容校验后清理旧发布目录，只保留当前版本；失败时保留原版。Vercel 自动部署已在配置中关闭。部署只包含标准 JSON、实际引用的海报和页面资源，不发布脚本、测试、文档或本地历史副本；不要直接编辑 `.site/`。安装、HTTPS 与运维命令见 [火山云部署说明](docs/VOLCENGINE_DEPLOYMENT.md)。
 
 - `index.html`、`app.js`、`js/modules/`：页面入口、交互与数据渲染。
 - `share.js`、`share.css`：作品分享图。

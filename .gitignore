@@ -28,3 +28,8 @@ mobile-demo.html
 
 .cursor/
 .pytest_cache/
+
+# 本地历史副本不作为业务真源或部署输入
+README [0-9]*.md
+json/* [0-9]*.json
+docs/DATA_UPDATE_GUIDE.md.bak*
