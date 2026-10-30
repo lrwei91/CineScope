@@ -1,3 +1,5 @@
+const RETRYABLE_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
+
 export function createHttpClient({
     requestHeaders,
     timeoutMs,
@@ -5,7 +7,7 @@ export function createHttpClient({
     tmdbApiKey,
     fetchImpl = fetch
 }) {
-    async function request(
+    async function requestOnce(
         url,
         { headers = requestHeaders, responseType = 'json', errorPrefix = 'Request failed', errorTarget = String(url) } = {}
     ) {
@@ -14,11 +16,29 @@ export function createHttpClient({
             signal: AbortSignal.timeout(timeoutMs)
         });
         if (!response.ok) {
-            throw new Error(`${errorPrefix} (${response.status}): ${errorTarget}`);
+            const error = new Error(`${errorPrefix} (${response.status}): ${errorTarget}`);
+            error.status = response.status;
+            throw error;
         }
         if (responseType === 'text') return response.text();
         if (responseType === 'binary') return Buffer.from(await response.arrayBuffer());
         return response.json();
+    }
+
+    // 网络抖动（ECONNRESET、超时）与限流/网关错误重试；其余 4xx 立即失败。
+    async function request(url, options = {}) {
+        const maxAttempts = 3;
+        for (let attempt = 1; ; attempt++) {
+            try {
+                return await requestOnce(url, options);
+            } catch (error) {
+                const retryable = !error?.status || RETRYABLE_STATUS.has(error.status);
+                if (!retryable || attempt >= maxAttempts) {
+                    throw error;
+                }
+                await new Promise((resolve) => setTimeout(resolve, 1500 * 2 ** (attempt - 1)));
+            }
+        }
     }
 
     return {

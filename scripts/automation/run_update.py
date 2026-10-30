@@ -28,12 +28,27 @@ CACHE_ROOT = PROJECT_ROOT / ".cache" / "automation"
 LOCK_PATH = CACHE_ROOT / "update.lock"
 PUBLISH_PATHS = ("json", "posters")
 ALLOW_UNRELATED_WORKTREE_CHANGES_TASKS = frozenset({"tv-status", "douban-cache", "trailers"})
+# 本机调度器的共享重试策略在 ~/.hermes/scripts/lib/git_helpers.py；
+# 没有它的环境（如 GitHub Actions）走下面的内置兜底实现。
+FETCH_TIMEOUT_SECONDS = 45  # 单次 fetch 超时（冷启动实测可到 ~20s，15s 太紧）
+FALLBACK_RETRY_ATTEMPTS = 3
+FALLBACK_RETRY_DELAY_SECONDS = 5
+FALLBACK_FETCH_TIMEOUT_SECONDS = 60
+FALLBACK_PUSH_TIMEOUT_SECONDS = 60
 TASK_TIMEOUTS = {
     "full": 2400,
     "tv-status": 900,
     "douban-cache": 2400,
     "trailers": 420,
 }
+
+
+def task_timeout(task: str) -> int:
+    """回捞/限流排查时可用 TASK_TIMEOUT_SECONDS 覆盖单任务超时。"""
+    override = os.environ.get("TASK_TIMEOUT_SECONDS", "").strip()
+    if override.isdigit():
+        return int(override)
+    return TASK_TIMEOUTS[task]
 COMMIT_MESSAGES = {
     "full": "chore: 每日数据更新",
     "tv-status": "chore: 同步国产剧状态",
@@ -157,6 +172,47 @@ def publish_allows_unrelated_worktree_changes(task: str) -> bool:
     return task in ALLOW_UNRELATED_WORKTREE_CHANGES_TASKS
 
 
+def load_shared_git_helpers():
+    """Return the local scheduler's shared git policy module, or None off-host."""
+    helper_dir = Path.home() / ".hermes" / "scripts" / "lib"
+    if not helper_dir.is_dir():
+        return None
+    if str(helper_dir) not in sys.path:
+        sys.path.insert(0, str(helper_dir))
+    try:
+        import git_helpers
+    except ImportError:
+        return None
+    return git_helpers
+
+
+def fetch_origin_with_retry() -> bool:
+    """Fetch origin with retries; shared policy locally, inline fallback on CI."""
+    helpers = load_shared_git_helpers()
+    if helpers is not None:
+        return helpers.safe_fetch(PROJECT_ROOT, timeout=FETCH_TIMEOUT_SECONDS)
+    return _fetch_origin_fallback()
+
+
+def _fetch_origin_fallback() -> bool:
+    for attempt in range(1, FALLBACK_RETRY_ATTEMPTS + 1):
+        try:
+            result = subprocess.run(
+                ["git", "fetch", "origin", "main"],
+                cwd=PROJECT_ROOT,
+                capture_output=True,
+                text=True,
+                timeout=FALLBACK_FETCH_TIMEOUT_SECONDS,
+            )
+            if result.returncode == 0:
+                return True
+        except subprocess.TimeoutExpired:
+            pass
+        if attempt < FALLBACK_RETRY_ATTEMPTS:
+            time.sleep(FALLBACK_RETRY_DELAY_SECONDS * attempt)
+    return False
+
+
 def ensure_publish_branch_ready(*, allow_unrelated_worktree_changes: bool = False) -> None:
     """Fetch ``origin/main`` and fast-forward without losing local edits.
 
@@ -168,7 +224,8 @@ def ensure_publish_branch_ready(*, allow_unrelated_worktree_changes: bool = Fals
     fast-forward would overwrite a local change, Git itself rejects the merge
     and the publish is aborted.
     """
-    subprocess.run(["git", "fetch", "origin", "main"], cwd=PROJECT_ROOT, check=True, timeout=60)
+    if not fetch_origin_with_retry():
+        raise RuntimeError("git fetch failed after shared retry policy; refusing publish")
 
     status_command = ["git", "status", "--porcelain"]
     if allow_unrelated_worktree_changes:
@@ -185,27 +242,66 @@ def ensure_publish_branch_ready(*, allow_unrelated_worktree_changes: bool = Fals
             raise RuntimeError("--publish output paths must be clean before syncing origin/main")
         raise RuntimeError("--publish requires a clean worktree before syncing origin/main")
 
+    relation = _origin_relation()
+    if relation in ("equal", "local_ahead"):
+        return
+    if relation == "remote_ahead":
+        _merge_origin_ff_only(context="before update")
+        return
+    raise RuntimeError("local main diverged from origin/main; refusing publish")
+
+
+def _origin_relation() -> str:
+    """Classify HEAD vs origin/main: equal / local_ahead / remote_ahead / diverged."""
     remote_is_ancestor = subprocess.run(
         ["git", "merge-base", "--is-ancestor", "origin/main", "HEAD"],
         cwd=PROJECT_ROOT,
     )
     if remote_is_ancestor.returncode == 0:
-        return
-
+        local_is_ancestor = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", "HEAD", "origin/main"],
+            cwd=PROJECT_ROOT,
+        )
+        return "equal" if local_is_ancestor.returncode == 0 else "local_ahead"
     local_is_ancestor = subprocess.run(
         ["git", "merge-base", "--is-ancestor", "HEAD", "origin/main"],
         cwd=PROJECT_ROOT,
     )
-    if local_is_ancestor.returncode == 0:
-        subprocess.run(
-            ["git", "merge", "--ff-only", "origin/main"],
-            cwd=PROJECT_ROOT,
-            check=True,
-            timeout=60,
-        )
-        return
+    return "remote_ahead" if local_is_ancestor.returncode == 0 else "diverged"
 
-    raise RuntimeError("local main diverged from origin/main; refusing publish")
+
+def _merge_origin_ff_only(*, context: str) -> None:
+    merge = subprocess.run(
+        ["git", "merge", "--ff-only", "origin/main"],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    if merge.returncode != 0:
+        lines = (merge.stderr or merge.stdout or "").strip().splitlines()
+        detail = lines[-1] if lines else "unknown error"
+        raise RuntimeError(f"could not fast-forward to origin/main ({context}): {detail}")
+
+
+def reconcile_remote_before_promote() -> None:
+    """Absorb a remote advance that happened during the long generation step.
+
+    The pre-flight sync only pins origin/main at task start; the scheduled
+    GitHub Actions update pushes to main on its own clock, and a multi-minute
+    generation can outlive that race. Fast-forward onto the newer origin/main
+    before this run commits so the publish push stacks cleanly instead of
+    being rejected as non-fast-forward.
+    """
+    if not fetch_origin_with_retry():
+        raise RuntimeError("re-check fetch failed before commit; refusing publish")
+    relation = _origin_relation()
+    if relation in ("equal", "local_ahead"):
+        return
+    if relation == "remote_ahead":
+        _merge_origin_ff_only(context="after generation")
+        return
+    raise RuntimeError("local main diverged from origin/main before commit; refusing publish")
 
 
 def ensure_clean_for_publish(changed_files: list[str]) -> None:
@@ -242,15 +338,76 @@ def publish(task: str, changed_files: list[str]) -> bool:
         timeout=60,
     )
 
-    for attempt in range(1, 4):
-        push = subprocess.run(["git", "push", "origin", "main"], cwd=PROJECT_ROOT, timeout=60)
-        if push.returncode == 0:
-            return True
-        if attempt == 3:
-            raise RuntimeError("git push failed after 3 attempts")
-        subprocess.run(["git", "pull", "--rebase", "origin", "main"], cwd=PROJECT_ROOT, check=True, timeout=60)
-        time.sleep(attempt * 2)
+    if push_main_with_retry():
+        return True
+    _raise_after_push_failure()
+    raise RuntimeError("unreachable: _raise_after_push_failure() did not raise")
+
+
+def push_main_with_retry() -> bool:
+    """Push main with retries; shared policy locally, inline fallback on CI."""
+    helpers = load_shared_git_helpers()
+    if helpers is not None:
+        return helpers.safe_push(PROJECT_ROOT, branch="main")
+    return _push_main_fallback()
+
+
+def _push_main_fallback() -> bool:
+    for attempt in range(1, FALLBACK_RETRY_ATTEMPTS + 1):
+        try:
+            result = subprocess.run(
+                ["git", "push", "origin", "main"],
+                cwd=PROJECT_ROOT,
+                capture_output=True,
+                text=True,
+                timeout=FALLBACK_PUSH_TIMEOUT_SECONDS,
+            )
+            if result.returncode == 0:
+                return True
+            combined = f"{result.stdout or ''}\n{result.stderr or ''}".lower()
+            if "non-fast-forward" in combined or "rejected" in combined or "fetch first" in combined:
+                return False  # 远端已推进，重试救不了；交给上层重新对齐
+        except subprocess.TimeoutExpired:
+            pass
+        if attempt < FALLBACK_RETRY_ATTEMPTS:
+            time.sleep(FALLBACK_RETRY_DELAY_SECONDS * attempt)
     return False
+
+
+def _raise_after_push_failure() -> None:
+    """Push failed after retries: re-sync if origin/main moved, then fail loudly."""
+    if not fetch_origin_with_retry():
+        raise RuntimeError(
+            "git push failed and the re-sync fetch also failed; local commit kept, next run will retry"
+        )
+    behind = subprocess.run(
+        ["git", "rev-list", "--count", "HEAD..origin/main"],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    try:
+        behind_count = int((behind.stdout or "").strip() or 0)
+    except ValueError:
+        behind_count = 0
+    if behind_count > 0:
+        _resync_local_to_origin()
+        raise RuntimeError(
+            "origin/main advanced during publish; local branch re-synced to origin/main, next run will republish"
+        )
+    raise RuntimeError("git push failed after retries; local commit kept for the next run")
+
+
+def _resync_local_to_origin() -> None:
+    """Drop the local data commit without disturbing unrelated worktree edits.
+
+    ``git reset --hard`` would also revert tracked edits outside the publish
+    paths (local code work), so move the branch pointer with a mixed reset and
+    restore only ``json/`` and ``posters/`` from the new index.
+    """
+    subprocess.run(["git", "reset", "--mixed", "origin/main"], cwd=PROJECT_ROOT, check=True, timeout=60)
+    subprocess.run(["git", "checkout", "--", *PUBLISH_PATHS], cwd=PROJECT_ROOT, check=True, timeout=60)
 
 
 def update_task_report(staged_root: Path, task: str) -> None:
@@ -282,7 +439,7 @@ def execute_task(task: str, staged_root: Path, *, dry_run: bool, allow_large_dro
     env["CINESCOPE_OUTPUT_ROOT"] = str(staged_root)
     env["CINESCOPE_PROJECT_ROOT"] = str(PROJECT_ROOT)
     env["UPDATE_TASK"] = task
-    timeout = TASK_TIMEOUTS[task]
+    timeout = task_timeout(task)
     node = ["node"]
     if env.get("CINESCOPE_NODE_USE_ENV_PROXY") == "1":
         node.append("--use-env-proxy")
@@ -376,6 +533,8 @@ def main() -> int:
                 changed_files = collect_changed_files(staged_root)
                 if not args.dry_run:
                     if args.publish:
+                        if changed_files:
+                            reconcile_remote_before_promote()
                         ensure_clean_for_publish(changed_files)
                     promote(staged_root, changed_files)
                     if args.publish:

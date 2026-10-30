@@ -58,6 +58,8 @@ CI 配置：在仓库 Secrets 中添加 `TMDB_API_KEY`，并在 `daily-update.ym
 | `BILIBILI_TRAILER_INCREMENTAL_PAGE_LIMIT` | 4 | 增量抓取页数上限 |
 | `BILIBILI_TRAILER_REQUEST_DELAY_MS` | 1200 | 请求最小间隔 |
 | `BILIBILI_TRAILER_REQUEST_JITTER_MS` | 400 | 请求间隔抖动 |
+| `TV_ARCHIVE_MIN_DATE` | 2020-01-01 | 剧集分类（中日韩美）回捞起始日期；电影/综艺不受影响 |
+| `TASK_TIMEOUT_SECONDS` | （按任务默认） | 覆盖单任务超时，回捞或排查限流时用 |
 | `BILIBILI_TRAILER_MAX_RETRIES` | 3 | 失败重试次数 |
 | `BILIBILI_TRAILER_RETRY_BASE_DELAY_MS` | 3000 | 重试退避基数 |
 | `BILIBILI_TRAILER_ENABLE_SEARCH_FALLBACK` | false | 启用搜索兜底 |

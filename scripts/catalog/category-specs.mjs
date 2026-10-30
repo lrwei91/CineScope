@@ -17,13 +17,14 @@ export function isVarietyTv(item) {
         /综艺|真人秀|脱口秀/.test(item?.card_subtitle || item?.info || '');
 }
 
-export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }) {
-    const createTvSpec = ({ id, doubanSlug, region, country, extraTmdbParams = {} }) => ({
+export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01', tvArchiveMinDate = '2020-01-01' }) {
+    // 剧集分类（中日韩美）按 tvArchiveMinDate 往回多捞几年；电影/综艺保持「近期新作」窗口。
+    const createTvSpec = ({ id, doubanSlug, region, country, extraTmdbParams = {}, itemMinDate = minDate }) => ({
         id,
         kind: 'tv',
         latestCount: 18,
         latestSelectionMode: 'current_quarter_all',
-        minDate,
+        minDate: itemMinDate,
         latestPath: `json/${id}_latest.json`,
         completePath: `json/${id}_complete.json`,
         doubanSources: [{ slug: doubanSlug, includeItem: (item) => hasRegion(item, region) }],
@@ -33,7 +34,7 @@ export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }
             params: {
                 language: 'zh-CN',
                 sort_by: 'first_air_date.desc',
-                'first_air_date.gte': minDate,
+                'first_air_date.gte': itemMinDate,
                 'first_air_date.lte': endOfCurrentYear,
                 with_origin_country: country,
                 include_null_first_air_dates: 'false',
@@ -48,6 +49,7 @@ export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }
         doubanSlug: 'tv_domestic',
         region: '中国大陆',
         country: 'CN',
+        itemMinDate: tvArchiveMinDate,
         extraTmdbParams: { with_original_language: 'zh' }
     });
     tvCn.doubanSources.push({ slug: 'tv_hot', includeItem: (item) => hasRegion(item, '中国大陆') });
@@ -118,10 +120,10 @@ export function createCategorySpecs({ endOfCurrentYear, minDate = '2025-01-01' }
 
     return [
         tvCn,
-        createTvSpec({ id: 'tv_kr', doubanSlug: 'tv_korean', region: '韩国', country: 'KR' }),
-        createTvSpec({ id: 'tv_jp', doubanSlug: 'tv_japanese', region: '日本', country: 'JP' }),
+        createTvSpec({ id: 'tv_kr', doubanSlug: 'tv_korean', region: '韩国', country: 'KR', itemMinDate: tvArchiveMinDate }),
+        createTvSpec({ id: 'tv_jp', doubanSlug: 'tv_japanese', region: '日本', country: 'JP', itemMinDate: tvArchiveMinDate }),
         movieCn,
         varietyCn,
-        createTvSpec({ id: 'tv_us', doubanSlug: 'tv_american', region: '美国', country: 'US' })
+        createTvSpec({ id: 'tv_us', doubanSlug: 'tv_american', region: '美国', country: 'US', itemMinDate: tvArchiveMinDate })
     ];
 }

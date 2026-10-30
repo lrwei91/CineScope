@@ -39,6 +39,7 @@ const END_OF_CURRENT_YEAR = `${CURRENT_YEAR}-12-31`;
 const DOUBAN_DEFAULT_USER_ID = 'lrwei91';
 const BUILD_REPORT_PATH = 'json/build_report.json';
 const UPDATE_TASK = String(process.env.UPDATE_TASK || (CATEGORY_IDS.length > 0 ? 'partial' : 'full')).trim();
+const TV_ARCHIVE_MIN_DATE = String(process.env.TV_ARCHIVE_MIN_DATE || '2020-01-01').trim();
 const BOX_OFFICE_PATH = 'json/maoyan_box_office.json';
 const DOUBAN_SUBJECT_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SUBJECT_CACHE_TTL_DAYS', 14);
 const DOUBAN_SEARCH_CACHE_TTL_DAYS = getNumberEnv('DOUBAN_SEARCH_CACHE_TTL_DAYS', 30);
@@ -79,7 +80,7 @@ const { fetchJson, fetchBinary, fetchHtml, fetchTmdbJson } = createHttpClient({
     tmdbApiKey: TMDB_API_KEY
 });
 
-const CATEGORY_SPECS = createCategorySpecs({ endOfCurrentYear: END_OF_CURRENT_YEAR });
+const CATEGORY_SPECS = createCategorySpecs({ endOfCurrentYear: END_OF_CURRENT_YEAR, tvArchiveMinDate: TV_ARCHIVE_MIN_DATE });
 
 async function main() {
     const activeCategorySpecs =
