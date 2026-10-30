@@ -135,6 +135,8 @@ def main():
             run('npm', 'run', 'build:site', cwd=source, env=environment)
             publish(source / '.site', revision, root, base_url)
             if not args.source:
+                shutil.rmtree(source / '.site')
+                run('git', 'update-ref', 'refs/heads/deployed', revision, cwd=source)
                 run('git', 'reflog', 'expire', '--expire=now', '--all', cwd=source)
                 run('git', 'gc', '--prune=now', cwd=source)
 

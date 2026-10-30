@@ -15,7 +15,7 @@
 
 ## 首次安装
 
-使用既有 SSH 配置接入服务器；服务器地址、密钥和账号接入信息不写入本仓库。先安装 Node.js 18+、Python 3.9+、requests、Nginx、curl 和 Certbot；安装不执行数据抓取。
+使用既有 SSH 配置接入服务器；服务器地址、密钥和账号接入信息不写入本仓库。先安装 Node.js 18+、Python 3.9+、requests、Git、Nginx、curl 和 Certbot；安装不执行数据抓取。
 
 1. 创建系统用户 `cinescope`，将 `/srv/cinescope` 和 `/var/lib/cinescope` 归该用户所有，目录允许 Nginx 读取。
 2. 把 `deploy.py` 安装到 root 持有的 `/opt/cinescope-ops/`，把 service/timer 安装到 `/etc/systemd/system/`。
@@ -25,6 +25,8 @@
 6. 完成公网与内容哈希验证后启用 timer：`systemctl enable --now cinescope-update.timer`。
 
 如果首次证书通过 DNS challenge 签发，切换 DNS 后需把续期方式改为 webroot，并用 staging dry-run 验证续期，不能把一次性手工 DNS challenge 当成自动续期。
+
+把 `deploy/linux/cinescope-certbot-deploy.sh` 以 root 所有、0755 权限安装到 `/etc/letsencrypt/renewal-hooks/deploy/cinescope-nginx.sh`。它只对本项目证书生效。`certbot reconfigure --cert-name movie.lrwei91.cn --webroot --webroot-path /var/lib/letsencrypt --preferred-challenges http --non-interactive` 会先验证新的续期方式再保存；首次 DNS challenge 的偏好需要显式覆盖。
 
 ## 检查与手动发布
 
@@ -44,3 +46,11 @@ cat /srv/cinescope/current/.deployed-revision
 发布过程中的 HTTP 校验失败会自动回退旧目录。成功清理旧版本后，回退需要在 GitHub 提交修复或恢复内容形成新提交，再由相同发布入口验证发布；没有本机旧部署可立即切回。不要把旧源码复制进 current，或把 source tree 直接作为 Nginx root。
 
 代码与 ops 模板的修改推送后，公开页面会自动更新；`/opt/cinescope-ops/`、Nginx 和 systemd 模板需要经审阅后显式安装，不允许仓库脚本自动改写 root 配置。
+
+## 迁移验收记录
+
+2026-10-30（北京时间）：正式域名已从 Vercel CNAME 切到火山云 A 记录。服务器 Node 24、Python 3.9 实际运行完整检查、数据门禁和静态构建通过，发布包含 17 份标准 JSON 与 1,489 张引用海报，产物约 269 MB（十进制文件字节）。服务器已从 GitHub 增量获取下一提交并完成发布，旧发布目录按预期清理。
+
+域名证书已签发，切换前公网直连服务器验证首页、JS、清单、片单 JSON 和海报的 SHA-256 一致；切换后正式域名响应为 Nginx。Certbot reconfigure 的 HTTP staging 续期验证成功，当前有效证书未被 staging 证书替换。systemd timer 已启用并产生一次实际检查记录。
+
+未验证真实 iPhone、跨浏览器、系统重启后的实际恢复，以及未来到期时的真实续签。本轮不提交 `ios/` 与只描述 iOS 的设计记录；这些改动保留在本地。
