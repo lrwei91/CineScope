@@ -397,6 +397,8 @@ class DoubanSearchClient:
         out: dict[str, list[dict]] = {}
         for start in range(0, len(queries), self.batch_size):
             chunk = queries[start : start + self.batch_size]
+            # 每批都夹一个金丝雀：接口限流时返回 200 + 空数组，只看批量空比例会漏检
+            chunk = [CANARY_QUERY, *[query for query in chunk if query != CANARY_QUERY]]
             payload = None
             for attempt in range(self.max_retries + 1):
                 try:
@@ -415,6 +417,11 @@ class DoubanSearchClient:
             if not isinstance(payload, dict):
                 continue
             self.request_count += len(chunk)
+            canary = (payload.get(CANARY_QUERY) or {}).get("items") or []
+            if not canary:
+                raise MatchError(
+                    "豆瓣搜索金丝雀在本批无结果，判定限流；本轮不写未命中缓存，稍后重试"
+                )
             for query in chunk:
                 entry = payload.get(query) or {}
                 candidates = [candidate_from_search(item) for item in (entry.get("items") or [])]
