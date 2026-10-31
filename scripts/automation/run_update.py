@@ -46,6 +46,29 @@ TASK_TIMEOUTS = {
 }
 
 
+def load_project_env(env: dict[str, str]) -> None:
+    """把仓库 .env 里的键补进任务环境。
+
+    cron/launchd 环境没有 shell profile，读不到 TMDB_API_KEY 时
+    `generate_douban_catalog.mjs` 会退化成只用豆瓣集合重建，把 TMDB 回捞的
+    历史剧集整批冲掉（2026-10-31 tv_cn 989→365）。
+    """
+    env_path = PROJECT_ROOT / ".env"
+    try:
+        lines = env_path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key, _, value = stripped.partition("=")
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in env:
+            env[key] = value
+
+
 def task_timeout(task: str) -> int:
     """回捞/限流排查时可用 TASK_TIMEOUT_SECONDS 覆盖单任务超时。"""
     override = os.environ.get("TASK_TIMEOUT_SECONDS", "").strip()
@@ -446,6 +469,7 @@ def update_task_report(staged_root: Path, task: str) -> None:
 
 def execute_task(task: str, staged_root: Path, *, dry_run: bool, allow_large_drop: bool) -> dict:
     env = os.environ.copy()
+    load_project_env(env)
     env["CINESCOPE_OUTPUT_ROOT"] = str(staged_root)
     env["CINESCOPE_PROJECT_ROOT"] = str(PROJECT_ROOT)
     env["UPDATE_TASK"] = task
@@ -486,8 +510,34 @@ def execute_task(task: str, staged_root: Path, *, dry_run: bool, allow_large_dro
             env["CATEGORY_IDS"] = "movie_cn"
             run_command([*node, "scripts/generate_douban_catalog.mjs"], env=env, timeout=timeout)
     elif task == "trailers":
+        # 只合并预告片字段：直接重建会把历史回捞的剧集和豆瓣链接冲掉
         env["CATEGORY_IDS"] = "movie_cn,tv_cn"
-        run_command([*node, "scripts/generate_douban_catalog.mjs"], env=env, timeout=timeout)
+        generated_root = staged_root.parent / f"{staged_root.name}-trailers-generated"
+        if generated_root.exists():
+            shutil.rmtree(generated_root, ignore_errors=True)
+        generated_root.mkdir(parents=True, exist_ok=True)
+        generated_env = {**env, "CINESCOPE_OUTPUT_ROOT": str(generated_root)}
+        try:
+            run_command(
+                [*node, "scripts/generate_douban_catalog.mjs"], env=generated_env, timeout=timeout
+            )
+            run_command(
+                [
+                    sys.executable,
+                    "scripts/automation/trailer_fields_merge.py",
+                    "--generated",
+                    str(generated_root),
+                    "--target",
+                    str(staged_root),
+                    "--categories",
+                    "movie_cn,tv_cn",
+                ],
+                env=env,
+                timeout=300,
+            )
+        finally:
+            if not dry_run:
+                shutil.rmtree(generated_root, ignore_errors=True)
     else:
         raise ValueError(f"unknown task: {task}")
 

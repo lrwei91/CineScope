@@ -59,9 +59,12 @@ async function readJsonFile(rootDir, relativePath) {
 
 function readBaselineJson(rootDir, baselineRef, relativePath) {
     if (!baselineRef) return null;
+    // 默认 maxBuffer 只有 1MB，complete 体量大时 spawnSync 会返回 status=null，
+    // 之前会让「数量大幅缩水」的保护静默失效（2026-10-31 tv_cn 989→365 就是这样漏过去的）。
     const result = spawnSync('git', ['show', `${baselineRef}:${relativePath}`], {
         cwd: rootDir,
-        encoding: 'utf8'
+        encoding: 'utf8',
+        maxBuffer: 128 * 1024 * 1024
     });
     if (result.status !== 0) return null;
     try {
