@@ -1,25 +1,25 @@
 {
   "metadata": {
-    "last_updated": "2026-10-31T12:11:23.722Z",
+    "last_updated": "2026-10-30T19:00:09.593Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-10-31T12:11:23.722Z",
+        "time": "2026-10-30T19:00:09.593Z",
         "summary": "已同步院线电影数据（latest）：24 条"
       }
     ],
-    "source": "douban+bilibili",
+    "source": "douban+tmdb+bilibili",
     "source_collections": [
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 44,
+        "count": 73,
         "fetch_error": null
       },
       {
         "slug": "movie_soon",
         "source": "douban",
-        "count": 21,
+        "count": 20,
         "fetch_error": null
       },
       {
@@ -29,10 +29,16 @@
         "fetch_error": null
       },
       {
+        "slug": "discover/movie",
+        "source": "tmdb",
+        "count": 311,
+        "fetch_error": null
+      },
+      {
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
-        "count": 275,
-        "fetch_error": null
+        "count": 0,
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
     "total_items": 24
@@ -41,7 +47,7 @@
     {
       "id": 36787273,
       "title": "沙丘3",
-      "original_title": "Dune: Part Three",
+      "original_title": "沙丘3",
       "release_date": "2026-12-31",
       "genres": [
         {
@@ -79,64 +85,22 @@
         {
           "id": 3,
           "name": "杰森·莫玛"
-        },
-        {
-          "id": 4,
-          "name": "哈维尔·巴登"
-        },
-        {
-          "id": 5,
-          "name": "丽贝卡·弗格森"
-        },
-        {
-          "id": 6,
-          "name": "弗洛伦丝·皮尤"
-        },
-        {
-          "id": 7,
-          "name": "罗伯特·帕丁森"
-        },
-        {
-          "id": 8,
-          "name": "安雅·泰勒-乔伊"
-        },
-        {
-          "id": 9,
-          "name": "伊萨赫·德·班克尔"
-        },
-        {
-          "id": 10,
-          "name": "乔什·布洛林"
-        },
-        {
-          "id": 11,
-          "name": "艾达·布鲁克"
-        },
-        {
-          "id": 12,
-          "name": "纳科亚·沃尔夫·莫玛"
         }
       ],
       "countries": [
-        "美国"
+        "United States of America",
+        "United Arab Emirates"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
-      "aka": [
-        "沙丘瀚战：第三章(港)",
-        "沙丘：第三部(台)",
-        "沙丘：救世主",
-        "沙丘III",
-        "Dune: Messiah",
-        "Dune 3"
-      ],
-      "imdb_id": null,
+      "aka": [],
+      "imdb_id": "tt31378509",
       "poster_path": "posters/douban/movie_cn/36787273.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36787273/",
       "douban_link_verified": true,
-      "overview": "故事发生在保罗·厄崔迪掌控帝国近二十年后，此时的他已是一位冷酷无情的皇帝。当过去的盟友神秘回归，新的威胁接踵而至，反叛阴谋危机四伏…他必须直面自己统治的结果。帝国崩塌的幻象始终纠缠着他，昔日至爱再度现身，保罗被卷入一场巨大的阴谋之中，而契妮正处在风暴的中心。随着敌人步步逼近，保罗将不得不直面权力的代价，以及所爱之人的命运。\n影片改编自弗兰克·赫伯特所著《沙丘：救世主》。",
+      "overview": "改编自弗兰克·赫伯特的科幻小说《沙丘2：沙丘救世主》。保罗·厄崔迪夺取帝国统治权近二十年后，成为冷酷的皇帝。面对旧盟友回归、新威胁浮现与暗中背叛，保罗深陷一场阴谋，并必须直面权力的代价与所爱之人的命运。",
       "durations": [
         "150分钟"
       ],
@@ -144,35 +108,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "震撼！史诗战争大场面！科幻大片《沙丘3》终极预告，雷托二世/甘尼玛亮相",
-          "bvid": "BV1mgxG65EnD",
-          "url": "https://www.bilibili.com/video/BV1mgxG65EnD",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1mgxG65EnD&page=1&qn=64&high_quality=1",
-          "cover": "http://i1.hdslb.com/bfs/archive/63b83dc21ce33fca6a6bbb0cb196ff26afcf0574.jpg",
-          "publishedAt": "2026-10-27T16:06:00.000Z"
-        },
-        {
-          "source": "bilibili",
-          "title": "震撼史诗！终于定档！科幻大片《沙丘3》内地预告，12.31晚北美2周",
-          "bvid": "BV1rrnv69EDS",
-          "url": "https://www.bilibili.com/video/BV1rrnv69EDS",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1rrnv69EDS&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/42d93862b3ef6d6d4e19e3e268efd4aa6ed7c9a0.jpg",
-          "publishedAt": "2026-10-21T03:04:52.000Z"
-        },
-        {
-          "source": "bilibili",
-          "title": "保罗黑化！征服银河系！史诗科幻巨作《沙丘3》正式预告，契妮保罗决裂！邓肯归来",
-          "bvid": "BV13sML6DE8B",
-          "url": "https://www.bilibili.com/video/BV13sML6DE8B",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV13sML6DE8B&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/de2c6e344af558b09626d2ffe020a4131bf598a2.jpg",
-          "publishedAt": "2026-07-09T01:35:08.000Z"
-        }
-      ]
+      "tmdb_id": 1170608,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1170608"
     },
     {
       "id": 38443833,
@@ -207,29 +144,13 @@
         {
           "id": 3,
           "name": "林永健"
-        },
-        {
-          "id": 4,
-          "name": "郭柯宇"
-        },
-        {
-          "id": 5,
-          "name": "唐九洲"
-        },
-        {
-          "id": 6,
-          "name": "冯绍峰"
-        },
-        {
-          "id": 7,
-          "name": "孙艺洲"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [],
       "imdb_id": null,
@@ -237,12 +158,14 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/38443833/",
       "douban_link_verified": true,
-      "overview": "改编自感动全网的“霍九九”真实故事：乐观开朗的律所女孩许倩（张艺凡 饰）与逗趣幽默的广告公司经理乔一泽（陈立农 饰）在网络因共同爱好结识并陷入爱河。在新婚后的蜜月旅行中，命运却开了一个最残忍的玩笑，爱情、事业、亲友的重压兜头而来。 爱笑的女孩为自己取下新名字“霍九九”，向生命宣战。这对年轻夫妻决定用一场浪漫又倔强的远行，去证明爱是否真的能抵达时间尽头，奏响一曲生命的摇滚乐章。不放弃，不放手。",
+      "overview": "　　一纸癌症确诊书使得新婚夫妻大乔和孙倩的人生瞬间跌入谷底，爱情、事业、亲友的重压兜头而来。孙倩为自己取下新的名字“霍九九”，向命运宣战。在命途的终点前，他们用爱奏响生命的摇滚乐章，重新定义人生的维度。  　　影片根据真实故事改编。",
       "durations": [],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1710414,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1710414"
     },
     {
       "id": 38412138,
@@ -279,15 +202,11 @@
           "name": "柯国庆"
         }
       ],
-      "countries": [
-        "中国大陆"
-      ],
+      "countries": [],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
-      "aka": [
-        "Operation Spike"
-      ],
+      "aka": [],
       "imdb_id": null,
       "poster_path": "posters/douban/movie_cn/38412138.jpg",
       "douban_rating": null,
@@ -300,7 +219,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1674632,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1674632"
     },
     {
       "id": 36011202,
@@ -474,26 +395,22 @@
         },
         {
           "id": 36,
-          "name": "桑德拉·惠勒"
-        },
-        {
-          "id": 37,
           "name": "泰柔娜·派丽丝"
         },
         {
-          "id": 38,
+          "id": 37,
           "name": "尹迪亚·萝丝·海姆斯沃斯"
         },
         {
-          "id": 39,
+          "id": 38,
           "name": "凯瑟琳·纽顿"
         },
         {
-          "id": 40,
+          "id": 39,
           "name": "休·杰克曼"
         },
         {
-          "id": 41,
+          "id": 40,
           "name": "托比·马奎尔"
         }
       ],
@@ -514,7 +431,7 @@
         "Avengers: The Kang Dynasty‎",
         "Avengers 5‎"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt21357150",
       "poster_path": "posters/douban/movie_cn/36011202.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36011202/",
@@ -527,6 +444,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1003596,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1003596",
       "trailers": [
         {
           "source": "bilibili",
@@ -738,7 +657,7 @@
     {
       "id": 37503053,
       "title": "魔法秘境",
-      "original_title": "Hexed",
+      "original_title": "魔法秘境",
       "release_date": "2026-11-27",
       "genres": [
         {
@@ -762,14 +681,6 @@
         {
           "id": 1,
           "name": "弗恩·维拉桑托恩"
-        },
-        {
-          "id": 2,
-          "name": "杰森·汉德"
-        },
-        {
-          "id": 3,
-          "name": "乔西·特立尼达"
         }
       ],
       "actors": [
@@ -784,60 +695,30 @@
         {
           "id": 3,
           "name": "朱迪·福斯特"
-        },
-        {
-          "id": 4,
-          "name": "沃尔顿·戈金斯"
-        },
-        {
-          "id": 5,
-          "name": "崔茜·尤玛"
-        },
-        {
-          "id": 6,
-          "name": "艾伦·图代克"
-        },
-        {
-          "id": 7,
-          "name": "斯蒂芬·弗雷"
-        },
-        {
-          "id": 8,
-          "name": "罗德格尔·邦帕斯"
-        },
-        {
-          "id": 9,
-          "name": "艾拉·伯恩"
-        },
-        {
-          "id": 10,
-          "name": "艾米莉·巴洛"
         }
       ],
       "countries": [
-        "美国"
+        "United States of America"
       ],
       "languages": [
-        "英语"
+        "en"
       ],
-      "aka": [
-        "魔法师的秘密王国(港)",
-        "欢迎光临魔法秘境(台)",
-        "魔咒"
-      ],
-      "imdb_id": null,
+      "aka": [],
+      "imdb_id": "tt38077943",
       "poster_path": "posters/douban/movie_cn/37503053.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37503053/",
       "douban_link_verified": true,
-      "overview": "冲动又特立独行的16岁少女比莉（海莉·斯坦菲尔德 配音）一直以为自己只是一个普通女孩，直到一次意外唤醒了体内沉睡已久的魔法力量，将她卷入“魔法国”这个神秘的女巫世界，也让她与母亲艾莉丝（拉什达·琼斯 配音）共同踏上一段前所未有的旅程。\n随着冒险不断深入，一个关乎家族传承与王国未来的巨大秘密逐渐浮出水面。隔阂已久的母女二人在并肩闯关的过程中，逐渐学会站在对方的角度思考，重新建立起更深的信任与羁绊。而比莉，也必须学会驾驭这份突如其来的力量，直面命运的考验，找到真正的勇气与答案。",
+      "overview": "一名冲动、不拘一格的少女比莉意外发现自己拥有隐藏的魔法能力，由此进入广阔的女巫王国赫克塞。她与谨慎的母亲艾丽丝联手，揭开可能改变女巫世界的家族秘密。",
       "durations": [
-        "110分钟"
+        "103分钟"
       ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1538497,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1538497",
       "trailers": [
         {
           "source": "bilibili",
@@ -854,14 +735,18 @@
       "id": 35068655,
       "title": "试探",
       "original_title": "试探",
-      "release_date": "2026-11-21",
+      "release_date": "2026-11-20",
       "genres": [
         {
           "id": 1,
-          "name": "悬疑"
+          "name": "剧情"
         },
         {
           "id": 2,
+          "name": "悬疑"
+        },
+        {
+          "id": 3,
           "name": "惊悚"
         }
       ],
@@ -917,7 +802,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35068655/",
       "douban_link_verified": true,
-      "overview": "空无一人的房间，忽明忽暗的灯光，黑暗之中身影交叠纠缠，那张陌生又熟悉的面孔若隐若现。丁伯阳（冯绍峰 饰）、马娅（陈雨锶 饰）、万影（李梦 饰）坠入一场危险的情感迷局，三人全都被困进这场以爱为名的人性博弈。亲密还是陌生？深情还是残忍？门后究竟藏着怎样的世界？人心底层的阴暗，又该如何探究？你敢试探TA吗？",
+      "overview": "为了测试男友丁伯阳对自己的爱，万影策划了一场失踪事件，让丁伯阳陷入短暂的痛苦中。此时，年轻惹火的马娅趁机上位，与丁伯阳光速热恋，激情同居。可马娅不知道的是，打从自己搬进丁伯阳家的一刻起，自己也成为了这场试探游戏的危险玩家之一……",
       "durations": [],
       "release_windows": [
         {
@@ -927,237 +812,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 35622269,
-      "title": "霹雳英雄：素还真",
-      "original_title": "素還真",
-      "release_date": "2026-11-20",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "武侠"
-        },
-        {
-          "id": 3,
-          "name": "古装"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "黄强华"
-        },
-        {
-          "id": 2,
-          "name": "王嘉祥"
-        },
-        {
-          "id": 3,
-          "name": "郑保品"
-        },
-        {
-          "id": 4,
-          "name": "王泉修"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "黄文择"
-        }
-      ],
-      "countries": [
-        "中国台湾"
-      ],
-      "languages": [
-        "闽南语"
-      ],
-      "aka": [
-        "素还真",
-        "Demigod: The Legend Begins"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/35622269.jpg",
-      "douban_rating": "6.8",
-      "douban_link_google": "https://movie.douban.com/subject/35622269/",
-      "douban_link_verified": true,
-      "overview": "影片讲述了少年素还真初涉江湖，便被卷入权谋纷争，恩师蒙难。随着真相层层揭开，他执剑向前，一段江湖传奇就此展开。",
-      "durations": [
-        "103分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 916,
-      "rating_star_count": 3.5,
-      "type": "movie"
-    },
-    {
-      "id": 39015682,
-      "title": "向阳青春",
-      "original_title": "向阳青春",
-      "release_date": "2026-11-14",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "王盘灵"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "肖雨晴"
-        },
-        {
-          "id": 2,
-          "name": "吕炫乐"
-        },
-        {
-          "id": 3,
-          "name": "徐光宇"
-        },
-        {
-          "id": 4,
-          "name": "李颖"
-        },
-        {
-          "id": 5,
-          "name": "张思乐"
-        },
-        {
-          "id": 6,
-          "name": "张靖岚"
-        },
-        {
-          "id": 7,
-          "name": "柴蔚"
-        },
-        {
-          "id": 8,
-          "name": "张恒铭"
-        },
-        {
-          "id": 9,
-          "name": "张常宁"
-        },
-        {
-          "id": 10,
-          "name": "郭亚菲"
-        },
-        {
-          "id": 11,
-          "name": "牛飘"
-        },
-        {
-          "id": 12,
-          "name": "周浩东"
-        },
-        {
-          "id": 13,
-          "name": "张国庆"
-        },
-        {
-          "id": 14,
-          "name": "左腾云"
-        },
-        {
-          "id": 15,
-          "name": "郭艳"
-        },
-        {
-          "id": 16,
-          "name": "吴岚"
-        },
-        {
-          "id": 17,
-          "name": "王沚渊"
-        },
-        {
-          "id": 18,
-          "name": "廖骞"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "Young Sunny"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/39015682.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/39015682/",
-      "douban_link_verified": true,
-      "overview": "高中生夏薇零（肖雨晴 饰），长期困在母亲（李颖 饰） 的严密管控里，学业、选择、交友全都被安排妥当。曾经顺从的她，终于在压抑里爆发，逃课、反抗，和好友宋飞（张恒铭 饰）、陆欢（张婧岚 饰）一起，拼命夺回属于自己的空间。母女之间争吵不断，误会层层叠加，那句沉甸甸的 “我都是为了你”，慢慢变成刺伤彼此的利刃。一边是母亲寄托全部人生的期待，一边是女孩想要自主成长的渴望。这场没有赢家的家庭战争，能否找到和解的出口？这是属于无数青春期孩子的挣扎，也是每个家长都要面对的一课。",
-      "durations": [
-        "111分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 37388286,
-      "title": "夫妻一场",
-      "original_title": "夫妻一场",
-      "release_date": "2026-11-13",
-      "genres": [
-        {
-          "id": 1,
-          "name": "纪录片"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "秦潇越"
-        }
-      ],
-      "actors": [],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "爱",
-        "For Better or Worse",
-        "A Love Relation"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/37388286.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/37388286/",
-      "douban_link_verified": true,
-      "overview": "相识于原博的还俗派对时，李欣冉还是位身患抑郁症的女演员。处于人生低谷的俩人一见钟情，他们迅速走到一起，迎来第一个孩子。带着几百万积蓄，他们憧憬着理想生活，却因挥霍和缺乏理财经验，陷入了经济危机。为扭转困境，原博计划在安吉山中创办手碟乐器工厂。青山绿水似乎是他们梦想中的乌托邦。然而，随着第二个孩子的降生，事业夭折，合伙人离开，债务缠身。日常琐碎与经济压力逐渐蚕食了曾经炙热的感情。在深山中，他们爱到一无所有，只剩彼此。",
-      "durations": [
-        "101分钟",
-        "105分钟(FIRST影展)"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1567259,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1567259"
     },
     {
       "id": 36171702,
@@ -1192,21 +849,13 @@
         {
           "id": 3,
           "name": "徐永革"
-        },
-        {
-          "id": 4,
-          "name": "张蓝伊"
-        },
-        {
-          "id": 5,
-          "name": "张圣岳"
         }
       ],
       "countries": [
         "中国大陆"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "特定关系人"
@@ -1216,7 +865,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36171702/",
       "douban_link_verified": true,
-      "overview": "影片以浙江省纪委榜样人物余延安等先进事迹为原型，讲述基层纪检干部靳宇轩率队暗访调查，从一桩蹊跷跳楼案顺藤摸瓜，层层撕开房地产领域政商勾结黑幕的故事。",
+      "overview": "影片讲述了靳宇轩作为老纪检人，业务出色政治过硬，带着岳泓光与林燕两个年轻纪检人接受任务，调查发现住建局局长项耀飞被身边的特定关系人薛冰玉和房地产商人黄小龙所“围猎”，围绕在项耀飞身上的贪腐问题严重，靳宇轩带着小组成员找到突破口，靳宇轩坚守初心，不惧困难阻力、直面各种威胁，最终将项耀飞及相关特定关系人全部绳之以法的故事。",
       "durations": [
         "95分钟"
       ],
@@ -1228,7 +877,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1811193,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1811193"
     },
     {
       "id": 36424371,
@@ -1259,36 +910,27 @@
         {
           "id": 3,
           "name": "祖峰"
-        },
-        {
-          "id": 4,
-          "name": "张占义"
-        },
-        {
-          "id": 5,
-          "name": "马羚"
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "余烬",
         "燃烧的雪天",
         "The Embers"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38069285",
       "poster_path": "posters/douban/movie_cn/36424371.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/36424371/",
       "douban_link_verified": true,
       "overview": "黄燕（宋佳 饰）在按部就班的火化工作中逐渐失去了对生活的期待，变得悲观麻木。直到她意识到自己终将死亡，才决定更勇敢、更大胆地活出自我。一次意外，让她与通透、明媚的姚雪（文淇 饰）相遇。她们彼此治愈，像冬天里靠在一起取暖的两个人；她们互相擦干眼泪，勇敢做自己想做的事，把自己放在人生的第一位，一起体验这仅有一次的人生！",
       "durations": [
-        "113分钟",
-        "114分钟(北京国际电影节)"
+        "113分钟"
       ],
       "release_windows": [
         {
@@ -1299,6 +941,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1409470,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1409470",
       "trailers": [
         {
           "source": "bilibili",
@@ -1344,61 +988,13 @@
         {
           "id": 3,
           "name": "顾鑫"
-        },
-        {
-          "id": 4,
-          "name": "范祎琳"
-        },
-        {
-          "id": 5,
-          "name": "王维帅"
-        },
-        {
-          "id": 6,
-          "name": "周叶"
-        },
-        {
-          "id": 7,
-          "name": "许子皓"
-        },
-        {
-          "id": 8,
-          "name": "韩秀一"
-        },
-        {
-          "id": 9,
-          "name": "雷佳音"
-        },
-        {
-          "id": 10,
-          "name": "王智"
-        },
-        {
-          "id": 11,
-          "name": "杨皓宇"
-        },
-        {
-          "id": 12,
-          "name": "张铎"
-        },
-        {
-          "id": 13,
-          "name": "杨蓉"
-        },
-        {
-          "id": 14,
-          "name": "王皓"
-        },
-        {
-          "id": 15,
-          "name": "萨日娜"
         }
       ],
       "countries": [
         "中国大陆"
       ],
       "languages": [
-        "汉语普通话"
+        "zh"
       ],
       "aka": [
         "笑解迷心",
@@ -1409,7 +1005,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37295792/",
       "douban_link_verified": true,
-      "overview": "小小山村人人心怀鬼胎。德高望重的村长肖卫国，与儿子肖宗耀反目成仇；寡言老实的大壮心底暗藏不可告人的隐秘；常年困在婚姻炼狱的丽琴忍耐已至极限；孕期偷腥的王宝山卷入不伦纠葛；未婚先孕的少女黄欢突然人间蒸发……无名焦尸现身，牵出隐秘山村不堪的秘辛，全村陷入疯狂：抢尸、焚尸、埋尸接连上演！甩锅脱罪、暗中设局、背刺算计……一村熟人相互捅刀，你永远都猜不到，哪张乡邻笑脸下暗藏着致命杀机！",
+      "overview": "　　一具烧焦的无名尸体被发现，引发邻里间的猜疑。大家都在怀疑小肖杀人，虎子的家人企图认尸躲避恶霸追债，琴儿则借尸体摆脱已无感情的丈夫，此时，又有一场意外发生………随着警方调查，真相逐渐浮现。",
       "durations": [
         "98分钟"
       ],
@@ -1421,66 +1017,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
-    },
-    {
-      "id": 36083358,
-      "title": "乡归",
-      "original_title": "乡归",
-      "release_date": "2026-11-07",
-      "genres": [
-        {
-          "id": 1,
-          "name": "纪录片"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "徐晓晖"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "刘休"
-        },
-        {
-          "id": 2,
-          "name": "周燕"
-        },
-        {
-          "id": 3,
-          "name": "钟欣怡"
-        }
-      ],
-      "countries": [
-        "中国大陆"
-      ],
-      "languages": [
-        "汉语普通话"
-      ],
-      "aka": [
-        "Go Back to the South"
-      ],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36083358.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/36083358/",
-      "douban_link_verified": true,
-      "overview": "影片讲述了湘南山村里一群归乡者的故事——北漂多年后决意“带艺术回家”的中年夫妻刘休、周燕，在理想与现实之间重新寻找生活的方向；在广东出生长大、需要重新融入故土的欣怡姐妹，面对着另一种意义上的返乡；向往“南方生活”的少女曦曦，渴望像父辈一样探索自己的未来。与此同时，还有因无工可打而从岭南回来的村民，以及一辈子留守大山的老人。有人主动归来，有人迫于现实，有人从未离开。归去来兮，每个人都在时代洪流里，反复叩寻自己的归属。乡归何处？吾心安处便是吾乡。",
-      "durations": [
-        "98分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "weekend",
-          "label": "周末档"
-        }
-      ],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1810158,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1810158"
     },
     {
       "id": 35299923,
@@ -1548,12 +1087,12 @@
         "战疫天使",
         "Angel in White"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt37788268",
       "poster_path": "posters/douban/movie_cn/35299923.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/35299923/",
       "douban_link_verified": true,
-      "overview": "2020 年初，未知传染病暴发。大学教授沈君（刘德华 饰）与医生袁楚楚（杨子姗 饰）夫妇和护士长田璐（秦海璐 饰）、医生钟凌云（余皑磊 饰）等本地医护人员一同救治病患。灾难降临，城市陷入危机。病毒肆虐、物资告急，困境加剧，有人义无反顾奔赴前线，回看那惊心动魄的 76 个日夜，才更懂得此刻的生活值得珍惜，才更有勇气和希望奔赴未来。\n影片取材自真实事件。",
+      "overview": "2020年初，未知传染病在武汉暴发，灾难降临，城市陷入危机。病毒肆虐、物资告急，困境加剧，有人义无反顾奔赴前线，有人于困厄之中奋力求生。那惊心动魄的 76 个日夜，偶尔想起，不会忘记。在回首中铭记，在挥手中向前，幸存之后，走向明天。\n影片取材自真实事件。",
       "durations": [
         "106分钟"
       ],
@@ -1561,6 +1100,8 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie",
+      "tmdb_id": 1531919,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1531919",
       "trailers": [
         {
           "source": "bilibili",
@@ -1576,7 +1117,7 @@
     {
       "id": 37822528,
       "title": "珠穆朗玛：云中彼岸",
-      "original_title": "Everest: The Other Side",
+      "original_title": "珠穆朗玛：云中彼岸",
       "release_date": "2026-11-06",
       "genres": [
         {
@@ -1592,10 +1133,6 @@
         {
           "id": 1,
           "name": "金国威"
-        },
-        {
-          "id": 2,
-          "name": "伊丽莎白·柴·瓦沙瑞莉"
         }
       ],
       "actors": [
@@ -1609,35 +1146,33 @@
         }
       ],
       "countries": [
-        "美国",
-        "中国大陆",
-        "尼泊尔"
+        "United States of America",
+        "China",
+        "Nepal"
       ],
       "languages": [
-        "英语",
-        "尼泊尔语",
-        "夏尔巴语",
-        "西班牙语",
-        "古隆语"
+        "en"
       ],
       "aka": [
         "珠峰北坡",
         "Everest's North Side",
         "Everest North"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt38691481",
       "poster_path": "posters/douban/movie_cn/37822528.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37822528/",
       "douban_link_verified": true,
-      "overview": "影片聚焦人类历史上极具难度的极限挑战——从珠穆朗玛峰北壁登顶后滑降而下。珠峰北壁霍恩拜因雪沟坡度50度、垂直下降2743米，素来以艰险著称。极限登山搭档吉姆·莫里森与希拉莉·尼尔森，向这座地球之巅的“另一面”发起冲击。",
+      "overview": "真实记录登山滑雪运动员吉姆·莫里森于2025年10月成功沿珠穆朗玛峰北坡霍恩拜因雪沟登顶，并成为全球首位在该危险路线完成滑雪速降的历史性壮举。",
       "durations": [
         "115分钟"
       ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1603262,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1603262"
     },
     {
       "id": 23774856,
@@ -1745,7 +1280,7 @@
         "英语"
       ],
       "aka": [],
-      "imdb_id": null,
+      "imdb_id": "tt2321555",
       "poster_path": "posters/douban/movie_cn/23774856.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/23774856/",
@@ -1757,7 +1292,9 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1117898,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1117898"
     },
     {
       "id": 37659649,
@@ -1909,7 +1446,7 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37659565/",
       "douban_link_verified": true,
-      "overview": "王凯、王锐兄弟俩为完成父亲的遗愿，实现因眩晕症不能乘坐机动交通工具的老母亲畅游全国的心愿，手工制作一辆“大篷车”，徒步拉着80多岁的老母亲踏上北起黑龙江、南到香港的旅程。",
+      "overview": "该片根据真实故事改编，讲述兄弟俩因为母亲有眩晕症，自制大篷车拉着80多岁的母亲游遍了大半个中国的故事。",
       "durations": [],
       "release_windows": [],
       "rating_count": null,
@@ -1948,29 +1485,30 @@
         }
       ],
       "countries": [
-        "中国大陆"
+        "China"
       ],
       "languages": [
-        "汉语普通话",
-        "藏语"
+        "zh"
       ],
       "aka": [
         "Sumpa Kingdom",
         "སུམ་པའི་རྒྱལ་ཕྲན་འཚོལ་བ"
       ],
-      "imdb_id": null,
+      "imdb_id": "tt43604252",
       "poster_path": "posters/douban/movie_cn/37516928.jpg",
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37516928/",
       "douban_link_verified": true,
-      "overview": "1995年，那曲乡政府的医生为一名藏族女子接生，藏族女子产下一名女婴后离世，医生收养了女婴。2024年，养父支持女儿与富商好友一同寻找苏毗谜语的答案。在经历一系列冒险与挑战后，女儿最终获得赛马冠军，富商好友潜心研发藏药。",
+      "overview": "女主角央庆拉姆自小在内地长大，因一次偶然的高原旅程，与年轻向导白玛相遇。两人一路深入牧区与草原，在梦想与现实、传统与自我之间，展开了一场关于婚姻、生死与道德的内心探寻。最终，在旷野间完成了与故土、与自我的双向和解。",
       "durations": [
-        "96分钟"
+        "91分钟"
       ],
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1707626,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1707626"
     },
     {
       "id": 37047880,
@@ -2038,7 +1576,9 @@
       ],
       "rating_count": null,
       "rating_star_count": null,
-      "type": "movie"
+      "type": "movie",
+      "tmdb_id": 1796001,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1796001"
     },
     {
       "id": 25798131,
@@ -2184,7 +1724,7 @@
         "101分钟"
       ],
       "release_windows": [],
-      "rating_count": 261566,
+      "rating_count": 261083,
       "rating_star_count": 4,
       "type": "movie"
     },
@@ -2277,11 +1817,10 @@
       "douban_link_verified": true,
       "overview": "令狐冲（李连杰饰）在按计划与日月神教的朋友会面后，将和小师妹岳灵珊（李嘉欣饰）等其他华山派师兄弟赴牛背山归隐退出江湖。路途中意外发现练就“葵花宝典”的东方不败（林青霞饰），但令狐冲不认识东方不败，误将对方当成一位美貌女子。后来几次相遇，还一道饮酒吟诗。\n在同任盈盈（关之琳饰）、蓝凤凰（袁洁莹饰）会合后，几个月来江湖不平，大事连连。任我行为东方不败所囚禁，他们商量着夺回日月神教，便乔装进入浪人营打探，救出任我行。\n另一边华山派弟子惨遭毒手，黑木崖上，令狐冲和一干人都想着报仇，他惊觉眼前人竟是东方不败……",
       "durations": [
-        "106分钟(中国大陆)",
         "107分钟"
       ],
       "release_windows": [],
-      "rating_count": 242375,
+      "rating_count": 241497,
       "rating_star_count": 4.5,
       "type": "movie"
     },
@@ -2385,6 +1924,361 @@
       "release_windows": [],
       "rating_count": null,
       "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 38230962,
+      "title": "我的身后是祖国",
+      "original_title": "我的身后是祖国",
+      "release_date": "2026-10-25",
+      "genres": [
+        {
+          "id": 1,
+          "name": "纪录片"
+        }
+      ],
+      "directors": [],
+      "actors": [],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/38230962.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/38230962/",
+      "douban_link_verified": true,
+      "overview": "以抗美援朝战争进程为时间线，围绕“我的身后是祖国”这一主题，采用“凝练字幕+口述”的视听表现形式，从不同的维度，去抓取、剖析和共情中华英雄儿女在抗美援朝战争中的动人瞬间，真实生动地呈现了在“祖国”二字的凝聚下，中华优秀儿女同心同德，赢取抗美援朝战争伟大胜利的波澜壮阔的历史。",
+      "durations": [
+        "90分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 37344902,
+      "title": "小羊肖恩3：怪兽来袭",
+      "original_title": "Shaun the Sheep: The Beast of Mossy Bottom",
+      "release_date": "2026-10-24",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        },
+        {
+          "id": 2,
+          "name": "动画"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "史蒂夫·考克斯"
+        },
+        {
+          "id": 2,
+          "name": "马修·沃克"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "贾斯汀·弗莱彻"
+        },
+        {
+          "id": 2,
+          "name": "约翰·斯帕克斯"
+        },
+        {
+          "id": 3,
+          "name": "尼娜·索珊娅"
+        },
+        {
+          "id": 4,
+          "name": "凯特·哈伯"
+        },
+        {
+          "id": 5,
+          "name": "理查德·韦伯"
+        },
+        {
+          "id": 6,
+          "name": "艾玛·泰特"
+        },
+        {
+          "id": 7,
+          "name": "西蒙·格林诺"
+        },
+        {
+          "id": 8,
+          "name": "安迪·尼曼"
+        },
+        {
+          "id": 9,
+          "name": "克里斯·莫雷尔"
+        },
+        {
+          "id": 10,
+          "name": "保罗·怀特豪斯"
+        },
+        {
+          "id": 11,
+          "name": "丹妮·戴尔"
+        },
+        {
+          "id": 12,
+          "name": "罗曼·坎普"
+        },
+        {
+          "id": 13,
+          "name": "阿伊莎·安托万"
+        },
+        {
+          "id": 14,
+          "name": "贝基·约翰逊"
+        },
+        {
+          "id": 15,
+          "name": "汤姆·道格亚特"
+        }
+      ],
+      "countries": [
+        "英国"
+      ],
+      "languages": [
+        "无对白"
+      ],
+      "aka": [
+        "小羊肖恩3：青苔农场的怪兽",
+        "小羊肖恩：苔藓谷的野兽",
+        "超级无敌羊咩咩大电影之怪兽农场(港)"
+      ],
+      "imdb_id": "tt36841161",
+      "poster_path": "posters/douban/movie_cn/37344902.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/37344902/",
+      "douban_link_verified": true,
+      "overview": "青苔农场的居民正翘首以盼万圣节的到来，而笨手笨脚的农夫意外毁了羊群心爱的南瓜地。为了解决问题，肖恩化身疯狂科学家，结果事情失控，森林中一只神秘怪兽横空出世。",
+      "durations": [
+        "81分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1477104,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1477104"
+    },
+    {
+      "id": 37450049,
+      "title": "非凡的你",
+      "original_title": "非凡的你",
+      "release_date": "2026-10-24",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "高峰"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "刘承林"
+        },
+        {
+          "id": 2,
+          "name": "何达"
+        },
+        {
+          "id": 3,
+          "name": "马强"
+        },
+        {
+          "id": 4,
+          "name": "阎维文"
+        },
+        {
+          "id": 5,
+          "name": "刘佳"
+        },
+        {
+          "id": 6,
+          "name": "李斯南"
+        },
+        {
+          "id": 7,
+          "name": "徐媛媛"
+        },
+        {
+          "id": 8,
+          "name": "马东延"
+        }
+      ],
+      "countries": [
+        "中国大陆"
+      ],
+      "languages": [
+        "汉语普通话"
+      ],
+      "aka": [
+        "The Extraordinary You"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/37450049.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/37450049/",
+      "douban_link_verified": true,
+      "overview": "该片以红旗渠设计师吴祖太同志的生平事迹为原型改编，不但还原了五六十年代河南林县人民战天斗地，兴修水利的英雄史诗；更彰显了红旗渠建设中的科技力量和科学精神；展现了艰苦奋斗、乐于奉献、理想闪光、意气风发的时代面貌。本片的创作，意在致敬红旗渠的设计者与建设者，致敬传承红旗渠精神的河南儿女，致敬伟大的新时代。",
+      "durations": [
+        "92分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "weekend",
+          "label": "周末档"
+        }
+      ],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie"
+    },
+    {
+      "id": 37322586,
+      "title": "生日快乐",
+      "original_title": "هابي بيرث داي",
+      "release_date": "2026-10-23",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "萨拉·戈赫尔"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "朵哈·拉马丹"
+        },
+        {
+          "id": 2,
+          "name": "哈南·莫特韦"
+        },
+        {
+          "id": 3,
+          "name": "哈南·优素福"
+        },
+        {
+          "id": 4,
+          "name": "哈迪贾·艾哈迈德"
+        },
+        {
+          "id": 5,
+          "name": "卡罗琳"
+        },
+        {
+          "id": 6,
+          "name": "哈赞姆·伊哈卜"
+        },
+        {
+          "id": 7,
+          "name": "亚斯明·埃尔·哈瓦里"
+        },
+        {
+          "id": 8,
+          "name": "萨米尔·戈哈尔"
+        },
+        {
+          "id": 9,
+          "name": "格海德·霍萨姆"
+        },
+        {
+          "id": 10,
+          "name": "乔马娜·易卜拉欣"
+        },
+        {
+          "id": 11,
+          "name": "卡里姆·因多米"
+        },
+        {
+          "id": 12,
+          "name": "奥萨马·马哈茂德"
+        },
+        {
+          "id": 13,
+          "name": "阿德尔·穆罕默德"
+        },
+        {
+          "id": 14,
+          "name": "法雷斯·穆罕默德"
+        },
+        {
+          "id": 15,
+          "name": "卡迪·穆罕默德"
+        },
+        {
+          "id": 16,
+          "name": "伊纳斯·拉德万"
+        },
+        {
+          "id": 17,
+          "name": "谢里夫·萨拉马"
+        },
+        {
+          "id": 18,
+          "name": "莫迪·沙欣"
+        },
+        {
+          "id": 19,
+          "name": "阿里·苏卜希"
+        }
+      ],
+      "countries": [
+        "埃及"
+      ],
+      "languages": [
+        "阿拉伯语"
+      ],
+      "aka": [
+        "Happy Birthday‎"
+      ],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/37322586.jpg",
+      "douban_rating": "8.9",
+      "douban_link_google": "https://movie.douban.com/subject/37322586/",
+      "douban_link_verified": true,
+      "overview": "八岁的小女孩托哈在开罗一个富裕家庭当童工女仆，并与雇主的女儿奈莉建立了特殊的联系。从未庆祝过自己生日的托哈下定决心要为奈莉举办一场完美的生日派对，她暗自希望借此体验到自己从未感受过的快乐。随着托哈与奈莉的母亲莱拉之间的关系逐渐超越了雇主与仆人 的常规界限，根深蒂固的社会等级制度受到威胁，这个小女孩不得不面对现代埃及阶级分化的残酷现实。",
+      "durations": [
+        "92分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 19481,
+      "rating_star_count": 4.5,
       "type": "movie"
     }
   ]
