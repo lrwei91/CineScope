@@ -136,17 +136,6 @@ class ScoreTests(unittest.TestCase):
         )
 
 
-class RatingTests(unittest.TestCase):
-    def test_parse_rating_from_string(self):
-        self.assertEqual(match.parse_rating({"rate": "8.7"}), 8.7)
-
-    def test_parse_rating_from_star(self):
-        self.assertEqual(match.parse_rating({"star": 85}), 8.5)
-
-    def test_parse_rating_missing(self):
-        self.assertIsNone(match.parse_rating({"rate": ""}))
-
-
 class CacheTests(unittest.TestCase):
     def test_expired_entry_detection(self):
         self.assertTrue(match.cache_entry_expired({"checked_at": "2020-01-01T00:00:00+00:00"}))
@@ -214,9 +203,7 @@ class ProcessCategoryTests(unittest.TestCase):
             cache = {}
             with patch.object(match, "OUTPUT_ROOT", root), patch.object(
                 match, "save_cache", lambda _cache: None
-            ), patch.object(match, "download_poster", return_value=None), patch.object(
-                match, "download_tmdb_poster", return_value=None
-            ):
+            ), patch.object(match, "download_poster", return_value=None):
                 stats = match.process_category(
                     "tv_us", "tv", client, cache, budget=10, dry_run=False
                 )
@@ -244,7 +231,7 @@ class ProcessCategoryTests(unittest.TestCase):
             cache = {}
             with patch.object(match, "OUTPUT_ROOT", root), patch.object(
                 match, "save_cache", lambda _cache: None
-            ), patch.object(match, "download_tmdb_poster", return_value=None):
+            ):
                 stats = match.process_category(
                     "tv_us", "tv", self.FakeClient({}), cache, budget=2, dry_run=False
                 )

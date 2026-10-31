@@ -257,23 +257,6 @@ def pick_best(item: dict, kind: str, candidates: list[dict]) -> dict | None:
     return scored[0][2]
 
 
-def parse_rating(subject: dict) -> float | None:
-    for key in ("rate", "rating"):
-        value = subject.get(key)
-        if isinstance(value, (int, float)) and value:
-            return round(float(value), 1)
-        if isinstance(value, str) and value.strip():
-            try:
-                return round(float(value.strip()), 1)
-            except ValueError:
-                continue
-    star = subject.get("star")
-    if isinstance(star, (int, float)) and star:
-        value = float(star)
-        return round(value / 10, 1) if value > 10 else round(value, 1)
-    return None
-
-
 def poster_id_from_cover(cover_url: str) -> str:
     match = POSTER_ID.search(str(cover_url or ""))
     return match.group(1) if match else ""
@@ -507,16 +490,6 @@ def download_poster(category: str, subject_id: str, cover_url: str) -> str | Non
     )
 
 
-def download_tmdb_poster(category: str, subject_id: str, path: str) -> str | None:
-    if not path.startswith("/"):
-        return None
-    return _write_poster(
-        Path("posters") / "tmdb" / category / f"{subject_id}.jpg",
-        [TMDB_IMAGE_URL.format(path=path)],
-        "https://www.themoviedb.org/",
-    )
-
-
 # ---------------------------------------------------------------- 写回数据
 
 
@@ -623,22 +596,6 @@ def sync_latest(category: str, kind: str, items: list[dict], *, dry_run: bool) -
     return updated
 
 
-def fill_tmdb_posters(category: str, kind: str, items: list[dict], *, dry_run: bool) -> int:
-    """不查豆瓣，只把 TMDB 原始路径落地成本地海报（iOS 端才有封面）。"""
-    filled = 0
-    for item in items:
-        current = poster_of(item, kind)
-        if not current.startswith("/"):
-            continue
-        if dry_run:
-            continue
-        poster = download_tmdb_poster(category, str(item.get("id")), current)
-        if poster:
-            apply_poster(item, kind, poster)
-            filled += 1
-    return filled
-
-
 def process_category(
     category: str,
     kind: str,
@@ -647,7 +604,6 @@ def process_category(
     *,
     budget: int,
     dry_run: bool,
-    posters_only: bool = False,
 ) -> dict:
     path = OUTPUT_ROOT / "json" / f"{category}_complete.json"
     if not path.exists():
@@ -700,19 +656,6 @@ def process_category(
     if repaired:
         stats["poster_from_douban"] += repaired
         stats["changed"] = True
-
-    if posters_only:
-        filled = fill_tmdb_posters(category, kind, items, dry_run=dry_run)
-        stats["total"] = len(items)
-        stats["poster_from_tmdb"] = filled
-        stats["changed"] = bool(filled)
-        latest_updated = 0 if dry_run else sync_latest(category, kind, items, dry_run=dry_run)
-        stats["latest_synced"] = latest_updated
-        if (stats["changed"] or latest_updated) and not dry_run:
-            path.write_text(
-                json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-            )
-        return stats
 
     if pending:
         assert client is not None
@@ -795,9 +738,6 @@ def main() -> int:
     parser.add_argument("--batch-size", type=int, default=10)
     parser.add_argument("--count", type=int, default=10, help="每次搜索返回候选数")
     parser.add_argument("--until-empty", action="store_true", help="反复小批次推进直到没有待补条目")
-    parser.add_argument(
-        "--posters-only", action="store_true", help="只落地 TMDB 封面，不访问豆瓣"
-    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -808,20 +748,6 @@ def main() -> int:
         return 2
 
     cache = load_cache()
-    if args.posters_only:
-        for category in categories:
-            stats = process_category(
-                category,
-                KIND_BY_CATEGORY[category],
-                None,
-                cache,
-                budget=0,
-                dry_run=args.dry_run,
-                posters_only=True,
-            )
-            print(json.dumps(stats, ensure_ascii=False), flush=True)
-        return 0
-
     total_requests = 0
     rounds = 0
     while True:
