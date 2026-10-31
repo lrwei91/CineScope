@@ -12,7 +12,7 @@ python3 -m pip install -r scripts/automation/requirements.txt
 
 ```bash
 python3 scripts/automation/run_update.py \
-  --task <full|tv-status|douban-cache|trailers> \
+  --task <full|tv-status|douban-cache|douban-match|trailers> \
   [--dry-run] [--publish] [--allow-large-drop]
 ```
 
@@ -20,7 +20,7 @@ python3 scripts/automation/run_update.py \
 
 - 默认：在 staging 生成并验证，成功后提升到工作区
 - `--dry-run`：丢弃 staging，不改正式 JSON
-- `--publish`：`tv-status`、`douban-cache`、`trailers` 任务只发布生成的 JSON/海报，可保留非发布路径编辑；发布路径必须干净，验证后提交并推送（生成完成后、提交前会再次同步 `origin/main` 以吸收 Actions 竞态；推送走本机共享重试策略，无该环境的 CI 自动退化为内置重试）；其他任务要求工作区干净
+- `--publish`：`tv-status`、`douban-cache`、`douban-match`、`trailers` 任务只发布生成的 JSON/海报，可保留非发布路径编辑；发布路径必须干净，验证后提交并推送（生成完成后、提交前会再次同步 `origin/main` 以吸收 Actions 竞态；推送走本机共享重试策略，无该环境的 CI 自动退化为内置重试）；其他任务要求工作区干净
 - `--allow-large-drop`：仅用于已经确认的超过 20% 数据缩减
 - 同一时间只允许一个本地数据任务运行
 
@@ -60,6 +60,9 @@ CI 配置：在仓库 Secrets 中添加 `TMDB_API_KEY`，并在 `daily-update.ym
 | `BILIBILI_TRAILER_REQUEST_JITTER_MS` | 400 | 请求间隔抖动 |
 | `TV_ARCHIVE_MIN_DATE` | 2020-01-01 | 剧集分类（中日韩美）回捞起始日期；电影/综艺不受影响 |
 | `TASK_TIMEOUT_SECONDS` | （按任务默认） | 覆盖单任务超时，回捞或排查限流时用 |
+| `DOUBAN_MATCH_BUDGET` | 150 | `douban-match`／`douban-cache` 单分类单轮最多补链条数 |
+| `DOUBAN_MATCH_UNTIL_EMPTY` | 未设置 | 设为 1 时反复小批次推进直到没有待补条目 |
+| `DOUBAN_MATCH_CATEGORIES` | movie_cn,tv_cn,tv_jp,tv_kr,tv_us | 补链任务覆盖的分类 |
 | `BILIBILI_TRAILER_MAX_RETRIES` | 3 | 失败重试次数 |
 | `BILIBILI_TRAILER_RETRY_BASE_DELAY_MS` | 3000 | 重试退避基数 |
 | `BILIBILI_TRAILER_ENABLE_SEARCH_FALLBACK` | false | 启用搜索兜底 |
@@ -120,11 +123,40 @@ python3 scripts/automation/run_update.py --task douban-cache --dry-run
 2. probe 探测已删除或 404 的条目，并从 latest / complete 中移除
 3. 通过真实浏览器抓取补齐缓存
 
-`--dry-run` 只做检查与抓取，不写正式 JSON。**非 dry-run** 时，runner 在此之后额外用
-`CATEGORY_IDS=movie_cn` 重建 `movie_cn`，再统一执行数据门禁。是否提交推送由 `--publish` 决定，
-任务本身不会自动发布。
+`--dry-run` 只做检查与抓取，不写正式 JSON。**非 dry-run** 时，runner 在此之后依次：
+
+1. 跑 `douban_suggest_match.py` 补链补封面（见下节，按 `DOUBAN_MATCH_BUDGET` 小批量推进）
+2. 用 `CATEGORY_IDS=movie_cn` 重建 `movie_cn`
+3. 统一执行数据门禁
+
+是否提交推送由 `--publish` 决定，任务本身不会自动发布。
 
 本地每周日 08:00 运行。
+
+### douban-match
+
+```bash
+python3 scripts/automation/run_update.py --task douban-match --dry-run
+```
+
+给「TMDB 来源、没有豆瓣 subject」的条目补 `douban_link_google`、`douban_rating` 与封面。
+中日韩美剧 2020 年起历史回捞后这类条目占比很高（当时 tv_jp/tv_kr/tv_us 缺链率 90%+），
+表现为卡片无封面、详情页没有豆瓣入口。
+
+- 通道：`movie.douban.com/j/subject_suggest` 会被软限流（前端返回空数组），整类 `/j/` 接口
+  还可能被「检测到有异常请求从您的IP发出」拒绝；改用
+  `m.douban.com/rexxar/api/v2/search/subjects`，一次请求即带标题、年份、影视类型、评分与封面，
+  经 BrowserSkill 登录态 Chrome 同源 `fetch` 调用
+- 封面：豆瓣图床对 python-requests 只回 989 字节拦截页（curl 正常），因此封面统一用 curl 取，
+  并按封面 p-id 换成 `m_ratio_poster` 规格（540x675，与库内海报量级一致）
+- 匹配口径：规范化标题（去标点空格、剥「第 N 季」）全等 + 年份 ±1 + 影视类型一致，
+  任一不符即视为未命中，宁可空着也不写错链
+- 限流保护：每批先用金丝雀查询探活，整批大面积空结果判定为限流并中止本轮，
+  此时**不写未命中缓存**，也不把任务判成失败（静默跳过），避免把假阴性固化 30 天
+- 未命中但有 TMDB 海报的条目，`poster_path` 仍是 `/xxx.jpg`；iOS 端已按 TMDB 图床解析
+  （与网页端口径一致），不再往仓库里灌几千张大图
+- 结果写 `.cache/douban/suggest_matches.json`（命中永久复用，未命中 30 天后重试），可断点续跑
+- `DOUBAN_MATCH_BUDGET` 是「每分类每轮上限」；全量回补时调大，日常交给周更任务消化
 
 ### trailers
 

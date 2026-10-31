@@ -107,6 +107,7 @@ class UpdateLockTests(unittest.TestCase):
     def test_only_output_scoped_tasks_allow_unrelated_worktree_changes(self):
         self.assertTrue(publish_allows_unrelated_worktree_changes("tv-status"))
         self.assertTrue(publish_allows_unrelated_worktree_changes("douban-cache"))
+        self.assertTrue(publish_allows_unrelated_worktree_changes("douban-match"))
         self.assertTrue(publish_allows_unrelated_worktree_changes("trailers"))
         self.assertFalse(publish_allows_unrelated_worktree_changes("full"))
 

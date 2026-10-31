@@ -27,7 +27,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CACHE_ROOT = PROJECT_ROOT / ".cache" / "automation"
 LOCK_PATH = CACHE_ROOT / "update.lock"
 PUBLISH_PATHS = ("json", "posters")
-ALLOW_UNRELATED_WORKTREE_CHANGES_TASKS = frozenset({"tv-status", "douban-cache", "trailers"})
+ALLOW_UNRELATED_WORKTREE_CHANGES_TASKS = frozenset(
+    {"tv-status", "douban-cache", "douban-match", "trailers"}
+)
 # 本机调度器的共享重试策略在 ~/.hermes/scripts/lib/git_helpers.py；
 # 没有它的环境（如 GitHub Actions）走下面的内置兜底实现。
 FETCH_TIMEOUT_SECONDS = 45  # 单次 fetch 超时（冷启动实测可到 ~20s，15s 太紧）
@@ -38,7 +40,8 @@ FALLBACK_PUSH_TIMEOUT_SECONDS = 60
 TASK_TIMEOUTS = {
     "full": 2400,
     "tv-status": 900,
-    "douban-cache": 2400,
+    "douban-cache": 3600,
+    "douban-match": 5400,
     "trailers": 420,
 }
 
@@ -53,8 +56,15 @@ COMMIT_MESSAGES = {
     "full": "chore: 每日数据更新",
     "tv-status": "chore: 同步国产剧状态",
     "douban-cache": "chore: 每周豆瓣缓存更新",
+    "douban-match": "chore: 补齐豆瓣链接与封面",
     "trailers": "chore: 增量刷新国产影视预告片",
 }
+
+# 单轮补链预算：TMDB 回捞条目量大，靠每周小批量推进，避免一次性长跑限流。
+DOUBAN_MATCH_BUDGET = os.environ.get("DOUBAN_MATCH_BUDGET", "150")
+DOUBAN_MATCH_CATEGORIES = os.environ.get(
+    "DOUBAN_MATCH_CATEGORIES", "movie_cn,tv_cn,tv_jp,tv_kr,tv_us"
+)
 
 
 class UpdateLock(AbstractContextManager):
@@ -453,12 +463,26 @@ def execute_task(task: str, staged_root: Path, *, dry_run: bool, allow_large_dro
     elif task == "tv-status":
         run_command([sys.executable, "scripts/automation/tv_status_sync.py", "--quiet"], env=env, timeout=timeout)
         update_task_report(staged_root, task)
-    elif task == "douban-cache":
-        cache_command = [sys.executable, "scripts/automation/douban_cache_refresh.py"]
+    elif task in {"douban-cache", "douban-match"}:
+        if task == "douban-cache":
+            cache_command = [sys.executable, "scripts/automation/douban_cache_refresh.py"]
+            if dry_run:
+                cache_command.append("--dry-run")
+            run_command(cache_command, env=env, timeout=timeout)
+        match_command = [
+            sys.executable,
+            "scripts/automation/douban_suggest_match.py",
+            "--categories",
+            os.environ.get("DOUBAN_MATCH_CATEGORIES", DOUBAN_MATCH_CATEGORIES),
+            "--budget",
+            os.environ.get("DOUBAN_MATCH_BUDGET", DOUBAN_MATCH_BUDGET),
+        ]
         if dry_run:
-            cache_command.append("--dry-run")
-        run_command(cache_command, env=env, timeout=timeout)
-        if not dry_run:
+            match_command.append("--dry-run")
+        if os.environ.get("DOUBAN_MATCH_UNTIL_EMPTY") == "1":
+            match_command.append("--until-empty")
+        run_command(match_command, env=env, timeout=timeout)
+        if task == "douban-cache" and not dry_run:
             env["CATEGORY_IDS"] = "movie_cn"
             run_command([*node, "scripts/generate_douban_catalog.mjs"], env=env, timeout=timeout)
     elif task == "trailers":

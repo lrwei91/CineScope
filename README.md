@@ -83,12 +83,13 @@ python3 scripts/automation/run_update.py --task tv-status
 | --- | --- |
 | `full` | 全分类、猫眼、豆瓣状态与 Top250 |
 | `tv-status` | 国产剧集数与连载状态 |
-| `douban-cache` | 通过浏览器登录态补充豆瓣详情缓存 |
+| `douban-cache` | 通过浏览器登录态补充豆瓣详情缓存，并顺带补链补封面 |
+| `douban-match` | 用豆瓣搜索给 TMDB 来源条目补豆瓣链接与封面 |
 | `trailers` | 国产影视 Bilibili 预告片 |
 
 GitHub Actions 里的 `full` 配置为北京时间每天 22:00。需要本地登录态或特定网络环境的任务由 Hermes 调度；职责划分、调度约定和环境配置见 [数据更新指南](docs/DATA_UPDATE_GUIDE.md#2-任务职责)，本仓库负责业务逻辑和验证协议。
 
-`--publish` 会提交并推送生成的数据，用之前要确认确实要发布。`full` 发布要求工作区干净；`tv-status`、`douban-cache`、`trailers` 可以保留非发布路径上的编辑，但 `json/`、`posters/` 必须干净。远端同步不会覆盖本地改动。
+`--publish` 会提交并推送生成的数据，用之前要确认确实要发布。`full` 发布要求工作区干净；`tv-status`、`douban-cache`、`douban-match`、`trailers` 可以保留非发布路径上的编辑，但 `json/`、`posters/` 必须干净。远端同步不会覆盖本地改动。
 
 任务用进程锁防止本地并发，并校验结构、重复 ID、latest/complete 一致性、数量回退和海报路径。数据缩减超过 20% 时，要先确认上游和业务意图，才使用 `--allow-large-drop`。运行结果记录在 [`json/build_report.json`](json/build_report.json)；v2 报告保留分任务状态和最近一次完整构建结果，局部任务不会清空其他分类的报告。
 
