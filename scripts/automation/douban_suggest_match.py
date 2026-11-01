@@ -71,8 +71,8 @@ PUNCTUATION = re.compile(r"[\s:：·•'\"’“”.,，、!！?？\-—–_()�
 POSTER_ID = re.compile(r"/p(\d+)\.jpg")
 
 CANARY_QUERY = "辐射"
-CANARY_RETRIES = 3
-CANARY_BACKOFF_SECONDS = 60
+# 单批被限流后的退避序列（秒）：硬等而不是整轮放弃，长时间后台跑可以慢慢磨完
+BATCH_BACKOFF_SECONDS = (60, 120, 180, 300, 300)
 CANARY_MIN_RESULTS = 1
 SUSPECT_BATCH_SIZE = 8
 SUSPECT_EMPTY_RATIO = 0.95
@@ -383,7 +383,17 @@ class DoubanSearchClient:
 
     def search(self, queries: list[str]) -> dict[str, list[dict]]:
         """批量搜索；一批里几乎全空时判定为限流，抛错而不是把空结果当成「无对应」。"""
-        results = self._search_raw(queries)
+        results = None
+        for attempt, wait in enumerate((0, *BATCH_BACKOFF_SECONDS)):
+            if wait:
+                time.sleep(wait)
+            try:
+                results = self._search_raw(queries)
+                break
+            except MatchError as error:
+                if "金丝雀" not in str(error) or attempt == len(BATCH_BACKOFF_SECONDS):
+                    raise
+        assert results is not None
         if len(queries) >= SUSPECT_BATCH_SIZE:
             empties = sum(1 for query in queries if not results.get(query))
             if empties / len(queries) >= SUSPECT_EMPTY_RATIO:
@@ -427,19 +437,6 @@ class DoubanSearchClient:
                 candidates = [candidate_from_search(item) for item in (entry.get("items") or [])]
                 out[query] = [c for c in candidates if c]
         return out
-
-    def ensure_healthy(self) -> None:
-        """搜索接口也会软限流；限流时不能把空结果当成「豆瓣没有这个条目」。"""
-        for attempt in range(CANARY_RETRIES + 1):
-            results = self.search([CANARY_QUERY])
-            if len(results.get(CANARY_QUERY) or []) >= CANARY_MIN_RESULTS:
-                return
-            if attempt == CANARY_RETRIES:
-                raise MatchError(
-                    "豆瓣搜索金丝雀查询无结果，疑似限流；本轮不写未命中缓存，稍后重试"
-                )
-            time.sleep(CANARY_BACKOFF_SECONDS)
-
 
 # ---------------------------------------------------------------- 封面
 
@@ -666,7 +663,6 @@ def process_category(
 
     if pending:
         assert client is not None
-        client.ensure_healthy()
         queries: list[str] = []
         for item, _key, _sid, _year in pending:
             for query in build_queries(item, kind):

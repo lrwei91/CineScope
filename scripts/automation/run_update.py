@@ -41,7 +41,7 @@ TASK_TIMEOUTS = {
     "full": 2400,
     "tv-status": 900,
     "douban-cache": 3600,
-    "douban-match": 5400,
+    "douban-match": 21600,
     "trailers": 420,
 }
 
