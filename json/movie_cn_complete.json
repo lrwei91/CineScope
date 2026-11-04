@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "last_updated": "2026-11-03T20:32:11.782Z",
+    "last_updated": "2026-11-04T20:40:53.492Z",
     "version": "2.0.0",
     "update_log": [
       {
-        "time": "2026-11-03T20:32:11.782Z",
-        "summary": "已同步院线电影数据（complete）：875 条"
+        "time": "2026-11-04T20:40:53.492Z",
+        "summary": "已同步院线电影数据（complete）：876 条"
       }
     ],
     "source": "douban+tmdb+bilibili",
@@ -13,13 +13,13 @@
       {
         "slug": "movie_showing",
         "source": "douban",
-        "count": 75,
+        "count": 71,
         "fetch_error": null
       },
       {
         "slug": "movie_soon",
         "source": "douban",
-        "count": 23,
+        "count": 24,
         "fetch_error": null
       },
       {
@@ -38,10 +38,10 @@
         "slug": "bilibili_up_8465957",
         "source": "bilibili",
         "count": 0,
-        "fetch_error": "请求过于频繁，请稍后再试"
+        "fetch_error": "Bilibili trailer request failed (412)"
       }
     ],
-    "total_items": 875
+    "total_items": 876
   },
   "movies": [
     {
@@ -1491,6 +1491,60 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1117898"
     },
     {
+      "id": 36641112,
+      "title": "一朵山花别样红",
+      "original_title": "一朵山花别样红",
+      "release_date": "2026-11-06",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "高小卫"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "彭静"
+        },
+        {
+          "id": 2,
+          "name": "王新中"
+        },
+        {
+          "id": 3,
+          "name": "张立"
+        }
+      ],
+      "countries": [
+        "China"
+      ],
+      "languages": [
+        "zh"
+      ],
+      "aka": [],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/36641112.jpg",
+      "douban_rating": null,
+      "douban_link_google": "https://movie.douban.com/subject/36641112/",
+      "douban_link_verified": true,
+      "overview": "一桩失踪案悄然发生在黄士高原腹地，各色人物被金钱交织在一个巨大的圈套里，陷入泥潭的白果，命运也将被重新改写。随着事件的真相大白，冲破桎梏，各色人物重新寻找回了生命的价值和生活的真谛。",
+      "durations": [
+        "97分钟"
+      ],
+      "release_windows": [],
+      "rating_count": null,
+      "rating_star_count": null,
+      "type": "movie",
+      "tmdb_id": 1770304,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1770304"
+    },
+    {
       "id": 37659649,
       "title": "手捧繁星",
       "original_title": "手捧繁星",
@@ -1576,60 +1630,6 @@
       "rating_count": null,
       "rating_star_count": null,
       "type": "movie"
-    },
-    {
-      "id": 36641112,
-      "title": "一朵山花别样红",
-      "original_title": "一朵山花别样红",
-      "release_date": "2026-11-06",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "高小卫"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "彭静"
-        },
-        {
-          "id": 2,
-          "name": "王新中"
-        },
-        {
-          "id": 3,
-          "name": "张立"
-        }
-      ],
-      "countries": [
-        "China"
-      ],
-      "languages": [
-        "zh"
-      ],
-      "aka": [],
-      "imdb_id": null,
-      "poster_path": "posters/douban/movie_cn/36641112.jpg",
-      "douban_rating": null,
-      "douban_link_google": "https://movie.douban.com/subject/36641112/",
-      "douban_link_verified": true,
-      "overview": "一桩失踪案悄然发生在黄士高原腹地，各色人物被金钱交织在一个巨大的圈套里，陷入泥潭的白果，命运也将被重新改写。随着事件的真相大白，冲破桎梏，各色人物重新寻找回了生命的价值和生活的真谛。",
-      "durations": [
-        "97分钟"
-      ],
-      "release_windows": [],
-      "rating_count": null,
-      "rating_star_count": null,
-      "type": "movie",
-      "tmdb_id": 1770304,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1770304"
     },
     {
       "id": 37659565,
@@ -1750,9 +1750,9 @@
       "douban_rating": null,
       "douban_link_google": "https://movie.douban.com/subject/37516928/",
       "douban_link_verified": true,
-      "overview": "1995年，那曲乡政府的医生为一名藏族女子接生，藏族女子产下一名女婴后离世，医生收养了女婴。2024年，养父支持女儿与富商好友一同寻找苏毗谜语的答案。在经历一系列冒险与挑战后，女儿最终获得赛马冠军，富商好友潜心研发藏药。",
+      "overview": "影片讲述了一个关于“寻根”的故事。女主角央庆拉姆自小在内地长大，因一次偶然的高原旅程，与年轻向导白玛相遇。两人一路深入牧区与草原，在梦与现实、传统与自我之间，展开了一场关于婚姻、生死与道德的内心探寻。最终，在旷野间完成了与故土、与自我的双向和解。",
       "durations": [
-        "96分钟"
+        "90分钟"
       ],
       "release_windows": [],
       "rating_count": null,
@@ -3352,7 +3352,7 @@
         "109分钟"
       ],
       "release_windows": [],
-      "rating_count": 639,
+      "rating_count": 649,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1561726,
@@ -3418,7 +3418,7 @@
         "97分钟"
       ],
       "release_windows": [],
-      "rating_count": 22233,
+      "rating_count": 22678,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1563627,
@@ -3974,7 +3974,7 @@
           "label": "国庆档"
         }
       ],
-      "rating_count": 187351,
+      "rating_count": 221694,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1423191,
@@ -5025,7 +5025,7 @@
         "117分钟"
       ],
       "release_windows": [],
-      "rating_count": 5296,
+      "rating_count": 5531,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1283515,
@@ -5856,7 +5856,7 @@
         "100分钟"
       ],
       "release_windows": [],
-      "rating_count": 2336,
+      "rating_count": 2353,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1492640,
@@ -6331,7 +6331,7 @@
         "112分钟"
       ],
       "release_windows": [],
-      "rating_count": 7030,
+      "rating_count": 7076,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1032863,
@@ -6393,7 +6393,7 @@
         "132分钟"
       ],
       "release_windows": [],
-      "rating_count": 1538,
+      "rating_count": 1609,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1503762,
@@ -6522,7 +6522,7 @@
         "98分钟"
       ],
       "release_windows": [],
-      "rating_count": 1005,
+      "rating_count": 1014,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1607127,
@@ -7033,7 +7033,7 @@
         "132分钟"
       ],
       "release_windows": [],
-      "rating_count": 1907,
+      "rating_count": 1975,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 607833,
@@ -7097,7 +7097,7 @@
         "97分钟"
       ],
       "release_windows": [],
-      "rating_count": 436,
+      "rating_count": 439,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1318467,
@@ -7151,7 +7151,7 @@
         "127分钟"
       ],
       "release_windows": [],
-      "rating_count": 603,
+      "rating_count": 604,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1769717,
@@ -7217,7 +7217,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 1294,
+      "rating_count": 1314,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1381078,
@@ -7623,7 +7623,8 @@
         }
       ],
       "countries": [
-        "United States of America"
+        "United States of America",
+        "Ukraine"
       ],
       "languages": [
         "en"
@@ -7643,7 +7644,7 @@
         "142分钟"
       ],
       "release_windows": [],
-      "rating_count": 847,
+      "rating_count": 857,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1228834,
@@ -7707,7 +7708,7 @@
         "119分钟"
       ],
       "release_windows": [],
-      "rating_count": 746,
+      "rating_count": 750,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1365884,
@@ -7779,7 +7780,7 @@
         "97分钟"
       ],
       "release_windows": [],
-      "rating_count": 2062,
+      "rating_count": 2074,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1377237,
@@ -7853,7 +7854,7 @@
         "128分钟"
       ],
       "release_windows": [],
-      "rating_count": 1316,
+      "rating_count": 1333,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 977942,
@@ -8111,7 +8112,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 2606,
+      "rating_count": 3089,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1375441,
@@ -8198,7 +8199,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 3187,
+      "rating_count": 3265,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1288069,
@@ -8386,266 +8387,6 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1666219"
     },
     {
-      "id": 36889088,
-      "title": "怒之杀",
-      "original_title": "Mutiny",
-      "release_date": "2026-09-04",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "惊悚"
-        },
-        {
-          "id": 3,
-          "name": "犯罪"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "让-弗朗索瓦·雷切"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "杰森·斯坦森"
-        },
-        {
-          "id": 2,
-          "name": "钱尼尔·库勒"
-        },
-        {
-          "id": 3,
-          "name": "拉蒙·蒂卡拉姆"
-        },
-        {
-          "id": 4,
-          "name": "安娜贝拉·沃丽丝"
-        },
-        {
-          "id": 5,
-          "name": "罗兰·默勒"
-        },
-        {
-          "id": 6,
-          "name": "安德鲁·约翰·泰特"
-        },
-        {
-          "id": 7,
-          "name": "杰森·王"
-        },
-        {
-          "id": 8,
-          "name": "西蒙·克鲁斯"
-        },
-        {
-          "id": 9,
-          "name": "安德烈·诺瓦"
-        },
-        {
-          "id": 10,
-          "name": "东金·荣佳维拉"
-        },
-        {
-          "id": 11,
-          "name": "尤金妮·丽切特"
-        },
-        {
-          "id": 12,
-          "name": "蒂凡妮·索松萨克"
-        },
-        {
-          "id": 13,
-          "name": "泰梅·塔普提姆通"
-        },
-        {
-          "id": 14,
-          "name": "马文·贝伦布"
-        },
-        {
-          "id": 15,
-          "name": "马文·坎贝尔"
-        }
-      ],
-      "countries": [
-        "英国",
-        "美国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "反叛",
-        "玩命航线(台)"
-      ],
-      "imdb_id": "tt32338669",
-      "poster_path": "posters/douban/movie_cn/36889088.jpg",
-      "douban_rating": "5.6",
-      "douban_link_google": "https://movie.douban.com/subject/36889088/",
-      "douban_link_verified": true,
-      "overview": "科尔·里德（杰森·斯坦森 饰）是富豪蒂布（阿蒙·蒂卡拉姆 饰）的贴身保镖，但一场意外袭击让蒂布丧命，科尔也被诬陷为凶手，全境通缉。\n恩人被杀、自己蒙冤，科尔带着满腔愤怒，只身闯入远洋货轮开启一秒收割一命的硬核复仇，又意外揭开了一个骇人听闻的阴谋……怒火点燃大海，货轮成为血色牢笼，一场避无可避的厮杀即将展开！",
-      "durations": [
-        "95分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": 13503,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1288445,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1288445",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "一刀未剪！杰森斯坦森R级动作爽片《怒之杀》内地预告，定档08.21",
-          "bvid": "BV1fTgq6bEMy",
-          "url": "https://www.bilibili.com/video/BV1fTgq6bEMy",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1fTgq6bEMy&page=1&qn=64&high_quality=1",
-          "cover": "http://i1.hdslb.com/bfs/archive/d5dc5ea482c31514ff91fcd138bef43382031350.jpg",
-          "publishedAt": "2026-07-24T15:37:23.000Z"
-        }
-      ]
-    },
-    {
-      "id": 36318704,
-      "title": "坠落2：死点",
-      "original_title": "Fall 2: Deadpoint",
-      "release_date": "2026-09-04",
-      "genres": [
-        {
-          "id": 1,
-          "name": "惊悚"
-        },
-        {
-          "id": 2,
-          "name": "冒险"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "迈克尔·斯派瑞"
-        },
-        {
-          "id": 2,
-          "name": "彼得·斯派瑞"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "哈丽特·斯莱特"
-        },
-        {
-          "id": 2,
-          "name": "阿塞玛·托马斯"
-        },
-        {
-          "id": 3,
-          "name": "汤姆·布里特尼"
-        },
-        {
-          "id": 4,
-          "name": "维吉尼亚·加德纳"
-        },
-        {
-          "id": 5,
-          "name": "格雷斯·卡罗琳·柯里"
-        },
-        {
-          "id": 6,
-          "name": "萨哈贾克·波斯安吉特"
-        },
-        {
-          "id": 7,
-          "name": "乔丹·科尔曼"
-        },
-        {
-          "id": 8,
-          "name": "埃纳尔·哈拉尔松"
-        },
-        {
-          "id": 9,
-          "name": "朱朱·布伦纳"
-        },
-        {
-          "id": 10,
-          "name": "伊薇·曼"
-        },
-        {
-          "id": 11,
-          "name": "亚历山德拉·巴特利特"
-        },
-        {
-          "id": 12,
-          "name": "亚当·罗斯"
-        },
-        {
-          "id": 13,
-          "name": "安德烈·卡苏什金"
-        }
-      ],
-      "countries": [
-        "美国",
-        "英国"
-      ],
-      "languages": [
-        "英语"
-      ],
-      "aka": [
-        "命悬3000呎(港)",
-        "坠2(台)",
-        "坠落2",
-        "坠落2：定点动作",
-        "绝命天险2",
-        "Fall 2"
-      ],
-      "imdb_id": "tt31192372",
-      "poster_path": "posters/douban/movie_cn/36318704.jpg",
-      "douban_rating": "5.2",
-      "douban_link_google": "https://movie.douban.com/subject/36318704/",
-      "douban_link_verified": true,
-      "overview": "泰国封闭30多年的关山山脉，海拔超900米的高空魔鬼栈道，此前已发生多起高空坠落事件，是当地公认的“死亡禁区”。贾克斯（哈里特·斯莱特 饰）为了完成姐姐希洛（维吉尼亚·加德纳 饰）作为极限爱好者的遗愿，与她生前好友卢斯（阿塞玛·托马斯 饰）结伴来此挑战。上一秒两人还欢呼打卡于绝美壮丽的高空景色，却不料下一秒突如其来的地震滑坡便将她们逼入绝境。暴雨、失温、零信号、零补给……脚下的木板随时会断，头顶的碎石不停掉落，两人只能抓住残破的栈道边缘攀爬，在暴雨中寻找每一个可以落脚的支点，靠撕裂衣物做绳、用碎石敲击岩壁传讯。绝壁之上，前无去路，后有塌方，她们究竟能否成功生还？",
-      "durations": [
-        "98分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 28192,
-      "rating_star_count": 2.5,
-      "type": "movie",
-      "tmdb_id": 1101412,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1101412",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "恐高者慎看！爆款惊悚片《坠落2》正式预告，攀登3353米木栈道",
-          "bvid": "BV1qT3n6EEo3",
-          "url": "https://www.bilibili.com/video/BV1qT3n6EEo3",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1qT3n6EEo3&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/0d217cb2a4691d9b54d9a41a2c65071282fdb970.jpg",
-          "publishedAt": "2026-07-29T16:36:29.000Z"
-        },
-        {
-          "source": "bilibili",
-          "title": "恐高慎看！被困3300米栈道！2026惊悚片《坠落2》首曝预告，太吓人了！",
-          "bvid": "BV127EA6AEp7",
-          "url": "https://www.bilibili.com/video/BV127EA6AEp7",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV127EA6AEp7&page=1&qn=64&high_quality=1",
-          "cover": "http://i2.hdslb.com/bfs/archive/0026da81521e3b3456776045a14e4161b68860d1.jpg",
-          "publishedAt": "2026-06-04T16:06:23.000Z"
-        }
-      ]
-    },
-    {
       "id": 10756537,
       "title": "杀死比尔：血色全传",
       "original_title": "Kill Bill: The Whole Bloody Affair",
@@ -8822,6 +8563,136 @@
       ]
     },
     {
+      "id": 36889088,
+      "title": "怒之杀",
+      "original_title": "Mutiny",
+      "release_date": "2026-09-04",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "惊悚"
+        },
+        {
+          "id": 3,
+          "name": "犯罪"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "让-弗朗索瓦·雷切"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "杰森·斯坦森"
+        },
+        {
+          "id": 2,
+          "name": "钱尼尔·库勒"
+        },
+        {
+          "id": 3,
+          "name": "拉蒙·蒂卡拉姆"
+        },
+        {
+          "id": 4,
+          "name": "安娜贝拉·沃丽丝"
+        },
+        {
+          "id": 5,
+          "name": "罗兰·默勒"
+        },
+        {
+          "id": 6,
+          "name": "安德鲁·约翰·泰特"
+        },
+        {
+          "id": 7,
+          "name": "杰森·王"
+        },
+        {
+          "id": 8,
+          "name": "西蒙·克鲁斯"
+        },
+        {
+          "id": 9,
+          "name": "安德烈·诺瓦"
+        },
+        {
+          "id": 10,
+          "name": "东金·荣佳维拉"
+        },
+        {
+          "id": 11,
+          "name": "尤金妮·丽切特"
+        },
+        {
+          "id": 12,
+          "name": "蒂凡妮·索松萨克"
+        },
+        {
+          "id": 13,
+          "name": "泰梅·塔普提姆通"
+        },
+        {
+          "id": 14,
+          "name": "马文·贝伦布"
+        },
+        {
+          "id": 15,
+          "name": "马文·坎贝尔"
+        }
+      ],
+      "countries": [
+        "英国",
+        "美国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "反叛",
+        "玩命航线(台)"
+      ],
+      "imdb_id": "tt32338669",
+      "poster_path": "posters/douban/movie_cn/36889088.jpg",
+      "douban_rating": "5.6",
+      "douban_link_google": "https://movie.douban.com/subject/36889088/",
+      "douban_link_verified": true,
+      "overview": "科尔·里德（杰森·斯坦森 饰）是富豪蒂布（阿蒙·蒂卡拉姆 饰）的贴身保镖，但一场意外袭击让蒂布丧命，科尔也被诬陷为凶手，全境通缉。\n恩人被杀、自己蒙冤，科尔带着满腔愤怒，只身闯入远洋货轮开启一秒收割一命的硬核复仇，又意外揭开了一个骇人听闻的阴谋……怒火点燃大海，货轮成为血色牢笼，一场避无可避的厮杀即将展开！",
+      "durations": [
+        "95分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "summer",
+          "label": "暑期档"
+        }
+      ],
+      "rating_count": 13503,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1288445,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1288445",
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "一刀未剪！杰森斯坦森R级动作爽片《怒之杀》内地预告，定档08.21",
+          "bvid": "BV1fTgq6bEMy",
+          "url": "https://www.bilibili.com/video/BV1fTgq6bEMy",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1fTgq6bEMy&page=1&qn=64&high_quality=1",
+          "cover": "http://i1.hdslb.com/bfs/archive/d5dc5ea482c31514ff91fcd138bef43382031350.jpg",
+          "publishedAt": "2026-07-24T15:37:23.000Z"
+        }
+      ]
+    },
+    {
       "id": 37104948,
       "title": "不择手段",
       "original_title": "不择手段",
@@ -8879,7 +8750,7 @@
         "107分钟"
       ],
       "release_windows": [],
-      "rating_count": 1013,
+      "rating_count": 1053,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1380417,
@@ -8948,11 +8819,141 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 21514,
+      "rating_count": 21582,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1137844,
       "tmdbUrl": "https://www.themoviedb.org/movie/1137844"
+    },
+    {
+      "id": 36318704,
+      "title": "坠落2：死点",
+      "original_title": "Fall 2: Deadpoint",
+      "release_date": "2026-09-04",
+      "genres": [
+        {
+          "id": 1,
+          "name": "惊悚"
+        },
+        {
+          "id": 2,
+          "name": "冒险"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "迈克尔·斯派瑞"
+        },
+        {
+          "id": 2,
+          "name": "彼得·斯派瑞"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "哈丽特·斯莱特"
+        },
+        {
+          "id": 2,
+          "name": "阿塞玛·托马斯"
+        },
+        {
+          "id": 3,
+          "name": "汤姆·布里特尼"
+        },
+        {
+          "id": 4,
+          "name": "维吉尼亚·加德纳"
+        },
+        {
+          "id": 5,
+          "name": "格雷斯·卡罗琳·柯里"
+        },
+        {
+          "id": 6,
+          "name": "萨哈贾克·波斯安吉特"
+        },
+        {
+          "id": 7,
+          "name": "乔丹·科尔曼"
+        },
+        {
+          "id": 8,
+          "name": "埃纳尔·哈拉尔松"
+        },
+        {
+          "id": 9,
+          "name": "朱朱·布伦纳"
+        },
+        {
+          "id": 10,
+          "name": "伊薇·曼"
+        },
+        {
+          "id": 11,
+          "name": "亚历山德拉·巴特利特"
+        },
+        {
+          "id": 12,
+          "name": "亚当·罗斯"
+        },
+        {
+          "id": 13,
+          "name": "安德烈·卡苏什金"
+        }
+      ],
+      "countries": [
+        "美国",
+        "英国"
+      ],
+      "languages": [
+        "英语"
+      ],
+      "aka": [
+        "命悬3000呎(港)",
+        "坠2(台)",
+        "坠落2",
+        "坠落2：定点动作",
+        "绝命天险2",
+        "Fall 2"
+      ],
+      "imdb_id": "tt31192372",
+      "poster_path": "posters/douban/movie_cn/36318704.jpg",
+      "douban_rating": "5.2",
+      "douban_link_google": "https://movie.douban.com/subject/36318704/",
+      "douban_link_verified": true,
+      "overview": "泰国封闭30多年的关山山脉，海拔超900米的高空魔鬼栈道，此前已发生多起高空坠落事件，是当地公认的“死亡禁区”。贾克斯（哈里特·斯莱特 饰）为了完成姐姐希洛（维吉尼亚·加德纳 饰）作为极限爱好者的遗愿，与她生前好友卢斯（阿塞玛·托马斯 饰）结伴来此挑战。上一秒两人还欢呼打卡于绝美壮丽的高空景色，却不料下一秒突如其来的地震滑坡便将她们逼入绝境。暴雨、失温、零信号、零补给……脚下的木板随时会断，头顶的碎石不停掉落，两人只能抓住残破的栈道边缘攀爬，在暴雨中寻找每一个可以落脚的支点，靠撕裂衣物做绳、用碎石敲击岩壁传讯。绝壁之上，前无去路，后有塌方，她们究竟能否成功生还？",
+      "durations": [
+        "98分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 28192,
+      "rating_star_count": 2.5,
+      "type": "movie",
+      "tmdb_id": 1101412,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1101412",
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "恐高者慎看！爆款惊悚片《坠落2》正式预告，攀登3353米木栈道",
+          "bvid": "BV1qT3n6EEo3",
+          "url": "https://www.bilibili.com/video/BV1qT3n6EEo3",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1qT3n6EEo3&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/0d217cb2a4691d9b54d9a41a2c65071282fdb970.jpg",
+          "publishedAt": "2026-07-29T16:36:29.000Z"
+        },
+        {
+          "source": "bilibili",
+          "title": "恐高慎看！被困3300米栈道！2026惊悚片《坠落2》首曝预告，太吓人了！",
+          "bvid": "BV127EA6AEp7",
+          "url": "https://www.bilibili.com/video/BV127EA6AEp7",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV127EA6AEp7&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/0026da81521e3b3456776045a14e4161b68860d1.jpg",
+          "publishedAt": "2026-06-04T16:06:23.000Z"
+        }
+      ]
     },
     {
       "id": 37427091,
@@ -9192,7 +9193,7 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 541,
+      "rating_count": 544,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 665669,
@@ -9255,7 +9256,7 @@
         "85分钟"
       ],
       "release_windows": [],
-      "rating_count": 2860,
+      "rating_count": 2867,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1386315,
@@ -9766,7 +9767,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 1103,
+      "rating_count": 1111,
       "rating_star_count": 3.5,
       "type": "movie",
       "trailers": [
@@ -9840,7 +9841,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 10610,
+      "rating_count": 10621,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1306055,
@@ -9909,7 +9910,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 2961,
+      "rating_count": 2965,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 860508,
@@ -10105,7 +10106,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 1177,
+      "rating_count": 1179,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1516698,
@@ -10185,7 +10186,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 1436,
+      "rating_count": 1443,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -10363,7 +10364,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 3113,
+      "rating_count": 3121,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1754100,
@@ -10428,7 +10429,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 1844,
+      "rating_count": 1850,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1621552,
@@ -10506,7 +10507,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 2154,
+      "rating_count": 2161,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1204680,
@@ -10845,7 +10846,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 12188,
+      "rating_count": 12260,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1291595,
@@ -11841,7 +11842,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 690,
+      "rating_count": 692,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 192139,
@@ -11919,7 +11920,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 25615,
+      "rating_count": 25681,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1101383,
@@ -12360,6 +12361,222 @@
       }
     },
     {
+      "id": 36514251,
+      "title": "空闲的日子",
+      "original_title": "空闲的日子",
+      "release_date": "2026-08-07",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "科幻"
+        },
+        {
+          "id": 3,
+          "name": "恐怖"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "卢西拉·马里亚尼"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "安东尼娅·罗博利尼"
+        },
+        {
+          "id": 2,
+          "name": "劳拉·帕雷德斯"
+        },
+        {
+          "id": 3,
+          "name": "路易莎·金泰罗"
+        }
+      ],
+      "countries": [
+        "Argentina",
+        "Brazil",
+        "Mexico",
+        "France"
+      ],
+      "languages": [
+        "es"
+      ],
+      "aka": [
+        "The Days Off"
+      ],
+      "imdb_id": "tt40523275",
+      "poster_path": "posters/douban/movie_cn/36514251.jpg",
+      "douban_rating": "5.5",
+      "douban_link_google": "https://movie.douban.com/subject/36514251/",
+      "douban_link_verified": true,
+      "overview": "　布宜诺斯艾利斯的夏天开始了，随之而来的是一场经济危机。",
+      "durations": [
+        "84分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "summer",
+          "label": "暑期档"
+        }
+      ],
+      "rating_count": 303,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1251455,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1251455"
+    },
+    {
+      "id": 37002986,
+      "title": "托尼",
+      "original_title": "托尼",
+      "release_date": "2026-08-07",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        },
+        {
+          "id": 2,
+          "name": "传记"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "马特·约翰逊"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "多米尼克·塞萨"
+        },
+        {
+          "id": 2,
+          "name": "安东尼奥·班德拉斯"
+        },
+        {
+          "id": 3,
+          "name": "艾米莉亚·琼斯"
+        }
+      ],
+      "countries": [
+        "United States of America",
+        "Canada"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "安东尼·波登"
+      ],
+      "imdb_id": "tt33095251",
+      "poster_path": "posters/douban/movie_cn/37002986.jpg",
+      "douban_rating": "6.8",
+      "douban_link_google": "https://movie.douban.com/subject/37002986/",
+      "douban_link_verified": true,
+      "overview": "19岁的安东尼·波登前往普罗温斯敦，偶然闯入一家餐厅厨房的混乱世界，由此开启了一个将影响他一生的夏天。",
+      "durations": [
+        "107分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "summer",
+          "label": "暑期档"
+        }
+      ],
+      "rating_count": 1490,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1329016,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1329016"
+    },
+    {
+      "id": 36877284,
+      "title": "最后孤屋",
+      "original_title": "最后孤屋",
+      "release_date": "2026-08-07",
+      "genres": [
+        {
+          "id": 1,
+          "name": "动作"
+        },
+        {
+          "id": 2,
+          "name": "科幻"
+        },
+        {
+          "id": 3,
+          "name": "悬疑"
+        },
+        {
+          "id": 4,
+          "name": "惊悚"
+        },
+        {
+          "id": 5,
+          "name": "恐怖"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "路易斯·莱特里尔"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "格蕾塔·李"
+        },
+        {
+          "id": 2,
+          "name": "瓦格纳·马拉"
+        },
+        {
+          "id": 3,
+          "name": "莱莉·钟"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "11817",
+        "Eleven Eight One Seven"
+      ],
+      "imdb_id": "tt32268156",
+      "poster_path": "posters/douban/movie_cn/36877284.jpg",
+      "douban_rating": "5.4",
+      "douban_link_google": "https://movie.douban.com/subject/36877284/",
+      "douban_link_verified": true,
+      "overview": "一场全球性诡异灾难毫无征兆降临，一层无形屏障封锁全球所有建筑，门窗墙体全部无法破坏，人类被强制困在自家房屋里，完全无法外出。主角混血夫妻带着一双儿女被困城郊独栋小屋，起初只是等待外界救援，可外界通讯彻底中断，水源、食物持续消耗，狭小空间里压抑感不断发酵，家人之间猜忌、矛盾接连爆发。外部时常传来未知异响与黑影，某天屋外出现一名陌生神秘女子，对方知晓封锁灾难的真相，也带来了外星未知生物的致命威胁，一家人必须在资源耗尽、怪物窥视、内部人心崩塌的多重绝境下，寻找破开屏障活下去的办法，同时揭开这场全球囚禁灾难的外星起源秘密。",
+      "durations": [
+        "110分钟"
+      ],
+      "release_windows": [
+        {
+          "id": "summer",
+          "label": "暑期档"
+        }
+      ],
+      "rating_count": 9649,
+      "rating_star_count": 2.5,
+      "type": "movie",
+      "tmdb_id": 1284041,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1284041"
+    },
+    {
       "id": 35275131,
       "title": "去你的岛",
       "original_title": "去你的岛",
@@ -12484,222 +12701,6 @@
       ]
     },
     {
-      "id": 36514251,
-      "title": "空闲的日子",
-      "original_title": "空闲的日子",
-      "release_date": "2026-08-07",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "科幻"
-        },
-        {
-          "id": 3,
-          "name": "恐怖"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "卢西拉·马里亚尼"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "安东尼娅·罗博利尼"
-        },
-        {
-          "id": 2,
-          "name": "劳拉·帕雷德斯"
-        },
-        {
-          "id": 3,
-          "name": "路易莎·金泰罗"
-        }
-      ],
-      "countries": [
-        "Argentina",
-        "Brazil",
-        "Mexico",
-        "France"
-      ],
-      "languages": [
-        "es"
-      ],
-      "aka": [
-        "The Days Off"
-      ],
-      "imdb_id": "tt40523275",
-      "poster_path": "posters/douban/movie_cn/36514251.jpg",
-      "douban_rating": "5.5",
-      "douban_link_google": "https://movie.douban.com/subject/36514251/",
-      "douban_link_verified": true,
-      "overview": "　布宜诺斯艾利斯的夏天开始了，随之而来的是一场经济危机。",
-      "durations": [
-        "84分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": 302,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1251455,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1251455"
-    },
-    {
-      "id": 37002986,
-      "title": "托尼",
-      "original_title": "托尼",
-      "release_date": "2026-08-07",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        },
-        {
-          "id": 2,
-          "name": "传记"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "马特·约翰逊"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "多米尼克·塞萨"
-        },
-        {
-          "id": 2,
-          "name": "安东尼奥·班德拉斯"
-        },
-        {
-          "id": 3,
-          "name": "艾米莉亚·琼斯"
-        }
-      ],
-      "countries": [
-        "United States of America",
-        "Canada"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "安东尼·波登"
-      ],
-      "imdb_id": "tt33095251",
-      "poster_path": "posters/douban/movie_cn/37002986.jpg",
-      "douban_rating": "6.8",
-      "douban_link_google": "https://movie.douban.com/subject/37002986/",
-      "douban_link_verified": true,
-      "overview": "19岁的安东尼·波登前往普罗温斯敦，偶然闯入一家餐厅厨房的混乱世界，由此开启了一个将影响他一生的夏天。",
-      "durations": [
-        "107分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": 1478,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1329016,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1329016"
-    },
-    {
-      "id": 36877284,
-      "title": "最后孤屋",
-      "original_title": "最后孤屋",
-      "release_date": "2026-08-07",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "科幻"
-        },
-        {
-          "id": 3,
-          "name": "悬疑"
-        },
-        {
-          "id": 4,
-          "name": "惊悚"
-        },
-        {
-          "id": 5,
-          "name": "恐怖"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "路易斯·莱特里尔"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "格蕾塔·李"
-        },
-        {
-          "id": 2,
-          "name": "瓦格纳·马拉"
-        },
-        {
-          "id": 3,
-          "name": "莱莉·钟"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "11817",
-        "Eleven Eight One Seven"
-      ],
-      "imdb_id": "tt32268156",
-      "poster_path": "posters/douban/movie_cn/36877284.jpg",
-      "douban_rating": "5.4",
-      "douban_link_google": "https://movie.douban.com/subject/36877284/",
-      "douban_link_verified": true,
-      "overview": "一场全球性诡异灾难毫无征兆降临，一层无形屏障封锁全球所有建筑，门窗墙体全部无法破坏，人类被强制困在自家房屋里，完全无法外出。主角混血夫妻带着一双儿女被困城郊独栋小屋，起初只是等待外界救援，可外界通讯彻底中断，水源、食物持续消耗，狭小空间里压抑感不断发酵，家人之间猜忌、矛盾接连爆发。外部时常传来未知异响与黑影，某天屋外出现一名陌生神秘女子，对方知晓封锁灾难的真相，也带来了外星未知生物的致命威胁，一家人必须在资源耗尽、怪物窥视、内部人心崩塌的多重绝境下，寻找破开屏障活下去的办法，同时揭开这场全球囚禁灾难的外星起源秘密。",
-      "durations": [
-        "110分钟"
-      ],
-      "release_windows": [
-        {
-          "id": "summer",
-          "label": "暑期档"
-        }
-      ],
-      "rating_count": 9632,
-      "rating_star_count": 2.5,
-      "type": "movie",
-      "tmdb_id": 1284041,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1284041"
-    },
-    {
       "id": 37346752,
       "title": "卖冰淇淋的人",
       "original_title": "卖冰淇淋的人",
@@ -12768,7 +12769,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 5822,
+      "rating_count": 5864,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1477712,
@@ -12837,7 +12838,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 3141,
+      "rating_count": 3159,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1433367,
@@ -13208,7 +13209,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 4637,
+      "rating_count": 4646,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1307118,
@@ -13431,7 +13432,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 443915,
+      "rating_count": 444246,
       "rating_star_count": 4,
       "type": "movie",
       "trailers": [
@@ -13594,7 +13595,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 1250,
+      "rating_count": 1251,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 980431,
@@ -13660,7 +13661,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 66074,
+      "rating_count": 66083,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1305665,
@@ -14058,7 +14059,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 294083,
+      "rating_count": 302001,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1339713,
@@ -14119,7 +14120,7 @@
       ],
       "imdb_id": "tt39026173",
       "poster_path": "posters/douban/movie_cn/37868459.jpg",
-      "douban_rating": "8.2",
+      "douban_rating": "8.3",
       "douban_link_google": "https://movie.douban.com/subject/37868459/",
       "douban_link_verified": true,
       "overview": "一张写着「特别岛屿的招待」的传单从天而降。只要轻松讨伐怪物，就能获得100倍报酬，还能吃到限定拉面和甜点！小可爱们兴高采烈地来到了这座小岛。在岛上探险时，他们在洞窟里遇到了传说中的生物——塞壬与人鱼。看来塞壬似乎是在对岛民们复仇……伙伴们四散分离，陷入一个又一 个危机，陷入了绝境……但即便如此！大家齐心协力，一起守护这座小岛吧！",
@@ -14132,7 +14133,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 4051,
+      "rating_count": 4061,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1586876,
@@ -14193,7 +14194,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 572,
+      "rating_count": 575,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1361774,
@@ -14466,7 +14467,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 748,
+      "rating_count": 749,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1630409,
@@ -14993,7 +14994,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 5914,
+      "rating_count": 5930,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -15601,7 +15602,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 8622,
+      "rating_count": 8637,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1108427,
@@ -15908,7 +15909,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 16348,
+      "rating_count": 16375,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1212763,
@@ -15990,7 +15991,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 5671,
+      "rating_count": 5686,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1321008,
@@ -16178,17 +16179,22 @@
     },
     {
       "id": 36953973,
+      "tmdb_id": 1353926,
       "title": "特立独行",
       "original_title": "特立独行",
       "release_date": "2026-07-03",
       "genres": [
         {
-          "id": 1,
+          "id": 18,
           "name": "剧情"
         },
         {
-          "id": 2,
+          "id": 35,
           "name": "喜剧"
+        },
+        {
+          "id": 878,
+          "name": "科幻"
         }
       ],
       "directors": [
@@ -16236,11 +16242,9 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 95759,
+      "rating_count": 95863,
       "rating_star_count": 3.5,
       "type": "movie",
-      "tmdb_id": 1353926,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1353926",
       "trailers": [
         {
           "source": "bilibili",
@@ -16327,7 +16331,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 1622,
+      "rating_count": 1626,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1705729,
@@ -16405,7 +16409,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 61820,
+      "rating_count": 61869,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1315772,
@@ -16803,7 +16807,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 6331,
+      "rating_count": 6346,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1202033,
@@ -16959,7 +16963,7 @@
           "label": "暑期档"
         }
       ],
-      "rating_count": 30001,
+      "rating_count": 30046,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1257942,
@@ -17388,7 +17392,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 27214,
+      "rating_count": 27338,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1396674,
@@ -18061,11 +18065,65 @@
         "101分钟"
       ],
       "release_windows": [],
-      "rating_count": 353,
+      "rating_count": 357,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1431804,
       "tmdbUrl": "https://www.themoviedb.org/movie/1431804"
+    },
+    {
+      "id": 37437456,
+      "title": "人生大弟震",
+      "original_title": "人生大弟震",
+      "release_date": "2026-06-26",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "马特·斯派克"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "约翰·塞纳"
+        },
+        {
+          "id": 2,
+          "name": "埃里克·安德烈"
+        },
+        {
+          "id": 3,
+          "name": "米歇尔·莫纳汉"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [],
+      "imdb_id": "tt34888871",
+      "poster_path": "posters/douban/movie_cn/37437456.jpg",
+      "douban_rating": "5.9",
+      "douban_link_google": "https://movie.douban.com/subject/37437456/",
+      "douban_link_verified": true,
+      "overview": "古怪的“弟弟”再次意外出现后，这个著名房地产经纪人精心打造的生活被彻底颠覆。",
+      "durations": [
+        "102分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 1373,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1397385,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1397385"
     },
     {
       "id": 37396434,
@@ -18125,112 +18183,11 @@
         "102分钟"
       ],
       "release_windows": [],
-      "rating_count": 999,
+      "rating_count": 1002,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1594914,
       "tmdbUrl": "https://www.themoviedb.org/movie/1594914"
-    },
-    {
-      "id": 36225840,
-      "title": "超级少女",
-      "original_title": "超级少女",
-      "release_date": "2026-06-26",
-      "genres": [
-        {
-          "id": 1,
-          "name": "动作"
-        },
-        {
-          "id": 2,
-          "name": "科幻"
-        },
-        {
-          "id": 3,
-          "name": "奇幻"
-        },
-        {
-          "id": 4,
-          "name": "冒险"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "克雷格·吉勒斯佩"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "米莉·阿尔柯克"
-        },
-        {
-          "id": 2,
-          "name": "伊芙·雷德利"
-        },
-        {
-          "id": 3,
-          "name": "杰森·莫玛"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "超女(港)",
-        "超少女(台)",
-        "超级少女：明日之女",
-        "超级女孩： 明日之姝",
-        "Supergirl: Woman of Tomorrow"
-      ],
-      "imdb_id": "tt8814476",
-      "poster_path": "posters/douban/movie_cn/36225840.jpg",
-      "douban_rating": "5.0",
-      "douban_link_google": "https://movie.douban.com/subject/36225840/",
-      "douban_link_verified": true,
-      "overview": "当一位冷酷无情、突如其来的劲敌突袭家园，“超级少女”卡拉·佐-艾尔不得不与一位意想不到的同伴结盟，横跨星际，踏上一段交织复仇与正义的壮阔征途。",
-      "durations": [
-        "108分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 23291,
-      "rating_star_count": 2.5,
-      "type": "movie",
-      "tmdb_id": 1081003,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1081003",
-      "trailers": [
-        {
-          "source": "bilibili",
-          "title": "DC电影《超级少女》原声带主题曲，氪星毁灭幸存者——卡拉",
-          "bvid": "BV1p2jG67Ew7",
-          "url": "https://www.bilibili.com/video/BV1p2jG67Ew7",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1p2jG67Ew7&page=1&qn=64&high_quality=1",
-          "cover": "http://i0.hdslb.com/bfs/archive/030355346f2d0909dd657b835cef9b9211911751.jpg",
-          "publishedAt": "2026-06-16T15:05:09.000Z"
-        },
-        {
-          "source": "bilibili",
-          "title": "超多大战新画面！年度科幻大片《超级少女》终极预告，DC宇宙第2部电影",
-          "bvid": "BV1UMEc6hEJ3",
-          "url": "https://www.bilibili.com/video/BV1UMEc6hEJ3",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UMEc6hEJ3&page=1&qn=64&high_quality=1",
-          "cover": "http://i1.hdslb.com/bfs/archive/f5af8181c8207934aacd04c619ec9ee2112d5502.jpg",
-          "publishedAt": "2026-06-04T12:58:11.000Z"
-        },
-        {
-          "source": "bilibili",
-          "title": "\"黑白魔女库伊拉\"导演！DC超英大片《超级少女》内地预告，定档06.26",
-          "bvid": "BV1cb5Y6YETB",
-          "url": "https://www.bilibili.com/video/BV1cb5Y6YETB",
-          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1cb5Y6YETB&page=1&qn=64&high_quality=1",
-          "cover": "http://i2.hdslb.com/bfs/archive/e2bad72db0b4f86faef99d711e10d79574102422.jpg",
-          "publishedAt": "2026-05-15T05:18:54.000Z"
-        }
-      ]
     },
     {
       "id": 36235977,
@@ -18291,7 +18248,7 @@
         "111分钟"
       ],
       "release_windows": [],
-      "rating_count": 141857,
+      "rating_count": 141966,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1083381,
@@ -18307,60 +18264,6 @@
           "publishedAt": "2026-06-17T03:25:33.000Z"
         }
       ]
-    },
-    {
-      "id": 37437456,
-      "title": "人生大弟震",
-      "original_title": "人生大弟震",
-      "release_date": "2026-06-26",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "马特·斯派克"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "约翰·塞纳"
-        },
-        {
-          "id": 2,
-          "name": "埃里克·安德烈"
-        },
-        {
-          "id": 3,
-          "name": "米歇尔·莫纳汉"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [],
-      "imdb_id": "tt34888871",
-      "poster_path": "posters/douban/movie_cn/37437456.jpg",
-      "douban_rating": "5.9",
-      "douban_link_google": "https://movie.douban.com/subject/37437456/",
-      "douban_link_verified": true,
-      "overview": "古怪的“弟弟”再次意外出现后，这个著名房地产经纪人精心打造的生活被彻底颠覆。",
-      "durations": [
-        "102分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 1372,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1397385,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1397385"
     },
     {
       "id": 37191746,
@@ -18791,7 +18694,7 @@
         "80分钟"
       ],
       "release_windows": [],
-      "rating_count": 602,
+      "rating_count": 633,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1669841,
@@ -18881,6 +18784,102 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/1714841"
     },
     {
+      "id": 36225840,
+      "tmdb_id": 1081003,
+      "title": "超级少女",
+      "original_title": "Supergirl",
+      "release_date": "2026-06-24",
+      "genres": [
+        {
+          "id": 28,
+          "name": "动作"
+        },
+        {
+          "id": 12,
+          "name": "冒险"
+        },
+        {
+          "id": 878,
+          "name": "科幻"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "克雷格·吉勒斯佩"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "米莉·阿尔柯克"
+        },
+        {
+          "id": 2,
+          "name": "伊芙·雷德利"
+        },
+        {
+          "id": 3,
+          "name": "杰森·莫玛"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "超女(港)",
+        "超少女(台)",
+        "超级少女：明日之女",
+        "超级女孩： 明日之姝",
+        "Supergirl: Woman of Tomorrow"
+      ],
+      "imdb_id": "tt8814476",
+      "poster_path": "posters/douban/movie_cn/36225840.jpg",
+      "douban_rating": "5.0",
+      "douban_link_google": "https://movie.douban.com/subject/36225840/",
+      "douban_link_verified": true,
+      "overview": "当一位冷酷无情、突如其来的劲敌突袭家园，“超级少女”卡拉·佐-艾尔不得不与一位意想不到的同伴结盟，横跨星际，踏上一段交织复仇与正义的壮阔征途。",
+      "durations": [
+        "108分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 23291,
+      "rating_star_count": 2.5,
+      "type": "movie",
+      "trailers": [
+        {
+          "source": "bilibili",
+          "title": "DC电影《超级少女》原声带主题曲，氪星毁灭幸存者——卡拉",
+          "bvid": "BV1p2jG67Ew7",
+          "url": "https://www.bilibili.com/video/BV1p2jG67Ew7",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1p2jG67Ew7&page=1&qn=64&high_quality=1",
+          "cover": "http://i0.hdslb.com/bfs/archive/030355346f2d0909dd657b835cef9b9211911751.jpg",
+          "publishedAt": "2026-06-16T15:05:09.000Z"
+        },
+        {
+          "source": "bilibili",
+          "title": "超多大战新画面！年度科幻大片《超级少女》终极预告，DC宇宙第2部电影",
+          "bvid": "BV1UMEc6hEJ3",
+          "url": "https://www.bilibili.com/video/BV1UMEc6hEJ3",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1UMEc6hEJ3&page=1&qn=64&high_quality=1",
+          "cover": "http://i1.hdslb.com/bfs/archive/f5af8181c8207934aacd04c619ec9ee2112d5502.jpg",
+          "publishedAt": "2026-06-04T12:58:11.000Z"
+        },
+        {
+          "source": "bilibili",
+          "title": "\"黑白魔女库伊拉\"导演！DC超英大片《超级少女》内地预告，定档06.26",
+          "bvid": "BV1cb5Y6YETB",
+          "url": "https://www.bilibili.com/video/BV1cb5Y6YETB",
+          "embedUrl": "https://player.bilibili.com/player.html?bvid=BV1cb5Y6YETB&page=1&qn=64&high_quality=1",
+          "cover": "http://i2.hdslb.com/bfs/archive/e2bad72db0b4f86faef99d711e10d79574102422.jpg",
+          "publishedAt": "2026-05-15T05:18:54.000Z"
+        }
+      ]
+    },
+    {
       "id": 36978135,
       "title": "眼眸",
       "original_title": "眼眸",
@@ -18935,7 +18934,7 @@
         "106分钟"
       ],
       "release_windows": [],
-      "rating_count": 1471,
+      "rating_count": 1472,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1383154,
@@ -19013,7 +19012,7 @@
         "109分钟"
       ],
       "release_windows": [],
-      "rating_count": 1688,
+      "rating_count": 1766,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1465063,
@@ -19255,7 +19254,7 @@
         "141分钟"
       ],
       "release_windows": [],
-      "rating_count": 168248,
+      "rating_count": 168480,
       "rating_star_count": 3.5,
       "type": "movie",
       "trailers": [
@@ -19334,7 +19333,7 @@
         "116分钟"
       ],
       "release_windows": [],
-      "rating_count": 537,
+      "rating_count": 552,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1624812,
@@ -19393,7 +19392,7 @@
         "123分钟"
       ],
       "release_windows": [],
-      "rating_count": 1188,
+      "rating_count": 1189,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1284465,
@@ -19453,11 +19452,67 @@
         "119分钟"
       ],
       "release_windows": [],
-      "rating_count": 7379,
+      "rating_count": 7394,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 614945,
       "tmdbUrl": "https://www.themoviedb.org/movie/614945"
+    },
+    {
+      "id": 37249352,
+      "title": "人夫总动员",
+      "original_title": "人夫总动员",
+      "release_date": "2026-06-19",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "朴奎泰"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "陈善圭"
+        },
+        {
+          "id": 2,
+          "name": "孔明"
+        },
+        {
+          "id": 3,
+          "name": "金知硕"
+        }
+      ],
+      "countries": [
+        "South Korea"
+      ],
+      "languages": [
+        "ko"
+      ],
+      "aka": [
+        "Husbands in Action"
+      ],
+      "imdb_id": "tt36876775",
+      "poster_path": "posters/douban/movie_cn/37249352.jpg",
+      "douban_rating": "6.0",
+      "douban_link_google": "https://movie.douban.com/subject/37249352/",
+      "douban_link_verified": true,
+      "overview": "一名警探与前妻的新任丈夫一起追踪绑架她的人。这对毫不搭调的组合能否放下分歧，展开疯狂的营救？",
+      "durations": [
+        "110分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 1931,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1451344,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1451344"
     },
     {
       "id": 36889288,
@@ -19590,7 +19645,7 @@
         "102分钟"
       ],
       "release_windows": [],
-      "rating_count": 135676,
+      "rating_count": 135871,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1084244,
@@ -19674,7 +19729,7 @@
         "89分钟"
       ],
       "release_windows": [],
-      "rating_count": 9716,
+      "rating_count": 9726,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1413976,
@@ -19735,7 +19790,7 @@
         "104分钟"
       ],
       "release_windows": [],
-      "rating_count": 54671,
+      "rating_count": 54680,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1269075,
@@ -19751,62 +19806,6 @@
           "publishedAt": "2026-06-09T05:05:25.000Z"
         }
       ]
-    },
-    {
-      "id": 37249352,
-      "title": "人夫总动员",
-      "original_title": "人夫总动员",
-      "release_date": "2026-06-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "朴奎泰"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "陈善圭"
-        },
-        {
-          "id": 2,
-          "name": "孔明"
-        },
-        {
-          "id": 3,
-          "name": "金知硕"
-        }
-      ],
-      "countries": [
-        "South Korea"
-      ],
-      "languages": [
-        "ko"
-      ],
-      "aka": [
-        "Husbands in Action"
-      ],
-      "imdb_id": "tt36876775",
-      "poster_path": "posters/douban/movie_cn/37249352.jpg",
-      "douban_rating": "6.0",
-      "douban_link_google": "https://movie.douban.com/subject/37249352/",
-      "douban_link_verified": true,
-      "overview": "一名警探与前妻的新任丈夫一起追踪绑架她的人。这对毫不搭调的组合能否放下分歧，展开疯狂的营救？",
-      "durations": [
-        "110分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 1926,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1451344,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1451344"
     },
     {
       "id": 34833849,
@@ -20333,7 +20332,7 @@
         "101分钟"
       ],
       "release_windows": [],
-      "rating_count": 753,
+      "rating_count": 755,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1418582,
@@ -20396,7 +20395,7 @@
         "123分钟"
       ],
       "release_windows": [],
-      "rating_count": 1218,
+      "rating_count": 1219,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1477317,
@@ -20738,7 +20737,7 @@
         "146分钟"
       ],
       "release_windows": [],
-      "rating_count": 67542,
+      "rating_count": 67572,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1275779,
@@ -20892,7 +20891,7 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 393,
+      "rating_count": 394,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1560681,
@@ -21129,7 +21128,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 71559,
+      "rating_count": 71601,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1318413,
@@ -21494,7 +21493,7 @@
         "115分钟"
       ],
       "release_windows": [],
-      "rating_count": 1462,
+      "rating_count": 1464,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1358005,
@@ -21932,7 +21931,7 @@
         "98分钟"
       ],
       "release_windows": [],
-      "rating_count": 626,
+      "rating_count": 628,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -21991,7 +21990,7 @@
         "108分钟"
       ],
       "release_windows": [],
-      "rating_count": 1152,
+      "rating_count": 1157,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1396749,
@@ -22612,7 +22611,7 @@
         "89分钟"
       ],
       "release_windows": [],
-      "rating_count": 1566,
+      "rating_count": 1575,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -22987,7 +22986,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 42292,
+      "rating_count": 42334,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1443374,
@@ -23058,7 +23057,7 @@
         "94分钟"
       ],
       "release_windows": [],
-      "rating_count": 14774,
+      "rating_count": 14778,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1368881,
@@ -23114,7 +23113,7 @@
         "115分钟"
       ],
       "release_windows": [],
-      "rating_count": 1212,
+      "rating_count": 1215,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1694487,
@@ -23173,11 +23172,72 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 13321,
+      "rating_count": 13346,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1339588,
       "tmdbUrl": "https://www.themoviedb.org/movie/1339588"
+    },
+    {
+      "id": 37511778,
+      "title": "停下那辆火车！",
+      "original_title": "停下那辆火车！",
+      "release_date": "2026-05-22",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        },
+        {
+          "id": 2,
+          "name": "动作"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "亚当·尚克曼"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "鲁保罗"
+        },
+        {
+          "id": 2,
+          "name": "布鲁克·林恩·海茨"
+        },
+        {
+          "id": 3,
+          "name": "西蒙妮"
+        }
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "languages": [
+        "en"
+      ],
+      "aka": [
+        "停下那辆火车！",
+        "華麗絲煞列車(港)"
+      ],
+      "imdb_id": "tt38128726",
+      "poster_path": "posters/douban/movie_cn/37511778.jpg",
+      "douban_rating": "5.7",
+      "douban_link_google": "https://movie.douban.com/subject/37511778/",
+      "douban_link_verified": true,
+      "overview": "剧情主线围绕两名底层列车乘务闺蜜展开，二人从破旧老旧铁路调职到奢华顶级高速列车，本以为迎来轻松光鲜的工作，途中突发超强极端风暴,列车控制系统彻底失控、轨道损毁，整趟列车全速朝着洛杉矶城区直冲，一旦撞击将造成毁灭性伤亡。两名主角被迫放下阶层隔阂，与高傲挑剔的一等舱精英乘务组、由鲁保罗饰演的总统紧急联手，在高速失控的列车上一路闯关抢修设备、化解车厢内乱、应对极端天气险情，在夸张闹剧、变装秀、歌舞桥段与紧张逃生动作场面并行之下，拼尽全力逼停列车!",
+      "durations": [
+        "90分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 706,
+      "rating_star_count": 3,
+      "type": "movie",
+      "tmdb_id": 1541560,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1541560"
     },
     {
       "id": 36723035,
@@ -23245,7 +23305,7 @@
         "132分钟"
       ],
       "release_windows": [],
-      "rating_count": 59752,
+      "rating_count": 59780,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1228710,
@@ -23321,7 +23381,7 @@
         "103分钟"
       ],
       "release_windows": [],
-      "rating_count": 25162,
+      "rating_count": 25184,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1488778,
@@ -23337,67 +23397,6 @@
           "publishedAt": "2026-05-01T02:19:08.000Z"
         }
       ]
-    },
-    {
-      "id": 37511778,
-      "title": "停下那辆火车！",
-      "original_title": "停下那辆火车！",
-      "release_date": "2026-05-22",
-      "genres": [
-        {
-          "id": 1,
-          "name": "喜剧"
-        },
-        {
-          "id": 2,
-          "name": "动作"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "亚当·尚克曼"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "鲁保罗"
-        },
-        {
-          "id": 2,
-          "name": "布鲁克·林恩·海茨"
-        },
-        {
-          "id": 3,
-          "name": "西蒙妮"
-        }
-      ],
-      "countries": [
-        "United States of America"
-      ],
-      "languages": [
-        "en"
-      ],
-      "aka": [
-        "停下那辆火车！",
-        "華麗絲煞列車(港)"
-      ],
-      "imdb_id": "tt38128726",
-      "poster_path": "posters/douban/movie_cn/37511778.jpg",
-      "douban_rating": "5.7",
-      "douban_link_google": "https://movie.douban.com/subject/37511778/",
-      "douban_link_verified": true,
-      "overview": "剧情主线围绕两名底层列车乘务闺蜜展开，二人从破旧老旧铁路调职到奢华顶级高速列车，本以为迎来轻松光鲜的工作，途中突发超强极端风暴,列车控制系统彻底失控、轨道损毁，整趟列车全速朝着洛杉矶城区直冲，一旦撞击将造成毁灭性伤亡。两名主角被迫放下阶层隔阂，与高傲挑剔的一等舱精英乘务组、由鲁保罗饰演的总统紧急联手，在高速失控的列车上一路闯关抢修设备、化解车厢内乱、应对极端天气险情，在夸张闹剧、变装秀、歌舞桥段与紧张逃生动作场面并行之下，拼尽全力逼停列车!",
-      "durations": [
-        "90分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 705,
-      "rating_star_count": 3,
-      "type": "movie",
-      "tmdb_id": 1541560,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1541560"
     },
     {
       "id": 36594974,
@@ -23657,7 +23656,7 @@
         "94分钟"
       ],
       "release_windows": [],
-      "rating_count": 9810,
+      "rating_count": 9817,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1368314,
@@ -23724,7 +23723,7 @@
         "127分钟"
       ],
       "release_windows": [],
-      "rating_count": 689,
+      "rating_count": 695,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1437981,
@@ -23788,7 +23787,7 @@
         "157分钟"
       ],
       "release_windows": [],
-      "rating_count": 601,
+      "rating_count": 602,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 847742,
@@ -23853,7 +23852,7 @@
         "67分钟"
       ],
       "release_windows": [],
-      "rating_count": 908,
+      "rating_count": 918,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1668499,
@@ -23911,7 +23910,7 @@
       ],
       "imdb_id": "tt35511966",
       "poster_path": "posters/douban/movie_cn/37215318.jpg",
-      "douban_rating": "8.6",
+      "douban_rating": "8.7",
       "douban_link_google": "https://movie.douban.com/subject/37215318/",
       "douban_link_verified": true,
       "overview": "三个同性恋男子在西班牙历史上1932 年、1937 年和 2017 年三个不同时期的故事。",
@@ -23919,7 +23918,7 @@
         "159分钟"
       ],
       "release_windows": [],
-      "rating_count": 17583,
+      "rating_count": 18784,
       "rating_star_count": 4.5,
       "type": "movie",
       "tmdb_id": 1422041,
@@ -24098,7 +24097,7 @@
         "91分钟"
       ],
       "release_windows": [],
-      "rating_count": 675,
+      "rating_count": 678,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1265831,
@@ -24155,7 +24154,7 @@
         "155分钟"
       ],
       "release_windows": [],
-      "rating_count": 486,
+      "rating_count": 489,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1318864,
@@ -24771,6 +24770,68 @@
       "type": "movie"
     },
     {
+      "id": 34954059,
+      "title": "九庙上天堂",
+      "original_title": "九庙上天堂",
+      "release_date": "2026-05-19",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "索波特·智德瓜索泼瑟"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "颂颇·颂坎蓬"
+        },
+        {
+          "id": 2,
+          "name": "苏拉猜·宁萨农"
+        },
+        {
+          "id": 3,
+          "name": "阿玛拉·拉姆纳龙"
+        }
+      ],
+      "countries": [
+        "Thailand",
+        "Norway",
+        "France",
+        "Singapore",
+        "China",
+        "Hong Kong",
+        "Indonesia"
+      ],
+      "languages": [
+        "th"
+      ],
+      "aka": [
+        "9 Temples to Heaven"
+      ],
+      "imdb_id": "tt37740247",
+      "poster_path": "posters/douban/movie_cn/34954059.jpg",
+      "douban_rating": "6.7",
+      "douban_link_google": "https://movie.douban.com/subject/34954059/",
+      "douban_link_verified": true,
+      "overview": "算命先生告诉63岁的萨科尔：他的母亲时日无多。为了给母亲延寿，萨科尔策划了一场一日九寺的祈福之行——三代人挤上一辆车，从清晨跑到日暮。漫漫路途，身心俱疲，潜藏的家庭矛盾随之爆发。",
+      "durations": [
+        "140分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 557,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1046304,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1046304"
+    },
+    {
       "id": 38112572,
       "title": "黑牢城",
       "original_title": "黑牢城",
@@ -24824,7 +24885,7 @@
         "147分钟"
       ],
       "release_windows": [],
-      "rating_count": 467,
+      "rating_count": 468,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1620313,
@@ -24889,73 +24950,11 @@
         "85分钟"
       ],
       "release_windows": [],
-      "rating_count": 463,
+      "rating_count": 465,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1217954,
       "tmdbUrl": "https://www.themoviedb.org/movie/1217954"
-    },
-    {
-      "id": 34954059,
-      "title": "九庙上天堂",
-      "original_title": "九庙上天堂",
-      "release_date": "2026-05-19",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "索波特·智德瓜索泼瑟"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "颂颇·颂坎蓬"
-        },
-        {
-          "id": 2,
-          "name": "苏拉猜·宁萨农"
-        },
-        {
-          "id": 3,
-          "name": "阿玛拉·拉姆纳龙"
-        }
-      ],
-      "countries": [
-        "Thailand",
-        "Norway",
-        "France",
-        "Singapore",
-        "China",
-        "Hong Kong",
-        "Indonesia"
-      ],
-      "languages": [
-        "th"
-      ],
-      "aka": [
-        "9 Temples to Heaven"
-      ],
-      "imdb_id": "tt37740247",
-      "poster_path": "posters/douban/movie_cn/34954059.jpg",
-      "douban_rating": "6.7",
-      "douban_link_google": "https://movie.douban.com/subject/34954059/",
-      "douban_link_verified": true,
-      "overview": "算命先生告诉63岁的萨科尔：他的母亲时日无多。为了给母亲延寿，萨科尔策划了一场一日九寺的祈福之行——三代人挤上一辆车，从清晨跑到日暮。漫漫路途，身心俱疲，潜藏的家庭矛盾随之爆发。",
-      "durations": [
-        "140分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 556,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1046304,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1046304"
     },
     {
       "id": 36159749,
@@ -25229,7 +25228,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 28562,
+      "rating_count": 28753,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1058424,
@@ -25328,7 +25327,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 433,
+      "rating_count": 445,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1061798,
@@ -25396,7 +25395,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 4117,
+      "rating_count": 4124,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1553969,
@@ -25460,7 +25459,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 1026,
+      "rating_count": 1029,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1074074,
@@ -25531,7 +25530,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 57184,
+      "rating_count": 57221,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1301421,
@@ -25744,65 +25743,11 @@
         "94分钟"
       ],
       "release_windows": [],
-      "rating_count": 1926,
+      "rating_count": 1930,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1472813,
       "tmdbUrl": "https://www.themoviedb.org/movie/1472813"
-    },
-    {
-      "id": 38067530,
-      "title": "废用身",
-      "original_title": "废用身",
-      "release_date": "2026-05-15",
-      "genres": [
-        {
-          "id": 1,
-          "name": "剧情"
-        }
-      ],
-      "directors": [
-        {
-          "id": 1,
-          "name": "吉田光希"
-        }
-      ],
-      "actors": [
-        {
-          "id": 1,
-          "name": "染谷将太"
-        },
-        {
-          "id": 2,
-          "name": "北村有起哉"
-        },
-        {
-          "id": 3,
-          "name": "泷内公美"
-        }
-      ],
-      "countries": [
-        "Japan"
-      ],
-      "languages": [
-        "ja"
-      ],
-      "aka": [],
-      "imdb_id": "tt42634767",
-      "poster_path": "posters/douban/movie_cn/38067530.jpg",
-      "douban_rating": "7.1",
-      "douban_link_google": "https://movie.douban.com/subject/38067530/",
-      "douban_link_verified": true,
-      "overview": "本作描绘了一名医生，因一种围绕“废用身”——因瘫痪等原因已无恢复可能的四肢——的治疗方法，而一步步踏入在追求理想的理性与疯狂之间摇摆的危险领域。在某座城镇的日间照护中心里，一种突破性的疗法在老年人之间悄然流传：对患者进行废用身切除后，不仅“身体和心情都变轻松了”，甚至“原本严厉的性格也变得温和”，出现了看似积极的副作用。听闻此事的编辑矢仓察觉到其可能为老年医疗带来革命性变革，遂向开发该疗法的院长漆原提出出书邀约。然而，关于该照护中心的内部举报被泄露至周刊杂志，加之患者家中发生的一起事件，事态骤然逆转，真相逐渐陷入黑暗。 　　本片改编自久坂部羊的同名原著小说。",
-      "durations": [
-        "125分钟"
-      ],
-      "release_windows": [],
-      "rating_count": 1997,
-      "rating_star_count": 3.5,
-      "type": "movie",
-      "tmdb_id": 1630435,
-      "tmdbUrl": "https://www.themoviedb.org/movie/1630435"
     },
     {
       "id": 37305698,
@@ -25858,7 +25803,7 @@
         "100分钟"
       ],
       "release_windows": [],
-      "rating_count": 385,
+      "rating_count": 386,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1380316,
@@ -25928,7 +25873,7 @@
         "123分钟"
       ],
       "release_windows": [],
-      "rating_count": 42147,
+      "rating_count": 42203,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1375646,
@@ -26004,11 +25949,65 @@
         "60分钟"
       ],
       "release_windows": [],
-      "rating_count": 1904,
+      "rating_count": 1905,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1662414,
       "tmdbUrl": "https://www.themoviedb.org/movie/1662414"
+    },
+    {
+      "id": 38067530,
+      "title": "废用身",
+      "original_title": "废用身",
+      "release_date": "2026-05-15",
+      "genres": [
+        {
+          "id": 1,
+          "name": "剧情"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "吉田光希"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "染谷将太"
+        },
+        {
+          "id": 2,
+          "name": "北村有起哉"
+        },
+        {
+          "id": 3,
+          "name": "泷内公美"
+        }
+      ],
+      "countries": [
+        "Japan"
+      ],
+      "languages": [
+        "ja"
+      ],
+      "aka": [],
+      "imdb_id": "tt42634767",
+      "poster_path": "posters/douban/movie_cn/38067530.jpg",
+      "douban_rating": "7.1",
+      "douban_link_google": "https://movie.douban.com/subject/38067530/",
+      "douban_link_verified": true,
+      "overview": "本作描绘了一名医生，因一种围绕“废用身”——因瘫痪等原因已无恢复可能的四肢——的治疗方法，而一步步踏入在追求理想的理性与疯狂之间摇摆的危险领域。在某座城镇的日间照护中心里，一种突破性的疗法在老年人之间悄然流传：对患者进行废用身切除后，不仅“身体和心情都变轻松了”，甚至“原本严厉的性格也变得温和”，出现了看似积极的副作用。听闻此事的编辑矢仓察觉到其可能为老年医疗带来革命性变革，遂向开发该疗法的院长漆原提出出书邀约。然而，关于该照护中心的内部举报被泄露至周刊杂志，加之患者家中发生的一起事件，事态骤然逆转，真相逐渐陷入黑暗。 　　本片改编自久坂部羊的同名原著小说。",
+      "durations": [
+        "125分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 1997,
+      "rating_star_count": 3.5,
+      "type": "movie",
+      "tmdb_id": 1630435,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1630435"
     },
     {
       "id": 38186304,
@@ -26511,7 +26510,7 @@
         "82分钟"
       ],
       "release_windows": [],
-      "rating_count": 4696,
+      "rating_count": 4714,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1437696,
@@ -26581,7 +26580,7 @@
         "139分钟"
       ],
       "release_windows": [],
-      "rating_count": 1418,
+      "rating_count": 1424,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1157869,
@@ -26645,7 +26644,7 @@
         "140分钟"
       ],
       "release_windows": [],
-      "rating_count": 399,
+      "rating_count": 401,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1410937,
@@ -26713,7 +26712,7 @@
         "99分钟"
       ],
       "release_windows": [],
-      "rating_count": 8717,
+      "rating_count": 8723,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -26774,7 +26773,7 @@
         "106分钟"
       ],
       "release_windows": [],
-      "rating_count": 16395,
+      "rating_count": 16492,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1240889,
@@ -27035,7 +27034,7 @@
         "51分钟"
       ],
       "release_windows": [],
-      "rating_count": 9054,
+      "rating_count": 9057,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1439930,
@@ -27094,7 +27093,7 @@
         "122分钟"
       ],
       "release_windows": [],
-      "rating_count": 2482,
+      "rating_count": 2487,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1442669,
@@ -27160,7 +27159,7 @@
         "134分钟"
       ],
       "release_windows": [],
-      "rating_count": 3416,
+      "rating_count": 3423,
       "rating_star_count": 4.5,
       "type": "movie",
       "tmdb_id": 1638171,
@@ -27214,7 +27213,7 @@
         "131分钟"
       ],
       "release_windows": [],
-      "rating_count": 385,
+      "rating_count": 386,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1580374,
@@ -27275,7 +27274,7 @@
         "111分钟"
       ],
       "release_windows": [],
-      "rating_count": 6890,
+      "rating_count": 6946,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1330021,
@@ -27348,7 +27347,7 @@
         "116分钟"
       ],
       "release_windows": [],
-      "rating_count": 25662,
+      "rating_count": 25674,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 931285,
@@ -27672,7 +27671,7 @@
         "128分钟"
       ],
       "release_windows": [],
-      "rating_count": 762,
+      "rating_count": 764,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1630423,
@@ -27740,7 +27739,7 @@
           "label": "五一档"
         }
       ],
-      "rating_count": 600,
+      "rating_count": 603,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1688652,
@@ -27924,7 +27923,7 @@
           "label": "五一档"
         }
       ],
-      "rating_count": 158474,
+      "rating_count": 158526,
       "rating_star_count": 3.5,
       "type": "movie",
       "trailers": [
@@ -28007,7 +28006,7 @@
           "label": "五一档"
         }
       ],
-      "rating_count": 152836,
+      "rating_count": 152919,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -28211,7 +28210,7 @@
           "label": "五一档"
         }
       ],
-      "rating_count": 44996,
+      "rating_count": 45028,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1492501,
@@ -28491,7 +28490,7 @@
         "118分钟"
       ],
       "release_windows": [],
-      "rating_count": 1087952,
+      "rating_count": 1088797,
       "rating_star_count": 4.5,
       "type": "movie",
       "trailers": [
@@ -28581,7 +28580,7 @@
         "119分钟"
       ],
       "release_windows": [],
-      "rating_count": 91665,
+      "rating_count": 91708,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1314481,
@@ -28814,7 +28813,7 @@
         "128分钟"
       ],
       "release_windows": [],
-      "rating_count": 2566,
+      "rating_count": 2578,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1548708,
@@ -28969,7 +28968,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 575,
+      "rating_count": 580,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1454699,
@@ -29031,7 +29030,7 @@
         "96分钟"
       ],
       "release_windows": [],
-      "rating_count": 20437,
+      "rating_count": 20442,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1318447,
@@ -29087,7 +29086,7 @@
         "60分钟"
       ],
       "release_windows": [],
-      "rating_count": 839,
+      "rating_count": 850,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1656442,
@@ -29153,7 +29152,7 @@
         "136分钟"
       ],
       "release_windows": [],
-      "rating_count": 64441,
+      "rating_count": 64463,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 936075,
@@ -29853,7 +29852,7 @@
         "133分钟"
       ],
       "release_windows": [],
-      "rating_count": 23332,
+      "rating_count": 23347,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1304313,
@@ -29913,7 +29912,7 @@
         "106分钟"
       ],
       "release_windows": [],
-      "rating_count": 5465,
+      "rating_count": 5467,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1084577,
@@ -30079,7 +30078,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 2388,
+      "rating_count": 2394,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1232569,
@@ -30142,7 +30141,7 @@
         "109分钟"
       ],
       "release_windows": [],
-      "rating_count": 3326,
+      "rating_count": 3332,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1545621,
@@ -30203,7 +30202,7 @@
         "98分钟"
       ],
       "release_windows": [],
-      "rating_count": 10104,
+      "rating_count": 10112,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1480790,
@@ -30258,7 +30257,7 @@
       ],
       "imdb_id": "tt39833109",
       "poster_path": "posters/douban/movie_cn/37233517.jpg",
-      "douban_rating": "5.4",
+      "douban_rating": "5.3",
       "douban_link_google": "https://movie.douban.com/subject/37233517/",
       "douban_link_verified": true,
       "overview": "　　在一个流传着各种奇怪传闻的蓄水池边，摄制组在拍摄周边道路景观时，意外拍到某个不明身份的神秘身影。由于必须在当天内完成重拍工作，导演秀仁带领团队前往准备重新拍摄。拍摄开始后，先前行踪不明的前辈教植却突然出现。随后，一连串无法解释的事件接连发生，让摄制组陷入混乱。在逐渐蔓延的恐惧中，基泰仍朝着水中的不明物体冲了过去。他们越是试图逃离，就越被拖入更深的深渊，而那个地方绝无生还的可能。",
@@ -30266,7 +30265,7 @@
         "96分钟"
       ],
       "release_windows": [],
-      "rating_count": 16468,
+      "rating_count": 16485,
       "rating_star_count": 2.5,
       "type": "movie",
       "tmdb_id": 1461254,
@@ -30332,7 +30331,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 63124,
+      "rating_count": 63141,
       "rating_star_count": 3,
       "type": "movie"
     },
@@ -30722,7 +30721,7 @@
         "118分钟"
       ],
       "release_windows": [],
-      "rating_count": 321385,
+      "rating_count": 321469,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1546855,
@@ -30859,7 +30858,7 @@
         "98分钟"
       ],
       "release_windows": [],
-      "rating_count": 52892,
+      "rating_count": 52901,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1226863,
@@ -31240,7 +31239,7 @@
         "98分钟"
       ],
       "release_windows": [],
-      "rating_count": 333,
+      "rating_count": 334,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 608067,
@@ -31378,7 +31377,7 @@
         "105分钟"
       ],
       "release_windows": [],
-      "rating_count": 58669,
+      "rating_count": 58733,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1325734,
@@ -31527,7 +31526,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 58335,
+      "rating_count": 58347,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1566589,
@@ -31729,7 +31728,7 @@
       ],
       "imdb_id": "tt7734244",
       "poster_path": "posters/douban/movie_cn/27204009.jpg",
-      "douban_rating": "6.5",
+      "douban_rating": "6.4",
       "douban_link_google": "https://movie.douban.com/subject/27204009/",
       "douban_link_verified": true,
       "overview": "　　一个现代家庭搬至乡间，孩子们发现了一棵住着奇特种族的魔法树。他们由此穿梭至奇幻国度，在冒险中重拾亲情纽带。",
@@ -31737,8 +31736,8 @@
         "110分钟"
       ],
       "release_windows": [],
-      "rating_count": 768,
-      "rating_star_count": 3.5,
+      "rating_count": 772,
+      "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1140521,
       "tmdbUrl": "https://www.themoviedb.org/movie/1140521"
@@ -32010,7 +32009,7 @@
         "86分钟"
       ],
       "release_windows": [],
-      "rating_count": 399,
+      "rating_count": 400,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1542877,
@@ -32123,7 +32122,7 @@
         "111分钟"
       ],
       "release_windows": [],
-      "rating_count": 3437,
+      "rating_count": 3453,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1088548,
@@ -32190,7 +32189,7 @@
         "156分钟"
       ],
       "release_windows": [],
-      "rating_count": 571160,
+      "rating_count": 571435,
       "rating_star_count": 4.5,
       "type": "movie",
       "tmdb_id": 687163,
@@ -32497,7 +32496,7 @@
         "235分钟"
       ],
       "release_windows": [],
-      "rating_count": 436,
+      "rating_count": 438,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1582770,
@@ -32554,7 +32553,7 @@
         "199分钟"
       ],
       "release_windows": [],
-      "rating_count": 1040,
+      "rating_count": 1044,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1318335,
@@ -32615,7 +32614,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 337,
+      "rating_count": 339,
       "rating_star_count": 3,
       "type": "movie"
     },
@@ -32718,7 +32717,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 30933,
+      "rating_count": 30946,
       "rating_star_count": 3,
       "type": "movie"
     },
@@ -32825,7 +32824,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 5512,
+      "rating_count": 5515,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1390300,
@@ -32962,7 +32961,7 @@
           "label": "周末档"
         }
       ],
-      "rating_count": 11358,
+      "rating_count": 11371,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1430077,
@@ -33030,7 +33029,7 @@
         "90分钟"
       ],
       "release_windows": [],
-      "rating_count": 9776,
+      "rating_count": 9784,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1084187,
@@ -33097,7 +33096,7 @@
         "108分钟"
       ],
       "release_windows": [],
-      "rating_count": 25580,
+      "rating_count": 25596,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1266127,
@@ -33157,7 +33156,7 @@
         "98分钟"
       ],
       "release_windows": [],
-      "rating_count": 1044,
+      "rating_count": 1048,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1601727,
@@ -33271,7 +33270,7 @@
         "119分钟"
       ],
       "release_windows": [],
-      "rating_count": 812,
+      "rating_count": 816,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1526874,
@@ -33613,7 +33612,7 @@
         "113分钟"
       ],
       "release_windows": [],
-      "rating_count": 805,
+      "rating_count": 807,
       "rating_star_count": 3,
       "type": "movie",
       "tmdb_id": 1227877,
@@ -37970,7 +37969,7 @@
         "81分钟"
       ],
       "release_windows": [],
-      "rating_count": 356,
+      "rating_count": 380,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 1563588,
@@ -44569,7 +44568,7 @@
         "160分钟"
       ],
       "release_windows": [],
-      "rating_count": 1575,
+      "rating_count": 1600,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1165366,
@@ -44640,7 +44639,7 @@
         "135分钟"
       ],
       "release_windows": [],
-      "rating_count": 843,
+      "rating_count": 846,
       "rating_star_count": 3.5,
       "type": "movie",
       "tmdb_id": 848700,
@@ -44706,7 +44705,7 @@
         "196分钟"
       ],
       "release_windows": [],
-      "rating_count": 5095,
+      "rating_count": 5314,
       "rating_star_count": 4,
       "type": "movie",
       "tmdb_id": 1476614,
@@ -49785,7 +49784,7 @@
       "overview": "",
       "durations": [],
       "release_windows": [],
-      "rating_count": 3443,
+      "rating_count": 3449,
       "rating_star_count": 3.5,
       "type": "movie"
     },
@@ -51138,6 +51137,60 @@
       "rating_count": 525,
       "rating_star_count": 3.5,
       "type": "movie"
+    },
+    {
+      "id": 37096668,
+      "title": "麻将女王",
+      "original_title": "麻将女王",
+      "release_date": "2025-11-06",
+      "genres": [
+        {
+          "id": 1,
+          "name": "喜剧"
+        }
+      ],
+      "directors": [
+        {
+          "id": 1,
+          "name": "王晶"
+        }
+      ],
+      "actors": [
+        {
+          "id": 1,
+          "name": "高海宁"
+        },
+        {
+          "id": 2,
+          "name": "马国明"
+        },
+        {
+          "id": 3,
+          "name": "陈家乐"
+        }
+      ],
+      "countries": [
+        "Hong Kong"
+      ],
+      "languages": [
+        "cn"
+      ],
+      "aka": [],
+      "imdb_id": null,
+      "poster_path": "posters/douban/movie_cn/37096668.jpg",
+      "douban_rating": "4.8",
+      "douban_link_google": "https://movie.douban.com/subject/37096668/",
+      "douban_link_verified": true,
+      "overview": "龙家村村长龙卷峰（许绍雄 饰）育有三女一子，分别名叫龙小东（高海宁 饰）、龙小南（陈静 饰）、龙小茜（郭珮文 饰）和龙小北（文佐匡 饰）。大家姐小东是连续五年跻身最佳业绩的百万元桌级经理。外表是事业女王的小东却是一个“天生麻将狂”，更偏偏恋上科学家男友马壮（马国明 饰）。马壮对小东情深一往，只是他一生最憎恨人打麻将。为了不让爱郎失望，小东竭力隐瞒自己是麻将狂的真相。  二妹小南攻读戏剧，毕业后当不了演员，却在片场担任“亲密指导员”，遇上了躁狂影帝千红哥（陈家乐 饰）。二人对戏剧追求南辕北辙，但两个火星撞地球的人偏偏在相处过程中由欢喜冤家变成擦出爱火花。  三妹小茜一天竟被小北老板，胸围厂太子爷林雨云（李尚正 饰）落力追求，以为大团圆结局之际，谁知真相峰回路转。小茜和雨云相爱背后，其实也暗藏一个惊天秘密。",
+      "durations": [
+        "99分钟"
+      ],
+      "release_windows": [],
+      "rating_count": 405,
+      "rating_star_count": 2.5,
+      "type": "movie",
+      "tmdb_id": 1394721,
+      "tmdbUrl": "https://www.themoviedb.org/movie/1394721"
     },
     {
       "id": 37352648,
