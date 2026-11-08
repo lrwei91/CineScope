@@ -42,7 +42,7 @@ TASK_TIMEOUTS = {
     "tv-status": 900,
     "douban-cache": 3600,
     "douban-match": 21600,
-    "trailers": 420,
+    "trailers": 1200,  # 2026-11-08：实测目录生成 ~338s（TMDB 回捞 ~290 条串行 1s 限速），420s 只剩 80s 余量
 }
 
 
